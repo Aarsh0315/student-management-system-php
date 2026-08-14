@@ -12,7 +12,8 @@ $error = $data['error'] ?? '';
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Login</title>
-    <link rel="stylesheet" href="../public/css/login.view.css">
+
+    <link rel="stylesheet" href="<?= ROOT ?>/css/login.view.css">
 </head>
 
 <body>
@@ -21,10 +22,25 @@ $error = $data['error'] ?? '';
 
         <h1>Login</h1>
 
+
+        <!-- Error Message -->
+
+        <?php if (!empty($error)): ?>
+
+            <div class="error-message">
+                <?= htmlspecialchars($error) ?>
+            </div>
+
+        <?php endif; ?>
+
+
         <form method="POST">
 
             <div class="form-group">
-                <label for="email">Email</label>
+
+                <label for="email">
+                    Email
+                </label>
 
                 <input
                     type="email"
@@ -33,10 +49,15 @@ $error = $data['error'] ?? '';
                     placeholder="Enter your email"
                     required
                 >
+
             </div>
 
+
             <div class="form-group">
-                <label for="password">Password</label>
+
+                <label for="password">
+                    Password
+                </label>
 
                 <input
                     type="password"
@@ -45,13 +66,23 @@ $error = $data['error'] ?? '';
                     placeholder="Enter your password"
                     required
                 >
+
             </div>
 
-            <button type="submit">Login</button>
+
+            <button type="submit">
+                Login
+            </button>
+
 
             <div class="signup-link">
+
                 Don't have an account?
-                <a href="signup">Sign Up</a>
+
+                <a href="signup">
+                    Sign Up
+                </a>
+
             </div>
 
         </form>

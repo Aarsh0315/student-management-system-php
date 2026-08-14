@@ -75,11 +75,12 @@
         }
 
         .error-message {
-            background-color: #ffe5e5;
+            background-color: #ffe6e6;
             color: #d00000;
             border: 1px solid #ffb3b3;
             padding: 10px;
             margin-bottom: 15px;
             border-radius: 5px;
+            text-align: center;
             font-size: 14px;
         }
