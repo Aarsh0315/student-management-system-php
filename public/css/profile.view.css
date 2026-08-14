@@ -1,0 +1,130 @@
+.profile-section {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 25px 30px;
+    background: white;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Breadcrumb */
+
+.breadcrumb {
+    text-align: right;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.breadcrumb a {
+    color: #2878c8;
+    text-decoration: none;
+}
+
+.breadcrumb span {
+    margin-left: 6px;
+    color: #777;
+}
+
+
+/* Profile header */
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 45px;
+}
+
+
+/* User */
+
+.profile-user {
+    width: 180px;
+    text-align: center;
+}
+
+.profile-image {
+    width: 135px;
+    height: 135px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+}
+
+.profile-user h2 {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: normal;
+}
+
+
+/* Details */
+
+.profile-details {
+    flex: 1;
+}
+
+.detail-row {
+    display: flex;
+    min-height: 38px;
+    align-items: center;
+
+    border-bottom: 1px solid #ddd;
+}
+
+.detail-row strong {
+    width: 45%;
+    padding: 10px;
+    background: #eef0f1;
+}
+
+.detail-row span {
+    padding: 10px;
+}
+
+
+/* Tabs */
+
+.profile-tabs {
+    display: flex;
+    margin-top: 35px;
+    border-bottom: 1px solid #ddd;
+}
+
+.profile-tabs a {
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #2878c8;
+}
+
+.profile-tabs a.active {
+    color: #333;
+    border: 1px solid #ddd;
+    border-bottom: 1px solid white;
+    margin-bottom: -1px;
+    background: white;
+    border-radius: 5px 5px 0 0;
+}
+
+
+/* Search */
+
+.profile-search {
+    display: flex;
+    padding: 12px;
+    background: #f5f6f7;
+}
+
+.profile-search input {
+    width: 250px;
+    padding: 9px;
+    border: 1px solid #ddd;
+}
+
+.profile-search button {
+    width: 45px;
+    border: none;
+    background: #2878c8;
+    color: white;
+    cursor: pointer;
+}
