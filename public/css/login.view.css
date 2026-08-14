@@ -73,3 +73,13 @@
         .signup-link a:hover {
             text-decoration: underline;
         }
+
+        .error-message {
+            background-color: #ffe5e5;
+            color: #d00000;
+            border: 1px solid #ffb3b3;
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-size: 14px;
+        }

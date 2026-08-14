@@ -2,40 +2,62 @@
 <html lang="en">
 
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>My School - Sign Up</title>
 
-    <link rel="stylesheet" href="../public/css/signup.view.css">
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/signup.view.css"
+    >
+
 </head>
 
 <body>
 
+
     <div class="signup-card">
+
 
         <!-- School Header -->
 
         <div class="school-header">
 
-            
+            <h1>
+                My School
+            </h1>
 
-            <h1>My School</h1>
-
-            <p>Create a new account</p>
+            <p>
+                Create a new account
+            </p>
 
         </div>
 
 
+
+        <!-- Form Title -->
+
+        <h2 class="form-title">
+            Add User
+        </h2>
+
+
+
         <!-- Signup Form -->
 
-        <h2 class="form-title">Add User</h2>
+        <form method="POST" action="">
 
-        <form method="POST">
 
             <!-- First Name + Last Name -->
 
             <div class="row">
+
 
                 <div class="form-group">
 
@@ -54,6 +76,7 @@
                 </div>
 
 
+
                 <div class="form-group">
 
                     <label for="lastname">
@@ -70,7 +93,9 @@
 
                 </div>
 
+
             </div>
+
 
 
             <!-- Email -->
@@ -90,6 +115,7 @@
                 >
 
             </div>
+
 
 
             <!-- Gender -->
@@ -127,22 +153,23 @@
             </div>
 
 
-            <!-- Role -->
+
+            <!-- Rank -->
 
             <div class="form-group">
 
-                <label for="role">
-                    Role
+                <label for="rank">
+                    Rank
                 </label>
 
                 <select
-                    id="role"
-                    name="role"
+                    id="rank"
+                    name="rank"
                     required
                 >
 
                     <option value="">
-                        Select Role
+                        Select Rank
                     </option>
 
                     <option value="student">
@@ -160,6 +187,7 @@
                 </select>
 
             </div>
+
 
 
             <!-- Password -->
@@ -181,6 +209,7 @@
             </div>
 
 
+
             <!-- Confirm Password -->
 
             <div class="form-group">
@@ -200,7 +229,8 @@
             </div>
 
 
-            <!-- Submit -->
+
+            <!-- Submit Button -->
 
             <button
                 type="submit"
@@ -209,22 +239,26 @@
                 Add User
             </button>
 
+
         </form>
 
 
-        <!-- Login -->
+
+        <!-- Login Link -->
 
         <div class="login-link">
 
             Already have an account?
 
-            <a href="login">
+            <a href="<?= ROOT ?>/login">
                 Login
             </a>
 
         </div>
 
+
     </div>
+
 
 </body>
 

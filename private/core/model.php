@@ -1,64 +1,82 @@
 <?php
 
 /**
- * main model
+ * Main model
  */
 class Model extends Database
 {
-	protected $table = "users";
-
-	function __construct()
-	{
-		// code...
-	}
+    protected $table = "users";
 
 
-	public function where($column,$value)
-	{
+    public function __construct()
+    {
+        // code...
+    }
 
-		$column = addslashes($column);
-		$query = "select * from $this->table where $column = :value";
-		return $this->query($query,[
-			'value'=>$value
-		]);
-	}
 
-	public function findAll()
-	{
+    public function where($column, $value)
+    {
+        $column = addslashes($column);
 
-		$query = "select * from $this->table ";
-		return $this->query($query);
-	}
+        $query = "SELECT * FROM $this->table
+                  WHERE $column = :value";
 
-	public function insert($column,$value)
-	{
+        return $this->query($query, [
+            'value' => $value
+        ]);
+    }
 
-		$column = addslashes($column);
-		$query = "select * from $this->table where $column = :value";
-		return $this->query($query,[
-			'value'=>$value
-		]);
-	}
 
-	public function update($column,$value)
-	{
+    public function findAll()
+    {
+        $query = "SELECT * FROM $this->table";
 
-		$column = addslashes($column);
-		$query = "select * from $this->table where $column = :value";
-		return $this->query($query,[
-			'value'=>$value
-		]);
-	}
+        return $this->query($query);
+    }
 
-	public function delete($column,$value)
-	{
 
-		$column = addslashes($column);
-		$query = "select * from $this->table where $column = :value";
-		return $this->query($query,[
-			'value'=>$value
-		]);
-	}
+    public function insert($data)
+    {
+        $columns = array_keys($data);
 
-	
+        $columnString = implode(",", $columns);
+
+        $placeholders = ":" . implode(", :", $columns);
+
+        $query = "INSERT INTO $this->table
+                  ($columnString)
+                  VALUES
+                  ($placeholders)";
+
+        return $this->query($query, $data);
+    }
+
+
+    public function update($column, $value, $whereColumn, $whereValue)
+    {
+        $column = addslashes($column);
+        $whereColumn = addslashes($whereColumn);
+
+        $query = "UPDATE $this->table
+                  SET $column = :value
+                  WHERE $whereColumn = :whereValue";
+
+        return $this->query($query, [
+            'value' => $value,
+            'whereValue' => $whereValue
+        ]);
+    }
+
+
+    public function delete($column, $value)
+    {
+        $column = addslashes($column);
+
+        $query = "DELETE FROM $this->table
+                  WHERE $column = :value";
+
+        return $this->query($query, [
+            'value' => $value
+        ]);
+    }
 }

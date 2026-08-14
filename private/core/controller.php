@@ -1,33 +1,21 @@
-<?php 
+<?php
 
-/**
- * main controller class
- */
 class Controller
 {
-	
-	public function view($view,$data = array())
-	{
-		extract($data);
-		// code...
+    public function view($name, $data = [])
+    {
+        if (!empty($data)) {
+            extract($data);
+        }
 
-		if(file_exists("../private/views/" . $view . ".view.php"))
-		{
-			require ("../private/views/" . $view . ".view.php");
-		}else{
-			require ("../private/views/404.view.php");
-		}
-	}
+        require "../private/views/" . $name . ".view.php";
+    }
 
-	public function load_model($model)
-	{
 
-		if(file_exists("../private/models/".ucfirst($model).".php"))
-		{
-			require("../private/models/".ucfirst($model).".php");
-			return $model = new $model();
-		}
-		
-		return false;
-	}
+    public function model($name)
+    {
+        require_once "../private/models/" . $name . ".php";
+
+        return new $name();
+    }
 }

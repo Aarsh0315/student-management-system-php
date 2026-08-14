@@ -1,3 +1,9 @@
+<?php
+
+$error = $data['error'] ?? '';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

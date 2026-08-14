@@ -1,20 +1,22 @@
 <?php
 
-/**
- * home controller
- */
 class Home extends Controller
 {
-	
-	function index()
-	{
-		// code...
-		$user = $this->load_model('User');
+    public function index()
+    {
+        session_start();
 
-		$data = $user->findAll();
 
-		//$data = $user->where('firstname','john');
+        // User must be logged in
+        if (!isset($_SESSION['user_id'])) {
 
-		$this->view('home',['rows'=>$data]);
-	}
+            header("Location: " . ROOT . "/login");
+
+            exit;
+        }
+
+
+        // Show dashboard
+        $this->view('home');
+    }
 }
