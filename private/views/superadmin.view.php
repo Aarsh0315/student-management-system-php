@@ -7,7 +7,6 @@ if (session_status() === PHP_SESSION_NONE) {
 ?>
 
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -19,51 +18,137 @@ if (session_status() === PHP_SESSION_NONE) {
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Super Admin - My School</title>
+    <title>Super Admin Dashboard</title>
 
+    <!-- SAME NAVBAR CSS -->
+    <!-- <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    > -->
+
+    <!-- DASHBOARD CSS -->
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css"
+        href="<?= ROOT ?>/css/home.view.css"
     >
 
 </head>
 
+
 <body>
 
 
-<?php require "../private/views/includes/superadmin-navbar.php"; ?>
+<!-- NAVBAR -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
 
 
-<main class="superadmin-page">
+<main class="dashboard">
 
-    <div class="welcome">
 
-        <p>
+    <!-- =========================
+         WELCOME
+    ========================== -->
+
+    <section class="welcome">
+
+        <p class="welcome-small">
             Welcome back 👋
         </p>
 
         <h1>
-            Super Admin Dashboard
+            System Admin
         </h1>
 
-        <p>
-            Manage schools and system users.
+        <p class="welcome-text">
+            Manage schools, users and the entire system.
         </p>
 
-    </div>
+    </section>
 
 
-    <div class="admin-cards">
+    <!-- =========================
+         PROFILE CARD
+    ========================== -->
+
+    <section class="profile-card">
+
+        <div class="profile-left">
+
+            <div class="profile-avatar">
+
+                <?= strtoupper(
+                    substr(
+                        $_SESSION['firstname'] ?? 'S',
+                        0,
+                        1
+                    )
+                ) ?>
+
+            </div>
 
 
-        <div class="admin-card">
+            <div class="profile-details">
 
-            <h2>
+                <h2>
+
+                    <?= htmlspecialchars(
+                        ($_SESSION['firstname'] ?? 'System')
+                        . ' '
+                        . ($_SESSION['lastname'] ?? 'Admin')
+                    ) ?>
+
+                </h2>
+
+
+                <p>
+
+                    <?= htmlspecialchars(
+                        $_SESSION['email']
+                        ?? 'superadmin@myschool.com'
+                    ) ?>
+
+                </p>
+
+
+                <span>
+                    Super Admin
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="<?= ROOT ?>/profile"
+            class="profile-btn"
+        >
+            View Profile
+        </a>
+
+    </section>
+
+
+
+    <!-- =========================
+         SUPER ADMIN CARDS
+    ========================== -->
+
+    <section class="dashboard-cards">
+
+
+        <!-- SCHOOLS -->
+
+        <div class="dashboard-card">
+
+            <h3>
                 Schools
-            </h2>
+            </h3>
 
             <p>
-                Create and manage schools.
+                Create and manage schools
+                registered in the system.
             </p>
 
             <a href="<?= ROOT ?>/schools">
@@ -73,14 +158,18 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
 
 
-        <div class="admin-card">
 
-            <h2>
-                All Users
-            </h2>
+        <!-- USERS -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                Users
+            </h3>
 
             <p>
-                View and manage users across all schools.
+                View and manage all users
+                across the schools.
             </p>
 
             <a href="<?= ROOT ?>/users">
@@ -90,10 +179,57 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
 
 
-    </div>
+
+        <!-- SCHOOL ADMINS -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                School Admins
+            </h3>
+
+            <p>
+                Create and manage administrators
+                for each school.
+            </p>
+
+            <a href="<?= ROOT ?>/admins">
+                Manage Admins →
+            </a>
+
+        </div>
+
+
+
+        <!-- REPORTS -->
+
+        <div class="dashboard-card">
+
+            <h3>
+                Reports
+            </h3>
+
+            <p>
+                View system-wide reports
+                and school statistics.
+            </p>
+
+            <a href="<?= ROOT ?>/reports">
+                View Reports →
+            </a>
+
+        </div>
+
+
+    </section>
 
 
 </main>
+
+
+<!-- FOOTER -->
+
+<?php require "../private/views/includes/footer.view.php"; ?>
 
 
 </body>

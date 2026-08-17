@@ -1,0 +1,274 @@
+/* =========================
+   PAGE HEADER
+========================= */
+
+.page-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 30px;
+}
+
+
+.page-small {
+    color: #2563eb;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    margin-bottom: 6px;
+}
+
+
+.page-header h1 {
+    color: #172033;
+
+    font-size: 30px;
+
+    margin-bottom: 7px;
+}
+
+
+.page-header p {
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   ADD BUTTON
+========================= */
+
+.add-school-btn {
+    display: inline-block;
+
+    background: #2563eb;
+
+    color: white;
+
+    text-decoration: none;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.add-school-btn:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================
+   SCHOOL CARD
+========================= */
+
+.schools-card {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.035);
+}
+
+
+/* =========================
+   CARD HEADER
+========================= */
+
+.card-header {
+    margin-bottom: 20px;
+}
+
+
+.card-header h2 {
+    color: #172033;
+
+    font-size: 19px;
+
+    margin-bottom: 5px;
+}
+
+
+.card-header p {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-container {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 14px;
+}
+
+
+thead {
+    background: #f8fafc;
+}
+
+
+th {
+    text-align: left;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    padding: 14px 12px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+td {
+    padding: 16px 12px;
+
+    color: #475569;
+
+    border-bottom: 1px solid #eef2f7;
+}
+
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.status.active {
+    background: #ecfdf5;
+
+    color: #059669;
+}
+
+
+.status.inactive {
+    background: #fef2f2;
+
+    color: #dc2626;
+}
+
+
+/* =========================
+   VIEW BUTTON
+========================= */
+
+.view-btn {
+    text-decoration: none;
+
+    color: #2563eb;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+.view-btn:hover {
+    color: #1d4ed8;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+    text-align: center;
+
+    padding: 60px 20px;
+}
+
+
+.empty-state h3 {
+    color: #334155;
+
+    font-size: 18px;
+
+    margin-bottom: 8px;
+}
+
+
+.empty-state p {
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .page-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 18px;
+    }
+
+
+    .add-school-btn {
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .schools-card {
+        padding: 18px;
+    }
+
+}

@@ -112,14 +112,10 @@ if (session_status() === PHP_SESSION_NONE) {
 
 </main>
 
+<!-- FOOTER -->
 
-<footer class="footer">
 
-    <p>
-        © <?= date('Y') ?> My School. All rights reserved.
-    </p>
-
-</footer>
+<?php require "../private/views/includes/footer.view.php"; ?>
 
 
 </body>
