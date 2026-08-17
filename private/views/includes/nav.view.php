@@ -1,33 +1,34 @@
-<nav class="main-navbar">
+<nav class="navbar">
 
     <div class="navbar-container">
 
-        <!-- Logo -->
-        <a href="" class="brand">
-            🏫 <span>My School</span>
+        <a href="<?= ROOT ?>/home" class="logo">
+            My School
         </a>
 
-        <!-- Navigation Links -->
         <div class="nav-links">
 
-            <a href="">Dashboard</a>
+            <a href="<?= ROOT ?>/home">
+                Dashboard
+            </a>
 
-            <a href="">Students</a>
+            <a href="<?= ROOT ?>/students">
+                Students
+            </a>
 
-            <a href="">Lecturers</a>
+            <a href="<?= ROOT ?>/teachers">
+                Teachers
+            </a>
 
-            <a href=">Classes</a>
+            <a href="<?= ROOT ?>/profile">
+                Profile
+            </a>
 
-            <a href="">Assignments</a>
-
-            <a href="">Marks</a>
+            <a href="<?= ROOT ?>/logout" class="logout-btn">
+                Logout
+            </a>
 
         </div>
-
-        <!-- Logout -->
-        <a href="" class="logout-btn">
-            Logout
-        </a>
 
     </div>
 

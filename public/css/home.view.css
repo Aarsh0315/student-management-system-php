@@ -1,0 +1,700 @@
+/* ========================================
+   RESET
+======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background: #f4f7fb;
+    color: #1e293b;
+    min-height: 100vh;
+}
+
+
+/* ========================================
+   NAVBAR
+======================================== */
+
+.navbar {
+    width: 100%;
+    background: #ffffff;
+    border-bottom: 1px solid #e8edf3;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.navbar-container {
+    max-width: 1250px;
+    height: 72px;
+
+    margin: auto;
+    padding: 0 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* Logo */
+
+.logo {
+    text-decoration: none;
+
+    color: #172033;
+
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+
+    transition: 0.2s ease;
+}
+
+.logo:hover {
+    color: #2563eb;
+}
+
+
+/* Navigation */
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.nav-links a {
+    position: relative;
+
+    text-decoration: none;
+    color: #64748b;
+
+    padding: 10px 14px;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: all 0.25s ease;
+}
+
+
+/* Hover */
+
+.nav-links a:hover {
+    color: #2563eb;
+    background: #f1f5ff;
+}
+
+
+/* Active */
+
+.nav-links a.active {
+    color: #2563eb;
+    background: #eff6ff;
+    font-weight: 600;
+}
+
+
+/* Logout */
+
+.nav-links .logout-btn {
+    margin-left: 8px;
+
+    background: #fff1f2;
+    color: #e11d48;
+
+    border: 1px solid #ffe4e6;
+
+    padding: 9px 16px;
+}
+
+.nav-links .logout-btn:hover {
+    background: #ffe4e6;
+    color: #be123c;
+}
+
+
+/* ========================================
+   DASHBOARD
+======================================== */
+
+.dashboard {
+    max-width: 1250px;
+
+    margin: auto;
+
+    padding: 45px 30px 60px;
+}
+
+
+/* ========================================
+   WELCOME SECTION
+======================================== */
+
+.welcome {
+    margin-bottom: 30px;
+}
+
+.welcome-small {
+    color: #64748b;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    margin-bottom: 7px;
+}
+
+.welcome h1 {
+    color: #172033;
+
+    font-size: 32px;
+    font-weight: 700;
+
+    letter-spacing: -0.7px;
+
+    margin-bottom: 8px;
+}
+
+.welcome-text {
+    color: #64748b;
+
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   PROFILE CARD
+======================================== */
+
+.profile-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e8edf3;
+
+    border-radius: 16px;
+
+    padding: 25px 28px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 35px;
+
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+
+    transition: all 0.25s ease;
+}
+
+.profile-card:hover {
+    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.08);
+    transform: translateY(-2px);
+}
+
+
+/* Profile left */
+
+.profile-left {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+
+/* Avatar */
+
+.profile-avatar {
+    width: 65px;
+    height: 65px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
+
+    color: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 22px;
+    font-weight: 700;
+
+    box-shadow: 0 5px 15px rgba(37, 99, 235, 0.25);
+}
+
+
+/* Profile details */
+
+.profile-details h2 {
+    color: #172033;
+
+    font-size: 19px;
+    font-weight: 650;
+
+    margin-bottom: 5px;
+}
+
+.profile-details p {
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 9px;
+}
+
+
+/* Rank */
+
+.profile-details span {
+    display: inline-block;
+
+    background: #eff6ff;
+    color: #2563eb;
+
+    padding: 5px 11px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-transform: capitalize;
+}
+
+
+/* View Profile */
+
+.profile-btn {
+    text-decoration: none;
+
+    background: #2563eb;
+    color: #ffffff;
+
+    padding: 11px 18px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18);
+
+    transition: all 0.25s ease;
+}
+
+.profile-btn:hover {
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow: 0 7px 16px rgba(37, 99, 235, 0.25);
+}
+
+
+/* ========================================
+   DASHBOARD CARDS
+======================================== */
+
+.dashboard-cards {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 22px;
+
+    margin-bottom: 35px;
+}
+
+
+.dashboard-card {
+    position: relative;
+
+    background: #ffffff;
+
+    border: 1px solid #e8edf3;
+
+    border-radius: 16px;
+
+    padding: 27px;
+
+    overflow: hidden;
+
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.035);
+
+    transition: all 0.25s ease;
+}
+
+
+/* Top accent */
+
+.dashboard-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 3px;
+
+    background: #2563eb;
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: 0.3s ease;
+}
+
+.dashboard-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+/* Card hover */
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.09);
+
+    border-color: #dbe5f0;
+}
+
+
+/* Card icon */
+
+.card-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: #eff6ff;
+
+    font-size: 21px;
+
+    margin-bottom: 18px;
+}
+
+
+/* Card title */
+
+.dashboard-card h3 {
+    color: #172033;
+
+    font-size: 18px;
+    font-weight: 650;
+
+    margin-bottom: 9px;
+}
+
+
+/* Card description */
+
+.dashboard-card p {
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin-bottom: 20px;
+}
+
+
+/* Card link */
+
+.dashboard-card a {
+    display: inline-flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    color: #2563eb;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+.dashboard-card a:hover {
+    color: #1d4ed8;
+
+    transform: translateX(3px);
+}
+
+
+/* ========================================
+   ACCOUNT OVERVIEW
+======================================== */
+
+.quick-section {
+    background: #ffffff;
+
+    border: 1px solid #e8edf3;
+
+    border-radius: 16px;
+
+    padding: 28px;
+
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.035);
+}
+
+.quick-section h2 {
+    color: #172033;
+
+    font-size: 19px;
+    font-weight: 650;
+
+    margin-bottom: 22px;
+}
+
+
+.info-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+.info-box {
+    background: #f8fafc;
+
+    border: 1px solid #edf1f5;
+
+    border-radius: 10px;
+
+    padding: 16px;
+
+    transition: 0.2s ease;
+}
+
+.info-box:hover {
+    background: #f1f5f9;
+}
+
+
+.info-box span {
+    display: block;
+
+    color: #94a3b8;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    margin-bottom: 7px;
+}
+
+
+.info-box strong {
+    display: block;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    word-break: break-word;
+}
+
+
+/* ========================================
+   FOOTER
+======================================== */
+
+.footer {
+    border-top: 1px solid #e8edf3;
+
+    background: #ffffff;
+
+    text-align: center;
+
+    padding: 25px 20px;
+
+    color: #94a3b8;
+
+    font-size: 12px;
+}
+
+
+/* ========================================
+   RESPONSIVE - TABLET
+======================================== */
+
+@media (max-width: 950px) {
+
+    .navbar-container {
+        padding: 0 20px;
+    }
+
+    .dashboard {
+        padding: 35px 20px 50px;
+    }
+
+    .dashboard-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .info-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/* ========================================
+   RESPONSIVE - MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .navbar-container {
+        height: auto;
+
+        padding: 18px 20px;
+
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    .nav-links {
+        width: 100%;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 4px;
+    }
+
+
+    .nav-links a {
+        padding: 8px 10px;
+
+        font-size: 13px;
+    }
+
+
+    .nav-links .logout-btn {
+        margin-left: 3px;
+    }
+
+
+    .dashboard {
+        padding: 30px 15px 45px;
+    }
+
+
+    .welcome h1 {
+        font-size: 27px;
+    }
+
+
+    .profile-card {
+        padding: 20px;
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 20px;
+    }
+
+
+    .profile-left {
+        width: 100%;
+    }
+
+
+    .profile-btn {
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+
+    .info-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .quick-section {
+        padding: 20px;
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+
+    .profile-left {
+        gap: 12px;
+    }
+
+
+    .profile-avatar {
+        width: 55px;
+        height: 55px;
+
+        font-size: 19px;
+    }
+
+
+    .profile-details h2 {
+        font-size: 16px;
+    }
+
+
+    .profile-details p {
+        font-size: 12px;
+    }
+
+}

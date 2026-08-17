@@ -1,88 +1,48 @@
-<div class="profile-section">
+<section class="profile-card">
 
-    <!-- Breadcrumb -->
-    <div class="breadcrumb">
-        <a href="">Home</a>
-        <span>/</span>
-        <span>Profile</span>
-    </div>
+    <div class="profile-left">
 
+        <div class="profile-avatar">
 
-    <!-- Profile Information -->
-    <div class="profile-header">
-
-        <!-- Left: Profile -->
-        <div class="profile-user">
-
-            <img
-                src="../public/assets/profile.png"
-                alt="Profile"
-                class="profile-image"
-            >
-
-            <h2>Mary Phiri</h2>
+            <?= strtoupper(
+                substr($_SESSION['firstname'] ?? 'U', 0, 1)
+            ) ?>
 
         </div>
 
 
-        <!-- Right: User Details -->
         <div class="profile-details">
 
-            <div class="detail-row">
-                <strong>First Name:</strong>
-                <span>Mary</span>
-            </div>
+            <h2>
 
-            <div class="detail-row">
-                <strong>Last Name:</strong>
-                <span>Phiri</span>
-            </div>
+                <?= htmlspecialchars($_SESSION['firstname'] ?? '') ?>
 
-            <div class="detail-row">
-                <strong>Gender:</strong>
-                <span>Female</span>
-            </div>
+                <?= htmlspecialchars($_SESSION['lastname'] ?? '') ?>
 
-            <div class="detail-row">
-                <strong>Date Created:</strong>
-                <span>2026-08-14</span>
-            </div>
+            </h2>
+
+            <p>
+
+                <?= htmlspecialchars($_SESSION['email'] ?? '') ?>
+
+            </p>
+
+            <span>
+
+                <?= htmlspecialchars($_SESSION['rank'] ?? '') ?>
+
+            </span>
 
         </div>
 
     </div>
 
 
-    <!-- Profile Tabs -->
-    <div class="profile-tabs">
+    <a
+        href="<?= ROOT ?>/profile"
+        class="profile-btn"
+    >
+        View Profile
+    </a>
 
-        <a href="#" class="active">
-            Basic Info
-        </a>
-
-        <a href="#">
-            Classes
-        </a>
-
-        <a href="#">
-            Tests
-        </a>
-
-    </div>
-
-
-    <!-- Search -->
-    <div class="profile-search">
-
-        <input
-            type="text"
-            placeholder="Search..."
-        >
-
-        <button>
-            🔍
-        </button>
-
-    </div>
-
-</div>
+</section>

@@ -20,255 +20,106 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <title>My School - Dashboard</title>
 
-    <link rel="stylesheet" href="../public/css/profile.view.css">
-    
-    <link rel="stylesheet" href="../public/css/nav.view.css">
+    <link rel="stylesheet" href="../public/css/home.view.css">
 
 </head>
 
 <body>
 
 
-    <!-- Navigation Bar -->
-
-    <nav class="navbar">
-
-        <div class="nav-container">
+<?php require "../private/views/includes/nav.view.php"; ?>
 
 
-            <!-- Logo -->
+<main class="dashboard">
 
-            <a href="<?= ROOT ?>/home" class="logo">
-                My School
-            </a>
+    <section class="welcome">
 
+        <div>
 
-            <!-- Navigation Links -->
-
-            <div class="nav-links">
-
-                <a href="<?= ROOT ?>/home">
-                    Dashboard
-                </a>
-
-                <a href="<?= ROOT ?>/profile">
-                    Profile
-                </a>
-
-                <a href="<?= ROOT ?>/logout">
-                    Logout
-                </a>
-
-            </div>
-
-
-        </div>
-
-    </nav>
-
-
-
-    <!-- Main Dashboard -->
-
-    <main class="dashboard">
-
-
-        <!-- Welcome Section -->
-
-        <section class="welcome-section">
+            <p class="welcome-small">
+                Welcome back 👋
+            </p>
 
             <h1>
-                Welcome,
                 <?= htmlspecialchars($_SESSION['firstname'] ?? '') ?>
                 <?= htmlspecialchars($_SESSION['lastname'] ?? '') ?>
             </h1>
 
-            <p>
-                Welcome to your school management dashboard.
+            <p class="welcome-text">
+                Manage your school information from your dashboard.
             </p>
 
-        </section>
+        </div>
 
+    </section>
 
 
-        <!-- User Information -->
+    <!-- PROFILE COMPONENT -->
 
-        <section class="dashboard-card">
+    <?php require "../private/views/profile.view.php"; ?>
 
 
-            <h2>
-                Account Information
-            </h2>
+    <!-- Dashboard content -->
 
+    <section class="dashboard-cards">
 
-            <div class="user-info">
+        <div class="dashboard-card">
 
+            <h3>Students</h3>
 
-                <!-- First Name -->
+            <p>
+                View and manage student records.
+            </p>
 
-                <div class="info-item">
+            <a href="<?= ROOT ?>/students">
+                Manage Students →
+            </a>
 
-                    <span class="info-label">
-                        First Name
-                    </span>
+        </div>
 
-                    <span class="info-value">
-                        <?= htmlspecialchars($_SESSION['firstname'] ?? '') ?>
-                    </span>
 
-                </div>
+        <div class="dashboard-card">
 
+            <h3>Teachers</h3>
 
-                <!-- Last Name -->
+            <p>
+                View and manage teacher information.
+            </p>
 
-                <div class="info-item">
+            <a href="<?= ROOT ?>/teachers">
+                Manage Teachers →
+            </a>
 
-                    <span class="info-label">
-                        Last Name
-                    </span>
+        </div>
 
-                    <span class="info-value">
-                        <?= htmlspecialchars($_SESSION['lastname'] ?? '') ?>
-                    </span>
 
-                </div>
+        <div class="dashboard-card">
 
+            <h3>My Profile</h3>
 
-                <!-- Email -->
+            <p>
+                View your personal account information.
+            </p>
 
-                <div class="info-item">
+            <a href="<?= ROOT ?>/profile">
+                View Profile →
+            </a>
 
-                    <span class="info-label">
-                        Email
-                    </span>
+        </div>
 
-                    <span class="info-value">
-                        <?= htmlspecialchars($_SESSION['email'] ?? '') ?>
-                    </span>
 
-                </div>
+    </section>
 
+</main>
 
-                <!-- Rank -->
 
-                <div class="info-item">
+<footer class="footer">
 
-                    <span class="info-label">
-                        Rank
-                    </span>
+    <p>
+        © <?= date('Y') ?> My School. All rights reserved.
+    </p>
 
-                    <span class="info-value">
-                        <?= htmlspecialchars($_SESSION['rank'] ?? '') ?>
-                    </span>
-
-                </div>
-
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- Dashboard Cards -->
-
-        <section class="dashboard-grid">
-
-
-            <!-- Profile -->
-
-            <div class="dashboard-item">
-
-                <h3>
-                    My Profile
-                </h3>
-
-                <p>
-                    View and manage your profile information.
-                </p>
-
-                <a href="<?= ROOT ?>/profile">
-                    View Profile
-                </a>
-
-            </div>
-
-
-            <!-- Students -->
-
-            <div class="dashboard-item">
-
-                <h3>
-                    Students
-                </h3>
-
-                <p>
-                    Manage student information and records.
-                </p>
-
-                <a href="<?= ROOT ?>/students">
-                    View Students
-                </a>
-
-            </div>
-
-
-            <!-- Teachers -->
-
-            <div class="dashboard-item">
-
-                <h3>
-                    Teachers
-                </h3>
-
-                <p>
-                    Manage teacher information.
-                </p>
-
-                <a href="<?= ROOT ?>/teachers">
-                    View Teachers
-                </a>
-
-            </div>
-
-
-            <!-- Settings -->
-
-            <div class="dashboard-item">
-
-                <h3>
-                    Settings
-                </h3>
-
-                <p>
-                    Manage your account settings.
-                </p>
-
-                <a href="<?= ROOT ?>/settings">
-                    Settings
-                </a>
-
-            </div>
-
-
-        </section>
-
-
-    </main>
-
-
-
-    <!-- Footer -->
-
-    <footer class="footer">
-
-        <p>
-            &copy; <?= date('Y') ?> My School.
-            All rights reserved.
-        </p>
-
-    </footer>
+</footer>
 
 
 </body>
