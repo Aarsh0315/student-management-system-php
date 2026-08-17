@@ -181,7 +181,11 @@
                     </option>
 
                     <option value="admin">
-                        Admin
+                        Staff
+                    </option>
+
+                    <option value="admin">
+                        Parent
                     </option>
 
                 </select>

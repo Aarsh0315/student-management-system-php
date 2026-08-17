@@ -1,75 +1,5 @@
 /* =========================
-   PAGE HEADER
-========================= */
-
-.page-header {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    margin-bottom: 30px;
-}
-
-
-.page-small {
-    color: #2563eb;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    margin-bottom: 6px;
-}
-
-
-.page-header h1 {
-    color: #172033;
-
-    font-size: 30px;
-
-    margin-bottom: 7px;
-}
-
-
-.page-header p {
-    color: #64748b;
-
-    font-size: 14px;
-}
-
-
-/* =========================
-   ADD BUTTON
-========================= */
-
-.add-school-btn {
-    display: inline-block;
-
-    background: #2563eb;
-
-    color: white;
-
-    text-decoration: none;
-
-    padding: 11px 18px;
-
-    border-radius: 8px;
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-
-.add-school-btn:hover {
-    background: #1d4ed8;
-}
-
-
-/* =========================
-   SCHOOL CARD
+   SCHOOLS CARD
 ========================= */
 
 .schools-card {
@@ -82,29 +12,35 @@
     padding: 25px;
 
     box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.035);
+        0 5px 20px rgba(0, 0, 0, 0.04);
 }
 
 
 /* =========================
-   CARD HEADER
+   HEADER
 ========================= */
 
-.card-header {
-    margin-bottom: 20px;
+.schools-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
 }
 
 
-.card-header h2 {
+.schools-header h2 {
     color: #172033;
 
-    font-size: 19px;
+    font-size: 20px;
 
-    margin-bottom: 5px;
+    margin-bottom: 6px;
 }
 
 
-.card-header p {
+.schools-header p {
     color: #64748b;
 
     font-size: 13px;
@@ -112,10 +48,38 @@
 
 
 /* =========================
+   ADD SCHOOL
+========================= */
+
+.add-school-btn {
+    text-decoration: none;
+
+    background: #2563eb;
+
+    color: white;
+
+    padding: 11px 17px;
+
+    border-radius: 8px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s;
+}
+
+
+.add-school-btn:hover {
+    background: #1d4ed8;
+}
+
+
+/* =========================
    TABLE
 ========================= */
 
-.table-container {
+.table-wrapper {
     width: 100%;
 
     overflow-x: auto;
@@ -127,7 +91,7 @@ table {
 
     border-collapse: collapse;
 
-    font-size: 14px;
+    min-width: 900px;
 }
 
 
@@ -139,13 +103,13 @@ thead {
 th {
     text-align: left;
 
+    padding: 14px 12px;
+
     color: #64748b;
 
     font-size: 12px;
 
     font-weight: 600;
-
-    padding: 14px 12px;
 
     border-bottom: 1px solid #e5e7eb;
 }
@@ -156,12 +120,49 @@ td {
 
     color: #475569;
 
+    font-size: 13px;
+
     border-bottom: 1px solid #eef2f7;
+}
+
+
+tbody tr {
+    transition: 0.15s;
 }
 
 
 tbody tr:hover {
     background: #f8fafc;
+}
+
+
+/* =========================
+   SCHOOL CODE
+========================= */
+
+.school-code {
+    background: #f1f5f9;
+
+    color: #475569;
+
+    padding: 5px 8px;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   STUDENT COUNT
+========================= */
+
+.student-count {
+    font-weight: 600;
+
+    color: #2563eb;
 }
 
 
@@ -212,7 +213,7 @@ tbody tr:hover {
 
 
 .view-btn:hover {
-    color: #1d4ed8;
+    text-decoration: underline;
 }
 
 
@@ -230,8 +231,6 @@ tbody tr:hover {
 .empty-state h3 {
     color: #334155;
 
-    font-size: 18px;
-
     margin-bottom: 8px;
 }
 
@@ -240,8 +239,6 @@ tbody tr:hover {
     color: #64748b;
 
     font-size: 13px;
-
-    margin-bottom: 20px;
 }
 
 
@@ -251,14 +248,13 @@ tbody tr:hover {
 
 @media (max-width: 700px) {
 
-    .page-header {
-        flex-direction: column;
-
+    .schools-header {
         align-items: flex-start;
 
-        gap: 18px;
-    }
+        flex-direction: column;
 
+        gap: 15px;
+    }
 
     .add-school-btn {
         width: 100%;
@@ -266,9 +262,10 @@ tbody tr:hover {
         text-align: center;
     }
 
-
     .schools-card {
         padding: 18px;
     }
 
 }
+
+

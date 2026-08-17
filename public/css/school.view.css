@@ -1,0 +1,105 @@
+/* =========================
+   SCHOOL OVERVIEW
+========================= */
+
+.school-overview {
+    margin-top: 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+.overview-header {
+    margin-bottom: 20px;
+}
+
+
+.overview-header h2 {
+    color: #172033;
+
+    font-size: 19px;
+
+    margin-bottom: 5px;
+}
+
+
+.overview-header p {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   OVERVIEW GRID
+========================= */
+
+.overview-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 15px;
+}
+
+
+.overview-card {
+    border: 1px solid #eef2f7;
+
+    border-radius: 10px;
+
+    padding: 20px;
+
+    background: #f8fafc;
+}
+
+
+.overview-card span {
+    display: block;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    margin-bottom: 8px;
+}
+
+
+.overview-card strong {
+    color: #172033;
+
+    font-size: 25px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 900px) {
+
+    .overview-grid {
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .overview-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

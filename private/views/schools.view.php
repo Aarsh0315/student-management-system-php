@@ -18,16 +18,10 @@ $schools = $data['schools'] ?? [];
 
     <title>Schools - My School</title>
 
-
-    <!-- Same navbar CSS -->
-
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css"
     >
-
-
-    <!-- Schools CSS -->
 
     <link
         rel="stylesheet"
@@ -35,7 +29,6 @@ $schools = $data['schools'] ?? [];
     >
 
 </head>
-
 
 <body>
 
@@ -48,11 +41,11 @@ $schools = $data['schools'] ?? [];
 
     <!-- PAGE HEADER -->
 
-    <section class="page-header">
+    <section class="welcome">
 
         <div>
 
-            <p class="page-small">
+            <p class="welcome-small">
                 Super Admin
             </p>
 
@@ -60,30 +53,21 @@ $schools = $data['schools'] ?? [];
                 Schools
             </h1>
 
-            <p>
-                View and manage all schools in the system.
+            <p class="welcome-text">
+                Manage all schools registered in the system.
             </p>
 
         </div>
 
-
-        <a
-            href="<?= ROOT ?>/schools/create"
-            class="add-school-btn"
-        >
-            + Add School
-        </a>
-
     </section>
 
 
-
-    <!-- SCHOOL LIST -->
+    <!-- SCHOOL TABLE -->
 
     <section class="schools-card">
 
 
-        <div class="card-header">
+        <div class="schools-header">
 
             <div>
 
@@ -92,19 +76,27 @@ $schools = $data['schools'] ?? [];
                 </h2>
 
                 <p>
-                    <?= count($schools) ?> schools registered
+                    <?= count($schools) ?>
+                    school(s) registered
                 </p>
 
             </div>
 
-        </div>
 
+            <a
+                href="<?= ROOT ?>/schools/create"
+                class="add-school-btn"
+            >
+                + Add School
+            </a>
+
+        </div>
 
 
         <?php if (!empty($schools)): ?>
 
 
-            <div class="table-container">
+            <div class="table-wrapper">
 
                 <table>
 
@@ -113,7 +105,7 @@ $schools = $data['schools'] ?? [];
                         <tr>
 
                             <th>
-                                #
+                                ID
                             </th>
 
                             <th>
@@ -133,6 +125,10 @@ $schools = $data['schools'] ?? [];
                             </th>
 
                             <th>
+                                Students
+                            </th>
+
+                            <th>
                                 Status
                             </th>
 
@@ -146,7 +142,6 @@ $schools = $data['schools'] ?? [];
 
 
                     <tbody>
-
 
                         <?php foreach ($schools as $school): ?>
 
@@ -169,23 +164,40 @@ $schools = $data['schools'] ?? [];
 
 
                                 <td>
+
+                                    <span class="school-code">
+                                        <?= htmlspecialchars(
+                                            $school->school_id
+                                        ) ?>
+                                    </span>
+
+                                </td>
+
+
+                                <td>
                                     <?= htmlspecialchars(
-                                        $school->school_id
+                                        $school->email ?? '-'
                                     ) ?>
                                 </td>
 
 
                                 <td>
                                     <?= htmlspecialchars(
-                                        $school->email
+                                        $school->phone ?? '-'
                                     ) ?>
                                 </td>
 
 
                                 <td>
-                                    <?= htmlspecialchars(
-                                        $school->phone
-                                    ) ?>
+
+                                    <span class="student-count">
+
+                                        <?= htmlspecialchars(
+                                            $school->student_count ?? 0
+                                        ) ?>
+
+                                    </span>
+
                                 </td>
 
 
@@ -213,7 +225,7 @@ $schools = $data['schools'] ?? [];
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/schools/view/<?= $school->school_id ?>"
+                                        href="<?= ROOT ?>/schools/details/<?= urlencode($school->school_id) ?>"
                                         class="view-btn"
                                     >
                                         View
@@ -224,7 +236,6 @@ $schools = $data['schools'] ?? [];
                             </tr>
 
                         <?php endforeach; ?>
-
 
                     </tbody>
 
@@ -243,15 +254,9 @@ $schools = $data['schools'] ?? [];
                 </h3>
 
                 <p>
-                    There are currently no schools registered.
+                    There are currently no schools
+                    registered in the system.
                 </p>
-
-                <a
-                    href="<?= ROOT ?>/schools/create"
-                    class="add-school-btn"
-                >
-                    + Add School
-                </a>
 
             </div>
 
