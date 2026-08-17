@@ -41,7 +41,16 @@ class Login extends Controller
                     $_SESSION['rank'] = $result->rank;
 
                     // Login successful
-                    header("Location: " . ROOT . "/home");
+                    if ($result->rank === 'super_admin') {
+
+                        header("Location: " . ROOT . "/superadmin");
+
+                    } else {
+
+                        header("Location: " . ROOT . "/home");
+
+                    }
+
                     exit;
 
                 } else {
