@@ -25,7 +25,7 @@ $schools = $data['schools'] ?? [];
 
     <link
     rel="stylesheet"
-    href="<?= ROOT ?>/css/school.view.css?v=3"
+    href="<?= ROOT ?>/css/schools.view.css?v=4"
 >
 
     <link

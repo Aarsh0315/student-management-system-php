@@ -227,11 +227,7 @@ body {
 
     border-radius: 50%;
 
-    background: linear-gradient(
-        135deg,
-        #2563eb,
-        #4f46e5
-    );
+    background: #111827;
 
     color: #ffffff;
 

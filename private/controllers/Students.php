@@ -68,4 +68,22 @@ class Students extends Controller
         'student' => $studentData
     ]);
 }
+
+public function add()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    // Only Super Admin
+    if (
+        !isset($_SESSION['rank']) ||
+        $_SESSION['rank'] !== 'super_admin'
+    ) {
+        header("Location: " . ROOT . "/home");
+        exit;
+    }
+
+    $this->view('student-add');
+}
 }

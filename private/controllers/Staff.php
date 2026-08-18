@@ -64,4 +64,21 @@ class Staff extends Controller
         'staff' => $staffData
     ]);
 }
+
+public function add()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (
+        !isset($_SESSION['rank']) ||
+        $_SESSION['rank'] !== 'super_admin'
+    ) {
+        header("Location: " . ROOT . "/home");
+        exit;
+    }
+
+    $this->view('staff-add');
+}
 }

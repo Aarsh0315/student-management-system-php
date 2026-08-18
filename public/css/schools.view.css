@@ -1,4 +1,225 @@
 /* =========================
+   SCHOOLS CARD
+========================= */
+
+.schools-card {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.schools-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.schools-header h2 {
+    color: #172033;
+
+    font-size: 20px;
+
+    margin: 0 0 6px;
+}
+
+
+.schools-header p {
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin: 0;
+}
+
+
+/* =========================
+   ADD SCHOOL
+========================= */
+
+.add-school-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 11px 17px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    border: 1px solid #111827;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.add-school-btn:hover {
+    background: #374151;
+
+    border-color: #374151;
+}
+
+
+/* =========================
+   TABLE WRAPPER
+========================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 950px;
+}
+
+
+thead {
+    background: #f8fafc;
+}
+
+
+th {
+    text-align: left;
+
+    padding: 14px 12px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    white-space: nowrap;
+}
+
+
+td {
+    padding: 16px 12px;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #eef2f7;
+
+    white-space: nowrap;
+}
+
+
+tbody tr {
+    transition: 0.15s ease;
+}
+
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================
+   SCHOOL CODE
+========================= */
+
+.school-code {
+    display: inline-block;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    padding: 5px 8px;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   STUDENT COUNT
+========================= */
+
+.student-count {
+    color: #2563eb;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.status.active {
+    background: #ecfdf5;
+
+    color: #059669;
+}
+
+
+.status.inactive {
+    background: #fef2f2;
+
+    color: #dc2626;
+}
+
+
+/* =========================
    TABLE ACTIONS
 ========================= */
 
@@ -50,16 +271,63 @@
 
 
 /* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+    text-align: center;
+
+    padding: 60px 20px;
+}
+
+
+.empty-state h3 {
+    color: #334155;
+
+    margin-bottom: 8px;
+}
+
+
+.empty-state p {
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* =========================
    MOBILE
 ========================= */
 
 @media (max-width: 700px) {
+
+    .schools-card {
+        padding: 18px;
+    }
+
+
+    .schools-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .add-school-btn {
+        width: 100%;
+
+        text-align: center;
+    }
+
 
     .table-actions {
         flex-direction: column;
 
         align-items: stretch;
     }
+
 
     .view-btn {
         text-align: center;
