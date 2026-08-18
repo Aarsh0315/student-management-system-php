@@ -22,6 +22,7 @@ $schools = $data['schools'] ?? [];
         Add User - My School
     </title>
 
+
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css"
@@ -32,7 +33,13 @@ $schools = $data['schools'] ?? [];
         href="<?= ROOT ?>/css/add-user.view.css"
     >
 
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css"
+    >
+
 </head>
+
 
 <body>
 
@@ -43,7 +50,9 @@ $schools = $data['schools'] ?? [];
 <main class="dashboard">
 
 
-    <!-- PAGE HEADER -->
+    <!-- =========================
+         PAGE HEADER
+    ========================== -->
 
     <section class="welcome">
 
@@ -62,20 +71,27 @@ $schools = $data['schools'] ?? [];
     </section>
 
 
-    <!-- ERROR -->
+    <!-- =========================
+         ERROR
+    ========================== -->
 
     <?php if (!empty($error)): ?>
 
         <div class="error-message">
+
             <?= htmlspecialchars($error) ?>
+
         </div>
 
     <?php endif; ?>
 
 
-    <!-- FORM -->
+    <!-- =========================
+         FORM
+    ========================== -->
 
     <section class="user-form-card">
+
 
         <form
             method="POST"
@@ -95,6 +111,29 @@ $schools = $data['schools'] ?? [];
 
 
                 <div class="form-row">
+
+
+                    <!-- USER ID -->
+
+                    <div class="form-group">
+
+                        <label for="user_id">
+                            User ID
+                        </label>
+
+                        <input
+                            type="text"
+                            id="user_id"
+                            name="user_id"
+                            placeholder="USR001"
+                            required
+                        >
+
+                        <small>
+                            Enter a unique User ID.
+                        </small>
+
+                    </div>
 
 
                     <!-- FIRST NAME -->
@@ -133,6 +172,7 @@ $schools = $data['schools'] ?? [];
                         >
 
                     </div>
+
 
                 </div>
 
@@ -206,120 +246,120 @@ $schools = $data['schools'] ?? [];
 
                 <!-- SCHOOL -->
 
-                <div class="form-section">
+                <div class="form-group">
 
-    <h2>
-        School & Role
-    </h2>
+                    <label for="school_id">
+                        School
+                    </label>
 
+                    <select
+                        id="school_id"
+                        name="school_id"
+                        required
+                    >
 
-    <!-- SCHOOL -->
-
-    <div class="form-group">
-
-        <label for="school_id">
-            School
-        </label>
-
-        <select
-            id="school_id"
-            name="school_id"
-            required
-        >
-
-            <option value="">
-                Select School
-            </option>
+                        <option value="">
+                            Select School
+                        </option>
 
 
-            <?php foreach ($schools as $school): ?>
+                        <?php foreach ($schools as $school): ?>
 
-                <option
-                    value="<?= htmlspecialchars($school->id) ?>"
-                >
+                            <option
+                                value="<?= htmlspecialchars($school->id) ?>"
+                                data-school-code="<?= htmlspecialchars($school->school_id) ?>"
+                            >
 
-                    <?= htmlspecialchars($school->school_name) ?>
-                    -
-                    <?= htmlspecialchars($school->school_id) ?>
+                                <?= htmlspecialchars(
+                                    $school->school_name
+                                ) ?>
 
-                </option>
+                                -
 
-            <?php endforeach; ?>
+                                <?= htmlspecialchars(
+                                    $school->school_id
+                                ) ?>
 
-        </select>
+                            </option>
 
-    </div>
-
-
-    <!-- SCHOOL ID -->
-
-    <div class="form-group">
-
-        <label>
-            School ID
-        </label>
-
-        <input
-            type="text"
-            id="school_code_display"
-            placeholder="Select a school"
-            readonly
-        >
-
-    </div>
+                        <?php endforeach; ?>
 
 
-    <!-- RANK -->
+                    </select>
 
-    <div class="form-group">
+                </div>
 
-        <label for="rank">
-            Rank
-        </label>
 
-        <select
-            id="rank"
-            name="rank"
-            required
-        >
+                <!-- SCHOOL ID / CODE -->
 
-            <option value="">
-                Select Rank
-            </option>
+                <div class="form-group">
 
-            <option value="admin">
-                School Admin
-            </option>
+                    <label for="school_code_display">
+                        School ID
+                    </label>
 
-            <option value="principal">
-                Principal
-            </option>
+                    <input
+                        type="text"
+                        id="school_code_display"
+                        placeholder="Select a school"
+                        readonly
+                    >
 
-            <option value="vice_principal">
-                Vice Principal
-            </option>
+                </div>
 
-            <option value="teacher">
-                Teacher
-            </option>
 
-            <option value="student">
-                Student
-            </option>
+                <!-- RANK -->
 
-            <option value="parent">
-                Parent
-            </option>
+                <div class="form-group">
 
-            <option value="staff">
-                Staff
-            </option>
+                    <label for="rank">
+                        Rank
+                    </label>
 
-        </select>
+                    <select
+                        id="rank"
+                        name="rank"
+                        required
+                    >
 
-    </div>
+                        <option value="">
+                            Select Rank
+                        </option>
 
-</div>
+                        <option value="admin">
+                            School Admin
+                        </option>
+
+                        <option value="principal">
+                            Principal
+                        </option>
+
+                        <option value="vice_principal">
+                            Vice Principal
+                        </option>
+
+                        <option value="teacher">
+                            Teacher
+                        </option>
+
+                        <option value="student">
+                            Student
+                        </option>
+
+                        <option value="parent">
+                            Parent
+                        </option>
+
+                        <option value="staff">
+                            Staff
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
 
             <!-- =========================
                  PASSWORD
@@ -435,6 +475,7 @@ $schools = $data['schools'] ?? [];
 
         </form>
 
+
     </section>
 
 
@@ -442,6 +483,37 @@ $schools = $data['schools'] ?? [];
 
 
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- =========================
+     SCHOOL CODE SCRIPT
+========================== -->
+
+<script>
+
+const schoolSelect = document.getElementById('school_id');
+
+const schoolCode = document.getElementById(
+    'school_code_display'
+);
+
+
+schoolSelect.addEventListener(
+    'change',
+    function () {
+
+        const selectedOption =
+            this.options[this.selectedIndex];
+
+        const code =
+            selectedOption.dataset.schoolCode || '';
+
+        schoolCode.value = code;
+
+    }
+);
+
+</script>
 
 
 </body>

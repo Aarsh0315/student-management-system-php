@@ -19,4 +19,6 @@ class Superadmin extends Controller
 
         $this->view('superadmin');
     }
+
+    
 }
