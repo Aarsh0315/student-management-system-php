@@ -1,6 +1,7 @@
 <?php
 
 $school = $data['school'] ?? null;
+$counts = $data['counts'] ?? [];
 
 if (!$school) {
     die("School not found.");
@@ -22,6 +23,7 @@ if (!$school) {
 
     <title>
         <?= htmlspecialchars($school->school_name) ?>
+        - School Details
     </title>
 
     <link
@@ -33,15 +35,26 @@ if (!$school) {
         rel="stylesheet"
         href="<?= ROOT ?>/css/school.view.css"
     >
-    
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/schools.view.css"
+    >
+
 </head>
 
 <body>
+
 
 <?php require "../private/views/includes/nav.view.php"; ?>
 
 
 <main class="dashboard">
+
+
+    <!-- =========================
+         PAGE HEADER
+    ========================== -->
 
     <section class="welcome">
 
@@ -50,21 +63,25 @@ if (!$school) {
         </p>
 
         <h1>
-            <?= htmlspecialchars($school->school_name) ?>
+            School Details
         </h1>
 
         <p class="welcome-text">
-            School information and management
+            View and manage school information.
         </p>
 
     </section>
 
 
-    <section class="profile-card">
+    <!-- =========================
+         SCHOOL HEADER
+    ========================== -->
 
-        <div class="profile-left">
+    <section class="school-details-card">
 
-            <div class="profile-avatar">
+        <div class="school-details-header">
+
+            <div class="school-avatar">
 
                 <?= strtoupper(
                     substr(
@@ -77,7 +94,7 @@ if (!$school) {
             </div>
 
 
-            <div class="profile-details">
+            <div>
 
                 <h2>
                     <?= htmlspecialchars(
@@ -86,17 +103,264 @@ if (!$school) {
                 </h2>
 
                 <p>
-                    School ID:
                     <?= htmlspecialchars(
                         $school->school_id
                     ) ?>
                 </p>
 
-                <span>
-                    <?= htmlspecialchars(
-                        $school->status
-                    ) ?>
-                </span>
+            </div>
+
+
+            <span
+                class="status
+                <?= $school->status === 'active'
+                    ? 'active'
+                    : 'inactive' ?>"
+            >
+
+                <?= htmlspecialchars(
+                    ucfirst($school->status)
+                ) ?>
+
+            </span>
+
+        </div>
+
+
+        <!-- =========================
+             SCHOOL INFORMATION
+        ========================== -->
+
+        <div class="details-section">
+
+            <h3>
+                School Information
+            </h3>
+
+
+            <div class="information-grid">
+
+
+                <div class="information-item">
+
+                    <span>
+                        School Name
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->school_name
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        School ID
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->school_id
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        School Code
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->school_code ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        Established Year
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->established_year ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        Board
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->board ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        Medium
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->medium ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        School Type
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->school_type ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        Academic Year
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->academic_year ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             CONTACT INFORMATION
+        ========================== -->
+
+        <div class="details-section">
+
+            <h3>
+                Contact Information
+            </h3>
+
+
+            <div class="information-grid">
+
+
+                <div class="information-item">
+
+                    <span>
+                        Email
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->email ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        Phone
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->phone ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        Emergency Contact
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->emergency_contact ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="information-item">
+
+                    <span>
+                        Website
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->website ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+        <!-- =========================
+             ADDRESS
+        ========================== -->
+
+        <div class="details-section">
+
+            <h3>
+                Address
+            </h3>
+
+
+            <div class="address-box">
+
+                <?= htmlspecialchars(
+                    $school->address ?? '-'
+                ) ?>
 
             </div>
 
@@ -105,173 +369,145 @@ if (!$school) {
     </section>
 
 
-    <!-- SCHOOL INFORMATION -->
+    <!-- =========================
+         SCHOOL OVERVIEW
+    ========================== -->
 
-    <section class="dashboard-card">
+    <section class="school-overview">
 
-        <h3>
-            School Information
-        </h3>
+        <div class="overview-header">
 
-        <p>
-            <strong>School ID:</strong>
-            <?= htmlspecialchars($school->school_id) ?>
-        </p>
+            <h2>
+                School Overview
+            </h2>
 
-        <p>
-            <strong>Email:</strong>
-            <?= htmlspecialchars($school->email ?? '-') ?>
-        </p>
+            <p>
+                Current users associated with this school.
+            </p>
 
-        <p>
-            <strong>Phone:</strong>
-            <?= htmlspecialchars($school->phone ?? '-') ?>
-        </p>
+        </div>
 
-        <p>
-            <strong>Address:</strong>
-            <?= htmlspecialchars($school->address ?? '-') ?>
-        </p>
 
-        <p>
-            <strong>Status:</strong>
-            <?= htmlspecialchars($school->status) ?>
-        </p>
+        <div class="overview-grid">
+
+
+            <div class="overview-card">
+
+                <span>
+                    Students
+                </span>
+
+                <strong>
+                    <?= $counts['student'] ?? 0 ?>
+                </strong>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <span>
+                    Teachers
+                </span>
+
+                <strong>
+                    <?= $counts['teacher'] ?? 0 ?>
+                </strong>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <span>
+                    School Admins
+                </span>
+
+                <strong>
+                    <?= $counts['admin'] ?? 0 ?>
+                </strong>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <span>
+                    Principals
+                </span>
+
+                <strong>
+                    <?= $counts['principal'] ?? 0 ?>
+                </strong>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <span>
+                    Vice Principals
+                </span>
+
+                <strong>
+                    <?= $counts['vice_principal'] ?? 0 ?>
+                </strong>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <span>
+                    Parents
+                </span>
+
+                <strong>
+                    <?= $counts['parent'] ?? 0 ?>
+                </strong>
+
+            </div>
+
+
+            <div class="overview-card">
+
+                <span>
+                    Staff
+                </span>
+
+                <strong>
+                    <?= $counts['staff'] ?? 0 ?>
+                </strong>
+
+            </div>
+
+
+        </div>
 
     </section>
 
 
-    <!-- BACK -->
+    <!-- =========================
+         BACK
+    ========================== -->
 
-    <!-- SCHOOL OVERVIEW -->
+    <div class="school-actions">
 
-<section class="school-overview">
-
-    <div class="overview-header">
-
-        <h2>
-            School Overview
-        </h2>
-
-        <p>
-            Users and staff associated with this school.
-        </p>
+        <a
+            href="<?= ROOT ?>/schools"
+            class="back-btn"
+        >
+            ← Back to Schools
+        </a>
 
     </div>
-
-
-    <div class="overview-grid">
-
-
-        <div class="overview-card">
-
-            <span>
-                Students
-            </span>
-
-            <strong>
-                <?= $data['counts']['student'] ?? 0 ?>
-            </strong>
-
-        </div>
-
-
-        <div class="overview-card">
-
-            <span>
-                Teachers
-            </span>
-
-            <strong>
-                <?= $data['counts']['teacher'] ?? 0 ?>
-            </strong>
-
-        </div>
-
-
-        <div class="overview-card">
-
-            <span>
-                School Admins
-            </span>
-
-            <strong>
-                <?= $data['counts']['admin'] ?? 0 ?>
-            </strong>
-
-        </div>
-
-
-        <div class="overview-card">
-
-            <span>
-                Principals
-            </span>
-
-            <strong>
-                <?= $data['counts']['principal'] ?? 0 ?>
-            </strong>
-
-        </div>
-
-
-        <div class="overview-card">
-
-            <span>
-                Vice Principals
-            </span>
-
-            <strong>
-                <?= $data['counts']['vice_principal'] ?? 0 ?>
-            </strong>
-
-        </div>
-
-
-        <div class="overview-card">
-
-            <span>
-                Parents
-            </span>
-
-            <strong>
-                <?= $data['counts']['parent'] ?? 0 ?>
-            </strong>
-
-        </div>
-
-
-        <div class="overview-card">
-
-            <span>
-                Staff
-            </span>
-
-            <strong>
-                <?= $data['counts']['staff'] ?? 0 ?>
-            </strong>
-
-        </div>
-
-
-    </div>
-
-</section>
-
-    <br>
-
-    <a
-        href="<?= ROOT ?>/schools"
-        class="profile-btn"
-    >
-        ← Back to Schools
-    </a>
 
 
 </main>
 
 
 <?php require "../private/views/includes/footer.view.php"; ?>
+
 
 </body>
 

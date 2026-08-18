@@ -1,0 +1,344 @@
+/* =========================
+   ADMINS CARD
+========================= */
+
+.admins-card {
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.admins-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.admins-header h2 {
+    color: #172033;
+
+    font-size: 20px;
+
+    margin: 0 0 6px;
+}
+
+
+.admins-header p {
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin: 0;
+}
+
+
+/* =========================
+   ADD ADMIN BUTTON
+========================= */
+
+.add-admin-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 11px 17px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    border: 1px solid #111827;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.add-admin-btn:hover {
+    background: #374151;
+
+    border-color: #374151;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 1000px;
+}
+
+
+thead {
+    background: #f8fafc;
+}
+
+
+th {
+    text-align: left;
+
+    padding: 14px 12px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    white-space: nowrap;
+}
+
+
+td {
+    padding: 16px 12px;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #eef2f7;
+}
+
+
+tbody tr {
+    transition: 0.15s ease;
+}
+
+
+tbody tr:hover {
+    background: #f8fafc;
+}
+
+
+/* =========================
+   ADMIN ID
+========================= */
+
+.admin-id {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   NAME
+========================= */
+
+.admin-name {
+    color: #172033;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   SCHOOL
+========================= */
+
+.admin-school {
+    color: #475569;
+
+    font-weight: 500;
+}
+
+
+.no-school {
+    color: #94a3b8;
+
+    font-style: italic;
+}
+
+
+.school-code {
+    display: inline-block;
+
+    padding: 5px 8px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    border-radius: 5px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.status.active {
+    background: #ecfdf5;
+
+    color: #059669;
+}
+
+
+.status.inactive {
+    background: #fef2f2;
+
+    color: #dc2626;
+}
+
+
+/* =========================
+   VIEW BUTTON
+========================= */
+
+.view-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 12px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    border: 1px solid #111827;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.view-btn:hover {
+    background: #374151;
+
+    border-color: #374151;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+    text-align: center;
+
+    padding: 60px 20px;
+}
+
+
+.empty-state h3 {
+    color: #334155;
+
+    margin: 0 0 8px;
+}
+
+
+.empty-state p {
+    color: #64748b;
+
+    font-size: 13px;
+
+    margin: 0;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 700px) {
+
+    .admins-card {
+        padding: 18px;
+    }
+
+
+    .admins-header {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 15px;
+    }
+
+
+    .add-admin-btn {
+        width: 100%;
+
+        text-align: center;
+    }
+
+}

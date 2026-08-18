@@ -36,6 +36,18 @@ if (session_status() === PHP_SESSION_NONE) {
                     Users
                 </a>
 
+                <a href="<?= ROOT ?>/students">
+                    Students
+                </a>
+
+                <a href="<?= ROOT ?>/staff">
+                    Staff
+                </a>
+
+                <a href="<?= ROOT ?>/schooladmins">
+                        School Admins
+                    </a>
+
                 <a href="<?= ROOT ?>/profile">
                     Profile
                 </a>
@@ -53,6 +65,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 <a href="<?= ROOT ?>/teachers">
                     Teachers
                 </a>
+                
 
                 <a href="<?= ROOT ?>/profile">
                     Profile

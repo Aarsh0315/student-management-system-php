@@ -20,7 +20,15 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <title>My School - Dashboard</title>
 
-    <link rel="stylesheet" href="../public/css/home.view.css">
+    <link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/home.view.css"
+>
+
+<link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/footer.view.css"
+>
 
 </head>
 

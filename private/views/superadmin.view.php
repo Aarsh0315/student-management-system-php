@@ -32,6 +32,11 @@ if (session_status() === PHP_SESSION_NONE) {
         href="<?= ROOT ?>/css/home.view.css"
     >
 
+    <link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/footer.view.css"
+>
+
 </head>
 
 
@@ -180,24 +185,61 @@ if (session_status() === PHP_SESSION_NONE) {
 
 
 
-        <!-- SCHOOL ADMINS -->
+        <!-- STUDENTS -->
 
         <div class="dashboard-card">
 
-            <h3>
-                School Admins
-            </h3>
+    <h3>
+        Students
+    </h3>
 
-            <p>
-                Create and manage administrators
-                for each school.
-            </p>
+    <p>
+        View and manage all students
+        across the schools.
+    </p>
 
-            <a href="<?= ROOT ?>/admins">
-                Manage Admins →
-            </a>
+    <a href="<?= ROOT ?>/students">
+        Manage Students →
+    </a>
 
-        </div>
+</div>
+
+         <!-- STAFF -->
+
+        <div class="dashboard-card">
+
+    <h3>
+        Staff
+    </h3>
+
+    <p>
+        View and manage all staff
+        members across schools.
+    </p>
+
+    <a href="<?= ROOT ?>/staff">
+        Manage Staff →
+    </a>
+
+</div>
+
+<!-- SCHOOL ADMINS -->
+<div class="dashboard-card">
+
+    <h3>
+        School Admins
+    </h3>
+
+    <p>
+        Manage administrators
+        assigned to schools.
+    </p>
+
+    <a href="<?= ROOT ?>/schooladmins">
+        Manage Admins →
+    </a>
+
+</div>
 
 
 

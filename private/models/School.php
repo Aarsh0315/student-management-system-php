@@ -46,4 +46,44 @@ class School extends Model
         'school_id' => $school_id
     ]);
 }
+
+public function createSchool($data)
+{
+    $query = "INSERT INTO schools
+    (
+        school_id,
+        school_name,
+        school_code,
+        email,
+        phone,
+        emergency_contact,
+        website,
+        address,
+        board,
+        medium,
+        school_type,
+        academic_year,
+        established_year,
+        status
+    )
+    VALUES
+    (
+        :school_id,
+        :school_name,
+        :school_code,
+        :email,
+        :phone,
+        :emergency_contact,
+        :website,
+        :address,
+        :board,
+        :medium,
+        :school_type,
+        :academic_year,
+        :established_year,
+        :status
+    )";
+
+    return $this->query($query, $data);
+}
 }

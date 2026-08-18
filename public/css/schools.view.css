@@ -1,199 +1,13 @@
 /* =========================
-   SCHOOLS CARD
+   TABLE ACTIONS
 ========================= */
 
-.schools-card {
-    background: #ffffff;
-
-    border: 1px solid #e5e7eb;
-
-    border-radius: 14px;
-
-    padding: 25px;
-
-    box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.04);
-}
-
-
-/* =========================
-   HEADER
-========================= */
-
-.schools-header {
+.table-actions {
     display: flex;
 
     align-items: center;
 
-    justify-content: space-between;
-
-    margin-bottom: 25px;
-}
-
-
-.schools-header h2 {
-    color: #172033;
-
-    font-size: 20px;
-
-    margin-bottom: 6px;
-}
-
-
-.schools-header p {
-    color: #64748b;
-
-    font-size: 13px;
-}
-
-
-/* =========================
-   ADD SCHOOL
-========================= */
-
-.add-school-btn {
-    text-decoration: none;
-
-    background: #2563eb;
-
-    color: white;
-
-    padding: 11px 17px;
-
-    border-radius: 8px;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    transition: 0.2s;
-}
-
-
-.add-school-btn:hover {
-    background: #1d4ed8;
-}
-
-
-/* =========================
-   TABLE
-========================= */
-
-.table-wrapper {
-    width: 100%;
-
-    overflow-x: auto;
-}
-
-
-table {
-    width: 100%;
-
-    border-collapse: collapse;
-
-    min-width: 900px;
-}
-
-
-thead {
-    background: #f8fafc;
-}
-
-
-th {
-    text-align: left;
-
-    padding: 14px 12px;
-
-    color: #64748b;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-    border-bottom: 1px solid #e5e7eb;
-}
-
-
-td {
-    padding: 16px 12px;
-
-    color: #475569;
-
-    font-size: 13px;
-
-    border-bottom: 1px solid #eef2f7;
-}
-
-
-tbody tr {
-    transition: 0.15s;
-}
-
-
-tbody tr:hover {
-    background: #f8fafc;
-}
-
-
-/* =========================
-   SCHOOL CODE
-========================= */
-
-.school-code {
-    background: #f1f5f9;
-
-    color: #475569;
-
-    padding: 5px 8px;
-
-    border-radius: 5px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
-
-/* =========================
-   STUDENT COUNT
-========================= */
-
-.student-count {
-    font-weight: 600;
-
-    color: #2563eb;
-}
-
-
-/* =========================
-   STATUS
-========================= */
-
-.status {
-    display: inline-block;
-
-    padding: 5px 10px;
-
-    border-radius: 20px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
-
-.status.active {
-    background: #ecfdf5;
-
-    color: #059669;
-}
-
-
-.status.inactive {
-    background: #fef2f2;
-
-    color: #dc2626;
+    gap: 8px;
 }
 
 
@@ -202,43 +16,36 @@ tbody tr:hover {
 ========================= */
 
 .view-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 12px;
+
+    background: #0c1e44;
+
+    color: #ffffff;
+
+    border: 1px solid #0c1e44;
+
+    border-radius: 7px;
+
     text-decoration: none;
 
-    color: #2563eb;
-
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 600;
+
+    transition: 0.2s ease;
 }
 
 
 .view-btn:hover {
-    text-decoration: underline;
-}
+    background: #374151;
 
-
-/* =========================
-   EMPTY STATE
-========================= */
-
-.empty-state {
-    text-align: center;
-
-    padding: 60px 20px;
-}
-
-
-.empty-state h3 {
-    color: #334155;
-
-    margin-bottom: 8px;
-}
-
-
-.empty-state p {
-    color: #64748b;
-
-    font-size: 13px;
+    border-color: #374151;
 }
 
 
@@ -248,24 +55,14 @@ tbody tr:hover {
 
 @media (max-width: 700px) {
 
-    .schools-header {
-        align-items: flex-start;
-
+    .table-actions {
         flex-direction: column;
 
-        gap: 15px;
+        align-items: stretch;
     }
 
-    .add-school-btn {
-        width: 100%;
-
+    .view-btn {
         text-align: center;
     }
 
-    .schools-card {
-        padding: 18px;
-    }
-
 }
-
-

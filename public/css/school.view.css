@@ -1,39 +1,291 @@
+/* =========================================================
+   SCHOOL DETAILS PAGE
+========================================================= */
+
+
 /* =========================
-   SCHOOL OVERVIEW
+   SCHOOL DETAILS CARD
 ========================= */
 
-.school-overview {
-    margin-top: 25px;
+.school-details-card {
+    width: 100%;
 
     background: #ffffff;
 
     border: 1px solid #e5e7eb;
 
-    border-radius: 14px;
+    border-radius: 16px;
 
-    padding: 25px;
+    padding: 30px;
 
     box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.04);
+        0 8px 25px rgba(0, 0, 0, 0.04);
 }
 
 
+/* =========================
+   SCHOOL HEADER
+========================= */
+
+.school-details-header {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    padding-bottom: 25px;
+
+    border-bottom: 1px solid #eef2f7;
+}
+
+
+.school-avatar {
+    width: 68px;
+    height: 68px;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 25px;
+
+    font-weight: 700;
+}
+
+
+.school-details-header h2 {
+    margin: 0 0 6px;
+
+    color: #111827;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+.school-details-header p {
+    margin: 0;
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+    margin-left: auto;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 12px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    text-transform: capitalize;
+}
+
+
+.status::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+}
+
+
+.status.active {
+    background: #ecfdf5;
+
+    color: #059669;
+}
+
+
+.status.inactive {
+    background: #fef2f2;
+
+    color: #dc2626;
+}
+
+
+/* =========================
+   DETAILS SECTION
+========================= */
+
+.details-section {
+    margin-top: 28px;
+
+    padding-top: 25px;
+
+    border-top: 1px solid #eef2f7;
+}
+
+
+.details-section h3 {
+    margin: 0 0 18px;
+
+    color: #111827;
+
+    font-size: 17px;
+
+    font-weight: 700;
+}
+
+
+/* =========================
+   INFORMATION GRID
+========================= */
+
+.information-grid {
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px 20px;
+}
+
+
+.information-item {
+    min-height: 75px;
+
+    padding: 15px 16px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f7;
+
+    border-radius: 10px;
+
+    transition: 0.2s ease;
+}
+
+
+.information-item:hover {
+    border-color: #dbe2ea;
+
+    transform: translateY(-1px);
+}
+
+
+.information-item span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #6b7280;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+.information-item strong {
+    display: block;
+
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+
+    word-break: break-word;
+}
+
+
+/* =========================
+   ADDRESS
+========================= */
+
+.address-box {
+    padding: 16px 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f7;
+
+    border-radius: 10px;
+
+    color: #475569;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   SCHOOL OVERVIEW
+========================================================= */
+
+.school-overview {
+    margin-top: 25px;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================
+   OVERVIEW HEADER
+========================= */
+
 .overview-header {
-    margin-bottom: 20px;
+    margin-bottom: 22px;
 }
 
 
 .overview-header h2 {
-    color: #172033;
+    margin: 0 0 6px;
 
-    font-size: 19px;
+    color: #111827;
 
-    margin-bottom: 5px;
+    font-size: 20px;
+
+    font-weight: 700;
 }
 
 
 .overview-header p {
-    color: #64748b;
+    margin: 0;
+
+    color: #6b7280;
 
     font-size: 13px;
 }
@@ -46,60 +298,288 @@
 .overview-grid {
     display: grid;
 
-    grid-template-columns:
-        repeat(4, 1fr);
+    grid-template-columns: repeat(4, 1fr);
 
     gap: 15px;
 }
 
 
-.overview-card {
-    border: 1px solid #eef2f7;
+/* =========================
+   OVERVIEW CARD
+========================= */
 
-    border-radius: 10px;
+.overview-card {
+    position: relative;
+
+    min-height: 110px;
 
     padding: 20px;
 
     background: #f8fafc;
+
+    border: 1px solid #e8edf3;
+
+    border-radius: 12px;
+
+    transition: 0.2s ease;
+}
+
+
+.overview-card:hover {
+    background: #ffffff;
+
+    border-color: #d7dee8;
+
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 8px 18px rgba(0, 0, 0, 0.05);
 }
 
 
 .overview-card span {
     display: block;
 
+    margin-bottom: 12px;
+
     color: #64748b;
 
     font-size: 12px;
 
-    margin-bottom: 8px;
+    font-weight: 600;
 }
 
 
 .overview-card strong {
-    color: #172033;
+    display: block;
 
-    font-size: 25px;
+    color: #111827;
+
+    font-size: 28px;
+
+    line-height: 1;
+
+    font-weight: 700;
 }
 
 
 /* =========================
-   RESPONSIVE
+   OVERVIEW CARD DECORATION
 ========================= */
 
-@media (max-width: 900px) {
+.overview-card::after {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+    left: 0;
+
+    width: 4px;
+    height: 100%;
+
+    border-radius: 12px 0 0 12px;
+
+    background: #111827;
+
+    opacity: 0.85;
+}
+
+
+/* =========================================================
+   SCHOOL ACTIONS
+========================================================= */
+
+.school-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-top: 25px;
+}
+
+
+/* =========================
+   BACK BUTTON
+========================= */
+
+.back-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 10px 16px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.back-btn:hover {
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   OPTIONAL MANAGEMENT BUTTONS
+========================================================= */
+
+.school-manage-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.school-manage-btn:hover {
+    background: #374151;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 1000px) {
 
     .overview-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
+        grid-template-columns: repeat(3, 1fr);
     }
 
 }
 
 
-@media (max-width: 500px) {
+@media (max-width: 800px) {
+
+    .school-details-card,
+    .school-overview {
+        padding: 22px;
+    }
+
+
+    .overview-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .school-details-header {
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+    }
+
+
+    .status {
+        margin-left: 0;
+
+        width: fit-content;
+    }
+
+
+    .information-grid {
+        grid-template-columns: 1fr;
+    }
+
 
     .overview-grid {
         grid-template-columns: 1fr;
+    }
+
+
+    .school-details-header h2 {
+        font-size: 19px;
+    }
+
+
+    .school-avatar {
+        width: 58px;
+        height: 58px;
+
+        font-size: 21px;
+    }
+
+
+    .school-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .back-btn,
+    .school-manage-btn {
+        justify-content: center;
+
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL SCREENS
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .school-details-card,
+    .school-overview {
+        padding: 17px;
+    }
+
+
+    .overview-card {
+        padding: 17px;
+    }
+
+
+    .overview-card strong {
+        font-size: 24px;
     }
 
 }

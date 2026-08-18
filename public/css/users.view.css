@@ -1,0 +1,339 @@
+/* =========================
+   USERS CARD
+========================= */
+
+.users-card {
+
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 14px;
+
+    padding: 25px;
+
+    box-shadow:
+        0 5px 20px rgba(0, 0, 0, 0.04);
+}
+
+
+/* =========================
+   HEADER
+========================= */
+
+.users-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 25px;
+}
+
+
+.users-header h2 {
+
+    margin-bottom: 5px;
+
+    color: #111827;
+
+    font-size: 19px;
+}
+
+
+.users-header p {
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   ADD USER BUTTON
+========================= */
+
+.add-user-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    background: #111827;
+
+    color: #ffffff;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.add-user-btn:hover {
+
+    background: #374151;
+
+    transform: translateY(-1px);
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 950px;
+}
+
+
+thead {
+
+    background: #f8fafc;
+}
+
+
+th {
+
+    padding: 13px 15px;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+td {
+
+    padding: 15px;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    border-bottom: 1px solid #eef2f7;
+
+    vertical-align: middle;
+}
+
+
+tbody tr {
+
+    transition: 0.15s ease;
+}
+
+
+tbody tr:hover {
+
+    background: #fafbfc;
+}
+
+
+td strong {
+
+    color: #111827;
+
+    font-weight: 600;
+}
+
+
+/* =========================
+   RANK BADGE
+========================= */
+
+.rank-badge {
+
+    display: inline-block;
+
+    padding: 5px 9px;
+
+    background: #f3f4f6;
+
+    color: #374151;
+
+    border-radius: 12px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =========================
+   NO SCHOOL
+========================= */
+
+.no-school {
+
+    color: #9ca3af;
+
+    font-size: 12px;
+
+    font-style: italic;
+}
+
+
+/* =========================
+   STATUS
+========================= */
+
+.status {
+
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 15px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.status.active {
+
+    background: #ecfdf5;
+
+    color: #059669;
+}
+
+
+.status.inactive {
+
+    background: #fef2f2;
+
+    color: #dc2626;
+}
+
+
+/* =========================
+   VIEW BUTTON
+========================= */
+
+.view-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 12px;
+
+    background: #ffffff;
+
+    color: #374151;
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.view-btn:hover {
+
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+}
+
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.empty-state {
+
+    padding: 60px 20px;
+
+    text-align: center;
+}
+
+
+.empty-state h3 {
+
+    margin-bottom: 8px;
+
+    color: #111827;
+
+    font-size: 18px;
+}
+
+
+.empty-state p {
+
+    color: #6b7280;
+
+    font-size: 13px;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 700px) {
+
+    .users-header {
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+
+    .add-user-btn {
+
+        width: 100%;
+    }
+
+}

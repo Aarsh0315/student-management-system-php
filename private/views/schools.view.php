@@ -24,9 +24,14 @@ $schools = $data['schools'] ?? [];
     >
 
     <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/schools.view.css"
-    >
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/school.view.css?v=3"
+>
+
+    <link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/footer.view.css"
+>
 
 </head>
 
@@ -66,7 +71,6 @@ $schools = $data['schools'] ?? [];
 
     <section class="schools-card">
 
-
         <div class="schools-header">
 
             <div>
@@ -84,7 +88,7 @@ $schools = $data['schools'] ?? [];
 
 
             <a
-                href="<?= ROOT ?>/schools/create"
+                href="<?= ROOT ?>/schools/add"
                 class="add-school-btn"
             >
                 + Add School
@@ -147,10 +151,17 @@ $schools = $data['schools'] ?? [];
 
                             <tr>
 
+
+                                <!-- DATABASE ID -->
+
                                 <td>
-                                    <?= htmlspecialchars($school->id) ?>
+                                    <?= htmlspecialchars(
+                                        $school->id
+                                    ) ?>
                                 </td>
 
+
+                                <!-- SCHOOL NAME -->
 
                                 <td>
 
@@ -163,30 +174,44 @@ $schools = $data['schools'] ?? [];
                                 </td>
 
 
+                                <!-- SCHOOL ID -->
+
                                 <td>
 
                                     <span class="school-code">
+
                                         <?= htmlspecialchars(
                                             $school->school_id
                                         ) ?>
+
                                     </span>
 
                                 </td>
 
 
+                                <!-- EMAIL -->
+
                                 <td>
+
                                     <?= htmlspecialchars(
                                         $school->email ?? '-'
                                     ) ?>
+
                                 </td>
 
 
+                                <!-- PHONE -->
+
                                 <td>
+
                                     <?= htmlspecialchars(
                                         $school->phone ?? '-'
                                     ) ?>
+
                                 </td>
 
+
+                                <!-- STUDENT COUNT -->
 
                                 <td>
 
@@ -200,6 +225,8 @@ $schools = $data['schools'] ?? [];
 
                                 </td>
 
+
+                                <!-- STATUS -->
 
                                 <td>
 
@@ -222,16 +249,26 @@ $schools = $data['schools'] ?? [];
                                 </td>
 
 
+                                <!-- ACTIONS -->
+
                                 <td>
 
-                                    <a
-                                        href="<?= ROOT ?>/schools/details/<?= urlencode($school->school_id) ?>"
-                                        class="view-btn"
-                                    >
-                                        View
-                                    </a>
+                                    <div class="table-actions">
+
+                                        <!-- VIEW SCHOOL -->
+
+                                        <a
+                                            href="<?= ROOT ?>/schools/details/<?= urlencode($school->school_id) ?>"
+                                            class="view-btn"
+                                        >
+                                            View
+                                        </a>
+
+
+                                    </div>
 
                                 </td>
+
 
                             </tr>
 
