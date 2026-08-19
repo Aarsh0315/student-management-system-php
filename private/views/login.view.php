@@ -2,6 +2,9 @@
 
 $error = $data['error'] ?? '';
 
+$password = "Admin@123";
+
+
 ?>
 
 <!DOCTYPE html>
