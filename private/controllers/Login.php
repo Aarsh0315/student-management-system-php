@@ -9,57 +9,184 @@ class Login extends Controller
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             $email = trim($_POST['email']);
+
             $password = $_POST['password'];
 
-            // Load User model
+
+            /*
+            ========================================
+            LOAD USER MODEL
+            ========================================
+            */
+
             $user = $this->model("User");
 
-            // Find user by email
+
+            /*
+            ========================================
+            FIND USER
+            ========================================
+            */
+
             $result = $user->findByEmail($email);
 
-            // User doesn't exist
+
+            /*
+            ========================================
+            USER NOT FOUND
+            ========================================
+            */
+
             if (!$result) {
 
-                $data['error'] = "This email is not registered.";
+                $data['error'] =
+                    "This email is not registered.";
 
             } else {
 
-                // Check password
-                if (password_verify($password, $result->password)) {
 
-                    // Start session
-                    if (session_status() === PHP_SESSION_NONE) {
+                /*
+                ========================================
+                CHECK PASSWORD
+                ========================================
+                */
+
+                if (
+                    password_verify(
+                        $password,
+                        $result->password
+                    )
+                ) {
+
+
+                    /*
+                    ========================================
+                    START SESSION
+                    ========================================
+                    */
+
+                    if (
+                        session_status()
+                        === PHP_SESSION_NONE
+                    ) {
+
                         session_start();
-                    }
-
-                    // Store user information in session
-                    $_SESSION['user_id'] = $result->id;
-                    $_SESSION['firstname'] = $result->firstname;
-                    $_SESSION['lastname'] = $result->lastname;
-                    $_SESSION['email'] = $result->email;
-                    $_SESSION['gender'] = $result->gender;
-                    $_SESSION['rank'] = $result->rank;
-
-                    // Login successful
-                    if ($result->rank === 'super_admin') {
-
-                        header("Location: " . ROOT . "/superadmin");
-
-                    } else {
-
-                        header("Location: " . ROOT . "/home");
 
                     }
+
+
+                    /*
+                    ========================================
+                    STORE USER INFORMATION
+                    ========================================
+                    */
+
+                    $_SESSION['user_id'] =
+                        $result->user_id;
+
+                    $_SESSION['firstname'] =
+                        $result->firstname;
+
+                    $_SESSION['lastname'] =
+                        $result->lastname;
+
+                    $_SESSION['email'] =
+                        $result->email;
+
+                    $_SESSION['gender'] =
+                        $result->gender;
+
+                    $_SESSION['rank'] =
+                        $result->rank;
+
+                    $_SESSION['school_id'] =
+                        $result->school_id;
+
+
+                    /*
+                    ========================================
+                    REDIRECT BASED ON ROLE
+                    ========================================
+                    */
+
+
+                    // SUPER ADMIN
+
+                    if (
+                        $result->rank
+                        === 'super_admin'
+                    ) {
+
+                        header(
+                            "Location: "
+                            . ROOT
+                            . "/superadmin"
+                        );
+
+                        exit;
+                    }
+
+
+                    // SCHOOL ADMIN
+
+                    if (
+                        $result->rank
+                        === 'admin'
+                    ) {
+
+                        header(
+                            "Location: "
+                            . ROOT
+                            . "/school-admin"
+                        );
+
+                        exit;
+                    }
+
+
+                    /*
+                    ========================================
+                    OTHER USERS
+                    ========================================
+                    */
+
+                    header(
+                        "Location: "
+                        . ROOT
+                        . "/home"
+                    );
 
                     exit;
 
+
                 } else {
 
-                    $data['error'] = "Incorrect password.";
+
+                    /*
+                    ========================================
+                    WRONG PASSWORD
+                    ========================================
+                    */
+
+                    $data['error'] =
+                        "Incorrect password.";
+
                 }
+
             }
+
         }
 
-        $this->view('login', $data);
+
+        /*
+        ========================================
+        LOGIN VIEW
+        ========================================
+        */
+
+        $this->view(
+            'login',
+            $data
+        );
     }
 }

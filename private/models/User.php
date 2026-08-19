@@ -111,4 +111,19 @@ public function getUserDetails($user_id)
 
     return $result[0] ?? false;
 }
+
+public function getParentCountBySchool($school_id)
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM users
+              WHERE school_id = :school_id
+              AND rank = 'parent'
+              AND status = 'active'";
+
+    $result = $this->query($query, [
+        'school_id' => $school_id
+    ]);
+
+    return $result[0]->total ?? 0;
+}
 }

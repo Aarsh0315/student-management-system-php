@@ -87,4 +87,18 @@ class StudentModel extends Model
 
     return $result[0] ?? false;
 }
+
+public function getStudentCountBySchool($school_id)
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM students
+              WHERE school_id = :school_id
+              AND status = 'active'";
+
+    $result = $this->query($query, [
+        'school_id' => $school_id
+    ]);
+
+    return $result[0]->total ?? 0;
+}
 }

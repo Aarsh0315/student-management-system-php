@@ -1,0 +1,88 @@
+/* ========================================
+   SCHOOL ADMIN DASHBOARD
+======================================== */
+
+
+/* ========================================
+   DASHBOARD CARDS
+======================================== */
+
+.dashboard-cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+
+/* ========================================
+   DASHBOARD CARD
+======================================== */
+
+.dashboard-card {
+    min-width: 0;
+}
+
+
+/* ========================================
+   DASHBOARD COUNT
+======================================== */
+
+.dashboard-count {
+    display: block;
+
+    color: #172033;
+
+    font-size: 30px;
+    font-weight: 700;
+
+    line-height: 1;
+
+    margin-bottom: 18px;
+}
+
+
+/* ========================================
+   CARD LINK
+======================================== */
+
+.dashboard-card a {
+    margin-top: auto;
+}
+
+
+/* ========================================
+   QUICK SECTION
+======================================== */
+
+.quick-section {
+    margin-top: 10px;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 950px) {
+
+    .dashboard-cards {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .dashboard-cards {
+        grid-template-columns: 1fr;
+    }
+
+
+    .dashboard-count {
+        font-size: 26px;
+    }
+
+}

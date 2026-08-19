@@ -80,4 +80,18 @@ class StaffModel extends Model
 
     return $result[0] ?? false;
 }
+
+public function getStaffCountBySchool($school_id)
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM staff
+              WHERE school_id = :school_id
+              AND status = 'active'";
+
+    $result = $this->query($query, [
+        'school_id' => $school_id
+    ]);
+
+    return $result[0]->total ?? 0;
+}
 }
