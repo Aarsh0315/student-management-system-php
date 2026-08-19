@@ -22,7 +22,11 @@ $schools = $data['schools'] ?? [];
         Add User - My School
     </title>
 
-
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
+    
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css"

@@ -70,23 +70,24 @@ $initial = strtoupper(
     <!-- DASHBOARD CSS -->
 
     <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css"
-    >
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/home.view.css"
+>
 
-
-    <!-- PROFILE PAGE CSS -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/profile.view.css"
-    >
+<link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/profile.view.css?v=2"
+>
 
 <link
     rel="stylesheet"
     href="<?= ROOT ?>/css/footer.view.css"
 >
 
+<link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
 </head>
 
 

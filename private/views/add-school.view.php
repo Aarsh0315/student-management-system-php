@@ -30,6 +30,11 @@ $error = $data['error'] ?? '';
         href="<?= ROOT ?>/css/add-school.view.css"
     >
 
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
+
 </head>
 
 <body>

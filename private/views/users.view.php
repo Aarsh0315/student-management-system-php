@@ -25,24 +25,23 @@ $users = $data['users'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css"
-    >
-
-
-    <!-- USERS CSS -->
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
 
     <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/users.view.css"
-    >
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/home.view.css"
+>
 
+<link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/users.view.css?v=2"
+>
 
-    <!-- FOOTER CSS -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css"
-    >
+<link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/footer.view.css"
+>
 
 </head>
 

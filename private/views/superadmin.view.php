@@ -21,10 +21,10 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>Super Admin Dashboard</title>
 
     <!-- SAME NAVBAR CSS -->
-    <!-- <link
+    <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css"
-    > -->
+    > 
 
     <!-- DASHBOARD CSS -->
     <link

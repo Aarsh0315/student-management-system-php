@@ -29,6 +29,11 @@
         href="<?= ROOT ?>/css/footer.view.css"
     >
 
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
+
 </head>
 
 <body>

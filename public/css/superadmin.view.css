@@ -1,80 +1,10 @@
 /* ========================================
-   RESET
+   SUPER ADMIN DASHBOARD
 ======================================== */
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
 
 
 /* ========================================
-   BODY
-======================================== */
-
-body {
-    font-family: Arial, Helvetica, sans-serif;
-
-    background: #f5f7fb;
-
-    color: #1f2937;
-
-    min-height: 100vh;
-}
-
-
-/* ========================================
-   DASHBOARD
-======================================== */
-
-.dashboard {
-    max-width: 1200px;
-
-    margin: auto;
-
-    padding: 55px 25px 70px;
-}
-
-
-/* ========================================
-   WELCOME
-======================================== */
-
-.welcome-section {
-    margin-bottom: 38px;
-}
-
-
-.welcome-text-small {
-    color: #64748b;
-
-    font-size: 14px;
-
-    margin-bottom: 8px;
-}
-
-
-.welcome-section h1 {
-    color: #172033;
-
-    font-size: 32px;
-
-    font-weight: 700;
-
-    margin-bottom: 8px;
-}
-
-
-.welcome-description {
-    color: #64748b;
-
-    font-size: 15px;
-}
-
-
-/* ========================================
-   PROFILE CARD
+   SUPER ADMIN PROFILE CARD
 ======================================== */
 
 .profile-card {
@@ -84,9 +14,9 @@ body {
 
     border: 1px solid #e5e7eb;
 
-    border-radius: 14px;
+    border-radius: 16px;
 
-    padding: 25px 30px;
+    padding: 25px 28px;
 
     display: flex;
 
@@ -94,9 +24,22 @@ body {
 
     justify-content: space-between;
 
-    margin-bottom: 38px;
+    margin-bottom: 35px;
 
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.035);
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.profile-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 30px rgba(15, 23, 42, 0.08);
 }
 
 
@@ -118,13 +61,15 @@ body {
 ======================================== */
 
 .profile-avatar {
-    width: 70px;
+    width: 65px;
 
-    height: 70px;
+    height: 65px;
+
+    flex-shrink: 0;
 
     border-radius: 50%;
 
-    background: #111827;
+    background: #2563eb;
 
     color: #000000;
 
@@ -134,11 +79,12 @@ body {
 
     justify-content: center;
 
-    font-size: 25px;
+    font-size: 22px;
 
-    font-weight: bold;
+    font-weight: 700;
 
-    box-shadow: 0 8px 18px rgba(57, 73, 232, 0.20);
+    box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.20);
 }
 
 
@@ -151,7 +97,11 @@ body {
 
     font-size: 19px;
 
-    margin-bottom: 6px;
+    font-weight: 650;
+
+    line-height: 1.3;
+
+    margin-bottom: 5px;
 }
 
 
@@ -160,9 +110,13 @@ body {
 
     font-size: 14px;
 
-    margin-bottom: 8px;
+    margin-bottom: 9px;
 }
 
+
+/* ========================================
+   PROFILE RANK
+======================================== */
 
 .profile-details span {
     display: inline-block;
@@ -173,7 +127,7 @@ body {
 
     padding: 5px 11px;
 
-    border-radius: 15px;
+    border-radius: 20px;
 
     font-size: 11px;
 
@@ -184,17 +138,25 @@ body {
 
 
 /* ========================================
-   PROFILE BUTTON
+   VIEW PROFILE BUTTON
 ======================================== */
 
 .profile-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     text-decoration: none;
 
-    background: #2563eb;
+    background: #111827;
 
     color: #ffffff;
 
-    padding: 12px 20px;
+    padding: 11px 18px;
+
+    border: 1px solid #111827;
 
     border-radius: 8px;
 
@@ -202,57 +164,110 @@ body {
 
     font-weight: 600;
 
-    transition: 0.2s ease;
-
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.18);
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
 }
 
 
 .profile-btn:hover {
-    background: #1d4ed8;
+    background: #374151;
+
+    border-color: #374151;
 
     transform: translateY(-1px);
 }
 
 
 /* ========================================
-   DASHBOARD CARDS
+   SUPER ADMIN DASHBOARD CARDS
 ======================================== */
 
 .dashboard-cards {
     display: grid;
 
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns:
+        repeat(3, 1fr);
 
     gap: 22px;
+
+    margin-bottom: 35px;
 }
 
 
 /* ========================================
-   CARD
+   DASHBOARD CARD
 ======================================== */
 
 .dashboard-card {
+    position: relative;
+
+    min-height: 180px;
+
+    padding: 27px;
+
     background: #ffffff;
 
     border: 1px solid #e5e7eb;
 
-    border-radius: 14px;
+    border-radius: 16px;
 
-    padding: 28px;
+    overflow: hidden;
 
-    min-height: 180px;
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
 
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.035);
-
-    transition: all 0.25s ease;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
 }
 
 
-.dashboard-card:hover {
-    transform: translateY(-3px);
+/* ========================================
+   CARD TOP ACCENT
+======================================== */
 
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.07);
+.dashboard-card::before {
+    content: "";
+
+    position: absolute;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 3px;
+
+    background: #2563eb;
+
+    transform: scaleX(0);
+
+    transform-origin: left;
+
+    transition: transform 0.3s ease;
+}
+
+
+.dashboard-card:hover::before {
+    transform: scaleX(1);
+}
+
+
+/* ========================================
+   CARD HOVER
+======================================== */
+
+.dashboard-card:hover {
+    transform: translateY(-4px);
+
+    border-color: #dbe5f0;
+
+    box-shadow:
+        0 12px 30px rgba(15, 23, 42, 0.09);
 }
 
 
@@ -263,9 +278,13 @@ body {
 .dashboard-card h3 {
     color: #172033;
 
-    font-size: 19px;
+    font-size: 18px;
 
-    margin-bottom: 10px;
+    font-weight: 650;
+
+    line-height: 1.3;
+
+    margin-bottom: 9px;
 }
 
 
@@ -276,11 +295,11 @@ body {
 .dashboard-card p {
     color: #64748b;
 
-    font-size: 14px;
+    font-size: 13px;
 
     line-height: 1.6;
 
-    margin-bottom: 22px;
+    margin-bottom: 20px;
 }
 
 
@@ -289,57 +308,79 @@ body {
 ======================================== */
 
 .dashboard-card a {
-    color: #2563eb;
+    display: inline-flex;
+
+    align-items: center;
 
     text-decoration: none;
 
-    font-size: 14px;
+    color: #2563eb;
+
+    font-size: 13px;
 
     font-weight: 600;
 
-    transition: 0.2s ease;
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 
 .dashboard-card a:hover {
     color: #1d4ed8;
+
+    transform: translateX(3px);
 }
 
 
 /* ========================================
-   FOOTER
+   CARD ICON
 ======================================== */
 
-.footer {
-    text-align: center;
+.card-icon {
+    width: 48px;
 
-    padding: 25px;
+    height: 48px;
 
-    color: #94a3b8;
+    display: flex;
 
-    font-size: 13px;
+    align-items: center;
 
-    background: #ffffff;
+    justify-content: center;
 
-    border-top: 1px solid #e5e7eb;
+    margin-bottom: 18px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border-radius: 12px;
+
+    font-size: 21px;
 }
 
 
 /* ========================================
-   RESPONSIVE
+   TABLET
 ======================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 950px) {
 
-    .dashboard {
-        padding: 35px 18px 50px;
+    .dashboard-cards {
+        grid-template-columns:
+            repeat(2, 1fr);
+
+        gap: 18px;
     }
 
+}
 
-    .welcome-section h1 {
-        font-size: 27px;
-    }
 
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
 
     .profile-card {
         flex-direction: column;
@@ -348,7 +389,12 @@ body {
 
         gap: 20px;
 
-        padding: 22px;
+        padding: 20px;
+    }
+
+
+    .profile-left {
+        width: 100%;
     }
 
 
@@ -361,6 +407,40 @@ body {
 
     .dashboard-cards {
         grid-template-columns: 1fr;
+
+        gap: 15px;
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+
+    .profile-left {
+        gap: 12px;
+    }
+
+
+    .profile-avatar {
+        width: 55px;
+
+        height: 55px;
+
+        font-size: 19px;
+    }
+
+
+    .profile-details h2 {
+        font-size: 16px;
+    }
+
+
+    .profile-details p {
+        font-size: 12px;
     }
 
 }

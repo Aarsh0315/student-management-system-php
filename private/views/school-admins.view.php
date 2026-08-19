@@ -20,6 +20,11 @@ $admins = $data['admins'] ?? [];
         School Admins - My School
     </title>
 
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
+
 
     <link
         rel="stylesheet"
@@ -28,7 +33,7 @@ $admins = $data['admins'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/school-admins.view.css"
+        href="<?= ROOT ?>/css/school-admins.view.css?v=2"
     >
 
     <link

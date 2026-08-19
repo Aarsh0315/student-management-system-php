@@ -26,6 +26,11 @@
 
     <link
         rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
+
+    <link
+        rel="stylesheet"
         href="<?= ROOT ?>/css/student-add.view.css"
     >
 

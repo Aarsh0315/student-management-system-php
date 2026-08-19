@@ -55,6 +55,11 @@ $initial = strtoupper(
 
     <link
         rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
+
+    <link
+        rel="stylesheet"
         href="<?= ROOT ?>/css/student-details.view.css"
     >
 

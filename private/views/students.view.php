@@ -24,25 +24,24 @@ $students = $data['students'] ?? [];
     <!-- DASHBOARD CSS -->
 
     <link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/home.view.css"
+>
+
+<link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/students.view.css?v=2"
+>
+
+<link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/footer.view.css"
+>
+
+<link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css"
-    >
-
-
-    <!-- STUDENTS CSS -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/students.view.css"
-    >
-
-
-    <!-- FOOTER CSS -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css"
-    >
+        href="<?= ROOT ?>/css/nav.view.css"
+    > 
 
 </head>
 

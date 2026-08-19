@@ -4,28 +4,45 @@
 
 .navbar {
     width: 100%;
+
     background: #ffffff;
-    border-bottom: 1px solid #e8edf3;
+
+    border-bottom: 1px solid #e5e7eb;
 
     position: sticky;
+
     top: 0;
+
     z-index: 1000;
 }
 
+
+/* ========================================
+   NAVBAR CONTAINER
+======================================== */
+
 .navbar-container {
+    width: 100%;
+
     max-width: 1250px;
+
     height: 72px;
 
-    margin: auto;
+    margin: 0 auto;
+
     padding: 0 30px;
 
     display: flex;
+
     align-items: center;
+
     justify-content: space-between;
 }
 
 
-/* Logo */
+/* ========================================
+   LOGO
+======================================== */
 
 .logo {
     text-decoration: none;
@@ -33,29 +50,46 @@
     color: #172033;
 
     font-size: 24px;
+
     font-weight: 700;
+
     letter-spacing: -0.5px;
 
-    transition: 0.2s ease;
+    line-height: 1;
+
+    transition: color 0.2s ease;
 }
+
 
 .logo:hover {
     color: #2563eb;
 }
 
 
-/* Navigation */
+/* ========================================
+   NAVIGATION LINKS
+======================================== */
 
 .nav-links {
     display: flex;
+
     align-items: center;
-    gap: 8px;
+
+    gap: 6px;
 }
+
 
 .nav-links a {
     position: relative;
 
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
     text-decoration: none;
+
     color: #64748b;
 
     padding: 10px 14px;
@@ -63,49 +97,95 @@
     border-radius: 8px;
 
     font-size: 14px;
+
     font-weight: 500;
 
-    transition: all 0.25s ease;
+    line-height: 1;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease;
 }
 
 
-/* Hover */
+/* ========================================
+   NAVIGATION HOVER
+======================================== */
 
 .nav-links a:hover {
     color: #2563eb;
+
     background: #f1f5ff;
 }
 
 
-/* Active */
+/* ========================================
+   ACTIVE LINK
+======================================== */
 
 .nav-links a.active {
     color: #2563eb;
+
     background: #eff6ff;
+
     font-weight: 600;
 }
 
 
-/* Logout */
+/* ========================================
+   LOGOUT BUTTON
+======================================== */
 
 .nav-links .logout-btn {
     margin-left: 8px;
 
+    padding: 10px 16px;
+
     background: #fff1f2;
+
     color: #e11d48;
 
     border: 1px solid #ffe4e6;
 
-    padding: 9px 16px;
+    border-radius: 8px;
+
+    font-weight: 600;
 }
+
 
 .nav-links .logout-btn:hover {
     background: #ffe4e6;
+
     color: #be123c;
 }
 
 
-/* Mobile */
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 950px) {
+
+    .navbar-container {
+        padding: 0 20px;
+    }
+
+    .nav-links {
+        gap: 3px;
+    }
+
+    .nav-links a {
+        padding: 9px 10px;
+
+        font-size: 13px;
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
 
 @media (max-width: 700px) {
 
@@ -120,47 +200,63 @@
     }
 
 
+    .logo {
+        font-size: 23px;
+    }
+
+
     .nav-links {
+        width: 100%;
+
         flex-wrap: wrap;
 
         justify-content: center;
 
-        gap: 15px;
+        gap: 5px;
+    }
+
+
+    .nav-links a {
+        padding: 8px 10px;
+
+        font-size: 13px;
+    }
+
+
+    .nav-links .logout-btn {
+        margin-left: 3px;
+
+        padding: 8px 12px;
     }
 
 }
 
+
 /* ========================================
-   WELCOME SECTION
+   SMALL MOBILE
 ======================================== */
 
-.welcome {
-    margin-bottom: 30px;
-}
+@media (max-width: 400px) {
 
-.welcome-small {
-    color: #64748b;
+    .navbar-container {
+        padding: 16px 12px;
+    }
 
-    font-size: 14px;
-    font-weight: 500;
 
-    margin-bottom: 7px;
-}
+    .nav-links {
+        gap: 3px;
+    }
 
-.welcome h1 {
-    color: #172033;
 
-    font-size: 32px;
-    font-weight: 700;
+    .nav-links a {
+        padding: 7px 8px;
 
-    letter-spacing: -0.7px;
+        font-size: 12px;
+    }
 
-    margin-bottom: 8px;
-}
 
-.welcome-text {
-    color: #64748b;
+    .nav-links .logout-btn {
+        padding: 7px 10px;
+    }
 
-    font-size: 15px;
-    line-height: 1.6;
 }

@@ -1,24 +1,26 @@
-/* =========================
+/* ========================================
    SCHOOLS CARD
-========================= */
+======================================== */
 
 .schools-card {
+    width: 100%;
+
     background: #ffffff;
 
     border: 1px solid #e5e7eb;
 
-    border-radius: 14px;
+    border-radius: 16px;
 
-    padding: 25px;
+    padding: 25px 28px;
 
     box-shadow:
-        0 5px 20px rgba(0, 0, 0, 0.04);
+        0 5px 20px rgba(15, 23, 42, 0.04);
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* ========================================
+   SCHOOLS HEADER
+======================================== */
 
 .schools-header {
     display: flex;
@@ -26,6 +28,8 @@
     align-items: center;
 
     justify-content: space-between;
+
+    gap: 20px;
 
     margin-bottom: 25px;
 }
@@ -35,6 +39,10 @@
     color: #172033;
 
     font-size: 20px;
+
+    font-weight: 650;
+
+    line-height: 1.3;
 
     margin: 0 0 6px;
 }
@@ -49,9 +57,9 @@
 }
 
 
-/* =========================
-   ADD SCHOOL
-========================= */
+/* ========================================
+   ADD SCHOOL BUTTON
+======================================== */
 
 .add-school-btn {
     display: inline-flex;
@@ -60,13 +68,13 @@
 
     justify-content: center;
 
-    padding: 11px 17px;
+    padding: 11px 18px;
 
-    background: #111827;
+    background: #2563eb;
 
     color: #ffffff;
 
-    border: 1px solid #111827;
+    border: 1px solid #2563eb;
 
     border-radius: 8px;
 
@@ -76,40 +84,60 @@
 
     font-weight: 600;
 
-    transition: 0.2s ease;
+    line-height: 1;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.18);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
 
 .add-school-btn:hover {
-    background: #374151;
+    background: #1d4ed8;
 
-    border-color: #374151;
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 12px rgba(37, 99, 235, 0.25);
 }
 
 
-/* =========================
+/* ========================================
    TABLE WRAPPER
-========================= */
+======================================== */
 
 .table-wrapper {
     width: 100%;
 
     overflow-x: auto;
+
+    -webkit-overflow-scrolling: touch;
 }
 
 
-/* =========================
+/* ========================================
    TABLE
-========================= */
+======================================== */
 
 table {
     width: 100%;
 
-    border-collapse: collapse;
-
     min-width: 950px;
+
+    border-collapse: collapse;
 }
 
+
+/* ========================================
+   TABLE HEADER
+======================================== */
 
 thead {
     background: #f8fafc;
@@ -117,9 +145,9 @@ thead {
 
 
 th {
-    text-align: left;
-
     padding: 14px 12px;
+
+    text-align: left;
 
     color: #64748b;
 
@@ -127,18 +155,26 @@ th {
 
     font-weight: 600;
 
+    line-height: 1.4;
+
     border-bottom: 1px solid #e5e7eb;
 
     white-space: nowrap;
 }
 
 
+/* ========================================
+   TABLE DATA
+======================================== */
+
 td {
-    padding: 16px 12px;
+    padding: 15px 12px;
 
     color: #475569;
 
     font-size: 13px;
+
+    line-height: 1.4;
 
     border-bottom: 1px solid #eef2f7;
 
@@ -147,7 +183,7 @@ td {
 
 
 tbody tr {
-    transition: 0.15s ease;
+    transition: background 0.15s ease;
 }
 
 
@@ -156,12 +192,19 @@ tbody tr:hover {
 }
 
 
-/* =========================
+tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* ========================================
    SCHOOL CODE
-========================= */
+======================================== */
 
 .school-code {
-    display: inline-block;
+    display: inline-flex;
+
+    align-items: center;
 
     background: #f1f5f9;
 
@@ -169,7 +212,9 @@ tbody tr:hover {
 
     padding: 5px 8px;
 
-    border-radius: 5px;
+    border: 1px solid #e2e8f0;
+
+    border-radius: 6px;
 
     font-size: 11px;
 
@@ -177,9 +222,9 @@ tbody tr:hover {
 }
 
 
-/* =========================
+/* ========================================
    STUDENT COUNT
-========================= */
+======================================== */
 
 .student-count {
     color: #2563eb;
@@ -188,12 +233,16 @@ tbody tr:hover {
 }
 
 
-/* =========================
+/* ========================================
    STATUS
-========================= */
+======================================== */
 
 .status {
-    display: inline-block;
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
 
     padding: 5px 10px;
 
@@ -202,6 +251,8 @@ tbody tr:hover {
     font-size: 11px;
 
     font-weight: 600;
+
+    line-height: 1;
 }
 
 
@@ -219,9 +270,9 @@ tbody tr:hover {
 }
 
 
-/* =========================
+/* ========================================
    TABLE ACTIONS
-========================= */
+======================================== */
 
 .table-actions {
     display: flex;
@@ -232,9 +283,9 @@ tbody tr:hover {
 }
 
 
-/* =========================
+/* ========================================
    VIEW BUTTON
-========================= */
+======================================== */
 
 .view-btn {
     display: inline-flex;
@@ -243,13 +294,13 @@ tbody tr:hover {
 
     justify-content: center;
 
-    padding: 8px 12px;
+    padding: 8px 13px;
 
-    background: #0c1e44;
+    background: #2563eb;
 
     color: #ffffff;
 
-    border: 1px solid #0c1e44;
+    border: 1px solid #2563eb;
 
     border-radius: 7px;
 
@@ -259,20 +310,34 @@ tbody tr:hover {
 
     font-weight: 600;
 
-    transition: 0.2s ease;
+    line-height: 1;
+
+    box-shadow:
+        0 2px 6px rgba(37, 99, 235, 0.15);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
 
 .view-btn:hover {
-    background: #374151;
+    background: #1d4ed8;
 
-    border-color: #374151;
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px rgba(37, 99, 235, 0.22);
 }
 
 
-/* =========================
+/* ========================================
    EMPTY STATE
-========================= */
+======================================== */
 
 .empty-state {
     text-align: center;
@@ -284,6 +349,8 @@ tbody tr:hover {
 .empty-state h3 {
     color: #334155;
 
+    font-size: 18px;
+
     margin-bottom: 8px;
 }
 
@@ -292,12 +359,27 @@ tbody tr:hover {
     color: #64748b;
 
     font-size: 13px;
+
+    line-height: 1.5;
 }
 
 
-/* =========================
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 950px) {
+
+    .schools-card {
+        padding: 22px;
+    }
+
+}
+
+
+/* ========================================
    MOBILE
-========================= */
+======================================== */
 
 @media (max-width: 700px) {
 
@@ -309,7 +391,7 @@ tbody tr:hover {
     .schools-header {
         flex-direction: column;
 
-        align-items: flex-start;
+        align-items: stretch;
 
         gap: 15px;
     }
