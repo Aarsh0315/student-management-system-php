@@ -1,8 +1,14 @@
-/* =========================
+/* ========================================
+   SCHOOL ADMINS PAGE
+======================================== */
+
+
+/* ========================================
    ADMINS CARD
-========================= */
+======================================== */
 
 .admins-card {
+
     width: 100%;
 
     background: #ffffff;
@@ -11,18 +17,23 @@
 
     border-radius: 16px;
 
-    padding: 25px 28px;
+    padding: 28px;
+
+    margin-bottom: 35px;
 
     box-shadow:
         0 5px 20px rgba(15, 23, 42, 0.04);
+
+    overflow: hidden;
 }
 
 
-/* =========================
-   HEADER
-========================= */
+/* ========================================
+   ADMINS HEADER
+======================================== */
 
 .admins-header {
+
     display: flex;
 
     align-items: center;
@@ -36,41 +47,44 @@
 
 
 .admins-header h2 {
+
+    margin: 0 0 6px;
+
     color: #172033;
 
     font-size: 20px;
 
-    font-weight: 650;
+    font-weight: 700;
 
     line-height: 1.3;
-
-    margin: 0 0 6px;
 }
 
 
 .admins-header p {
+
+    margin: 0;
+
     color: #64748b;
 
     font-size: 13px;
 
-    margin: 0;
+    line-height: 1.5;
 }
 
 
-/* =========================
+/* ========================================
    ADD ADMIN BUTTON
-========================= */
+======================================== */
 
 .add-admin-btn {
+
     display: inline-flex;
 
     align-items: center;
 
     justify-content: center;
 
-    flex-shrink: 0;
-
-    padding: 11px 18px;
+    padding: 10px 17px;
 
     background: #2563eb;
 
@@ -82,24 +96,25 @@
 
     text-decoration: none;
 
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 600;
 
-    line-height: 1;
+    white-space: nowrap;
 
     box-shadow:
-        0 3px 8px rgba(37, 99, 235, 0.18);
+        0 4px 10px rgba(37, 99, 235, 0.15);
 
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
 .add-admin-btn:hover {
+
     background: #1d4ed8;
 
     border-color: #1d4ed8;
@@ -107,245 +122,310 @@
     transform: translateY(-1px);
 
     box-shadow:
-        0 5px 12px rgba(37, 99, 235, 0.25);
+        0 6px 15px rgba(37, 99, 235, 0.22);
 }
 
 
-/* =========================
+/* ========================================
    TABLE WRAPPER
-========================= */
+======================================== */
 
 .table-wrapper {
+
     width: 100%;
 
     overflow-x: auto;
 
-    -webkit-overflow-scrolling: touch;
+    border: 1px solid #eef0f3;
+
+    border-radius: 10px;
 }
 
 
-/* =========================
+/* ========================================
    TABLE
-========================= */
+======================================== */
 
-table {
+.table-wrapper table {
+
     width: 100%;
 
-    min-width: 1000px;
+    min-width: 950px;
 
     border-collapse: collapse;
+
+    background: #ffffff;
 }
 
 
-thead {
+/* ========================================
+   TABLE HEADER
+======================================== */
+
+.table-wrapper thead {
+
     background: #f8fafc;
 }
 
 
-/* =========================
-   TABLE HEADER
-========================= */
+.table-wrapper th {
 
-th {
-    padding: 14px 12px;
+    padding: 13px 14px;
 
     color: #64748b;
 
-    font-size: 12px;
+    font-size: 10px;
 
-    font-weight: 600;
-
-    line-height: 1.4;
+    font-weight: 700;
 
     text-align: left;
 
-    border-bottom: 1px solid #e5e7eb;
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
 
     white-space: nowrap;
+
+    border-bottom: 1px solid #e5e7eb;
 }
 
 
-/* =========================
-   TABLE DATA
-========================= */
+/* ========================================
+   TABLE BODY
+======================================== */
 
-td {
-    padding: 15px 12px;
+.table-wrapper td {
+
+    padding: 15px 14px;
 
     color: #475569;
 
-    font-size: 13px;
-
-    line-height: 1.4;
-
-    border-bottom: 1px solid #eef2f7;
+    font-size: 12px;
 
     vertical-align: middle;
 
     white-space: nowrap;
+
+    border-bottom: 1px solid #eef0f3;
 }
 
 
-tbody tr {
-    transition: background 0.15s ease;
-}
+/* ========================================
+   LAST ROW
+======================================== */
 
+.table-wrapper tbody tr:last-child td {
 
-tbody tr:hover {
-    background: #f8fafc;
-}
-
-
-tbody tr:last-child td {
     border-bottom: none;
 }
 
 
-/* =========================
+/* ========================================
+   ROW HOVER
+======================================== */
+
+.table-wrapper tbody tr {
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.table-wrapper tbody tr:hover {
+
+    background: #f8fafc;
+}
+
+
+/* ========================================
    ADMIN ID
-========================= */
+======================================== */
 
 .admin-id {
+
     display: inline-flex;
 
     align-items: center;
+
+    padding: 5px 8px;
 
     background: #f1f5f9;
 
     color: #475569;
 
-    padding: 5px 8px;
-
     border: 1px solid #e2e8f0;
 
     border-radius: 6px;
 
-    font-size: 11px;
+    font-size: 10px;
 
     font-weight: 600;
 }
 
 
-/* =========================
+/* ========================================
    ADMIN NAME
-========================= */
+======================================== */
 
 .admin-name {
+
     color: #172033;
 
-    font-weight: 600;
+    font-size: 13px;
 
-    white-space: nowrap;
+    font-weight: 600;
 }
 
 
-/* =========================
+/* ========================================
    ADMIN SCHOOL
-========================= */
+======================================== */
 
 .admin-school {
-    color: #475569;
+
+    color: #334155;
+
+    font-size: 12px;
 
     font-weight: 500;
 }
 
 
+/* ========================================
+   SCHOOL CODE
+======================================== */
+
+.school-code {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    letter-spacing: 0.2px;
+}
+
+
+/* ========================================
+   NO SCHOOL
+======================================== */
+
 .no-school {
+
     color: #94a3b8;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-style: italic;
 }
 
 
-/* =========================
-   SCHOOL CODE
-========================= */
-
-.school-code {
-    display: inline-flex;
-
-    align-items: center;
-
-    background: #f1f5f9;
-
-    color: #475569;
-
-    padding: 5px 8px;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 6px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
-
-/* =========================
+/* ========================================
    STATUS
-========================= */
+======================================== */
 
 .status {
+
     display: inline-flex;
 
     align-items: center;
 
-    justify-content: center;
+    gap: 6px;
 
-    padding: 5px 10px;
+    padding: 5px 9px;
 
     border-radius: 20px;
 
-    font-size: 11px;
+    font-size: 10px;
 
     font-weight: 600;
-
-    line-height: 1;
 }
 
+
+/* ========================================
+   STATUS DOT
+======================================== */
+
+.status::before {
+
+    content: "";
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+}
+
+
+/* ========================================
+   ACTIVE
+======================================== */
 
 .status.active {
-    background: #ecfdf5;
 
-    color: #059669;
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    border: 1px solid #bbf7d0;
 }
 
+
+.status.active::before {
+
+    background: #22c55e;
+}
+
+
+/* ========================================
+   INACTIVE
+======================================== */
 
 .status.inactive {
+
     background: #fef2f2;
 
-    color: #dc2626;
+    color: #b91c1c;
+
+    border: 1px solid #fecaca;
 }
 
 
-/* =========================
-   TABLE ACTIONS
-========================= */
+.status.inactive::before {
 
-.table-actions {
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
+    background: #ef4444;
 }
 
 
-/* =========================
+/* ========================================
    VIEW BUTTON
-========================= */
+======================================== */
 
 .view-btn {
+
     display: inline-flex;
 
     align-items: center;
 
     justify-content: center;
 
-    padding: 8px 13px;
+    min-width: 50px;
+
+    padding: 7px 12px;
 
     background: #2563eb;
 
@@ -357,24 +437,20 @@ tbody tr:last-child td {
 
     text-decoration: none;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-weight: 600;
-
-    line-height: 1;
-
-    box-shadow:
-        0 2px 6px rgba(37, 99, 235, 0.15);
 
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
 .view-btn:hover {
+
     background: #1d4ed8;
 
     border-color: #1d4ed8;
@@ -382,90 +458,154 @@ tbody tr:last-child td {
     transform: translateY(-1px);
 
     box-shadow:
-        0 4px 10px rgba(37, 99, 235, 0.22);
+        0 4px 10px rgba(37, 99, 235, 0.18);
 }
 
 
-/* =========================
+/* ========================================
    EMPTY STATE
-========================= */
+======================================== */
 
 .empty-state {
+
+    padding: 60px 25px;
+
     text-align: center;
 
-    padding: 60px 20px;
+    border: 1px dashed #dbe2ea;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
 }
 
 
 .empty-state h3 {
-    color: #334155;
+
+    margin: 0 0 8px;
+
+    color: #172033;
 
     font-size: 18px;
 
-    margin: 0 0 8px;
+    font-weight: 700;
 }
 
 
 .empty-state p {
+
+    margin: 0;
+
     color: #64748b;
 
     font-size: 13px;
 
     line-height: 1.5;
-
-    margin: 0;
 }
 
 
-/* =========================
+/* ========================================
    TABLET
-========================= */
+======================================== */
 
 @media (max-width: 950px) {
 
     .admins-card {
+
         padding: 22px;
+
+    }
+
+
+    .admins-header {
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .table-wrapper table {
+
+        min-width: 950px;
+
     }
 
 }
 
 
-/* =========================
+/* ========================================
    MOBILE
-========================= */
+======================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 650px) {
 
     .admins-card {
+
         padding: 18px;
+
+        border-radius: 14px;
+
     }
 
 
     .admins-header {
+
         flex-direction: column;
 
-        align-items: stretch;
+        align-items: flex-start;
 
         gap: 15px;
+
     }
 
 
     .add-admin-btn {
+
         width: 100%;
 
-        text-align: center;
     }
 
 
-    .table-actions {
-        flex-direction: column;
+    .table-wrapper {
 
-        align-items: stretch;
+        border-radius: 8px;
+
     }
 
 
-    .view-btn {
-        text-align: center;
+    .table-wrapper table {
+
+        min-width: 950px;
+
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+
+    .admins-card {
+
+        padding: 15px;
+
+    }
+
+
+    .admins-header h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .admins-header p {
+
+        font-size: 12px;
+
     }
 
 }

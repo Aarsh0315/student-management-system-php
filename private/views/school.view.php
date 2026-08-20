@@ -38,6 +38,11 @@ if (!$school) {
 
     <link
         rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
+    >
+
+    <link
+        rel="stylesheet"
         href="<?= ROOT ?>/css/school.view.css?v=2"
     >
 

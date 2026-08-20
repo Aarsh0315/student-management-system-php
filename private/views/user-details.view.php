@@ -76,7 +76,7 @@ $initial = strtoupper(
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
     >
 
 </head>
