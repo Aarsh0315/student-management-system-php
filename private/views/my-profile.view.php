@@ -347,7 +347,7 @@ $initial = strtoupper(
             <!-- STATUS -->
 
             <div class="profile-information-item">
-
+ 
                 <span>
                     Account Status
                 </span>
