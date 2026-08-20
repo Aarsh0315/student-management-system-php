@@ -1,3 +1,9 @@
+<?php
+
+$error = $data['error'] ?? '';
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,193 +16,255 @@
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>My School - Sign Up</title>
+    <title>
+        My School - Sign Up
+    </title>
+
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/signup.view.css"
+        href="<?= ROOT ?>/css/signup.view.css?v=2"
     >
 
-    
-
 </head>
+
 
 <body>
 
 
-    <div class="signup-card">
+<div class="signup-card">
 
 
-        <!-- School Header -->
+    <!-- =========================
+         SCHOOL HEADER
+    ========================== -->
 
-        <div class="school-header">
+    <div class="school-header">
 
-            <h1>
-                My School
-            </h1>
+        <div class="school-icon">
+            🎓
+        </div>
 
-            <p>
-                Create a new account
-            </p>
+        <h1>
+            My School
+        </h1>
+
+        <p>
+            Create a new account
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================
+         FORM TITLE
+    ========================== -->
+
+    <div class="form-heading">
+
+        <p class="form-label">
+            Account Setup
+        </p>
+
+        <h2>
+            Add User
+        </h2>
+
+        <p>
+            Enter the user's information below.
+        </p>
+
+    </div>
+
+
+
+    <!-- =========================
+         ERROR
+    ========================== -->
+
+    <?php if (!empty($error)): ?>
+
+        <div class="error-message">
+
+            <span>
+                ⚠
+            </span>
+
+            <?= htmlspecialchars($error) ?>
+
+        </div>
+
+    <?php endif; ?>
+
+
+
+    <!-- =========================
+         SIGNUP FORM
+    ========================== -->
+
+    <form
+        method="POST"
+        action=""
+    >
+
+
+        <!-- =========================
+             FIRST + LAST NAME
+        ========================== -->
+
+        <div class="row">
+
+
+            <div class="form-group">
+
+                <label for="firstname">
+                    First Name
+                </label>
+
+                <input
+                    type="text"
+                    id="firstname"
+                    name="firstname"
+                    placeholder="First name"
+                    autocomplete="given-name"
+                    required
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="lastname">
+                    Last Name
+                </label>
+
+                <input
+                    type="text"
+                    id="lastname"
+                    name="lastname"
+                    placeholder="Last name"
+                    autocomplete="family-name"
+                    required
+                >
+
+            </div>
+
 
         </div>
 
 
 
-        <!-- Form Title -->
+        <!-- =========================
+             EMAIL
+        ========================== -->
 
-        <h2 class="form-title">
-            Add User
-        </h2>
+        <div class="form-group">
 
+            <label for="email">
+                Email Address
+            </label>
 
+            <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter email address"
+                autocomplete="email"
+                required
+            >
 
-        <!-- Signup Form -->
-
-        <form method="POST" action="">
-
-
-            <!-- First Name + Last Name -->
-
-            <div class="row">
-
-
-                <div class="form-group">
-
-                    <label for="firstname">
-                        First Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="firstname"
-                        name="firstname"
-                        placeholder="First Name"
-                        required
-                    >
-
-                </div>
+        </div>
 
 
 
-                <div class="form-group">
+        <!-- =========================
+             GENDER
+        ========================== -->
 
-                    <label for="lastname">
-                        Last Name
-                    </label>
+        <div class="form-group">
 
-                    <input
-                        type="text"
-                        id="lastname"
-                        name="lastname"
-                        placeholder="Last Name"
-                        required
-                    >
+            <label for="gender">
+                Gender
+            </label>
 
-                </div>
+            <select
+                id="gender"
+                name="gender"
+                required
+            >
 
+                <option value="">
+                    Select gender
+                </option>
 
-            </div>
+                <option value="male">
+                    Male
+                </option>
 
+                <option value="female">
+                    Female
+                </option>
 
+                <option value="other">
+                    Other
+                </option>
 
-            <!-- Email -->
+            </select>
 
-            <div class="form-group">
-
-                <label for="email">
-                    Email
-                </label>
-
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    placeholder="Enter your email"
-                    required
-                >
-
-            </div>
+        </div>
 
 
 
-            <!-- Gender -->
+        <!-- =========================
+             RANK
+        ========================== -->
 
-            <div class="form-group">
+        <div class="form-group">
 
-                <label for="gender">
-                    Gender
-                </label>
+            <label for="rank">
+                User Type
+            </label>
 
-                <select
-                    id="gender"
-                    name="gender"
-                    required
-                >
+            <select
+                id="rank"
+                name="rank"
+                required
+            >
 
-                    <option value="">
-                        Select Gender
-                    </option>
+                <option value="">
+                    Select user type
+                </option>
 
-                    <option value="male">
-                        Male
-                    </option>
+                <option value="student">
+                    Student
+                </option>
 
-                    <option value="female">
-                        Female
-                    </option>
+                <option value="teacher">
+                    Teacher
+                </option>
 
-                    <option value="other">
-                        Other
-                    </option>
+                <option value="admin">
+                    Staff
+                </option>
 
-                </select>
+                <option value="parent">
+                    Parent
+                </option>
 
-            </div>
+            </select>
 
-
-
-            <!-- Rank -->
-
-            <div class="form-group">
-
-                <label for="rank">
-                    Rank
-                </label>
-
-                <select
-                    id="rank"
-                    name="rank"
-                    required
-                >
-
-                    <option value="">
-                        Select Rank
-                    </option>
-
-                    <option value="student">
-                        Student
-                    </option>
-
-                    <option value="teacher">
-                        Teacher
-                    </option>
-
-                    <option value="admin">
-                        Staff
-                    </option>
-
-                    <option value="admin">
-                        Parent
-                    </option>
-
-                </select>
-
-            </div>
+        </div>
 
 
 
-            <!-- Password -->
+        <!-- =========================
+             PASSWORD
+        ========================== -->
+
+        <div class="row">
+
 
             <div class="form-group">
 
@@ -208,20 +276,18 @@
                     type="password"
                     id="password"
                     name="password"
-                    placeholder="Enter password"
+                    placeholder="Create password"
+                    autocomplete="new-password"
                     required
                 >
 
             </div>
 
 
-
-            <!-- Confirm Password -->
-
             <div class="form-group">
 
                 <label for="password2">
-                    Retype Password
+                    Confirm Password
                 </label>
 
                 <input
@@ -229,41 +295,57 @@
                     id="password2"
                     name="password2"
                     placeholder="Confirm password"
+                    autocomplete="new-password"
                     required
                 >
 
             </div>
 
 
-
-            <!-- Submit Button -->
-
-            <button
-                type="submit"
-                class="signup-btn"
-            >
-                Add User
-            </button>
-
-
-        </form>
-
-
-
-        <!-- Login Link -->
-
-        <div class="login-link">
-
-            Already have an account?
-
-            <a href="<?= ROOT ?>/login">
-                Login
-            </a>
-
         </div>
 
 
+
+        <!-- =========================
+             SUBMIT
+        ========================== -->
+
+        <button
+            type="submit"
+            class="signup-btn"
+        >
+
+            Create Account
+
+            <span>
+                →
+            </span>
+
+        </button>
+
+
+    </form>
+
+
+
+    <!-- =========================
+         LOGIN LINK
+    ========================== -->
+
+    <div class="login-link">
+
+        <span>
+            Already have an account?
+        </span>
+
+        <a href="<?= ROOT ?>/login">
+            Sign in
+        </a>
+
     </div>
+
+
+</div>
 
 
 </body>

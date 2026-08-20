@@ -2,20 +2,34 @@
 
 class Database
 {
+    private $con;
+
+
     private function connect()
     {
-        $string = DBDRIVER . ":host=" . DBHOST . ";dbname=" . DBNAME;
+        if ($this->con) {
+            return $this->con;
+        }
+
+        $string =
+            DBDRIVER .
+            ":host=" . DBHOST .
+            ";dbname=" . DBNAME;
 
         try {
 
-            $con = new PDO($string, DBUSER, DBPASS);
+            $this->con = new PDO(
+                $string,
+                DBUSER,
+                DBPASS
+            );
 
-            $con->setAttribute(
+            $this->con->setAttribute(
                 PDO::ATTR_ERRMODE,
                 PDO::ERRMODE_EXCEPTION
             );
 
-            return $con;
+            return $this->con;
 
         } catch (PDOException $e) {
 
@@ -24,8 +38,12 @@ class Database
     }
 
 
-    public function query($query, $data = array(), $data_type = "object")
-    {
+    public function query(
+        $query,
+        $data = array(),
+        $data_type = "object"
+    ) {
+
         $con = $this->connect();
 
         $stm = $con->prepare($query);
@@ -38,23 +56,43 @@ class Database
             return false;
         }
 
+
         /*
-         * SELECT queries return data.
+         * SELECT
          */
-        if (stripos(trim($query), "SELECT") === 0) {
+
+        if (
+            stripos(
+                trim($query),
+                "SELECT"
+            ) === 0
+        ) {
 
             if ($data_type == "object") {
-                $result = $stm->fetchAll(PDO::FETCH_OBJ);
-            } else {
-                $result = $stm->fetchAll(PDO::FETCH_ASSOC);
-            }
 
-            return $result;
+                return $stm->fetchAll(
+                    PDO::FETCH_OBJ
+                );
+
+            } else {
+
+                return $stm->fetchAll(
+                    PDO::FETCH_ASSOC
+                );
+            }
         }
+
 
         /*
          * INSERT / UPDATE / DELETE
          */
+
         return true;
+    }
+
+
+    public function lastInsertId()
+    {
+        return $this->connect()->lastInsertId();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-$staff = $data['staff'] ?? [];
+$teachers = $data['teachers'] ?? [];
 
 ?>
 
@@ -17,28 +17,28 @@ $staff = $data['staff'] ?? [];
     >
 
     <title>
-        Staff - My School
+        Teachers - My School
     </title>
 
 
-    <!-- DASHBOARD CSS -->
+    <!-- COMMON CSS -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
-    > 
+    >
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css"
+        href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
 
-    <!-- STAFF CSS -->
+    <!-- TEACHERS CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/staff.view.css"
+        href="<?= ROOT ?>/css/teachers.view.css?v=2"
     >
 
 
@@ -70,16 +70,16 @@ $staff = $data['staff'] ?? [];
         <div>
 
             <p class="welcome-small">
-                Super Admin
+                School Admin
             </p>
 
             <h1>
-                Staff
+                Teachers
             </h1>
 
             <p class="welcome-text">
-                Manage all staff members
-                across the schools.
+                Manage teachers and staff
+                members in your school.
             </p>
 
         </div>
@@ -87,56 +87,52 @@ $staff = $data['staff'] ?? [];
     </section>
 
 
+
     <!-- =========================
-         STAFF TABLE
+         TEACHERS TABLE
     ========================== -->
 
-    <section class="staff-card">
+    <section class="teachers-card">
 
 
-        <!-- HEADER -->
-
-        <div class="staff-header">
+        <div class="teachers-header">
 
             <div>
 
                 <h2>
-                    All Staff
+                    All Teachers
                 </h2>
 
                 <p>
 
-                    <?= count($staff) ?>
+                    <?= count($teachers) ?>
 
-                    staff member(s) registered
+                    teacher(s) registered
 
                 </p>
 
             </div>
 
 
-            <!-- ADD STAFF -->
+            <!-- ADD TEACHER -->
 
             <a
-                href="<?= ROOT ?>/staff/add"
-                class="add-staff-btn"
+                href="<?= ROOT ?>/teachers/add"
+                class="add-teacher-btn"
             >
-                + Add Staff
+                + Add Teacher
             </a>
 
         </div>
 
 
-        <?php if (!empty($staff)): ?>
 
+        <?php if (!empty($teachers)): ?>
 
-            <!-- =========================
-                 TABLE
-            ========================== -->
 
             <div class="table-wrapper">
 
-                <table>
+                <table class="teachers-table">
 
                     <thead>
 
@@ -151,19 +147,23 @@ $staff = $data['staff'] ?? [];
                             </th>
 
                             <th>
-                                Role
-                            </th>
-
-                            <th>
                                 Department
                             </th>
 
                             <th>
-                                School
+                                Designation
                             </th>
 
                             <th>
-                                Email
+                                Qualification
+                            </th>
+
+                            <th>
+                                Employment
+                            </th>
+
+                            <th>
+                                Phone
                             </th>
 
                             <th>
@@ -182,7 +182,9 @@ $staff = $data['staff'] ?? [];
                     <tbody>
 
 
-                        <?php foreach ($staff as $member): ?>
+                        <?php foreach (
+                            $teachers as $teacher
+                        ): ?>
 
 
                             <tr>
@@ -192,10 +194,11 @@ $staff = $data['staff'] ?? [];
 
                                 <td>
 
-                                    <span class="staff-id">
+                                    <span class="teacher-id">
 
                                         <?= htmlspecialchars(
-                                            $member->staff_id ?? '-'
+                                            $teacher->staff_id
+                                            ?? '-'
                                         ) ?>
 
                                     </span>
@@ -203,16 +206,17 @@ $staff = $data['staff'] ?? [];
                                 </td>
 
 
+
                                 <!-- NAME -->
 
                                 <td>
 
-                                    <strong class="staff-name">
+                                    <strong class="teacher-name">
 
                                         <?= htmlspecialchars(
-                                            ($member->firstname ?? '')
+                                            ($teacher->firstname ?? '')
                                             . ' '
-                                            . ($member->lastname ?? '')
+                                            . ($teacher->lastname ?? '')
                                         ) ?>
 
                                     </strong>
@@ -220,76 +224,70 @@ $staff = $data['staff'] ?? [];
                                 </td>
 
 
-                                <!-- ROLE -->
-
-                                <td>
-
-                                    <span class="staff-role">
-
-                                        <?= htmlspecialchars(
-                                            $member->designation
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
-
 
                                 <!-- DEPARTMENT -->
 
                                 <td>
 
-                                    <span class="staff-department">
-
-                                        <?= htmlspecialchars(
-                                            $member->department
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
+                                    <?= htmlspecialchars(
+                                        $teacher->department
+                                        ?? '-'
+                                    ) ?>
 
                                 </td>
 
 
-                                <!-- SCHOOL -->
 
-                                <td>
-
-                                    <?php if (
-                                        !empty(
-                                            $member->school_name
-                                        )
-                                    ): ?>
-
-                                        <span class="staff-school">
-
-                                            <?= htmlspecialchars(
-                                                $member->school_name
-                                            ) ?>
-
-                                        </span>
-
-                                    <?php else: ?>
-
-                                        <span class="no-school">
-                                            No School
-                                        </span>
-
-                                    <?php endif; ?>
-
-                                </td>
-
-
-                                <!-- EMAIL -->
+                                <!-- DESIGNATION -->
 
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $member->email ?? '-'
+                                        $teacher->designation
+                                        ?? '-'
                                     ) ?>
 
                                 </td>
+
+
+
+                                <!-- QUALIFICATION -->
+
+                                <td>
+
+                                    <?= htmlspecialchars(
+                                        $teacher->qualification
+                                        ?? '-'
+                                    ) ?>
+
+                                </td>
+
+
+
+                                <!-- EMPLOYMENT TYPE -->
+
+                                <td>
+
+                                    <?= htmlspecialchars(
+                                        $teacher->employment_type
+                                        ?? '-'
+                                    ) ?>
+
+                                </td>
+
+
+
+                                <!-- PHONE -->
+
+                                <td>
+
+                                    <?= htmlspecialchars(
+                                        $teacher->phone
+                                        ?? '-'
+                                    ) ?>
+
+                                </td>
+
 
 
                                 <!-- STATUS -->
@@ -297,17 +295,21 @@ $staff = $data['staff'] ?? [];
                                 <td>
 
                                     <?php if (
-                                        ($member->status ?? '')
+                                        ($teacher->status ?? '')
                                         === 'active'
                                     ): ?>
 
-                                        <span class="status active">
+                                        <span
+                                            class="status active"
+                                        >
                                             Active
                                         </span>
 
                                     <?php else: ?>
 
-                                        <span class="status inactive">
+                                        <span
+                                            class="status inactive"
+                                        >
                                             Inactive
                                         </span>
 
@@ -316,12 +318,13 @@ $staff = $data['staff'] ?? [];
                                 </td>
 
 
+
                                 <!-- ACTION -->
 
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/staff/details/<?= urlencode($member->staff_id) ?>"
+                                        href="<?= ROOT ?>/teachers/details/<?= urlencode($teacher->staff_id) ?>"
                                         class="view-btn"
                                     >
                                         View
@@ -346,19 +349,17 @@ $staff = $data['staff'] ?? [];
         <?php else: ?>
 
 
-            <!-- =========================
-                 EMPTY STATE
-            ========================== -->
+            <!-- EMPTY STATE -->
 
             <div class="empty-state">
 
                 <h3>
-                    No staff found
+                    No teachers found
                 </h3>
 
                 <p>
-                    There are currently no staff
-                    members registered.
+                    There are currently no teachers
+                    registered in your school.
                 </p>
 
             </div>
@@ -372,10 +373,6 @@ $staff = $data['staff'] ?? [];
 
 </main>
 
-
-<!-- =========================
-     FOOTER
-========================== -->
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 

@@ -23,18 +23,23 @@ if (session_status() === PHP_SESSION_NONE) {
     <!-- SAME NAVBAR CSS -->
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    > 
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=2"
     > 
 
     <!-- DASHBOARD CSS -->
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css"
+        href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
     <link
     rel="stylesheet"
-    href="<?= ROOT ?>/css/footer.view.css"
+    href="<?= ROOT ?>/css/footer.view.css?v=2"
 >
 
 </head>
@@ -161,6 +166,7 @@ if (session_status() === PHP_SESSION_NONE) {
             </a>
 
         </div>
+        
 
 
 

@@ -1,9 +1,16 @@
 <?php
 
-class SchoolAdmin extends Controller
+require_once "../private/models/User.php";
+
+class Parents extends Controller
 {
     public function index()
     {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+
         /*
         ========================================
         CHECK LOGIN
@@ -12,17 +19,15 @@ class SchoolAdmin extends Controller
 
         if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " . ROOT . "/login"
-            );
-
+            header("Location: " . ROOT . "/login");
             exit;
+
         }
 
 
         /*
         ========================================
-        CHECK ROLE
+        CHECK SCHOOL ADMIN
         ========================================
         */
 
@@ -30,7 +35,8 @@ class SchoolAdmin extends Controller
             ($_SESSION['rank'] ?? '') !== 'admin'
         ) {
 
-            die("Access Denied");
+            header("Location: " . ROOT . "/home");
+            exit;
 
         }
 
@@ -56,61 +62,33 @@ class SchoolAdmin extends Controller
 
         /*
         ========================================
-        LOAD MODELS
+        LOAD MODEL
         ========================================
         */
-
-        $studentModel = new StudentModel();
-
-        $staffModel = new StaffModel();
 
         $userModel = new User();
 
 
         /*
         ========================================
-        DASHBOARD DATA
+        GET PARENTS
         ========================================
         */
 
-        $data = [];
-
-
-        $data['school_id'] =
-            $school_id;
-
-
-        $data['student_count'] =
-            $studentModel
-                ->getStudentCountBySchool(
-                    $school_id
-                );
-
-
-        $data['staff_count'] =
-            $staffModel
-                ->getStaffCountBySchool(
-                    $school_id
-                );
-
-
-        $data['parent_count'] =
-            $userModel
-                ->getParentCountBySchool(
-                    $school_id
-                );
+        $parents =
+            $userModel->getParentsBySchool(
+                $school_id
+            );
 
 
         /*
         ========================================
-        LOAD HOME VIEW
+        LOAD VIEW
         ========================================
         */
 
-        $this->view(
-            "home",
-            $data
-        );
-
+        $this->view('parents', [
+            'parents' => $parents
+        ]);
     }
 }

@@ -5,28 +5,67 @@ require_once "../private/models/StudentModel.php";
 class Students extends Controller
 {
     public function index()
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
-        // Only Super Admin
-        if (
-            !isset($_SESSION['rank']) ||
-            $_SESSION['rank'] !== 'super_admin'
-        ) {
-            header("Location: " . ROOT . "/home");
-            exit;
-        }
+    if (!isset($_SESSION['rank'])) {
+        header("Location: " . ROOT . "/login");
+        exit;
+    }
 
-        $studentModel = new StudentModel();
+    $rank = $_SESSION['rank'];
+
+    $studentModel = new StudentModel();
+
+
+    // ==============================
+    // SUPER ADMIN
+    // ==============================
+
+    if ($rank === 'super_admin') {
 
         $students = $studentModel->getAllStudents();
 
-        $this->view('students', [
-            'students' => $students
-        ]);
     }
+
+
+    // ==============================
+    // SCHOOL ADMIN
+    // ==============================
+
+    elseif ($rank === 'admin') {
+
+        $school_id = $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+            die("No school is assigned to this account.");
+        }
+
+        $students = $studentModel->getStudentsBySchool(
+            $school_id
+        );
+
+    }
+
+
+    // ==============================
+    // OTHER USERS
+    // ==============================
+
+    else {
+
+        header("Location: " . ROOT . "/home");
+        exit;
+
+    }
+
+
+    $this->view('students', [
+        'students' => $students
+    ]);
+}
 
 	public function details($student_id = null)
 {
@@ -34,16 +73,11 @@ class Students extends Controller
         session_start();
     }
 
-    // Only Super Admin
-    if (
-        !isset($_SESSION['rank']) ||
-        $_SESSION['rank'] !== 'super_admin'
-    ) {
-        header("Location: " . ROOT . "/home");
+    if (!isset($_SESSION['rank'])) {
+        header("Location: " . ROOT . "/login");
         exit;
     }
 
-    // Student ID missing
     if ($student_id === null || $student_id === '') {
         header("Location: " . ROOT . "/students");
         exit;
@@ -51,18 +85,65 @@ class Students extends Controller
 
     $studentModel = new StudentModel();
 
-    // Get selected student
-    $studentData =
-        $studentModel->getStudentDetails(
-            $student_id
-        );
+    $rank = $_SESSION['rank'];
+
+
+    // ==============================
+    // SUPER ADMIN
+    // ==============================
+
+    if ($rank === 'super_admin') {
+
+        $studentData =
+            $studentModel->getStudentDetails(
+                $student_id
+            );
+    }
+
+
+    // ==============================
+    // SCHOOL ADMIN
+    // ==============================
+
+    elseif ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+            die("No school is assigned to this account.");
+        }
+
+        $studentData =
+            $studentModel->getStudentDetailsBySchool(
+                $student_id,
+                $school_id
+            );
+    }
+
+
+    // ==============================
+    // OTHER USERS
+    // ==============================
+
+    else {
+
+        header("Location: " . ROOT . "/home");
+        exit;
+    }
+
+
+    // ==============================
+    // STUDENT NOT FOUND
+    // ==============================
 
     if (!$studentData) {
+
         die(
-            "Student not found. Student ID: "
-            . htmlspecialchars($student_id)
+            "Student not found or you do not have permission to view this student."
         );
     }
+
 
     $this->view('student-details', [
         'student' => $studentData
@@ -75,15 +156,337 @@ public function add()
         session_start();
     }
 
-    // Only Super Admin
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+
+        header("Location: " . ROOT . "/login");
+        exit;
+
+    }
+
+
+    /*
+    ========================================
+    CHECK ROLE
+    ========================================
+    */
+
+    $rank = $_SESSION['rank'] ?? '';
+
     if (
-        !isset($_SESSION['rank']) ||
-        $_SESSION['rank'] !== 'super_admin'
+        $rank !== 'super_admin' &&
+        $rank !== 'admin'
+    ) {
+
+        header("Location: " . ROOT . "/home");
+        exit;
+
+    }
+
+
+    /*
+    ========================================
+    SCHOOL ADMIN
+    ========================================
+    */
+
+    if ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+
+            die(
+                "No school is assigned to this account."
+            );
+
+        }
+
+    }
+
+
+    /*
+    ========================================
+    LOAD ADD STUDENT VIEW
+    ========================================
+    */
+
+    $this->view('student-add');
+}
+
+public function create()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+        header("Location: " . ROOT . "/login");
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK ROLE
+    ========================================
+    */
+
+    $rank = $_SESSION['rank'] ?? '';
+
+    if (
+        $rank !== 'super_admin' &&
+        $rank !== 'admin'
     ) {
         header("Location: " . ROOT . "/home");
         exit;
     }
 
-    $this->view('student-add');
+
+    /*
+    ========================================
+    ONLY POST REQUEST
+    ========================================
+    */
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header("Location: " . ROOT . "/students/add");
+        exit;
+    }
+
+
+    /*
+    ========================================
+    DETERMINE SCHOOL
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
+
+        // Super Admin can choose the school
+        $school_id = $_POST['school_id'] ?? null;
+
+    } else {
+
+        // School Admin MUST use their own school
+        $school_id = $_SESSION['school_id'] ?? null;
+    }
+
+
+    if (!$school_id) {
+        die("School ID is required.");
+    }
+
+
+    /*
+    ========================================
+    GET FORM DATA
+    ========================================
+    */
+
+    $firstname =
+        trim($_POST['firstname'] ?? '');
+
+    $lastname =
+        trim($_POST['lastname'] ?? '');
+
+    $email =
+        trim($_POST['email'] ?? '');
+
+    $password =
+        $_POST['password'] ?? '';
+
+    $gender =
+        $_POST['gender'] ?? '';
+
+    $date_of_birth =
+        $_POST['date_of_birth'] ?? null;
+
+    $admission_number =
+        trim($_POST['admission_number'] ?? '');
+
+    $class =
+        trim($_POST['class'] ?? '');
+
+    $division =
+        trim($_POST['division'] ?? '');
+
+    $roll_number =
+        trim($_POST['roll_number'] ?? '');
+
+    $admission_date =
+        $_POST['admission_date'] ?? null;
+
+    $parent_name =
+        trim($_POST['parent_name'] ?? '');
+
+    $parent_phone =
+        trim($_POST['parent_phone'] ?? '');
+
+    $parent_email =
+        trim($_POST['parent_email'] ?? '');
+
+    $address =
+        trim($_POST['address'] ?? '');
+
+
+    /*
+    ========================================
+    BASIC VALIDATION
+    ========================================
+    */
+
+    if (
+        $firstname === '' ||
+        $lastname === '' ||
+        $email === '' ||
+        $password === '' ||
+        $gender === '' ||
+        $admission_number === '' ||
+        $class === '' ||
+        $division === '' ||
+        $parent_name === '' ||
+        $parent_phone === ''
+    ) {
+
+        die("Please fill all required fields.");
+
+    }
+
+
+    /*
+    ========================================
+    PASSWORD HASH
+    ========================================
+    */
+
+    $hashedPassword =
+        password_hash(
+            $password,
+            PASSWORD_DEFAULT
+        );
+
+
+    /*
+    ========================================
+    USER DATA
+    ========================================
+    */
+
+    $userData = [
+
+        'firstname' => $firstname,
+
+        'lastname' => $lastname,
+
+        'email' => $email,
+
+        'gender' => $gender,
+
+        'school_id' => $school_id,
+
+        'password' => $hashedPassword
+
+    ];
+
+
+    /*
+    ========================================
+    STUDENT DATA
+    ========================================
+    */
+
+    $studentData = [
+
+        'school_id' =>
+            $school_id,
+
+        'admission_number' =>
+            $admission_number,
+
+        'class' =>
+            $class,
+
+        'division' =>
+            $division,
+
+        'roll_number' =>
+            $roll_number,
+
+        'date_of_birth' =>
+            $date_of_birth,
+
+        'admission_date' =>
+            $admission_date,
+
+        'parent_name' =>
+            $parent_name,
+
+        'parent_phone' =>
+            $parent_phone,
+
+        'parent_email' =>
+            $parent_email,
+
+        'address' =>
+            $address
+    ];
+
+
+    /*
+    ========================================
+    CREATE STUDENT
+    ========================================
+    */
+
+    $studentModel =
+        new StudentModel();
+
+
+    $created =
+        $studentModel->createStudent(
+            $userData,
+            $studentData
+        );
+
+
+    /*
+    ========================================
+    RESULT
+    ========================================
+    */
+
+    if (!$created) {
+
+        die(
+            "Unable to create student."
+        );
+
+    }
+
+
+    /*
+    ========================================
+    SUCCESS
+    ========================================
+    */
+
+    header(
+        "Location: " . ROOT . "/students"
+    );
+
+    exit;
 }
 }

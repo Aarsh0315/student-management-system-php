@@ -2,13 +2,8 @@
 
 /*
 |--------------------------------------------------------------------------
-| PROFILE CARD
+| SUPER ADMIN PROFILE CARD
 |--------------------------------------------------------------------------
-| This file is used as a component inside home.view.php
-|
-| Example:
-| <?php require "../private/views/profile.view.php"; ?>
-|
 */
 
 
@@ -17,70 +12,49 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-/* =========================
-   USER INFORMATION
-========================= */
+/*
+========================================
+USER INFORMATION
+========================================
+*/
 
-$firstname = $_SESSION['firstname'] ?? 'User';
+$firstname =
+    $_SESSION['firstname']
+    ?? 'System';
 
-$lastname = $_SESSION['lastname'] ?? '';
+$lastname =
+    $_SESSION['lastname']
+    ?? 'Admin';
 
-$email = $_SESSION['email'] ?? '';
-
-$rank = $_SESSION['rank'] ?? 'user';
-
-$user_id = $_SESSION['user_id'] ?? '-';
-
-
-/* =========================
-   RANK NAME
-========================= */
-
-$rankNames = [
-
-    'super_admin'    => 'Super Admin',
-
-    'admin'          => 'School Admin',
-
-    'principal'      => 'Principal',
-
-    'vice_principal' => 'Vice Principal',
-
-    'teacher'        => 'Teacher',
-
-    'student'        => 'Student',
-
-    'parent'         => 'Parent',
-
-    'staff'          => 'Staff'
-
-];
+$email =
+    $_SESSION['email']
+    ?? 'superadmin@myschool.com';
 
 
-$rankName = $rankNames[$rank]
-    ?? ucfirst($rank);
 
-
-/* =========================
-   AVATAR
-========================= */
+/*
+========================================
+AVATAR
+========================================
+*/
 
 $avatar = strtoupper(
-    substr($firstname, 0, 1)
+    substr(
+        $firstname,
+        0,
+        1
+    )
 );
 
 ?>
 
 
-
-<!-- =========================
-     PROFILE CARD
-========================= -->
-
 <section class="profile-card">
 
 
-    <!-- LEFT SIDE -->
+    <!-- ====================================
+         PROFILE LEFT
+    ===================================== -->
 
     <div class="profile-left">
 
@@ -94,41 +68,39 @@ $avatar = strtoupper(
         </div>
 
 
-        <!-- USER DETAILS -->
+
+        <!-- DETAILS -->
 
         <div class="profile-details">
 
+            <p class="profile-label">
+                Signed in as
+            </p>
 
-            <!-- NAME -->
 
             <h2>
 
                 <?= htmlspecialchars(
-                    $firstname
-                    . ' '
-                    . $lastname
+                    trim(
+                        $firstname
+                        . ' '
+                        . $lastname
+                    )
                 ) ?>
 
             </h2>
 
 
-            <!-- EMAIL -->
-
-            <p>
+            <p class="profile-email">
 
                 <?= htmlspecialchars($email) ?>
 
             </p>
 
 
-            <!-- RANK -->
-
-            <span>
-
-                <?= htmlspecialchars($rankName) ?>
-
+            <span class="profile-role">
+                Super Admin
             </span>
-
 
         </div>
 
@@ -137,14 +109,17 @@ $avatar = strtoupper(
 
 
 
-    <!-- PROFILE BUTTON -->
+    <!-- ====================================
+         VIEW PROFILE
+    ===================================== -->
 
     <a
-    href="<?= ROOT ?>/superadmin"
-    class="profile-btn"
->
-    Dashboard
-</a>
+        href="<?= ROOT ?>/profile"
+        class="profile-btn"
+    >
+        View Profile
+        <span>→</span>
+    </a>
 
 
 </section>

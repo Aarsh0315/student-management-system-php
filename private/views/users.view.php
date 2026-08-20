@@ -25,7 +25,7 @@ $users = $data['users'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
     > 
 
     <link

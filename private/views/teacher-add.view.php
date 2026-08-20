@@ -15,24 +15,32 @@
     >
 
     <title>
-        Add Student - My School
+        Add Teacher - My School
     </title>
 
 
+    <!-- COMMON CSS -->
+
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css"
-    > 
+        href="<?= ROOT ?>/css/home.view.css?v=2"
+    >
+
+
+    <!-- TEACHER ADD CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-add.view.css"
+        href="<?= ROOT ?>/css/teacher-add.view.css?v=1"
     >
+
+
+    <!-- FOOTER -->
 
     <link
         rel="stylesheet"
@@ -51,22 +59,24 @@
 <main class="dashboard">
 
 
-    <!-- HEADER -->
+    <!-- =========================
+         PAGE HEADER
+    ========================== -->
 
     <section class="welcome">
 
         <div>
 
             <p class="welcome-small">
-                Student Management
+                School Admin
             </p>
 
             <h1>
-                Add Student
+                Add Teacher
             </h1>
 
             <p class="welcome-text">
-                Register a new student in the system.
+                Register a new teacher in your school.
             </p>
 
         </div>
@@ -74,14 +84,17 @@
     </section>
 
 
-    <!-- FORM -->
 
-    <section class="student-form-card">
+    <!-- =========================
+         TEACHER FORM
+    ========================== -->
+
+    <section class="teacher-form-card">
 
 
         <form
             method="POST"
-            action="<?= ROOT ?>/students/create"
+            action="<?= ROOT ?>/teachers/create"
         >
 
 
@@ -99,6 +112,8 @@
                 <div class="form-grid">
 
 
+                    <!-- FIRST NAME -->
+
                     <div class="form-group">
 
                         <label>
@@ -113,6 +128,8 @@
 
                     </div>
 
+
+                    <!-- LAST NAME -->
 
                     <div class="form-group">
 
@@ -129,6 +146,8 @@
                     </div>
 
 
+                    <!-- EMAIL -->
+
                     <div class="form-group">
 
                         <label>
@@ -144,6 +163,8 @@
                     </div>
 
 
+                    <!-- PASSWORD -->
+
                     <div class="form-group">
 
                         <label>
@@ -158,6 +179,8 @@
 
                     </div>
 
+
+                    <!-- GENDER -->
 
                     <div class="form-group">
 
@@ -190,235 +213,221 @@
 
                     </div>
 
-
-                    <div class="form-group">
-
-                        <label>
-                            Date of Birth
-                        </label>
-
-                        <input
-                            type="date"
-                            name="date_of_birth"
-                        >
-
-                    </div>
-
-
                 </div>
 
             </div>
 
 
+
             <!-- =========================
-                 SCHOOL INFORMATION
+                 PROFESSIONAL INFORMATION
             ========================== -->
 
             <div class="form-section">
 
                 <h2>
-                    School & Academic Information
+                    Professional Information
                 </h2>
 
 
                 <div class="form-grid">
 
 
-                    <?php if (($_SESSION['rank'] ?? '') === 'super_admin'): ?>
+                    <!-- DEPARTMENT -->
 
                     <div class="form-group">
 
                         <label>
-                            School ID
-                        </label>
-
-                        <input
-                            type="number"
-                            name="school_id"
-                            required
-                        >
-
-                    </div>
-
-                <?php endif; ?>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Admission Number
+                            Department
                         </label>
 
                         <input
                             type="text"
-                            name="admission_number"
+                            name="department"
+                            placeholder="Science"
                             required
                         >
 
                     </div>
 
 
+                    <!-- DESIGNATION -->
+
                     <div class="form-group">
 
                         <label>
-                            Class
+                            Designation
+                        </label>
+
+                        <select
+                            name="designation"
+                            required
+                        >
+
+                            <option value="">
+                                Select Designation
+                            </option>
+
+                            <option value="Teacher">
+                                Teacher
+                            </option>
+
+                            <option value="Senior Teacher">
+                                Senior Teacher
+                            </option>
+
+                            <option value="Head Teacher">
+                                Head Teacher
+                            </option>
+
+                            <option value="Principal">
+                                Principal
+                            </option>
+
+                            <option value="Other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- QUALIFICATION -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Qualification
                         </label>
 
                         <input
                             type="text"
-                            name="class"
-                            placeholder="10"
+                            name="qualification"
+                            placeholder="M.Sc Physics"
                             required
                         >
 
                     </div>
 
 
-                    <div class="form-group">
-
-                        <label>
-                            Division
-                        </label>
-
-                        <input
-                            type="text"
-                            name="division"
-                            placeholder="A"
-                            required
-                        >
-
-                    </div>
-
+                    <!-- JOINING DATE -->
 
                     <div class="form-group">
 
                         <label>
-                            Roll Number
-                        </label>
-
-                        <input
-                            type="text"
-                            name="roll_number"
-                        >
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label>
-                            Admission Date
+                            Joining Date
                         </label>
 
                         <input
                             type="date"
-                            name="admission_date"
+                            name="joining_date"
+                            required
                         >
 
                     </div>
 
+
+                    <!-- EMPLOYMENT TYPE -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Employment Type
+                        </label>
+
+                        <select
+                            name="employment_type"
+                            required
+                        >
+
+                            <option value="">
+                                Select Employment Type
+                            </option>
+
+                            <option value="Full-time">
+                                Full-time
+                            </option>
+
+                            <option value="Part-time">
+                                Part-time
+                            </option>
+
+                            <option value="Contract">
+                                Contract
+                            </option>
+
+                        </select>
+
+                    </div>
 
                 </div>
 
             </div>
 
 
+
             <!-- =========================
-                 PARENT INFORMATION
+                 CONTACT INFORMATION
             ========================== -->
 
             <div class="form-section">
 
                 <h2>
-                    Parent / Guardian Information
+                    Contact Information
                 </h2>
 
 
                 <div class="form-grid">
 
 
-                    <div class="form-group">
-
-                        <label>
-                            Parent Name
-                        </label>
-
-                        <input
-                            type="text"
-                            name="parent_name"
-                            required
-                        >
-
-                    </div>
-
+                    <!-- PHONE -->
 
                     <div class="form-group">
 
                         <label>
-                            Parent Phone
+                            Phone
                         </label>
 
                         <input
                             type="tel"
-                            name="parent_phone"
+                            name="phone"
                             required
                         >
 
                     </div>
 
 
+                    <!-- ADDRESS -->
+
                     <div class="form-group">
 
                         <label>
-                            Parent Email
+                            Address
                         </label>
 
-                        <input
-                            type="email"
-                            name="parent_email"
-                        >
+                        <textarea
+                            name="address"
+                            rows="4"
+                        ></textarea>
 
                     </div>
 
-
                 </div>
 
             </div>
+
 
 
             <!-- =========================
-                 ADDRESS
+                 ACTIONS
             ========================== -->
-
-            <div class="form-section">
-
-                <h2>
-                    Address
-                </h2>
-
-
-                <div class="form-group">
-
-                    <label>
-                        Address
-                    </label>
-
-                    <textarea
-                        name="address"
-                        rows="4"
-                    ></textarea>
-
-                </div>
-
-            </div>
-
-
-            <!-- ACTIONS -->
 
             <div class="form-actions">
 
+
                 <a
-                    href="<?= ROOT ?>/students"
+                    href="<?= ROOT ?>/teachers"
                     class="cancel-btn"
                 >
                     Cancel
@@ -429,8 +438,9 @@
                     type="submit"
                     class="save-btn"
                 >
-                    Add Student
+                    Add Teacher
                 </button>
+
 
             </div>
 

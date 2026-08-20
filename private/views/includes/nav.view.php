@@ -4,81 +4,330 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+$rank = $_SESSION['rank'] ?? '';
+
+/*
+========================================
+DASHBOARD URL
+========================================
+*/
+
+if ($rank === 'super_admin') {
+
+    $dashboardUrl = ROOT . '/superadmin';
+
+    $roleName = 'Super Admin';
+
+} elseif ($rank === 'admin') {
+
+    $dashboardUrl = ROOT . '/school-admin';
+
+    $roleName = 'School Admin';
+
+} else {
+
+    $dashboardUrl = ROOT . '/home';
+
+    $roleName = 'User';
+
+}
+
+
+/*
+========================================
+CURRENT PAGE
+========================================
+*/
+
+$currentUrl = $_GET['url'] ?? '';
+
+$currentUrl = trim(
+    $currentUrl,
+    '/'
+);
+
+$currentPage = explode(
+    '/',
+    $currentUrl
+)[0] ?? '';
+
 ?>
 
 <nav class="navbar">
 
     <div class="navbar-container">
 
+
+        <!-- ========================================
+             BRAND
+        ========================================= -->
+
         <a
-            href="<?= $_SESSION['rank'] === 'super_admin'
-                ? ROOT . '/superadmin'
-                : ROOT . '/home' ?>"
-            class="logo"
+            href="<?= $dashboardUrl ?>"
+            class="navbar-brand"
         >
             My School
         </a>
 
 
-        <div class="nav-links">
 
-            <?php if ($_SESSION['rank'] === 'super_admin'): ?>
+        <!-- ========================================
+             RIGHT SIDE
+        ========================================= -->
 
-                <a href="<?= ROOT ?>/superadmin">
-                    Dashboard
-                </a>
+        <div class="nav-right">
 
-                <a href="<?= ROOT ?>/schools">
-                    Schools
-                </a>
 
-                <a href="<?= ROOT ?>/users">
-                    Users
-                </a>
+            <!-- ========================================
+                 NAVIGATION LINKS
+            ========================================= -->
 
-                <a href="<?= ROOT ?>/students">
-                    Students
-                </a>
+            <div class="nav-links">
 
-                <a href="<?= ROOT ?>/staff">
-                    Staff
-                </a>
 
-                <a href="<?= ROOT ?>/schooladmins">
+                <?php if ($rank === 'super_admin'): ?>
+
+
+                    <!-- SUPER ADMIN -->
+
+                    <a
+                        href="<?= ROOT ?>/superadmin"
+                        class="nav-link
+                        <?= $currentPage === 'superadmin'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Dashboard
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/schools"
+                        class="nav-link
+                        <?= $currentPage === 'schools'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Schools
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/users"
+                        class="nav-link
+                        <?= $currentPage === 'users'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Users
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/students"
+                        class="nav-link
+                        <?= $currentPage === 'students'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Students
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/staff"
+                        class="nav-link
+                        <?= $currentPage === 'staff'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Staff
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/schooladmins"
+                        class="nav-link
+                        <?= $currentPage === 'schooladmins'
+                            ? 'active'
+                            : '' ?>"
+                    >
                         School Admins
                     </a>
 
-                <a href="<?= ROOT ?>/profile">
-                    Profile
-                </a>
 
-            <?php else: ?>
+                    <a
+                        href="<?= ROOT ?>/profile"
+                        class="nav-link
+                        <?= $currentPage === 'profile'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Profile
+                    </a>
 
-                <a href="<?= ROOT ?>/home">
-                    Dashboard
-                </a>
 
-                <a href="<?= ROOT ?>/students">
-                    Students
-                </a>
 
-                <a href="<?= ROOT ?>/teachers">
-                    Teachers
-                </a>
-                
+                <?php elseif ($rank === 'admin'): ?>
 
-                <a href="<?= ROOT ?>/profile">
-                    Profile
-                </a>
 
-            <?php endif; ?>
+                    <!-- SCHOOL ADMIN -->
+
+                    <a
+                        href="<?= ROOT ?>/school-admin"
+                        class="nav-link
+                        <?= $currentPage === 'school-admin'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Dashboard
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/students"
+                        class="nav-link
+                        <?= $currentPage === 'students'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Students
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/teachers"
+                        class="nav-link
+                        <?= $currentPage === 'teachers'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Teachers
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/parents"
+                        class="nav-link
+                        <?= $currentPage === 'parents'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Parents
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/profile"
+                        class="nav-link
+                        <?= $currentPage === 'profile'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Profile
+                    </a>
+
+
+
+                <?php else: ?>
+
+
+                    <!-- OTHER USERS -->
+
+                    <a
+                        href="<?= ROOT ?>/home"
+                        class="nav-link
+                        <?= $currentPage === 'home'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Dashboard
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/profile"
+                        class="nav-link
+                        <?= $currentPage === 'profile'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Profile
+                    </a>
+
+
+                <?php endif; ?>
+
+
+            </div>
+
+
+
+            <!-- ========================================
+                 USER PROFILE
+            ========================================= -->
+
+            <a
+                href="<?= ROOT ?>/profile"
+                class="profile-link"
+            >
+
+                <div class="user-avatar">
+
+                    <?php
+
+                    $firstname =
+                        $_SESSION['firstname']
+                        ?? 'U';
+
+                    echo strtoupper(
+                        substr(
+                            $firstname,
+                            0,
+                            1
+                        )
+                    );
+
+                    ?>
+
+                </div>
+
+
+                <div class="user-info">
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $_SESSION['firstname']
+                            ?? 'User'
+                        ) ?>
+
+                    </strong>
+
+                    <span>
+                        <?= htmlspecialchars(
+                            $roleName
+                        ) ?>
+                    </span>
+
+                </div>
+
+            </a>
+
+
+
+            <!-- ========================================
+                 LOGOUT
+            ========================================= -->
 
             <a
                 href="<?= ROOT ?>/logout"
                 class="logout-btn"
+                title="Logout"
             >
                 Logout
             </a>
+
 
         </div>
 

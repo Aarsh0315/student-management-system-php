@@ -1,8 +1,10 @@
 <?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+$student_count = $data['student_count'] ?? 0;
+
+$staff_count = $data['staff_count'] ?? 0;
+
+$parent_count = $data['parent_count'] ?? 0;
 
 ?>
 
@@ -18,19 +20,36 @@ if (session_status() === PHP_SESSION_NONE) {
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>My School - Dashboard</title>
+    <title>
+        School Admin Dashboard - My School
+    </title>
+
+
+    <!-- NAVBAR -->
 
     <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/home.view.css"
->
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=3"
+    >
 
-<link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/footer.view.css"
->
+
+    <!-- HOME CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/home.view.css?v=3"
+    >
+
+
+    <!-- FOOTER -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=3"
+    >
 
 </head>
+
 
 <body>
 
@@ -40,44 +59,151 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <main class="dashboard">
 
+
+    <!-- =========================
+         WELCOME
+    ========================== -->
+
     <section class="welcome">
 
-        <div>
+        <p class="welcome-small">
+            School Admin
+        </p>
 
-            <p class="welcome-small">
-                Welcome back 👋
-            </p>
 
-            <h1>
-                <?= htmlspecialchars($_SESSION['firstname'] ?? '') ?>
-                <?= htmlspecialchars($_SESSION['lastname'] ?? '') ?>
-            </h1>
+        <h1>
+            Dashboard
+        </h1>
 
-            <p class="welcome-text">
-                Manage your school information from your dashboard.
-            </p>
 
-        </div>
+        <p class="welcome-text">
+            Manage your school's students,
+            teachers and parents.
+        </p>
 
     </section>
 
 
-    <!-- PROFILE COMPONENT -->
 
-    <?php require "../private/views/profile.view.php"; ?>
+    <!-- =========================
+         PROFILE CARD
+    ========================== -->
+
+    <section class="profile-card">
+
+        <div class="profile-left">
 
 
-    <!-- Dashboard content -->
+            <!-- AVATAR -->
+
+            <div class="profile-avatar">
+
+                <?php
+
+                $firstname =
+                    $_SESSION['firstname']
+                    ?? 'A';
+
+                echo strtoupper(
+                    substr(
+                        $firstname,
+                        0,
+                        1
+                    )
+                );
+
+                ?>
+
+            </div>
+
+
+
+            <!-- DETAILS -->
+
+            <div class="profile-details">
+
+                <h2>
+
+                    <?= htmlspecialchars(
+                        $_SESSION['firstname']
+                        ?? 'School Admin'
+                    ) ?>
+
+                    <?= htmlspecialchars(
+                        $_SESSION['lastname']
+                        ?? ''
+                    ) ?>
+
+                </h2>
+
+
+                <p>
+
+                    <?= htmlspecialchars(
+                        $_SESSION['email']
+                        ?? '-'
+                    ) ?>
+
+                </p>
+
+
+                <span>
+                    School Admin
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <a
+            href="<?= ROOT ?>/profile"
+            class="profile-btn"
+        >
+            View Profile
+        </a>
+
+    </section>
+
+
+
+    <!-- =========================
+         DASHBOARD CARDS
+    ========================== -->
 
     <section class="dashboard-cards">
 
+
+        <!-- =========================
+             STUDENTS
+        ========================== -->
+
         <div class="dashboard-card">
 
-            <h3>Students</h3>
+            <div class="card-icon">
+                🎓
+            </div>
+
+
+            <h3>
+                Students
+            </h3>
+
 
             <p>
-                View and manage student records.
+                Manage students registered
+                in your school.
             </p>
+
+
+            <strong class="dashboard-count">
+
+                <?= htmlspecialchars(
+                    $student_count
+                ) ?>
+
+            </strong>
+
 
             <a href="<?= ROOT ?>/students">
                 Manage Students →
@@ -86,13 +212,37 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
 
 
+
+        <!-- =========================
+             TEACHERS
+        ========================== -->
+
         <div class="dashboard-card">
 
-            <h3>Teachers</h3>
+            <div class="card-icon">
+                👨‍🏫
+            </div>
+
+
+            <h3>
+                Teachers
+            </h3>
+
 
             <p>
-                View and manage teacher information.
+                Manage teachers and staff
+                members in your school.
             </p>
+
+
+            <strong class="dashboard-count">
+
+                <?= htmlspecialchars(
+                    $staff_count
+                ) ?>
+
+            </strong>
+
 
             <a href="<?= ROOT ?>/teachers">
                 Manage Teachers →
@@ -101,16 +251,75 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
 
 
+
+        <!-- =========================
+             PARENTS
+        ========================== -->
+
         <div class="dashboard-card">
 
-            <h3>My Profile</h3>
+            <div class="card-icon">
+                👨‍👩‍👧
+            </div>
+
+
+            <h3>
+                Parents
+            </h3>
+
 
             <p>
-                View your personal account information.
+                Manage parents associated
+                with your students.
             </p>
 
-            <a href="<?= ROOT ?>/profile">
-                View Profile →
+
+            <strong class="dashboard-count">
+
+                <?= htmlspecialchars(
+                    $parent_count
+                ) ?>
+
+            </strong>
+
+
+            <a href="<?= ROOT ?>/parents">
+                Manage Parents →
+            </a>
+
+        </div>
+
+
+
+        <!-- =========================
+             CLASSES
+        ========================== -->
+
+        <div class="dashboard-card">
+
+            <div class="card-icon">
+                📚
+            </div>
+
+
+            <h3>
+                Classes
+            </h3>
+
+
+            <p>
+                Manage classes and divisions
+                in your school.
+            </p>
+
+
+            <strong class="dashboard-count">
+                —
+            </strong>
+
+
+            <a href="<?= ROOT ?>/classes">
+                Manage Classes →
             </a>
 
         </div>
@@ -118,9 +327,94 @@ if (session_status() === PHP_SESSION_NONE) {
 
     </section>
 
-</main>
 
-<!-- FOOTER -->
+
+    <!-- =========================
+         SCHOOL MANAGEMENT
+    ========================== -->
+
+    <section class="quick-section">
+
+
+        <h2>
+            School Management
+        </h2>
+
+
+        <div class="info-grid">
+
+
+            <div class="info-box">
+
+                <span>
+                    Students
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student_count
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    Teachers
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $staff_count
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    Parents
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $parent_count
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+            <div class="info-box">
+
+                <span>
+                    Access Level
+                </span>
+
+                <strong>
+                    School Admin
+                </strong>
+
+            </div>
+
+
+        </div>
+
+
+    </section>
+
+
+</main>
 
 
 <?php require "../private/views/includes/footer.view.php"; ?>

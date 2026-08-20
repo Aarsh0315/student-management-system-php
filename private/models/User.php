@@ -126,4 +126,28 @@ public function getParentCountBySchool($school_id)
 
     return $result[0]->total ?? 0;
 }
+
+public function getParentsBySchool($school_id)
+{
+    $query = "SELECT
+                user_id,
+                firstname,
+                lastname,
+                email,
+                gender,
+                school_id,
+                rank,
+                status
+
+              FROM users
+
+              WHERE school_id = :school_id
+              AND rank = 'parent'
+
+              ORDER BY user_id DESC";
+
+    return $this->query($query, [
+        'school_id' => $school_id
+    ]);
+}
 }

@@ -7,7 +7,12 @@
 
     background: #ffffff;
 
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom:
+        1px solid #e4e7ec;
+
+    box-shadow:
+        0 2px 8px
+        rgba(16, 24, 40, 0.04);
 
     position: sticky;
 
@@ -24,50 +29,77 @@
 .navbar-container {
     width: 100%;
 
-    max-width: 1250px;
+    max-width: 1450px;
 
-    height: 72px;
+    min-height: 72px;
 
     margin: 0 auto;
 
-    padding: 0 30px;
+    padding:
+        0 32px;
 
     display: flex;
 
     align-items: center;
 
     justify-content: space-between;
+
+    gap: 30px;
 }
 
 
 /* ========================================
-   LOGO
+   BRAND
 ======================================== */
 
-.logo {
-    text-decoration: none;
+.navbar-brand {
+    display: flex;
+
+    align-items: center;
 
     color: #172033;
 
-    font-size: 24px;
+    text-decoration: none;
+
+    font-size: 25px;
 
     font-weight: 700;
 
-    letter-spacing: -0.5px;
+    letter-spacing: -0.7px;
 
-    line-height: 1;
+    white-space: nowrap;
 
-    transition: color 0.2s ease;
+    flex-shrink: 0;
+
+    transition:
+        color 0.2s ease;
 }
 
 
-.logo:hover {
-    color: #2563eb;
+.navbar-brand:hover {
+    color: #0f172a;
 }
 
 
 /* ========================================
-   NAVIGATION LINKS
+   RIGHT SIDE
+======================================== */
+
+.nav-right {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 18px;
+
+    min-width: 0;
+}
+
+
+/* ========================================
+   NAVIGATION
 ======================================== */
 
 .nav-links {
@@ -75,32 +107,39 @@
 
     align-items: center;
 
-    gap: 6px;
+    gap: 3px;
 }
 
 
-.nav-links a {
+/* ========================================
+   NAV LINK
+======================================== */
+
+.nav-link {
     position: relative;
 
-    display: inline-flex;
+    min-height: 40px;
+
+    display: flex;
 
     align-items: center;
 
     justify-content: center;
 
+    padding:
+        0 12px;
+
+    border-radius: 7px;
+
+    color: #667085;
+
     text-decoration: none;
 
-    color: #64748b;
-
-    padding: 10px 14px;
-
-    border-radius: 8px;
-
-    font-size: 14px;
+    font-size: 13px;
 
     font-weight: 500;
 
-    line-height: 1;
+    white-space: nowrap;
 
     transition:
         color 0.2s ease,
@@ -109,54 +148,186 @@
 
 
 /* ========================================
-   NAVIGATION HOVER
+   HOVER
 ======================================== */
 
-.nav-links a:hover {
-    color: #2563eb;
+.nav-link:hover {
+    color: #172033;
 
-    background: #f1f5ff;
+    background: #f2f4f7;
 }
 
 
 /* ========================================
-   ACTIVE LINK
+   ACTIVE
 ======================================== */
 
-.nav-links a.active {
-    color: #2563eb;
+.nav-link.active {
+    color: #172033;
 
-    background: #eff6ff;
+    background: #eef1f5;
 
     font-weight: 600;
 }
 
 
 /* ========================================
-   LOGOUT BUTTON
+   ACTIVE UNDERLINE
 ======================================== */
 
-.nav-links .logout-btn {
-    margin-left: 8px;
+.nav-link.active::after {
+    content: "";
 
-    padding: 10px 16px;
+    position: absolute;
 
-    background: #fff1f2;
+    left: 12px;
 
-    color: #e11d48;
+    right: 12px;
 
-    border: 1px solid #ffe4e6;
+    bottom: 4px;
 
-    border-radius: 8px;
+    height: 2px;
+
+    border-radius: 2px;
+
+    background: #172033;
+}
+
+
+/* ========================================
+   PROFILE LINK
+======================================== */
+
+.profile-link {
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding-left: 16px;
+
+    border-left:
+        1px solid #e4e7ec;
+
+    text-decoration: none;
+
+    flex-shrink: 0;
+}
+
+
+/* ========================================
+   USER AVATAR
+======================================== */
+
+.user-avatar {
+    width: 36px;
+
+    height: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #eef1f5;
+
+    color: #172033;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   USER INFO
+======================================== */
+
+.user-info {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.user-info strong {
+    max-width: 100px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+
+    color: #344054;
+
+    font-size: 12px;
 
     font-weight: 600;
 }
 
 
-.nav-links .logout-btn:hover {
-    background: #ffe4e6;
+.user-info span {
+    color: #98a2b3;
 
-    color: #be123c;
+    font-size: 10px;
+
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   LOGOUT
+======================================== */
+
+.logout-btn {
+    min-height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding:
+        0 14px;
+
+    border:
+        1px solid #e4e7ec;
+
+    border-radius: 7px;
+
+    background: #ffffff;
+
+    color: #475467;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.logout-btn:hover {
+    background: #fef2f2;
+
+    border-color: #fecaca;
+
+    color: #b42318;
 }
 
 
@@ -164,20 +335,82 @@
    TABLET
 ======================================== */
 
+@media (max-width: 1200px) {
+
+    .navbar-container {
+        padding:
+            0 22px;
+    }
+
+
+    .navbar-brand {
+        font-size: 23px;
+    }
+
+
+    .nav-link {
+        padding:
+            0 9px;
+
+        font-size: 12px;
+    }
+
+
+    .profile-link {
+        padding-left: 10px;
+    }
+
+
+    .user-info {
+        display: none;
+    }
+
+}
+
+
+/* ========================================
+   SMALL TABLET
+======================================== */
+
 @media (max-width: 950px) {
 
     .navbar-container {
-        padding: 0 20px;
+        min-height: auto;
+
+        padding:
+            14px 20px;
+
+        flex-direction: column;
+
+        gap: 14px;
     }
 
-    .nav-links {
-        gap: 3px;
+
+    .navbar-brand {
+        justify-content: center;
     }
 
-    .nav-links a {
-        padding: 9px 10px;
 
-        font-size: 13px;
+    .nav-right {
+        width: 100%;
+
+        justify-content: center;
+
+        flex-wrap: wrap;
+
+        gap: 10px;
+    }
+
+
+    .profile-link {
+        border-left: none;
+
+        padding-left: 0;
+    }
+
+
+    .user-info {
+        display: flex;
     }
 
 }
@@ -187,46 +420,60 @@
    MOBILE
 ======================================== */
 
-@media (max-width: 700px) {
+@media (max-width: 650px) {
 
     .navbar-container {
-        height: auto;
+        padding:
+            13px 15px;
 
-        padding: 18px 20px;
-
-        flex-direction: column;
-
-        gap: 18px;
+        align-items: stretch;
     }
 
 
-    .logo {
-        font-size: 23px;
+    .navbar-brand {
+        justify-content: flex-start;
+
+        font-size: 22px;
+    }
+
+
+    .nav-right {
+        justify-content: flex-start;
+
+        flex-wrap: nowrap;
+
+        overflow-x: auto;
+
+        padding-bottom: 3px;
+
+        scrollbar-width: thin;
     }
 
 
     .nav-links {
-        width: 100%;
+        flex-shrink: 0;
 
-        flex-wrap: wrap;
-
-        justify-content: center;
-
-        gap: 5px;
+        flex-wrap: nowrap;
     }
 
 
-    .nav-links a {
-        padding: 8px 10px;
+    .nav-link {
+        flex-shrink: 0;
 
-        font-size: 13px;
+        padding:
+            0 10px;
+
+        font-size: 12px;
     }
 
 
-    .nav-links .logout-btn {
-        margin-left: 3px;
+    .profile-link {
+        flex-shrink: 0;
+    }
 
-        padding: 8px 12px;
+
+    .logout-btn {
+        flex-shrink: 0;
     }
 
 }
@@ -236,27 +483,22 @@
    SMALL MOBILE
 ======================================== */
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
 
-    .navbar-container {
-        padding: 16px 12px;
+    .navbar-brand {
+        font-size: 21px;
     }
 
 
-    .nav-links {
-        gap: 3px;
+    .user-info {
+        display: none;
     }
 
 
-    .nav-links a {
-        padding: 7px 8px;
+    .user-avatar {
+        width: 34px;
 
-        font-size: 12px;
-    }
-
-
-    .nav-links .logout-btn {
-        padding: 7px 10px;
+        height: 34px;
     }
 
 }

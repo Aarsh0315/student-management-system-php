@@ -1,0 +1,289 @@
+/* ========================================
+   TEACHERS PAGE
+======================================== */
+
+
+/* ========================================
+   TEACHERS CARD
+======================================== */
+
+.teachers-card {
+    margin-top: 10px;
+}
+
+
+/* ========================================
+   TEACHERS HEADER
+======================================== */
+
+.teachers-header {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 25px;
+}
+
+
+.teachers-header h2 {
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 22px;
+}
+
+
+.teachers-header p {
+    margin-top: 6px;
+
+    color: #667085;
+
+    font-size: 14px;
+}
+
+
+/* ========================================
+   ADD TEACHER BUTTON
+======================================== */
+
+.add-teacher-btn {
+    display: inline-block;
+
+    padding: 11px 18px;
+
+    background: #172033;
+
+    color: #ffffff;
+
+    text-decoration: none;
+
+    border-radius: 8px;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.add-teacher-btn:hover {
+    background: #0f172a;
+}
+
+
+/* ========================================
+   TABLE WRAPPER
+======================================== */
+
+.table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* ========================================
+   TEACHERS TABLE
+======================================== */
+
+.teachers-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+}
+
+
+.teachers-table th {
+    padding: 15px 18px;
+
+    text-align: left;
+
+    background: #f8fafc;
+
+    color: #475467;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    border-bottom: 1px solid #e4e7ec;
+
+    white-space: nowrap;
+}
+
+
+.teachers-table td {
+    padding: 16px 18px;
+
+    color: #344054;
+
+    font-size: 14px;
+
+    border-bottom: 1px solid #eef0f3;
+
+    white-space: nowrap;
+}
+
+
+.teachers-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+
+/* ========================================
+   TEACHER ID
+======================================== */
+
+.teacher-id {
+    color: #475467;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+   TEACHER NAME
+======================================== */
+
+.teacher-name {
+    color: #172033;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.status {
+    display: inline-block;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.status.active {
+    background: #dcfce7;
+
+    color: #166534;
+}
+
+
+.status.inactive {
+    background: #fee2e2;
+
+    color: #991b1b;
+}
+
+
+/* ========================================
+   VIEW BUTTON
+======================================== */
+
+.view-btn {
+    display: inline-block;
+
+    padding: 7px 13px;
+
+    background: #f1f5f9;
+
+    color: #172033;
+
+    text-decoration: none;
+
+    border-radius: 6px;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.view-btn:hover {
+    background: #e2e8f0;
+}
+
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.empty-state {
+    padding: 50px 20px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border-radius: 10px;
+}
+
+
+.empty-state h3 {
+    margin-bottom: 8px;
+
+    color: #172033;
+}
+
+
+.empty-state p {
+    color: #667085;
+
+    margin: 0;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 950px) {
+
+    .teachers-header {
+        align-items: flex-start;
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .teachers-header {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+
+    .add-teacher-btn {
+        width: 100%;
+
+        text-align: center;
+    }
+
+
+    .teachers-table {
+        min-width: 1000px;
+    }
+
+}
