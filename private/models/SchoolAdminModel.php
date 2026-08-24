@@ -2,6 +2,10 @@
 
 class SchoolAdminModel extends Model
 {
+    /* =====================================================
+       GET ALL SCHOOL ADMINS
+    ===================================================== */
+
     public function getAllAdmins()
     {
         $query = "SELECT
@@ -30,6 +34,10 @@ class SchoolAdminModel extends Model
     }
 
 
+    /* =====================================================
+       GET SCHOOL ADMIN DETAILS
+    ===================================================== */
+
     public function getAdminDetails($user_id)
     {
         $query = "SELECT
@@ -51,6 +59,7 @@ class SchoolAdminModel extends Model
                   ON u.school_id = s.id
 
                   WHERE u.user_id = :user_id
+
                   AND u.rank = 'admin'
 
                   LIMIT 1";

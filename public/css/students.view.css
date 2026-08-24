@@ -2,13 +2,7 @@
    STUDENTS PAGE
 ======================================== */
 
-
-/* ========================================
-   STUDENTS CARD
-======================================== */
-
 .students-card {
-
     width: 100%;
 
     background: #ffffff;
@@ -33,7 +27,6 @@
 ======================================== */
 
 .students-header {
-
     display: flex;
 
     align-items: center;
@@ -47,7 +40,6 @@
 
 
 .students-header h2 {
-
     margin: 0 0 6px;
 
     color: #172033;
@@ -61,7 +53,6 @@
 
 
 .students-header p {
-
     margin: 0;
 
     color: #64748b;
@@ -77,14 +68,15 @@
 ======================================== */
 
 .add-student-btn {
-
     display: inline-flex;
 
     align-items: center;
 
     justify-content: center;
 
-    padding: 10px 16px;
+    min-height: 40px;
+
+    padding: 0 16px;
 
     background: #2563eb;
 
@@ -114,7 +106,6 @@
 
 
 .add-student-btn:hover {
-
     background: #1d4ed8;
 
     border-color: #1d4ed8;
@@ -131,7 +122,6 @@
 ======================================== */
 
 .table-wrapper {
-
     width: 100%;
 
     overflow-x: auto;
@@ -139,6 +129,8 @@
     border: 1px solid #eef0f3;
 
     border-radius: 10px;
+
+    scrollbar-width: thin;
 }
 
 
@@ -147,7 +139,6 @@
 ======================================== */
 
 .table-wrapper table {
-
     width: 100%;
 
     min-width: 1050px;
@@ -163,13 +154,11 @@
 ======================================== */
 
 .table-wrapper thead {
-
     background: #f8fafc;
 }
 
 
 .table-wrapper th {
-
     padding: 13px 14px;
 
     color: #64748b;
@@ -195,7 +184,6 @@
 ======================================== */
 
 .table-wrapper td {
-
     padding: 15px 14px;
 
     color: #475569;
@@ -215,7 +203,6 @@
 ======================================== */
 
 .table-wrapper tbody tr:last-child td {
-
     border-bottom: none;
 }
 
@@ -225,14 +212,12 @@
 ======================================== */
 
 .table-wrapper tbody tr {
-
     transition:
         background 0.15s ease;
 }
 
 
 .table-wrapper tbody tr:hover {
-
     background: #f8fafc;
 }
 
@@ -242,7 +227,6 @@
 ======================================== */
 
 .student-id {
-
     display: inline-flex;
 
     align-items: center;
@@ -268,7 +252,6 @@
 ======================================== */
 
 .student-name {
-
     color: #172033;
 
     font-size: 13px;
@@ -282,7 +265,6 @@
 ======================================== */
 
 .student-class {
-
     display: inline-flex;
 
     align-items: center;
@@ -306,7 +288,6 @@
 ======================================== */
 
 .student-school {
-
     color: #334155;
 
     font-size: 12px;
@@ -320,7 +301,6 @@
 ======================================== */
 
 .no-school {
-
     color: #94a3b8;
 
     font-size: 11px;
@@ -334,7 +314,6 @@
 ======================================== */
 
 .status {
-
     display: inline-flex;
 
     align-items: center;
@@ -356,7 +335,6 @@
 ======================================== */
 
 .status::before {
-
     content: "";
 
     width: 6px;
@@ -372,7 +350,6 @@
 ======================================== */
 
 .status.active {
-
     background: #ecfdf3;
 
     color: #15803d;
@@ -382,7 +359,6 @@
 
 
 .status.active::before {
-
     background: #22c55e;
 }
 
@@ -392,7 +368,6 @@
 ======================================== */
 
 .status.inactive {
-
     background: #fef2f2;
 
     color: #b91c1c;
@@ -402,7 +377,6 @@
 
 
 .status.inactive::before {
-
     background: #ef4444;
 }
 
@@ -412,7 +386,6 @@
 ======================================== */
 
 .view-btn {
-
     display: inline-flex;
 
     align-items: center;
@@ -421,7 +394,9 @@
 
     min-width: 50px;
 
-    padding: 7px 12px;
+    min-height: 30px;
+
+    padding: 0 12px;
 
     background: #2563eb;
 
@@ -446,7 +421,6 @@
 
 
 .view-btn:hover {
-
     background: #1d4ed8;
 
     border-color: #1d4ed8;
@@ -463,7 +437,6 @@
 ======================================== */
 
 .empty-state {
-
     padding: 60px 25px;
 
     text-align: center;
@@ -477,7 +450,6 @@
 
 
 .empty-state h3 {
-
     margin: 0 0 8px;
 
     color: #172033;
@@ -489,7 +461,6 @@
 
 
 .empty-state p {
-
     margin: 0;
 
     color: #64748b;
@@ -505,16 +476,11 @@
 @media (max-width: 900px) {
 
     .students-card {
-
         padding: 22px;
-
     }
 
-
     .students-header {
-
         margin-bottom: 20px;
-
     }
 
 }
@@ -527,43 +493,29 @@
 @media (max-width: 650px) {
 
     .students-card {
-
         padding: 18px;
 
         border-radius: 14px;
-
     }
 
-
     .students-header {
-
         flex-direction: column;
 
         align-items: flex-start;
 
         gap: 15px;
-
     }
-
 
     .add-student-btn {
-
         width: 100%;
-
     }
-
 
     .table-wrapper {
-
         border-radius: 8px;
-
     }
 
-
     .table-wrapper table {
-
         min-width: 1050px;
-
     }
 
 }
@@ -576,23 +528,15 @@
 @media (max-width: 400px) {
 
     .students-card {
-
         padding: 15px;
-
     }
-
 
     .students-header h2 {
-
         font-size: 18px;
-
     }
 
-
     .students-header p {
-
         font-size: 12px;
-
     }
 
 }

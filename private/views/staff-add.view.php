@@ -73,9 +73,10 @@
     <section class="staff-form-card">
 
         <form
-            method="POST"
-            action="<?= ROOT ?>/staff/create"
-        >
+    method="POST"
+    action="<?= ROOT ?>/staff/create"
+    enctype="multipart/form-data"
+>
 
 
             <!-- =========================
@@ -186,6 +187,25 @@
 
                     <div class="form-group">
 
+                    <label>
+                        Profile Image
+                    </label>
+
+                    <input
+                        type="file"
+                        name="profile_image"
+                        accept="image/jpeg,image/png,image/webp"
+                    >
+
+                    <small>
+                        JPG, PNG or WEBP. Maximum 2MB.
+                    </small>
+
+                </div>
+
+
+                    <div class="form-group">
+
                         <label>
                             Date of Birth
                         </label>
@@ -219,33 +239,48 @@
 
                     <div class="form-group">
 
-                        <label>
-                            School ID
-                        </label>
+    <label for="school_id">
+        School
+    </label>
 
-                        <input
-                            type="number"
-                            name="school_id"
-                            required
-                        >
+    <select
+        name="school_id"
+        id="school_id"
+        required
+    >
 
-                    </div>
+        <option value="">
+            Select School
+        </option>
 
 
-                    <div class="form-group">
+        <?php foreach (
+            ($data['schools'] ?? []) as $school
+        ): ?>
 
-                        <label>
-                            Staff ID
-                        </label>
+            <option
+                value="<?= htmlspecialchars($school->id) ?>"
+            >
 
-                        <input
-                            type="text"
-                            name="staff_id"
-                            placeholder="STF001"
-                            required
-                        >
+                <?= htmlspecialchars(
+                    $school->school_name
+                ) ?>
 
-                    </div>
+                -
+                <?= htmlspecialchars(
+                    $school->school_id
+                ) ?>
+
+            </option>
+
+        <?php endforeach; ?>
+
+    </select>
+
+</div>
+
+
+                    
 
 
                 </div>

@@ -90,6 +90,119 @@ class Users extends Controller
             $status = $_POST['status'] ?? 'active';
 
 
+                        /* =========================
+            PROFILE IMAGE
+            ========================= */
+
+            $profileImage = null;
+
+            if (
+                isset($_FILES['profile_image']) &&
+                $_FILES['profile_image']['error'] !== UPLOAD_ERR_NO_FILE
+            ) {
+
+                if (
+                    $_FILES['profile_image']['error']
+                    !== UPLOAD_ERR_OK
+                ) {
+                    die("Unable to upload profile image.");
+                }
+
+
+                /* =========================
+                CHECK FILE SIZE
+                ========================= */
+
+                if (
+                    $_FILES['profile_image']['size']
+                    > 2 * 1024 * 1024
+                ) {
+                    die("Profile image must be less than 2MB.");
+                }
+
+
+                /* =========================
+                CHECK MIME TYPE
+                ========================= */
+
+                $allowedTypes = [
+                    'image/jpeg',
+                    'image/png',
+                    'image/webp'
+                ];
+
+                $fileType = mime_content_type(
+                    $_FILES['profile_image']['tmp_name']
+                );
+
+
+                if (!in_array($fileType, $allowedTypes)) {
+                    die("Only JPG, PNG and WEBP images are allowed.");
+                }
+
+
+                /* =========================
+                CREATE UPLOAD DIRECTORY
+                ========================= */
+
+                $uploadDirectory =
+                    $_SERVER['DOCUMENT_ROOT']
+                    . '/school/public/uploads/users/';
+
+
+                if (!is_dir($uploadDirectory)) {
+
+                    mkdir(
+                        $uploadDirectory,
+                        0777,
+                        true
+                    );
+                }
+
+
+                /* =========================
+                FILE EXTENSION
+                ========================= */
+
+                $extension = match ($fileType) {
+
+                    'image/jpeg' => 'jpg',
+
+                    'image/png' => 'png',
+
+                    'image/webp' => 'webp'
+
+                };
+
+
+                /* =========================
+                UNIQUE FILE NAME
+                ========================= */
+
+                $profileImage =
+                    'user_'
+                    . uniqid()
+                    . '.'
+                    . $extension;
+
+
+                /* =========================
+                MOVE IMAGE
+                ========================= */
+
+                $uploaded =
+                    move_uploaded_file(
+                        $_FILES['profile_image']['tmp_name'],
+                        $uploadDirectory . $profileImage
+                    );
+
+
+                if (!$uploaded) {
+                    die("Unable to save profile image.");
+                }
+            }
+
+
             /* =========================
                VALIDATION
             ========================= */
@@ -169,23 +282,25 @@ class Users extends Controller
 
             $result = $user->createUser([
 
-                'firstname' => $firstname,
+    'firstname' => $firstname,
 
-                'lastname' => $lastname,
+    'lastname' => $lastname,
 
-                'email' => $email,
+    'email' => $email,
 
-                'gender' => $gender,
+    'gender' => $gender,
 
-                'school_id' => $school_id,
+    'school_id' => $school_id,
 
-                'rank' => $rank,
+    'rank' => $rank,
 
-                'password' => $hashedPassword,
+    'password' => $hashedPassword,
 
-                'status' => $status
+    'status' => $status,
 
-            ]);
+    'profile_image' => $profileImage
+
+]);
 
 
             /* =========================

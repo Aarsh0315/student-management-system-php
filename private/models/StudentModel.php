@@ -1,5 +1,8 @@
 <?php
 
+
+
+
 class StudentModel extends Model
 {
     public function getAllStudents()
@@ -24,6 +27,7 @@ class StudentModel extends Model
                     u.lastname,
                     u.email,
                     u.gender,
+                    u.profile_image,
 
                     sc.school_name,
                     sc.school_id AS school_code
@@ -62,9 +66,10 @@ class StudentModel extends Model
                 st.created_at,
 
                 u.firstname,
-                u.lastname,
-                u.email,
-                u.gender,
+u.lastname,
+u.email,
+u.gender,
+u.profile_image,
 
                 sc.school_name,
                 sc.school_id AS school_code
@@ -121,9 +126,10 @@ public function getStudentsBySchool($school_id)
                 st.status,
 
                 u.firstname,
-                u.lastname,
-                u.email,
-                u.gender,
+u.lastname,
+u.email,
+u.gender,
+u.profile_image,
 
                 sc.school_name,
                 sc.school_id AS school_code
@@ -169,6 +175,7 @@ public function getStudentDetailsBySchool($student_id, $school_id)
                 u.lastname,
                 u.email,
                 u.gender,
+                u.profile_image,
 
                 sc.school_name,
                 sc.school_id AS school_code
@@ -198,12 +205,54 @@ public function createStudent($userData, $studentData)
 {
     /*
     ========================================
+    GENERATE USER ID
+    ========================================
+    */
+
+    $userIdQuery = "SELECT
+                        COALESCE(
+                            MAX(
+                                CAST(
+                                    SUBSTRING(user_id, 4)
+                                    AS UNSIGNED
+                                )
+                            ),
+                            0
+                        ) + 1 AS next_number
+                    FROM users
+                    WHERE user_id LIKE 'USR%'";
+
+    $userIdResult = $this->query($userIdQuery);
+
+    $nextUserNumber =
+        $userIdResult[0]->next_number ?? 1;
+
+
+    /*
+    ========================================
+    CREATE USER ID
+    ========================================
+    */
+
+    $user_id =
+        'USR'
+        . str_pad(
+            $nextUserNumber,
+            3,
+            '0',
+            STR_PAD_LEFT
+        );
+
+
+    /*
+    ========================================
     CREATE USER
     ========================================
     */
 
     $userQuery = "INSERT INTO users
                     (
+                        user_id,
                         firstname,
                         lastname,
                         email,
@@ -211,10 +260,12 @@ public function createStudent($userData, $studentData)
                         school_id,
                         rank,
                         password,
-                        status
+                        status,
+                        profile_image
                     )
                   VALUES
                     (
+                        :user_id,
                         :firstname,
                         :lastname,
                         :email,
@@ -222,33 +273,89 @@ public function createStudent($userData, $studentData)
                         :school_id,
                         'student',
                         :password,
-                        'active'
+                        'active',
+                        :profile_image
                     )";
-
-    $this->query($userQuery, $userData);
 
 
     /*
     ========================================
-    GET CREATED USER ID
+    ADD USER ID TO DATA
     ========================================
     */
 
-    $user = $this->query(
-        "SELECT user_id
-         FROM users
-         WHERE email = :email
-         LIMIT 1",
-        [
-            'email' => $userData['email']
-        ]
-    );
+    $userData['user_id'] = $user_id;
 
-    if (!$user) {
+    $userData['profile_image'] =
+        $userData['profile_image'] ?? null;
+
+
+    /*
+    ========================================
+    INSERT USER
+    ========================================
+    */
+
+    $createdUser =
+        $this->query(
+            $userQuery,
+            $userData
+        );
+
+
+    if (!$createdUser) {
+
         return false;
+
     }
 
-    $user_id = $user[0]->user_id;
+
+    /*
+    ========================================
+    GENERATE STUDENT ID
+    ========================================
+    */
+
+    $studentIdQuery = "SELECT
+                            COALESCE(
+                                MAX(
+                                    CAST(
+                                        SUBSTRING(student_id, 4)
+                                        AS UNSIGNED
+                                    )
+                                ),
+                                0
+                            ) + 1 AS next_number
+
+                       FROM students
+
+                       WHERE student_id LIKE 'STU%'";
+
+
+    $studentIdResult =
+        $this->query(
+            $studentIdQuery
+        );
+
+
+    $nextStudentNumber =
+        $studentIdResult[0]->next_number ?? 1;
+
+
+    /*
+    ========================================
+    CREATE STUDENT ID
+    ========================================
+    */
+
+    $student_id =
+        'STU'
+        . str_pad(
+            $nextStudentNumber,
+            3,
+            '0',
+            STR_PAD_LEFT
+        );
 
 
     /*
@@ -259,6 +366,7 @@ public function createStudent($userData, $studentData)
 
     $studentQuery = "INSERT INTO students
                         (
+                            student_id,
                             user_id,
                             school_id,
                             admission_number,
@@ -275,6 +383,7 @@ public function createStudent($userData, $studentData)
                         )
                      VALUES
                         (
+                            :student_id,
                             :user_id,
                             :school_id,
                             :admission_number,
@@ -290,21 +399,56 @@ public function createStudent($userData, $studentData)
                             'active'
                         )";
 
+
+    /*
+    ========================================
+    INSERT STUDENT
+    ========================================
+    */
+
     return $this->query(
         $studentQuery,
         [
-            'user_id'          => $user_id,
-            'school_id'        => $studentData['school_id'],
-            'admission_number' => $studentData['admission_number'],
-            'class'            => $studentData['class'],
-            'division'         => $studentData['division'],
-            'roll_number'      => $studentData['roll_number'],
-            'date_of_birth'    => $studentData['date_of_birth'],
-            'admission_date'   => $studentData['admission_date'],
-            'parent_name'      => $studentData['parent_name'],
-            'parent_phone'     => $studentData['parent_phone'],
-            'parent_email'     => $studentData['parent_email'],
-            'address'          => $studentData['address']
+
+            'student_id' =>
+                $student_id,
+
+            'user_id' =>
+                $user_id,
+
+            'school_id' =>
+                $studentData['school_id'],
+
+            'admission_number' =>
+                $studentData['admission_number'],
+
+            'class' =>
+                $studentData['class'],
+
+            'division' =>
+                $studentData['division'],
+
+            'roll_number' =>
+                $studentData['roll_number'],
+
+            'date_of_birth' =>
+                $studentData['date_of_birth'],
+
+            'admission_date' =>
+                $studentData['admission_date'],
+
+            'parent_name' =>
+                $studentData['parent_name'],
+
+            'parent_phone' =>
+                $studentData['parent_phone'],
+
+            'parent_email' =>
+                $studentData['parent_email'],
+
+            'address' =>
+                $studentData['address']
+
         ]
     );
 }

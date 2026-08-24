@@ -1,0 +1,184 @@
+/* ========================================
+   STATIC PAGES
+======================================== */
+
+.static-page {
+
+    width: 100%;
+
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    padding: 55px 30px;
+
+    box-sizing: border-box;
+
+    min-height: 600px;
+}
+
+
+/* ========================================
+   STATIC CARD
+======================================== */
+
+.static-card {
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    padding: 40px;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+}
+
+
+/* ========================================
+   LABEL
+======================================== */
+
+.static-label {
+
+    margin: 0 0 8px;
+
+    color: #2563eb;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+   TITLE
+======================================== */
+
+.static-card h1 {
+
+    margin: 0 0 20px;
+
+    color: #172033;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   TEXT
+======================================== */
+
+.static-card p {
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin-bottom: 18px;
+}
+
+
+/* ========================================
+   SUBHEADINGS
+======================================== */
+
+.static-card h2 {
+
+    margin-top: 30px;
+
+    margin-bottom: 10px;
+
+    color: #172033;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   CONTACT
+======================================== */
+
+.contact-information {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 18px;
+
+    margin-top: 25px;
+}
+
+
+.contact-information div {
+
+    padding: 20px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f7;
+
+    border-radius: 10px;
+}
+
+
+.contact-information strong {
+
+    color: #172033;
+
+    font-size: 13px;
+}
+
+
+.contact-information p {
+
+    margin: 7px 0 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .static-page {
+
+        padding: 30px 18px;
+    }
+
+
+    .static-card {
+
+        padding: 25px 20px;
+
+        border-radius: 14px;
+    }
+
+
+    .static-card h1 {
+
+        font-size: 25px;
+    }
+
+
+    .contact-information {
+
+        grid-template-columns: 1fr;
+    }
+
+}

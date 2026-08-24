@@ -117,11 +117,32 @@ $initial = strtoupper(
         <div class="user-profile-left">
 
 
-            <div class="user-large-avatar">
+            <div class="user-profile-image">
 
-                <?= htmlspecialchars($initial) ?>
+    <?php if (!empty($user->profile_image)): ?>
 
-            </div>
+        <img
+            src="<?= ROOT ?>/uploads/users/<?= htmlspecialchars($user->profile_image) ?>"
+            alt="Profile Image"
+        >
+
+    <?php else: ?>
+
+        <div class="user-avatar-fallback">
+
+            <?= strtoupper(
+                substr(
+                    $user->firstname ?? 'U',
+                    0,
+                    1
+                )
+            ) ?>
+
+        </div>
+
+    <?php endif; ?>
+
+</div>
 
 
             <div>

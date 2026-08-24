@@ -2,9 +2,34 @@
 
 $teacher = $data['teacher'] ?? null;
 
+if (!$teacher) {
+    die("Teacher not found.");
+}
+
+
+/* =========================
+   AVATAR
+========================= */
+
+$initial = strtoupper(
+    substr(
+        $teacher->firstname ?? 'T',
+        0,
+        1
+    )
+);
+
+
+/* =========================
+   STATUS
+========================= */
+
+$status = $teacher->status ?? 'active';
+
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -21,12 +46,15 @@ $teacher = $data['teacher'] ?? null;
     </title>
 
 
-    <!-- COMMON CSS -->
+    <!-- NAV -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
+
+
+    <!-- DASHBOARD -->
 
     <link
         rel="stylesheet"
@@ -34,11 +62,11 @@ $teacher = $data['teacher'] ?? null;
     >
 
 
-    <!-- TEACHER DETAILS CSS -->
+    <!-- TEACHER DETAILS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-details.view.css?v=2"
+        href="<?= ROOT ?>/css/teacher-details.view.css?v=3"
     >
 
 
@@ -87,7 +115,6 @@ $teacher = $data['teacher'] ?? null;
     </section>
 
 
-
     <!-- =========================
          TEACHER PROFILE
     ========================== -->
@@ -95,255 +122,275 @@ $teacher = $data['teacher'] ?? null;
     <section class="teacher-profile-card">
 
 
-        <!-- AVATAR -->
+        <!-- LEFT SIDE -->
 
-        <div class="teacher-avatar">
+        <div class="teacher-profile-left">
 
-            <?php
 
-            $firstname =
-                $teacher->firstname ?? 'T';
+            <!-- AVATAR -->
 
-            echo strtoupper(
-                substr($firstname, 0, 1)
-            );
+            <div class="teacher-large-avatar">
 
-            ?>
+                <?= htmlspecialchars($initial) ?>
+
+            </div>
+
+
+            <!-- PROFILE INFORMATION -->
+
+            <div class="teacher-profile-info">
+
+                <h2>
+
+                    <?= htmlspecialchars(
+                        ($teacher->firstname ?? '')
+                        . ' '
+                        . ($teacher->lastname ?? '')
+                    ) ?>
+
+                </h2>
+
+
+                <p>
+
+                    <?= htmlspecialchars(
+                        $teacher->email ?? '-'
+                    ) ?>
+
+                </p>
+
+
+                <span class="teacher-role-badge">
+
+                    <?= htmlspecialchars(
+                        $teacher->designation ?? 'Teacher'
+                    ) ?>
+
+                </span>
+
+            </div>
+
 
         </div>
 
 
+        <!-- STATUS -->
 
-        <!-- PROFILE INFORMATION -->
+        <div class="teacher-profile-status">
 
-        <div class="teacher-profile-info">
+            <?php if ($status === 'active'): ?>
 
-            <h2>
+                <span class="status active">
+                    Active
+                </span>
 
-                <?= htmlspecialchars(
-                    ($teacher->firstname ?? '')
-                    . ' '
-                    . ($teacher->lastname ?? '')
-                ) ?>
+            <?php else: ?>
 
-            </h2>
+                <span class="status inactive">
+                    Inactive
+                </span>
 
-
-            <p>
-
-                <?= htmlspecialchars(
-                    $teacher->email ?? '-'
-                ) ?>
-
-            </p>
-
-
-            <span>
-
-                <?= htmlspecialchars(
-                    $teacher->designation ?? '-'
-                ) ?>
-
-            </span>
+            <?php endif; ?>
 
         </div>
 
 
     </section>
-
 
 
     <!-- =========================
          PROFESSIONAL INFORMATION
     ========================== -->
 
-    <section class="teacher-info-card">
+    <section class="teacher-details-card">
 
 
-        <div class="teacher-info-header">
+        <div class="details-header">
 
             <h2>
                 Professional Information
             </h2>
 
+            <p>
+                Teacher professional and account details.
+            </p>
+
         </div>
 
 
-        <div class="table-wrapper">
+        <div class="details-grid">
 
-            <table class="teacher-info-table">
 
+            <!-- STAFF ID -->
 
-                <tbody>
+            <div class="details-item">
 
+                <span>
+                    Staff ID
+                </span>
 
-                    <tr>
+                <strong>
 
-                        <th>
-                            Staff ID
-                        </th>
+                    <?= htmlspecialchars(
+                        $teacher->staff_id ?? '-'
+                    ) ?>
 
-                        <td>
+                </strong>
 
-                            <?= htmlspecialchars(
-                                $teacher->staff_id ?? '-'
-                            ) ?>
+            </div>
 
-                        </td>
 
-                    </tr>
+            <!-- DEPARTMENT -->
 
+            <div class="details-item">
 
-                    <tr>
+                <span>
+                    Department
+                </span>
 
-                        <th>
-                            Department
-                        </th>
+                <strong>
 
-                        <td>
+                    <?= htmlspecialchars(
+                        $teacher->department ?? '-'
+                    ) ?>
 
-                            <?= htmlspecialchars(
-                                $teacher->department ?? '-'
-                            ) ?>
+                </strong>
 
-                        </td>
+            </div>
 
-                    </tr>
 
+            <!-- DESIGNATION -->
 
-                    <tr>
+            <div class="details-item">
 
-                        <th>
-                            Designation
-                        </th>
+                <span>
+                    Designation
+                </span>
 
-                        <td>
+                <strong>
 
-                            <?= htmlspecialchars(
-                                $teacher->designation ?? '-'
-                            ) ?>
+                    <?= htmlspecialchars(
+                        $teacher->designation ?? '-'
+                    ) ?>
 
-                        </td>
+                </strong>
 
-                    </tr>
+            </div>
 
 
-                    <tr>
+            <!-- QUALIFICATION -->
 
-                        <th>
-                            Qualification
-                        </th>
+            <div class="details-item">
 
-                        <td>
+                <span>
+                    Qualification
+                </span>
 
-                            <?= htmlspecialchars(
-                                $teacher->qualification ?? '-'
-                            ) ?>
+                <strong>
 
-                        </td>
+                    <?= htmlspecialchars(
+                        $teacher->qualification ?? '-'
+                    ) ?>
 
-                    </tr>
+                </strong>
 
+            </div>
 
-                    <tr>
 
-                        <th>
-                            Joining Date
-                        </th>
+            <!-- JOINING DATE -->
 
-                        <td>
+            <div class="details-item">
 
-                            <?= htmlspecialchars(
-                                $teacher->joining_date ?? '-'
-                            ) ?>
+                <span>
+                    Joining Date
+                </span>
 
-                        </td>
+                <strong>
 
-                    </tr>
+                    <?= htmlspecialchars(
+                        $teacher->joining_date ?? '-'
+                    ) ?>
 
+                </strong>
 
-                    <tr>
+            </div>
 
-                        <th>
-                            Employment Type
-                        </th>
 
-                        <td>
+            <!-- EMPLOYMENT TYPE -->
 
-                            <?= htmlspecialchars(
-                                $teacher->employment_type ?? '-'
-                            ) ?>
+            <div class="details-item">
 
-                        </td>
+                <span>
+                    Employment Type
+                </span>
 
-                    </tr>
+                <strong>
 
+                    <?= htmlspecialchars(
+                        $teacher->employment_type ?? '-'
+                    ) ?>
 
-                    <tr>
+                </strong>
 
-                        <th>
-                            Phone
-                        </th>
+            </div>
 
-                        <td>
 
-                            <?= htmlspecialchars(
-                                $teacher->phone ?? '-'
-                            ) ?>
+            <!-- PHONE -->
 
-                        </td>
+            <div class="details-item">
 
-                    </tr>
+                <span>
+                    Phone
+                </span>
 
+                <strong>
 
-                    <tr>
+                    <?= htmlspecialchars(
+                        $teacher->phone ?? '-'
+                    ) ?>
 
-                        <th>
-                            Address
-                        </th>
+                </strong>
 
-                        <td>
+            </div>
 
-                            <?= htmlspecialchars(
-                                $teacher->address ?? '-'
-                            ) ?>
 
-                        </td>
+            <!-- EMAIL -->
 
-                    </tr>
+            <div class="details-item">
 
+                <span>
+                    Email
+                </span>
 
-                    <tr>
+                <strong>
 
-                        <th>
-                            Status
-                        </th>
+                    <?= htmlspecialchars(
+                        $teacher->email ?? '-'
+                    ) ?>
 
-                        <td>
+                </strong>
 
-                            <span
-                                class="teacher-detail-status <?= strtolower(
-                                    $teacher->status ?? ''
-                                ) ?>"
-                            >
+            </div>
 
-                                <?= htmlspecialchars(
-                                    ucfirst(
-                                        $teacher->status ?? '-'
-                                    )
-                                ) ?>
 
-                            </span>
+            <!-- STATUS -->
 
-                        </td>
+            <div class="details-item">
 
-                    </tr>
+                <span>
+                    Account Status
+                </span>
 
+                <strong>
 
-                </tbody>
+                    <?= htmlspecialchars(
+                        ucfirst($status)
+                    ) ?>
 
+                </strong>
 
-            </table>
+            </div>
+
 
         </div>
 
@@ -351,29 +398,18 @@ $teacher = $data['teacher'] ?? null;
     </section>
 
 
-
     <!-- =========================
-         ACTIONS
+         ACTION
     ========================== -->
 
-    <div class="teacher-detail-actions">
-
+    <div class="teacher-actions">
 
         <a
             href="<?= ROOT ?>/teachers"
-            class="teacher-back-btn"
+            class="back-btn"
         >
             ← Back to Teachers
         </a>
-
-
-        <a
-            href="<?= ROOT ?>/teachers/edit/<?= urlencode($teacher->staff_id) ?>"
-            class="teacher-edit-btn"
-        >
-            Edit Teacher
-        </a>
-
 
     </div>
 

@@ -20,7 +20,7 @@ $schools = $data['schools'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css"
+        href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
     <link
@@ -30,7 +30,7 @@ $schools = $data['schools'] ?? [];
 
     <link
     rel="stylesheet"
-    href="<?= ROOT ?>/css/footer.view.css>v=2"
+    href="<?= ROOT ?>/css/footer.view.css?v=2"
 >
 
 <link

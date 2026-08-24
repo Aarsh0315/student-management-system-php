@@ -17,18 +17,30 @@
 
     border-radius: 16px;
 
-    padding: 30px;
+    padding: 28px;
 
     margin-bottom: 25px;
 
     box-shadow:
         0 5px 20px rgba(15, 23, 42, 0.04);
 
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.school-details-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 28px rgba(15, 23, 42, 0.07);
 }
 
 
 /* ========================================
-   SCHOOL DETAILS HEADER
+   SCHOOL HEADER
 ======================================== */
 
 .school-details-header {
@@ -39,12 +51,11 @@
 
     gap: 18px;
 
-    padding-bottom: 25px;
+    padding-bottom: 24px;
 
-    margin-bottom: 25px;
+    margin-bottom: 24px;
 
     border-bottom: 1px solid #eef0f3;
-
 }
 
 
@@ -66,22 +77,25 @@
 
     justify-content: center;
 
-    border-radius: 14px;
+    border-radius: 50%;
 
-    background: #eff6ff;
+    background: #2563eb;
 
-    color: #2563eb;
+    color: #ffffff;
 
-    border: 1px solid #dbeafe;
+    border: none;
 
-    font-size: 24px;
+    font-size: 23px;
 
     font-weight: 700;
+
+    box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.20);
 }
 
 
 /* ========================================
-   SCHOOL HEADER TITLE
+   SCHOOL NAME
 ======================================== */
 
 .school-details-header h2 {
@@ -90,7 +104,7 @@
 
     color: #172033;
 
-    font-size: 22px;
+    font-size: 20px;
 
     font-weight: 700;
 
@@ -98,16 +112,19 @@
 }
 
 
+/* ========================================
+   SCHOOL EMAIL / ID
+======================================== */
+
 .school-details-header p {
 
     margin: 0;
 
     color: #64748b;
 
-    font-size: 12px;
+    font-size: 13px;
 
-    font-weight: 500;
-
+    line-height: 1.4;
 }
 
 
@@ -132,6 +149,8 @@
     font-size: 10px;
 
     font-weight: 600;
+
+    white-space: nowrap;
 }
 
 
@@ -193,7 +212,7 @@
 
 .details-section {
 
-    margin-bottom: 30px;
+    margin-bottom: 28px;
 }
 
 
@@ -203,15 +222,37 @@
 }
 
 
+/* ========================================
+   SECTION TITLE
+======================================== */
+
 .details-section h3 {
 
     margin: 0 0 15px;
 
     color: #172033;
 
-    font-size: 16px;
+    font-size: 17px;
 
     font-weight: 700;
+}
+
+
+.details-section h3::after {
+
+    content: "";
+
+    display: block;
+
+    width: 36px;
+
+    height: 3px;
+
+    margin-top: 8px;
+
+    background: #2563eb;
+
+    border-radius: 5px;
 }
 
 
@@ -224,7 +265,7 @@
     display: grid;
 
     grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+        repeat(3, minmax(0, 1fr));
 
     border-top: 1px solid #eef0f3;
 
@@ -242,9 +283,9 @@
 
 .information-item {
 
-    min-height: 82px;
+    min-height: 88px;
 
-    padding: 17px 19px;
+    padding: 17px 18px;
 
     display: flex;
 
@@ -312,6 +353,16 @@
 
 
 /* ========================================
+   SCHOOL ID
+======================================== */
+
+.information-item:first-child strong {
+
+    color: #2563eb;
+}
+
+
+/* ========================================
    ADDRESS BOX
 ======================================== */
 
@@ -330,7 +381,6 @@
     font-size: 13px;
 
     line-height: 1.6;
-
 }
 
 
@@ -348,7 +398,7 @@
 
     border-radius: 16px;
 
-    padding: 28px 30px;
+    padding: 28px;
 
     margin-bottom: 25px;
 
@@ -365,18 +415,39 @@
 
     margin-bottom: 22px;
 
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eef0f3;
 }
 
 
 .overview-header h2 {
 
-    margin: 0 0 6px;
+    margin: 0 0 5px;
 
     color: #172033;
 
-    font-size: 20px;
+    font-size: 19px;
 
     font-weight: 700;
+}
+
+
+.overview-header h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 38px;
+
+    height: 3px;
+
+    margin-top: 8px;
+
+    background: #2563eb;
+
+    border-radius: 5px;
 }
 
 
@@ -386,7 +457,7 @@
 
     color: #64748b;
 
-    font-size: 13px;
+    font-size: 12px;
 
     line-height: 1.5;
 }
@@ -413,7 +484,7 @@
 
 .overview-card {
 
-    min-height: 110px;
+    min-height: 105px;
 
     padding: 18px;
 
@@ -438,7 +509,7 @@
 
 .overview-card:hover {
 
-    transform: translateY(-2px);
+    transform: translateY(-3px);
 
     border-color: #dbeafe;
 
@@ -552,8 +623,14 @@
     .overview-grid {
 
         grid-template-columns:
-            repeat(3, minmax(0, 1fr));
+            repeat(2, minmax(0, 1fr));
+    }
 
+
+    .information-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
     }
 
 }
@@ -568,29 +645,18 @@
     .school-details-card {
 
         padding: 24px;
-
     }
 
 
     .school-overview {
 
         padding: 24px;
-
     }
 
 
     .information-grid {
 
         grid-template-columns: 1fr;
-
-    }
-
-
-    .overview-grid {
-
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
     }
 
 }
@@ -607,7 +673,6 @@
         padding: 20px;
 
         border-radius: 14px;
-
     }
 
 
@@ -616,7 +681,6 @@
         padding: 20px;
 
         border-radius: 14px;
-
     }
 
 
@@ -627,7 +691,6 @@
         flex-wrap: wrap;
 
         gap: 14px;
-
     }
 
 
@@ -638,25 +701,22 @@
         width: 100%;
 
         justify-content: center;
-
     }
 
 
     .school-avatar {
 
-        width: 58px;
+        width: 60px;
 
-        height: 58px;
+        height: 60px;
 
         font-size: 21px;
-
     }
 
 
     .school-details-header h2 {
 
-        font-size: 19px;
-
+        font-size: 18px;
     }
 
 
@@ -665,7 +725,6 @@
         grid-template-columns: 1fr 1fr;
 
         gap: 12px;
-
     }
 
 
@@ -674,14 +733,12 @@
         min-height: 95px;
 
         padding: 15px;
-
     }
 
 
     .overview-card strong {
 
         font-size: 24px;
-
     }
 
 }
@@ -696,35 +753,30 @@
     .school-details-card {
 
         padding: 17px;
-
     }
 
 
     .school-overview {
 
         padding: 17px;
-
     }
 
 
     .school-details-header h2 {
 
         font-size: 17px;
-
     }
 
 
     .school-details-header p {
 
         font-size: 11px;
-
     }
 
 
     .overview-grid {
 
         grid-template-columns: 1fr;
-
     }
 
 
@@ -733,14 +785,12 @@
         min-height: 75px;
 
         padding: 15px;
-
     }
 
 
     .information-item strong {
 
         font-size: 12px;
-
     }
 
 }

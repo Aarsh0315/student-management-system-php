@@ -1,5 +1,9 @@
 <?php
 
+$schools = $data['schools'] ?? [];
+
+$error = $data['error'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +35,7 @@
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
     >
 
     <link
@@ -58,7 +62,7 @@
         <div>
 
             <p class="welcome-small">
-                Super Admin
+                Super Admin 
             </p>
 
             <h1>
@@ -226,21 +230,49 @@
 
                     <div class="form-group">
 
-                        <label>
-                            School ID
-                        </label>
+    <label for="school_id">
+        School
+    </label>
 
-                        <input
-                            type="number"
-                            name="school_id"
-                            required
-                        >
+    <select
+        name="school_id"
+        id="school_id"
+        required
+    >
 
-                        <small>
-                            Enter the database ID of the school.
-                        </small>
+        <option value="">
+            Select School
+        </option>
 
-                    </div>
+
+        <?php foreach ($schools as $school): ?>
+
+            <option
+                value="<?= htmlspecialchars($school->id) ?>"
+            >
+
+                <?= htmlspecialchars(
+                    $school->school_id
+                ) ?>
+
+                -
+
+                <?= htmlspecialchars(
+                    $school->school_name
+                ) ?>
+
+            </option>
+
+        <?php endforeach; ?>
+
+
+    </select>
+
+    <small>
+        Select the school assigned to this administrator.
+    </small>
+
+</div>
 
 
                     <div class="form-group">

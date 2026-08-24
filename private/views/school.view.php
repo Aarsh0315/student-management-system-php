@@ -51,6 +51,11 @@ if (!$school) {
         href="<?= ROOT ?>/css/schools.view.css?v=2"
     >
 
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
+    >
+
 </head>
 
 <body>

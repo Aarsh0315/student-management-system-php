@@ -82,6 +82,7 @@
         <form
             method="POST"
             action="<?= ROOT ?>/students/create"
+            enctype="multipart/form-data"
         >
 
 
@@ -158,6 +159,24 @@
 
                     </div>
 
+                    <div class="form-group">
+
+                    <label>
+                        Profile Image
+                    </label>
+
+                    <input
+                        type="file"
+                        name="profile_image"
+                        accept="image/jpeg,image/png,image/webp"
+                    >
+
+                    <small>
+                        Upload JPG, PNG or WEBP image. Maximum size 2MB.
+                    </small>
+
+                </div>
+
 
                     <div class="form-group">
 
@@ -224,23 +243,57 @@
                 <div class="form-grid">
 
 
-                    <?php if (($_SESSION['rank'] ?? '') === 'super_admin'): ?>
+                    <?php if (
+    ($_SESSION['rank'] ?? '') === 'super_admin'
+): ?>
 
-                    <div class="form-group">
+    <div class="form-group">
 
-                        <label>
-                            School ID
-                        </label>
+        <label>
+            School
+        </label>
 
-                        <input
-                            type="number"
-                            name="school_id"
-                            required
-                        >
+        <select
+            name="school_id"
+            required
+        >
 
-                    </div>
+            <option value="">
+                Select School
+            </option>
 
-                <?php endif; ?>
+
+            <?php foreach (
+                ($data['schools'] ?? []) as $school
+            ): ?>
+
+                <option
+                    value="<?= htmlspecialchars($school->id) ?>"
+                >
+
+                    <?= htmlspecialchars(
+                        $school->school_name
+                    ) ?>
+
+                    -
+
+                    <?= htmlspecialchars(
+                        $school->school_id
+                    ) ?>
+
+                </option>
+
+            <?php endforeach; ?>
+
+        </select>
+
+        <small>
+            Select the school where this student will be registered.
+        </small>
+
+    </div>
+
+<?php endif; ?>
 
 
                     <div class="form-group">

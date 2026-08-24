@@ -120,9 +120,20 @@ $initial = strtoupper(
 
             <div class="staff-large-avatar">
 
-                <?= htmlspecialchars($initial) ?>
+    <?php if (!empty($staff->profile_image)): ?>
 
-            </div>
+        <img
+            src="<?= ROOT ?>/uploads/users/<?= htmlspecialchars($staff->profile_image) ?>"
+            alt="<?= htmlspecialchars(trim($fullName)) ?>"
+        >
+
+    <?php else: ?>
+
+        <?= htmlspecialchars($initial) ?>
+
+    <?php endif; ?>
+
+</div>
 
 
             <!-- BASIC DETAILS -->

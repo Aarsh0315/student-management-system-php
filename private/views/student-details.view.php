@@ -117,11 +117,24 @@ $initial = strtoupper(
 
             <!-- AVATAR -->
 
-            <div class="student-large-avatar">
+            <!-- STUDENT PHOTO / AVATAR -->
 
-                <?= htmlspecialchars($initial) ?>
+<div class="student-large-avatar">
 
-            </div>
+    <?php if (!empty($student->profile_image)): ?>
+
+        <img
+            src="<?= ROOT ?>/uploads/users/<?= htmlspecialchars($student->profile_image) ?>"
+            alt="<?= htmlspecialchars($fullName) ?>"
+        >
+
+    <?php else: ?>
+
+        <?= htmlspecialchars($initial) ?>
+
+    <?php endif; ?>
+
+</div>
 
 
             <!-- BASIC DETAILS -->

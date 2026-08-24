@@ -21,8 +21,6 @@ $parents = $data['parents'] ?? [];
     </title>
 
 
-    <!-- COMMON CSS -->
-
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
@@ -33,16 +31,10 @@ $parents = $data['parents'] ?? [];
         href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
-
-    <!-- PARENTS CSS -->
-
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/parents.view.css?v=1"
+        href="<?= ROOT ?>/css/parents.view.css?v=2"
     >
-
-
-    <!-- FOOTER -->
 
     <link
         rel="stylesheet"
@@ -61,9 +53,7 @@ $parents = $data['parents'] ?? [];
 <main class="dashboard">
 
 
-    <!-- =========================
-         PAGE HEADER
-    ========================== -->
+    <!-- PAGE HEADER -->
 
     <section class="welcome">
 
@@ -87,10 +77,7 @@ $parents = $data['parents'] ?? [];
     </section>
 
 
-
-    <!-- =========================
-         PARENTS TABLE
-    ========================== -->
+    <!-- PARENTS CARD -->
 
     <section class="parents-card">
 
@@ -122,7 +109,6 @@ $parents = $data['parents'] ?? [];
             </a>
 
         </div>
-
 
 
         <?php if (!empty($parents)): ?>
@@ -171,7 +157,6 @@ $parents = $data['parents'] ?? [];
                         <?php foreach (
                             $parents as $parent
                         ): ?>
-
 
                             <tr>
 
@@ -276,7 +261,6 @@ $parents = $data['parents'] ?? [];
 
 
                             </tr>
-
 
                         <?php endforeach; ?>
 

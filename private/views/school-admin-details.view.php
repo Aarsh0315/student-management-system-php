@@ -28,7 +28,7 @@ $admin = $data['admin'] ?? $data['user'] ?? null;
         href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
 
-    <link
+     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/profile.view.css?v=2"
     >
@@ -48,7 +48,7 @@ $admin = $data['admin'] ?? $data['user'] ?? null;
     <section class="welcome">
 
         <p class="welcome-small">
-            Super Admin
+            Super Admin 
         </p>
 
         <h1>

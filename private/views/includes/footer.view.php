@@ -1,79 +1,30 @@
 <footer class="footer">
 
-    <div class="footer-container">
+    <div class="footer-content">
 
-
-        <!-- =========================
-             BRAND
-        ========================== -->
-
-        <div class="footer-brand">
-
-            <div class="footer-logo">
-
-                <span class="footer-logo-icon">
-                    🎓
-                </span>
-
-                <span>
-                    My School
-                </span>
-
-            </div>
-
-            <p>
-                Simple and organized school
-                management for everyone.
-            </p>
-
-        </div>
-
-
-
-        <!-- =========================
-             LINKS
-        ========================== -->
+        <p>
+            &copy; 2026 My School. All Rights Reserved.
+        </p>
 
         <div class="footer-links">
 
-            <a href="#">
+            <a href="<?= ROOT ?>/about">
                 About
             </a>
 
-            <a href="#">
+            <a href="<?= ROOT ?>/contact">
                 Contact
             </a>
 
-            <a href="#">
+            <a href="<?= ROOT ?>/privacy">
                 Privacy
             </a>
 
-            <a href="#">
+            <a href="<?= ROOT ?>/terms">
                 Terms
             </a>
 
         </div>
-
-
-    </div>
-
-
-
-    <!-- =========================
-         BOTTOM
-    ========================== -->
-
-    <div class="footer-bottom">
-
-        <p>
-            &copy; <?= date('Y') ?> My School.
-            All Rights Reserved.
-        </p>
-
-
-        <p class="footer-system">
-            School Management System
-        </p>
 
     </div>
 

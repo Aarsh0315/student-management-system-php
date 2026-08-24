@@ -1,6 +1,7 @@
 <?php
 
 require_once "../private/models/StudentModel.php";
+require_once "../private/models/School.php";
 
 class Students extends Controller
 {
@@ -191,6 +192,25 @@ public function add()
 
     /*
     ========================================
+    SUPER ADMIN
+    ========================================
+    */
+
+    $schools = [];
+
+
+    if ($rank === 'super_admin') {
+
+        $schoolModel = new School();
+
+        $schools =
+            $schoolModel->getAllSchools();
+
+    }
+
+
+    /*
+    ========================================
     SCHOOL ADMIN
     ========================================
     */
@@ -213,11 +233,15 @@ public function add()
 
     /*
     ========================================
-    LOAD ADD STUDENT VIEW
+    LOAD VIEW
     ========================================
     */
 
-    $this->view('student-add');
+    $this->view('student-add', [
+
+        'schools' => $schools
+
+    ]);
 }
 
 public function create()
@@ -343,6 +367,82 @@ public function create()
 
 
     /*
+========================================
+PROFILE IMAGE
+========================================
+*/
+
+$profile_image = null;
+
+if (
+    isset($_FILES['profile_image']) &&
+    $_FILES['profile_image']['error'] !== UPLOAD_ERR_NO_FILE
+) {
+
+    if ($_FILES['profile_image']['error'] !== UPLOAD_ERR_OK) {
+        die("There was an error uploading the profile image.");
+    }
+
+    // Maximum 2MB
+    if ($_FILES['profile_image']['size'] > 2 * 1024 * 1024) {
+        die("Profile image must be less than 2MB.");
+    }
+
+    // Allowed image types
+    $allowedTypes = [
+        'image/jpeg' => 'jpg',
+        'image/png'  => 'png',
+        'image/webp' => 'webp'
+    ];
+
+    // Verify actual image
+    $imageInfo = getimagesize(
+        $_FILES['profile_image']['tmp_name']
+    );
+
+    if ($imageInfo === false) {
+        die("Uploaded file is not a valid image.");
+    }
+
+    $mime = $imageInfo['mime'];
+
+    if (!isset($allowedTypes[$mime])) {
+        die("Only JPG, PNG and WEBP images are allowed.");
+    }
+
+    // Upload folder
+    $uploadDirectory =
+    __DIR__ . '/../../public/uploads/users/';
+
+    if (!is_dir($uploadDirectory)) {
+        mkdir(
+            $uploadDirectory,
+            0755,
+            true
+        );
+    }
+
+    // Unique filename
+    $profile_image =
+        uniqid('user_', true)
+        . '.'
+        . $allowedTypes[$mime];
+
+    // Full path
+    $uploadPath =
+        $uploadDirectory . $profile_image;
+
+    // Move uploaded image
+    if (!move_uploaded_file(
+        $_FILES['profile_image']['tmp_name'],
+        $uploadPath
+    )) {
+        die("Unable to save profile image.");
+    }
+}
+
+
+    /*
     ========================================
     BASIC VALIDATION
     ========================================
@@ -387,19 +487,21 @@ public function create()
 
     $userData = [
 
-        'firstname' => $firstname,
+    'firstname' => $firstname,
 
-        'lastname' => $lastname,
+    'lastname' => $lastname,
 
-        'email' => $email,
+    'email' => $email,
 
-        'gender' => $gender,
+    'gender' => $gender,
 
-        'school_id' => $school_id,
+    'school_id' => $school_id,
 
-        'password' => $hashedPassword
+    'password' => $hashedPassword,
 
-    ];
+    'profile_image' => $profile_image
+
+];
 
 
     /*

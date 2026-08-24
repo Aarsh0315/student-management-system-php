@@ -627,3 +627,80 @@
     }
 
 }
+
+
+/* ========================================
+   PROFILE IMAGE
+======================================== */
+
+.user-profile-image {
+
+    width: 85px;
+    height: 85px;
+
+    min-width: 85px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #d0d2d6;
+
+    color: #ffffff;
+
+    box-shadow:
+        0 6px 16px rgba(37, 99, 235, 0.20);
+
+}
+
+
+/* ========================================
+   REAL PROFILE PHOTO
+======================================== */
+
+.user-profile-image img {
+
+    width: 100%;
+    height: 100%;
+
+    display: block;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    border-radius: 50%;
+}
+
+
+/* ========================================
+   NO PHOTO - INITIAL AVATAR
+======================================== */
+
+.user-avatar-fallback {
+
+    width: 100%;
+    height: 100%;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+
+    font-weight: 700;
+}

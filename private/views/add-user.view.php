@@ -100,6 +100,7 @@ $schools = $data['schools'] ?? [];
         <form
             method="POST"
             action="<?= ROOT ?>/users/add"
+            enctype="multipart/form-data"
         >
 
 
@@ -119,25 +120,7 @@ $schools = $data['schools'] ?? [];
 
                     <!-- USER ID -->
 
-                    <div class="form-group">
-
-                        <label for="user_id">
-                            User ID
-                        </label>
-
-                        <input
-                            type="text"
-                            id="user_id"
-                            name="user_id"
-                            placeholder="USR001"
-                            required
-                        >
-
-                        <small>
-                            Enter a unique User ID.
-                        </small>
-
-                    </div>
+                    
 
 
                     <!-- FIRST NAME -->
@@ -236,6 +219,27 @@ $schools = $data['schools'] ?? [];
 
             </div>
 
+            <!-- PROFILE IMAGE -->
+
+<div class="form-group">
+
+    <label for="profile_image">
+        Profile Image
+    </label>
+
+    <input
+        type="file"
+        id="profile_image"
+        name="profile_image"
+        accept="image/jpeg,image/png,image/webp"
+    >
+
+    <small>
+        JPG, PNG or WEBP. Maximum 2MB.
+    </small>
+
+</div>
+
 
             <!-- =========================
                  SCHOOL & ROLE
@@ -252,47 +256,43 @@ $schools = $data['schools'] ?? [];
 
                 <div class="form-group">
 
-                    <label for="school_id">
-                        School
-                    </label>
+    <label for="school_id">
+        School
+    </label>
 
-                    <select
-                        id="school_id"
-                        name="school_id"
-                        required
-                    >
+    <select
+        name="school_id"
+        id="school_id"
+        required
+    >
 
-                        <option value="">
-                            Select School
-                        </option>
+        <option value="">
+            Select School
+        </option>
 
+        <?php foreach ($schools as $school): ?>
 
-                        <?php foreach ($schools as $school): ?>
+            <option
+                value="<?= htmlspecialchars($school->id) ?>"
+            >
 
-                            <option
-                                value="<?= htmlspecialchars($school->id) ?>"
-                                data-school-code="<?= htmlspecialchars($school->school_id) ?>"
-                            >
+                <?= htmlspecialchars(
+                    $school->school_id
+                ) ?>
 
-                                <?= htmlspecialchars(
-                                    $school->school_name
-                                ) ?>
+                -
+                
+                <?= htmlspecialchars(
+                    $school->school_name
+                ) ?>
 
-                                -
+            </option>
 
-                                <?= htmlspecialchars(
-                                    $school->school_id
-                                ) ?>
+        <?php endforeach; ?>
 
-                            </option>
+    </select>
 
-                        <?php endforeach; ?>
-
-
-                    </select>
-
-                </div>
-
+</div>
 
                 <!-- SCHOOL ID / CODE -->
 
