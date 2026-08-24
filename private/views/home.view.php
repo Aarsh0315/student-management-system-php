@@ -171,248 +171,148 @@ $parent_count = $data['parent_count'] ?? 0;
          DASHBOARD CARDS
     ========================== -->
 
-    <section class="dashboard-cards">
+    <!-- =========================
+     DASHBOARD CARDS
+========================= -->
+
+<section class="dashboard-cards">
 
 
-        <!-- =========================
-             STUDENTS
-        ========================== -->
+    <!-- =========================
+         STUDENTS
+    ========================== -->
 
-        <div class="dashboard-card">
+    <div class="dashboard-card">
 
-            <div class="card-icon">
-                🎓
-            </div>
-
-
-            <h3>
-                Students
-            </h3>
+        <h3>
+            Students
+        </h3>
 
 
-            <p>
-                Manage students registered
-                in your school.
-            </p>
+        <p>
+            Manage students registered
+            in your school.
+        </p>
 
 
-            <strong class="dashboard-count">
+        <strong class="dashboard-count">
 
-                <?= htmlspecialchars(
-                    $student_count
-                ) ?>
+            <?= htmlspecialchars(
+                $student_count
+            ) ?>
 
-            </strong>
-
-
-            <a href="<?= ROOT ?>/students">
-                Manage Students →
-            </a>
-
-        </div>
+        </strong>
 
 
+        <a href="<?= ROOT ?>/students">
+            Manage Students →
+        </a>
 
-        <!-- =========================
-             TEACHERS
-        ========================== -->
-
-        <div class="dashboard-card">
-
-            <div class="card-icon">
-                👨‍🏫
-            </div>
-
-
-            <h3>
-                Teachers
-            </h3>
-
-
-            <p>
-                Manage teachers and staff
-                members in your school.
-            </p>
-
-
-            <strong class="dashboard-count">
-
-                <?= htmlspecialchars(
-                    $staff_count
-                ) ?>
-
-            </strong>
-
-
-            <a href="<?= ROOT ?>/teachers">
-                Manage Teachers →
-            </a>
-
-        </div>
-
-
-
-        <!-- =========================
-             PARENTS
-        ========================== -->
-
-        <div class="dashboard-card">
-
-            <div class="card-icon">
-                👨‍👩‍👧
-            </div>
-
-
-            <h3>
-                Parents
-            </h3>
-
-
-            <p>
-                Manage parents associated
-                with your students.
-            </p>
-
-
-            <strong class="dashboard-count">
-
-                <?= htmlspecialchars(
-                    $parent_count
-                ) ?>
-
-            </strong>
-
-
-            <a href="<?= ROOT ?>/parents">
-                Manage Parents →
-            </a>
-
-        </div>
-
-
-
-        <!-- =========================
-             CLASSES
-        ========================== -->
-
-        <div class="dashboard-card">
-
-            <div class="card-icon">
-                📚
-            </div>
-
-
-            <h3>
-                Classes
-            </h3>
-
-
-            <p>
-                Manage classes and divisions
-                in your school.
-            </p>
-
-
-            <strong class="dashboard-count">
-                —
-            </strong>
-
-
-            <a href="<?= ROOT ?>/classes">
-                Manage Classes →
-            </a>
-
-        </div>
-
-
-    </section>
+    </div>
 
 
 
     <!-- =========================
-         SCHOOL MANAGEMENT
+         TEACHERS
     ========================== -->
 
-    <section class="quick-section">
+    <div class="dashboard-card">
+
+        <h3>
+            Teachers
+        </h3>
 
 
-        <h2>
-            School Management
-        </h2>
+        <p>
+            Manage teachers and staff
+            members in your school.
+        </p>
 
 
-        <div class="info-grid">
+        <strong class="dashboard-count">
+
+            <?= htmlspecialchars(
+                $staff_count
+            ) ?>
+
+        </strong>
 
 
-            <div class="info-box">
+        <a href="<?= ROOT ?>/teachers">
+            Manage Teachers →
+        </a>
 
-                <span>
-                    Students
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $student_count
-                    ) ?>
-
-                </strong>
-
-            </div>
+    </div>
 
 
-            <div class="info-box">
 
-                <span>
-                    Teachers
-                </span>
+    <!-- =========================
+         PARENTS
+    ========================== -->
 
-                <strong>
+    <div class="dashboard-card">
 
-                    <?= htmlspecialchars(
-                        $staff_count
-                    ) ?>
-
-                </strong>
-
-            </div>
+        <h3>
+            Parents
+        </h3>
 
 
-            <div class="info-box">
-
-                <span>
-                    Parents
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $parent_count
-                    ) ?>
-
-                </strong>
-
-            </div>
+        <p>
+            Manage parents associated
+            with your students.
+        </p>
 
 
-            <div class="info-box">
+        <strong class="dashboard-count">
 
-                <span>
-                    Access Level
-                </span>
+            <?= htmlspecialchars(
+                $parent_count
+            ) ?>
 
-                <strong>
-                    School Admin
-                </strong>
-
-            </div>
+        </strong>
 
 
-        </div>
+        <a href="<?= ROOT ?>/parents">
+            Manage Parents →
+        </a>
+
+    </div>
 
 
-    </section>
 
+    <!-- =========================
+         CLASSES
+    ========================== -->
+
+    <div class="dashboard-card">
+
+
+        <h3>
+            Classes
+        </h3>
+
+
+        <p>
+            Manage classes and divisions
+            in your school.
+        </p>
+
+
+        <strong class="dashboard-count">
+            <?= htmlspecialchars(
+                $parent_count
+            ) ?>
+        </strong>
+
+
+        <a href="<?= ROOT ?>/classes">
+            Manage Classes →
+        </a>
+
+    </div>
+
+
+</section>
 
 </main>
 

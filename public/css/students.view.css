@@ -3,6 +3,7 @@
 ======================================== */
 
 .students-card {
+
     width: 100%;
 
     background: #ffffff;
@@ -19,6 +20,10 @@
         0 5px 20px rgba(15, 23, 42, 0.04);
 
     overflow: hidden;
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
 
@@ -27,6 +32,7 @@
 ======================================== */
 
 .students-header {
+
     display: flex;
 
     align-items: center;
@@ -40,6 +46,7 @@
 
 
 .students-header h2 {
+
     margin: 0 0 6px;
 
     color: #172033;
@@ -53,6 +60,7 @@
 
 
 .students-header p {
+
     margin: 0;
 
     color: #64748b;
@@ -68,6 +76,7 @@
 ======================================== */
 
 .add-student-btn {
+
     display: inline-flex;
 
     align-items: center;
@@ -76,7 +85,7 @@
 
     min-height: 40px;
 
-    padding: 0 16px;
+    padding: 0 17px;
 
     background: #2563eb;
 
@@ -95,7 +104,7 @@
     white-space: nowrap;
 
     box-shadow:
-        0 4px 10px rgba(37, 99, 235, 0.15);
+        0 4px 12px rgba(37, 99, 235, 0.18);
 
     transition:
         background 0.2s ease,
@@ -106,6 +115,7 @@
 
 
 .add-student-btn:hover {
+
     background: #1d4ed8;
 
     border-color: #1d4ed8;
@@ -113,7 +123,7 @@
     transform: translateY(-1px);
 
     box-shadow:
-        0 6px 15px rgba(37, 99, 235, 0.22);
+        0 7px 16px rgba(37, 99, 235, 0.25);
 }
 
 
@@ -122,15 +132,20 @@
 ======================================== */
 
 .table-wrapper {
+
     width: 100%;
 
     overflow-x: auto;
 
-    border: 1px solid #eef0f3;
+    border: 1px solid #e5e7eb;
 
     border-radius: 10px;
 
+    background: #ffffff;
+
     scrollbar-width: thin;
+
+    -webkit-overflow-scrolling: touch;
 }
 
 
@@ -139,6 +154,7 @@
 ======================================== */
 
 .table-wrapper table {
+
     width: 100%;
 
     min-width: 1050px;
@@ -154,12 +170,14 @@
 ======================================== */
 
 .table-wrapper thead {
+
     background: #f8fafc;
 }
 
 
 .table-wrapper th {
-    padding: 13px 14px;
+
+    padding: 14px 15px;
 
     color: #64748b;
 
@@ -184,7 +202,8 @@
 ======================================== */
 
 .table-wrapper td {
-    padding: 15px 14px;
+
+    padding: 15px;
 
     color: #475569;
 
@@ -203,7 +222,19 @@
 ======================================== */
 
 .table-wrapper tbody tr:last-child td {
+
     border-bottom: none;
+}
+
+
+/* ========================================
+   ROW
+======================================== */
+
+.table-wrapper tbody tr {
+
+    transition:
+        background 0.15s ease;
 }
 
 
@@ -211,13 +242,8 @@
    ROW HOVER
 ======================================== */
 
-.table-wrapper tbody tr {
-    transition:
-        background 0.15s ease;
-}
-
-
 .table-wrapper tbody tr:hover {
+
     background: #f8fafc;
 }
 
@@ -227,11 +253,12 @@
 ======================================== */
 
 .student-id {
+
     display: inline-flex;
 
     align-items: center;
 
-    padding: 5px 8px;
+    padding: 5px 9px;
 
     background: #f1f5f9;
 
@@ -252,6 +279,7 @@
 ======================================== */
 
 .student-name {
+
     color: #172033;
 
     font-size: 13px;
@@ -265,6 +293,7 @@
 ======================================== */
 
 .student-class {
+
     display: inline-flex;
 
     align-items: center;
@@ -274,6 +303,8 @@
     background: #eff6ff;
 
     color: #2563eb;
+
+    border: 1px solid #dbeafe;
 
     border-radius: 6px;
 
@@ -288,6 +319,7 @@
 ======================================== */
 
 .student-school {
+
     color: #334155;
 
     font-size: 12px;
@@ -301,6 +333,7 @@
 ======================================== */
 
 .no-school {
+
     color: #94a3b8;
 
     font-size: 11px;
@@ -314,6 +347,7 @@
 ======================================== */
 
 .status {
+
     display: inline-flex;
 
     align-items: center;
@@ -335,6 +369,7 @@
 ======================================== */
 
 .status::before {
+
     content: "";
 
     width: 6px;
@@ -350,6 +385,7 @@
 ======================================== */
 
 .status.active {
+
     background: #ecfdf3;
 
     color: #15803d;
@@ -359,6 +395,7 @@
 
 
 .status.active::before {
+
     background: #22c55e;
 }
 
@@ -368,6 +405,7 @@
 ======================================== */
 
 .status.inactive {
+
     background: #fef2f2;
 
     color: #b91c1c;
@@ -377,6 +415,7 @@
 
 
 .status.inactive::before {
+
     background: #ef4444;
 }
 
@@ -386,15 +425,16 @@
 ======================================== */
 
 .view-btn {
+
     display: inline-flex;
 
     align-items: center;
 
     justify-content: center;
 
-    min-width: 50px;
+    min-width: 52px;
 
-    min-height: 30px;
+    min-height: 31px;
 
     padding: 0 12px;
 
@@ -421,6 +461,7 @@
 
 
 .view-btn:hover {
+
     background: #1d4ed8;
 
     border-color: #1d4ed8;
@@ -437,6 +478,7 @@
 ======================================== */
 
 .empty-state {
+
     padding: 60px 25px;
 
     text-align: center;
@@ -450,6 +492,7 @@
 
 
 .empty-state h3 {
+
     margin: 0 0 8px;
 
     color: #172033;
@@ -461,6 +504,7 @@
 
 
 .empty-state p {
+
     margin: 0;
 
     color: #64748b;
@@ -476,13 +520,16 @@
 @media (max-width: 900px) {
 
     .students-card {
+
         padding: 22px;
+
     }
 
     .students-header {
-        margin-bottom: 20px;
-    }
 
+        margin-bottom: 20px;
+
+    }
 }
 
 
@@ -493,31 +540,44 @@
 @media (max-width: 650px) {
 
     .students-card {
+
         padding: 18px;
 
         border-radius: 14px;
+
     }
 
+
     .students-header {
+
         flex-direction: column;
 
         align-items: flex-start;
 
         gap: 15px;
+
     }
+
 
     .add-student-btn {
+
         width: 100%;
+
     }
+
 
     .table-wrapper {
+
         border-radius: 8px;
+
     }
+
 
     .table-wrapper table {
-        min-width: 1050px;
-    }
 
+        min-width: 1050px;
+
+    }
 }
 
 
@@ -528,15 +588,22 @@
 @media (max-width: 400px) {
 
     .students-card {
+
         padding: 15px;
+
     }
+
 
     .students-header h2 {
+
         font-size: 18px;
+
     }
+
 
     .students-header p {
-        font-size: 12px;
-    }
 
+        font-size: 12px;
+
+    }
 }

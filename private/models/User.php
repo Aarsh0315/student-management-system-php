@@ -69,91 +69,143 @@ class User extends Model
        CREATE USER
     ===================================================== */
 
-    public function createUser($data)
-    {
-        /*
-        ========================================
-        CHECK DUPLICATE EMAIL
-        ========================================
-        */
+   public function createUser($data)
+{
+    /*
+    ========================================
+    GENERATE USER ID
+    ========================================
+    */
 
-        $existingUser =
-            $this->findByEmail(
-                $data['email']
-            );
+    $idQuery = "SELECT
+                    COALESCE(
+                        MAX(
+                            CAST(
+                                SUBSTRING(user_id, 4)
+                                AS UNSIGNED
+                            )
+                        ),
+                        0
+                    ) + 1 AS next_number
+                FROM users
+                WHERE user_id LIKE 'USR%'";
 
+    $idResult = $this->query($idQuery);
 
-        if ($existingUser) {
-            return false;
-        }
-
-
-        /*
-        ========================================
-        GENERATE USER ID
-        ========================================
-        */
-
-        $user_id =
-            $this->generateUserId();
+    $nextNumber =
+        $idResult[0]->next_number ?? 1;
 
 
-        /*
-        ========================================
-        INSERT USER
-        ========================================
-        */
+    /*
+    ========================================
+    CREATE USER ID
+    ========================================
+    */
 
-        $query = "INSERT INTO users
-(
-    user_id,
-    firstname,
-    lastname,
-    email,
-    gender,
-    profile_image,
-    school_id,
-    rank,
-    password,
-    status
-)
-
-                  VALUES
-                    (
-                        :user_id,
-                        :firstname,
-                        :lastname,
-                        :email,
-                        :gender,
-                        :profile_image,
-                        :school_id,
-                        :rank,
-                        :password,
-                        :status
-                    )";
-
-
-        /*
-        ========================================
-        ADD GENERATED ID
-        ========================================
-        */
-
-        $data['user_id'] =
-            $user_id;
-
-
-        /*
-        ========================================
-        CREATE USER
-        ========================================
-        */
-
-        return $this->query(
-            $query,
-            $data
+    $user_id =
+        'USR'
+        . str_pad(
+            $nextNumber,
+            3,
+            '0',
+            STR_PAD_LEFT
         );
-    }
+
+
+    /*
+    ========================================
+    PROFILE IMAGE
+    ========================================
+    */
+
+    $profile_image =
+        $data['profile_image'] ?? null;
+
+
+    /*
+    ========================================
+    INSERT USER
+    ========================================
+    */
+
+    $query = "INSERT INTO users
+    (
+        user_id,
+        firstname,
+        lastname,
+        email,
+        gender,
+        school_id,
+        rank,
+        password,
+        status,
+        profile_image
+    )
+    VALUES
+    (
+        :user_id,
+        :firstname,
+        :lastname,
+        :email,
+        :gender,
+        :school_id,
+        :rank,
+        :password,
+        :status,
+        :profile_image
+    )";
+
+
+    /*
+    ========================================
+    ADD USER ID
+    ========================================
+    */
+
+    $data['user_id'] = $user_id;
+
+
+    /*
+    ========================================
+    CREATE USER
+    ========================================
+    */
+
+    return $this->query(
+        $query,
+        [
+            'user_id' =>
+                $data['user_id'],
+
+            'firstname' =>
+                $data['firstname'],
+
+            'lastname' =>
+                $data['lastname'],
+
+            'email' =>
+                $data['email'],
+
+            'gender' =>
+                $data['gender'],
+
+            'school_id' =>
+                $data['school_id'],
+
+            'rank' =>
+                $data['rank'],
+
+            'password' =>
+                $data['password'],
+
+            'status' =>
+                $data['status'],
+
+            'profile_image' =>
+                $profile_image
+        ]
+    );
+}
 
 
     /* =====================================================
