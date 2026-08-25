@@ -1,13 +1,13 @@
 /* ========================================
-   PARENTS PAGE
+   TEACHER TESTS PAGE
 ======================================== */
 
 
 /* ========================================
-   PARENTS CARD
+   TESTS CARD
 ======================================== */
 
-.parents-card {
+.tests-card {
 
     width: 100%;
 
@@ -25,14 +25,18 @@
         0 5px 20px rgba(15, 23, 42, 0.04);
 
     overflow: hidden;
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
 }
 
 
 /* ========================================
-   PARENTS HEADER
+   TESTS HEADER
 ======================================== */
 
-.parents-header {
+.tests-header {
 
     display: flex;
 
@@ -46,7 +50,7 @@
 }
 
 
-.parents-header h2 {
+.tests-header h2 {
 
     margin: 0 0 6px;
 
@@ -60,7 +64,7 @@
 }
 
 
-.parents-header p {
+.tests-header p {
 
     margin: 0;
 
@@ -73,10 +77,10 @@
 
 
 /* ========================================
-   ADD PARENT BUTTON
+   CREATE TEST BUTTON
 ======================================== */
 
-.add-parent-btn {
+.add-test-btn {
 
     display: inline-flex;
 
@@ -84,7 +88,9 @@
 
     justify-content: center;
 
-    padding: 10px 16px;
+    min-height: 40px;
+
+    padding: 0 17px;
 
     background: #2563eb;
 
@@ -103,7 +109,7 @@
     white-space: nowrap;
 
     box-shadow:
-        0 4px 10px rgba(37, 99, 235, 0.15);
+        0 4px 12px rgba(37, 99, 235, 0.18);
 
     transition:
         background 0.2s ease,
@@ -113,7 +119,7 @@
 }
 
 
-.add-parent-btn:hover {
+.add-test-btn:hover {
 
     background: #1d4ed8;
 
@@ -122,7 +128,7 @@
     transform: translateY(-1px);
 
     box-shadow:
-        0 6px 15px rgba(37, 99, 235, 0.22);
+        0 7px 16px rgba(37, 99, 235, 0.25);
 }
 
 
@@ -136,9 +142,15 @@
 
     overflow-x: auto;
 
-    border: 1px solid #eef0f3;
+    border: 1px solid #e5e7eb;
 
     border-radius: 10px;
+
+    background: #ffffff;
+
+    scrollbar-width: thin;
+
+    -webkit-overflow-scrolling: touch;
 }
 
 
@@ -150,7 +162,7 @@
 
     width: 100%;
 
-    min-width: 900px;
+    min-width: 1000px;
 
     border-collapse: collapse;
 
@@ -170,7 +182,7 @@
 
 .table-wrapper th {
 
-    padding: 13px 14px;
+    padding: 14px 15px;
 
     color: #64748b;
 
@@ -196,7 +208,7 @@
 
 .table-wrapper td {
 
-    padding: 15px 14px;
+    padding: 15px;
 
     color: #475569;
 
@@ -238,10 +250,10 @@
 
 
 /* ========================================
-   PARENT NAME
+   TEST NAME
 ======================================== */
 
-.table-wrapper td strong {
+.test-name {
 
     color: #172033;
 
@@ -252,14 +264,44 @@
 
 
 /* ========================================
-   PARENT ID
+   TEST CLASS
 ======================================== */
 
-.parent-id {
+.test-class {
 
     display: inline-flex;
 
     align-items: center;
+
+    padding: 5px 9px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+   TEST DIVISION
+======================================== */
+
+.test-division {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 30px;
 
     padding: 5px 9px;
 
@@ -271,25 +313,49 @@
 
     border-radius: 6px;
 
-    font-size: 10px;
+    font-size: 11px;
 
     font-weight: 600;
-
-    letter-spacing: 0.2px;
 }
 
 
 /* ========================================
-   SCHOOL NAME
+   MARKS
 ======================================== */
 
-.school-name {
+.marks-count {
 
-    color: #475569;
+    display: inline-flex;
 
-    font-size: 12px;
+    align-items: center;
 
-    font-weight: 500;
+    padding: 5px 9px;
+
+    background: #f1f5f9;
+
+    color: #172033;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   NO DURATION
+======================================== */
+
+.no-duration {
+
+    color: #94a3b8;
+
+    font-size: 11px;
+
+    font-style: italic;
 }
 
 
@@ -352,7 +418,27 @@
 
 
 /* ========================================
-   INACTIVE
+   DRAFT
+======================================== */
+
+.status.draft {
+
+    background: #fff7ed;
+
+    color: #c2410c;
+
+    border: 1px solid #fed7aa;
+}
+
+
+.status.draft::before {
+
+    background: #f97316;
+}
+
+
+/* ========================================
+   CLOSED
 ======================================== */
 
 .status.inactive {
@@ -372,20 +458,6 @@
 
 
 /* ========================================
-   TABLE ACTIONS
-======================================== */
-
-.table-actions {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
-}
-
-
-/* ========================================
    VIEW BUTTON
 ======================================== */
 
@@ -397,9 +469,11 @@
 
     justify-content: center;
 
-    min-width: 50px;
+    min-width: 52px;
 
-    padding: 7px 12px;
+    min-height: 31px;
+
+    padding: 0 12px;
 
     background: #2563eb;
 
@@ -468,13 +542,55 @@
 
 .empty-state p {
 
-    margin: 0;
+    margin: 0 0 20px;
 
     color: #64748b;
 
     font-size: 13px;
+}
 
-    line-height: 1.5;
+
+/* ========================================
+   EMPTY CREATE BUTTON
+======================================== */
+
+.empty-create-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 38px;
+
+    padding: 0 15px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.empty-create-btn:hover {
+
+    background: #1d4ed8;
+
+    transform: translateY(-1px);
 }
 
 
@@ -482,25 +598,18 @@
    TABLET
 ======================================== */
 
-@media (max-width: 950px) {
+@media (max-width: 900px) {
 
-    .parents-card {
+    .tests-card {
 
         padding: 22px;
     }
 
 
-    .parents-header {
+    .tests-header {
 
         margin-bottom: 20px;
     }
-
-
-    .table-wrapper table {
-
-        min-width: 900px;
-    }
-
 }
 
 
@@ -510,7 +619,7 @@
 
 @media (max-width: 650px) {
 
-    .parents-card {
+    .tests-card {
 
         padding: 18px;
 
@@ -518,7 +627,7 @@
     }
 
 
-    .parents-header {
+    .tests-header {
 
         flex-direction: column;
 
@@ -528,7 +637,7 @@
     }
 
 
-    .add-parent-btn {
+    .add-test-btn {
 
         width: 100%;
     }
@@ -542,9 +651,8 @@
 
     .table-wrapper table {
 
-        min-width: 900px;
+        min-width: 1000px;
     }
-
 }
 
 
@@ -554,21 +662,20 @@
 
 @media (max-width: 400px) {
 
-    .parents-card {
+    .tests-card {
 
         padding: 15px;
     }
 
 
-    .parents-header h2 {
+    .tests-header h2 {
 
         font-size: 18px;
     }
 
 
-    .parents-header p {
+    .tests-header p {
 
         font-size: 12px;
     }
-
 }

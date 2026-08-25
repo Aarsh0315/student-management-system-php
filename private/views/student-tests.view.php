@@ -1,6 +1,6 @@
 <?php
 
-$classes = $data['classes'] ?? [];
+$tests = $data['tests'] ?? [];
 
 ?>
 
@@ -17,11 +17,11 @@ $classes = $data['classes'] ?? [];
     >
 
     <title>
-        Classes - My School
+        Tests - My School
     </title>
 
 
-    <!-- DASHBOARD CSS -->
+    <!-- DASHBOARD -->
 
     <link
         rel="stylesheet"
@@ -29,11 +29,19 @@ $classes = $data['classes'] ?? [];
     >
 
 
-    <!-- TEACHER CLASSES CSS -->
+    <!-- STUDENT TESTS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-classes.view.css?v=1"
+        href="<?= ROOT ?>/css/student-tests.view.css?v=1"
+    >
+
+
+    <!-- NAVBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
 
 
@@ -44,45 +52,37 @@ $classes = $data['classes'] ?? [];
         href="<?= ROOT ?>/css/footer.view.css?v=2"
     >
 
-
-    <!-- TEACHER NAVBAR -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=2"
-    >
-
 </head>
 
 
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<?php require "../private/views/includes/nav.view.php"; ?>
 
 
 <main class="dashboard">
 
 
-    <!-- =========================
+    <!-- ========================================
          PAGE HEADER
-    ========================== -->
+    ========================================= -->
 
     <section class="welcome">
 
         <div>
 
             <p class="welcome-small">
-                Teacher
+                Student
             </p>
 
             <h1>
-                Classes
+                Tests
             </h1>
 
             <p class="welcome-text">
-                View classes and divisions
-                assigned to you.
+                View and attempt tests assigned
+                to your class.
             </p>
 
         </div>
@@ -91,28 +91,26 @@ $classes = $data['classes'] ?? [];
 
 
 
-    <!-- =========================
-         CLASSES CARD
-    ========================== -->
+    <!-- ========================================
+         TESTS CARD
+    ========================================= -->
 
-    <section class="classes-card">
+    <section class="tests-card">
 
 
-        <!-- HEADER -->
-
-        <div class="classes-header">
+        <div class="tests-header">
 
             <div>
 
                 <h2>
-                    My Classes
+                    Available Tests
                 </h2>
 
                 <p>
 
-                    <?= count($classes) ?>
+                    <?= count($tests) ?>
 
-                    class(es) assigned
+                    test(s) available
 
                 </p>
 
@@ -122,12 +120,8 @@ $classes = $data['classes'] ?? [];
 
 
 
-        <?php if (!empty($classes)): ?>
+        <?php if (!empty($tests)): ?>
 
-
-            <!-- =========================
-                 TABLE
-            ========================== -->
 
             <div class="table-wrapper">
 
@@ -138,6 +132,10 @@ $classes = $data['classes'] ?? [];
                         <tr>
 
                             <th>
+                                Test
+                            </th>
+
+                            <th>
                                 Class
                             </th>
 
@@ -146,7 +144,11 @@ $classes = $data['classes'] ?? [];
                             </th>
 
                             <th>
-                                Students
+                                Total Marks
+                            </th>
+
+                            <th>
+                                Duration
                             </th>
 
                             <th>
@@ -166,21 +168,19 @@ $classes = $data['classes'] ?? [];
 
 
                         <?php foreach (
-                            $classes as $class
+                            $tests as $test
                         ): ?>
 
 
                             <tr>
 
 
-                                <!-- CLASS -->
-
                                 <td>
 
-                                    <strong class="class-name">
+                                    <strong class="test-name">
 
                                         <?= htmlspecialchars(
-                                            $class->class
+                                            $test->title
                                             ?? '-'
                                         ) ?>
 
@@ -189,15 +189,12 @@ $classes = $data['classes'] ?? [];
                                 </td>
 
 
-
-                                <!-- DIVISION -->
-
                                 <td>
 
-                                    <span class="class-division">
+                                    <span class="test-class">
 
                                         <?= htmlspecialchars(
-                                            $class->division
+                                            $test->class
                                             ?? '-'
                                         ) ?>
 
@@ -206,15 +203,26 @@ $classes = $data['classes'] ?? [];
                                 </td>
 
 
+                                <td>
 
-                                <!-- STUDENTS -->
+                                    <span class="test-division">
+
+                                        <?= htmlspecialchars(
+                                            $test->division
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
+
+                                </td>
+
 
                                 <td>
 
-                                    <span class="student-count">
+                                    <span class="marks-count">
 
                                         <?= htmlspecialchars(
-                                            $class->student_count
+                                            $test->total_marks
                                             ?? '0'
                                         ) ?>
 
@@ -223,42 +231,36 @@ $classes = $data['classes'] ?? [];
                                 </td>
 
 
-
-                                <!-- STATUS -->
-
                                 <td>
 
-                                    <?php
-                                    /*
-                                    ========================================
-                                    STATUS
-                                    ========================================
+                                    <?= htmlspecialchars(
+                                        $test->duration
+                                        ?? '0'
+                                    ) ?>
 
-                                    Classes are currently generated
-                                    from active students, so the
-                                    class itself is considered active.
-                                    */
-                                    ?>
+                                    min
+
+                                </td>
+
+
+                                <td>
 
                                     <span
                                         class="status active"
                                     >
-                                        Active
+                                        Available
                                     </span>
 
                                 </td>
 
 
-
-                                <!-- ACTION -->
-
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/teacherclasses/details/<?= urlencode($class->class ?? '') ?>/<?= urlencode($class->division ?? '') ?>"
-                                        class="view-btn"
+                                        href="<?= ROOT ?>/studenttests/start/<?= urlencode($test->test_id) ?>"
+                                        class="start-test-btn"
                                     >
-                                        View
+                                        Start Test
                                     </a>
 
                                 </td>
@@ -280,19 +282,15 @@ $classes = $data['classes'] ?? [];
         <?php else: ?>
 
 
-            <!-- =========================
-                 EMPTY STATE
-            ========================== -->
-
             <div class="empty-state">
 
                 <h3>
-                    No Classes Found
+                    No Tests Available
                 </h3>
 
                 <p>
-                    There are currently no classes
-                    assigned to you.
+                    There are currently no tests
+                    assigned to your class.
                 </p>
 
             </div>

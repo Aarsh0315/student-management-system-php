@@ -2,6 +2,33 @@
 
 $student = $data['student'] ?? null;
 
+if (!$student) {
+    die("Student not found.");
+}
+
+
+/* =========================
+   FULL NAME
+========================= */
+
+$fullName =
+    ($student->firstname ?? '')
+    . ' '
+    . ($student->lastname ?? '');
+
+
+/* =========================
+   INITIAL
+========================= */
+
+$initial = strtoupper(
+    substr(
+        $student->firstname ?? 'S',
+        0,
+        1
+    )
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -17,23 +44,23 @@ $student = $data['student'] ?? null;
     >
 
     <title>
-        Student Details
+        Student Details - My School
     </title>
 
 
-    <!-- NAVBAR -->
+    <!-- TEACHER NAVBAR -->
 
     <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/teacher-nav.view.css?v=2"
->
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/teacher-nav.view.css?v=4"
+    >
 
 
     <!-- STUDENT DETAILS CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-student-details.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-student-details.view.css?v=2"
     >
 
 
@@ -56,15 +83,15 @@ $student = $data['student'] ?? null;
 <main class="dashboard">
 
 
-    <!-- ========================================
+    <!-- =========================
          PAGE HEADER
-    ======================================== -->
+    ========================== -->
 
-    <section class="page-header">
+    <section class="welcome">
 
         <div>
 
-            <p class="page-small">
+            <p class="welcome-small">
                 Teacher
             </p>
 
@@ -72,41 +99,31 @@ $student = $data['student'] ?? null;
                 Student Details
             </h1>
 
-            <p class="page-description">
-                View complete student information.
+            <p class="welcome-text">
+                View complete information about this student.
             </p>
 
         </div>
-
-
-        <a
-            href="<?= ROOT ?>/teacherstudents"
-            class="back-btn"
-        >
-            ← Back to Students
-        </a>
 
     </section>
 
 
 
-    <!-- ========================================
-         STUDENT PROFILE CARD
-    ======================================== -->
+    <!-- =========================
+         STUDENT PROFILE
+    ========================== -->
 
     <section class="student-profile-card">
 
 
-        <!-- ========================================
-             PROFILE TOP
-        ======================================== -->
-
-        <div class="student-profile-top">
+        <div class="student-profile-left">
 
 
-            <!-- PROFILE IMAGE -->
-            
-            <div class="student-profile-image">
+            <!-- =========================
+                 AVATAR
+            ========================== -->
+
+            <div class="student-large-avatar">
 
                 <?php if (
                     !empty($student->profile_image)
@@ -116,26 +133,12 @@ $student = $data['student'] ?? null;
                         src="<?= ROOT ?>/uploads/users/<?= htmlspecialchars(
                             $student->profile_image
                         ) ?>"
-                        alt="Student"
+                        alt="<?= htmlspecialchars($fullName) ?>"
                     >
 
                 <?php else: ?>
 
-                    <?php
-
-                    $firstname =
-                        $student->firstname
-                        ?? 'S';
-
-                    echo strtoupper(
-                        substr(
-                            $firstname,
-                            0,
-                            1
-                        )
-                    );
-
-                    ?>
+                    <?= htmlspecialchars($initial) ?>
 
                 <?php endif; ?>
 
@@ -143,20 +146,16 @@ $student = $data['student'] ?? null;
 
 
 
-            <!-- STUDENT NAME -->
+            <!-- =========================
+                 BASIC DETAILS
+            ========================== -->
 
             <div class="student-profile-info">
 
                 <h2>
 
                     <?= htmlspecialchars(
-                        $student->firstname
-                        ?? ''
-                    ) ?>
-
-                    <?= htmlspecialchars(
-                        $student->lastname
-                        ?? ''
+                        trim($fullName)
                     ) ?>
 
                 </h2>
@@ -165,20 +164,24 @@ $student = $data['student'] ?? null;
                 <p>
 
                     <?= htmlspecialchars(
-                        $student->email
-                        ?? '-'
+                        $student->email ?? '-'
                     ) ?>
 
                 </p>
 
 
-                <span class="student-status">
+                <span class="student-class-badge">
+
+                    Class
 
                     <?= htmlspecialchars(
-                        ucfirst(
-                            $student->status
-                            ?? 'Unknown'
-                        )
+                        $student->class ?? '-'
+                    ) ?>
+
+                    -
+
+                    <?= htmlspecialchars(
+                        $student->division ?? '-'
                     ) ?>
 
                 </span>
@@ -189,291 +192,555 @@ $student = $data['student'] ?? null;
 
 
 
-        <!-- ========================================
-             BASIC INFORMATION
-        ======================================== -->
+        <!-- =========================
+             STATUS
+        ========================== -->
 
-        <div class="details-section">
+        <?php if (
+            ($student->status ?? 'active')
+            === 'active'
+        ): ?>
 
-            <h3>
-                Student Information
-            </h3>
+            <span class="status active">
+                Active
+            </span>
 
+        <?php else: ?>
 
-            <div class="details-grid">
+            <span class="status inactive">
+                Inactive
+            </span>
 
-
-                <div class="detail-item">
-
-                    <span>
-                        Student ID
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->student_id
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Admission Number
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->admission_number
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Class
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->class
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Division
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->division
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Roll Number
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->roll_number
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Gender
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->gender
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Date of Birth
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->date_of_birth
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Admission Date
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->admission_date
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-
-
-        <!-- ========================================
-             PARENT INFORMATION
-        ======================================== -->
-
-        <div class="details-section">
-
-            <h3>
-                Parent Information
-            </h3>
-
-
-            <div class="details-grid">
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Parent Name
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->parent_name
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Parent Phone
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->parent_phone
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <div class="detail-item">
-
-                    <span>
-                        Parent Email
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->parent_email
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-
-
-        <!-- ========================================
-             CONTACT INFORMATION
-        ======================================== -->
-
-        <div class="details-section">
-
-            <h3>
-                Contact Information
-            </h3>
-
-
-            <div class="details-grid">
-
-
-                <div class="detail-item detail-full">
-
-                    <span>
-                        Address
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $student->address
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-            </div>
-
-        </div>
+        <?php endif; ?>
 
 
     </section>
+
+
+
+    <!-- =========================
+         PERSONAL INFORMATION
+    ========================== -->
+
+    <section class="student-details-card">
+
+        <div class="details-header">
+
+            <h2>
+                Personal Information
+            </h2>
+
+            <p>
+                Basic information about the student.
+            </p>
+
+        </div>
+
+
+        <div class="details-grid">
+
+
+            <!-- STUDENT ID -->
+
+            <div class="details-item">
+
+                <span>
+                    Student ID
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->student_id ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- USER ID -->
+
+            <div class="details-item">
+
+                <span>
+                    User ID
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->user_id ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- FIRST NAME -->
+
+            <div class="details-item">
+
+                <span>
+                    First Name
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->firstname ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- LAST NAME -->
+
+            <div class="details-item">
+
+                <span>
+                    Last Name
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->lastname ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- EMAIL -->
+
+            <div class="details-item">
+
+                <span>
+                    Email
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->email ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- GENDER -->
+
+            <div class="details-item">
+
+                <span>
+                    Gender
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->gender ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- DATE OF BIRTH -->
+
+            <div class="details-item">
+
+                <span>
+                    Date of Birth
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->date_of_birth ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ACADEMIC INFORMATION
+    ========================== -->
+
+    <section class="student-details-card">
+
+        <div class="details-header">
+
+            <h2>
+                Academic Information
+            </h2>
+
+            <p>
+                Student's school and academic information.
+            </p>
+
+        </div>
+
+
+        <div class="details-grid">
+
+
+            <!-- ADMISSION NUMBER -->
+
+            <div class="details-item">
+
+                <span>
+                    Admission Number
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->admission_number
+                        ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- ROLL NUMBER -->
+
+            <div class="details-item">
+
+                <span>
+                    Roll Number
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->roll_number
+                        ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- CLASS -->
+
+            <div class="details-item">
+
+                <span>
+                    Class
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->class ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- DIVISION -->
+
+            <div class="details-item">
+
+                <span>
+                    Division
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->division ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- ADMISSION DATE -->
+
+            <div class="details-item">
+
+                <span>
+                    Admission Date
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->admission_date
+                        ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- STATUS -->
+
+            <div class="details-item">
+
+                <span>
+                    Status
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        ucfirst(
+                            $student->status
+                            ?? 'active'
+                        )
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         SCHOOL INFORMATION
+    ========================== -->
+
+    <section class="student-details-card">
+
+        <div class="details-header">
+
+            <h2>
+                School Information
+            </h2>
+
+            <p>
+                School assigned to this student.
+            </p>
+
+        </div>
+
+
+        <div class="details-grid">
+
+
+            <!-- SCHOOL -->
+
+            <div class="details-item">
+
+                <span>
+                    School
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->school_name
+                        ?? 'No School'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- SCHOOL ID -->
+
+            <div class="details-item">
+
+                <span>
+                    School ID
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->school_code
+                        ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         PARENT INFORMATION
+    ========================== -->
+
+    <section class="student-details-card">
+
+        <div class="details-header">
+
+            <h2>
+                Parent / Guardian Information
+            </h2>
+
+            <p>
+                Parent or guardian contact information.
+            </p>
+
+        </div>
+
+
+        <div class="details-grid">
+
+
+            <!-- PARENT NAME -->
+
+            <div class="details-item">
+
+                <span>
+                    Parent Name
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->parent_name
+                        ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- PARENT PHONE -->
+
+            <div class="details-item">
+
+                <span>
+                    Parent Phone
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->parent_phone
+                        ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- PARENT EMAIL -->
+
+            <div class="details-item">
+
+                <span>
+                    Parent Email
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $student->parent_email
+                        ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         ADDRESS
+    ========================== -->
+
+    <section class="student-details-card">
+
+        <div class="details-header">
+
+            <h2>
+                Address
+            </h2>
+
+        </div>
+
+
+        <div class="address-box">
+
+            <?= nl2br(
+                htmlspecialchars(
+                    $student->address
+                    ?? 'No address provided.'
+                )
+            ) ?>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- =========================
+         BACK BUTTON
+    ========================== -->
+
+    <div class="student-actions">
+
+        <a
+            href="<?= ROOT ?>/teacherstudents"
+            class="back-btn"
+        >
+            ← Back to Students
+        </a>
+
+    </div>
 
 
 </main>

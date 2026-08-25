@@ -172,10 +172,6 @@
 
         <div class="dashboard-card">
 
-            <div class="card-icon">
-                S
-            </div>
-
             <h3>
                 Students
             </h3>
@@ -185,9 +181,6 @@
                 to your classes.
             </p>
 
-            <strong class="dashboard-count">
-                —
-            </strong>
 
             <a href="<?= ROOT ?>/teacherstudents">
                 View Students →
@@ -203,10 +196,6 @@
 
         <div class="dashboard-card">
 
-            <div class="card-icon">
-                C
-            </div>
-
             <h3>
                 Classes
             </h3>
@@ -215,10 +204,6 @@
                 View your assigned
                 classes and divisions.
             </p>
-
-            <strong class="dashboard-count">
-                —
-            </strong>
 
             <a href="<?= ROOT ?>/teacherclasses">
                 View Classes →
@@ -234,10 +219,6 @@
 
         <div class="dashboard-card">
 
-            <div class="card-icon">
-                T
-            </div>
-
             <h3>
                 Tests
             </h3>
@@ -247,9 +228,6 @@
                 for your students.
             </p>
 
-            <strong class="dashboard-count">
-                —
-            </strong>
 
             <a href="<?= ROOT ?>/teachertests">
                 Manage Tests →
@@ -265,9 +243,7 @@
 
         <div class="dashboard-card">
 
-            <div class="card-icon">
-                R
-            </div>
+
 
             <h3>
                 Results
@@ -278,10 +254,6 @@
                 and performance.
             </p>
 
-            <strong class="dashboard-count">
-                —
-            </strong>
-
             <a href="<?= ROOT ?>/teacherresults">
                 View Results →
             </a>
@@ -289,78 +261,11 @@
         </div>
 
 
-
-        <!-- ========================================
-             ASSIGNMENTS
-        ========================================= -->
-
-        <div class="dashboard-card">
-
-            <div class="card-icon">
-                A
-            </div>
-
-            <h3>
-                Assignments
-            </h3>
-
-            <p>
-                Create and manage
-                student assignments.
-            </p>
-
-            <strong class="dashboard-count">
-                —
-            </strong>
-
-            <a href="<?= ROOT ?>/teacherassignments">
-                Manage Assignments →
-            </a>
-
-        </div>
-
-
-
-        <!-- ========================================
-             ATTENDANCE
-        ========================================= -->
-
-        <div class="dashboard-card">
-
-            <div class="card-icon">
-                A
-            </div>
-
-            <h3>
-                Attendance
-            </h3>
-
-            <p>
-                Mark and view student
-                attendance.
-            </p>
-
-            <strong class="dashboard-count">
-                —
-            </strong>
-
-            <a href="<?= ROOT ?>/teacherattendance">
-                Manage Attendance →
-            </a>
-
-        </div>
-
-
-
         <!-- ========================================
              PARENTS
         ========================================= -->
 
         <div class="dashboard-card">
-
-            <div class="card-icon">
-                P
-            </div>
 
             <h3>
                 Parents
@@ -370,10 +275,6 @@
                 View parents associated
                 with your students.
             </p>
-
-            <strong class="dashboard-count">
-                —
-            </strong>
 
             <a href="<?= ROOT ?>/teacherparents">
                 View Parents →

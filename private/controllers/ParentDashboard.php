@@ -1,11 +1,15 @@
 <?php
 
-require_once "../private/models/StudentModel.php";
-
-class TeacherParents extends Controller
+class ParentDashboard extends Controller
 {
     public function index()
     {
+        /*
+        ========================================
+        START SESSION
+        ========================================
+        */
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -31,15 +35,12 @@ class TeacherParents extends Controller
 
         /*
         ========================================
-        CHECK TEACHER
+        CHECK PARENT
         ========================================
         */
 
         if (
-            !in_array(
-                $_SESSION['rank'] ?? '',
-                ['staff', 'teacher']
-            )
+            ($_SESSION['rank'] ?? '') !== 'parent'
         ) {
 
             header(
@@ -54,7 +55,7 @@ class TeacherParents extends Controller
 
         /*
         ========================================
-        GET SCHOOL ID
+        CHECK SCHOOL
         ========================================
         */
 
@@ -65,31 +66,18 @@ class TeacherParents extends Controller
         if (!$school_id) {
 
             die(
-                "No school is assigned to this teacher."
+                "No school is assigned to this parent."
             );
         }
 
 
         /*
         ========================================
-        LOAD STUDENT MODEL
+        TEMPORARY CHILDREN DATA
         ========================================
         */
 
-        $studentModel =
-            new StudentModel();
-
-
-        /*
-        ========================================
-        GET PARENTS
-        ========================================
-        */
-
-        $parents =
-            $studentModel->getParentsBySchool(
-                $school_id
-            );
+        $children = [];
 
 
         /*
@@ -99,9 +87,9 @@ class TeacherParents extends Controller
         */
 
         $this->view(
-            'teacher-parents',
+            'parent-dashboard',
             [
-                'parents' => $parents
+                'children' => $children
             ]
         );
     }

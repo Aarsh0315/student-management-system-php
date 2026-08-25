@@ -452,4 +452,44 @@ public function createStudent($userData, $studentData)
         ]
     );
 }
+
+public function getClassesBySchool($school_id)
+{
+    $query = "SELECT
+                class,
+                division,
+                COUNT(*) AS student_count
+              FROM students
+              WHERE school_id = :school_id
+              AND status = 'active'
+              GROUP BY class, division
+              ORDER BY class, division";
+
+    return $this->query($query, [
+        'school_id' => $school_id
+    ]);
+}
+
+public function getParentsBySchool($school_id)
+{
+    $query = "SELECT
+                parent_name,
+                parent_phone,
+                parent_email,
+                COUNT(*) AS student_count
+              FROM students
+              WHERE school_id = :school_id
+              AND status = 'active'
+              AND parent_name IS NOT NULL
+              AND parent_name != ''
+              GROUP BY
+                parent_name,
+                parent_phone,
+                parent_email
+              ORDER BY parent_name ASC";
+
+    return $this->query($query, [
+        'school_id' => $school_id
+    ]);
+}
 }

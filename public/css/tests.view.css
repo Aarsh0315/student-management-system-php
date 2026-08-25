@@ -1,13 +1,13 @@
 /* ========================================
-   PARENTS PAGE
+   TESTS PAGE
 ======================================== */
 
 
 /* ========================================
-   PARENTS CARD
+   TESTS CARD
 ======================================== */
 
-.parents-card {
+.tests-card {
 
     width: 100%;
 
@@ -29,10 +29,10 @@
 
 
 /* ========================================
-   PARENTS HEADER
+   TESTS HEADER
 ======================================== */
 
-.parents-header {
+.tests-header {
 
     display: flex;
 
@@ -46,7 +46,7 @@
 }
 
 
-.parents-header h2 {
+.tests-header h2 {
 
     margin: 0 0 6px;
 
@@ -60,7 +60,7 @@
 }
 
 
-.parents-header p {
+.tests-header p {
 
     margin: 0;
 
@@ -69,60 +69,6 @@
     font-size: 13px;
 
     line-height: 1.5;
-}
-
-
-/* ========================================
-   ADD PARENT BUTTON
-======================================== */
-
-.add-parent-btn {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 10px 16px;
-
-    background: #2563eb;
-
-    color: #ffffff;
-
-    border: 1px solid #2563eb;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    box-shadow:
-        0 4px 10px rgba(37, 99, 235, 0.15);
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-
-.add-parent-btn:hover {
-
-    background: #1d4ed8;
-
-    border-color: #1d4ed8;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 6px 15px rgba(37, 99, 235, 0.22);
 }
 
 
@@ -150,7 +96,7 @@
 
     width: 100%;
 
-    min-width: 900px;
+    min-width: 950px;
 
     border-collapse: collapse;
 
@@ -210,10 +156,6 @@
 }
 
 
-/* ========================================
-   LAST ROW
-======================================== */
-
 .table-wrapper tbody tr:last-child td {
 
     border-bottom: none;
@@ -238,24 +180,10 @@
 
 
 /* ========================================
-   PARENT NAME
+   TEST ID
 ======================================== */
 
-.table-wrapper td strong {
-
-    color: #172033;
-
-    font-size: 13px;
-
-    font-weight: 600;
-}
-
-
-/* ========================================
-   PARENT ID
-======================================== */
-
-.parent-id {
+.test-id {
 
     display: inline-flex;
 
@@ -280,16 +208,46 @@
 
 
 /* ========================================
-   SCHOOL NAME
+   TEST NAME
 ======================================== */
 
-.school-name {
+.table-wrapper td strong {
 
-    color: #475569;
+    color: #172033;
 
-    font-size: 12px;
+    font-size: 13px;
 
-    font-weight: 500;
+    font-weight: 600;
+}
+
+
+/* ========================================
+   MARKS
+======================================== */
+
+.marks {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 30px;
+
+    height: 26px;
+
+    padding: 0 8px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 700;
 }
 
 
@@ -314,10 +272,6 @@
     font-weight: 600;
 }
 
-
-/* ========================================
-   STATUS DOT
-======================================== */
 
 .status::before {
 
@@ -352,6 +306,26 @@
 
 
 /* ========================================
+   DRAFT
+======================================== */
+
+.status.draft {
+
+    background: #fff7ed;
+
+    color: #c2410c;
+
+    border: 1px solid #fed7aa;
+}
+
+
+.status.draft::before {
+
+    background: #f97316;
+}
+
+
+/* ========================================
    INACTIVE
 ======================================== */
 
@@ -368,20 +342,6 @@
 .status.inactive::before {
 
     background: #ef4444;
-}
-
-
-/* ========================================
-   TABLE ACTIONS
-======================================== */
-
-.table-actions {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
 }
 
 
@@ -484,13 +444,13 @@
 
 @media (max-width: 950px) {
 
-    .parents-card {
+    .tests-card {
 
         padding: 22px;
     }
 
 
-    .parents-header {
+    .tests-header {
 
         margin-bottom: 20px;
     }
@@ -498,7 +458,7 @@
 
     .table-wrapper table {
 
-        min-width: 900px;
+        min-width: 950px;
     }
 
 }
@@ -510,27 +470,11 @@
 
 @media (max-width: 650px) {
 
-    .parents-card {
+    .tests-card {
 
         padding: 18px;
 
         border-radius: 14px;
-    }
-
-
-    .parents-header {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 15px;
-    }
-
-
-    .add-parent-btn {
-
-        width: 100%;
     }
 
 
@@ -542,7 +486,7 @@
 
     .table-wrapper table {
 
-        min-width: 900px;
+        min-width: 950px;
     }
 
 }
@@ -554,19 +498,19 @@
 
 @media (max-width: 400px) {
 
-    .parents-card {
+    .tests-card {
 
         padding: 15px;
     }
 
 
-    .parents-header h2 {
+    .tests-header h2 {
 
         font-size: 18px;
     }
 
 
-    .parents-header p {
+    .tests-header p {
 
         font-size: 12px;
     }

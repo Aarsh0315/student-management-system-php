@@ -1,13 +1,13 @@
 /* ========================================
-   PARENTS PAGE
+   TEACHER RESULTS
 ======================================== */
 
 
 /* ========================================
-   PARENTS CARD
+   RESULTS CARD
 ======================================== */
 
-.parents-card {
+.results-card {
 
     width: 100%;
 
@@ -29,10 +29,10 @@
 
 
 /* ========================================
-   PARENTS HEADER
+   RESULTS HEADER
 ======================================== */
 
-.parents-header {
+.results-header {
 
     display: flex;
 
@@ -46,7 +46,7 @@
 }
 
 
-.parents-header h2 {
+.results-header h2 {
 
     margin: 0 0 6px;
 
@@ -60,7 +60,7 @@
 }
 
 
-.parents-header p {
+.results-header p {
 
     margin: 0;
 
@@ -69,60 +69,6 @@
     font-size: 13px;
 
     line-height: 1.5;
-}
-
-
-/* ========================================
-   ADD PARENT BUTTON
-======================================== */
-
-.add-parent-btn {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 10px 16px;
-
-    background: #2563eb;
-
-    color: #ffffff;
-
-    border: 1px solid #2563eb;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    box-shadow:
-        0 4px 10px rgba(37, 99, 235, 0.15);
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-
-.add-parent-btn:hover {
-
-    background: #1d4ed8;
-
-    border-color: #1d4ed8;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 6px 15px rgba(37, 99, 235, 0.22);
 }
 
 
@@ -136,9 +82,15 @@
 
     overflow-x: auto;
 
-    border: 1px solid #eef0f3;
+    border: 1px solid #e5e7eb;
 
     border-radius: 10px;
+
+    background: #ffffff;
+
+    scrollbar-width: thin;
+
+    -webkit-overflow-scrolling: touch;
 }
 
 
@@ -150,7 +102,7 @@
 
     width: 100%;
 
-    min-width: 900px;
+    min-width: 1100px;
 
     border-collapse: collapse;
 
@@ -170,7 +122,7 @@
 
 .table-wrapper th {
 
-    padding: 13px 14px;
+    padding: 14px 15px;
 
     color: #64748b;
 
@@ -196,7 +148,7 @@
 
 .table-wrapper td {
 
-    padding: 15px 14px;
+    padding: 15px;
 
     color: #475569;
 
@@ -210,19 +162,11 @@
 }
 
 
-/* ========================================
-   LAST ROW
-======================================== */
-
 .table-wrapper tbody tr:last-child td {
 
     border-bottom: none;
 }
 
-
-/* ========================================
-   ROW HOVER
-======================================== */
 
 .table-wrapper tbody tr {
 
@@ -238,10 +182,10 @@
 
 
 /* ========================================
-   PARENT NAME
+   STUDENT NAME
 ======================================== */
 
-.table-wrapper td strong {
+.student-name {
 
     color: #172033;
 
@@ -252,10 +196,50 @@
 
 
 /* ========================================
-   PARENT ID
+   TEST NAME
 ======================================== */
 
-.parent-id {
+.test-name {
+
+    color: #334155;
+
+    font-size: 12px;
+
+    font-weight: 500;
+}
+
+
+/* ========================================
+   CLASS
+======================================== */
+
+.result-class {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+   TOTAL MARKS
+======================================== */
+
+.marks-count {
 
     display: inline-flex;
 
@@ -271,25 +255,49 @@
 
     border-radius: 6px;
 
-    font-size: 10px;
+    font-size: 11px;
 
     font-weight: 600;
-
-    letter-spacing: 0.2px;
 }
 
 
 /* ========================================
-   SCHOOL NAME
+   OBTAINED MARKS
 ======================================== */
 
-.school-name {
+.obtained-marks {
 
-    color: #475569;
+    color: #172033;
 
-    font-size: 12px;
+    font-size: 13px;
 
-    font-weight: 500;
+    font-weight: 700;
+}
+
+
+/* ========================================
+   PERCENTAGE
+======================================== */
+
+.percentage {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 700;
 }
 
 
@@ -315,10 +323,6 @@
 }
 
 
-/* ========================================
-   STATUS DOT
-======================================== */
-
 .status::before {
 
     content: "";
@@ -332,10 +336,10 @@
 
 
 /* ========================================
-   ACTIVE
+   CHECKED
 ======================================== */
 
-.status.active {
+.status.checked {
 
     background: #ecfdf3;
 
@@ -345,43 +349,29 @@
 }
 
 
-.status.active::before {
+.status.checked::before {
 
     background: #22c55e;
 }
 
 
 /* ========================================
-   INACTIVE
+   PENDING
 ======================================== */
 
-.status.inactive {
+.status.pending {
 
-    background: #fef2f2;
+    background: #fff7ed;
 
-    color: #b91c1c;
+    color: #c2410c;
 
-    border: 1px solid #fecaca;
+    border: 1px solid #fed7aa;
 }
 
 
-.status.inactive::before {
+.status.pending::before {
 
-    background: #ef4444;
-}
-
-
-/* ========================================
-   TABLE ACTIONS
-======================================== */
-
-.table-actions {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 7px;
+    background: #f97316;
 }
 
 
@@ -397,9 +387,11 @@
 
     justify-content: center;
 
-    min-width: 50px;
+    min-width: 52px;
 
-    padding: 7px 12px;
+    min-height: 31px;
+
+    padding: 0 12px;
 
     background: #2563eb;
 
@@ -482,25 +474,18 @@
    TABLET
 ======================================== */
 
-@media (max-width: 950px) {
+@media (max-width: 900px) {
 
-    .parents-card {
+    .results-card {
 
         padding: 22px;
     }
 
 
-    .parents-header {
+    .results-header {
 
         margin-bottom: 20px;
     }
-
-
-    .table-wrapper table {
-
-        min-width: 900px;
-    }
-
 }
 
 
@@ -510,7 +495,7 @@
 
 @media (max-width: 650px) {
 
-    .parents-card {
+    .results-card {
 
         padding: 18px;
 
@@ -518,19 +503,13 @@
     }
 
 
-    .parents-header {
-
-        flex-direction: column;
+    .results-header {
 
         align-items: flex-start;
 
-        gap: 15px;
-    }
+        flex-direction: column;
 
-
-    .add-parent-btn {
-
-        width: 100%;
+        gap: 10px;
     }
 
 
@@ -542,9 +521,8 @@
 
     .table-wrapper table {
 
-        min-width: 900px;
+        min-width: 1100px;
     }
-
 }
 
 
@@ -554,21 +532,20 @@
 
 @media (max-width: 400px) {
 
-    .parents-card {
+    .results-card {
 
         padding: 15px;
     }
 
 
-    .parents-header h2 {
+    .results-header h2 {
 
         font-size: 18px;
     }
 
 
-    .parents-header p {
+    .results-header p {
 
         font-size: 12px;
     }
-
 }

@@ -75,24 +75,33 @@ $students = $data['students'] ?? [];
 
     <section class="welcome">
 
-        <div>
+    <div>
 
-            <p class="welcome-small">
-                Teacher
-            </p>
+        <p class="welcome-small">
+            Teacher
+        </p>
 
-            <h1>
-                Students
-            </h1>
+        <h1>
+            Students
+        </h1>
 
-            <p class="welcome-text">
-                View and manage students
-                in your school.
-            </p>
+        <p class="welcome-text">
+            View and manage students assigned to your school.
+        </p>
 
-        </div>
+    </div>
 
-    </section>
+
+    <!-- ADD STUDENT BUTTON -->
+
+    <a
+        href="<?= ROOT ?>/teacherstudents/add"
+        class="add-student-btn"
+    >
+        + Add Student
+    </a>
+
+</section>
 
 
 

@@ -1,0 +1,419 @@
+/* ========================================
+   CREATE TEST CARD
+======================================== */
+
+.test-form-card {
+
+    width: 100%;
+
+    max-width: 950px;
+
+    margin: 0 auto 35px;
+
+    background: #ffffff;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 18px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 4px 15px rgba(15, 23, 42, 0.04);
+}
+
+
+/* ========================================
+   FORM HEADER
+======================================== */
+
+.test-form-header {
+
+    margin-bottom: 28px;
+
+    padding-bottom: 20px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+
+.test-form-header h2 {
+
+    margin: 0 0 6px;
+
+    color: #172033;
+
+    font-size: 20px;
+
+    font-weight: 700;
+}
+
+
+.test-form-header p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   FORM GROUP
+======================================== */
+
+.form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+
+    color: #344054;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
+   INPUTS
+======================================== */
+
+.form-group input,
+
+.form-group textarea,
+
+.form-group select {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 11px 13px;
+
+    background: #ffffff;
+
+    color: #172033;
+
+    border: 1px solid #d0d5dd;
+
+    border-radius: 8px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.form-group textarea {
+
+    min-height: 100px;
+
+    resize: vertical;
+
+    line-height: 1.5;
+}
+
+
+.form-group input::placeholder,
+
+.form-group textarea::placeholder {
+
+    color: #98a2b3;
+}
+
+
+.form-group input:hover,
+
+.form-group textarea:hover,
+
+.form-group select:hover {
+
+    border-color: #98a2b3;
+}
+
+
+.form-group input:focus,
+
+.form-group textarea:focus,
+
+.form-group select:focus {
+
+    border-color: #2563eb;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.10);
+
+    background: #ffffff;
+}
+
+
+/* ========================================
+   FORM ROW
+======================================== */
+
+.form-row {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+}
+
+
+/* ========================================
+   FORM ACTIONS
+======================================== */
+
+.form-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 12px;
+
+    margin-top: 28px;
+
+    padding-top: 22px;
+
+    border-top: 1px solid #eef0f3;
+}
+
+
+/* ========================================
+   CANCEL BUTTON
+======================================== */
+
+.cancel-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 40px;
+
+    padding: 0 17px;
+
+    background: #ffffff;
+
+    color: #475467;
+
+    border: 1px solid #d0d5dd;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+
+.cancel-btn:hover {
+
+    background: #f8fafc;
+
+    border-color: #98a2b3;
+
+    color: #172033;
+}
+
+
+/* ========================================
+   CREATE BUTTON
+======================================== */
+
+.create-test-btn {
+
+    min-height: 40px;
+
+    padding: 0 18px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.18);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.create-test-btn:hover {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(37, 99, 235, 0.25);
+}
+
+
+.create-test-btn:active {
+
+    transform: translateY(0);
+}
+
+
+/* ========================================
+   FOCUS
+======================================== */
+
+.cancel-btn:focus-visible,
+
+.create-test-btn:focus-visible,
+
+.form-group input:focus-visible,
+
+.form-group textarea:focus-visible,
+
+.form-group select:focus-visible {
+
+    outline:
+        3px solid rgba(37, 99, 235, 0.20);
+
+    outline-offset: 2px;
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 800px) {
+
+    .test-form-card {
+
+        padding: 24px;
+
+        max-width: 100%;
+    }
+
+
+    .form-row {
+
+        gap: 16px;
+    }
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .test-form-card {
+
+        padding: 20px;
+
+        border-radius: 15px;
+    }
+
+
+    .form-row {
+
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+
+    .form-actions {
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+    }
+
+
+    .cancel-btn,
+
+    .create-test-btn {
+
+        width: 100%;
+    }
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+
+    .test-form-card {
+
+        padding: 16px;
+    }
+
+
+    .test-form-header h2 {
+
+        font-size: 18px;
+    }
+
+
+    .test-form-header p {
+
+        font-size: 12px;
+    }
+
+
+    .form-group {
+
+        margin-bottom: 17px;
+    }
+}

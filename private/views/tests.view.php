@@ -1,6 +1,6 @@
 <?php
 
-$parents = $data['parents'] ?? [];
+$tests = $data['tests'] ?? [];
 
 ?>
 
@@ -17,37 +17,40 @@ $parents = $data['parents'] ?? [];
     >
 
     <title>
-        Parents - My School
+        Tests - My School
     </title>
 
 
-    <!-- SUPER ADMIN NAVBAR -->
+    <!-- COMMON CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css?v=2"
+        href="<?= ROOT ?>/css/home.view.css"
     >
 
-    <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/schools.view.css?v=4"
->
 
-    <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/footer.view.css?v=2"
->
+    <!-- TESTS CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=2"
-    > 
+        href="<?= ROOT ?>/css/tests.view.css?v=1"
+    >
+
+
+    <!-- FOOTER -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/parents.view.css?v=2"
-    > 
+        href="<?= ROOT ?>/css/footer.view.css"
+    >
 
+
+    <!-- NAVBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    >
 
 </head>
 
@@ -65,71 +68,62 @@ $parents = $data['parents'] ?? [];
          PAGE HEADER
     ======================================== -->
 
-    <section class="page-header">
+    <section class="welcome">
 
-        <div class="welcome">
+        <div>
 
             <p class="welcome-small">
                 Super Admin
             </p>
 
             <h1>
-                Parents
+                Tests
             </h1>
 
             <p class="welcome-text">
-                View and manage parents across all schools.
+                View and manage tests across all schools.
             </p>
 
         </div>
 
-
-        
     </section>
 
 
 
     <!-- ========================================
-         PARENTS CARD
+         TESTS CARD
     ======================================== -->
 
-    <section class="parents-card">
+    <section class="tests-card">
 
 
         <!-- ========================================
              CARD HEADER
         ======================================== -->
 
-        <div class="parents-header">
+        <div class="tests-header">
 
             <div>
 
                 <h2>
-                    All Parents
+                    All Tests
                 </h2>
 
                 <p>
 
-                    <?= count($parents) ?>
+                    <?= count($tests) ?>
 
-                    parent(s) registered
+                    test(s) registered
 
                 </p>
 
             </div>
 
-            <a
-                href="<?= ROOT ?>/parents/add"
-                class="add-parent-btn"
-            >
-                + Add Parents
-            </a>
-
         </div>
 
 
 
-        <?php if (!empty($parents)): ?>
+        <?php if (!empty($tests)): ?>
 
 
             <!-- ========================================
@@ -145,23 +139,27 @@ $parents = $data['parents'] ?? [];
                         <tr>
 
                             <th>
-                                Parent ID
+                                Test ID
                             </th>
 
                             <th>
-                                Parent
+                                Test
                             </th>
 
                             <th>
-                                Email
+                                Class
                             </th>
 
                             <th>
-                                Phone
+                                Division
                             </th>
 
                             <th>
-                                School
+                                Total Marks
+                            </th>
+
+                            <th>
+                                Duration
                             </th>
 
                             <th>
@@ -181,21 +179,21 @@ $parents = $data['parents'] ?? [];
 
 
                         <?php foreach (
-                            $parents as $parent
+                            $tests as $test
                         ): ?>
 
 
                             <tr>
 
 
-                                <!-- PARENT ID -->
+                                <!-- TEST ID -->
 
                                 <td>
 
-                                    <span class="parent-id">
+                                    <span class="test-id">
 
                                         <?= htmlspecialchars(
-                                            $parent->parent_id
+                                            $test->test_id
                                             ?? '-'
                                         ) ?>
 
@@ -205,20 +203,15 @@ $parents = $data['parents'] ?? [];
 
 
 
-                                <!-- PARENT -->
+                                <!-- TEST -->
 
                                 <td>
 
-                                    <strong class="parent-name">
+                                    <strong class="test-name">
 
                                         <?= htmlspecialchars(
-                                            $parent->firstname
-                                            ?? ''
-                                        ) ?>
-
-                                        <?= htmlspecialchars(
-                                            $parent->lastname
-                                            ?? ''
+                                            $test->title
+                                            ?? '-'
                                         ) ?>
 
                                     </strong>
@@ -227,12 +220,12 @@ $parents = $data['parents'] ?? [];
 
 
 
-                                <!-- EMAIL -->
+                                <!-- CLASS -->
 
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $parent->email
+                                        $test->class
                                         ?? '-'
                                     ) ?>
 
@@ -240,12 +233,12 @@ $parents = $data['parents'] ?? [];
 
 
 
-                                <!-- PHONE -->
+                                <!-- DIVISION -->
 
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $parent->phone
+                                        $test->division
                                         ?? '-'
                                     ) ?>
 
@@ -253,18 +246,33 @@ $parents = $data['parents'] ?? [];
 
 
 
-                                <!-- SCHOOL -->
+                                <!-- TOTAL MARKS -->
 
                                 <td>
 
-                                    <span class="school-name">
+                                    <span class="marks">
 
                                         <?= htmlspecialchars(
-                                            $parent->school_name
+                                            $test->total_marks
                                             ?? '-'
                                         ) ?>
 
                                     </span>
+
+                                </td>
+
+
+
+                                <!-- DURATION -->
+
+                                <td>
+
+                                    <?= htmlspecialchars(
+                                        $test->duration
+                                        ?? '-'
+                                    ) ?>
+
+                                    min
 
                                 </td>
 
@@ -275,7 +283,7 @@ $parents = $data['parents'] ?? [];
                                 <td>
 
                                     <?php if (
-                                        ($parent->status ?? '')
+                                        ($test->status ?? '')
                                         === 'active'
                                     ): ?>
 
@@ -285,12 +293,28 @@ $parents = $data['parents'] ?? [];
                                             Active
                                         </span>
 
+                                    <?php elseif (
+                                        ($test->status ?? '')
+                                        === 'draft'
+                                    ): ?>
+
+                                        <span
+                                            class="status draft"
+                                        >
+                                            Draft
+                                        </span>
+
                                     <?php else: ?>
 
                                         <span
                                             class="status inactive"
                                         >
-                                            Inactive
+                                            <?= htmlspecialchars(
+                                                ucfirst(
+                                                    $test->status
+                                                    ?? 'Unknown'
+                                                )
+                                            ) ?>
                                         </span>
 
                                     <?php endif; ?>
@@ -304,8 +328,8 @@ $parents = $data['parents'] ?? [];
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/parents/details/<?= urlencode(
-                                            $parent->parent_id
+                                        href="<?= ROOT ?>/tests/details/<?= urlencode(
+                                            $test->test_id
                                             ?? ''
                                         ) ?>"
                                         class="view-btn"
@@ -339,11 +363,11 @@ $parents = $data['parents'] ?? [];
             <div class="empty-state">
 
                 <h3>
-                    No Parents Found
+                    No Tests Found
                 </h3>
 
                 <p>
-                    There are currently no parents
+                    There are currently no tests
                     registered in the system.
                 </p>
 

@@ -1,11 +1,15 @@
 <?php
 
-require_once "../private/models/StudentModel.php";
-
-class TeacherParents extends Controller
+class StudentTests extends Controller
 {
     public function index()
     {
+        /*
+        ========================================
+        START SESSION
+        ========================================
+        */
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -31,15 +35,12 @@ class TeacherParents extends Controller
 
         /*
         ========================================
-        CHECK TEACHER
+        CHECK STUDENT
         ========================================
         */
 
         if (
-            !in_array(
-                $_SESSION['rank'] ?? '',
-                ['staff', 'teacher']
-            )
+            ($_SESSION['rank'] ?? '') !== 'student'
         ) {
 
             header(
@@ -54,7 +55,7 @@ class TeacherParents extends Controller
 
         /*
         ========================================
-        GET SCHOOL ID
+        GET STUDENT DETAILS
         ========================================
         */
 
@@ -62,33 +63,43 @@ class TeacherParents extends Controller
             $_SESSION['school_id'] ?? null;
 
 
+        $class =
+            $_SESSION['class'] ?? null;
+
+
+        $division =
+            $_SESSION['division'] ?? null;
+
+
         if (!$school_id) {
 
             die(
-                "No school is assigned to this teacher."
+                "No school is assigned to this student."
             );
         }
 
 
         /*
         ========================================
-        LOAD STUDENT MODEL
+        LOAD MODEL
         ========================================
         */
 
-        $studentModel =
-            new StudentModel();
+        $testModel =
+            $this->model('StudentTestsModel');
 
 
         /*
         ========================================
-        GET PARENTS
+        GET ACTIVE TESTS
         ========================================
         */
 
-        $parents =
-            $studentModel->getParentsBySchool(
-                $school_id
+        $tests =
+            $testModel->getAvailableTests(
+                $school_id,
+                $class,
+                $division
             );
 
 
@@ -99,9 +110,9 @@ class TeacherParents extends Controller
         */
 
         $this->view(
-            'teacher-parents',
+            'student-tests',
             [
-                'parents' => $parents
+                'tests' => $tests
             ]
         );
     }

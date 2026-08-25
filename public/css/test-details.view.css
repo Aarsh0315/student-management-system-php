@@ -1,0 +1,781 @@
+/* ========================================
+   TEST DETAILS PAGE
+======================================== */
+
+
+/* ========================================
+   TEST PROFILE CARD
+======================================== */
+
+.test-profile-card {
+
+    width: 100%;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+}
+
+
+/* ========================================
+   PROFILE TOP
+======================================== */
+
+.test-profile-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+
+/* ========================================
+   TEST ICON
+======================================== */
+
+.test-icon {
+
+    width: 68px;
+
+    height: 68px;
+
+    flex-shrink: 0;
+
+    border-radius: 14px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 24px;
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   PROFILE INFO
+======================================== */
+
+.test-profile-info h2 {
+
+    margin: 0 0 6px;
+
+    color: #172033;
+
+    font-size: 21px;
+
+    font-weight: 700;
+}
+
+
+.test-profile-info p {
+
+    margin: 0 0 9px;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+.test-profile-info p strong {
+
+    color: #475569;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.status::before {
+
+    content: "";
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+}
+
+
+.status.active {
+
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    border: 1px solid #bbf7d0;
+}
+
+
+.status.active::before {
+
+    background: #22c55e;
+}
+
+
+.status.draft {
+
+    background: #fff7ed;
+
+    color: #c2410c;
+
+    border: 1px solid #fed7aa;
+}
+
+
+.status.draft::before {
+
+    background: #f97316;
+}
+
+
+/* ========================================
+   DETAILS CARD
+======================================== */
+
+.test-details-card {
+
+    width: 100%;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
+
+    margin-bottom: 25px;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+}
+
+
+/* ========================================
+   DETAILS HEADER
+======================================== */
+
+.details-header {
+
+    margin-bottom: 22px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+
+.details-header h2 {
+
+    margin: 0 0 5px;
+
+    color: #172033;
+
+    font-size: 19px;
+
+    font-weight: 700;
+}
+
+
+.details-header p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* ========================================
+   DETAILS GRID
+======================================== */
+
+.details-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    border-top: 1px solid #eef0f3;
+
+    border-left: 1px solid #eef0f3;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.details-item {
+
+    min-height: 82px;
+
+    padding: 16px 17px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    border-right: 1px solid #eef0f3;
+
+    border-bottom: 1px solid #eef0f3;
+
+    box-sizing: border-box;
+}
+
+
+.details-item:hover {
+
+    background: #f8fafc;
+}
+
+
+.details-item span {
+
+    color: #94a3b8;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+.details-item strong {
+
+    color: #172033;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+}
+
+
+/* ========================================
+   DESCRIPTION
+======================================== */
+
+.description-box {
+
+    margin-top: 20px;
+
+    padding: 17px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef0f3;
+
+    border-radius: 10px;
+}
+
+
+.description-box span {
+
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #94a3b8;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+}
+
+
+.description-box p {
+
+    margin: 0;
+
+    color: #475569;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   QUESTIONS CARD
+======================================== */
+
+.questions-card {
+
+    width: 100%;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
+
+    margin-bottom: 35px;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+}
+
+
+/* ========================================
+   QUESTIONS HEADER
+======================================== */
+
+.questions-header {
+
+    margin-bottom: 22px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eef0f3;
+}
+
+
+.questions-header h2 {
+
+    margin: 0 0 5px;
+
+    color: #172033;
+
+    font-size: 19px;
+
+    font-weight: 700;
+}
+
+
+.questions-header p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+}
+
+
+/* ========================================
+   QUESTION CARD
+======================================== */
+
+.question-card {
+
+    padding: 20px;
+
+    margin-bottom: 15px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 12px;
+
+    transition:
+        background 0.15s ease,
+        border-color 0.15s ease;
+}
+
+
+.question-card:last-child {
+
+    margin-bottom: 0;
+}
+
+
+.question-card:hover {
+
+    background: #f8fafc;
+
+    border-color: #dbe2ea;
+}
+
+
+/* ========================================
+   QUESTION TOP
+======================================== */
+
+.question-top {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    margin-bottom: 13px;
+}
+
+
+.question-number {
+
+    color: #2563eb;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+}
+
+
+.question-marks {
+
+    padding: 5px 9px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   QUESTION TEXT
+======================================== */
+
+.question-card h3 {
+
+    margin: 0 0 17px;
+
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+/* ========================================
+   OPTIONS
+======================================== */
+
+.options {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 10px;
+
+    margin-bottom: 15px;
+}
+
+
+.option {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 11px 13px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef0f3;
+
+    border-radius: 8px;
+}
+
+
+.option strong {
+
+    width: 25px;
+
+    height: 25px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #ffffff;
+
+    color: #2563eb;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+}
+
+
+.option span {
+
+    color: #475569;
+
+    font-size: 12px;
+
+    line-height: 1.4;
+}
+
+
+/* ========================================
+   CORRECT ANSWER
+======================================== */
+
+.correct-answer {
+
+    padding: 10px 13px;
+
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    border: 1px solid #bbf7d0;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+}
+
+
+.correct-answer strong {
+
+    font-weight: 700;
+}
+
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.empty-state {
+
+    padding: 60px 25px;
+
+    text-align: center;
+
+    border: 1px dashed #dbe2ea;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+}
+
+
+.empty-state h3 {
+
+    margin: 0 0 8px;
+
+    color: #172033;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+.empty-state p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+}
+
+
+/* ========================================
+   BACK BUTTON
+======================================== */
+
+.back-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    background: #ffffff;
+
+    color: #475569;
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition: 0.2s ease;
+}
+
+
+.back-btn:hover {
+
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+
+    color: #2563eb;
+
+    transform: translateX(-2px);
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 950px) {
+
+    .details-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+
+    .test-profile-card,
+    .test-details-card,
+    .questions-card {
+
+        padding: 22px;
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .test-profile-card,
+    .test-details-card,
+    .questions-card {
+
+        padding: 18px;
+
+        border-radius: 14px;
+    }
+
+
+    .test-profile-top {
+
+        align-items: flex-start;
+    }
+
+
+    .test-icon {
+
+        width: 58px;
+
+        height: 58px;
+
+        font-size: 21px;
+    }
+
+
+    .test-profile-info h2 {
+
+        font-size: 18px;
+    }
+
+
+    .details-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .options {
+
+        grid-template-columns: 1fr;
+    }
+
+
+    .question-top {
+
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+}

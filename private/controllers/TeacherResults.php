@@ -1,11 +1,15 @@
 <?php
 
-require_once "../private/models/StudentModel.php";
-
-class TeacherParents extends Controller
+class TeacherResults extends Controller
 {
     public function index()
     {
+        /*
+        ========================================
+        START SESSION
+        ========================================
+        */
+
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
@@ -36,10 +40,7 @@ class TeacherParents extends Controller
         */
 
         if (
-            !in_array(
-                $_SESSION['rank'] ?? '',
-                ['staff', 'teacher']
-            )
+            ($_SESSION['rank'] ?? '') !== 'teacher'
         ) {
 
             header(
@@ -54,7 +55,7 @@ class TeacherParents extends Controller
 
         /*
         ========================================
-        GET SCHOOL ID
+        CHECK SCHOOL
         ========================================
         */
 
@@ -72,24 +73,11 @@ class TeacherParents extends Controller
 
         /*
         ========================================
-        LOAD STUDENT MODEL
+        TEMPORARY RESULTS
         ========================================
         */
 
-        $studentModel =
-            new StudentModel();
-
-
-        /*
-        ========================================
-        GET PARENTS
-        ========================================
-        */
-
-        $parents =
-            $studentModel->getParentsBySchool(
-                $school_id
-            );
+        $results = [];
 
 
         /*
@@ -99,9 +87,9 @@ class TeacherParents extends Controller
         */
 
         $this->view(
-            'teacher-parents',
+            'teacher-results',
             [
-                'parents' => $parents
+                'results' => $results
             ]
         );
     }

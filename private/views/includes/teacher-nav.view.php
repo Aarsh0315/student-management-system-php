@@ -127,28 +127,6 @@ $currentPage = explode(
 
 
                 <a
-                    href="<?= ROOT ?>/teacherassignments"
-                    class="nav-link
-                    <?= $currentPage === 'teacherassignments'
-                        ? 'active'
-                        : '' ?>"
-                >
-                    Assignments
-                </a>
-
-
-                <a
-                    href="<?= ROOT ?>/teacherattendance"
-                    class="nav-link
-                    <?= $currentPage === 'teacherattendance'
-                        ? 'active'
-                        : '' ?>"
-                >
-                    Attendance
-                </a>
-
-
-                <a
                     href="<?= ROOT ?>/teacherparents"
                     class="nav-link
                     <?= $currentPage === 'teacherparents'

@@ -130,19 +130,16 @@
 
 
 /* ========================================
-   INPUT / SELECT
+   INPUT / SELECT / TEXTAREA
 ======================================== */
 
 .form-group input,
-.form-group select {
+.form-group select,
+.form-group textarea {
 
     width: 100%;
 
     box-sizing: border-box;
-
-    height: 45px;
-
-    padding: 0 13px;
 
     background: #ffffff;
 
@@ -160,21 +157,37 @@
 
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 
 /* ========================================
-   DISABLED INPUT
+   INPUT + SELECT
 ======================================== */
 
-.form-group input:disabled {
+.form-group input,
+.form-group select {
 
-    background: #f8fafc;
+    height: 45px;
 
-    color: #64748b;
+    padding: 0 13px;
+}
 
-    cursor: not-allowed;
+
+/* ========================================
+   TEXTAREA
+======================================== */
+
+.form-group textarea {
+
+    min-height: 110px;
+
+    padding: 12px 13px;
+
+    resize: vertical;
+
+    line-height: 1.5;
 }
 
 
@@ -182,7 +195,8 @@
    PLACEHOLDER
 ======================================== */
 
-.form-group input::placeholder {
+.form-group input::placeholder,
+.form-group textarea::placeholder {
 
     color: #a0aec0;
 }
@@ -193,7 +207,8 @@
 ======================================== */
 
 .form-group input:hover,
-.form-group select:hover {
+.form-group select:hover,
+.form-group textarea:hover {
 
     border-color: #cbd5e1;
 }
@@ -204,7 +219,8 @@
 ======================================== */
 
 .form-group input:focus,
-.form-group select:focus {
+.form-group select:focus,
+.form-group textarea:focus {
 
     border-color: #2563eb;
 
@@ -222,6 +238,18 @@
     cursor: pointer;
 
     appearance: auto;
+}
+
+
+/* ========================================
+   ADDRESS FIELD
+======================================== */
+
+.address-field {
+
+    grid-column: 1 / -1;
+
+    margin-top: 0;
 }
 
 
@@ -291,7 +319,11 @@
 
     font-weight: 600;
 
-    transition: 0.2s ease;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 
@@ -342,7 +374,11 @@
     box-shadow:
         0 4px 12px rgba(37, 99, 235, 0.18);
 
-    transition: 0.2s ease;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
@@ -366,6 +402,34 @@
 
 
 /* ========================================
+   ERROR
+======================================== */
+
+.form-error {
+
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 12px 15px;
+
+    margin-bottom: 20px;
+
+    background: #fef2f2;
+
+    color: #b91c1c;
+
+    border: 1px solid #fecaca;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* ========================================
    TABLET
 ======================================== */
 
@@ -382,6 +446,14 @@
         grid-template-columns: 1fr;
 
         gap: 18px;
+    }
+
+
+    .form-section {
+
+        margin-bottom: 25px;
+
+        padding-bottom: 24px;
     }
 
 }
@@ -407,6 +479,13 @@
     }
 
 
+    .form-group input,
+    .form-group select {
+
+        height: 44px;
+    }
+
+
     .form-actions {
 
         flex-direction: column-reverse;
@@ -421,8 +500,6 @@
     .save-btn {
 
         width: 100%;
-
-        box-sizing: border-box;
     }
 
 }
@@ -453,7 +530,8 @@
 
 
     .form-group input,
-    .form-group select {
+    .form-group select,
+    .form-group textarea {
 
         font-size: 12px;
     }

@@ -229,6 +229,64 @@ if (session_status() === PHP_SESSION_NONE) {
 
 </div>
 
+<!-- PARENTS -->
+
+<div class="dashboard-card">
+
+    <h3>
+        Parents
+    </h3>
+
+    <p>
+        View and manage all parents
+        across schools.
+    </p>
+
+    <a href="<?= ROOT ?>/parents">
+        Manage Parents →
+    </a>
+
+</div>
+
+<!-- TESTS -->
+
+<div class="dashboard-card">
+
+    <h3>
+        Tests
+    </h3>
+
+    <p>
+        View and manage all tests
+        across schools.
+    </p>
+
+    <a href="<?= ROOT ?>/tests">
+        Manage Tests →
+    </a>
+
+</div>
+
+<!-- RESULTS -->
+
+<div class="dashboard-card">
+
+    <h3>
+        Results
+    </h3>
+
+    <p>
+        View and manage student marks
+        and results across schools.
+    </p>
+
+    <a href="<?= ROOT ?>/results">
+        Manage Results →
+    </a>
+
+</div>
+
+
 <!-- SCHOOL ADMINS -->
 <div class="dashboard-card">
 
@@ -246,28 +304,6 @@ if (session_status() === PHP_SESSION_NONE) {
     </a>
 
 </div>
-
-
-
-        <!-- REPORTS -->
-
-        <div class="dashboard-card">
-
-            <h3>
-                Reports
-            </h3>
-
-            <p>
-                View system-wide reports
-                and school statistics.
-            </p>
-
-            <a href="<?= ROOT ?>/reports">
-                View Reports →
-            </a>
-
-        </div>
-
 
     </section>
 

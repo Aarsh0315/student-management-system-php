@@ -1,5 +1,7 @@
 <?php
 
+require_once "../private/models/StudentModel.php";
+
 class TeacherClasses extends Controller
 {
     public function index()
@@ -34,22 +36,25 @@ class TeacherClasses extends Controller
         */
 
         if (
-            ($_SESSION['rank'] ?? '') !== 'teacher'
-        ) {
+        !in_array(
+            $_SESSION['rank'] ?? '',
+            ['staff', 'teacher']
+        )
+    ) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
 
-            exit;
-        }
+        exit;
+    }
 
 
         /*
         ========================================
-        CHECK SCHOOL
+        GET SCHOOL ID
         ========================================
         */
 
@@ -67,11 +72,24 @@ class TeacherClasses extends Controller
 
         /*
         ========================================
-        TEMPORARY CLASSES DATA
+        LOAD STUDENT MODEL
         ========================================
         */
 
-        $classes = [];
+        $studentModel =
+            new StudentModel();
+
+
+        /*
+        ========================================
+        GET CLASSES
+        ========================================
+        */
+
+        $classes =
+            $studentModel->getClassesBySchool(
+                $school_id
+            );
 
 
         /*

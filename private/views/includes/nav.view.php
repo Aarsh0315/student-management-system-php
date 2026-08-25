@@ -144,6 +144,38 @@ $currentPage = explode(
                         Staff
                     </a>
 
+                    <a
+                        href="<?= ROOT ?>/parents"
+                        class="nav-link
+                        <?= $currentPage === 'parents'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Parents
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/tests"
+                        class="nav-link
+                        <?= $currentPage === 'tests'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Tests
+                    </a>
+
+
+                    <a
+                        href="<?= ROOT ?>/results"
+                        class="nav-link
+                        <?= $currentPage === 'results'
+                            ? 'active'
+                            : '' ?>"
+                    >
+                        Results
+                    </a>
+
 
                     <a
                         href="<?= ROOT ?>/schooladmins"

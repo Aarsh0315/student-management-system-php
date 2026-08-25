@@ -105,7 +105,7 @@ $parents = $data['parents'] ?? [];
             <div>
 
                 <h2>
-                    All Parents
+                    My Students' Parents
                 </h2>
 
                 <p>
@@ -138,19 +138,7 @@ $parents = $data['parents'] ?? [];
                         <tr>
 
                             <th>
-                                Parent ID
-                            </th>
-
-                            <th>
                                 Parent Name
-                            </th>
-
-                            <th>
-                                Student
-                            </th>
-
-                            <th>
-                                Relationship
                             </th>
 
                             <th>
@@ -162,7 +150,7 @@ $parents = $data['parents'] ?? [];
                             </th>
 
                             <th>
-                                Status
+                                Students
                             </th>
 
                             <th>
@@ -185,23 +173,6 @@ $parents = $data['parents'] ?? [];
                             <tr>
 
 
-                                <!-- PARENT ID -->
-
-                                <td>
-
-                                    <span class="parent-id">
-
-                                        <?= htmlspecialchars(
-                                            $parent->parent_id
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
-
-
-
                                 <!-- PARENT NAME -->
 
                                 <td>
@@ -209,42 +180,11 @@ $parents = $data['parents'] ?? [];
                                     <strong class="parent-name">
 
                                         <?= htmlspecialchars(
-                                            ($parent->firstname ?? '')
-                                            . ' '
-                                            . ($parent->lastname ?? '')
-                                        ) ?>
-
-                                    </strong>
-
-                                </td>
-
-
-
-                                <!-- STUDENT -->
-
-                                <td>
-
-                                    <span class="parent-student">
-
-                                        <?= htmlspecialchars(
-                                            $parent->student_name
+                                            $parent->parent_name
                                             ?? '-'
                                         ) ?>
 
-                                    </span>
-
-                                </td>
-
-
-
-                                <!-- RELATIONSHIP -->
-
-                                <td>
-
-                                    <?= htmlspecialchars(
-                                        $parent->relationship
-                                        ?? '-'
-                                    ) ?>
+                                    </strong>
 
                                 </td>
 
@@ -255,7 +195,7 @@ $parents = $data['parents'] ?? [];
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $parent->phone
+                                        $parent->parent_phone
                                         ?? '-'
                                     ) ?>
 
@@ -268,7 +208,7 @@ $parents = $data['parents'] ?? [];
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $parent->email
+                                        $parent->parent_email
                                         ?? '-'
                                     ) ?>
 
@@ -276,30 +216,18 @@ $parents = $data['parents'] ?? [];
 
 
 
-                                <!-- STATUS -->
+                                <!-- STUDENTS -->
 
                                 <td>
 
-                                    <?php if (
-                                        ($parent->status ?? '')
-                                        === 'active'
-                                    ): ?>
+                                    <span class="student-count">
 
-                                        <span
-                                            class="status active"
-                                        >
-                                            Active
-                                        </span>
+                                        <?= htmlspecialchars(
+                                            $parent->student_count
+                                            ?? '0'
+                                        ) ?>
 
-                                    <?php else: ?>
-
-                                        <span
-                                            class="status inactive"
-                                        >
-                                            Inactive
-                                        </span>
-
-                                    <?php endif; ?>
+                                    </span>
 
                                 </td>
 
@@ -310,7 +238,7 @@ $parents = $data['parents'] ?? [];
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/teacherparents/details/<?= urlencode($parent->parent_id ?? '') ?>"
+                                        href="<?= ROOT ?>/teacherparents/details/<?= urlencode($parent->parent_name ?? '') ?>"
                                         class="view-btn"
                                     >
                                         View

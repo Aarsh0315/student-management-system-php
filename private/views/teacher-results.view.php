@@ -1,0 +1,415 @@
+<?php
+
+$results = $data['results'] ?? [];
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Results - My School
+    </title>
+
+
+    <!-- DASHBOARD CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/home.view.css?v=2"
+    >
+
+
+    <!-- TEACHER RESULTS CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/teacher-results.view.css?v=1"
+    >
+
+
+    <!-- TEACHER NAVBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/teacher-nav.view.css?v=3"
+    >
+
+
+    <!-- FOOTER -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
+    >
+
+</head>
+
+
+<body>
+
+
+<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+
+
+<main class="dashboard">
+
+
+    <!-- ========================================
+         PAGE HEADER
+    ========================================= -->
+
+    <section class="welcome">
+
+        <div>
+
+            <p class="welcome-small">
+                Teacher
+            </p>
+
+            <h1>
+                Results
+            </h1>
+
+            <p class="welcome-text">
+                View student test results
+                and performance.
+            </p>
+
+        </div>
+
+    </section>
+
+
+
+    <!-- ========================================
+         RESULTS CARD
+    ========================================= -->
+
+    <section class="results-card">
+
+
+        <!-- HEADER -->
+
+        <div class="results-header">
+
+            <div>
+
+                <h2>
+                    Student Results
+                </h2>
+
+                <p>
+
+                    <?= count($results) ?>
+
+                    result(s) available
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+
+        <?php if (!empty($results)): ?>
+
+
+            <!-- ========================================
+                 TABLE
+            ========================================= -->
+
+            <div class="table-wrapper">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>
+                                Student
+                            </th>
+
+                            <th>
+                                Test
+                            </th>
+
+                            <th>
+                                Class
+                            </th>
+
+                            <th>
+                                Total Marks
+                            </th>
+
+                            <th>
+                                Obtained
+                            </th>
+
+                            <th>
+                                Percentage
+                            </th>
+
+                            <th>
+                                Status
+                            </th>
+
+                            <th>
+                                Action
+                            </th>
+
+                        </tr>
+
+                    </thead>
+
+
+                    <tbody>
+
+
+                        <?php foreach (
+                            $results as $result
+                        ): ?>
+
+
+                            <tr>
+
+
+                                <!-- STUDENT -->
+
+                                <td>
+
+                                    <strong class="student-name">
+
+                                        <?= htmlspecialchars(
+                                            $result->student_name
+                                            ?? '-'
+                                        ) ?>
+
+                                    </strong>
+
+                                </td>
+
+
+
+                                <!-- TEST -->
+
+                                <td>
+
+                                    <span class="test-name">
+
+                                        <?= htmlspecialchars(
+                                            $result->test_title
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
+
+                                </td>
+
+
+
+                                <!-- CLASS -->
+
+                                <td>
+
+                                    <span class="result-class">
+
+                                        <?= htmlspecialchars(
+                                            $result->class
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
+
+                                </td>
+
+
+
+                                <!-- TOTAL -->
+
+                                <td>
+
+                                    <span class="marks-count">
+
+                                        <?= htmlspecialchars(
+                                            $result->total_marks
+                                            ?? '0'
+                                        ) ?>
+
+                                    </span>
+
+                                </td>
+
+
+
+                                <!-- OBTAINED -->
+
+                                <td>
+
+                                    <strong class="obtained-marks">
+
+                                        <?= htmlspecialchars(
+                                            $result->marks_obtained
+                                            ?? '0'
+                                        ) ?>
+
+                                    </strong>
+
+                                </td>
+
+
+
+                                <!-- PERCENTAGE -->
+
+                                <td>
+
+                                    <?php
+
+                                    $total =
+                                        (float) (
+                                            $result->total_marks
+                                            ?? 0
+                                        );
+
+                                    $obtained =
+                                        (float) (
+                                            $result->marks_obtained
+                                            ?? 0
+                                        );
+
+                                    $percentage =
+                                        $total > 0
+                                            ? round(
+                                                (
+                                                    $obtained
+                                                    / $total
+                                                ) * 100,
+                                                2
+                                            )
+                                            : 0;
+
+                                    ?>
+
+                                    <span class="percentage">
+
+                                        <?= $percentage ?>%
+
+                                    </span>
+
+                                </td>
+
+
+
+                                <!-- STATUS -->
+
+                                <td>
+
+                                    <?php
+
+                                    $status =
+                                        strtolower(
+                                            $result->status
+                                            ?? 'pending'
+                                        );
+
+                                    ?>
+
+
+                                    <?php if (
+                                        $status === 'checked'
+                                    ): ?>
+
+                                        <span
+                                            class="status checked"
+                                        >
+                                            Checked
+                                        </span>
+
+                                    <?php else: ?>
+
+                                        <span
+                                            class="status pending"
+                                        >
+                                            Pending
+                                        </span>
+
+                                    <?php endif; ?>
+
+                                </td>
+
+
+
+                                <!-- ACTION -->
+
+                                <td>
+
+                                    <a
+                                        href="<?= ROOT ?>/teacherresults/details/<?= urlencode($result->submission_id ?? '') ?>"
+                                        class="view-btn"
+                                    >
+                                        View
+                                    </a>
+
+                                </td>
+
+
+                            </tr>
+
+
+                        <?php endforeach; ?>
+
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+
+        <?php else: ?>
+
+
+            <!-- ========================================
+                 EMPTY STATE
+            ========================================= -->
+
+            <div class="empty-state">
+
+                <h3>
+                    No Results Found
+                </h3>
+
+                <p>
+                    No students have submitted
+                    any tests yet.
+                </p>
+
+            </div>
+
+
+        <?php endif; ?>
+
+
+    </section>
+
+
+</main>
+
+
+<?php require "../private/views/includes/footer.view.php"; ?>
+
+
+</body>
+
+</html>

@@ -47,6 +47,8 @@ $initial = strtoupper(
     )
 );
 
+
+
 ?>
 
 <!DOCTYPE html>
@@ -98,7 +100,17 @@ $initial = strtoupper(
      NAVBAR
 ========================= -->
 
-<?php require "../private/views/includes/nav.view.php"; ?>
+<?php if (
+    ($_SESSION['rank'] ?? '') === 'teacher'
+): ?>
+
+    <?php require "../private/views/includes/teacher-nav.view.php"; ?>
+
+<?php else: ?>
+
+    <?php require "../private/views/includes/nav.view.php"; ?>
+
+<?php endif; ?>
 
 
 <main class="dashboard">

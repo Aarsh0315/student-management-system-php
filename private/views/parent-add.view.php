@@ -1,5 +1,9 @@
 <?php
 
+$error = $data['error'] ?? '';
+
+$schools = $data['schools'] ?? [];
+
 ?>
 
 <!DOCTYPE html>
@@ -19,20 +23,15 @@
     </title>
 
 
-    <!-- COMMON CSS -->
+    <!-- COMMON PAGE CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=2"
-    >
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css?v=2"
+        href="<?= ROOT ?>/css/home.view.css"
     >
 
 
-    <!-- PARENT FORM CSS -->
+    <!-- PARENT ADD CSS -->
 
     <link
         rel="stylesheet"
@@ -47,6 +46,14 @@
         href="<?= ROOT ?>/css/footer.view.css"
     >
 
+
+    <!-- NAVBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css"
+    >
+
 </head>
 
 
@@ -59,16 +66,16 @@
 <main class="dashboard">
 
 
-    <!-- =========================
-         PAGE HEADER
-    ========================== -->
+    <!-- ========================================
+         HEADER
+    ======================================== -->
 
     <section class="welcome">
 
         <div>
 
             <p class="welcome-small">
-                School Admin
+                Super Admin
             </p>
 
             <h1>
@@ -76,7 +83,7 @@
             </h1>
 
             <p class="welcome-text">
-                Create a parent account for your school.
+                Register a new parent in the system.
             </p>
 
         </div>
@@ -85,22 +92,37 @@
 
 
 
-    <!-- =========================
-         PARENT FORM
-    ========================== -->
+    <!-- ========================================
+         ERROR
+    ======================================== -->
+
+    <?php if (!empty($error)): ?>
+
+        <div class="form-error">
+
+            <?= htmlspecialchars($error) ?>
+
+        </div>
+
+    <?php endif; ?>
+
+
+
+    <!-- ========================================
+         FORM
+    ======================================== -->
 
     <section class="parent-form-card">
 
-
         <form
             method="POST"
-            action="<?= ROOT ?>/parents/create"
+            action="<?= ROOT ?>/parents/add"
         >
 
 
-            <!-- =========================
+            <!-- ========================================
                  PERSONAL INFORMATION
-            ========================== -->
+            ======================================== -->
 
             <div class="form-section">
 
@@ -130,6 +152,7 @@
                     </div>
 
 
+
                     <!-- LAST NAME -->
 
                     <div class="form-group">
@@ -148,6 +171,7 @@
                     </div>
 
 
+
                     <!-- EMAIL -->
 
                     <div class="form-group">
@@ -159,29 +183,30 @@
                         <input
                             type="email"
                             name="email"
-                            placeholder="Enter email address"
+                            placeholder="Enter parent email"
                             required
                         >
 
                     </div>
 
 
-                    <!-- PASSWORD -->
+
+                    <!-- PHONE -->
 
                     <div class="form-group">
 
                         <label>
-                            Password
+                            Phone
                         </label>
 
                         <input
-                            type="password"
-                            name="password"
-                            placeholder="Enter password"
-                            required
+                            type="tel"
+                            name="phone"
+                            placeholder="Enter phone number"
                         >
 
                     </div>
+
 
 
                     <!-- GENDER -->
@@ -194,7 +219,6 @@
 
                         <select
                             name="gender"
-                            required
                         >
 
                             <option value="">
@@ -218,76 +242,90 @@
                     </div>
 
 
+
+                    <!-- DATE OF BIRTH -->
+
+                    <div class="form-group">
+
+                        <label>
+                            Date of Birth
+                        </label>
+
+                        <input
+                            type="date"
+                            name="date_of_birth"
+                        >
+
+                    </div>
+
+
                 </div>
 
             </div>
 
 
 
-            <!-- =========================
+            <!-- ========================================
                  SCHOOL INFORMATION
-            ========================== -->
+            ======================================== -->
 
             <div class="form-section">
 
                 <h2>
-                    School Assignment
+                    School Information
                 </h2>
 
 
                 <div class="form-grid">
 
 
-                    <?php if (
-                        ($_SESSION['rank'] ?? '')
-                        === 'super_admin'
-                    ): ?>
+                    <!-- SCHOOL -->
+
+                    <div class="form-group">
+
+                        <label for="school_id">
+                            School
+                        </label>
+
+                        <select
+                            name="school_id"
+                            id="school_id"
+                            required
+                        >
+
+                            <option value="">
+                                Select School
+                            </option>
 
 
-                        <div class="form-group">
+                            <?php foreach (
+                                $schools as $school
+                            ): ?>
 
-                            <label>
-                                School ID
-                            </label>
+                                <option
+                                    value="<?= htmlspecialchars(
+                                        $school->id
+                                    ) ?>"
+                                >
 
-                            <input
-                                type="number"
-                                name="school_id"
-                                placeholder="Enter school ID"
-                                required
-                            >
+                                    <?= htmlspecialchars(
+                                        $school->school_name
+                                    ) ?>
 
-                            <small>
-                                Enter the database ID of the school.
-                            </small>
+                                    -
 
-                        </div>
+                                    <?= htmlspecialchars(
+                                        $school->school_id
+                                    ) ?>
 
+                                </option>
 
-                    <?php else: ?>
-
-
-                        <div class="form-group">
-
-                            <label>
-                                School
-                            </label>
-
-                            <input
-                                type="text"
-                                value="Your Assigned School"
-                                disabled
-                            >
-
-                            <small>
-                                Parent will automatically be assigned
-                                to your school.
-                            </small>
-
-                        </div>
+                            <?php endforeach; ?>
 
 
-                    <?php endif; ?>
+                        </select>
+
+                    </div>
 
 
                 </div>
@@ -296,12 +334,50 @@
 
 
 
-            <!-- =========================
+            <!-- ========================================
+                 CONTACT INFORMATION
+            ======================================== -->
+
+            <div class="form-section">
+
+                <h2>
+                    Contact Information
+                </h2>
+
+
+                <div class="form-grid">
+
+
+                    <!-- ADDRESS -->
+
+                    <div
+                        class="form-group address-field"
+                    >
+
+                        <label>
+                            Address
+                        </label>
+
+                        <textarea
+                            name="address"
+                            rows="4"
+                            placeholder="Enter parent address"
+                        ></textarea>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ========================================
                  ACTIONS
-            ========================== -->
+            ======================================== -->
 
             <div class="form-actions">
-
 
                 <a
                     href="<?= ROOT ?>/parents"
@@ -318,12 +394,10 @@
                     Add Parent
                 </button>
 
-
             </div>
 
 
         </form>
-
 
     </section>
 
