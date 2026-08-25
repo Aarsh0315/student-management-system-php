@@ -73,11 +73,24 @@ class TeacherResults extends Controller
 
         /*
         ========================================
-        TEMPORARY RESULTS
+        LOAD RESULT MODEL
         ========================================
         */
 
-        $results = [];
+        $resultModel =
+            $this->model('TeacherResultsModel');
+
+
+        /*
+        ========================================
+        GET RESULTS
+        ========================================
+        */
+
+        $results =
+            $resultModel->getResultsBySchool(
+                $school_id
+            );
 
 
         /*

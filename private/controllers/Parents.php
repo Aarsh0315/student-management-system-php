@@ -100,125 +100,129 @@ class Parents extends Controller
     ========================================
     */
 
-    public function details($parent_id = null)
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
-
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
-
-            exit;
-        }
-
-
-        /*
-        ========================================
-        CHECK SUPER ADMIN
-        ========================================
-        */
-
-        if (
-            ($_SESSION['rank'] ?? '') !== 'super_admin'
-        ) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
-
-            exit;
-        }
-
-
-        /*
-        ========================================
-        CHECK PARENT ID
-        ========================================
-        */
-
-        if (!$parent_id) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/parents"
-            );
-
-            exit;
-        }
-
-
-        /*
-        ========================================
-        LOAD MODEL
-        ========================================
-        */
-
-        $parentModel =
-            $this->model('ParentModel');
-
-
-        /*
-        ========================================
-        GET PARENT
-        ========================================
-        */
-
-        $parent =
-            $parentModel->getParentById(
-                $parent_id
-            );
-
-
-        /*
-        ========================================
-        PARENT NOT FOUND
-        ========================================
-        */
-
-        if (!$parent) {
-
-            die(
-                "Parent not found."
-            );
-        }
-
-
-        /*
-        ========================================
-        LOAD DETAILS VIEW
-        ========================================
-        */
-
-        $this->view(
-            'parent-details',
-            [
-                'parent' => $parent
-            ]
-        );
+   public function details($user_id = null)
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
     }
 
+
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK SUPER ADMIN
+    ========================================
+    */
+
+    if (
+        ($_SESSION['rank'] ?? '') !== 'super_admin'
+    ) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK USER ID
+    ========================================
+    */
+
+    if (!$user_id) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/parents"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $parentModel =
+        $this->model("ParentModel");
+
+
+    /*
+    ========================================
+    GET PARENT
+    ========================================
+    */
+
+    $parent =
+        $parentModel->getParentByUserId(
+            $user_id
+        );
+
+
+    if (!$parent) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/parents"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    GET CHILDREN
+    ========================================
+    */
+
+    $children =
+        $parentModel->getChildren(
+            $user_id
+        );
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'parent-details',
+        [
+            'parent' => $parent,
+            'children' => $children
+        ]
+    );
+}
     /*
 ========================================
 ADD PARENT

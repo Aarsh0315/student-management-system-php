@@ -353,14 +353,17 @@ public function create()
     $admission_date =
         $_POST['admission_date'] ?? null;
 
-    $parent_name =
-        trim($_POST['parent_name'] ?? '');
+    $parent_firstname =
+    trim($_POST['parent_firstname'] ?? '');
+
+    $parent_lastname =
+    trim($_POST['parent_lastname'] ?? '');
 
     $parent_phone =
-        trim($_POST['parent_phone'] ?? '');
+    trim($_POST['parent_phone'] ?? '');
 
     $parent_email =
-        trim($_POST['parent_email'] ?? '');
+    trim($_POST['parent_email'] ?? '');
 
     $address =
         trim($_POST['address'] ?? '');
@@ -457,7 +460,9 @@ if (
         $admission_number === '' ||
         $class === '' ||
         $division === '' ||
-        $parent_name === '' ||
+        $$parent_firstname === '' ||
+        $parent_lastname === '' ||
+        $parent_email === '' ||
         $parent_phone === ''
     ) {
 
@@ -510,41 +515,44 @@ if (
     ========================================
     */
 
-    $studentData = [
+   $studentData = [
 
-        'school_id' =>
-            $school_id,
+    'school_id' =>
+        $school_id,
 
-        'admission_number' =>
-            $admission_number,
+    'admission_number' =>
+        $admission_number,
 
-        'class' =>
-            $class,
+    'class' =>
+        $class,
 
-        'division' =>
-            $division,
+    'division' =>
+        $division,
 
-        'roll_number' =>
-            $roll_number,
+    'roll_number' =>
+        $roll_number,
 
-        'date_of_birth' =>
-            $date_of_birth,
+    'date_of_birth' =>
+        $date_of_birth,
 
-        'admission_date' =>
-            $admission_date,
+    'admission_date' =>
+        $admission_date,
 
-        'parent_name' =>
-            $parent_name,
+    'parent_firstname' =>
+        $parent_firstname,
 
-        'parent_phone' =>
-            $parent_phone,
+    'parent_lastname' =>
+        $parent_lastname,
 
-        'parent_email' =>
-            $parent_email,
+    'parent_phone' =>
+        $parent_phone,
 
-        'address' =>
-            $address
-    ];
+    'parent_email' =>
+        $parent_email,
+
+    'address' =>
+        $address
+];
 
 
     /*

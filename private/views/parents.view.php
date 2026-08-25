@@ -118,13 +118,6 @@ $parents = $data['parents'] ?? [];
 
             </div>
 
-            <a
-                href="<?= ROOT ?>/parents/add"
-                class="add-parent-btn"
-            >
-                + Add Parents
-            </a>
-
         </div>
 
 
@@ -305,8 +298,7 @@ $parents = $data['parents'] ?? [];
 
                                     <a
                                         href="<?= ROOT ?>/parents/details/<?= urlencode(
-                                            $parent->parent_id
-                                            ?? ''
+                                            $parent->user_id ?? ''
                                         ) ?>"
                                         class="view-btn"
                                     >

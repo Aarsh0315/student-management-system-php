@@ -5,47 +5,76 @@ class ParentModel extends Model
     /*
     ========================================
     GET ALL PARENTS
+    SUPER ADMIN
     ========================================
     */
 
-    public function getAllParents()
-    {
-        $query = "
-            SELECT
-                p.*,
-                s.school_name
+    /*
+========================================
+GET ALL PARENTS
+SUPER ADMIN
+========================================
+*/
 
-            FROM parents p
+public function getAllParents()
+{
+    $query = "
+        SELECT
+            u.user_id,
+            u.firstname,
+            u.lastname,
+            u.email,
+            u.gender,
+            u.rank,
+            u.school_id,
+            u.status,
 
-            LEFT JOIN schools s
-                ON p.school_id = s.id
+            s.school_name,
 
-            ORDER BY p.created_at DESC
-        ";
+            (
+                SELECT st.parent_phone
+                FROM students st
+                WHERE st.parent_id = u.user_id
+                LIMIT 1
+            ) AS phone
 
-        return $this->query($query);
-    }
+        FROM users u
 
+        LEFT JOIN schools s
+            ON u.school_id = s.id
+
+        WHERE u.rank = 'parent'
+
+        ORDER BY u.id DESC
+    ";
+
+    return $this->query($query);
+}
 
     /*
     ========================================
-    GET PARENT BY ID
+    GET PARENT BY EMAIL
     ========================================
     */
 
-    public function getParentById($parent_id)
+    public function getParentByEmail($email)
     {
         $query = "
             SELECT
-                p.*,
-                s.school_name
+                user_id,
+                firstname,
+                lastname,
+                email,
+                gender,
+                rank,
+                school_id,
+                status
 
-            FROM parents p
+            FROM users
 
-            LEFT JOIN schools s
-                ON p.school_id = s.id
+            WHERE email = :email
 
-            WHERE p.parent_id = :parent_id
+            AND rank = 'parent'
 
             LIMIT 1
         ";
@@ -53,7 +82,7 @@ class ParentModel extends Model
         $result = $this->query(
             $query,
             [
-                'parent_id' => $parent_id
+                'email' => $email
             ]
         );
 
@@ -63,102 +92,83 @@ class ParentModel extends Model
 
     /*
     ========================================
-    GET PARENTS BY SCHOOL
+    GET PARENT BY USER ID
     ========================================
     */
 
-    public function getParentsBySchool($school_id)
+    public function getParentByUserId($user_id)
     {
         $query = "
             SELECT
-                p.*,
-                s.school_name
+                user_id,
+                firstname,
+                lastname,
+                email,
+                gender,
+                rank,
+                school_id,
+                status
 
-            FROM parents p
+            FROM users
 
-            LEFT JOIN schools s
-                ON p.school_id = s.id
+            WHERE user_id = :user_id
 
-            WHERE p.school_id = :school_id
+            AND rank = 'parent'
 
-            ORDER BY p.created_at DESC
+            LIMIT 1
         ";
 
-        return $this->query(
+        $result = $this->query(
             $query,
             [
-                'school_id' => $school_id
+                'user_id' => $user_id
             ]
         );
+
+        return $result[0] ?? false;
     }
 
-    /*
+/*
 ========================================
-CREATE PARENT
+GET PARENT'S CHILDREN
 ========================================
 */
 
-public function createParent($data)
+public function getChildren($parent_id)
 {
     $query = "
-        INSERT INTO parents (
+        SELECT
+            s.student_id,
+            s.user_id,
+            s.parent_id,
+            s.school_id,
+            s.admission_number,
+            s.class,
+            s.division,
+            s.roll_number,
+            s.date_of_birth,
+            s.admission_date,
+            s.address,
+            s.status,
 
-            parent_id,
-            user_id,
-            school_id,
-            firstname,
-            lastname,
-            email,
-            phone,
-            address,
-            status
+            u.firstname,
+            u.lastname,
+            u.email
 
-        )
+        FROM students s
 
-        VALUES (
+        INNER JOIN users u
+            ON s.user_id = u.user_id
 
-            :parent_id,
-            :user_id,
-            :school_id,
-            :firstname,
-            :lastname,
-            :email,
-            :phone,
-            :address,
-            :status
+        WHERE s.parent_id = :parent_id
 
-        )
+        ORDER BY s.student_id DESC
     ";
-
 
     return $this->query(
         $query,
         [
-            'parent_id' => $data['parent_id'],
-
-            'user_id' =>
-                $data['user_id'],
-
-            'school_id' =>
-                $data['school_id'],
-
-            'firstname' =>
-                $data['firstname'],
-
-            'lastname' =>
-                $data['lastname'],
-
-            'email' =>
-                $data['email'],
-
-            'phone' =>
-                $data['phone'],
-
-            'address' =>
-                $data['address'],
-
-            'status' =>
-                $data['status']
+            'parent_id' => $parent_id
         ]
     );
 }

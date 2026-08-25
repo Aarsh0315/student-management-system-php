@@ -377,66 +377,97 @@
 
 
             <!-- =========================
-                 PARENT INFORMATION
-            ========================== -->
+     PARENT INFORMATION
+========================= -->
 
-            <div class="form-section">
+<div class="form-section">
 
-                <h2>
-                    Parent / Guardian Information
-                </h2>
-
-
-                <div class="form-grid">
+    <h2>
+        Parent / Guardian Information
+    </h2>
 
 
-                    <div class="form-group">
-
-                        <label>
-                            Parent Name
-                        </label>
-
-                        <input
-                            type="text"
-                            name="parent_name"
-                            required
-                        >
-
-                    </div>
+    <div class="form-grid">
 
 
-                    <div class="form-group">
+        <!-- PARENT FIRST NAME -->
 
-                        <label>
-                            Parent Phone
-                        </label>
+        <div class="form-group">
 
-                        <input
-                            type="tel"
-                            name="parent_phone"
-                            required
-                        >
+            <label>
+                Parent First Name
+            </label>
 
-                    </div>
+            <input
+                type="text"
+                name="parent_firstname"
+                required
+            >
 
-
-                    <div class="form-group">
-
-                        <label>
-                            Parent Email
-                        </label>
-
-                        <input
-                            type="email"
-                            name="parent_email"
-                        >
-
-                    </div>
+        </div>
 
 
-                </div>
 
-            </div>
+        <!-- PARENT LAST NAME -->
+
+        <div class="form-group">
+
+            <label>
+                Parent Last Name
+            </label>
+
+            <input
+                type="text"
+                name="parent_lastname"
+                required
+            >
+
+        </div>
+
+
+
+        <!-- PARENT EMAIL -->
+
+        <div class="form-group">
+
+            <label>
+                Parent Email
+            </label>
+
+            <input
+                type="email"
+                name="parent_email"
+                required
+            >
+
+            <small>
+                This email will be used by the parent to log in.
+            </small>
+
+        </div>
+
+
+
+        <!-- PARENT PHONE -->
+
+        <div class="form-group">
+
+            <label>
+                Parent Phone
+            </label>
+
+            <input
+                type="tel"
+                name="parent_phone"
+                required
+            >
+
+        </div>
+
+
+    </div>
+
+</div>
 
 
             <!-- =========================

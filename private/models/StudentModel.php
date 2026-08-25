@@ -205,7 +205,7 @@ public function createStudent($userData, $studentData)
 {
     /*
     ========================================
-    GENERATE USER ID
+    GENERATE PARENT / STUDENT USER IDs
     ========================================
     */
 
@@ -222,7 +222,9 @@ public function createStudent($userData, $studentData)
                     FROM users
                     WHERE user_id LIKE 'USR%'";
 
-    $userIdResult = $this->query($userIdQuery);
+    $userIdResult = $this->query(
+        $userIdQuery
+    );
 
     $nextUserNumber =
         $userIdResult[0]->next_number ?? 1;
@@ -230,9 +232,217 @@ public function createStudent($userData, $studentData)
 
     /*
     ========================================
-    CREATE USER ID
+    PARENT INFORMATION
     ========================================
     */
+
+    $parent_firstname =
+        trim(
+            $studentData['parent_firstname'] ?? ''
+        );
+
+    $parent_lastname =
+        trim(
+            $studentData['parent_lastname'] ?? ''
+        );
+
+    $parent_email =
+        trim(
+            $studentData['parent_email'] ?? ''
+        );
+
+    $parent_phone =
+        trim(
+            $studentData['parent_phone'] ?? ''
+        );
+
+
+    /*
+    ========================================
+    FIND EXISTING PARENT
+    ========================================
+    */
+
+    $parentQuery = "SELECT
+                        user_id
+
+                    FROM users
+
+                    WHERE email = :email
+
+                    AND rank = 'parent'
+
+                    LIMIT 1";
+
+    $existingParent =
+        $this->query(
+            $parentQuery,
+            [
+                'email' => $parent_email
+            ]
+        );
+
+
+    /*
+    ========================================
+    PARENT USER ID
+    ========================================
+    */
+
+    $parent_user_id = null;
+
+
+    /*
+    ========================================
+    EXISTING PARENT
+    ========================================
+    */
+
+    if (!empty($existingParent)) {
+
+        $parent_user_id =
+            $existingParent[0]->user_id;
+
+    }
+
+
+    /*
+    ========================================
+    CREATE NEW PARENT
+    ========================================
+    */
+
+    else {
+
+        $parent_user_id =
+            'USR'
+            . str_pad(
+                $nextUserNumber,
+                3,
+                '0',
+                STR_PAD_LEFT
+            );
+
+
+        /*
+        ========================================
+        INCREMENT NEXT USER NUMBER
+        ========================================
+        */
+
+        $nextUserNumber++;
+
+
+        /*
+        ========================================
+        CREATE PARENT USER
+        ========================================
+        */
+
+        $parentQuery = "INSERT INTO users
+                        (
+                            user_id,
+                            firstname,
+                            lastname,
+                            email,
+                            gender,
+                            school_id,
+                            rank,
+                            password,
+                            status,
+                            profile_image
+                        )
+
+                        VALUES
+                        (
+                            :user_id,
+                            :firstname,
+                            :lastname,
+                            :email,
+                            :gender,
+                            :school_id,
+                            'parent',
+                            :password,
+                            'active',
+                            NULL
+                        )";
+
+
+        $createdParent =
+            $this->query(
+                $parentQuery,
+                [
+                    'user_id' =>
+                        $parent_user_id,
+
+                    'firstname' =>
+                        $parent_firstname,
+
+                    'lastname' =>
+                        $parent_lastname,
+
+                    'email' =>
+                        $parent_email,
+
+                    'gender' =>
+                        $userData['gender'] ?? '',
+
+                    'school_id' =>
+                        $studentData['school_id'],
+
+                    /*
+                    Same password as student
+                    */
+
+                    'password' =>
+                        $userData['password']
+                ]
+            );
+
+
+        /*
+        ========================================
+        PARENT CREATION FAILED
+        ========================================
+        */
+
+        if (!$createdParent) {
+
+            return false;
+
+        }
+
+    }
+
+
+    /*
+    ========================================
+    GENERATE STUDENT USER ID
+    ========================================
+    */
+
+    $userIdQuery = "SELECT
+                        COALESCE(
+                            MAX(
+                                CAST(
+                                    SUBSTRING(user_id, 4)
+                                    AS UNSIGNED
+                                )
+                            ),
+                            0
+                        ) + 1 AS next_number
+                    FROM users
+                    WHERE user_id LIKE 'USR%'";
+
+    $userIdResult =
+        $this->query(
+            $userIdQuery
+        );
+
+
+    $nextUserNumber =
+        $userIdResult[0]->next_number ?? 1;
+
 
     $user_id =
         'USR'
@@ -246,7 +456,7 @@ public function createStudent($userData, $studentData)
 
     /*
     ========================================
-    CREATE USER
+    CREATE STUDENT USER
     ========================================
     */
 
@@ -263,6 +473,7 @@ public function createStudent($userData, $studentData)
                         status,
                         profile_image
                     )
+
                   VALUES
                     (
                         :user_id,
@@ -278,23 +489,12 @@ public function createStudent($userData, $studentData)
                     )";
 
 
-    /*
-    ========================================
-    ADD USER ID TO DATA
-    ========================================
-    */
-
-    $userData['user_id'] = $user_id;
+    $userData['user_id'] =
+        $user_id;
 
     $userData['profile_image'] =
         $userData['profile_image'] ?? null;
 
-
-    /*
-    ========================================
-    INSERT USER
-    ========================================
-    */
 
     $createdUser =
         $this->query(
@@ -342,12 +542,6 @@ public function createStudent($userData, $studentData)
         $studentIdResult[0]->next_number ?? 1;
 
 
-    /*
-    ========================================
-    CREATE STUDENT ID
-    ========================================
-    */
-
     $student_id =
         'STU'
         . str_pad(
@@ -365,39 +559,42 @@ public function createStudent($userData, $studentData)
     */
 
     $studentQuery = "INSERT INTO students
-                        (
-                            student_id,
-                            user_id,
-                            school_id,
-                            admission_number,
-                            class,
-                            division,
-                            roll_number,
-                            date_of_birth,
-                            admission_date,
-                            parent_name,
-                            parent_phone,
-                            parent_email,
-                            address,
-                            status
-                        )
-                     VALUES
-                        (
-                            :student_id,
-                            :user_id,
-                            :school_id,
-                            :admission_number,
-                            :class,
-                            :division,
-                            :roll_number,
-                            :date_of_birth,
-                            :admission_date,
-                            :parent_name,
-                            :parent_phone,
-                            :parent_email,
-                            :address,
-                            'active'
-                        )";
+                    (
+                        student_id,
+                        user_id,
+                        parent_id,
+                        school_id,
+                        admission_number,
+                        class,
+                        division,
+                        roll_number,
+                        date_of_birth,
+                        admission_date,
+                        parent_name,
+                        parent_phone,
+                        parent_email,
+                        address,
+                        status
+                    )
+
+                  VALUES
+                    (
+                        :student_id,
+                        :user_id,
+                        :parent_id,
+                        :school_id,
+                        :admission_number,
+                        :class,
+                        :division,
+                        :roll_number,
+                        :date_of_birth,
+                        :admission_date,
+                        :parent_name,
+                        :parent_phone,
+                        :parent_email,
+                        :address,
+                        'active'
+                    )";
 
 
     /*
@@ -415,6 +612,13 @@ public function createStudent($userData, $studentData)
 
             'user_id' =>
                 $user_id,
+
+            /*
+            Parent user ID
+            */
+
+            'parent_id' =>
+                $parent_user_id,
 
             'school_id' =>
                 $studentData['school_id'],
@@ -437,14 +641,21 @@ public function createStudent($userData, $studentData)
             'admission_date' =>
                 $studentData['admission_date'],
 
+            /*
+            Keep these fields for
+            existing student details
+            */
+
             'parent_name' =>
-                $studentData['parent_name'],
+                $parent_firstname
+                . ' '
+                . $parent_lastname,
 
             'parent_phone' =>
-                $studentData['parent_phone'],
+                $parent_phone,
 
             'parent_email' =>
-                $studentData['parent_email'],
+                $parent_email,
 
             'address' =>
                 $studentData['address']
