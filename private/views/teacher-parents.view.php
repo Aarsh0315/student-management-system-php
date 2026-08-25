@@ -1,6 +1,6 @@
 <?php
 
-$teachers = $data['teachers'] ?? [];
+$parents = $data['parents'] ?? [];
 
 ?>
 
@@ -17,16 +17,11 @@ $teachers = $data['teachers'] ?? [];
     >
 
     <title>
-        Teachers - My School
+        Parents - My School
     </title>
 
 
-    <!-- COMMON CSS -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=2"
-    >
+    <!-- DASHBOARD CSS -->
 
     <link
         rel="stylesheet"
@@ -34,19 +29,27 @@ $teachers = $data['teachers'] ?? [];
     >
 
 
-    <!-- TEACHERS CSS -->
+    <!-- TEACHER PARENTS CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teachers.view.css?v=2"
+        href="<?= ROOT ?>/css/teacher-parents.view.css?v=1"
     >
 
 
-    <!-- FOOTER CSS -->
+    <!-- FOOTER -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
+    >
+
+
+    <!-- TEACHER NAVBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/teacher-nav.view.css?v=2"
     >
 
 </head>
@@ -55,7 +58,7 @@ $teachers = $data['teachers'] ?? [];
 <body>
 
 
-<?php require "../private/views/includes/nav.view.php"; ?>
+<?php require "../private/views/includes/teacher-nav.view.php"; ?>
 
 
 <main class="dashboard">
@@ -70,16 +73,16 @@ $teachers = $data['teachers'] ?? [];
         <div>
 
             <p class="welcome-small">
-                School Admin
+                Teacher
             </p>
 
             <h1>
-                Teachers
+                Parents
             </h1>
 
             <p class="welcome-text">
-                Manage teachers and staff
-                members in your school.
+                View parents and guardians
+                associated with your students.
             </p>
 
         </div>
@@ -89,81 +92,73 @@ $teachers = $data['teachers'] ?? [];
 
 
     <!-- =========================
-         TEACHERS TABLE
+         PARENTS CARD
     ========================== -->
 
-    <section class="teachers-card">
+    <section class="parents-card">
 
 
-        <div class="teachers-header">
+        <!-- HEADER -->
+
+        <div class="parents-header">
 
             <div>
 
                 <h2>
-                    All Teachers
+                    All Parents
                 </h2>
 
                 <p>
 
-                    <?= count($teachers) ?>
+                    <?= count($parents) ?>
 
-                    teacher(s) registered
+                    parent(s) registered
 
                 </p>
 
             </div>
 
-
-            <!-- ADD TEACHER -->
-
-            <a
-                href="<?= ROOT ?>/teachers/add"
-                class="add-teacher-btn"
-            >
-                + Add Teacher
-            </a>
-
         </div>
 
 
 
-        <?php if (!empty($teachers)): ?>
+        <?php if (!empty($parents)): ?>
 
+
+            <!-- =========================
+                 TABLE
+            ========================== -->
 
             <div class="table-wrapper">
 
-                <table class="teachers-table">
+                <table>
 
                     <thead>
 
                         <tr>
 
                             <th>
-                                Staff ID
+                                Parent ID
                             </th>
 
                             <th>
-                                Name
+                                Parent Name
                             </th>
 
                             <th>
-                                Department
+                                Student
                             </th>
 
                             <th>
-                                Designation
-                            </th>
-
-                            <th>
-                                Qualification
-                            </th>
-
-                            <th>
-                                Employment
+                                Relationship
                             </th>
 
                             <th>
                                 Phone
+                            </th>
+
+                            <th>
+                                Email
                             </th>
 
                             <th>
@@ -183,21 +178,21 @@ $teachers = $data['teachers'] ?? [];
 
 
                         <?php foreach (
-                            $teachers as $teacher
+                            $parents as $parent
                         ): ?>
 
 
                             <tr>
 
 
-                                <!-- STAFF ID -->
+                                <!-- PARENT ID -->
 
                                 <td>
 
-                                    <span class="teacher-id">
+                                    <span class="parent-id">
 
                                         <?= htmlspecialchars(
-                                            $teacher->staff_id
+                                            $parent->parent_id
                                             ?? '-'
                                         ) ?>
 
@@ -207,16 +202,16 @@ $teachers = $data['teachers'] ?? [];
 
 
 
-                                <!-- NAME -->
+                                <!-- PARENT NAME -->
 
                                 <td>
 
-                                    <strong class="teacher-name">
+                                    <strong class="parent-name">
 
                                         <?= htmlspecialchars(
-                                            ($teacher->firstname ?? '')
+                                            ($parent->firstname ?? '')
                                             . ' '
-                                            . ($teacher->lastname ?? '')
+                                            . ($parent->lastname ?? '')
                                         ) ?>
 
                                     </strong>
@@ -225,51 +220,29 @@ $teachers = $data['teachers'] ?? [];
 
 
 
-                                <!-- DEPARTMENT -->
+                                <!-- STUDENT -->
 
                                 <td>
 
-                                    <?= htmlspecialchars(
-                                        $teacher->department
-                                        ?? '-'
-                                    ) ?>
+                                    <span class="parent-student">
+
+                                        <?= htmlspecialchars(
+                                            $parent->student_name
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
 
                                 </td>
 
 
 
-                                <!-- DESIGNATION -->
+                                <!-- RELATIONSHIP -->
 
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $teacher->designation
-                                        ?? '-'
-                                    ) ?>
-
-                                </td>
-
-
-
-                                <!-- QUALIFICATION -->
-
-                                <td>
-
-                                    <?= htmlspecialchars(
-                                        $teacher->qualification
-                                        ?? '-'
-                                    ) ?>
-
-                                </td>
-
-
-
-                                <!-- EMPLOYMENT TYPE -->
-
-                                <td>
-
-                                    <?= htmlspecialchars(
-                                        $teacher->employment_type
+                                        $parent->relationship
                                         ?? '-'
                                     ) ?>
 
@@ -282,7 +255,20 @@ $teachers = $data['teachers'] ?? [];
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $teacher->phone
+                                        $parent->phone
+                                        ?? '-'
+                                    ) ?>
+
+                                </td>
+
+
+
+                                <!-- EMAIL -->
+
+                                <td>
+
+                                    <?= htmlspecialchars(
+                                        $parent->email
                                         ?? '-'
                                     ) ?>
 
@@ -295,7 +281,7 @@ $teachers = $data['teachers'] ?? [];
                                 <td>
 
                                     <?php if (
-                                        ($teacher->status ?? '')
+                                        ($parent->status ?? '')
                                         === 'active'
                                     ): ?>
 
@@ -324,7 +310,7 @@ $teachers = $data['teachers'] ?? [];
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/teachers/details/<?= urlencode($teacher->staff_id) ?>"
+                                        href="<?= ROOT ?>/teacherparents/details/<?= urlencode($parent->parent_id ?? '') ?>"
                                         class="view-btn"
                                     >
                                         View
@@ -349,17 +335,19 @@ $teachers = $data['teachers'] ?? [];
         <?php else: ?>
 
 
-            <!-- EMPTY STATE -->
+            <!-- =========================
+                 EMPTY STATE
+            ========================== -->
 
             <div class="empty-state">
 
                 <h3>
-                    No teachers found
+                    No Parents Found
                 </h3>
 
                 <p>
-                    There are currently no teachers
-                    registered in your school.
+                    There are currently no parents
+                    associated with your students.
                 </p>
 
             </div>

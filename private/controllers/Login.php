@@ -143,6 +143,17 @@ class Login extends Controller
                         exit;
                     }
 
+                    // TEACHER
+
+                    if ($_SESSION['rank'] === 'teacher') {
+
+                    header(
+                        "Location: " . ROOT . "/teacherDashboard"
+                    );
+
+                    exit;
+                }
+
 
                     /*
                     ========================================
