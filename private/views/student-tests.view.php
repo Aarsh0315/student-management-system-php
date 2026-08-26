@@ -1,5 +1,6 @@
 <?php
 
+
 $tests = $data['tests'] ?? [];
 
 ?>
@@ -41,7 +42,7 @@ $tests = $data['tests'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=2"
+        href="<?= ROOT ?>/css/student-nav.view.css?v=2"
     >
 
 
@@ -58,7 +59,7 @@ $tests = $data['tests'] ?? [];
 <body>
 
 
-<?php require "../private/views/includes/nav.view.php"; ?>
+<?php require "../private/views/includes/student-nav.view.php"; ?>
 
 
 <main class="dashboard">
@@ -245,25 +246,84 @@ $tests = $data['tests'] ?? [];
 
                                 <td>
 
-                                    <span
-                                        class="status active"
-                                    >
-                                        Available
-                                    </span>
+                                    <?php if (!empty($test->result)): ?>
+
+                                        <span class="status submitted">
+                                            Submitted
+                                        </span>
+
+                                    <?php else: ?>
+
+                                        <span class="status active">
+                                            Available
+                                        </span>
+
+                                    <?php endif; ?>
 
                                 </td>
 
+                            <td>
 
-                                <td>
+                                <?php if (!empty($test->result)): ?>
+
+                                    <!-- ========================================
+                                        SUBMITTED TEST
+                                    ======================================== -->
+
+                                    <div class="submitted-test">
+
+                                        <span class="status submitted">
+                                            ✓ Submitted
+                                        </span>
+
+                                        <span class="test-score">
+
+                                            <?= htmlspecialchars(
+                                                $test->result->obtained_marks
+                                                ?? '0'
+                                            ) ?>
+
+                                            /
+
+                                            <?= htmlspecialchars(
+                                                $test->result->total_marks
+                                                ?? $test->total_marks
+                                                ?? '0'
+                                            ) ?>
+
+                                        </span>
+
+                                    </div>
+
 
                                     <a
-                                        href="<?= ROOT ?>/studenttests/start/<?= urlencode($test->test_id) ?>"
+                                        href="<?= ROOT ?>/studentresults/details/<?= urlencode(
+                                            $test->result->result_id
+                                        ) ?>"
+                                        class="view-result-btn"
+                                    >
+                                        View Result
+                                    </a>
+
+
+                                <?php else: ?>
+
+                                    <!-- ========================================
+                                        NOT ATTEMPTED
+                                    ======================================== -->
+
+                                    <a
+                                        href="<?= ROOT ?>/studenttests/start/<?= urlencode(
+                                            $test->test_id
+                                        ) ?>"
                                         class="start-test-btn"
                                     >
                                         Start Test
                                     </a>
 
-                                </td>
+                                <?php endif; ?>
+
+                            </td>
 
 
                             </tr>

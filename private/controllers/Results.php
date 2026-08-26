@@ -9,90 +9,129 @@ class Results extends Controller
     */
 
     public function index()
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
-
-            exit;
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK SUPER ADMIN
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (
-            ($_SESSION['rank'] ?? '') !== 'super_admin'
-        ) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
+        exit;
+    }
 
 
-        /*
-        ========================================
-        LOAD MODEL
-        ========================================
-        */
+    /*
+    ========================================
+    GET RANK
+    ========================================
+    */
 
-        $resultModel =
-            $this->model('TeacherResultsModel');
+    $rank = $_SESSION['rank'] ?? '';
 
 
-        /*
-        ========================================
-        GET ALL RESULTS
-        ========================================
-        */
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $resultModel =
+        $this->model('TeacherResultsModel');
+
+
+    /*
+    ========================================
+    SUPER ADMIN
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
 
         $results =
             $resultModel->getAllResults();
 
-
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
-
-        $this->view(
-            'results',
-            [
-                'results' => $results
-            ]
-        );
     }
 
+
+    /*
+    ========================================
+    SCHOOL ADMIN
+    ========================================
+    */
+
+    elseif ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+
+        if (!$school_id) {
+
+            die(
+                "No school is assigned to this account."
+            );
+
+        }
+
+
+        $results =
+            $resultModel->getResultsBySchool(
+                $school_id
+            );
+
+    }
+
+
+    /*
+    ========================================
+    OTHER USERS
+    ========================================
+    */
+
+    else {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'results',
+        [
+            'results' => $results
+        ]
+    );
+}
 
     /*
     ========================================
@@ -100,124 +139,167 @@ class Results extends Controller
     ========================================
     */
 
-    public function details(
-        $result_id = null
-    ) {
+   public function details($result_id = null)
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
-
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
-
-
-        /*
-        ========================================
-        CHECK SUPER ADMIN
-        ========================================
-        */
-
-        if (
-            ($_SESSION['rank'] ?? '') !== 'super_admin'
-        ) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
-
-            exit;
-        }
+        exit;
+    }
 
 
-        /*
-        ========================================
-        CHECK RESULT ID
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK RESULT ID
+    ========================================
+    */
 
-        if (!$result_id) {
+    if (!$result_id) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/results"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/results"
+        );
 
-            exit;
-        }
-
-
-        /*
-        ========================================
-        LOAD MODEL
-        ========================================
-        */
-
-        $resultModel =
-            $this->model('TeacherResultsModel');
+        exit;
+    }
 
 
-        /*
-        ========================================
-        GET RESULT
-        ========================================
-        */
+    /*
+    ========================================
+    GET RANK
+    ========================================
+    */
+
+    $rank = $_SESSION['rank'] ?? '';
+
+
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $resultModel =
+        $this->model('TeacherResultsModel');
+
+
+    /*
+    ========================================
+    SUPER ADMIN
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
 
         $result =
             $resultModel->getResultByIdAdmin(
                 $result_id
             );
 
+    }
 
-        /*
-        ========================================
-        RESULT NOT FOUND
-        ========================================
-        */
 
-        if (!$result) {
+    /*
+    ========================================
+    SCHOOL ADMIN
+    ========================================
+    */
+
+    elseif ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+
+        if (!$school_id) {
 
             die(
-                "Result not found."
+                "No school is assigned to this account."
             );
+
         }
 
 
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
+        $result =
+            $resultModel->getResultById(
+                $result_id,
+                $school_id
+            );
 
-        $this->view(
-            'result-details',
-            [
-                'result' => $result
-            ]
-        );
     }
+
+
+    /*
+    ========================================
+    OTHER USERS
+    ========================================
+    */
+
+    else {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    RESULT NOT FOUND
+    ========================================
+    */
+
+    if (!$result) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/results"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'result-details',
+        [
+            'result' => $result
+        ]
+    );
+}
 }

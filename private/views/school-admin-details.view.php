@@ -48,7 +48,7 @@ $admin = $data['admin'] ?? $data['user'] ?? null;
     <section class="welcome">
 
         <p class="welcome-small">
-            Super Admin 
+            School Admin
         </p>
 
         <h1>

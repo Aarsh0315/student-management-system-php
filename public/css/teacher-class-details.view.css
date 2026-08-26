@@ -1,0 +1,617 @@
+/* ========================================
+   TEACHER CLASS DETAILS PAGE
+======================================== */
+
+
+/* ========================================
+   CLASS STUDENTS CARD
+======================================== */
+
+.class-students-card {
+
+    width: 100%;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    margin-bottom: 25px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+
+}
+
+
+/* ========================================
+   CLASS STUDENTS HEADER
+======================================== */
+
+.class-students-header {
+
+    margin-bottom: 22px;
+
+}
+
+
+.class-students-header h2 {
+
+    margin: 0 0 5px;
+
+    color: #172033;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+.class-students-header p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ========================================
+   TABLE WRAPPER
+======================================== */
+
+.class-students-card .table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #eef0f3;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ========================================
+   TABLE
+======================================== */
+
+.class-students-card .table-wrapper table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+
+}
+
+
+/* ========================================
+   TABLE HEADER
+======================================== */
+
+.class-students-card .table-wrapper thead {
+
+    background: #f8fafc;
+
+}
+
+
+.class-students-card .table-wrapper th {
+
+    padding: 14px 16px;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e5e7eb;
+
+}
+
+
+/* ========================================
+   TABLE BODY
+======================================== */
+
+.class-students-card .table-wrapper td {
+
+    padding: 15px 16px;
+
+    color: #475569;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+
+    border-bottom: 1px solid #eef0f3;
+
+}
+
+
+/* ========================================
+   LAST ROW
+======================================== */
+
+.class-students-card
+.table-wrapper
+tbody
+tr:last-child
+td {
+
+    border-bottom: none;
+
+}
+
+
+/* ========================================
+   ROW
+======================================== */
+
+.class-students-card
+.table-wrapper
+tbody
+tr {
+
+    transition:
+        background 0.15s ease;
+
+}
+
+
+/* ========================================
+   ROW HOVER
+======================================== */
+
+.class-students-card
+.table-wrapper
+tbody
+tr:hover {
+
+    background: #f8fafc;
+
+}
+
+
+/* ========================================
+   STUDENT ID
+======================================== */
+
+.class-students-card .student-id {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+/* ========================================
+   STUDENT NAME
+======================================== */
+
+.class-students-card .student-name {
+
+    color: #172033;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+/* ========================================
+   ROLL NUMBER
+======================================== */
+
+.class-students-card .roll-number {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 30px;
+
+    padding: 5px 9px;
+
+    background: #f8fafc;
+
+    color: #334155;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.class-students-card .status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+.class-students-card .status::before {
+
+    content: "";
+
+    width: 6px;
+
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+}
+
+
+/* ========================================
+   ACTIVE STATUS
+======================================== */
+
+.class-students-card .status.active {
+
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    border: 1px solid #bbf7d0;
+
+}
+
+
+.class-students-card .status.active::before {
+
+    background: #22c55e;
+
+}
+
+
+/* ========================================
+   INACTIVE STATUS
+======================================== */
+
+.class-students-card .status.inactive {
+
+    background: #fef2f2;
+
+    color: #b91c1c;
+
+    border: 1px solid #fecaca;
+
+}
+
+
+.class-students-card .status.inactive::before {
+
+    background: #ef4444;
+
+}
+
+
+/* ========================================
+   VIEW BUTTON
+   SAME AS CLASSES PAGE
+======================================== */
+
+.class-students-card .view-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.class-students-card .view-btn:hover {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+
+}
+
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.class-students-card .empty-state {
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+}
+
+
+.class-students-card .empty-state h3 {
+
+    margin: 0 0 8px;
+
+    color: #172033;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+}
+
+
+.class-students-card .empty-state p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ========================================
+   ACTIONS
+======================================== */
+
+.class-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-start;
+
+    margin-bottom: 35px;
+
+}
+
+
+/* ========================================
+   BACK BUTTON
+======================================== */
+
+.class-actions .back-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    background: #ffffff;
+
+    color: #475569;
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+
+}
+
+
+.class-actions .back-btn:hover {
+
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+
+    color: #2563eb;
+
+    transform: translateX(-2px);
+
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
+
+    .class-students-card {
+
+        padding: 22px;
+
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .class-students-card {
+
+        padding: 20px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .class-students-card
+    .table-wrapper {
+
+        border-radius: 8px;
+
+    }
+
+
+    .class-students-card
+    .table-wrapper
+    th {
+
+        padding: 12px;
+
+    }
+
+
+    .class-students-card
+    .table-wrapper
+    td {
+
+        padding: 13px 12px;
+
+    }
+
+
+    .class-students-card
+    .view-btn {
+
+        padding: 9px 13px;
+
+        font-size: 11px;
+
+    }
+
+
+    .class-actions .back-btn {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+
+    .class-students-card {
+
+        padding: 17px;
+
+    }
+
+
+    .class-students-header h2 {
+
+        font-size: 17px;
+
+    }
+
+
+    .class-students-header p {
+
+        font-size: 11px;
+
+    }
+
+}

@@ -64,7 +64,17 @@ $students = $data['students'] ?? [];
         <div>
 
             <p class="welcome-small">
-                Super Admin
+
+                <?php
+                    $rank = $_SESSION['rank'] ?? '';
+                ?>
+
+                <?= htmlspecialchars(
+                    $rank === 'super_admin'
+                        ? 'Super Admin'
+                        : 'School Admin'
+                ) ?>
+
             </p>
 
             <h1>

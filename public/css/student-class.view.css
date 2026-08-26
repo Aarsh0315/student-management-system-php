@@ -1,0 +1,583 @@
+/* ========================================
+   STUDENT CLASS PAGE
+======================================== */
+
+
+/* ========================================
+   CLASS CARD
+======================================== */
+
+.student-class-card {
+
+    width: 100%;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    margin-bottom: 25px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+
+}
+
+
+/* ========================================
+   CLASS CARD HEADER
+======================================== */
+
+.student-class-card > div:first-child h2 {
+
+    margin: 0 0 6px;
+
+    color: #172033;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+.student-class-card > div:first-child p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ========================================
+   CLASS HEADER
+======================================== */
+
+.student-class-card:first-of-type {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.student-class-card .status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+.student-class-card .status::before {
+
+    content: "";
+
+    width: 6px;
+
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+}
+
+
+.student-class-card .status.active {
+
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    border: 1px solid #bbf7d0;
+
+}
+
+
+.student-class-card .status.active::before {
+
+    background: #22c55e;
+
+}
+
+
+/* ========================================
+   SECTION HEADER
+======================================== */
+
+.class-section-header {
+
+    margin-bottom: 22px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eef0f3;
+
+}
+
+
+.class-section-header h2 {
+
+    margin: 0 0 5px;
+
+    color: #172033;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+.class-section-header p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+/* ========================================
+   DETAILS GRID
+======================================== */
+
+.class-details-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    border-top: 1px solid #eef0f3;
+
+    border-left: 1px solid #eef0f3;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+
+}
+
+
+/* ========================================
+   DETAIL ITEM
+======================================== */
+
+.class-detail-item {
+
+    min-height: 88px;
+
+    padding: 17px 18px;
+
+    background: #ffffff;
+
+    display: flex;
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    border-right: 1px solid #eef0f3;
+
+    border-bottom: 1px solid #eef0f3;
+
+    box-sizing: border-box;
+
+    transition:
+
+        background 0.15s ease;
+
+}
+
+
+.class-detail-item:hover {
+
+    background: #f8fafc;
+
+}
+
+
+.class-detail-item span {
+
+    color: #94a3b8;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+}
+
+
+.class-detail-item strong {
+
+    color: #172033;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    word-break: break-word;
+
+}
+
+
+/* ========================================
+   CLASSMATES TABLE WRAPPER
+======================================== */
+
+.classmates-table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+}
+
+
+/* ========================================
+   CLASSMATES TABLE
+======================================== */
+
+.classmates-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+
+}
+
+
+/* ========================================
+   TABLE HEADER
+======================================== */
+
+.classmates-table thead {
+
+    background: #f8fafc;
+
+}
+
+
+.classmates-table th {
+
+    padding: 14px 16px;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e5e7eb;
+
+}
+
+
+/* ========================================
+   TABLE BODY
+======================================== */
+
+.classmates-table td {
+
+    padding: 15px 16px;
+
+    color: #475569;
+
+    font-size: 12px;
+
+    vertical-align: middle;
+
+    border-bottom: 1px solid #eef0f3;
+
+}
+
+
+.classmates-table tbody tr:last-child td {
+
+    border-bottom: none;
+
+}
+
+
+.classmates-table tbody tr {
+
+    transition:
+
+        background 0.15s ease;
+
+}
+
+
+.classmates-table tbody tr:hover {
+
+    background: #f8fafc;
+
+}
+
+
+/* ========================================
+   ROLL NUMBER
+======================================== */
+
+.roll-number {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 30px;
+
+    padding: 5px 9px;
+
+    background: #f1f5f9;
+
+    color: #475569;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+/* ========================================
+   STUDENT NAME
+======================================== */
+
+.classmates-table strong {
+
+    color: #172033;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.student-class-card .empty-state {
+
+    padding: 50px 20px;
+
+    text-align: center;
+
+    border: 1px dashed #dbe2ea;
+
+    border-radius: 10px;
+
+    background: #f8fafc;
+
+}
+
+
+.student-class-card .empty-state h3 {
+
+    margin: 0 0 8px;
+
+    color: #172033;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+}
+
+
+.student-class-card .empty-state p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
+
+    .student-class-card {
+
+        padding: 22px;
+
+    }
+
+
+    .class-details-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .student-class-card {
+
+        padding: 20px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .student-class-card:first-of-type {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+    }
+
+
+    .student-class-card:first-of-type .status {
+
+        width: 100%;
+
+        justify-content: center;
+
+    }
+
+
+    .class-details-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .classmates-table-wrapper {
+
+        border-radius: 8px;
+
+    }
+
+
+    .classmates-table th {
+
+        padding: 12px;
+
+    }
+
+
+    .classmates-table td {
+
+        padding: 13px 12px;
+
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+
+    .student-class-card {
+
+        padding: 17px;
+
+    }
+
+
+    .class-section-header h2 {
+
+        font-size: 17px;
+
+    }
+
+
+    .class-section-header p {
+
+        font-size: 11px;
+
+    }
+
+}

@@ -105,4 +105,149 @@ class TeacherParents extends Controller
             ]
         );
     }
+
+    public function details($parent_name = null)
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK TEACHER
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $_SESSION['rank'] ?? '',
+            ['staff', 'teacher']
+        )
+    ) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK PARENT NAME
+    ========================================
+    */
+
+    if (
+        $parent_name === null ||
+        $parent_name === ''
+    ) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/teacherparents"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    GET SCHOOL ID
+    ========================================
+    */
+
+    $school_id =
+        $_SESSION['school_id'] ?? null;
+
+
+    if (!$school_id) {
+
+        die(
+            "No school is assigned to this teacher."
+        );
+    }
+
+
+    /*
+    ========================================
+    LOAD STUDENT MODEL
+    ========================================
+    */
+
+    $studentModel =
+        new StudentModel();
+
+
+    /*
+    ========================================
+    GET PARENT DETAILS
+    ========================================
+    */
+
+    $students =
+        $studentModel->getParentDetailsByName(
+            $parent_name,
+            $school_id
+        );
+
+
+    /*
+    ========================================
+    CHECK PARENT
+    ========================================
+    */
+
+    if (empty($students)) {
+
+        die(
+            "Parent not found."
+        );
+    }
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'teacher-parent-details',
+        [
+            'parent_name' => $parent_name,
+            'students'    => $students
+        ]
+    );
+}
 }

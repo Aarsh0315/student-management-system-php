@@ -599,4 +599,145 @@ if (
 
     exit;
 }
+
+/*
+========================================
+CLASS DETAILS
+SHOW STUDENTS IN CLASS
+========================================
+*/
+
+public function classDetails(
+    $class = null,
+    $division = null
+) {
+
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK SCHOOL ADMIN
+    ========================================
+    */
+
+    if (
+        ($_SESSION['rank'] ?? '') !== 'admin'
+    ) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    GET SCHOOL ID
+    ========================================
+    */
+
+    $school_id =
+        $_SESSION['school_id'] ?? null;
+
+
+    if (!$school_id) {
+
+        die(
+            "No school is assigned to this account."
+        );
+
+    }
+
+
+    /*
+    ========================================
+    CHECK CLASS
+    ========================================
+    */
+
+    if (
+        $class === null ||
+        $class === ''
+    ) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/classes"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOAD STUDENT MODEL
+    ========================================
+    */
+
+    $studentModel =
+        new StudentModel();
+
+
+    /*
+    ========================================
+    GET STUDENTS
+    ========================================
+    */
+
+    $students =
+        $studentModel->getStudentsByClass(
+            $school_id,
+            $class,
+            $division
+        );
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'class-details',
+        [
+            'students' => $students,
+            'class'    => $class,
+            'division' => $division
+        ]
+    );
+}
 }

@@ -51,6 +51,170 @@ public function getAllParents()
     return $this->query($query);
 }
 
+public function getParentsBySchool($school_id)
+{
+    $query = "
+        SELECT
+            u.user_id,
+            u.firstname,
+            u.lastname,
+            u.email,
+            u.gender,
+            u.rank,
+            u.school_id,
+            u.status,
+
+            s.school_name,
+
+            GROUP_CONCAT(
+                DISTINCT CONCAT(
+                    su.firstname,
+                    ' ',
+                    su.lastname
+                )
+                ORDER BY su.firstname
+                SEPARATOR ', '
+            ) AS student_names
+
+        FROM users u
+
+        LEFT JOIN schools s
+            ON u.school_id = s.id
+
+        LEFT JOIN students st
+            ON st.parent_id = u.user_id
+
+        LEFT JOIN users su
+            ON st.user_id = su.user_id
+
+        WHERE u.rank = 'parent'
+
+        AND u.school_id = :school_id
+
+        GROUP BY
+            u.user_id,
+            u.firstname,
+            u.lastname,
+            u.email,
+            u.gender,
+            u.rank,
+            u.school_id,
+            u.status,
+            s.school_name
+
+        ORDER BY u.user_id DESC
+    ";
+
+    return $this->query(
+        $query,
+        [
+            'school_id' => $school_id
+        ]
+    );
+}
+
+/*
+========================================
+GET PARENT BY USER ID + SCHOOL
+SCHOOL ADMIN
+========================================
+*/
+
+public function getParentByUserIdAndSchool(
+    $user_id,
+    $school_id
+) {
+
+    $query = "
+        SELECT
+            u.user_id,
+            u.firstname,
+            u.lastname,
+            u.email,
+            u.gender,
+            u.rank,
+            u.school_id,
+            u.status,
+
+            s.school_name
+
+        FROM users u
+
+        LEFT JOIN schools s
+            ON u.school_id = s.id
+
+        WHERE u.user_id = :user_id
+
+        AND u.school_id = :school_id
+
+        AND u.rank = 'parent'
+
+        LIMIT 1
+    ";
+
+    $result = $this->query(
+        $query,
+        [
+            'user_id' => $user_id,
+            'school_id' => $school_id
+        ]
+    );
+
+    return $result[0] ?? false;
+}
+
+/*
+========================================
+GET PARENT CHILDREN BY SCHOOL
+SCHOOL ADMIN
+========================================
+*/
+
+public function getChildrenBySchool(
+    $parent_id,
+    $school_id
+) {
+
+    $query = "
+        SELECT
+            s.student_id,
+            s.user_id,
+            s.parent_id,
+            s.school_id,
+            s.admission_number,
+            s.class,
+            s.division,
+            s.roll_number,
+            s.date_of_birth,
+            s.admission_date,
+            s.address,
+            s.status,
+
+            u.firstname,
+            u.lastname,
+            u.email
+
+        FROM students s
+
+        INNER JOIN users u
+            ON s.user_id = u.user_id
+
+        WHERE s.parent_id = :parent_id
+
+        AND s.school_id = :school_id
+
+        ORDER BY s.student_id DESC
+    ";
+
+    return $this->query(
+        $query,
+        [
+            'parent_id' => $parent_id,
+            'school_id' => $school_id
+        ]
+    );
+}
+
     /*
     ========================================
     GET PARENT BY EMAIL

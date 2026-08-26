@@ -29,11 +29,19 @@ $school_id = $data['school_id'] ?? '';
     >
 
 
+    <!-- DASHBOARD CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/home.view.css?v=2"
+    >
+
+
     <!-- ADD STUDENT CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-student-add.view.css?v=2"
+        href="<?= ROOT ?>/css/teacher-student-add.view.css?v=3"
     >
 
 
@@ -77,14 +85,6 @@ $school_id = $data['school_id'] ?? '';
             </p>
 
         </div>
-
-
-        <a
-            href="<?= ROOT ?>/teacherstudents"
-            class="back-btn"
-        >
-            ← Back to Students
-        </a>
 
     </section>
 
@@ -501,15 +501,7 @@ $school_id = $data['school_id'] ?? '';
         ======================================== -->
 
         <div class="form-actions">
-
-            <a
-                href="<?= ROOT ?>/teacherstudents"
-                class="cancel-btn"
-            >
-                Cancel
-            </a>
-
-
+            
             <button
                 type="submit"
                 class="save-btn"

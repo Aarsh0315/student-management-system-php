@@ -1,10 +1,17 @@
 <?php
 
-$admins = $data['admins'] ?? [];
+$students = $data['students'] ?? [];
+
+$class =
+    $data['class'] ?? '-';
+
+$division =
+    $data['division'] ?? '-';
 
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -17,28 +24,40 @@ $admins = $data['admins'] ?? [];
     >
 
     <title>
-        School Admins - My School
+        Class <?= htmlspecialchars($class) ?>
+        - My School
     </title>
 
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=2"
-    > 
 
+    <!-- HOME CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css?v=2"
+        href="<?= ROOT ?>/css/home.view.css?v=3"
     >
 
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/school-admins.view.css?v=2"
-    >
+
+    <!-- NAVBAR CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css"
+        href="<?= ROOT ?>/css/nav.view.css?v=3"
+    >
+
+
+    <!-- CLASS DETAILS CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/class-details.view.css?v=2"
+    >
+
+
+    <!-- FOOTER CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=3"
     >
 
 </head>
@@ -47,15 +66,19 @@ $admins = $data['admins'] ?? [];
 <body>
 
 
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
 <?php require "../private/views/includes/nav.view.php"; ?>
 
 
 <main class="dashboard">
 
 
-    <!-- =========================
+    <!-- ========================================
          PAGE HEADER
-    ========================== -->
+    ======================================== -->
 
     <section class="welcome">
 
@@ -65,13 +88,26 @@ $admins = $data['admins'] ?? [];
                 School Admin
             </p>
 
+
             <h1>
-                School Admins
+
+                Class
+                <?= htmlspecialchars($class) ?>
+
             </h1>
 
+
             <p class="welcome-text">
-                Manage administrators assigned
-                to schools.
+
+                Division
+                <?= htmlspecialchars($division) ?>
+
+                ·
+
+                <?= count($students) ?>
+
+                student(s)
+
             </p>
 
         </div>
@@ -79,57 +115,128 @@ $admins = $data['admins'] ?? [];
     </section>
 
 
-    <!-- =========================
-         ADMINS TABLE
-    ========================== -->
 
-    <section class="admins-card">
+    <!-- ========================================
+         CLASS PROFILE CARD
+    ======================================== -->
+
+    <section class="class-profile-card">
 
 
-        <div class="admins-header">
+        <div class="class-profile-left">
 
-            <div>
 
-                <h2>
-                    All School Admins
-                </h2>
+            <!-- CLASS AVATAR -->
 
-                <p>
+            <div class="class-large-avatar">
 
-                    <?= count($admins) ?>
-
-                    school admin(s) registered
-
-                </p>
+                <?= htmlspecialchars($class) ?>
 
             </div>
 
 
-            <!-- ADD ADMIN -->
+            <!-- CLASS INFO -->
 
-            <a
-                href="<?= ROOT ?>/schooladmins/add"
-                class="add-admin-btn"
-            >
-                + Add School Admin
-            </a>
+            <div class="class-profile-info">
+
+
+                <h2>
+
+                    Class
+                    <?= htmlspecialchars($class) ?>
+
+                </h2>
+
+
+                <p>
+
+                    Division
+                    <?= htmlspecialchars($division) ?>
+
+                </p>
+
+
+                <span class="class-division-badge">
+
+                    Division
+                    <?= htmlspecialchars($division) ?>
+
+                </span>
+
+
+            </div>
+
 
         </div>
 
 
-        <?php if (!empty($admins)): ?>
+        <!-- STATUS -->
+
+        <span class="status active">
+
+            Active
+
+        </span>
 
 
-            <div class="table-wrapper">
+    </section>
 
-                <table>
+
+
+    <!-- ========================================
+         STUDENTS CARD
+    ======================================== -->
+
+    <section class="class-details-card">
+
+
+        <!-- HEADER -->
+
+        <div class="details-header">
+
+            <h2>
+                Students in this Class
+            </h2>
+
+
+            <p>
+
+                <?= count($students) ?>
+
+                student(s) registered in
+
+                Class
+                <?= htmlspecialchars($class) ?>
+
+                -
+
+                Division
+                <?= htmlspecialchars($division) ?>
+
+            </p>
+
+        </div>
+
+
+
+        <?php if (!empty($students)): ?>
+
+
+            <!-- ========================================
+                 STUDENTS TABLE
+            ======================================== -->
+
+            <div class="class-students-table-wrapper">
+
+                <table class="class-students-table">
+
 
                     <thead>
 
                         <tr>
 
                             <th>
-                                Admin ID
+                                Student ID
                             </th>
 
                             <th>
@@ -137,11 +244,7 @@ $admins = $data['admins'] ?? [];
                             </th>
 
                             <th>
-                                School
-                            </th>
-
-                            <th>
-                                School ID
+                                Roll Number
                             </th>
 
                             <th>
@@ -149,7 +252,7 @@ $admins = $data['admins'] ?? [];
                             </th>
 
                             <th>
-                                Gender
+                                Parent
                             </th>
 
                             <th>
@@ -169,21 +272,21 @@ $admins = $data['admins'] ?? [];
 
 
                         <?php foreach (
-                            $admins as $admin
+                            $students as $student
                         ): ?>
 
 
                             <tr>
 
 
-                                <!-- ADMIN ID -->
+                                <!-- STUDENT ID -->
 
                                 <td>
 
-                                    <span class="admin-id">
+                                    <span class="student-id">
 
                                         <?= htmlspecialchars(
-                                            $admin->user_id
+                                            $student->student_id
                                             ?? '-'
                                         ) ?>
 
@@ -196,12 +299,12 @@ $admins = $data['admins'] ?? [];
 
                                 <td>
 
-                                    <strong class="admin-name">
+                                    <strong class="student-name">
 
                                         <?= htmlspecialchars(
-                                            ($admin->firstname ?? '')
+                                            ($student->firstname ?? '')
                                             . ' '
-                                            . ($admin->lastname ?? '')
+                                            . ($student->lastname ?? '')
                                         ) ?>
 
                                     </strong>
@@ -209,47 +312,14 @@ $admins = $data['admins'] ?? [];
                                 </td>
 
 
-                                <!-- SCHOOL -->
+                                <!-- ROLL NUMBER -->
 
                                 <td>
 
-                                    <?php if (
-                                        !empty(
-                                            $admin->school_name
-                                        )
-                                    ): ?>
-
-                                        <span class="admin-school">
-
-                                            <?= htmlspecialchars(
-                                                $admin->school_name
-                                            ) ?>
-
-                                        </span>
-
-                                    <?php else: ?>
-
-                                        <span class="no-school">
-                                            No School
-                                        </span>
-
-                                    <?php endif; ?>
-
-                                </td>
-
-
-                                <!-- SCHOOL ID -->
-
-                                <td>
-
-                                    <span class="school-code">
-
-                                        <?= htmlspecialchars(
-                                            $admin->school_code
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
+                                    <?= htmlspecialchars(
+                                        $student->roll_number
+                                        ?? '-'
+                                    ) ?>
 
                                 </td>
 
@@ -259,19 +329,19 @@ $admins = $data['admins'] ?? [];
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $admin->email
+                                        $student->email
                                         ?? '-'
                                     ) ?>
 
                                 </td>
 
 
-                                <!-- GENDER -->
+                                <!-- PARENT -->
 
                                 <td>
 
                                     <?= htmlspecialchars(
-                                        $admin->gender
+                                        $student->parent_name
                                         ?? '-'
                                     ) ?>
 
@@ -283,7 +353,7 @@ $admins = $data['admins'] ?? [];
                                 <td>
 
                                     <?php if (
-                                        ($admin->status ?? '')
+                                        ($student->status ?? '')
                                         === 'active'
                                     ): ?>
 
@@ -311,7 +381,7 @@ $admins = $data['admins'] ?? [];
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/schooladmins/details/<?= urlencode($admin->user_id) ?>"
+                                        href="<?= ROOT ?>/students/details/<?= urlencode($student->student_id) ?>"
                                         class="view-btn"
                                     >
                                         View
@@ -328,6 +398,7 @@ $admins = $data['admins'] ?? [];
 
                     </tbody>
 
+
                 </table>
 
             </div>
@@ -336,15 +407,22 @@ $admins = $data['admins'] ?? [];
         <?php else: ?>
 
 
+            <!-- ========================================
+                 EMPTY STATE
+            ======================================== -->
+
             <div class="empty-state">
 
                 <h3>
-                    No school admins found
+                    No Students Found
                 </h3>
 
+
                 <p>
-                    There are currently no school
-                    administrators registered.
+
+                    There are currently no students
+                    in this class.
+
                 </p>
 
             </div>
@@ -356,8 +434,30 @@ $admins = $data['admins'] ?? [];
     </section>
 
 
+
+    <!-- ========================================
+         BACK BUTTON
+    ======================================== -->
+
+    <div class="class-actions">
+
+        <a
+            href="<?= ROOT ?>/classes"
+            class="back-btn"
+        >
+            ← Back to Classes
+        </a>
+
+    </div>
+
+
 </main>
 
+
+
+<!-- ========================================
+     FOOTER
+======================================== -->
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 

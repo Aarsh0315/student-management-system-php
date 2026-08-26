@@ -35,7 +35,7 @@ $questions = $data['questions'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/test-details.view.css?v=1"
+        href="<?= ROOT ?>/css/test-details.view.css?v=2"
     >
 
 
@@ -88,13 +88,6 @@ $questions = $data['questions'] ?? [];
 
         </div>
 
-
-        <a
-            href="<?= ROOT ?>/tests"
-            class="back-btn"
-        >
-            ← Back to Tests
-        </a>
 
     </section>
 
@@ -600,6 +593,8 @@ $questions = $data['questions'] ?? [];
 
             <?php endif; ?>
 
+            
+
 
         </section>
 
@@ -622,6 +617,15 @@ $questions = $data['questions'] ?? [];
 
 
     <?php endif; ?>
+
+    <a
+            href="<?= ROOT ?>/tests"
+            class="back-btn"
+        >
+            ← Back to Tests
+        </a>
+
+
 
 
 </main>

@@ -9,89 +9,129 @@ class Tests extends Controller
     */
 
     public function index()
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
-
-            exit;
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK SUPER ADMIN
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (
-            ($_SESSION['rank'] ?? '') !== 'super_admin'
-        ) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
+        exit;
+    }
 
 
-        /*
-        ========================================
-        LOAD EXISTING TEST MODEL
-        ========================================
-        */
+    /*
+    ========================================
+    GET RANK
+    ========================================
+    */
 
-        $testModel =
-            $this->model('TeacherTestsModel');
+    $rank = $_SESSION['rank'] ?? '';
 
 
-        /*
-        ========================================
-        GET ALL TESTS
-        ========================================
-        */
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $testModel =
+        $this->model('TeacherTestsModel');
+
+
+    /*
+    ========================================
+    SUPER ADMIN
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
 
         $tests =
             $testModel->getAllTests();
 
-
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
-
-        $this->view(
-            'tests',
-            [
-                'tests' => $tests
-            ]
-        );
     }
+
+
+    /*
+    ========================================
+    SCHOOL ADMIN
+    ========================================
+    */
+
+    elseif ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+
+        if (!$school_id) {
+
+            die(
+                "No school is assigned to this account."
+            );
+
+        }
+
+
+        $tests =
+            $testModel->getTestsBySchool(
+                $school_id
+            );
+
+    }
+
+
+    /*
+    ========================================
+    OTHER USERS
+    ========================================
+    */
+
+    else {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'tests',
+        [
+            'tests' => $tests
+        ]
+    );
+}
 
 
     /*
@@ -101,133 +141,179 @@ class Tests extends Controller
     */
 
     public function details($test_id = null)
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
-
-            exit;
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK SUPER ADMIN
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (
-            ($_SESSION['rank'] ?? '') !== 'super_admin'
-        ) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
+        exit;
+    }
 
 
-        /*
-        ========================================
-        CHECK TEST ID
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK TEST ID
+    ========================================
+    */
 
-        if (!$test_id) {
+    if (!$test_id) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/tests"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/tests"
+        );
 
-            exit;
-        }
-
-
-        /*
-        ========================================
-        LOAD MODEL
-        ========================================
-        */
-
-        $testModel =
-            $this->model('TeacherTestsModel');
+        exit;
+    }
 
 
-        /*
-        ========================================
-        GET TEST
-        ========================================
-        */
-            $test =
-                $testModel->getTestByIdAdmin(
-                    $test_id
-                );
+    /*
+    ========================================
+    GET RANK
+    ========================================
+    */
+
+    $rank = $_SESSION['rank'] ?? '';
 
 
-        /*
-        ========================================
-        TEST NOT FOUND
-        ========================================
-        */
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
 
-        if (!$test) {
-
-            die(
-                "Test not found."
-            );
-        }
+    $testModel =
+        $this->model('TeacherTestsModel');
 
 
-        /*
-        ========================================
-        GET QUESTIONS
-        ========================================
-        */
+    /*
+    ========================================
+    SUPER ADMIN
+    ========================================
+    */
 
-        $questions =
-            $testModel->getQuestionsByTest(
+    if ($rank === 'super_admin') {
+
+        $test =
+            $testModel->getTestByIdAdmin(
                 $test_id
             );
 
-
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
-
-        $this->view(
-            'test-details',
-            [
-                'test'      => $test,
-                'questions' => $questions
-            ]
-        );
     }
+
+
+    /*
+    ========================================
+    SCHOOL ADMIN
+    ========================================
+    */
+
+    elseif ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+
+        if (!$school_id) {
+
+            die(
+                "No school is assigned to this account."
+            );
+
+        }
+
+
+        $test =
+            $testModel->getTestById(
+                $test_id,
+                $school_id
+            );
+
+    }
+
+
+    /*
+    ========================================
+    OTHER USERS
+    ========================================
+    */
+
+    else {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    TEST NOT FOUND
+    ========================================
+    */
+
+    if (!$test) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/tests"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    GET QUESTIONS
+    ========================================
+    */
+
+    $questions =
+        $testModel->getQuestionsByTest(
+            $test_id
+        );
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'test-details',
+        [
+            'test'      => $test,
+            'questions' => $questions
+        ]
+    );
+}
 }

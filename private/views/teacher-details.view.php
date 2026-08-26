@@ -1,11 +1,11 @@
 <?php
 
-$student = $data['student'] ?? null;
+$teacher = $data['teacher'] ?? null;
 
 
-if (!$student) {
+if (!$teacher) {
 
-    die("Student not found.");
+    die("Teacher not found.");
 
 }
 
@@ -17,9 +17,9 @@ FULL NAME
 */
 
 $fullName =
-    ($student->firstname ?? '')
+    ($teacher->firstname ?? '')
     . ' '
-    . ($student->lastname ?? '');
+    . ($teacher->lastname ?? '');
 
 
 /*
@@ -29,11 +29,17 @@ INITIAL
 */
 
 $initial = strtoupper(
+
     substr(
-        $student->firstname ?? 'S',
+
+        $teacher->firstname ?? 'T',
+
         0,
+
         1
+
     )
+
 );
 
 ?>
@@ -45,13 +51,15 @@ $initial = strtoupper(
 
     <meta charset="UTF-8">
 
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
 
+
     <title>
-        Student Details - My School
+        Teacher Details - My School
     </title>
 
 
@@ -61,7 +69,7 @@ $initial = strtoupper(
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css"
+        href="<?= ROOT ?>/css/home.view.css?v=3"
     >
 
 
@@ -71,17 +79,17 @@ $initial = strtoupper(
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css"
+        href="<?= ROOT ?>/css/nav.view.css?v=3"
     >
 
 
     <!-- ========================================
-         STUDENT DETAILS CSS
+         TEACHER DETAILS CSS
     ======================================== -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-details.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-details.view.css?v=1"
     >
 
 
@@ -91,7 +99,7 @@ $initial = strtoupper(
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css"
+        href="<?= ROOT ?>/css/footer.view.css?v=3"
     >
 
 </head>
@@ -115,15 +123,17 @@ $initial = strtoupper(
         <div>
 
             <p class="welcome-small">
-                Super Admin
+                School Admin
             </p>
 
+
             <h1>
-                Student Details
+                Teacher Details
             </h1>
 
+
             <p class="welcome-text">
-                View complete information about this student.
+                View complete information about this teacher.
             </p>
 
         </div>
@@ -133,20 +143,20 @@ $initial = strtoupper(
 
 
     <!-- ========================================
-         STUDENT PROFILE CARD
+         TEACHER PROFILE CARD
     ======================================== -->
 
-    <section class="student-profile-card">
+    <section class="teacher-profile-card">
 
 
-        <div class="student-profile-left">
+        <div class="teacher-profile-left">
 
 
             <!-- ========================================
-                 STUDENT AVATAR
+                 TEACHER AVATAR
             ======================================== -->
 
-            <div class="student-large-avatar">
+            <div class="teacher-large-avatar">
 
                 <?= htmlspecialchars(
                     $initial
@@ -157,10 +167,10 @@ $initial = strtoupper(
 
 
             <!-- ========================================
-                 STUDENT PROFILE INFO
+                 TEACHER PROFILE INFO
             ======================================== -->
 
-            <div class="student-profile-info">
+            <div class="teacher-profile-info">
 
                 <h2>
 
@@ -174,24 +184,18 @@ $initial = strtoupper(
                 <p>
 
                     <?= htmlspecialchars(
-                        $student->email ?? '-'
+                        $teacher->email
+                        ?? '-'
                     ) ?>
 
                 </p>
 
 
-                <span class="student-class-badge">
-
-                    Class
+                <span class="teacher-designation-badge">
 
                     <?= htmlspecialchars(
-                        $student->class ?? '-'
-                    ) ?>
-
-                    -
-
-                    <?= htmlspecialchars(
-                        $student->division ?? '-'
+                        $teacher->designation
+                        ?? 'Teacher'
                     ) ?>
 
                 </span>
@@ -208,18 +212,22 @@ $initial = strtoupper(
         ======================================== -->
 
         <?php if (
-            ($student->status ?? 'active')
+            ($teacher->status ?? 'active')
             === 'active'
         ): ?>
 
             <span class="status active">
+
                 Active
+
             </span>
 
         <?php else: ?>
 
             <span class="status inactive">
+
                 Inactive
+
             </span>
 
         <?php endif; ?>
@@ -233,7 +241,7 @@ $initial = strtoupper(
          PERSONAL INFORMATION
     ======================================== -->
 
-    <section class="student-details-card">
+    <section class="teacher-details-card">
 
 
         <div class="details-header">
@@ -242,28 +250,31 @@ $initial = strtoupper(
                 Personal Information
             </h2>
 
+
             <p>
-                Basic information about the student.
+                Basic personal and contact information about the teacher.
             </p>
 
         </div>
 
 
+
         <div class="details-grid">
 
 
-            <!-- STUDENT ID -->
+            <!-- TEACHER ID -->
 
             <div class="details-item">
 
                 <span>
-                    Student ID
+                    Teacher ID
                 </span>
 
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->student_id ?? '-'
+                        $teacher->staff_id
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -283,27 +294,7 @@ $initial = strtoupper(
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->user_id ?? '-'
-                    ) ?>
-
-                </strong>
-
-            </div>
-
-
-
-            <!-- ADMISSION NUMBER -->
-
-            <div class="details-item">
-
-                <span>
-                    Admission Number
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $student->admission_number
+                        $teacher->user_id
                         ?? '-'
                     ) ?>
 
@@ -324,7 +315,8 @@ $initial = strtoupper(
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->firstname ?? '-'
+                        $teacher->firstname
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -344,7 +336,8 @@ $initial = strtoupper(
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->lastname ?? '-'
+                        $teacher->lastname
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -364,7 +357,8 @@ $initial = strtoupper(
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->email ?? '-'
+                        $teacher->email
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -384,7 +378,8 @@ $initial = strtoupper(
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->gender ?? '-'
+                        $teacher->gender
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -393,18 +388,18 @@ $initial = strtoupper(
 
 
 
-            <!-- DATE OF BIRTH -->
+            <!-- PHONE -->
 
             <div class="details-item">
 
                 <span>
-                    Date of Birth
+                    Phone
                 </span>
 
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->date_of_birth
+                        $teacher->phone
                         ?? '-'
                     ) ?>
 
@@ -425,10 +420,14 @@ $initial = strtoupper(
                 <strong>
 
                     <?= htmlspecialchars(
+
                         ucfirst(
-                            $student->status
+
+                            $teacher->status
                             ?? 'active'
+
                         )
+
                     ) ?>
 
                 </strong>
@@ -437,46 +436,50 @@ $initial = strtoupper(
 
 
         </div>
+
 
     </section>
 
 
 
     <!-- ========================================
-         ACADEMIC INFORMATION
+         PROFESSIONAL INFORMATION
     ======================================== -->
 
-    <section class="student-details-card">
+    <section class="teacher-details-card">
 
 
         <div class="details-header">
 
             <h2>
-                Academic Information
+                Professional Information
             </h2>
 
+
             <p>
-                Current academic information about the student.
+                Employment and professional information about the teacher.
             </p>
 
         </div>
 
 
+
         <div class="details-grid">
 
 
-            <!-- CLASS -->
+            <!-- DEPARTMENT -->
 
             <div class="details-item">
 
                 <span>
-                    Class
+                    Department
                 </span>
 
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->class ?? '-'
+                        $teacher->department
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -485,18 +488,19 @@ $initial = strtoupper(
 
 
 
-            <!-- DIVISION -->
+            <!-- DESIGNATION -->
 
             <div class="details-item">
 
                 <span>
-                    Division
+                    Designation
                 </span>
 
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->division ?? '-'
+                        $teacher->designation
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -505,18 +509,19 @@ $initial = strtoupper(
 
 
 
-            <!-- ROLL NUMBER -->
+            <!-- QUALIFICATION -->
 
             <div class="details-item">
 
                 <span>
-                    Roll Number
+                    Qualification
                 </span>
 
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->roll_number ?? '-'
+                        $teacher->qualification
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -525,18 +530,39 @@ $initial = strtoupper(
 
 
 
-            <!-- ADMISSION DATE -->
+            <!-- JOINING DATE -->
 
             <div class="details-item">
 
                 <span>
-                    Admission Date
+                    Joining Date
                 </span>
 
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->admission_date
+                        $teacher->joining_date
+                        ?? '-'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- EMPLOYMENT TYPE -->
+
+            <div class="details-item">
+
+                <span>
+                    Employment Type
+                </span>
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $teacher->employment_type
                         ?? '-'
                     ) ?>
 
@@ -557,7 +583,8 @@ $initial = strtoupper(
                 <strong>
 
                     <?= htmlspecialchars(
-                        $student->school_id ?? '-'
+                        $teacher->school_id
+                        ?? '-'
                     ) ?>
 
                 </strong>
@@ -566,21 +593,19 @@ $initial = strtoupper(
 
 
 
-            <!-- STUDENT STATUS -->
+            <!-- RANK -->
 
             <div class="details-item">
 
                 <span>
-                    Student Status
+                    Rank
                 </span>
 
                 <strong>
 
                     <?= htmlspecialchars(
-                        ucfirst(
-                            $student->status
-                            ?? 'active'
-                        )
+                        $teacher->rank
+                        ?? 'staff'
                     ) ?>
 
                 </strong>
@@ -590,113 +615,6 @@ $initial = strtoupper(
 
         </div>
 
-    </section>
-
-
-
-    <!-- ========================================
-         PARENT INFORMATION
-    ======================================== -->
-
-    <section class="student-details-card">
-
-
-        <div class="details-header">
-
-            <h2>
-                Parent / Guardian Information
-            </h2>
-
-            <p>
-                Parent or guardian information linked to this student.
-            </p>
-
-        </div>
-
-
-        <div class="details-grid">
-
-
-            <!-- PARENT ID -->
-
-            <div class="details-item">
-
-                <span>
-                    Parent ID
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $student->parent_id ?? '-'
-                    ) ?>
-
-                </strong>
-
-            </div>
-
-
-
-            <!-- PARENT NAME -->
-
-            <div class="details-item">
-
-                <span>
-                    Parent Name
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $student->parent_name ?? '-'
-                    ) ?>
-
-                </strong>
-
-            </div>
-
-
-
-            <!-- PARENT EMAIL -->
-
-            <div class="details-item">
-
-                <span>
-                    Parent Email
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $student->parent_email ?? '-'
-                    ) ?>
-
-                </strong>
-
-            </div>
-
-
-
-            <!-- PARENT PHONE -->
-
-            <div class="details-item">
-
-                <span>
-                    Parent Phone
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $student->parent_phone ?? '-'
-                    ) ?>
-
-                </strong>
-
-            </div>
-
-
-        </div>
 
     </section>
 
@@ -706,7 +624,7 @@ $initial = strtoupper(
          ADDRESS
     ======================================== -->
 
-    <section class="student-details-card">
+    <section class="teacher-details-card">
 
 
         <div class="details-header">
@@ -715,8 +633,9 @@ $initial = strtoupper(
                 Address
             </h2>
 
+
             <p>
-                Residential address of the student.
+                Residential address of the teacher.
             </p>
 
         </div>
@@ -724,8 +643,11 @@ $initial = strtoupper(
 
         <div class="address-box">
 
-            <?= htmlspecialchars(
-                $student->address ?? '-'
+            <?= nl2br(
+                htmlspecialchars(
+                    $teacher->address
+                    ?? '-'
+                )
             ) ?>
 
         </div>
@@ -739,13 +661,15 @@ $initial = strtoupper(
          ACTIONS
     ======================================== -->
 
-    <div class="student-actions">
+    <div class="teacher-actions">
 
         <a
-            href="<?= ROOT ?>/students"
+            href="<?= ROOT ?>/teachers"
             class="back-btn"
         >
-            ← Back to Students
+
+            ← Back to Teachers
+
         </a>
 
     </div>

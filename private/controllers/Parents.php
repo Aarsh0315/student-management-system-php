@@ -9,99 +9,13 @@ class Parents extends Controller
     */
 
     public function index()
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
-
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
-
-            exit;
-        }
-
-
-        /*
-        ========================================
-        CHECK SUPER ADMIN
-        ========================================
-        */
-
-        if (
-            ($_SESSION['rank'] ?? '') !== 'super_admin'
-        ) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
-
-            exit;
-        }
-
-
-        /*
-        ========================================
-        LOAD MODEL
-        ========================================
-        */
-
-        $parentModel =
-            $this->model('ParentModel');
-
-
-        /*
-        ========================================
-        GET ALL PARENTS
-        ========================================
-        */
-
-        $parents =
-            $parentModel->getAllParents();
-
-
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
-
-        $this->view(
-            'parents',
-            [
-                'parents' => $parents
-            ]
-        );
-    }
-
-
+{
     /*
     ========================================
-    VIEW PARENT DETAILS
+    START SESSION
     ========================================
     */
 
-   public function details($user_id = null)
-{
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
@@ -127,18 +41,130 @@ class Parents extends Controller
 
     /*
     ========================================
-    CHECK SUPER ADMIN
+    GET RANK
     ========================================
     */
 
-    if (
-        ($_SESSION['rank'] ?? '') !== 'super_admin'
-    ) {
+    $rank = $_SESSION['rank'] ?? '';
+
+
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $parentModel =
+        $this->model('ParentModel');
+
+
+    /*
+    ========================================
+    SUPER ADMIN
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
+
+        $parents =
+            $parentModel->getAllParents();
+
+    }
+
+
+    /*
+    ========================================
+    SCHOOL ADMIN
+    ========================================
+    */
+
+    elseif ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+
+        if (!$school_id) {
+
+            die(
+                "No school is assigned to this account."
+            );
+
+        }
+
+
+        $parents =
+            $parentModel->getParentsBySchool(
+                $school_id
+            );
+
+    }
+
+
+    /*
+    ========================================
+    OTHER USERS
+    ========================================
+    */
+
+    else {
 
         header(
             "Location: " .
             ROOT .
             "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'parents',
+        [
+            'parents' => $parents
+        ]
+    );
+}
+
+
+    /*
+    ========================================
+    VIEW PARENT DETAILS
+    ========================================
+    */
+
+   public function details($user_id = null)
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
         );
 
         exit;
@@ -165,32 +191,136 @@ class Parents extends Controller
 
     /*
     ========================================
+    GET RANK
+    ========================================
+    */
+
+    $rank = $_SESSION['rank'] ?? '';
+
+
+    /*
+    ========================================
     LOAD MODEL
     ========================================
     */
 
     $parentModel =
-        $this->model("ParentModel");
+        $this->model('ParentModel');
 
 
     /*
     ========================================
-    GET PARENT
+    SUPER ADMIN
     ========================================
     */
 
-    $parent =
-        $parentModel->getParentByUserId(
-            $user_id
-        );
+    if ($rank === 'super_admin') {
+
+        $parent =
+            $parentModel->getParentByUserId(
+                $user_id
+            );
 
 
-    if (!$parent) {
+        if (!$parent) {
+
+            header(
+                "Location: " .
+                ROOT .
+                "/parents"
+            );
+
+            exit;
+        }
+
+
+        /*
+        GET ALL CHILDREN
+        */
+
+        $children =
+            $parentModel->getChildren(
+                $user_id
+            );
+
+    }
+
+
+    /*
+    ========================================
+    SCHOOL ADMIN
+    ========================================
+    */
+
+    elseif ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+
+        if (!$school_id) {
+
+            die(
+                "No school is assigned to this account."
+            );
+
+        }
+
+
+        /*
+        GET PARENT FROM SAME SCHOOL
+        */
+
+        $parent =
+            $parentModel
+                ->getParentByUserIdAndSchool(
+                    $user_id,
+                    $school_id
+                );
+
+
+        /*
+        PARENT NOT FOUND / WRONG SCHOOL
+        */
+
+        if (!$parent) {
+
+            header(
+                "Location: " .
+                ROOT .
+                "/parents"
+            );
+
+            exit;
+        }
+
+
+        /*
+        GET CHILDREN FROM SAME SCHOOL
+        */
+
+        $children =
+            $parentModel
+                ->getChildrenBySchool(
+                    $user_id,
+                    $school_id
+                );
+
+    }
+
+
+    /*
+    ========================================
+    OTHER USERS
+    ========================================
+    */
+
+    else {
 
         header(
             "Location: " .
             ROOT .
-            "/parents"
+            "/home"
         );
 
         exit;
@@ -199,19 +329,7 @@ class Parents extends Controller
 
     /*
     ========================================
-    GET CHILDREN
-    ========================================
-    */
-
-    $children =
-        $parentModel->getChildren(
-            $user_id
-        );
-
-
-    /*
-    ========================================
-    LOAD VIEW
+    LOAD DETAILS VIEW
     ========================================
     */
 

@@ -41,38 +41,78 @@ class TeacherResultsModel extends Model
 
 
     /*
-    ========================================
-    GET RESULTS BY SCHOOL
-    ========================================
-    */
+========================================
+GET RESULTS BY SCHOOL
+SCHOOL ADMIN
+========================================
+*/
 
-    public function getResultsBySchool($school_id)
-    {
-        $query = "SELECT
-                    result_id,
-                    test_id,
-                    student_id,
-                    school_id,
-                    total_marks,
-                    obtained_marks,
-                    percentage,
-                    status,
-                    created_at
+public function getResultsBySchool($school_id)
+{
+    $query = "SELECT
 
-                  FROM results
+                r.result_id,
+                r.test_id,
+                r.student_id,
+                r.school_id,
 
-                  WHERE school_id = :school_id
+                r.total_marks,
+                r.obtained_marks,
+                r.percentage,
+                r.status,
+                r.created_at,
 
-                  ORDER BY id DESC";
+                /* STUDENT */
 
-        return $this->query(
-            $query,
-            [
-                'school_id' => $school_id
-            ]
-        );
-    }
+                u.firstname AS student_firstname,
+                u.lastname AS student_lastname,
 
+                /* SCHOOL */
+
+                s.school_name,
+
+                /* TEST */
+
+                t.title AS test_title
+
+              FROM results r
+
+
+              /* STUDENT */
+
+              LEFT JOIN students st
+                ON r.student_id = st.student_id
+
+
+              /* USER */
+
+              LEFT JOIN users u
+                ON st.user_id = u.user_id
+
+
+              /* SCHOOL */
+
+              LEFT JOIN schools s
+                ON r.school_id = s.id
+
+
+              /* TEST */
+
+              LEFT JOIN tests t
+                ON r.test_id = t.test_id
+
+
+              WHERE r.school_id = :school_id
+
+              ORDER BY r.id DESC";
+
+    return $this->query(
+        $query,
+        [
+            'school_id' => $school_id
+        ]
+    );
+}
 
     /*
     ========================================

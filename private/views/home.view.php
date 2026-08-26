@@ -1,10 +1,22 @@
 <?php
 
-$student_count = $data['student_count'] ?? 0;
+$student_count =
+    $data['student_count'] ?? 0;
 
-$staff_count = $data['staff_count'] ?? 0;
+$staff_count =
+    $data['staff_count'] ?? 0;
 
-$parent_count = $data['parent_count'] ?? 0;
+$parent_count =
+    $data['parent_count'] ?? 0;
+
+$class_count =
+    $data['class_count'] ?? 0;
+
+$test_count =
+    $data['test_count'] ?? 0;
+
+$result_count =
+    $data['result_count'] ?? 0;
 
 ?>
 
@@ -300,7 +312,7 @@ $parent_count = $data['parent_count'] ?? 0;
 
         <strong class="dashboard-count">
             <?= htmlspecialchars(
-                $parent_count
+                $class_count
             ) ?>
         </strong>
 
@@ -310,6 +322,70 @@ $parent_count = $data['parent_count'] ?? 0;
         </a>
 
     </div>
+
+    <!-- =========================
+     TESTS
+========================= -->
+
+<div class="dashboard-card">
+
+    <h3>
+        Tests
+    </h3>
+
+
+    <p>
+        View tests created
+        for your school.
+    </p>
+
+
+    <strong class="dashboard-count">
+
+        <?= htmlspecialchars(
+            $test_count
+        ) ?>
+
+    </strong>
+
+
+    <a href="<?= ROOT ?>/tests">
+        View Tests →
+    </a>
+
+</div>
+
+<!-- =========================
+     RESULTS
+========================= -->
+
+<div class="dashboard-card">
+
+    <h3>
+        Results
+    </h3>
+
+
+    <p>
+        View student results
+        from your school.
+    </p>
+
+
+    <strong class="dashboard-count">
+
+        <?= htmlspecialchars(
+            $result_count
+        ) ?>
+
+    </strong>
+
+
+    <a href="<?= ROOT ?>/results">
+        View Results →
+    </a>
+
+</div>
 
 
 </section>

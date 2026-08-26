@@ -703,4 +703,194 @@ public function getParentsBySchool($school_id)
         'school_id' => $school_id
     ]);
 }
+
+/*
+========================================
+GET PARENT DETAILS BY NAME
+TEACHER
+========================================
+*/
+
+public function getParentDetailsByName(
+    $parent_name,
+    $school_id
+) {
+
+    $query = "SELECT
+
+                s.parent_name,
+                s.parent_phone,
+                s.parent_email,
+
+                s.student_id,
+                s.class,
+                s.division,
+                s.roll_number,
+
+                u.firstname,
+                u.lastname,
+                u.email
+
+              FROM students s
+
+              LEFT JOIN users u
+                ON s.user_id = u.user_id
+
+              WHERE s.school_id = :school_id
+
+              AND s.status = 'active'
+
+              AND s.parent_name = :parent_name
+
+              ORDER BY
+                s.class ASC,
+                s.division ASC,
+                s.roll_number ASC";
+
+
+    return $this->query(
+        $query,
+        [
+            'school_id'   => $school_id,
+            'parent_name' => $parent_name
+        ]
+    );
+}
+public function getAllClasses()
+{
+    $query = "SELECT
+                st.class,
+                st.division,
+                st.school_id,
+                sc.school_name,
+                COUNT(*) AS student_count
+
+              FROM students st
+
+              LEFT JOIN schools sc
+              ON st.school_id = sc.id
+
+              WHERE st.status = 'active'
+
+              GROUP BY
+                st.class,
+                st.division,
+                st.school_id,
+                sc.school_name
+
+              ORDER BY
+                st.school_id,
+                st.class,
+                st.division";
+
+    return $this->query($query);
+}
+
+/*
+========================================
+GET STUDENTS BY CLASS AND DIVISION
+TEACHER CLASS DETAILS
+========================================
+*/
+
+public function getStudentsByClassAndDivision(
+    $school_id,
+    $class,
+    $division
+) {
+
+    $query = "SELECT
+
+                st.student_id,
+                st.user_id,
+                st.class,
+                st.division,
+                st.roll_number,
+                st.admission_number,
+                st.status,
+
+                u.firstname,
+                u.lastname,
+                u.email
+
+              FROM students st
+
+              LEFT JOIN users u
+                ON st.user_id = u.user_id
+
+              WHERE st.school_id = :school_id
+
+              AND st.class = :class
+
+              AND st.division = :division
+
+              ORDER BY st.roll_number ASC";
+
+    return $this->query(
+        $query,
+        [
+            'school_id' => $school_id,
+            'class'     => $class,
+            'division'  => $division
+        ]
+    );
+}
+
+/*
+========================================
+GET STUDENTS BY CLASS
+========================================
+*/
+
+public function getStudentsByClass(
+    $school_id,
+    $class,
+    $division
+) {
+
+    $query = "SELECT
+
+                st.student_id,
+                st.user_id,
+                st.parent_id,
+                st.school_id,
+                st.admission_number,
+                st.class,
+                st.division,
+                st.roll_number,
+                st.date_of_birth,
+                st.admission_date,
+                st.parent_name,
+                st.parent_phone,
+                st.parent_email,
+                st.address,
+                st.status,
+
+                u.firstname,
+                u.lastname,
+                u.email
+
+              FROM students st
+
+              LEFT JOIN users u
+                ON st.user_id = u.user_id
+
+              WHERE st.school_id = :school_id
+
+              AND st.class = :class
+
+              AND st.division = :division
+
+              ORDER BY st.roll_number ASC";
+
+
+    return $this->query(
+        $query,
+        [
+            'school_id' => $school_id,
+            'class'     => $class,
+            'division'  => $division
+        ]
+    );
+}
 }

@@ -6,6 +6,17 @@ class SchoolAdmin extends Controller
     {
         /*
         ========================================
+        START SESSION
+        ========================================
+        */
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+
+        /*
+        ========================================
         CHECK LOGIN
         ========================================
         */
@@ -22,7 +33,7 @@ class SchoolAdmin extends Controller
 
         /*
         ========================================
-        CHECK ROLE
+        CHECK SCHOOL ADMIN
         ========================================
         */
 
@@ -31,7 +42,6 @@ class SchoolAdmin extends Controller
         ) {
 
             die("Access Denied");
-
         }
 
 
@@ -50,7 +60,6 @@ class SchoolAdmin extends Controller
             die(
                 "No school is assigned to this account."
             );
-
         }
 
 
@@ -60,11 +69,16 @@ class SchoolAdmin extends Controller
         ========================================
         */
 
-        $studentModel = new StudentModel();
+        $studentModel =
+            $this->model('StudentModel');
 
-        $staffModel = new StaffModel();
 
-        $userModel = new User();
+        $staffModel =
+            $this->model('StaffModel');
+
+
+        $userModel =
+            $this->model('User');
 
 
         /*
@@ -80,6 +94,12 @@ class SchoolAdmin extends Controller
             $school_id;
 
 
+        /*
+        ========================================
+        STUDENTS
+        ========================================
+        */
+
         $data['student_count'] =
             $studentModel
                 ->getStudentCountBySchool(
@@ -87,12 +107,24 @@ class SchoolAdmin extends Controller
                 );
 
 
+        /*
+        ========================================
+        TEACHERS / STAFF
+        ========================================
+        */
+
         $data['staff_count'] =
             $staffModel
                 ->getStaffCountBySchool(
                     $school_id
                 );
 
+
+        /*
+        ========================================
+        PARENTS
+        ========================================
+        */
 
         $data['parent_count'] =
             $userModel
@@ -103,14 +135,43 @@ class SchoolAdmin extends Controller
 
         /*
         ========================================
-        LOAD HOME VIEW
+        CLASSES
+        TEMPORARY
+        ========================================
+        */
+
+        $data['class_count'] = 0;
+
+
+        /*
+        ========================================
+        TESTS
+        TEMPORARY
+        ========================================
+        */
+
+        $data['test_count'] = 0;
+
+
+        /*
+        ========================================
+        RESULTS
+        TEMPORARY
+        ========================================
+        */
+
+        $data['result_count'] = 0;
+
+
+        /*
+        ========================================
+        LOAD SCHOOL ADMIN DASHBOARD
         ========================================
         */
 
         $this->view(
-            "home",
+            'school-admin',
             $data
         );
-
     }
 }

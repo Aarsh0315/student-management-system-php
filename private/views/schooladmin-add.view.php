@@ -62,7 +62,7 @@ $error = $data['error'] ?? '';
         <div>
 
             <p class="welcome-small">
-                Super Admin 
+                School Admin 
             </p>
 
             <h1>

@@ -2,6 +2,26 @@
 
 $tests = $data['tests'] ?? [];
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$rank = $_SESSION['rank'] ?? '';
+
+if ($rank === 'super_admin') {
+
+    $roleName = 'Super Admin';
+
+} elseif ($rank === 'admin') {
+
+    $roleName = 'School Admin';
+
+} else {
+
+    $roleName = 'User';
+
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -72,17 +92,27 @@ $tests = $data['tests'] ?? [];
 
         <div>
 
-            <p class="welcome-small">
-                Super Admin
+           <p class="welcome-small">
+                <?= htmlspecialchars($roleName) ?>
             </p>
 
             <h1>
                 Tests
             </h1>
 
-            <p class="welcome-text">
-                View and manage tests across all schools.
-            </p>
+            <?php if ($rank === 'super_admin'): ?>
+
+                <p class="welcome-text">
+                    View and manage tests across all schools.
+                </p>
+
+            <?php else: ?>
+
+                <p class="welcome-text">
+                    View tests created for your school.
+                </p>
+
+            <?php endif; ?>
 
         </div>
 
@@ -106,7 +136,10 @@ $tests = $data['tests'] ?? [];
             <div>
 
                 <h2>
-                    All Tests
+                    <?= $rank === 'super_admin'
+                        ? 'All Tests'
+                        : 'School Tests'
+                    ?>
                 </h2>
 
                 <p>

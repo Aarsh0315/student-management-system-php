@@ -1,13 +1,13 @@
 /* ========================================
-   STUDENT DETAILS PAGE
+   CLASS DETAILS PAGE
 ======================================== */
 
 
 /* ========================================
-   STUDENT PROFILE CARD
+   CLASS PROFILE CARD
 ======================================== */
 
-.student-profile-card {
+.class-profile-card {
 
     width: 100%;
 
@@ -36,12 +36,11 @@
 }
 
 
-
 /* ========================================
    PROFILE LEFT
 ======================================== */
 
-.student-profile-left {
+.class-profile-left {
 
     display: flex;
 
@@ -53,12 +52,11 @@
 }
 
 
-
 /* ========================================
-   LARGE AVATAR
+   LARGE CLASS AVATAR
 ======================================== */
 
-.student-large-avatar {
+.class-large-avatar {
 
     width: 68px;
 
@@ -78,7 +76,7 @@
 
     justify-content: center;
 
-    font-size: 23px;
+    font-size: 20px;
 
     font-weight: 700;
 
@@ -87,18 +85,17 @@
 }
 
 
-
 /* ========================================
    PROFILE INFO
 ======================================== */
 
-.student-profile-info {
+.class-profile-info {
 
     min-width: 0;
 }
 
 
-.student-profile-info h2 {
+.class-profile-info h2 {
 
     margin: 0 0 5px;
 
@@ -112,7 +109,7 @@
 }
 
 
-.student-profile-info p {
+.class-profile-info p {
 
     margin: 0 0 9px;
 
@@ -121,17 +118,14 @@
     font-size: 13px;
 
     line-height: 1.4;
-
-    word-break: break-word;
 }
 
 
-
 /* ========================================
-   CLASS BADGE
+   DIVISION BADGE
 ======================================== */
 
-.student-class-badge {
+.class-division-badge {
 
     display: inline-flex;
 
@@ -155,12 +149,11 @@
 }
 
 
-
 /* ========================================
    STATUS
 ======================================== */
 
-.student-profile-card .status {
+.class-profile-card .status {
 
     display: inline-flex;
 
@@ -180,7 +173,7 @@
 }
 
 
-.student-profile-card .status::before {
+.class-profile-card .status::before {
 
     content: "";
 
@@ -194,12 +187,11 @@
 }
 
 
-
 /* ========================================
    ACTIVE STATUS
 ======================================== */
 
-.student-profile-card .status.active {
+.class-profile-card .status.active {
 
     background: #ecfdf3;
 
@@ -209,18 +201,17 @@
 }
 
 
-.student-profile-card .status.active::before {
+.class-profile-card .status.active::before {
 
     background: #22c55e;
 }
-
 
 
 /* ========================================
    INACTIVE STATUS
 ======================================== */
 
-.student-profile-card .status.inactive {
+.class-profile-card .status.inactive {
 
     background: #fef2f2;
 
@@ -230,18 +221,17 @@
 }
 
 
-.student-profile-card .status.inactive::before {
+.class-profile-card .status.inactive::before {
 
     background: #ef4444;
 }
 
 
-
 /* ========================================
-   DETAILS CARD
+   CLASS DETAILS CARD
 ======================================== */
 
-.student-details-card {
+.class-details-card {
 
     width: 100%;
 
@@ -260,7 +250,6 @@
     box-shadow:
         0 5px 20px rgba(15, 23, 42, 0.04);
 }
-
 
 
 /* ========================================
@@ -303,123 +292,318 @@
 }
 
 
-
 /* ========================================
-   DETAILS GRID
+   STUDENTS TABLE WRAPPER
 ======================================== */
 
-.details-grid {
+.class-students-table-wrapper {
 
-    display: grid;
+    width: 100%;
 
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+    overflow-x: auto;
 
-    border-top: 1px solid #eef0f3;
-
-    border-left: 1px solid #eef0f3;
+    border: 1px solid #eef0f3;
 
     border-radius: 10px;
 
-    overflow: hidden;
+    box-sizing: border-box;
 }
 
 
-
 /* ========================================
-   DETAILS ITEM
+   STUDENTS TABLE
 ======================================== */
 
-.details-item {
+.class-students-table {
 
-    min-height: 88px;
+    width: 100%;
 
-    padding: 17px 18px;
+    border-collapse: collapse;
 
     background: #ffffff;
+}
 
-    display: flex;
 
-    flex-direction: column;
+/* ========================================
+   TABLE HEADER
+======================================== */
 
-    justify-content: center;
+.class-students-table thead {
 
-    gap: 7px;
+    background: #f8fafc;
+}
 
-    border-right: 1px solid #eef0f3;
+
+.class-students-table th {
+
+    padding: 14px 16px;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+    white-space: nowrap;
+
+    border-bottom: 1px solid #e5e7eb;
+}
+
+
+/* ========================================
+   TABLE BODY
+======================================== */
+
+.class-students-table td {
+
+    padding: 15px 16px;
+
+    color: #475569;
+
+    font-size: 12px;
+
+    vertical-align: middle;
 
     border-bottom: 1px solid #eef0f3;
+}
 
-    box-sizing: border-box;
+
+.class-students-table tbody tr:last-child td {
+
+    border-bottom: none;
+}
+
+
+.class-students-table tbody tr {
 
     transition:
         background 0.15s ease;
 }
 
 
-.details-item:hover {
+.class-students-table tbody tr:hover {
 
     background: #f8fafc;
 }
 
 
-.details-item span {
+/* ========================================
+   STUDENT ID
+======================================== */
 
-    color: #94a3b8;
+.student-id {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    background: #f8fafc;
+
+    color: #475569;
+
+    border: 1px solid #e2e8f0;
+
+    border-radius: 7px;
 
     font-size: 10px;
 
     font-weight: 600;
 
-    text-transform: uppercase;
-
-    letter-spacing: 0.5px;
+    white-space: nowrap;
 }
 
 
-.details-item strong {
+/* ========================================
+   STUDENT NAME
+======================================== */
+
+.student-name {
 
     color: #172033;
 
     font-size: 13px;
 
-    font-weight: 600;
+    font-weight: 700;
 
-    word-break: break-word;
+    line-height: 1.4;
 }
-
 
 
 /* ========================================
-   ADDRESS BOX
+   STATUS
 ======================================== */
 
-.address-box {
+.class-students-table .status {
 
-    padding: 17px 18px;
+    display: inline-flex;
 
-    background: #f8fafc;
+    align-items: center;
 
-    border: 1px solid #eef0f3;
+    gap: 6px;
 
-    border-radius: 10px;
+    padding: 6px 11px;
 
-    color: #475569;
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+.class-students-table .status::before {
+
+    content: "";
+
+    width: 6px;
+
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+}
+
+
+/* ========================================
+   ACTIVE
+======================================== */
+
+.class-students-table .status.active {
+
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    border: 1px solid #bbf7d0;
+}
+
+
+.class-students-table .status.active::before {
+
+    background: #22c55e;
+}
+
+
+/* ========================================
+   INACTIVE
+======================================== */
+
+.class-students-table .status.inactive {
+
+    background: #fef2f2;
+
+    color: #b91c1c;
+
+    border: 1px solid #fecaca;
+}
+
+
+.class-students-table .status.inactive::before {
+
+    background: #ef4444;
+}
+
+
+/* ========================================
+   VIEW BUTTON
+======================================== */
+
+.class-students-table .view-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.class-students-table .view-btn:hover {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+
+    color: #ffffff;
+
+    transform: translateY(-1px);
+}
+
+
+/* ========================================
+   EMPTY STATE
+======================================== */
+
+.empty-state {
+
+    padding: 50px 20px;
+
+    text-align: center;
+}
+
+
+.empty-state h3 {
+
+    margin: 0 0 8px;
+
+    color: #172033;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+
+.empty-state p {
+
+    margin: 0;
+
+    color: #64748b;
 
     font-size: 13px;
 
-    line-height: 1.6;
-
-    word-break: break-word;
+    line-height: 1.5;
 }
-
 
 
 /* ========================================
    ACTIONS
 ======================================== */
 
-.student-actions {
+.class-actions {
 
     display: flex;
 
@@ -431,12 +615,11 @@
 }
 
 
-
 /* ========================================
    BACK BUTTON
 ======================================== */
 
-.student-actions .back-btn {
+.class-actions .back-btn {
 
     display: inline-flex;
 
@@ -468,7 +651,7 @@
 }
 
 
-.student-actions .back-btn:hover {
+.class-actions .back-btn:hover {
 
     background: #f8fafc;
 
@@ -480,21 +663,18 @@
 }
 
 
-
 /* ========================================
    TABLET
 ======================================== */
 
 @media (max-width: 900px) {
 
-    .details-grid {
+    .class-details-card {
 
-        grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+        padding: 22px;
     }
 
 }
-
 
 
 /* ========================================
@@ -503,7 +683,7 @@
 
 @media (max-width: 650px) {
 
-    .student-profile-card {
+    .class-profile-card {
 
         flex-direction: column;
 
@@ -513,13 +693,13 @@
     }
 
 
-    .student-profile-left {
+    .class-profile-left {
 
         width: 100%;
     }
 
 
-    .student-profile-card .status {
+    .class-profile-card .status {
 
         width: 100%;
 
@@ -527,35 +707,48 @@
     }
 
 
-    .student-details-card {
+    .class-details-card {
 
         padding: 20px;
     }
 
 
-    .details-grid {
-
-        grid-template-columns: 1fr;
-    }
-
-
-    .student-large-avatar {
+    .class-large-avatar {
 
         width: 60px;
 
         height: 60px;
 
-        font-size: 21px;
+        font-size: 18px;
     }
 
 
-    .student-profile-info h2 {
+    .class-profile-info h2 {
 
         font-size: 18px;
     }
 
-}
 
+    .class-students-table th {
+
+        padding: 12px;
+    }
+
+
+    .class-students-table td {
+
+        padding: 13px 12px;
+    }
+
+
+    .class-students-table .view-btn {
+
+        padding: 9px 13px;
+
+        font-size: 11px;
+    }
+
+}
 
 
 /* ========================================
@@ -564,19 +757,19 @@
 
 @media (max-width: 400px) {
 
-    .student-details-card {
+    .class-details-card {
 
         padding: 17px;
     }
 
 
-    .student-profile-card {
+    .class-profile-card {
 
         padding: 17px;
     }
 
 
-    .student-profile-info h2 {
+    .class-profile-info h2 {
 
         font-size: 17px;
     }

@@ -1,0 +1,454 @@
+/* ========================================
+   STUDENT NAVBAR
+======================================== */
+
+.navbar {
+
+    width: 100%;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #e5e7eb;
+
+    position: relative;
+
+    z-index: 1000;
+
+}
+
+
+.navbar-container {
+
+    width: 100%;
+
+    max-width: 1400px;
+
+    margin: 0 auto;
+
+    padding: 0 30px;
+
+    min-height: 70px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    box-sizing: border-box;
+
+}
+
+
+/* ========================================
+   BRAND
+======================================== */
+
+.navbar-brand {
+
+    color: #172033;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+}
+
+
+/* ========================================
+   RIGHT SIDE
+======================================== */
+
+.nav-right {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 22px;
+
+    min-width: 0;
+
+}
+
+
+/* ========================================
+   NAV LINKS
+======================================== */
+
+.nav-links {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+}
+
+
+.nav-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 9px 12px;
+
+    color: #64748b;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+.nav-link:hover {
+
+    background: #f8fafc;
+
+    color: #2563eb;
+
+}
+
+
+.nav-link.active {
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+}
+
+
+/* ========================================
+   PROFILE LINK
+======================================== */
+
+.profile-link {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    text-decoration: none;
+
+    min-width: 0;
+
+}
+
+
+/* ========================================
+   USER AVATAR
+======================================== */
+
+.user-avatar {
+
+    width: 36px;
+
+    height: 36px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+
+/* ========================================
+   USER INFO
+======================================== */
+
+.user-info {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+
+    min-width: 0;
+
+}
+
+
+.user-info strong {
+
+    color: #172033;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+.user-info span {
+
+    color: #94a3b8;
+
+    font-size: 10px;
+
+    white-space: nowrap;
+
+}
+
+
+/* ========================================
+   LOGOUT
+======================================== */
+
+.logout-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 34px;
+
+    padding: 0 13px;
+
+    background: #ffffff;
+
+    color: #64748b;
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+
+}
+
+
+.logout-btn:hover {
+
+    background: #fef2f2;
+
+    border-color: #fecaca;
+
+    color: #b91c1c;
+
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .navbar-container {
+
+        padding: 0 22px;
+
+    }
+
+
+    .nav-right {
+
+        gap: 12px;
+
+    }
+
+
+    .nav-links {
+
+        gap: 2px;
+
+    }
+
+
+    .nav-link {
+
+        padding: 8px 9px;
+
+        font-size: 11px;
+
+    }
+
+
+    .user-info {
+
+        display: none;
+
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 700px) {
+
+    .navbar-container {
+
+        min-height: 64px;
+
+        padding: 0 16px;
+
+    }
+
+
+    .navbar-brand {
+
+        font-size: 18px;
+
+    }
+
+
+    .nav-right {
+
+        gap: 7px;
+
+    }
+
+
+    .nav-links {
+
+        overflow-x: auto;
+
+        scrollbar-width: none;
+
+        max-width: 55vw;
+
+    }
+
+
+    .nav-links::-webkit-scrollbar {
+
+        display: none;
+
+    }
+
+
+    .nav-link {
+
+        padding: 7px 8px;
+
+        font-size: 10px;
+
+    }
+
+
+    .user-avatar {
+
+        width: 32px;
+
+        height: 32px;
+
+        font-size: 12px;
+
+    }
+
+
+    .logout-btn {
+
+        min-height: 32px;
+
+        padding: 0 9px;
+
+        font-size: 10px;
+
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 450px) {
+
+    .navbar-container {
+
+        padding: 0 12px;
+
+        gap: 10px;
+
+    }
+
+
+    .navbar-brand {
+
+        font-size: 16px;
+
+    }
+
+
+    .nav-links {
+
+        max-width: 50vw;
+
+    }
+
+
+    .nav-link {
+
+        padding: 6px 7px;
+
+        font-size: 9px;
+
+    }
+
+
+    .logout-btn {
+
+        display: none;
+
+    }
+
+}

@@ -1,0 +1,503 @@
+/* ========================================
+   STUDENT TEST START PAGE
+======================================== */
+
+
+/* ========================================
+   MAIN TEST CARD
+======================================== */
+
+.test-start-card {
+
+    width: 100%;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    margin-bottom: 25px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+
+}
+
+
+/* ========================================
+   CARD HEADER
+======================================== */
+
+.test-start-header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 24px;
+
+}
+
+
+.test-start-header h2 {
+
+    margin: 0;
+
+    color: #172033;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 11px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+}
+
+
+.status::before {
+
+    content: "";
+
+    width: 6px;
+
+    height: 6px;
+
+    border-radius: 50%;
+
+}
+
+
+.status.active {
+
+    background: #ecfdf3;
+
+    color: #15803d;
+
+    border: 1px solid #bbf7d0;
+
+}
+
+
+.status.active::before {
+
+    background: #22c55e;
+
+}
+
+
+/* ========================================
+   TEST INFORMATION GRID
+======================================== */
+
+.test-info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 15px;
+
+}
+
+
+/* ========================================
+   TEST INFORMATION ITEM
+======================================== */
+
+.test-info-item {
+
+    padding: 17px;
+
+    background: #f8fafc;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 10px;
+
+}
+
+
+.test-info-item span {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #64748b;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+}
+
+
+.test-info-item strong {
+
+    display: block;
+
+    color: #172033;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    line-height: 1.4;
+
+}
+
+
+/* ========================================
+   INSTRUCTIONS
+======================================== */
+
+.test-instructions {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+}
+
+
+/* ========================================
+   INSTRUCTION ITEM
+======================================== */
+
+.instruction-item {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    padding: 13px 15px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef0f3;
+
+    border-radius: 9px;
+
+}
+
+
+.instruction-number {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 25px;
+
+    height: 25px;
+
+    flex-shrink: 0;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 50%;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+}
+
+
+.instruction-item p {
+
+    margin: 3px 0 0;
+
+    color: #475569;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+}
+
+
+/* ========================================
+   START ACTION
+======================================== */
+
+.test-start-action {
+
+    width: 100%;
+
+    padding: 25px 28px;
+
+    margin-bottom: 35px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+
+    text-align: center;
+
+}
+
+
+.test-start-action p {
+
+    margin: 0 0 17px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+}
+
+
+.test-start-action strong {
+
+    color: #334155;
+
+}
+
+
+/* ========================================
+   CONTINUE BUTTON
+======================================== */
+
+.continue-test-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 145px;
+
+    min-height: 42px;
+
+    padding: 0 20px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.18);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.continue-test-btn:hover {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(37, 99, 235, 0.25);
+
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 900px) {
+
+    .test-start-card {
+
+        padding: 22px;
+
+    }
+
+
+    .test-info-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+    }
+
+
+    .test-start-action {
+
+        padding: 22px;
+
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .test-start-card {
+
+        padding: 18px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .test-start-header {
+
+        align-items: flex-start;
+
+        gap: 12px;
+
+    }
+
+
+    .test-start-header h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .test-info-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 10px;
+
+    }
+
+
+    .instruction-item {
+
+        padding: 12px;
+
+    }
+
+
+    .test-start-action {
+
+        padding: 20px 18px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .continue-test-btn {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+
+    .test-start-card {
+
+        padding: 15px;
+
+    }
+
+
+    .test-start-header h2 {
+
+        font-size: 17px;
+
+    }
+
+
+    .test-info-item {
+
+        padding: 14px;
+
+    }
+
+
+    .instruction-item p {
+
+        font-size: 11px;
+
+    }
+
+}

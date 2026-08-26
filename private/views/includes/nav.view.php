@@ -203,89 +203,120 @@ $currentPage = explode(
                 <?php elseif ($rank === 'admin'): ?>
 
 
-                    <!-- SCHOOL ADMIN -->
-
-                    <a
-                        href="<?= ROOT ?>/school-admin"
-                        class="nav-link
-                        <?= $currentPage === 'school-admin'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Dashboard
-                    </a>
+                    <!-- ========================================
+         SCHOOL ADMIN
+    ======================================== -->
 
 
-                    <a
-                        href="<?= ROOT ?>/students"
-                        class="nav-link
-                        <?= $currentPage === 'students'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Students
-                    </a>
+    <!-- DASHBOARD -->
 
-
-                    <a
-                        href="<?= ROOT ?>/teachers"
-                        class="nav-link
-                        <?= $currentPage === 'teachers'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Teachers
-                    </a>
-
-
-                    <a
-                        href="<?= ROOT ?>/parents"
-                        class="nav-link
-                        <?= $currentPage === 'parents'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Parents
-                    </a>
-
-
-                    <a
-                        href="<?= ROOT ?>/profile"
-                        class="nav-link
-                        <?= $currentPage === 'profile'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Profile
-                    </a>
+    <a
+        href="<?= ROOT ?>/school-admin"
+        class="nav-link
+        <?= $currentPage === 'school-admin'
+            ? 'active'
+            : '' ?>"
+    >
+        Dashboard
+    </a>
 
 
 
-                <?php else: ?>
+    <!-- STUDENTS -->
+
+    <a
+        href="<?= ROOT ?>/students"
+        class="nav-link
+        <?= $currentPage === 'students'
+            ? 'active'
+            : '' ?>"
+    >
+        Students
+    </a>
 
 
-                    <!-- OTHER USERS -->
 
-                    <a
-                        href="<?= ROOT ?>/home"
-                        class="nav-link
-                        <?= $currentPage === 'home'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Dashboard
-                    </a>
+    <!-- TEACHERS -->
+
+    <a
+        href="<?= ROOT ?>/teachers"
+        class="nav-link
+        <?= $currentPage === 'teachers'
+            ? 'active'
+            : '' ?>"
+    >
+        Teachers
+    </a>
 
 
-                    <a
-                        href="<?= ROOT ?>/profile"
-                        class="nav-link
-                        <?= $currentPage === 'profile'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Profile
-                    </a>
+
+    <!-- CLASSES -->
+
+    <a
+        href="<?= ROOT ?>/classes"
+        class="nav-link
+        <?= $currentPage === 'classes'
+            ? 'active'
+            : '' ?>"
+    >
+        Classes
+    </a>
+
+
+
+    <!-- PARENTS -->
+
+    <a
+        href="<?= ROOT ?>/parents"
+        class="nav-link
+        <?= $currentPage === 'parents'
+            ? 'active'
+            : '' ?>"
+    >
+        Parents
+    </a>
+
+
+
+    <!-- TESTS -->
+
+    <a
+        href="<?= ROOT ?>/tests"
+        class="nav-link
+        <?= $currentPage === 'tests'
+            ? 'active'
+            : '' ?>"
+    >
+        Tests
+    </a>
+
+
+
+    <!-- RESULTS -->
+
+    <a
+        href="<?= ROOT ?>/results"
+        class="nav-link
+        <?= $currentPage === 'results'
+            ? 'active'
+            : '' ?>"
+    >
+        Results
+    </a>
+
+
+
+    <!-- PROFILE -->
+
+    <a
+        href="<?= ROOT ?>/profile"
+        class="nav-link
+        <?= $currentPage === 'profile'
+            ? 'active'
+            : '' ?>"
+    >
+        Profile
+    </a>
 
 
                 <?php endif; ?>

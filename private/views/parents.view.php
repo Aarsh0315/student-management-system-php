@@ -2,7 +2,28 @@
 
 $parents = $data['parents'] ?? [];
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$rank = $_SESSION['rank'] ?? '';
+
+if ($rank === 'super_admin') {
+
+    $roleName = 'Super Admin';
+
+} elseif ($rank === 'admin') {
+
+    $roleName = 'School Admin';
+
+} else {
+
+    $roleName = 'User';
+
+}
+
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +91,7 @@ $parents = $data['parents'] ?? [];
         <div class="welcome">
 
             <p class="welcome-small">
-                Super Admin
+                <?= htmlspecialchars($roleName) ?>
             </p>
 
             <h1>
@@ -136,15 +157,13 @@ $parents = $data['parents'] ?? [];
                     <thead>
 
                         <tr>
-
-                            <th>
-                                Parent ID
-                            </th>
-
                             <th>
                                 Parent
                             </th>
 
+                            <th>
+                                Student(s)
+                            </th>
                             <th>
                                 Email
                             </th>
@@ -180,24 +199,6 @@ $parents = $data['parents'] ?? [];
 
                             <tr>
 
-
-                                <!-- PARENT ID -->
-
-                                <td>
-
-                                    <span class="parent-id">
-
-                                        <?= htmlspecialchars(
-                                            $parent->parent_id
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
-
-
-
                                 <!-- PARENT -->
 
                                 <td>
@@ -218,7 +219,20 @@ $parents = $data['parents'] ?? [];
 
                                 </td>
 
+                                <!-- STUDENT(S) -->
 
+                                <td>
+
+                                    <span class="student-names">
+
+                                        <?= htmlspecialchars(
+                                            $parent->student_names
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
+
+                                </td>
 
                                 <!-- EMAIL -->
 
@@ -297,9 +311,7 @@ $parents = $data['parents'] ?? [];
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/parents/details/<?= urlencode(
-                                            $parent->user_id ?? ''
-                                        ) ?>"
+                                        href="<?= ROOT ?>/parents/details/<?= urlencode($parent->user_id) ?>"
                                         class="view-btn"
                                     >
                                         View

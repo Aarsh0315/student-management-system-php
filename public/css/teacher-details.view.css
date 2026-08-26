@@ -1,13 +1,13 @@
 /* ========================================
-   STUDENT DETAILS PAGE
+   TEACHER DETAILS PAGE
 ======================================== */
 
 
 /* ========================================
-   STUDENT PROFILE CARD
+   TEACHER PROFILE CARD
 ======================================== */
 
-.student-profile-card {
+.teacher-profile-card {
 
     width: 100%;
 
@@ -41,7 +41,7 @@
    PROFILE LEFT
 ======================================== */
 
-.student-profile-left {
+.teacher-profile-left {
 
     display: flex;
 
@@ -58,7 +58,7 @@
    LARGE AVATAR
 ======================================== */
 
-.student-large-avatar {
+.teacher-large-avatar {
 
     width: 68px;
 
@@ -92,13 +92,13 @@
    PROFILE INFO
 ======================================== */
 
-.student-profile-info {
+.teacher-profile-info {
 
     min-width: 0;
 }
 
 
-.student-profile-info h2 {
+.teacher-profile-info h2 {
 
     margin: 0 0 5px;
 
@@ -112,7 +112,7 @@
 }
 
 
-.student-profile-info p {
+.teacher-profile-info p {
 
     margin: 0 0 9px;
 
@@ -128,10 +128,10 @@
 
 
 /* ========================================
-   CLASS BADGE
+   DESIGNATION BADGE
 ======================================== */
 
-.student-class-badge {
+.teacher-designation-badge {
 
     display: inline-flex;
 
@@ -160,7 +160,7 @@
    STATUS
 ======================================== */
 
-.student-profile-card .status {
+.teacher-profile-card .status {
 
     display: inline-flex;
 
@@ -180,7 +180,7 @@
 }
 
 
-.student-profile-card .status::before {
+.teacher-profile-card .status::before {
 
     content: "";
 
@@ -199,7 +199,7 @@
    ACTIVE STATUS
 ======================================== */
 
-.student-profile-card .status.active {
+.teacher-profile-card .status.active {
 
     background: #ecfdf3;
 
@@ -209,7 +209,7 @@
 }
 
 
-.student-profile-card .status.active::before {
+.teacher-profile-card .status.active::before {
 
     background: #22c55e;
 }
@@ -220,7 +220,7 @@
    INACTIVE STATUS
 ======================================== */
 
-.student-profile-card .status.inactive {
+.teacher-profile-card .status.inactive {
 
     background: #fef2f2;
 
@@ -230,7 +230,7 @@
 }
 
 
-.student-profile-card .status.inactive::before {
+.teacher-profile-card .status.inactive::before {
 
     background: #ef4444;
 }
@@ -241,7 +241,7 @@
    DETAILS CARD
 ======================================== */
 
-.student-details-card {
+.teacher-details-card {
 
     width: 100%;
 
@@ -419,7 +419,7 @@
    ACTIONS
 ======================================== */
 
-.student-actions {
+.teacher-actions {
 
     display: flex;
 
@@ -436,7 +436,7 @@
    BACK BUTTON
 ======================================== */
 
-.student-actions .back-btn {
+.teacher-actions .back-btn {
 
     display: inline-flex;
 
@@ -468,7 +468,7 @@
 }
 
 
-.student-actions .back-btn:hover {
+.teacher-actions .back-btn:hover {
 
     background: #f8fafc;
 
@@ -492,7 +492,6 @@
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
     }
-
 }
 
 
@@ -503,7 +502,7 @@
 
 @media (max-width: 650px) {
 
-    .student-profile-card {
+    .teacher-profile-card {
 
         flex-direction: column;
 
@@ -513,13 +512,13 @@
     }
 
 
-    .student-profile-left {
+    .teacher-profile-left {
 
         width: 100%;
     }
 
 
-    .student-profile-card .status {
+    .teacher-profile-card .status {
 
         width: 100%;
 
@@ -527,7 +526,7 @@
     }
 
 
-    .student-details-card {
+    .teacher-details-card {
 
         padding: 20px;
     }
@@ -539,7 +538,7 @@
     }
 
 
-    .student-large-avatar {
+    .teacher-large-avatar {
 
         width: 60px;
 
@@ -549,11 +548,10 @@
     }
 
 
-    .student-profile-info h2 {
+    .teacher-profile-info h2 {
 
         font-size: 18px;
     }
-
 }
 
 
@@ -564,19 +562,19 @@
 
 @media (max-width: 400px) {
 
-    .student-details-card {
+    .teacher-details-card {
 
         padding: 17px;
     }
 
 
-    .student-profile-card {
+    .teacher-profile-card {
 
         padding: 17px;
     }
 
 
-    .student-profile-info h2 {
+    .teacher-profile-info h2 {
 
         font-size: 17px;
     }
@@ -592,5 +590,4 @@
 
         font-size: 11px;
     }
-
 }

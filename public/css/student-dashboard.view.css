@@ -1,0 +1,520 @@
+/* ========================================
+   STUDENT DASHBOARD
+======================================== */
+
+
+/* ========================================
+   STUDENT PROFILE CARD
+======================================== */
+
+.student-profile-card {
+
+    width: 100%;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    margin-bottom: 40px;
+
+    box-sizing: border-box;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+
+}
+
+
+/* ========================================
+   PROFILE LEFT
+======================================== */
+
+.student-profile-left {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+
+    min-width: 0;
+
+}
+
+
+/* ========================================
+   LARGE AVATAR
+======================================== */
+
+.student-large-avatar {
+
+    width: 68px;
+
+    height: 68px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 2px solid #dbeafe;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 23px;
+
+    font-weight: 700;
+
+    box-shadow:
+        0 5px 15px rgba(37, 99, 235, 0.12);
+
+}
+
+
+/* ========================================
+   PROFILE INFO
+======================================== */
+
+.student-profile-info {
+
+    min-width: 0;
+
+}
+
+
+.student-profile-info h2 {
+
+    margin: 0 0 5px;
+
+    color: #172033;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+.student-profile-info p {
+
+    margin: 0 0 9px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.4;
+
+    word-break: break-word;
+
+}
+
+
+/* ========================================
+   STUDENT ROLE BADGE
+======================================== */
+
+.student-role-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 10px;
+
+    background: #eff6ff;
+
+    color: #2563eb;
+
+    border: 1px solid #dbeafe;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    line-height: 1;
+
+}
+
+
+/* ========================================
+   VIEW PROFILE BUTTON
+======================================== */
+
+.student-profile-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 40px;
+
+    padding: 0 18px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.18);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.student-profile-btn:hover {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 7px 16px rgba(37, 99, 235, 0.25);
+
+}
+
+
+/* ========================================
+   DASHBOARD GRID
+======================================== */
+
+.student-dashboard-grid {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    gap: 25px;
+
+    margin-bottom: 35px;
+
+}
+
+
+/* ========================================
+   DASHBOARD CARD
+======================================== */
+
+.student-dashboard-card {
+
+    min-height: 190px;
+
+    padding: 28px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e7eb;
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    box-shadow:
+        0 5px 20px rgba(15, 23, 42, 0.04);
+
+    transition:
+        box-shadow 0.2s ease,
+        transform 0.2s ease,
+        border-color 0.2s ease;
+
+}
+
+
+.student-dashboard-card:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #dbe2ea;
+
+    box-shadow:
+        0 8px 25px rgba(15, 23, 42, 0.07);
+
+}
+
+
+/* ========================================
+   CARD HEADING
+======================================== */
+
+.student-dashboard-card h2 {
+
+    margin: 0 0 12px;
+
+    color: #172033;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+
+}
+
+
+/* ========================================
+   CARD DESCRIPTION
+======================================== */
+
+.student-dashboard-card p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
+
+/* ========================================
+   CARD LINK
+======================================== */
+
+.dashboard-card-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    margin-top: auto;
+
+    padding-top: 25px;
+
+    color: #2563eb;
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    transition:
+
+        color 0.2s ease,
+
+        transform 0.2s ease;
+
+}
+
+
+.dashboard-card-link:hover {
+
+    color: #1d4ed8;
+
+    transform: translateX(2px);
+
+}
+
+
+/* ========================================
+   TABLET
+======================================== */
+
+@media (max-width: 1000px) {
+
+    .student-profile-card {
+
+        padding: 24px;
+
+        margin-bottom: 30px;
+
+    }
+
+
+    .student-dashboard-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+
+        gap: 20px;
+
+    }
+
+
+    .student-dashboard-card {
+
+        padding: 24px;
+
+    }
+
+}
+
+
+/* ========================================
+   MOBILE
+======================================== */
+
+@media (max-width: 650px) {
+
+    .student-profile-card {
+
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        padding: 20px;
+
+        border-radius: 14px;
+
+        margin-bottom: 25px;
+
+    }
+
+
+    .student-profile-left {
+
+        width: 100%;
+
+    }
+
+
+    .student-profile-btn {
+
+        width: 100%;
+
+    }
+
+
+    .student-dashboard-grid {
+
+        grid-template-columns: 1fr;
+
+        gap: 18px;
+
+    }
+
+
+    .student-dashboard-card {
+
+        min-height: 170px;
+
+        padding: 22px;
+
+        border-radius: 14px;
+
+    }
+
+
+    .student-dashboard-card h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .student-dashboard-card p {
+
+        font-size: 12px;
+
+    }
+
+}
+
+
+/* ========================================
+   SMALL MOBILE
+======================================== */
+
+@media (max-width: 400px) {
+
+    .student-profile-card {
+
+        padding: 17px;
+
+    }
+
+
+    .student-large-avatar {
+
+        width: 60px;
+
+        height: 60px;
+
+        font-size: 21px;
+
+    }
+
+
+    .student-profile-info h2 {
+
+        font-size: 18px;
+
+    }
+
+
+    .student-profile-info p {
+
+        font-size: 12px;
+
+    }
+
+
+    .student-dashboard-card {
+
+        padding: 18px;
+
+    }
+
+
+    .student-dashboard-card h2 {
+
+        font-size: 17px;
+
+    }
+
+}

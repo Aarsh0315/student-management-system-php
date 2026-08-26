@@ -49,4 +49,77 @@ class StudentTestsModel extends Model
             ]
         );
     }
+
+    /*
+========================================
+GET STUDENT RESULT FOR TEST
+========================================
+*/
+
+public function getStudentResult(
+    $test_id,
+    $student_id
+) {
+
+    $query = "SELECT
+                result_id,
+                test_id,
+                student_id,
+                total_marks,
+                obtained_marks,
+                percentage,
+                status,
+                created_at
+
+              FROM results
+
+              WHERE test_id = :test_id
+
+              AND student_id = :student_id
+
+              LIMIT 1";
+
+    $result = $this->query(
+        $query,
+        [
+            'test_id'    => $test_id,
+            'student_id' => $student_id
+        ]
+    );
+
+    return $result[0] ?? false;
+}
+
+/*
+========================================
+GET QUESTIONS BY TEST
+========================================
+*/
+
+public function getQuestionsByTest($test_id)
+{
+    $query = "SELECT
+                question_id,
+                test_id,
+                question,
+                question_type,
+                option_a,
+                option_b,
+                option_c,
+                option_d,
+                marks
+
+              FROM test_questions
+
+              WHERE test_id = :test_id
+
+              ORDER BY question_id ASC";
+
+    return $this->query(
+        $query,
+        [
+            'test_id' => $test_id
+        ]
+    );
+}
 }
