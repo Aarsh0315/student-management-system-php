@@ -1,7 +1,9 @@
 <?php
 
+
 $test =
     $data['test'] ?? null;
+
 
 $questions =
     $data['questions'] ?? [];
@@ -21,15 +23,21 @@ $questions =
     >
 
     <title>
+
         <?= htmlspecialchars(
             $test->title ?? 'Exam'
         ) ?>
+
     </title>
 
 
+    <!-- ========================================
+         EXAM CSS
+    ========================================= -->
+
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-test-exam.view.css?v=1"
+        href="<?= ROOT ?>/css/student-test-exam.view.css?v=4"
     >
 
 </head>
@@ -37,6 +45,39 @@ $questions =
 
 <body>
 
+
+<!-- ========================================
+     CAMERA
+========================================= -->
+
+<div class="exam-camera-box">
+
+    <video
+        id="examCamera"
+        autoplay
+        playsinline
+        muted
+    ></video>
+
+
+    <div
+        id="examCameraStatus"
+        class="exam-camera-status"
+    >
+
+        <span></span>
+
+        Camera starting...
+
+    </div>
+
+</div>
+
+
+
+<!-- ========================================
+     EXAM PAGE
+========================================= -->
 
 <main class="exam-page">
 
@@ -47,21 +88,31 @@ $questions =
 
     <header class="exam-header">
 
-        <div>
 
-            <h1>
-                <?= htmlspecialchars(
-                    $test->title ?? 'Test'
-                ) ?>
-            </h1>
+        <div class="exam-test-info">
 
-            <p>
-                <?= count($questions) ?>
-                Questions
-            </p>
+    <h1>
+        <?= htmlspecialchars($test->title ?? 'Test') ?>
+    </h1>
 
-        </div>
+    <p>
+        Test ID:
+        <strong>
+            <?= htmlspecialchars($test->test_id ?? '-') ?>
+        </strong>
+    </p>
 
+    <span>
+        <?= count($questions) ?> Questions
+    </span>
+
+</div>
+
+
+
+        <!-- ========================================
+             TIMER
+        ========================================= -->
 
         <div class="exam-timer">
 
@@ -69,11 +120,13 @@ $questions =
                 Time Remaining
             </span>
 
+
             <strong id="timer">
                 Loading...
             </strong>
 
         </div>
+
 
     </header>
 
@@ -86,9 +139,12 @@ $questions =
     <section class="exam-container">
 
 
-        <!-- QUESTION NAVIGATION -->
+        <!-- ========================================
+             QUESTION NAVIGATION
+        ========================================= -->
 
         <aside class="question-navigation">
+
 
             <h3>
                 Questions
@@ -97,9 +153,11 @@ $questions =
 
             <div class="question-numbers">
 
+
                 <?php foreach (
                     $questions as $index => $question
                 ): ?>
+
 
                     <button
                         type="button"
@@ -114,15 +172,20 @@ $questions =
 
                     </button>
 
+
                 <?php endforeach; ?>
 
+
             </div>
+
 
         </aside>
 
 
 
-        <!-- QUESTIONS -->
+        <!-- ========================================
+             QUESTIONS
+        ========================================= -->
 
         <div class="questions-area">
 
@@ -141,24 +204,44 @@ $questions =
                 >
 
 
+                    <!-- ========================================
+                         QUESTION TOP
+                    ========================================= -->
+
                     <div class="question-top">
 
-                        <span>
-                            Question
-                            <?= $index + 1 ?>
-                            of
-                            <?= count($questions) ?>
-                        </span>
 
                         <span>
+
+                            Question
+
+                            <?= $index + 1 ?>
+
+                            of
+
+                            <?= count($questions) ?>
+
+                        </span>
+
+
+                        <span>
+
                             <?= htmlspecialchars(
                                 $question->marks ?? 0
                             ) ?>
+
                             Mark(s)
+
                         </span>
+
 
                     </div>
 
+
+
+                    <!-- ========================================
+                         QUESTION
+                    ========================================= -->
 
                     <h2>
 
@@ -170,6 +253,11 @@ $questions =
                     </h2>
 
 
+
+                    <!-- ========================================
+                         MCQ OPTIONS
+                    ========================================= -->
+
                     <?php if (
                         ($question->question_type ?? 'mcq')
                         === 'mcq'
@@ -180,12 +268,27 @@ $questions =
 
 
                             <?php
+
                             $options = [
-                                'A' => $question->option_a ?? '',
-                                'B' => $question->option_b ?? '',
-                                'C' => $question->option_c ?? '',
-                                'D' => $question->option_d ?? ''
+
+                                'A' =>
+                                    $question->option_a
+                                    ?? '',
+
+                                'B' =>
+                                    $question->option_b
+                                    ?? '',
+
+                                'C' =>
+                                    $question->option_c
+                                    ?? '',
+
+                                'D' =>
+                                    $question->option_d
+                                    ?? ''
+
                             ];
+
                             ?>
 
 
@@ -193,7 +296,9 @@ $questions =
                                 $options as $letter => $option
                             ): ?>
 
+
                                 <label class="option">
+
 
                                     <input
                                         type="radio"
@@ -201,9 +306,13 @@ $questions =
                                         value="<?= $letter ?>"
                                     >
 
+
                                     <span class="option-letter">
+
                                         <?= $letter ?>
+
                                     </span>
+
 
                                     <span class="option-text">
 
@@ -213,7 +322,9 @@ $questions =
 
                                     </span>
 
+
                                 </label>
+
 
                             <?php endforeach; ?>
 
@@ -230,12 +341,12 @@ $questions =
             <?php endforeach; ?>
 
 
-
             <!-- ========================================
                  QUESTION CONTROLS
             ========================================= -->
 
             <div class="question-controls">
+
 
                 <button
                     type="button"
@@ -243,8 +354,11 @@ $questions =
                     class="exam-control-btn"
                     disabled
                 >
+
                     ← Previous
+
                 </button>
+
 
 
                 <button
@@ -252,8 +366,11 @@ $questions =
                     id="nextBtn"
                     class="exam-control-btn primary"
                 >
+
                     Next →
+
                 </button>
+
 
 
                 <button
@@ -261,8 +378,11 @@ $questions =
                     id="submitBtn"
                     class="submit-exam-btn"
                 >
+
                     Submit Test
+
                 </button>
+
 
             </div>
 
@@ -277,54 +397,227 @@ $questions =
 
 
 
+<!-- ========================================
+     SECURE EXAM OVERLAY
+========================================= -->
+
+<style>
+
+#secureExamOverlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 999999;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    box-sizing: border-box;
+
+    background: #0f172a;
+}
+
+
+.secure-exam-dialog {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 32px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+
+.secure-exam-dialog h2 {
+
+    margin: 0 0 10px;
+
+    color: #172033;
+
+    font-size: 22px;
+}
+
+
+.secure-exam-dialog p {
+
+    margin: 0 0 22px;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+#beginSecureExam {
+
+    min-width: 170px;
+
+    padding: 12px 20px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+#beginSecureExam:hover {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+}
+
+
+#beginSecureExam:disabled {
+
+    opacity: 0.7;
+
+    cursor: wait;
+}
+
+</style>
+
+
+
+<!-- ========================================
+     SUBMIT CONFIRMATION MODAL
+======================================== -->
+
+<div
+    id="submitConfirmModal"
+    class="submit-confirm-overlay"
+    aria-hidden="true"
+>
+
+    <div
+        class="submit-confirm-dialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="submitConfirmTitle"
+    >
+
+        <h2 id="submitConfirmTitle">
+            Submit Test?
+        </h2>
+
+        <p>
+            Are you sure you want to submit the test?
+            You will not be able to change your answers after submission.
+        </p>
+
+        <div class="submit-confirm-actions">
+
+            <button
+                type="button"
+                id="cancelSubmitBtn"
+                class="cancel-submit-btn"
+            >
+                Cancel
+            </button>
+
+            <button
+                type="button"
+                id="confirmSubmitBtn"
+                class="confirm-submit-btn"
+            >
+                Yes, Submit Test
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
 <script>
 
-/*
-========================================
-EXAM DATA
-========================================
-*/
+/* =========================================================
+   EXAM CONFIGURATION
+========================================================= */
+
 
 const totalQuestions =
     <?= count($questions) ?>;
+
 
 const durationMinutes =
     <?= (int) ($test->duration ?? 0) ?>;
 
 
-/*
-========================================
-QUESTION ELEMENTS
-========================================
-*/
+const submitUrl =
+    "<?= ROOT ?>/studenttests/submit/<?= urlencode(
+        $test->test_id
+    ) ?>";
+
+
+const testsUrl =
+    "<?= ROOT ?>/studenttests";
+
+
+
+/* =========================================================
+   QUESTION NAVIGATION
+========================================================= */
+
 
 const questionCards =
     document.querySelectorAll(
         '.question-card'
     );
 
+
 const questionButtons =
     document.querySelectorAll(
         '.question-number'
     );
 
+
 let currentQuestion = 0;
 
 
-/*
-========================================
-SHOW QUESTION
-========================================
-*/
 
-function showQuestion(index)
-{
+function showQuestion(index) {
+
+
     questionCards.forEach(
-        function(card, cardIndex) {
+        function(card, i) {
 
             card.classList.toggle(
                 'active',
-                cardIndex === index
+                i === index
             );
 
         }
@@ -332,48 +625,49 @@ function showQuestion(index)
 
 
     questionButtons.forEach(
-        function(button, buttonIndex) {
+        function(button, i) {
 
             button.classList.toggle(
                 'active',
-                buttonIndex === index
+                i === index
             );
 
         }
     );
 
 
-    document.getElementById(
-        'previousBtn'
-    ).disabled =
+    document
+        .getElementById('previousBtn')
+        .disabled =
         index === 0;
 
 
-    document.getElementById(
-        'nextBtn'
-    ).style.display =
+    document
+        .getElementById('nextBtn')
+        .style.display =
         index === totalQuestions - 1
             ? 'none'
             : 'inline-flex';
 
 
-    document.getElementById(
-        'submitBtn'
-    ).style.display =
+    document
+        .getElementById('submitBtn')
+        .style.display =
         index === totalQuestions - 1
             ? 'inline-flex'
             : 'none';
 
 
     currentQuestion = index;
+
 }
 
 
-/*
-========================================
-QUESTION NUMBER CLICK
-========================================
-*/
+
+/* =========================================================
+   QUESTION NUMBER CLICK
+========================================================= */
+
 
 questionButtons.forEach(
     function(button) {
@@ -395,11 +689,11 @@ questionButtons.forEach(
 );
 
 
-/*
-========================================
-NEXT
-========================================
-*/
+
+/* =========================================================
+   NEXT
+========================================================= */
+
 
 document
     .getElementById('nextBtn')
@@ -408,8 +702,7 @@ document
         function() {
 
             if (
-                currentQuestion
-                <
+                currentQuestion <
                 totalQuestions - 1
             ) {
 
@@ -423,11 +716,11 @@ document
     );
 
 
-/*
-========================================
-PREVIOUS
-========================================
-*/
+
+/* =========================================================
+   PREVIOUS
+========================================================= */
+
 
 document
     .getElementById('previousBtn')
@@ -449,14 +742,18 @@ document
     );
 
 
-/*
-========================================
-TIMER
-========================================
-*/
+
+/* =========================================================
+   TIMER
+========================================================= */
+
 
 let remainingSeconds =
     durationMinutes * 60;
+
+
+let timerInterval =
+    null;
 
 
 const timerElement =
@@ -465,36 +762,51 @@ const timerElement =
     );
 
 
-function updateTimer()
-{
+
+function updateTimer() {
+
 
     const minutes =
         Math.floor(
             remainingSeconds / 60
         );
 
+
     const seconds =
         remainingSeconds % 60;
 
 
     timerElement.textContent =
-        String(minutes).padStart(2, '0')
+
+        String(minutes)
+            .padStart(2, '0')
+
         + ':'
+
         +
-        String(seconds).padStart(2, '0');
+
+        String(seconds)
+            .padStart(2, '0');
 
 
     if (
         remainingSeconds <= 0
     ) {
 
-        clearInterval(
-            timerInterval
-        );
 
-        alert(
-            'Time is over. The test will be submitted.'
-        );
+        if (
+            timerInterval !== null
+        ) {
+
+            clearInterval(
+                timerInterval
+            );
+
+        }
+
+
+        autoSubmitExam();
+
 
         return;
 
@@ -506,21 +818,115 @@ function updateTimer()
 }
 
 
+
 updateTimer();
 
 
-const timerInterval =
+timerInterval =
     setInterval(
         updateTimer,
         1000
     );
 
 
+
+/* =========================================================
+   SUBMISSION
+========================================================= */
+
+
+let testSubmitting =
+    false;
+
+
+
 /*
 ========================================
-SUBMIT BUTTON
+COLLECT ANSWERS
 ========================================
 */
+
+
+function collectAnswers(
+    formData
+) {
+
+
+    document
+        .querySelectorAll(
+            'input[name^="answers["]:checked'
+        )
+        .forEach(
+            function(input) {
+
+                formData.append(
+                    input.name,
+                    input.value
+                );
+
+            }
+        );
+
+}
+
+
+
+/*
+========================================
+MANUAL SUBMIT
+========================================
+*/
+
+
+const submitConfirmModal =
+    document.getElementById(
+        'submitConfirmModal'
+    );
+
+
+const cancelSubmitBtn =
+    document.getElementById(
+        'cancelSubmitBtn'
+    );
+
+
+const confirmSubmitBtn =
+    document.getElementById(
+        'confirmSubmitBtn'
+    );
+
+
+function openSubmitConfirmation() {
+
+    if (testSubmitting) {
+        return;
+    }
+
+    submitConfirmModal.classList.add(
+        'show'
+    );
+
+    submitConfirmModal.setAttribute(
+        'aria-hidden',
+        'false'
+    );
+
+}
+
+
+function closeSubmitConfirmation() {
+
+    submitConfirmModal.classList.remove(
+        'show'
+    );
+
+    submitConfirmModal.setAttribute(
+        'aria-hidden',
+        'true'
+    );
+
+}
+
 
 document
     .getElementById('submitBtn')
@@ -528,32 +934,1116 @@ document
         'click',
         function() {
 
-            const confirmed =
-                confirm(
-                    'Are you sure you want to submit the test?'
+            openSubmitConfirmation();
+
+        }
+    );
+
+
+cancelSubmitBtn.addEventListener(
+    'click',
+    function() {
+
+        closeSubmitConfirmation();
+
+    }
+);
+
+
+submitConfirmModal.addEventListener(
+    'click',
+    function(event) {
+
+        if (
+            event.target ===
+            submitConfirmModal
+        ) {
+
+            closeSubmitConfirmation();
+
+        }
+
+    }
+);
+
+
+confirmSubmitBtn.addEventListener(
+    'click',
+    function() {
+
+        if (testSubmitting) {
+            return;
+        }
+
+        testSubmitting = true;
+
+        confirmSubmitBtn.disabled = true;
+
+        confirmSubmitBtn.textContent =
+            'Submitting...';
+
+        cancelSubmitBtn.disabled = true;
+
+        submitTest();
+
+    }
+);
+
+
+document.addEventListener(
+    'keydown',
+    function(event) {
+
+        if (
+            event.key === 'Escape' &&
+            submitConfirmModal.classList.contains('show') &&
+            !testSubmitting
+        ) {
+
+            closeSubmitConfirmation();
+
+        }
+
+    }
+);
+
+
+
+/*
+========================================
+SUBMIT TEST
+========================================
+*/
+
+
+function submitTest() {
+
+
+    if (
+        timerInterval !== null
+    ) {
+
+        clearInterval(
+            timerInterval
+        );
+
+    }
+
+
+    /*
+    Disable all buttons
+    */
+
+    document
+        .querySelectorAll(
+            'button'
+        )
+        .forEach(
+            function(button) {
+
+                button.disabled =
+                    true;
+
+            }
+        );
+
+
+    /*
+    Stop camera
+    */
+
+    stopExamCamera();
+
+
+    /*
+    Exit fullscreen
+    */
+
+    if (
+        document.fullscreenElement
+    ) {
+
+        document
+            .exitFullscreen()
+            .catch(
+                function() {}
+            );
+
+    }
+
+
+    /*
+    Create form
+    */
+
+    const form =
+        document.createElement(
+            'form'
+        );
+
+
+    form.method =
+        'POST';
+
+
+    form.action =
+        submitUrl;
+
+
+    /*
+    Add answers
+    */
+
+    document
+        .querySelectorAll(
+            'input[name^="answers["]:checked'
+        )
+        .forEach(
+            function(input) {
+
+
+                const hiddenInput =
+                    document.createElement(
+                        'input'
+                    );
+
+
+                hiddenInput.type =
+                    'hidden';
+
+
+                hiddenInput.name =
+                    input.name;
+
+
+                hiddenInput.value =
+                    input.value;
+
+
+                form.appendChild(
+                    hiddenInput
                 );
 
+            }
+        );
 
-            if (!confirmed) {
+
+    document.body.appendChild(
+        form
+    );
+
+
+    form.submit();
+
+}
+
+
+
+/*
+========================================
+AUTOMATIC SUBMIT
+========================================
+*/
+
+
+function autoSubmitExam() {
+
+
+    if (
+        testSubmitting
+    ) {
+
+        return;
+
+    }
+
+
+    testSubmitting =
+        true;
+
+
+    if (
+        submitConfirmModal
+    ) {
+
+        closeSubmitConfirmation();
+
+    }
+
+
+    if (
+        timerInterval !== null
+    ) {
+
+        clearInterval(
+            timerInterval
+        );
+
+    }
+
+
+    /*
+    Collect answers
+    */
+
+    const formData =
+        new FormData();
+
+
+    collectAnswers(
+        formData
+    );
+
+
+    /*
+    Send answers
+    */
+
+    try {
+
+        navigator.sendBeacon(
+            submitUrl,
+            formData
+        );
+
+    }
+
+    catch (error) {
+
+        console.error(
+            'Automatic submission failed:',
+            error
+        );
+
+    }
+
+
+    /*
+    Stop camera
+    */
+
+    stopExamCamera();
+
+
+    /*
+    Exit fullscreen
+    */
+
+    if (
+        document.fullscreenElement
+    ) {
+
+        document
+            .exitFullscreen()
+            .catch(
+                function() {}
+            );
+
+    }
+
+
+    /*
+    Redirect
+    */
+
+    setTimeout(
+        function() {
+
+            window.location.href =
+                testsUrl;
+
+        },
+        500
+    );
+
+}
+
+
+
+/* =========================================================
+   CAMERA
+========================================================= */
+
+
+const examCamera =
+    document.getElementById(
+        'examCamera'
+    );
+
+
+const examCameraStatus =
+    document.getElementById(
+        'examCameraStatus'
+    );
+
+
+let examCameraStream =
+    null;
+
+
+
+async function startExamCamera() {
+
+
+    if (
+        !navigator.mediaDevices
+        ||
+        !navigator.mediaDevices
+            .getUserMedia
+    ) {
+
+
+        examCameraStatus
+            .classList
+            .add('error');
+
+
+        examCameraStatus.innerHTML =
+            '<span></span> Camera unavailable';
+
+
+        return false;
+
+    }
+
+
+    try {
+
+
+        examCameraStream =
+
+            await navigator
+                .mediaDevices
+                .getUserMedia({
+
+                    video: true,
+
+                    audio: false
+
+                });
+
+
+        examCamera.srcObject =
+            examCameraStream;
+
+
+        examCameraStatus
+            .classList
+            .add('ready');
+
+
+        examCameraStatus.innerHTML =
+
+            '<span></span> Camera Active';
+
+
+        return true;
+
+
+    }
+
+    catch (
+        cameraError
+    ) {
+
+
+        console.error(
+            'Camera error:',
+            cameraError
+        );
+
+
+        examCameraStatus
+            .classList
+            .add('error');
+
+
+        examCameraStatus.innerHTML =
+
+            '<span></span> Camera Required';
+
+
+        return false;
+
+    }
+
+}
+
+
+
+/*
+========================================
+STOP CAMERA
+========================================
+*/
+
+
+function stopExamCamera() {
+
+
+    if (
+        examCameraStream
+    ) {
+
+
+        examCameraStream
+            .getTracks()
+            .forEach(
+                function(track) {
+
+                    track.stop();
+
+                }
+            );
+
+
+        examCameraStream =
+            null;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   SECURE EXAM
+========================================================= */
+
+
+let examLocked =
+    false;
+
+
+
+/*
+========================================
+SECURE OVERLAY
+========================================
+*/
+
+
+const secureOverlay =
+    document.createElement(
+        'div'
+    );
+
+
+secureOverlay.id =
+    'secureExamOverlay';
+
+
+
+secureOverlay.innerHTML = `
+
+    <div class="secure-exam-dialog">
+
+        <h2>
+            Secure Examination
+        </h2>
+
+        <p>
+
+            Your examination will open
+            in fullscreen mode.
+
+            Do not leave the
+            examination window.
+
+            Leaving fullscreen or
+            switching to another tab
+            will submit your test
+            automatically.
+
+        </p>
+
+        <button
+            type="button"
+            id="beginSecureExam"
+        >
+
+            Start Secure Exam
+
+        </button>
+
+    </div>
+
+`;
+
+
+
+document.body.appendChild(
+    secureOverlay
+);
+
+
+
+const beginSecureExam =
+    document.getElementById(
+        'beginSecureExam'
+    );
+
+
+
+/* =========================================================
+   FULLSCREEN
+========================================================= */
+
+
+async function enterFullscreen() {
+
+
+    if (
+        document.fullscreenElement
+    ) {
+
+        return true;
+
+    }
+
+
+    if (
+        !document
+            .documentElement
+            .requestFullscreen
+    ) {
+
+        return false;
+
+    }
+
+
+    try {
+
+
+        await document
+            .documentElement
+            .requestFullscreen();
+
+
+        return true;
+
+
+    }
+
+    catch (
+        error
+    ) {
+
+
+        console.error(
+            'Fullscreen error:',
+            error
+        );
+
+
+        return false;
+
+    }
+
+}
+
+
+
+/* =========================================================
+   START SECURE EXAM
+========================================================= */
+
+
+beginSecureExam
+    .addEventListener(
+        'click',
+        async function() {
+
+
+            if (
+                examLocked
+            ) {
 
                 return;
 
             }
 
 
-            alert(
-                'Submission system will be connected next.'
-            );
+            beginSecureExam.disabled =
+                true;
+
+
+            beginSecureExam.textContent =
+                'Starting...';
+
+
+
+            /*
+            Fullscreen
+            */
+
+            const fullscreenStarted =
+                await enterFullscreen();
+
+
+
+            if (
+                !fullscreenStarted
+            ) {
+
+
+                beginSecureExam.disabled =
+                    false;
+
+
+                beginSecureExam.textContent =
+                    'Start Secure Exam';
+
+
+                alert(
+                    'Fullscreen could not be started. ' +
+                    'Please click Start Secure Exam again.'
+                );
+
+
+                return;
+
+            }
+
+
+
+            /*
+            Camera
+            */
+
+            const cameraStarted =
+                await startExamCamera();
+
+
+
+            if (
+                !cameraStarted
+            ) {
+
+
+                if (
+                    document.fullscreenElement
+                ) {
+
+                    await document
+                        .exitFullscreen()
+                        .catch(
+                            function() {}
+                        );
+
+                }
+
+
+                beginSecureExam.disabled =
+                    false;
+
+
+                beginSecureExam.textContent =
+                    'Start Secure Exam';
+
+
+                alert(
+                    'Camera access is required to start the examination.'
+                );
+
+
+                return;
+
+            }
+
+
+
+            /*
+            Exam is now locked
+            */
+
+            examLocked =
+                true;
+
+
+            secureOverlay.remove();
 
         }
     );
 
 
+
+/* =========================================================
+   BLOCK RIGHT CLICK
+========================================================= */
+
+
+document.addEventListener(
+    'contextmenu',
+    function(event) {
+
+
+        if (
+            examLocked
+        ) {
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   BLOCK COPY / PASTE / CUT
+========================================================= */
+
+
+[
+    'copy',
+    'paste',
+    'cut'
+]
+.forEach(
+    function(eventName) {
+
+
+        document.addEventListener(
+            eventName,
+            function(event) {
+
+
+                if (
+                    examLocked
+                ) {
+
+                    event.preventDefault();
+
+                }
+
+            }
+        );
+
+    }
+);
+
+
+
+/* =========================================================
+   KEYBOARD PROTECTION
+========================================================= */
+
+
+document.addEventListener(
+    'keydown',
+    function(event) {
+
+
+        if (
+            !examLocked
+        ) {
+
+            return;
+
+        }
+
+
+        const key =
+            event.key.toLowerCase();
+
+
+
+        /*
+        F12 / F11
+        */
+
+        if (
+
+            event.key === 'F12'
+
+            ||
+
+            event.key === 'F11'
+
+        ) {
+
+
+            event.preventDefault();
+
+            return;
+
+        }
+
+
+
+        /*
+        CTRL shortcuts
+        */
+
+        if (
+
+            event.ctrlKey
+
+            &&
+
+            (
+
+                key === 'c'
+
+                ||
+
+                key === 'v'
+
+                ||
+
+                key === 'x'
+
+                ||
+
+                key === 'u'
+
+                ||
+
+                key === 's'
+
+                ||
+
+                key === 'p'
+
+            )
+
+        ) {
+
+
+            event.preventDefault();
+
+            return;
+
+        }
+
+
+
+        /*
+        Developer tools
+        */
+
+        if (
+
+            event.ctrlKey
+
+            &&
+
+            event.shiftKey
+
+            &&
+
+            (
+
+                key === 'i'
+
+                ||
+
+                key === 'j'
+
+                ||
+
+                key === 'c'
+
+            )
+
+        ) {
+
+
+            event.preventDefault();
+
+            return;
+
+        }
+
+
+
+        /*
+        Browser back / forward
+        */
+
+        if (
+
+            event.altKey
+
+            &&
+
+            (
+
+                event.key ===
+                'ArrowLeft'
+
+                ||
+
+                event.key ===
+                'ArrowRight'
+
+            )
+
+        ) {
+
+
+            event.preventDefault();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   BACK BUTTON
+========================================================= */
+
+
+history.pushState(
+    null,
+    '',
+    location.href
+);
+
+
+
+window.addEventListener(
+    'popstate',
+    function() {
+
+
+        if (
+            !examLocked
+            ||
+            testSubmitting
+        ) {
+
+            return;
+
+        }
+
+
+        autoSubmitExam();
+
+    }
+);
+
+
+
+/* =========================================================
+   TAB CHANGE
+========================================================= */
+
+
 /*
-========================================
-INITIAL QUESTION
-========================================
+IMPORTANT:
+
+Do not use "blur".
+
+visibilitychange is used because
+blur can trigger accidentally.
 */
+
+
+document.addEventListener(
+    'visibilitychange',
+    function() {
+
+
+        if (
+
+            document.hidden
+
+            &&
+
+            examLocked
+
+            &&
+
+            !testSubmitting
+
+        ) {
+
+
+            autoSubmitExam();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   FULLSCREEN EXIT
+========================================================= */
+
+
+document.addEventListener(
+    'fullscreenchange',
+    function() {
+
+
+        if (
+
+            !document.fullscreenElement
+
+            &&
+
+            examLocked
+
+            &&
+
+            !testSubmitting
+
+        ) {
+
+
+            autoSubmitExam();
+
+        }
+
+    }
+);
+
+
+
+/* =========================================================
+   REFRESH / CLOSE
+========================================================= */
+
+
+window.addEventListener(
+    'pagehide',
+    function() {
+
+
+        if (
+
+            !examLocked
+
+            ||
+
+            testSubmitting
+
+        ) {
+
+            return;
+
+        }
+
+
+        autoSubmitExam();
+
+    }
+);
+
+
+
+/* =========================================================
+   INITIAL QUESTION
+========================================================= */
+
 
 showQuestion(0);
 

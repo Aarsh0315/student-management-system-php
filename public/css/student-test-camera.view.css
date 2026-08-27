@@ -485,6 +485,14 @@
 }
 
 
+.camera-button.enabled {
+    background: #059669;
+    border-color: #059669;
+    color: #ffffff;
+    cursor: default;
+}
+
+
 /* ========================================
    TABLET
 ======================================== */
@@ -603,6 +611,323 @@
     .camera-header h1 {
 
         font-size: 20px;
+
+    }
+
+}
+
+
+/* =========================================================
+   CAMERA CARD VISIBILITY
+========================================================= */
+
+.camera-card-hidden {
+    display: none;
+}
+
+
+/* =========================================================
+   TEST INFORMATION
+========================================================= */
+
+.test-information {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 12px;
+
+    margin-bottom: 25px;
+
+}
+
+
+.test-information-item {
+
+    padding: 14px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f7;
+
+    border-radius: 10px;
+
+    text-align: left;
+
+}
+
+
+.test-information-item span {
+
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #64748b;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+}
+
+
+.test-information-item strong {
+
+    display: block;
+
+    color: #172033;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+}
+
+
+/* =========================================================
+   EXAM INSTRUCTIONS
+========================================================= */
+
+.exam-instructions {
+
+    padding: 18px;
+
+    background: #f8fafc;
+
+    border: 1px solid #eef2f7;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+}
+
+
+.exam-instructions h3 {
+
+    margin: 0 0 12px;
+
+    color: #172033;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+}
+
+
+.exam-instructions ul {
+
+    margin: 0;
+
+    padding-left: 20px;
+
+}
+
+
+.exam-instructions li {
+
+    margin-bottom: 9px;
+
+    color: #64748b;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+.exam-instructions li:last-child {
+
+    margin-bottom: 0;
+
+}
+
+
+/* =========================================================
+   AGREEMENT CHECKBOX
+========================================================= */
+
+.instruction-checkbox {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    margin-top: 20px;
+
+    padding: 14px;
+
+    background: #ffffff;
+
+    border: 1px solid #dbe2ea;
+
+    border-radius: 10px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+}
+
+
+.instruction-checkbox input {
+
+    width: 17px;
+
+    height: 17px;
+
+    flex-shrink: 0;
+
+    margin: 1px 0 0;
+
+    accent-color: #2563eb;
+
+    cursor: pointer;
+
+}
+
+
+.checkbox-text {
+
+    color: #475569;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =========================================================
+   CONTINUE BUTTON
+========================================================= */
+
+.continue-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 145px;
+
+    min-height: 42px;
+
+    margin-top: 18px;
+
+    padding: 0 20px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 4px 12px rgba(37, 99, 235, 0.18);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+}
+
+
+.continue-button:hover:not(:disabled) {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+}
+
+
+.continue-button:disabled {
+
+    background: #e2e8f0;
+
+    color: #94a3b8;
+
+    border-color: #e2e8f0;
+
+    box-shadow: none;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+}
+
+
+/* =========================================================
+   DISABLE CAMERA BUTTON
+========================================================= */
+
+.camera-button.enabled {
+
+    background: #dc2626;
+
+    border-color: #dc2626;
+
+    color: #ffffff;
+
+}
+
+
+.camera-button.enabled:hover {
+
+    background: #b91c1c;
+
+    border-color: #b91c1c;
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 650px) {
+
+    .test-information {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .instruction-checkbox {
+
+        align-items: flex-start;
+
+    }
+
+
+    .continue-button {
+
+        width: 100%;
 
     }
 

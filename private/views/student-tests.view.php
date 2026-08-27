@@ -34,7 +34,7 @@ $tests = $data['tests'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-tests.view.css?v=1"
+        href="<?= ROOT ?>/css/student-tests.view.css?v=2"
     >
 
 
@@ -145,15 +145,7 @@ $tests = $data['tests'] ?? [];
                             </th>
 
                             <th>
-                                Total Marks
-                            </th>
-
-                            <th>
                                 Duration
-                            </th>
-
-                            <th>
-                                Status
                             </th>
 
                             <th>
@@ -176,6 +168,10 @@ $tests = $data['tests'] ?? [];
                             <tr>
 
 
+                                <!-- ========================================
+                                     TEST NAME
+                                ========================================= -->
+
                                 <td>
 
                                     <strong class="test-name">
@@ -189,6 +185,11 @@ $tests = $data['tests'] ?? [];
 
                                 </td>
 
+
+
+                                <!-- ========================================
+                                     CLASS
+                                ========================================= -->
 
                                 <td>
 
@@ -204,6 +205,11 @@ $tests = $data['tests'] ?? [];
                                 </td>
 
 
+
+                                <!-- ========================================
+                                     DIVISION
+                                ========================================= -->
+
                                 <td>
 
                                     <span class="test-division">
@@ -218,19 +224,10 @@ $tests = $data['tests'] ?? [];
                                 </td>
 
 
-                                <td>
 
-                                    <span class="marks-count">
-
-                                        <?= htmlspecialchars(
-                                            $test->total_marks
-                                            ?? '0'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
-
+                                <!-- ========================================
+                                     DURATION
+                                ========================================= -->
 
                                 <td>
 
@@ -244,86 +241,42 @@ $tests = $data['tests'] ?? [];
                                 </td>
 
 
+
+                                <!-- ========================================
+                                     ACTION
+                                ========================================= -->
+
                                 <td>
 
                                     <?php if (!empty($test->result)): ?>
 
+                                        <!-- ========================================
+                                             ALREADY SUBMITTED
+                                        ========================================= -->
+
                                         <span class="status submitted">
-                                            Submitted
+
+                                            ✓ Submitted
+
                                         </span>
+
 
                                     <?php else: ?>
 
-                                        <span class="status active">
-                                            Available
-                                        </span>
+                                        <!-- ========================================
+                                             START TEST
+                                        ========================================= -->
+
+                                        <a
+                                            href="<?= ROOT ?>/studenttests/start/<?= htmlspecialchars($test->test_id) ?>"
+                                            class="start-test-btn"
+                                        >
+                                            Start Test
+                                        </a>
 
                                     <?php endif; ?>
 
                                 </td>
-
-                            <td>
-
-                                <?php if (!empty($test->result)): ?>
-
-                                    <!-- ========================================
-                                        SUBMITTED TEST
-                                    ======================================== -->
-
-                                    <div class="submitted-test">
-
-                                        <span class="status submitted">
-                                            ✓ Submitted
-                                        </span>
-
-                                        <span class="test-score">
-
-                                            <?= htmlspecialchars(
-                                                $test->result->obtained_marks
-                                                ?? '0'
-                                            ) ?>
-
-                                            /
-
-                                            <?= htmlspecialchars(
-                                                $test->result->total_marks
-                                                ?? $test->total_marks
-                                                ?? '0'
-                                            ) ?>
-
-                                        </span>
-
-                                    </div>
-
-
-                                    <a
-                                        href="<?= ROOT ?>/studentresults/details/<?= urlencode(
-                                            $test->result->result_id
-                                        ) ?>"
-                                        class="view-result-btn"
-                                    >
-                                        View Result
-                                    </a>
-
-
-                                <?php else: ?>
-
-                                    <!-- ========================================
-                                        NOT ATTEMPTED
-                                    ======================================== -->
-
-                                    <a
-                                        href="<?= ROOT ?>/studenttests/start/<?= urlencode(
-                                            $test->test_id
-                                        ) ?>"
-                                        class="start-test-btn"
-                                    >
-                                        Start Test
-                                    </a>
-
-                                <?php endif; ?>
-
-                            </td>
 
 
                             </tr>
@@ -341,6 +294,10 @@ $tests = $data['tests'] ?? [];
 
         <?php else: ?>
 
+
+            <!-- ========================================
+                 EMPTY STATE
+            ========================================= -->
 
             <div class="empty-state">
 

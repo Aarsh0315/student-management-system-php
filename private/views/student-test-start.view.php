@@ -314,44 +314,21 @@ $questions =
 
     <section class="test-start-action">
 
+    <p>
+        By clicking <strong>Continue</strong>,
+        you agree to the test instructions.
+    </p>
 
-        <p>
+    <a
+        href="<?= ROOT ?>/studenttests/camera/<?= urlencode($test->test_id) ?>"
+        class="continue-test-btn"
+    >
+        Continue
+    </a>
 
-            By clicking <strong>Continue</strong>,
-            you agree to the test instructions.
-
-        </p>
-
-
-        <a
-            href="#"
-            class="continue-test-btn"
-            id="continueTestBtn"
-        >
-            Continue
-        </a>
-
-
-    </section>
-
+</section>
 
 </main>
-
-
-<script>
-
-document
-    .getElementById('continueTestBtn')
-    .addEventListener('click', function(event) {
-
-        event.preventDefault();
-
-        window.location.href =
-            "<?= ROOT ?>/studenttests/camera/<?= urlencode($test->test_id) ?>";
-
-    });
-
-</script>
 
 
 </body>
