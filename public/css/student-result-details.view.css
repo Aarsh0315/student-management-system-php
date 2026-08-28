@@ -864,3 +864,94 @@
     color: #dc2626 !important;
     border: 1px solid #fca5a5 !important;
 }
+
+
+
+/* ========================================
+   DOWNLOAD RESULT BUTTON
+======================================== */
+
+.result-back {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    flex-wrap: wrap;
+
+    margin-bottom: 35px;
+}
+
+
+.download-result-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 36px;
+
+    padding: 0 16px;
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.download-result-btn:hover {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 4px 10px
+        rgba(37, 99, 235, 0.18);
+}
+
+
+@media (max-width: 600px) {
+
+    .result-back {
+
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+
+    .back-results-btn,
+    .download-result-btn {
+
+        width: 100%;
+
+        box-sizing: border-box;
+
+        text-align: center;
+    }
+
+}

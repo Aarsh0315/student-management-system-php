@@ -118,6 +118,15 @@ class StudentTests extends Controller
             $student->division;
 
 
+
+        /*
+        ========================================
+        CLEAR CAMERA FLOW MARKER
+        ========================================
+        */
+
+        unset($_SESSION['student_test_pending_camera']);
+
         /*
         ========================================
         GET ACTIVE TESTS
@@ -343,31 +352,17 @@ class StudentTests extends Controller
 
         /*
         ========================================
-        CHECK EXISTING ATTEMPT
+        CHECK EXISTING RESULT
         ========================================
         */
 
-        $existingAttempt =
-            $testModel->getStudentAttempt(
+        $existingResult =
+            $testModel->getStudentResult(
                 $test_id,
                 $student_id
             );
 
-
-        /*
-        ========================================
-        ALREADY ATTEMPTED
-        ========================================
-        */
-
-        if ($existingAttempt) {
-
-            /*
-            Student has already started/submitted
-            this test.
-
-            Do NOT create another attempt.
-            */
+        if ($existingResult) {
 
             header(
                 "Location: " .
@@ -377,6 +372,24 @@ class StudentTests extends Controller
 
             exit;
         }
+
+
+        /*
+        ========================================
+        MARK CAMERA FLOW AS PENDING
+        ========================================
+
+        IMPORTANT:
+        Do NOT create the database attempt here.
+
+        The student has only clicked "Start Test".
+        The actual attempt is created only after
+        the student successfully reaches the MCQ
+        exam page.
+        */
+
+        $_SESSION['student_test_pending_camera'] =
+            (string) $test_id;
 
 
         /*
@@ -459,24 +472,19 @@ class StudentTests extends Controller
 
 
         /*
-        ========================================
-        CREATE TEST ATTEMPT
-        ========================================
-        */
+========================================
+LOAD CAMERA CHECK
+========================================
+*/
 
-        $attempt =
-            $testModel->startAttempt(
-                $test_id,
-                $student_id
-            );
+header(
+    "Location: " .
+    ROOT .
+    "/studenttests/camera/" .
+    urlencode($test_id)
+);
 
-
-        if (!$attempt) {
-
-            die(
-                "Unable to start the test. Please try again."
-            );
-        }
+exit;
 
 
         /*
@@ -627,34 +635,6 @@ class StudentTests extends Controller
 
         /*
         ========================================
-        CHECK ATTEMPT
-        ========================================
-        */
-
-        $attempt =
-            $testModel->getStudentAttempt(
-                $test_id,
-                $student->student_id
-            );
-
-
-        if (
-            !$attempt ||
-            $attempt->status !== 'in_progress'
-        ) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/studenttests"
-            );
-
-            exit;
-        }
-
-
-        /*
-        ========================================
         GET TEST
         ========================================
         */
@@ -719,8 +699,7 @@ class StudentTests extends Controller
         $this->view(
             'student-test-camera',
             [
-                'test'    => $test,
-                'attempt' => $attempt
+                'test'    => $test
             ]
         );
     }
@@ -884,49 +863,15 @@ class StudentTests extends Controller
         }
 
 
-        /*
-        ========================================
-        CHECK ACTIVE ATTEMPT
-        ========================================
-        */
-
-        $attempt =
-            $testModel->getStudentAttempt(
-                $test_id,
-                $student->student_id
-            );
 
 
-        if (!$attempt) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/studenttests"
-            );
+/*
+========================================
+CHECK ATTEMPT
+========================================
+*/
 
-            exit;
-        }
-
-
-        /*
-        ========================================
-        ATTEMPT MUST BE ACTIVE
-        ========================================
-        */
-
-        if (
-            $attempt->status !== 'in_progress'
-        ) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/studenttests"
-            );
-
-            exit;
-        }
 
 
         /*
@@ -1018,7 +963,6 @@ class StudentTests extends Controller
                 'test'       => $test,
                 'questions'  => $questions,
                 'student_id' => $student->student_id,
-                'attempt'    => $attempt
             ]
         );
     }
@@ -1177,9 +1121,85 @@ class StudentTests extends Controller
 
         /*
         ========================================
-        CHECK ATTEMPT
+        VERIFY CAMERA FLOW
+        ========================================
+
+        The exam page can only be reached through
+        the Start Test -> Camera flow.
+
+        The marker is cleared after the exam attempt
+        is created/reused.
+        */
+
+        if (
+            (string) ($_SESSION['student_test_pending_camera'] ?? '')
+            !== (string) $test_id
+        ) {
+
+            header(
+                "Location: " .
+                ROOT .
+                "/studenttests"
+            );
+
+            exit;
+        }
+
+
+        /*
+        ========================================
+        CHECK / CREATE ATTEMPT
         ========================================
         */
+
+        $attempt =
+            $testModel->getStudentAttempt(
+                $test_id,
+                $student->student_id
+            );
+
+
+        if (!$attempt) {
+
+            $attempt =
+                $testModel->startAttempt(
+                    $test_id,
+                    $student->student_id
+                );
+
+        }
+
+
+        if (
+            !$attempt ||
+            $attempt->status !== 'in_progress'
+        ) {
+
+            unset(
+                $_SESSION['student_test_pending_camera']
+            );
+
+            header(
+                "Location: " .
+                ROOT .
+                "/studenttests"
+            );
+
+            exit;
+        }
+
+
+        /*
+        ========================================
+        CLEAR CAMERA FLOW MARKER
+        ========================================
+        */
+
+        unset(
+            $_SESSION['student_test_pending_camera']
+        );
+
+
 
         $attempt =
             $testModel->getStudentAttempt(

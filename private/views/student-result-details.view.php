@@ -641,6 +641,13 @@ $questions =
             ← Back to Results
         </a>
 
+         <a
+        href="<?= ROOT ?>/studentresults/download/<?= urlencode($result->test_id) ?>"
+        class="download-result-btn"
+    >
+        ↓ Download Result PDF
+    </a>
+
     </div>
 
 

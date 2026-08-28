@@ -106,6 +106,9 @@ $currentPage =
                         : '' ?>"
                 >
                     Tests
+
+                    <span class="new-test-dot"></span>
+
                 </a>
 
 

@@ -20,10 +20,9 @@ $error = $data['error'] ?? '';
         Login - My School
     </title>
 
-
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/login.view.css?v=1"
+        href="<?= ROOT ?>/css/login.view.css?v=3"
     >
 
 </head>
@@ -35,283 +34,473 @@ $error = $data['error'] ?? '';
 <div class="login-page">
 
 
-    <!-- =========================
-         LEFT SIDE
-    ========================== -->
+    <!-- ========================================
+         MAIN LOGIN CONTAINER
+    ========================================= -->
 
-    <section class="login-info">
+    <div class="login-container">
 
-        <div class="login-info-content">
 
+        <!-- ========================================
+             LEFT PANEL
+        ========================================= -->
+
+        <section class="login-visual">
+
+
+            <!-- DECORATIVE ELEMENTS -->
+
+            <div class="visual-circle circle-one"></div>
+
+            <div class="visual-circle circle-two"></div>
+
+            <div class="visual-dots"></div>
+
+
+
+            <!-- BRAND -->
 
             <div class="brand">
 
-                <div class="brand-icon">
-                    🎓
+                <div class="brand-logo">
+
+                    <span>🎓</span>
+
                 </div>
 
+                <div>
+
+                    <strong>
+                        My School
+                    </strong>
+
+                    <small>
+                        School Management System
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MAIN CONTENT -->
+
+            <div class="visual-content">
+
+                <p class="visual-label">
+                    SCHOOL MANAGEMENT
+                </p>
+
+
+                <h1>
+
+                    Manage your school
+
+                    <span>
+                        smarter.
+                    </span>
+
+                </h1>
+
+
+                <p class="visual-description">
+
+                    A simple and powerful platform to manage
+                    students, teachers, classes, results and
+                    everything your school needs.
+
+                </p>
+
+
+                <!-- FEATURES -->
+
+                <div class="feature-list">
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Easy Management
+                            </strong>
+
+                            <p>
+                                Manage your entire school
+                                from one place.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Students & Teachers
+                            </strong>
+
+                            <p>
+                                Keep academic information
+                                organized and accessible.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            ✓
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Secure Access
+                            </strong>
+
+                            <p>
+                                Role-based access for every
+                                user in your school.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+            <!-- COPYRIGHT -->
+
+            <div class="visual-footer">
+
+                <span class="footer-shield">
+                    ✓
+                </span>
+
                 <span>
-                    My School
+                    © <?= date('Y') ?> My School.
+                    All rights reserved.
                 </span>
 
             </div>
 
 
-            <h1>
-                Manage your school
-                <span>smarter.</span>
-            </h1>
+        </section>
 
 
-            <p>
-                A simple and powerful school management
-                platform for administrators, teachers,
-                students and parents.
-            </p>
+
+        <!-- ========================================
+             RIGHT LOGIN PANEL
+        ========================================= -->
+
+        <section class="login-form-section">
 
 
-            <div class="feature-list">
+            <div class="login-card">
 
 
-                <div class="feature-item">
+                <!-- HEADER -->
 
-                    <div class="feature-icon">
-                        ✓
-                    </div>
+                <div class="login-header">
 
-                    <div>
+                    <p class="login-small">
+                        Welcome back
+                    </p>
 
-                        <strong>
-                            Easy Management
-                        </strong>
 
-                        <p>
-                            Manage your school from one place.
-                        </p>
+                    <h2>
+                        Sign in to your account
+                    </h2>
 
-                    </div>
+
+                    <p>
+                        Enter your credentials to continue.
+                    </p>
 
                 </div>
 
 
-                <div class="feature-item">
 
-                    <div class="feature-icon">
-                        ✓
-                    </div>
+                <!-- ERROR -->
 
-                    <div>
+                <?php if (!empty($error)): ?>
 
-                        <strong>
-                            Students & Teachers
-                        </strong>
+                    <div class="login-error">
 
-                        <p>
-                            Keep academic information organized.
-                        </p>
+                        <span>
+                            !
+                        </span>
 
-                    </div>
+                        <div>
 
-                </div>
+                            <?= htmlspecialchars($error) ?>
 
-
-                <div class="feature-item">
-
-                    <div class="feature-icon">
-                        ✓
-                    </div>
-
-                    <div>
-
-                        <strong>
-                            Secure Access
-                        </strong>
-
-                        <p>
-                            Role-based access for every user.
-                        </p>
+                        </div>
 
                     </div>
 
-                </div>
-
-
-            </div>
-
-
-        </div>
-
-
-        <p class="login-copyright">
-            © <?= date('Y') ?> My School. All rights reserved.
-        </p>
-
-    </section>
+                <?php endif; ?>
 
 
 
-    <!-- =========================
-         RIGHT SIDE
-    ========================== -->
+                <!-- FORM -->
 
-    <section class="login-form-section">
-
-
-        <div class="login-card">
-
-
-            <div class="login-header">
-
-                <p class="login-small">
-                    Welcome back
-                </p>
-
-                <h2>
-                    Sign in to your account
-                </h2>
-
-                <p>
-                    Enter your credentials to continue.
-                </p>
-
-            </div>
+                <form
+                    method="POST"
+                    action="<?= ROOT ?>/login"
+                    class="login-form"
+                >
 
 
+                    <!-- EMAIL -->
 
-            <!-- ERROR -->
+                    <div class="form-group">
 
-            <?php if (!empty($error)): ?>
+                        <label for="email">
+                            Email Address
+                        </label>
 
-                <div class="login-error">
 
-                    <span>
-                        ⚠
-                    </span>
+                        <div class="input-wrapper">
 
-                    <?= htmlspecialchars($error) ?>
+                            <span class="input-icon">
+                                ✉
+                            </span>
 
-                </div>
 
-            <?php endif; ?>
+                            <input
+                                type="email"
+                                id="email"
+                                name="email"
+                                placeholder="Enter your email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
 
 
 
-            <!-- FORM -->
+                    <!-- PASSWORD -->
 
-            <form
-                method="POST"
-                action="<?= ROOT ?>/login"
-                class="login-form"
-            >
+                    <div class="form-group">
 
+                        <div class="password-heading">
 
-                <!-- EMAIL -->
+                            <label for="password">
+                                Password
+                            </label>
 
-                <div class="form-group">
+                            <a
+                                href="#"
+                                class="forgot-password"
+                            >
+                                Forgot password?
+                            </a>
 
-                    <label for="email">
-                        Email Address
-                    </label>
-
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        placeholder="Enter your email"
-                        autocomplete="email"
-                        required
-                    >
-
-                </div>
+                        </div>
 
 
+                        <div class="input-wrapper">
 
-                <!-- PASSWORD -->
+                            <span class="input-icon">
+                                🔒
+                            </span>
 
-                <div class="form-group">
 
-                    <div class="password-label">
+                            <input
+                                type="password"
+                                id="password"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
 
-                        <label for="password">
-                            Password
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="passwordToggle"
+                                aria-label="Show password"
+                            >
+                                ◉
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+
+                    <!-- OPTIONS -->
+
+                    <div class="login-options">
+
+                        <label class="remember">
+
+                            <input
+                                type="checkbox"
+                                name="remember"
+                            >
+
+                            <span>
+                                Remember me
+                            </span>
+
                         </label>
 
                     </div>
 
 
-                    <input
-                        type="password"
-                        id="password"
-                        name="password"
-                        placeholder="Enter your password"
-                        autocomplete="current-password"
-                        required
+
+                    <!-- LOGIN BUTTON -->
+
+                    <button
+                        type="submit"
+                        class="login-btn"
                     >
 
-                </div>
-
-
-
-                <!-- REMEMBER -->
-
-                <div class="login-options">
-
-                    <label class="remember">
-
-                        <input
-                            type="checkbox"
-                            name="remember"
-                        >
-
                         <span>
-                            Remember me
+                            Sign In
                         </span>
 
-                    </label>
+                        <strong>
+                            →
+                        </strong>
+
+                    </button>
+
+
+                </form>
+
+
+
+                <!-- DIVIDER -->
+
+                <div class="login-divider">
+
+                    <span></span>
+
+                    <p>
+                        Don't have an account?
+                    </p>
+
+                    <span></span>
 
                 </div>
 
 
 
-                <!-- BUTTON -->
+                <!-- SIGNUP -->
 
-                <button
-                    type="submit"
-                    class="login-btn"
+                <a
+                    href="<?= ROOT ?>/signup"
+                    class="signup-btn"
                 >
 
-                    Sign In
-
                     <span>
-                        →
+                        ＋
                     </span>
 
-                </button>
+                    Create an account
 
+                </a>
 
-            </form>
-
-
-            <div class="login-footer">
-
-                <p>
-                    Don't have an account?
-                    
-                    <a href="<?= ROOT ?>/signup">
-                        Create an account
-                    </a>
-                </p>
 
             </div>
 
 
-        </div>
+        </section>
 
 
-    </section>
+    </div>
 
 
 </div>
+
+
+
+<script>
+
+/*
+========================================
+SHOW / HIDE PASSWORD
+========================================
+*/
+
+const password =
+    document.getElementById('password');
+
+const passwordToggle =
+    document.getElementById('passwordToggle');
+
+
+if (
+    password &&
+    passwordToggle
+) {
+
+    passwordToggle.addEventListener(
+        'click',
+        function () {
+
+            if (
+                password.type === 'password'
+            ) {
+
+                password.type = 'text';
+
+                passwordToggle.textContent = '◉';
+
+                passwordToggle.setAttribute(
+                    'aria-label',
+                    'Hide password'
+                );
+
+            } else {
+
+                password.type = 'password';
+
+                passwordToggle.textContent = '◉';
+
+                passwordToggle.setAttribute(
+                    'aria-label',
+                    'Show password'
+                );
+            }
+
+        }
+    );
+
+}
+
+</script>
 
 
 </body>

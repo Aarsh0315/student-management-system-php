@@ -90,6 +90,11 @@ $initial = strtoupper(
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
     > 
+
+<link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/student-nav.view.css?v=1"
+>
 </head>
 
 
@@ -105,6 +110,12 @@ $initial = strtoupper(
 ): ?>
 
     <?php require "../private/views/includes/teacher-nav.view.php"; ?>
+
+<?php elseif (
+    ($_SESSION['rank'] ?? '') === 'student'
+): ?>
+
+    <?php require "../private/views/includes/student-nav.view.php"; ?>
 
 <?php else: ?>
 

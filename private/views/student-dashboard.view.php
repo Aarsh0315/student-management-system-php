@@ -275,28 +275,6 @@ $student =
              ATTENDANCE
         ======================================== -->
 
-        <div class="student-dashboard-card">
-
-            <h2>
-                Attendance
-            </h2>
-
-            <p>
-                View your attendance and
-                attendance records.
-            </p>
-
-            <a
-                href="<?= ROOT ?>/studentattendance"
-                class="dashboard-card-link"
-            >
-                View Attendance →
-            </a>
-
-        </div>
-
-
-
         <!-- ========================================
              PARENTS
         ======================================== -->

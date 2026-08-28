@@ -452,3 +452,27 @@
     }
 
 }
+
+
+/* ========================================
+   NEW TEST INDICATOR
+======================================== */
+
+.new-test-dot {
+
+    display: inline-block;
+
+    width: 7px;
+    height: 7px;
+
+    margin-left: 5px;
+
+    background: #2563eb;
+
+    border-radius: 50%;
+
+    vertical-align: middle;
+
+    box-shadow:
+        0 0 0 3px rgba(37, 99, 235, 0.12);
+}

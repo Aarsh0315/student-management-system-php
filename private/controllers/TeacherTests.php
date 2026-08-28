@@ -1042,6 +1042,39 @@ public function publish($test_id = null)
         );
     }
 
+    /*
+========================================
+CREATE STUDENT NOTIFICATIONS
+========================================
+*/
+
+/*
+========================================
+GET STUDENTS FOR TEST
+========================================
+*/
+
+$studentQuery = "SELECT
+                    s.user_id
+
+                 FROM students s
+
+                 WHERE s.school_id = :school_id
+
+                 AND s.class = :class
+
+                 AND s.division = :division";
+
+
+$students =
+    $testModel->query(
+        $studentQuery,
+        [
+            'school_id' => $school_id,
+            'class'     => $test->class,
+            'division'  => $test->division
+        ]
+    );
 
     /*
     ========================================
@@ -1058,4 +1091,6 @@ public function publish($test_id = null)
 
     exit;
 }
+
+
 }

@@ -20,27 +20,29 @@ if (session_status() === PHP_SESSION_NONE) {
 
     <title>Super Admin Dashboard</title>
 
-    <!-- SAME NAVBAR CSS -->
+
+    <!-- NAVBAR -->
+
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
-    > 
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=2"
-    > 
-
-    <!-- DASHBOARD CSS -->
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
+
+    <!-- SUPER ADMIN DASHBOARD -->
+
     <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/footer.view.css?v=2"
->
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=3"
+    >
+
+
+    <!-- FOOTER -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
+    >
 
 </head>
 
