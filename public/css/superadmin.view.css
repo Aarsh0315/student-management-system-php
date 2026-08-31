@@ -1,16 +1,13 @@
 /* =====================================================
    MY SCHOOL - SUPER ADMIN DASHBOARD
-   Professional Pink / Purple Theme
 ===================================================== */
 
 
 /* =====================================================
-   GLOBAL RESET
+   RESET
 ===================================================== */
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -18,68 +15,84 @@ html {
     scroll-behavior: smooth;
 }
 
-html,
 body {
-    width: 100%;
-    min-width: 0;
-    overflow-x: hidden;
-}
+    margin: 0;
 
-body {
     font-family:
         "Segoe UI",
         Arial,
         Helvetica,
         sans-serif;
 
-    background: #faf8fb;
-    color: #302d3d;
+    background: #faf9fc;
 
-    min-height: 100vh;
+    color: #29263a;
+
     line-height: 1.5;
+
+    overflow-x: hidden;
 }
 
 
 /* =====================================================
-   MAIN DASHBOARD
+   PAGE
 ===================================================== */
 
-.dashboard {
+.superadmin-page {
     width: 100%;
+
+    padding: 42px 30px 60px;
+}
+
+
+.superadmin-container {
+    width: 100%;
+
     max-width: 1250px;
 
     margin: 0 auto;
-
-    padding: 45px 30px 65px;
 }
 
 
 /* =====================================================
-   WELCOME SECTION
+   WELCOME
 ===================================================== */
 
-.welcome {
-    width: 100%;
-    margin-bottom: 30px;
+.dashboard-welcome {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 28px;
 }
 
-.welcome-small {
-    margin-bottom: 7px;
 
-    color: #a32675;
+.welcome-label {
+    margin: 0 0 8px;
 
-    font-size: 13px;
-    font-weight: 600;
+    color: #8c2765;
 
-    letter-spacing: 0.2px;
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.9px;
+
+    text-transform: uppercase;
 }
 
-.welcome h1 {
-    margin-bottom: 8px;
 
-    color: #302d3d;
+.welcome-content h1 {
+    margin: 0 0 7px;
 
-    font-size: 32px;
+    color: #29263a;
+
+    font-size: 30px;
+
     font-weight: 700;
 
     line-height: 1.25;
@@ -87,110 +100,359 @@ body {
     letter-spacing: -0.7px;
 }
 
-.welcome-text {
-    color: #756d79;
 
-    font-size: 14px;
+.welcome-description {
+    margin: 0;
 
-    line-height: 1.6;
+    color: #827a89;
+
+    font-size: 13px;
 }
 
 
 /* =====================================================
-   PROFILE CARD
+   STATUS
 ===================================================== */
 
-.profile-card {
-    position: relative;
+.dashboard-status {
+    display: inline-flex;
 
-    width: 100%;
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 12px;
+
+    margin-top: 5px;
+
+    background: #f0faf4;
+
+    color: #26764c;
+
+    border: 1px solid #cce9d7;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+
+.status-dot {
+    width: 6px;
+    height: 6px;
+
+    border-radius: 50%;
+
+    background: #2eaa65;
+}
+
+
+/* =====================================================
+   KPI GRID
+===================================================== */
+
+.kpi-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   KPI CARD
+===================================================== */
+
+.kpi-card {
+    min-height: 105px;
 
     display: flex;
 
     align-items: center;
-    justify-content: space-between;
 
-    gap: 25px;
+    gap: 14px;
 
-    margin-bottom: 42px;
+    position: relative;
 
-    padding: 25px 28px;
+    padding: 18px;
 
     background: #ffffff;
 
-    border: 1px solid #eadfe7;
+    border: 1px solid #eadfe8;
 
-    border-radius: 16px;
+    border-radius: 13px;
+
+    text-decoration: none;
 
     box-shadow:
-        0 5px 20px rgba(48, 45, 61, 0.045);
-
-    overflow: hidden;
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
 
     transition:
         transform 0.2s ease,
-        box-shadow 0.2s ease;
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+
+    background: #fffafd;
+
+    border-color: #e5cddd;
+
+    box-shadow:
+        0 10px 25px
+        rgba(70, 30, 70, 0.07);
 }
 
 
 /* =====================================================
-   PROFILE TOP ACCENT
+   KPI ICON
 ===================================================== */
 
-.profile-card::before {
-    content: "";
+.kpi-icon {
+    width: 46px;
+    height: 46px;
 
-    position: absolute;
+    min-width: 46px;
 
-    top: 0;
-    left: 0;
+    display: flex;
 
-    width: 100%;
-    height: 3px;
+    align-items: center;
+    justify-content: center;
 
     background:
         linear-gradient(
-            90deg,
-            #d89167,
-            #a32675,
-            #6f1760
+            135deg,
+            #fff0f6,
+            #f8ecf8
         );
-}
 
+    color: #a32675;
 
-.profile-card:hover {
-    transform:
-        translateY(-2px);
+    border: 1px solid #efd8e6;
 
-    box-shadow:
-        0 10px 30px rgba(70, 30, 70, 0.075);
+    border-radius: 11px;
+
+    font-size: 10px;
+
+    font-weight: 700;
 }
 
 
 /* =====================================================
-   PROFILE LEFT
+   KPI CONTENT
 ===================================================== */
 
-.profile-left {
+.kpi-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.kpi-label {
+    color: #8f8795;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+
+.kpi-value {
+    color: #29263a;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* =====================================================
+   KPI ARROW
+===================================================== */
+
+.kpi-arrow {
+    position: absolute;
+
+    right: 16px;
+
+    bottom: 14px;
+
+    color: #c1b7c0;
+
+    font-size: 14px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.kpi-card:hover .kpi-arrow {
+    color: #a32675;
+
+    transform: translateX(3px);
+}
+
+
+/* =====================================================
+   MAIN GRID
+===================================================== */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.45fr)
+        minmax(320px, 0.9fr);
+
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   COMMON CARD
+===================================================== */
+
+.activity-card,
+.management-card {
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 13px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.card-header {
     display: flex;
 
     align-items: center;
 
-    gap: 17px;
+    justify-content: space-between;
 
-    min-width: 0;
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #f0e9ef;
+}
+
+
+.card-header h2 {
+    margin: 0 0 4px;
+
+    color: #29263a;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.card-header p {
+    margin: 0;
+
+    color: #958d99;
+
+    font-size: 10px;
+}
+
+
+.activity-count {
+    padding: 5px 9px;
+
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 15px;
+
+    font-size: 9px;
+
+    font-weight: 600;
 }
 
 
 /* =====================================================
-   PROFILE AVATAR
+   ACTIVITY LIST
 ===================================================== */
 
-.profile-avatar {
-    width: 62px;
-    height: 62px;
+.activity-list {
+    width: 100%;
+}
 
-    min-width: 62px;
+
+/* =====================================================
+   ACTIVITY ITEM
+===================================================== */
+
+.activity-item {
+    min-height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 12px 20px;
+
+    border-bottom: 1px solid #f2edf1;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+
+.activity-item:hover {
+    background: #fffafd;
+}
+
+
+/* =====================================================
+   ACTIVITY ICON
+===================================================== */
+
+.activity-icon {
+    width: 36px;
+    height: 36px;
+
+    min-width: 36px;
 
     display: flex;
 
@@ -202,473 +464,336 @@ body {
     background:
         linear-gradient(
             135deg,
-            #fff0f5,
-            #f5edff
+            #fff0f6,
+            #f7edf8
         );
 
-    color: #8c2765;
+    color: #a32675;
 
-    border: 2px solid #ead7e5;
+    border: 1px solid #efd9e7;
 
-    font-size: 21px;
+    font-size: 9px;
 
     font-weight: 700;
-
-    box-shadow:
-        0 6px 18px rgba(120, 40, 100, 0.09);
 }
 
 
 /* =====================================================
-   PROFILE DETAILS
+   ACTIVITY INFO
 ===================================================== */
 
-.profile-details {
+.activity-info {
+    flex: 1;
+
     min-width: 0;
-}
-
-.profile-label {
-    margin-bottom: 3px;
-
-    color: #aaa1ad;
-
-    font-size: 9px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.9px;
-}
-
-.profile-details h2 {
-    margin-bottom: 4px;
-
-    color: #302d3d;
-
-    font-size: 18px;
-
-    font-weight: 700;
-
-    line-height: 1.3;
-}
-
-.profile-email {
-    margin-bottom: 8px;
-
-    color: #857e8b;
-
-    font-size: 12px;
-
-    line-height: 1.4;
-}
-
-
-/* =====================================================
-   PROFILE ROLE
-===================================================== */
-
-.profile-role {
-    display: inline-flex;
-
-    align-items: center;
-
-    padding: 4px 10px;
-
-    background: #fff4f9;
-
-    color: #a32675;
-
-    border: 1px solid #efd5e3;
-
-    border-radius: 20px;
-
-    font-size: 10px;
-
-    font-weight: 600;
-}
-
-
-/* =====================================================
-   PROFILE BUTTON
-===================================================== */
-
-.profile-btn {
-    display: inline-flex;
-
-    align-items: center;
-    justify-content: center;
-
-    gap: 8px;
-
-    padding: 10px 17px;
-
-    background: #ffffff;
-
-    color: #8c2765;
-
-    border: 1px solid #e3d5df;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.profile-btn span {
-    font-size: 15px;
-
-    transition:
-        transform 0.2s ease;
-}
-
-.profile-btn:hover {
-    background: #fff5fa;
-
-    border-color: #dcb8d1;
-
-    color: #6f1760;
-
-    transform:
-        translateY(-1px);
-
-    box-shadow:
-        0 5px 14px rgba(120, 40, 100, 0.08);
-}
-
-.profile-btn:hover span {
-    transform:
-        translateX(3px);
-}
-
-
-/* =====================================================
-   MANAGEMENT SECTION
-===================================================== */
-
-.management-section {
-    width: 100%;
-}
-
-
-/* =====================================================
-   SECTION HEADER
-===================================================== */
-
-.section-header {
-    display: flex;
-
-    align-items: flex-end;
-
-    justify-content: space-between;
-
-    gap: 25px;
-
-    margin-bottom: 22px;
-}
-
-.section-label {
-    margin-bottom: 5px;
-
-    color: #a32675;
-
-    font-size: 9px;
-
-    font-weight: 700;
-
-    letter-spacing: 1px;
-}
-
-.section-header h2 {
-    color: #302d3d;
-
-    font-size: 23px;
-
-    font-weight: 700;
-
-    line-height: 1.3;
-
-    letter-spacing: -0.4px;
-}
-
-.section-description {
-    max-width: 380px;
-
-    color: #89818e;
-
-    font-size: 12px;
-
-    line-height: 1.6;
-
-    text-align: right;
-}
-
-
-/* =====================================================
-   DASHBOARD CARDS
-===================================================== */
-
-.dashboard-cards {
-    width: 100%;
-
-    display: grid;
-
-    grid-template-columns:
-        repeat(3, minmax(0, 1fr));
-
-    gap: 19px;
-}
-
-
-/* =====================================================
-   DASHBOARD CARD
-===================================================== */
-
-.dashboard-card {
-    position: relative;
-
-    min-height: 215px;
 
     display: flex;
 
     flex-direction: column;
 
-    padding: 23px;
+    gap: 2px;
+}
 
-    background: #ffffff;
 
-    border: 1px solid #eadfe7;
+.activity-info strong {
+    color: #4b4552;
 
-    border-radius: 15px;
+    font-size: 11px;
 
-    overflow: hidden;
+    font-weight: 600;
+}
 
-    box-shadow:
-        0 4px 18px rgba(48, 45, 61, 0.035);
 
-    transition:
-        transform 0.22s ease,
-        box-shadow 0.22s ease,
-        border-color 0.22s ease;
+.activity-info span {
+    color: #9a929f;
+
+    font-size: 9px;
 }
 
 
 /* =====================================================
-   CARD TOP LINE
+   ACTIVITY TIME
 ===================================================== */
 
-.dashboard-card::before {
-    content: "";
+.activity-item time {
+    color: #aaa1ad;
 
-    position: absolute;
+    font-size: 9px;
 
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 3px;
-
-    background:
-        linear-gradient(
-            90deg,
-            #d89167,
-            #a32675,
-            #6f1760
-        );
-
-    transform:
-        scaleX(0);
-
-    transform-origin: left;
-
-    transition:
-        transform 0.3s ease;
-}
-
-.dashboard-card:hover::before {
-    transform:
-        scaleX(1);
+    white-space: nowrap;
 }
 
 
 /* =====================================================
-   CARD HOVER
+   EMPTY ACTIVITY
 ===================================================== */
 
-.dashboard-card:hover {
-    transform:
-        translateY(-4px);
+.activity-empty {
+    padding: 38px 20px;
 
-    border-color: #dfcbd9;
-
-    box-shadow:
-        0 12px 30px rgba(70, 30, 70, 0.075);
+    text-align: center;
 }
 
 
-/* =====================================================
-   CARD ICON
-===================================================== */
-
-.card-icon {
-    width: 44px;
-    height: 44px;
+.empty-icon {
+    width: 38px;
+    height: 38px;
 
     display: flex;
 
     align-items: center;
     justify-content: center;
 
-    margin-bottom: 17px;
+    margin: 0 auto 10px;
 
-    background:
-        linear-gradient(
-            135deg,
-            #fff2f7,
-            #f7effc
-        );
+    background: #f1faf5;
 
-    color: #a32675;
+    color: #2e9c5d;
 
-    border: 1px solid #ead7e5;
+    border: 1px solid #d3eadc;
 
-    border-radius: 11px;
+    border-radius: 50%;
 
-    font-size: 19px;
-
-    line-height: 1;
-
-    transition:
-        background 0.22s ease,
-        color 0.22s ease,
-        transform 0.22s ease,
-        box-shadow 0.22s ease;
-}
-
-
-/* =====================================================
-   ICON HOVER
-===================================================== */
-
-.dashboard-card:hover .card-icon {
-    background:
-        linear-gradient(
-            135deg,
-            #d89167,
-            #a32675,
-            #6f1760
-        );
-
-    color: #ffffff;
-
-    transform:
-        translateY(-2px);
-
-    box-shadow:
-        0 6px 15px rgba(120, 40, 100, 0.16);
-}
-
-
-/* =====================================================
-   CARD CONTENT
-===================================================== */
-
-.card-content {
-    flex: 1;
-}
-
-
-/* =====================================================
-   CARD TITLE
-===================================================== */
-
-.dashboard-card h3 {
-    margin-bottom: 7px;
-
-    color: #302d3d;
-
-    font-size: 17px;
+    font-size: 14px;
 
     font-weight: 700;
-
-    line-height: 1.3;
 }
 
 
-/* =====================================================
-   CARD DESCRIPTION
-===================================================== */
+.activity-empty h3 {
+    margin: 0 0 4px;
 
-.dashboard-card p {
-    max-width: 95%;
-
-    margin: 0;
-
-    color: #89818e;
+    color: #4d4653;
 
     font-size: 12px;
+}
 
-    line-height: 1.65;
+
+.activity-empty p {
+    margin: 0;
+
+    color: #99919d;
+
+    font-size: 10px;
 }
 
 
 /* =====================================================
-   CARD ACTION
+   MANAGEMENT LIST
 ===================================================== */
 
-.card-action {
-    display: inline-flex;
+.management-list {
+    padding: 4px 0;
+}
+
+
+/* =====================================================
+   MANAGEMENT ITEM
+===================================================== */
+
+.management-item {
+    min-height: 61px;
+
+    display: flex;
 
     align-items: center;
 
-    align-self: flex-start;
+    gap: 12px;
 
-    gap: 7px;
-
-    margin-top: 18px;
-
-    color: #a32675;
+    padding: 10px 18px;
 
     text-decoration: none;
 
-    font-size: 11px;
+    border-bottom: 1px solid #f2edf1;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.management-item:last-child {
+    border-bottom: none;
+}
+
+
+.management-item:hover {
+    background: #fffafd;
+}
+
+
+/* =====================================================
+   MANAGEMENT ICON
+===================================================== */
+
+.management-icon {
+    width: 33px;
+    height: 33px;
+
+    min-width: 33px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 9px;
+
+    font-size: 8px;
 
     font-weight: 700;
+}
+
+
+/* =====================================================
+   MANAGEMENT INFO
+===================================================== */
+
+.management-info {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+
+.management-info strong {
+    color: #514a58;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.management-info small {
+    color: #9b939f;
+
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   MANAGEMENT ARROW
+===================================================== */
+
+.management-arrow {
+    color: #b5acb7;
+
+    font-size: 13px;
 
     transition:
         color 0.2s ease,
         transform 0.2s ease;
 }
 
-.card-action span {
-    font-size: 15px;
 
-    font-weight: 400;
+.management-item:hover .management-arrow {
+    color: #a32675;
+
+    transform: translateX(3px);
+}
+
+
+/* =====================================================
+   SYSTEM SUMMARY
+===================================================== */
+
+.system-summary {
+    min-height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-around;
+
+    gap: 20px;
+
+    padding: 14px 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+}
+
+
+/* =====================================================
+   SUMMARY ITEM
+===================================================== */
+
+.summary-item {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+    text-align: center;
+}
+
+
+.summary-item span {
+    color: #958d99;
+
+    font-size: 9px;
+
+    font-weight: 500;
+}
+
+
+.summary-item strong {
+    color: #514a58;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.summary-item a {
+    color: #a32675;
+
+    text-decoration: none;
 
     transition:
-        transform 0.2s ease;
+        color 0.2s ease;
 }
 
-.card-action:hover {
+
+.summary-item a:hover {
     color: #6f1760;
-
-    transform:
-        translateX(2px);
 }
 
-.card-action:hover span {
-    transform:
-        translateX(3px);
+
+/* =====================================================
+   SUMMARY DIVIDER
+===================================================== */
+
+.summary-divider {
+    width: 1px;
+
+    height: 30px;
+
+    background: #eee6ed;
 }
 
 
@@ -676,8 +801,9 @@ body {
    FOCUS
 ===================================================== */
 
-.profile-btn:focus-visible,
-.card-action:focus-visible {
+.kpi-card:focus-visible,
+.management-item:focus-visible,
+.summary-item a:focus-visible {
     outline:
         3px solid
         rgba(163, 38, 117, 0.15);
@@ -690,56 +816,25 @@ body {
    TABLET
 ===================================================== */
 
-@media (max-width: 1000px) {
+@media (max-width: 950px) {
 
-    .dashboard {
+    .superadmin-page {
         padding:
-            40px 22px 55px;
+            35px 20px 50px;
     }
 
-    .dashboard-cards {
+
+    .kpi-grid {
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
+            repeat(2, 1fr);
     }
 
-    .section-header {
-        align-items: flex-start;
 
-        flex-direction: column;
-
-        gap: 7px;
+    .dashboard-grid {
+        grid-template-columns:
+            1fr;
     }
 
-    .section-description {
-        max-width: 550px;
-
-        text-align: left;
-    }
-}
-
-
-/* =====================================================
-   SMALL TABLET
-===================================================== */
-
-@media (max-width: 750px) {
-
-    .profile-card {
-        padding:
-            22px;
-    }
-
-    .profile-btn {
-        padding:
-            10px 14px;
-    }
-
-    .dashboard-card {
-        min-height: 205px;
-
-        padding:
-            21px;
-    }
 }
 
 
@@ -749,83 +844,92 @@ body {
 
 @media (max-width: 650px) {
 
-    .dashboard {
+    .superadmin-page {
         padding:
-            32px 15px 45px;
+            28px 15px 45px;
     }
 
-    .welcome {
-        margin-bottom: 25px;
-    }
 
-    .welcome h1 {
-        font-size: 28px;
-    }
-
-    .welcome-text {
-        font-size: 13px;
-    }
-
-    .profile-card {
+    .dashboard-welcome {
         flex-direction: column;
 
-        align-items: flex-start;
+        gap: 15px;
 
-        gap: 18px;
-
-        padding:
-            21px;
-
-        margin-bottom: 35px;
+        margin-bottom: 23px;
     }
 
-    .profile-left {
-        width: 100%;
+
+    .welcome-content h1 {
+        font-size: 25px;
+    }
+
+
+    .welcome-description {
+        font-size: 12px;
+    }
+
+
+    .dashboard-status {
+        margin-top: 0;
+    }
+
+
+    .kpi-grid {
+        grid-template-columns:
+            1fr;
+
+        gap: 11px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .kpi-card {
+        min-height: 90px;
+    }
+
+
+    .dashboard-grid {
+        gap: 14px;
+
+        margin-bottom: 14px;
+    }
+
+
+    .card-header {
+        padding:
+            16px;
+    }
+
+
+    .activity-item {
+        padding:
+            12px 16px;
+    }
+
+
+    .management-item {
+        padding:
+            10px 16px;
+    }
+
+
+    .system-summary {
+        flex-direction: column;
+
+        padding:
+            18px;
 
         gap: 14px;
     }
 
-    .profile-avatar {
-        width: 57px;
-        height: 57px;
 
-        min-width: 57px;
+    .summary-divider {
+        width: 70%;
 
-        font-size: 19px;
+        height: 1px;
     }
 
-    .profile-details h2 {
-        font-size: 16px;
-    }
-
-    .profile-email {
-        font-size: 11px;
-    }
-
-    .profile-btn {
-        width: 100%;
-    }
-
-    .section-header {
-        margin-bottom: 18px;
-    }
-
-    .section-header h2 {
-        font-size: 21px;
-    }
-
-    .dashboard-cards {
-        grid-template-columns: 1fr;
-
-        gap: 14px;
-    }
-
-    .dashboard-card {
-        min-height: auto;
-
-        padding:
-            21px;
-    }
 }
 
 
@@ -835,66 +939,47 @@ body {
 
 @media (max-width: 400px) {
 
-    .dashboard {
+    .superadmin-page {
         padding:
-            27px 13px 40px;
+            22px 12px 35px;
     }
 
-    .welcome h1 {
-        font-size: 25px;
+
+    .welcome-content h1 {
+        font-size: 22px;
     }
 
-    .welcome-small {
-        font-size: 12px;
+
+    .kpi-card {
+        padding: 15px;
     }
 
-    .profile-card {
-        padding:
-            18px;
+
+    .kpi-icon {
+        width: 42px;
+        height: 42px;
+
+        min-width: 42px;
     }
 
-    .profile-left {
-        gap: 11px;
+
+    .kpi-value {
+        font-size: 20px;
     }
 
-    .profile-avatar {
-        width: 52px;
-        height: 52px;
 
-        min-width: 52px;
-
-        font-size: 18px;
+    .activity-item {
+        gap: 10px;
     }
 
-    .profile-details h2 {
-        font-size: 15px;
+
+    .activity-item time {
+        display: none;
     }
 
-    .profile-role {
-        font-size: 9px;
+
+    .card-header h2 {
+        font-size: 14px;
     }
 
-    .dashboard-card {
-        padding:
-            19px;
-
-        border-radius: 13px;
-    }
-
-    .card-icon {
-        width: 40px;
-        height: 40px;
-
-        font-size: 17px;
-
-        margin-bottom: 14px;
-    }
-
-    .dashboard-card h3 {
-        font-size: 16px;
-    }
-
-    .dashboard-card p {
-        font-size: 11px;
-    }
-}
+} 

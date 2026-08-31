@@ -4,13 +4,17 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+
+/* ========================================
+   USER ROLE
+======================================== */
+
 $rank = $_SESSION['rank'] ?? '';
 
-/*
-========================================
-DASHBOARD URL
-========================================
-*/
+
+/* ========================================
+   DASHBOARD URL
+======================================== */
 
 if ($rank === 'super_admin') {
 
@@ -24,6 +28,24 @@ if ($rank === 'super_admin') {
 
     $roleName = 'School Admin';
 
+} elseif ($rank === 'teacher') {
+
+    $dashboardUrl = ROOT . '/home';
+
+    $roleName = 'Teacher';
+
+} elseif ($rank === 'student') {
+
+    $dashboardUrl = ROOT . '/home';
+
+    $roleName = 'Student';
+
+} elseif ($rank === 'parent') {
+
+    $dashboardUrl = ROOT . '/home';
+
+    $roleName = 'Parent';
+
 } else {
 
     $dashboardUrl = ROOT . '/home';
@@ -33,367 +55,181 @@ if ($rank === 'super_admin') {
 }
 
 
-/*
-========================================
-CURRENT PAGE
-========================================
-*/
+/* ========================================
+   USER INFORMATION
+======================================== */
 
-$currentUrl = $_GET['url'] ?? '';
+$firstname =
+    $_SESSION['firstname']
+    ?? 'User';
 
-$currentUrl = trim(
-    $currentUrl,
-    '/'
+
+$initial = strtoupper(
+    substr(
+        $firstname,
+        0,
+        1
+    )
 );
-
-$currentPage = explode(
-    '/',
-    $currentUrl
-)[0] ?? '';
 
 ?>
 
-<nav class="navbar">
+<!-- ========================================
+     TOP NAVBAR
+======================================== -->
 
-    <div class="navbar-container">
+<header class="top-navbar">
 
-
-        <!-- ========================================
-             BRAND
-        ========================================= -->
-
-        <a
-            href="<?= $dashboardUrl ?>"
-            class="navbar-brand"
-        >
-            My School
-        </a>
+    <div class="top-navbar-container">
 
 
+        <!-- ====================================
+             LEFT SIDE
+        ===================================== -->
 
-        <!-- ========================================
+        <div class="navbar-left">
+
+
+            <!-- SIDEBAR TOGGLE -->
+
+            <button
+                type="button"
+                class="sidebar-toggle"
+                id="sidebarToggle"
+                aria-label="Open navigation"
+                aria-controls="sidebar"
+                aria-expanded="false"
+            >
+
+                <span></span>
+                <span></span>
+                <span></span>
+
+            </button>
+
+
+            <!-- BRAND -->
+
+            <a
+                href="<?= $dashboardUrl ?>"
+                class="navbar-brand"
+            >
+                My School
+            </a>
+
+        </div>
+
+
+
+        <!-- ====================================
+             SEARCH
+        ===================================== -->
+
+        <div class="navbar-search">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="search"
+                placeholder="Search anything..."
+                aria-label="Search"
+            >
+
+            <span class="search-shortcut">
+                /
+            </span>
+
+        </div>
+
+
+
+        <!-- ====================================
              RIGHT SIDE
-        ========================================= -->
-
-        <div class="nav-right">
-
-
-            <!-- ========================================
-                 NAVIGATION LINKS
-            ========================================= -->
-
-            <div class="nav-links">
-
-
-                <?php if ($rank === 'super_admin'): ?>
-
-
-                    <!-- SUPER ADMIN -->
-
-                    <a
-                        href="<?= ROOT ?>/superadmin"
-                        class="nav-link
-                        <?= $currentPage === 'superadmin'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Dashboard
-                    </a>
-
-
-                    <a
-                        href="<?= ROOT ?>/schools"
-                        class="nav-link
-                        <?= $currentPage === 'schools'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Schools
-                    </a>
-
-
-                    <a
-                        href="<?= ROOT ?>/users"
-                        class="nav-link
-                        <?= $currentPage === 'users'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Users
-                    </a>
-
-
-                    <a
-                        href="<?= ROOT ?>/students"
-                        class="nav-link
-                        <?= $currentPage === 'students'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Students
-                    </a>
-
-
-                    <a
-                        href="<?= ROOT ?>/staff"
-                        class="nav-link
-                        <?= $currentPage === 'staff'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Staff
-                    </a>
-
-                    <a
-                        href="<?= ROOT ?>/parents"
-                        class="nav-link
-                        <?= $currentPage === 'parents'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Parents
-                    </a>
+        ===================================== -->
 
+        <div class="navbar-right">
 
-                    <a
-                        href="<?= ROOT ?>/tests"
-                        class="nav-link
-                        <?= $currentPage === 'tests'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Tests
-                    </a>
 
+            <!-- =================================
+                 NOTIFICATIONS
+            ================================== -->
 
-                    <a
-                        href="<?= ROOT ?>/results"
-                        class="nav-link
-                        <?= $currentPage === 'results'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Results
-                    </a>
+            <button
+                type="button"
+                class="navbar-icon-btn"
+                aria-label="Notifications"
+                title="Notifications"
+            >
 
+                <span class="navbar-icon">
+                    ♧
+                </span>
 
-                    <a
-                        href="<?= ROOT ?>/schooladmins"
-                        class="nav-link
-                        <?= $currentPage === 'schooladmins'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        School Admins
-                    </a>
+                <span class="notification-badge">
+                    3
+                </span>
 
+            </button>
 
-                    <a
-                        href="<?= ROOT ?>/profile"
-                        class="nav-link
-                        <?= $currentPage === 'profile'
-                            ? 'active'
-                            : '' ?>"
-                    >
-                        Profile
-                    </a>
 
 
+            <!-- =================================
+                 MESSAGES
+            ================================== -->
 
-                <?php elseif ($rank === 'admin'): ?>
+            <button
+                type="button"
+                class="navbar-icon-btn"
+                aria-label="Messages"
+                title="Messages"
+            >
 
+                <span class="navbar-icon">
+                    ✉
+                </span>
 
-                    <!-- ========================================
-         SCHOOL ADMIN
-    ======================================== -->
+                <span class="message-badge">
+                    2
+                </span>
 
+            </button>
 
-    <!-- DASHBOARD -->
 
-    <a
-        href="<?= ROOT ?>/school-admin"
-        class="nav-link
-        <?= $currentPage === 'school-admin'
-            ? 'active'
-            : '' ?>"
-    >
-        Dashboard
-    </a>
 
-
-
-    <!-- STUDENTS -->
-
-    <a
-        href="<?= ROOT ?>/students"
-        class="nav-link
-        <?= $currentPage === 'students'
-            ? 'active'
-            : '' ?>"
-    >
-        Students
-    </a>
-
-
-
-    <!-- TEACHERS -->
-
-    <a
-        href="<?= ROOT ?>/teachers"
-        class="nav-link
-        <?= $currentPage === 'teachers'
-            ? 'active'
-            : '' ?>"
-    >
-        Teachers
-    </a>
-
-
-
-    <!-- CLASSES -->
-
-    <a
-        href="<?= ROOT ?>/classes"
-        class="nav-link
-        <?= $currentPage === 'classes'
-            ? 'active'
-            : '' ?>"
-    >
-        Classes
-    </a>
-
-
-
-    <!-- PARENTS -->
-
-    <a
-        href="<?= ROOT ?>/parents"
-        class="nav-link
-        <?= $currentPage === 'parents'
-            ? 'active'
-            : '' ?>"
-    >
-        Parents
-    </a>
-
-
-
-    <!-- TESTS -->
-
-    <a
-        href="<?= ROOT ?>/tests"
-        class="nav-link
-        <?= $currentPage === 'tests'
-            ? 'active'
-            : '' ?>"
-    >
-        Tests
-    </a>
-
-
-
-    <!-- RESULTS -->
-
-    <a
-        href="<?= ROOT ?>/results"
-        class="nav-link
-        <?= $currentPage === 'results'
-            ? 'active'
-            : '' ?>"
-    >
-        Results
-    </a>
-
-
-
-    <!-- PROFILE -->
-
-    <a
-        href="<?= ROOT ?>/profile"
-        class="nav-link
-        <?= $currentPage === 'profile'
-            ? 'active'
-            : '' ?>"
-    >
-        Profile
-    </a>
-
-
-                <?php endif; ?>
-
-
-            </div>
-
-
-
-            <!-- ========================================
-                 USER PROFILE
-            ========================================= -->
+            <!-- =================================
+                 PROFILE
+            ================================== -->
 
             <a
                 href="<?= ROOT ?>/profile"
-                class="profile-link"
+                class="navbar-profile"
             >
 
-                <div class="user-avatar">
+                <div class="navbar-avatar">
 
-                    <?php
-
-                    $firstname =
-                        $_SESSION['firstname']
-                        ?? 'U';
-
-                    echo strtoupper(
-                        substr(
-                            $firstname,
-                            0,
-                            1
-                        )
-                    );
-
-                    ?>
+                    <?= htmlspecialchars($initial) ?>
 
                 </div>
 
 
-                <div class="user-info">
+                <div class="navbar-user-info">
 
                     <strong>
-
-                        <?= htmlspecialchars(
-                            $_SESSION['firstname']
-                            ?? 'User'
-                        ) ?>
-
+                        <?= htmlspecialchars($firstname) ?>
                     </strong>
 
                     <span>
-                        <?= htmlspecialchars(
-                            $roleName
-                        ) ?>
+                        <?= htmlspecialchars($roleName) ?>
                     </span>
 
                 </div>
 
             </a>
 
-
-
-            <!-- ========================================
-                 LOGOUT
-            ========================================= -->
-
-            <a
-                href="<?= ROOT ?>/logout"
-                class="logout-btn"
-                title="Logout"
-            >
-                Logout
-            </a>
-
-
         </div>
 
     </div>
 
-</nav>
+</header>

@@ -1,12 +1,36 @@
 <?php
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-}
+$firstname = $_SESSION['firstname'] ?? 'Super Admin';
+
+/*
+|--------------------------------------------------------------------------
+| KPI DATA
+|--------------------------------------------------------------------------
+| Use values coming from your controller when available.
+| Fallback values are 0.
+*/
+
+$schoolCount = $data['schoolCount'] ?? 0;
+$userCount = $data['userCount'] ?? 0;
+$studentCount = $data['studentCount'] ?? 0;
+$staffCount = $data['staffCount'] ?? 0;
+$parentCount = $data['parentCount'] ?? 0;
+$testCount = $data['testCount'] ?? 0;
+$resultCount = $data['resultCount'] ?? 0;
+
+
+/*
+|--------------------------------------------------------------------------
+| RECENT ACTIVITY
+|--------------------------------------------------------------------------
+*/
+
+$recentActivities = $data['recentActivities'] ?? [];
 
 ?>
 
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -23,9 +47,7 @@ if (session_status() === PHP_SESSION_NONE) {
     </title>
 
 
-    <!-- =================================================
-         NAVBAR
-    ================================================= -->
+    <!-- NAVBAR -->
 
     <link
         rel="stylesheet"
@@ -33,19 +55,20 @@ if (session_status() === PHP_SESSION_NONE) {
     >
 
 
-    <!-- =================================================
-         SUPER ADMIN DASHBOARD
-    ================================================= -->
+    <!-- SUPER ADMIN DASHBOARD -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=4"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=6"
     >
 
+    <link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/sidebar.view.css?v=1"
+>
 
-    <!-- =================================================
-         FOOTER
-    ================================================= -->
+
+    <!-- FOOTER -->
 
     <link
         rel="stylesheet"
@@ -64,515 +87,697 @@ if (session_status() === PHP_SESSION_NONE) {
 
 <?php require "../private/views/includes/nav.view.php"; ?>
 
+<?php require "../private/views/includes/sidebar.view.php"; ?>
+
 
 
 <!-- =====================================================
-     MAIN DASHBOARD
+     MAIN
 ===================================================== -->
 
-<main class="dashboard">
+<main class="superadmin-page">
+
+    <div class="superadmin-container">
 
 
-    <!-- =================================================
-         WELCOME SECTION
-    ================================================= -->
+        <!-- =================================================
+             WELCOME
+        ================================================== -->
 
-    <section class="welcome">
-
-        <p class="welcome-small">
-            Welcome back 👋
-        </p>
+        <section class="dashboard-welcome">
 
 
-        <h1>
-            System Admin
-        </h1>
+            <div class="welcome-content">
+
+                <p class="welcome-label">
+                    SCHOOL OVERVIEW
+                </p>
 
 
-        <p class="welcome-text">
-            Manage schools, users and the entire system
-            from one place.
-        </p>
-
-    </section>
+                <h1>
+                    Welcome back,
+                    <?= htmlspecialchars($firstname) ?>
+                </h1>
 
 
-
-    <!-- =================================================
-         PROFILE / ACCOUNT OVERVIEW
-    ================================================= -->
-
-    <section class="profile-card">
-
-
-        <!-- PROFILE INFORMATION -->
-
-        <div class="profile-left">
-
-
-            <!-- AVATAR -->
-
-            <div class="profile-avatar">
-
-                <?= strtoupper(
-                    substr(
-                        $_SESSION['firstname'] ?? 'S',
-                        0,
-                        1
-                    )
-                ) ?>
+                <p class="welcome-description">
+                    Here's an overview of your school management
+                    system and recent activity.
+                </p>
 
             </div>
 
 
-            <!-- DETAILS -->
+            <!-- STATUS -->
 
-            <div class="profile-details">
+            <div class="dashboard-status">
 
-                <p class="profile-label">
-                    ACCOUNT OVERVIEW
-                </p>
+                <span class="status-dot"></span>
 
-
-                <h2>
-
-                    <?= htmlspecialchars(
-                        ($_SESSION['firstname'] ?? 'System')
-                        . ' '
-                        . ($_SESSION['lastname'] ?? 'Admin')
-                    ) ?>
-
-                </h2>
-
-
-                <p class="profile-email">
-
-                    <?= htmlspecialchars(
-                        $_SESSION['email']
-                        ?? 'superadmin@myschool.com'
-                    ) ?>
-
-                </p>
-
-
-                <span class="profile-role">
-                    Super Admin
+                <span>
+                    Active
                 </span>
 
             </div>
 
-        </div>
 
-
-
-        <!-- PROFILE ACTION -->
-
-        <a
-            href="<?= ROOT ?>/profile"
-            class="profile-btn"
-        >
-
-            View Profile
-
-            <span>
-                →
-            </span>
-
-        </a>
-
-
-    </section>
-
-
-
-    <!-- =================================================
-         MANAGEMENT SECTION
-    ================================================= -->
-
-    <section class="management-section">
-
-
-        <!-- SECTION HEADER -->
-
-        <div class="section-header">
-
-            <div>
-
-                <p class="section-label">
-                    ADMINISTRATION
-                </p>
-
-                <h2>
-                    Management Overview
-                </h2>
-
-            </div>
-
-
-            <p class="section-description">
-                Manage and monitor the different areas
-                of your school management system.
-            </p>
-
-        </div>
+        </section>
 
 
 
         <!-- =================================================
-             DASHBOARD CARDS
-        ================================================= -->
+             KPI CARDS
+        ================================================== -->
 
-        <div class="dashboard-cards">
+        <section class="kpi-grid">
 
 
+            <!-- SCHOOLS -->
 
-            <!-- =================================================
-                 SCHOOLS
-            ================================================= -->
+            <a
+                href="<?= ROOT ?>/schools"
+                class="kpi-card"
+            >
 
-            <article class="dashboard-card">
-
-                <div class="card-icon">
-                    🏫
+                <div class="kpi-icon">
+                    SC
                 </div>
 
 
-                <div class="card-content">
+                <div class="kpi-content">
 
-                    <h3>
+                    <span class="kpi-label">
                         Schools
-                    </h3>
-
-
-                    <p>
-                        Create and manage schools
-                        registered in the system.
-                    </p>
-
-                </div>
-
-
-                <a
-                    href="<?= ROOT ?>/schools"
-                    class="card-action"
-                >
-
-                    Manage Schools
-
-                    <span>
-                        →
                     </span>
 
-                </a>
-
-            </article>
-
-
-
-            <!-- =================================================
-                 USERS
-            ================================================= -->
-
-            <article class="dashboard-card">
-
-                <div class="card-icon">
-                    👥
-                </div>
-
-
-                <div class="card-content">
-
-                    <h3>
-                        Users
-                    </h3>
-
-
-                    <p>
-                        View and manage all users
-                        across the schools.
-                    </p>
+                    <strong class="kpi-value">
+                        <?= number_format($schoolCount) ?>
+                    </strong>
 
                 </div>
 
 
-                <a
-                    href="<?= ROOT ?>/users"
-                    class="card-action"
-                >
+                <span class="kpi-arrow">
+                    →
+                </span>
 
-                    Manage Users
-
-                    <span>
-                        →
-                    </span>
-
-                </a>
-
-            </article>
+            </a>
 
 
 
-            <!-- =================================================
-                 STUDENTS
-            ================================================= -->
+            <!-- STUDENTS -->
 
-            <article class="dashboard-card">
+            <a
+                href="<?= ROOT ?>/students"
+                class="kpi-card"
+            >
 
-                <div class="card-icon">
-                    🎓
+                <div class="kpi-icon">
+                    ST
                 </div>
 
 
-                <div class="card-content">
+                <div class="kpi-content">
 
-                    <h3>
+                    <span class="kpi-label">
                         Students
-                    </h3>
-
-
-                    <p>
-                        View and manage students
-                        across all schools.
-                    </p>
-
-                </div>
-
-
-                <a
-                    href="<?= ROOT ?>/students"
-                    class="card-action"
-                >
-
-                    Manage Students
-
-                    <span>
-                        →
                     </span>
 
-                </a>
+                    <strong class="kpi-value">
+                        <?= number_format($studentCount) ?>
+                    </strong>
 
-            </article>
-
-
-
-            <!-- =================================================
-                 STAFF
-            ================================================= -->
-
-            <article class="dashboard-card">
-
-                <div class="card-icon">
-                    👨‍🏫
                 </div>
 
 
-                <div class="card-content">
+                <span class="kpi-arrow">
+                    →
+                </span>
 
-                    <h3>
+            </a>
+
+
+
+            <!-- STAFF -->
+
+            <a
+                href="<?= ROOT ?>/staff"
+                class="kpi-card"
+            >
+
+                <div class="kpi-icon">
+                    SF
+                </div>
+
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
                         Staff
-                    </h3>
-
-
-                    <p>
-                        View and manage staff members
-                        across schools.
-                    </p>
-
-                </div>
-
-
-                <a
-                    href="<?= ROOT ?>/staff"
-                    class="card-action"
-                >
-
-                    Manage Staff
-
-                    <span>
-                        →
                     </span>
 
-                </a>
+                    <strong class="kpi-value">
+                        <?= number_format($staffCount) ?>
+                    </strong>
 
-            </article>
-
-
-
-            <!-- =================================================
-                 PARENTS
-            ================================================= -->
-
-            <article class="dashboard-card">
-
-                <div class="card-icon">
-                    👨‍👩‍👧
                 </div>
 
 
-                <div class="card-content">
+                <span class="kpi-arrow">
+                    →
+                </span>
 
-                    <h3>
+            </a>
+
+
+
+            <!-- PARENTS -->
+
+            <a
+                href="<?= ROOT ?>/parents"
+                class="kpi-card"
+            >
+
+                <div class="kpi-icon">
+                    PR
+                </div>
+
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
                         Parents
-                    </h3>
-
-
-                    <p>
-                        View and manage parents
-                        across all schools.
-                    </p>
-
-                </div>
-
-
-                <a
-                    href="<?= ROOT ?>/parents"
-                    class="card-action"
-                >
-
-                    Manage Parents
-
-                    <span>
-                        →
                     </span>
 
-                </a>
+                    <strong class="kpi-value">
+                        <?= number_format($parentCount) ?>
+                    </strong>
 
-            </article>
-
-
-
-            <!-- =================================================
-                 TESTS
-            ================================================= -->
-
-            <article class="dashboard-card">
-
-                <div class="card-icon">
-                    📝
                 </div>
 
 
-                <div class="card-content">
+                <span class="kpi-arrow">
+                    →
+                </span>
 
-                    <h3>
+            </a>
+
+
+
+            <!-- TESTS -->
+
+            <a
+                href="<?= ROOT ?>/tests"
+                class="kpi-card"
+            >
+
+                <div class="kpi-icon">
+                    TS
+                </div>
+
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
                         Tests
-                    </h3>
-
-
-                    <p>
-                        View and manage tests
-                        across schools.
-                    </p>
-
-                </div>
-
-
-                <a
-                    href="<?= ROOT ?>/tests"
-                    class="card-action"
-                >
-
-                    Manage Tests
-
-                    <span>
-                        →
                     </span>
 
-                </a>
+                    <strong class="kpi-value">
+                        <?= number_format($testCount) ?>
+                    </strong>
 
-            </article>
-
-
-
-            <!-- =================================================
-                 RESULTS
-            ================================================= -->
-
-            <article class="dashboard-card">
-
-                <div class="card-icon">
-                    📊
                 </div>
 
 
-                <div class="card-content">
+                <span class="kpi-arrow">
+                    →
+                </span>
 
-                    <h3>
+            </a>
+
+
+
+            <!-- RESULTS -->
+
+            <a
+                href="<?= ROOT ?>/results"
+                class="kpi-card"
+            >
+
+                <div class="kpi-icon">
+                    RS
+                </div>
+
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
                         Results
-                    </h3>
+                    </span>
 
-
-                    <p>
-                        View and manage student marks
-                        and academic results.
-                    </p>
+                    <strong class="kpi-value">
+                        <?= number_format($resultCount) ?>
+                    </strong>
 
                 </div>
 
 
-                <a
-                    href="<?= ROOT ?>/results"
-                    class="card-action"
-                >
+                <span class="kpi-arrow">
+                    →
+                </span>
 
-                    Manage Results
+            </a>
 
-                    <span>
-                        →
+
+        </section>
+
+
+
+        <!-- =================================================
+             MAIN DASHBOARD GRID
+        ================================================== -->
+
+        <section class="dashboard-grid">
+
+
+            <!-- =================================================
+                 RECENT ACTIVITY
+            ================================================== -->
+
+            <div class="activity-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Activity
+                        </h2>
+
+                        <p>
+                            Latest updates across your school system.
+                        </p>
+
+                    </div>
+
+
+                    <span class="activity-count">
+                        Recent
                     </span>
 
-                </a>
+                </div>
 
-            </article>
+
+
+                <div class="activity-list">
+
+
+                    <?php if (!empty($recentActivities)): ?>
+
+
+                        <?php foreach (
+                            $recentActivities as $activity
+                        ): ?>
+
+
+                            <div class="activity-item">
+
+
+                                <div class="activity-icon">
+
+                                    <?= htmlspecialchars(
+                                        $activity['initials'] ?? 'MS'
+                                    ) ?>
+
+                                </div>
+
+
+                                <div class="activity-info">
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            $activity['title'] ?? 'System activity'
+                                        ) ?>
+
+                                    </strong>
+
+
+                                    <span>
+
+                                        <?= htmlspecialchars(
+                                            $activity['description']
+                                            ?? 'A system update was recorded.'
+                                        ) ?>
+
+                                    </span>
+
+                                </div>
+
+
+                                <time>
+
+                                    <?= htmlspecialchars(
+                                        $activity['time'] ?? ''
+                                    ) ?>
+
+                                </time>
+
+
+                            </div>
+
+
+                        <?php endforeach; ?>
+
+
+                    <?php else: ?>
+
+
+                        <!-- EMPTY ACTIVITY -->
+
+                        <div class="activity-empty">
+
+                            <div class="empty-icon">
+                                ✓
+                            </div>
+
+                            <h3>
+                                No recent activity
+                            </h3>
+
+                            <p>
+                                Recent system activity will appear here.
+                            </p>
+
+                        </div>
+
+
+                    <?php endif; ?>
+
+
+                </div>
+
+
+            </div>
 
 
 
             <!-- =================================================
-                 SCHOOL ADMINS
-            ================================================= -->
+                 QUICK MANAGEMENT
+            ================================================== -->
 
-            <article class="dashboard-card">
-
-                <div class="card-icon">
-                    🛡️
-                </div>
+            <div class="management-card">
 
 
-                <div class="card-content">
+                <div class="card-header">
 
-                    <h3>
-                        School Admins
-                    </h3>
+                    <div>
 
+                        <h2>
+                            Quick Management
+                        </h2>
 
-                    <p>
-                        Manage administrators
-                        assigned to schools.
-                    </p>
+                        <p>
+                            Frequently used system areas.
+                        </p>
+
+                    </div>
 
                 </div>
 
 
-                <a
-                    href="<?= ROOT ?>/schooladmins"
-                    class="card-action"
-                >
 
-                    Manage Admins
-
-                    <span>
-                        →
-                    </span>
-
-                </a>
-
-            </article>
+                <div class="management-list">
 
 
-        </div>
+                    <!-- SCHOOLS -->
 
-    </section>
+                    <a
+                        href="<?= ROOT ?>/schools"
+                        class="management-item"
+                    >
 
+                        <span class="management-icon">
+                            SC
+                        </span>
+
+
+                        <span class="management-info">
+
+                            <strong>
+                                Schools
+                            </strong>
+
+                            <small>
+                                Manage schools
+                            </small>
+
+                        </span>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- USERS -->
+
+                    <a
+                        href="<?= ROOT ?>/users"
+                        class="management-item"
+                    >
+
+                        <span class="management-icon">
+                            US
+                        </span>
+
+
+                        <span class="management-info">
+
+                            <strong>
+                                Users
+                            </strong>
+
+                            <small>
+                                Manage system users
+                            </small>
+
+                        </span>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- STUDENTS -->
+
+                    <a
+                        href="<?= ROOT ?>/students"
+                        class="management-item"
+                    >
+
+                        <span class="management-icon">
+                            ST
+                        </span>
+
+
+                        <span class="management-info">
+
+                            <strong>
+                                Students
+                            </strong>
+
+                            <small>
+                                Manage student records
+                            </small>
+
+                        </span>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- STAFF -->
+
+                    <a
+                        href="<?= ROOT ?>/staff"
+                        class="management-item"
+                    >
+
+                        <span class="management-icon">
+                            SF
+                        </span>
+
+
+                        <span class="management-info">
+
+                            <strong>
+                                Staff
+                            </strong>
+
+                            <small>
+                                Manage staff records
+                            </small>
+
+                        </span>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- TESTS -->
+
+                    <a
+                        href="<?= ROOT ?>/tests"
+                        class="management-item"
+                    >
+
+                        <span class="management-icon">
+                            TS
+                        </span>
+
+
+                        <span class="management-info">
+
+                            <strong>
+                                Tests
+                            </strong>
+
+                            <small>
+                                Manage assessments
+                            </small>
+
+                        </span>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- RESULTS -->
+
+                    <a
+                        href="<?= ROOT ?>/results"
+                        class="management-item"
+                    >
+
+                        <span class="management-icon">
+                            RS
+                        </span>
+
+
+                        <span class="management-info">
+
+                            <strong>
+                                Results
+                            </strong>
+
+                            <small>
+                                Manage academic results
+                            </small>
+
+                        </span>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             SYSTEM SUMMARY
+        ================================================== -->
+
+        <section class="system-summary">
+
+
+            <div class="summary-item">
+
+                <span>
+                    Total Users
+                </span>
+
+                <strong>
+                    <?= number_format($userCount) ?>
+                </strong>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    School Admins
+                </span>
+
+                <strong>
+                    <a href="<?= ROOT ?>/schooladmins">
+                        Manage
+                    </a>
+                </strong>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
+
+
+            <div class="summary-item">
+
+                <span>
+                    Your Account
+                </span>
+
+                <strong>
+                    <a href="<?= ROOT ?>/profile">
+                        View Profile →
+                    </a>
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+    </div>
 
 </main>
 
@@ -583,6 +788,8 @@ if (session_status() === PHP_SESSION_NONE) {
 ===================================================== -->
 
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>
