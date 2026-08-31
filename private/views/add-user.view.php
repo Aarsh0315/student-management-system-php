@@ -221,18 +221,26 @@ $schools = $data['schools'] ?? [];
 
             <!-- PROFILE IMAGE -->
 
-<div class="form-group">
+<!-- ========================================
+     PROFILE IMAGE
+======================================== -->
+
+<div class="form-group profile-image-group">
 
     <label for="profile_image">
         Profile Image
     </label>
 
-    <input
-        type="file"
-        id="profile_image"
-        name="profile_image"
-        accept="image/jpeg,image/png,image/webp"
-    >
+    <div class="profile-image-input">
+
+        <input
+            type="file"
+            id="profile_image"
+            name="profile_image"
+            accept="image/jpeg,image/png,image/webp"
+        >
+
+    </div>
 
     <small>
         JPG, PNG or WEBP. Maximum 2MB.
