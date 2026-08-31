@@ -18,30 +18,38 @@ if (session_status() === PHP_SESSION_NONE) {
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Super Admin Dashboard</title>
+    <title>
+        Super Admin Dashboard - My School
+    </title>
 
 
-    <!-- NAVBAR -->
+    <!-- =================================================
+         NAVBAR
+    ================================================= -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=2"
+        href="<?= ROOT ?>/css/nav.view.css?v=3"
     >
 
 
-    <!-- SUPER ADMIN DASHBOARD -->
+    <!-- =================================================
+         SUPER ADMIN DASHBOARD
+    ================================================= -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=3"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=4"
     >
 
 
-    <!-- FOOTER -->
+    <!-- =================================================
+         FOOTER
+    ================================================= -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css?v=2"
+        href="<?= ROOT ?>/css/footer.view.css?v=3"
     >
 
 </head>
@@ -50,17 +58,24 @@ if (session_status() === PHP_SESSION_NONE) {
 <body>
 
 
-<!-- NAVBAR -->
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
 
 <?php require "../private/views/includes/nav.view.php"; ?>
 
 
+
+<!-- =====================================================
+     MAIN DASHBOARD
+===================================================== -->
+
 <main class="dashboard">
 
 
-    <!-- =========================
-         WELCOME
-    ========================== -->
+    <!-- =================================================
+         WELCOME SECTION
+    ================================================= -->
 
     <section class="welcome">
 
@@ -68,24 +83,34 @@ if (session_status() === PHP_SESSION_NONE) {
             Welcome back 👋
         </p>
 
+
         <h1>
             System Admin
         </h1>
 
+
         <p class="welcome-text">
-            Manage schools, users and the entire system.
+            Manage schools, users and the entire system
+            from one place.
         </p>
 
     </section>
 
 
-    <!-- =========================
-         PROFILE CARD
-    ========================== -->
+
+    <!-- =================================================
+         PROFILE / ACCOUNT OVERVIEW
+    ================================================= -->
 
     <section class="profile-card">
 
+
+        <!-- PROFILE INFORMATION -->
+
         <div class="profile-left">
+
+
+            <!-- AVATAR -->
 
             <div class="profile-avatar">
 
@@ -100,7 +125,14 @@ if (session_status() === PHP_SESSION_NONE) {
             </div>
 
 
+            <!-- DETAILS -->
+
             <div class="profile-details">
+
+                <p class="profile-label">
+                    ACCOUNT OVERVIEW
+                </p>
+
 
                 <h2>
 
@@ -113,7 +145,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </h2>
 
 
-                <p>
+                <p class="profile-email">
 
                     <?= htmlspecialchars(
                         $_SESSION['email']
@@ -123,7 +155,7 @@ if (session_status() === PHP_SESSION_NONE) {
                 </p>
 
 
-                <span>
+                <span class="profile-role">
                     Super Admin
                 </span>
 
@@ -132,180 +164,412 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
 
 
+
+        <!-- PROFILE ACTION -->
+
         <a
             href="<?= ROOT ?>/profile"
             class="profile-btn"
         >
+
             View Profile
+
+            <span>
+                →
+            </span>
+
         </a>
+
 
     </section>
 
 
 
-    <!-- =========================
-         SUPER ADMIN CARDS
-    ========================== -->
+    <!-- =================================================
+         MANAGEMENT SECTION
+    ================================================= -->
 
-    <section class="dashboard-cards">
+    <section class="management-section">
 
 
-        <!-- SCHOOLS -->
+        <!-- SECTION HEADER -->
 
-        <div class="dashboard-card">
+        <div class="section-header">
 
-            <h3>
-                Schools
-            </h3>
+            <div>
 
-            <p>
-                Create and manage schools
-                registered in the system.
+                <p class="section-label">
+                    ADMINISTRATION
+                </p>
+
+                <h2>
+                    Management Overview
+                </h2>
+
+            </div>
+
+
+            <p class="section-description">
+                Manage and monitor the different areas
+                of your school management system.
             </p>
-
-            <a href="<?= ROOT ?>/schools">
-                Manage Schools →
-            </a>
-
-        </div>
-        
-
-
-
-        <!-- USERS -->
-
-        <div class="dashboard-card">
-
-            <h3>
-                Users
-            </h3>
-
-            <p>
-                View and manage all users
-                across the schools.
-            </p>
-
-            <a href="<?= ROOT ?>/users">
-                Manage Users →
-            </a>
 
         </div>
 
 
 
-        <!-- STUDENTS -->
+        <!-- =================================================
+             DASHBOARD CARDS
+        ================================================= -->
 
-        <div class="dashboard-card">
-
-    <h3>
-        Students
-    </h3>
-
-    <p>
-        View and manage all students
-        across the schools.
-    </p>
-
-    <a href="<?= ROOT ?>/students">
-        Manage Students →
-    </a>
-
-</div>
-
-         <!-- STAFF -->
-
-        <div class="dashboard-card">
-
-    <h3>
-        Staff
-    </h3>
-
-    <p>
-        View and manage all staff
-        members across schools.
-    </p>
-
-    <a href="<?= ROOT ?>/staff">
-        Manage Staff →
-    </a>
-
-</div>
-
-<!-- PARENTS -->
-
-<div class="dashboard-card">
-
-    <h3>
-        Parents
-    </h3>
-
-    <p>
-        View and manage all parents
-        across schools.
-    </p>
-
-    <a href="<?= ROOT ?>/parents">
-        Manage Parents →
-    </a>
-
-</div>
-
-<!-- TESTS -->
-
-<div class="dashboard-card">
-
-    <h3>
-        Tests
-    </h3>
-
-    <p>
-        View and manage all tests
-        across schools.
-    </p>
-
-    <a href="<?= ROOT ?>/tests">
-        Manage Tests →
-    </a>
-
-</div>
-
-<!-- RESULTS -->
-
-<div class="dashboard-card">
-
-    <h3>
-        Results
-    </h3>
-
-    <p>
-        View and manage student marks
-        and results across schools.
-    </p>
-
-    <a href="<?= ROOT ?>/results">
-        Manage Results →
-    </a>
-
-</div>
+        <div class="dashboard-cards">
 
 
-<!-- SCHOOL ADMINS -->
-<div class="dashboard-card">
 
-    <h3>
-        School Admins
-    </h3>
+            <!-- =================================================
+                 SCHOOLS
+            ================================================= -->
 
-    <p>
-        Manage administrators
-        assigned to schools.
-    </p>
+            <article class="dashboard-card">
 
-    <a href="<?= ROOT ?>/schooladmins">
-        Manage Admins →
-    </a>
+                <div class="card-icon">
+                    🏫
+                </div>
 
-</div>
+
+                <div class="card-content">
+
+                    <h3>
+                        Schools
+                    </h3>
+
+
+                    <p>
+                        Create and manage schools
+                        registered in the system.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="<?= ROOT ?>/schools"
+                    class="card-action"
+                >
+
+                    Manage Schools
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 USERS
+            ================================================= -->
+
+            <article class="dashboard-card">
+
+                <div class="card-icon">
+                    👥
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Users
+                    </h3>
+
+
+                    <p>
+                        View and manage all users
+                        across the schools.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="<?= ROOT ?>/users"
+                    class="card-action"
+                >
+
+                    Manage Users
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 STUDENTS
+            ================================================= -->
+
+            <article class="dashboard-card">
+
+                <div class="card-icon">
+                    🎓
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Students
+                    </h3>
+
+
+                    <p>
+                        View and manage students
+                        across all schools.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="<?= ROOT ?>/students"
+                    class="card-action"
+                >
+
+                    Manage Students
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 STAFF
+            ================================================= -->
+
+            <article class="dashboard-card">
+
+                <div class="card-icon">
+                    👨‍🏫
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Staff
+                    </h3>
+
+
+                    <p>
+                        View and manage staff members
+                        across schools.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="<?= ROOT ?>/staff"
+                    class="card-action"
+                >
+
+                    Manage Staff
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 PARENTS
+            ================================================= -->
+
+            <article class="dashboard-card">
+
+                <div class="card-icon">
+                    👨‍👩‍👧
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Parents
+                    </h3>
+
+
+                    <p>
+                        View and manage parents
+                        across all schools.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="<?= ROOT ?>/parents"
+                    class="card-action"
+                >
+
+                    Manage Parents
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 TESTS
+            ================================================= -->
+
+            <article class="dashboard-card">
+
+                <div class="card-icon">
+                    📝
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Tests
+                    </h3>
+
+
+                    <p>
+                        View and manage tests
+                        across schools.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="<?= ROOT ?>/tests"
+                    class="card-action"
+                >
+
+                    Manage Tests
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 RESULTS
+            ================================================= -->
+
+            <article class="dashboard-card">
+
+                <div class="card-icon">
+                    📊
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        Results
+                    </h3>
+
+
+                    <p>
+                        View and manage student marks
+                        and academic results.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="<?= ROOT ?>/results"
+                    class="card-action"
+                >
+
+                    Manage Results
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </article>
+
+
+
+            <!-- =================================================
+                 SCHOOL ADMINS
+            ================================================= -->
+
+            <article class="dashboard-card">
+
+                <div class="card-icon">
+                    🛡️
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>
+                        School Admins
+                    </h3>
+
+
+                    <p>
+                        Manage administrators
+                        assigned to schools.
+                    </p>
+
+                </div>
+
+
+                <a
+                    href="<?= ROOT ?>/schooladmins"
+                    class="card-action"
+                >
+
+                    Manage Admins
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+            </article>
+
+
+        </div>
 
     </section>
 
@@ -313,7 +577,10 @@ if (session_status() === PHP_SESSION_NONE) {
 </main>
 
 
-<!-- FOOTER -->
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 
