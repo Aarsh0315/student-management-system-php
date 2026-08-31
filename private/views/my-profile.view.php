@@ -73,13 +73,9 @@ $initial = strtoupper(
 
     <link
     rel="stylesheet"
-    href="<?= ROOT ?>/css/home.view.css?v=2"
+    href="<?= ROOT ?>/css/my-profile.view.css?v=2"
 >
 
-<link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/profile.view.css?v=2"
->
 
 <link
     rel="stylesheet"
@@ -88,13 +84,10 @@ $initial = strtoupper(
 
 <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=2"
+        href="<?= ROOT ?>/css/nav.view.css?v=3"
     > 
 
-<link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/student-nav.view.css?v=1"
->
+
 </head>
 
 
@@ -124,7 +117,7 @@ $initial = strtoupper(
 <?php endif; ?>
 
 
-<main class="dashboard">
+<main class="profile-page">
 
 
     <!-- =========================

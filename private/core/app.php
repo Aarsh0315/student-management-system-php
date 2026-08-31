@@ -1,8 +1,9 @@
 <?php
 
+
 class App
 {
-    protected $controller = "Home";
+    protected $controller = "Landing";
 
     protected $method = "index";
 
@@ -12,6 +13,8 @@ class App
     public function __construct()
     {
         $URL = $this->getURL();
+
+        // ...
 
 
         /* =========================
