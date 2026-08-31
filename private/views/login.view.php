@@ -16,13 +16,11 @@ $error = $data['error'] ?? '';
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        Login - My School
-    </title>
+    <title>My School - Login</title>
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/login.view.css?v=3"
+        href="<?= ROOT ?>/css/login.view.css?v=5"
     >
 
 </head>
@@ -34,409 +32,184 @@ $error = $data['error'] ?? '';
 <div class="login-page">
 
 
-    <!-- ========================================
-         MAIN LOGIN CONTAINER
-    ========================================= -->
+    <!-- =====================================
+         LOGIN BOX
+    ====================================== -->
 
-    <div class="login-container">
-
-
-        <!-- ========================================
-             LEFT PANEL
-        ========================================= -->
-
-        <section class="login-visual">
+    <div class="login-box">
 
 
-            <!-- DECORATIVE ELEMENTS -->
+        <!-- USER ICON -->
 
-            <div class="visual-circle circle-one"></div>
+        <div class="user-icon">
 
-            <div class="visual-circle circle-two"></div>
+            <span>♙</span>
 
-            <div class="visual-dots"></div>
+        </div>
 
 
 
-            <!-- BRAND -->
+        <!-- TITLE -->
 
-            <div class="brand">
+        <div class="login-heading">
 
-                <div class="brand-logo">
+            <h1>
+                Welcome Back
+            </h1>
 
-                    <span>🎓</span>
+            <p>
+                Sign in to your My School account
+            </p>
 
-                </div>
+        </div>
 
-                <div>
 
-                    <strong>
-                        My School
-                    </strong>
 
-                    <small>
-                        School Management System
-                    </small>
+        <!-- ERROR -->
 
-                </div>
+        <?php if (!empty($error)): ?>
+
+            <div class="login-error">
+
+                <span>!</span>
+
+                <?= htmlspecialchars($error) ?>
 
             </div>
 
-
-
-            <!-- MAIN CONTENT -->
-
-            <div class="visual-content">
-
-                <p class="visual-label">
-                    SCHOOL MANAGEMENT
-                </p>
-
-
-                <h1>
-
-                    Manage your school
-
-                    <span>
-                        smarter.
-                    </span>
-
-                </h1>
-
-
-                <p class="visual-description">
-
-                    A simple and powerful platform to manage
-                    students, teachers, classes, results and
-                    everything your school needs.
-
-                </p>
-
-
-                <!-- FEATURES -->
-
-                <div class="feature-list">
-
-
-                    <div class="feature-item">
-
-                        <div class="feature-icon">
-                            ✓
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Easy Management
-                            </strong>
-
-                            <p>
-                                Manage your entire school
-                                from one place.
-                            </p>
-
-                        </div>
-
-                    </div>
+        <?php endif; ?>
 
 
 
-                    <div class="feature-item">
+        <!-- =====================================
+             FORM
+        ====================================== -->
 
-                        <div class="feature-icon">
-                            ✓
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Students & Teachers
-                            </strong>
-
-                            <p>
-                                Keep academic information
-                                organized and accessible.
-                            </p>
-
-                        </div>
-
-                    </div>
+        <form
+            method="POST"
+            action="<?= ROOT ?>/login"
+            class="login-form"
+        >
 
 
+            <!-- EMAIL -->
 
-                    <div class="feature-item">
+            <div class="input-group">
 
-                        <div class="feature-icon">
-                            ✓
-                        </div>
-
-                        <div>
-
-                            <strong>
-                                Secure Access
-                            </strong>
-
-                            <p>
-                                Role-based access for every
-                                user in your school.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-            <!-- COPYRIGHT -->
-
-            <div class="visual-footer">
-
-                <span class="footer-shield">
-                    ✓
+                <span class="input-icon">
+                    ✉
                 </span>
 
-                <span>
-                    © <?= date('Y') ?> My School.
-                    All rights reserved.
-                </span>
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- ========================================
-             RIGHT LOGIN PANEL
-        ========================================= -->
-
-        <section class="login-form-section">
-
-
-            <div class="login-card">
-
-
-                <!-- HEADER -->
-
-                <div class="login-header">
-
-                    <p class="login-small">
-                        Welcome back
-                    </p>
-
-
-                    <h2>
-                        Sign in to your account
-                    </h2>
-
-
-                    <p>
-                        Enter your credentials to continue.
-                    </p>
-
-                </div>
-
-
-
-                <!-- ERROR -->
-
-                <?php if (!empty($error)): ?>
-
-                    <div class="login-error">
-
-                        <span>
-                            !
-                        </span>
-
-                        <div>
-
-                            <?= htmlspecialchars($error) ?>
-
-                        </div>
-
-                    </div>
-
-                <?php endif; ?>
-
-
-
-                <!-- FORM -->
-
-                <form
-                    method="POST"
-                    action="<?= ROOT ?>/login"
-                    class="login-form"
+                <input
+                    type="email"
+                    name="email"
+                    placeholder="Email address"
+                    autocomplete="email"
+                    required
                 >
 
-
-                    <!-- EMAIL -->
-
-                    <div class="form-group">
-
-                        <label for="email">
-                            Email Address
-                        </label>
-
-
-                        <div class="input-wrapper">
-
-                            <span class="input-icon">
-                                ✉
-                            </span>
-
-
-                            <input
-                                type="email"
-                                id="email"
-                                name="email"
-                                placeholder="Enter your email"
-                                autocomplete="email"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
+            </div>
 
 
 
-                    <!-- PASSWORD -->
+            <!-- PASSWORD -->
 
-                    <div class="form-group">
+            <div class="input-group">
 
-                        <div class="password-heading">
+                <span class="input-icon">
+                    🔒
+                </span>
 
-                            <label for="password">
-                                Password
-                            </label>
+                <input
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="Password"
+                    autocomplete="current-password"
+                    required
+                >
 
-                            <a
-                                href="#"
-                                class="forgot-password"
-                            >
-                                Forgot password?
-                            </a>
+                <button
+                    type="button"
+                    class="password-toggle"
+                    onclick="togglePassword()"
+                    aria-label="Show password"
+                >
+                    👁
+                </button>
 
-                        </div>
-
-
-                        <div class="input-wrapper">
-
-                            <span class="input-icon">
-                                🔒
-                            </span>
-
-
-                            <input
-                                type="password"
-                                id="password"
-                                name="password"
-                                placeholder="Enter your password"
-                                autocomplete="current-password"
-                                required
-                            >
-
-
-                            <button
-                                type="button"
-                                class="password-toggle"
-                                id="passwordToggle"
-                                aria-label="Show password"
-                            >
-                                ◉
-                            </button>
-
-                        </div>
-
-                    </div>
+            </div>
 
 
 
-                    <!-- OPTIONS -->
+            <!-- OPTIONS -->
 
-                    <div class="login-options">
-
-                        <label class="remember">
-
-                            <input
-                                type="checkbox"
-                                name="remember"
-                            >
-
-                            <span>
-                                Remember me
-                            </span>
-
-                        </label>
-
-                    </div>
+            <div class="login-options">
 
 
+                <label class="remember">
 
-                    <!-- LOGIN BUTTON -->
-
-                    <button
-                        type="submit"
-                        class="login-btn"
+                    <input
+                        type="checkbox"
+                        name="remember"
                     >
 
-                        <span>
-                            Sign In
-                        </span>
-
-                        <strong>
-                            →
-                        </strong>
-
-                    </button>
-
-
-                </form>
-
-
-
-                <!-- DIVIDER -->
-
-                <div class="login-divider">
-
-                    <span></span>
-
-                    <p>
-                        Don't have an account?
-                    </p>
-
-                    <span></span>
-
-                </div>
-
-
-
-                <!-- SIGNUP -->
-
-                <a
-                    href="<?= ROOT ?>/signup"
-                    class="signup-btn"
-                >
-
                     <span>
-                        ＋
+                        Remember me
                     </span>
 
-                    Create an account
+                </label>
 
+
+                <a
+                    href="<?= ROOT ?>/forgotpassword"
+                    class="forgot-password"
+                >
+                    Forgot Password?
                 </a>
 
 
             </div>
 
 
-        </section>
+
+            <!-- LOGIN BUTTON -->
+
+            <button
+                type="submit"
+                class="login-btn"
+            >
+
+                <span>
+                    LOGIN
+                </span>
+
+                <strong>
+                    →
+                </strong>
+
+            </button>
+
+
+        </form>
+
+
+
+        <!-- =====================================
+             SIGNUP
+        ====================================== -->
+
+        <div class="signup-link">
+
+            <span>
+                Don't have an account?
+            </span>
+
+            <a href="<?= ROOT ?>/signup">
+                Create an account
+            </a>
+
+        </div>
 
 
     </div>
@@ -448,56 +221,32 @@ $error = $data['error'] ?? '';
 
 <script>
 
-/*
-========================================
-SHOW / HIDE PASSWORD
-========================================
-*/
+/* =====================================
+   PASSWORD TOGGLE
+===================================== */
 
-const password =
-    document.getElementById('password');
+function togglePassword()
+{
+    const password =
+        document.getElementById("password");
 
-const passwordToggle =
-    document.getElementById('passwordToggle');
+    const button =
+        document.querySelector(".password-toggle");
 
 
-if (
-    password &&
-    passwordToggle
-) {
+    if (password.type === "password") {
 
-    passwordToggle.addEventListener(
-        'click',
-        function () {
+        password.type = "text";
 
-            if (
-                password.type === 'password'
-            ) {
+        button.innerHTML = "🙈";
 
-                password.type = 'text';
+    } else {
 
-                passwordToggle.textContent = '◉';
+        password.type = "password";
 
-                passwordToggle.setAttribute(
-                    'aria-label',
-                    'Hide password'
-                );
+        button.innerHTML = "👁";
 
-            } else {
-
-                password.type = 'password';
-
-                passwordToggle.textContent = '◉';
-
-                passwordToggle.setAttribute(
-                    'aria-label',
-                    'Show password'
-                );
-            }
-
-        }
-    );
-
+    }
 }
 
 </script>

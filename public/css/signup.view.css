@@ -1,6 +1,12 @@
-/* ========================================
+/* =====================================================
+   MY SCHOOL - SIGNUP PAGE
+   Matching Gradient Login Design
+===================================================== */
+
+
+/* =====================================================
    RESET
-======================================== */
+===================================================== */
 
 * {
     margin: 0;
@@ -16,547 +22,215 @@ body {
 }
 
 
-/* ========================================
+/* =====================================================
    BODY
-======================================== */
+===================================================== */
 
 body {
 
     font-family:
         "Segoe UI",
-        Inter,
         Arial,
         Helvetica,
         sans-serif;
 
-    background:
-        linear-gradient(
-            135deg,
-            #f3efff 0%,
-            #eee9ff 48%,
-            #faf9ff 100%
-        );
-
-    color: #29263a;
-
     min-height: 100vh;
+
+    color: #ffffff;
+
+    overflow-x: hidden;
 }
 
 
-/* ========================================
-   MAIN PAGE
-======================================== */
+/* =====================================================
+   SIGNUP PAGE
+===================================================== */
 
 .signup-page {
 
     width: 100%;
-
     min-height: 100vh;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
-    padding: 22px;
-}
-
-
-/* ========================================
-   CONTAINER
-======================================== */
-
-.signup-container {
-
-    width: 100%;
-
-    max-width: 1250px;
-
-    min-height: calc(100vh - 44px);
-
-    max-height: 850px;
-
-    display: grid;
-
-    grid-template-columns:
-        0.95fr
-        1.05fr;
-
-    overflow: hidden;
-
-    border-radius: 24px;
-
-    background: #ffffff;
-
-    border:
-        1px solid rgba(91, 73, 160, 0.10);
-
-    box-shadow:
-        0 25px 70px
-        rgba(72, 48, 130, 0.15);
-}
-
-
-/* ========================================
-   LEFT PANEL
-======================================== */
-
-.signup-visual {
+    padding: 40px 20px;
 
     position: relative;
 
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: space-between;
-
-    padding: 38px 48px;
-
     overflow: hidden;
-
-    color: #ffffff;
 
     background:
         linear-gradient(
             145deg,
-            #8064d8 0%,
-            #7557ca 48%,
-            #6749b7 100%
+            #dca45f 0%,
+            #d89167 22%,
+            #c75d86 47%,
+            #a32675 67%,
+            #69104b 82%,
+            #391d74 100%
         );
 }
 
 
-/* ========================================
-   DECORATIVE CIRCLES
-======================================== */
+/* =====================================================
+   BACKGROUND DECORATION
+===================================================== */
 
-.visual-circle {
+.signup-page::before {
+
+    content: "";
 
     position: absolute;
 
-    border:
-        1px solid
-        rgba(255,255,255,0.18);
+    width: 600px;
+    height: 600px;
+
+    top: -250px;
+    left: -180px;
 
     border-radius: 50%;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,255,255,0.18),
+            transparent 65%
+        );
 
     pointer-events: none;
 }
 
 
-.circle-one {
+.signup-page::after {
 
-    width: 430px;
-
-    height: 430px;
-
-    right: -220px;
-
-    top: 50px;
-}
-
-
-.circle-two {
-
-    width: 220px;
-
-    height: 220px;
-
-    left: -115px;
-
-    bottom: -80px;
-}
-
-
-/* ========================================
-   DOTS
-======================================== */
-
-.visual-dots {
+    content: "";
 
     position: absolute;
 
-    width: 90px;
+    width: 650px;
+    height: 650px;
 
-    height: 75px;
+    right: -300px;
+    bottom: -300px;
 
-    right: 55px;
+    border-radius: 50%;
 
-    top: 58px;
-
-    opacity: 0.75;
-
-    background-image:
+    background:
         radial-gradient(
-            rgba(255,255,255,0.70) 1.4px,
-            transparent 1.4px
+            circle,
+            rgba(74,48,150,0.30),
+            transparent 65%
         );
 
-    background-size: 14px 14px;
+    pointer-events: none;
 }
 
 
-/* ========================================
-   EXTRA CIRCLES
-======================================== */
+/* =====================================================
+   SIGNUP CONTAINER
+===================================================== */
 
-.signup-visual::before {
-
-    content: "";
-
-    position: absolute;
-
-    width: 280px;
-
-    height: 280px;
-
-    right: -145px;
-
-    bottom: -100px;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.15);
-
-    border-radius: 50%;
-}
-
-
-.signup-visual::after {
-
-    content: "";
-
-    position: absolute;
-
-    width: 170px;
-
-    height: 170px;
-
-    left: -90px;
-
-    top: 130px;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.13);
-
-    border-radius: 50%;
-}
-
-
-/* ========================================
-   BRAND
-======================================== */
-
-.brand {
+.signup-container {
 
     position: relative;
 
     z-index: 5;
 
-    display: flex;
+    width: 100%;
 
-    align-items: center;
-
-    gap: 13px;
-}
-
-
-.brand-logo {
-
-    width: 49px;
-
-    height: 49px;
+    max-width: 520px;
 
     display: flex;
-
-    align-items: center;
 
     justify-content: center;
 
-    border-radius: 14px;
-
-    background: rgba(255,255,255,0.95);
-
-    font-size: 22px;
-
-    box-shadow:
-        0 8px 20px
-        rgba(50,30,100,0.12);
-}
-
-
-.brand strong {
-
-    display: block;
-
-    color: #ffffff;
-
-    font-size: 21px;
-
-    font-weight: 700;
-
-    letter-spacing: -0.4px;
-}
-
-
-.brand small {
-
-    display: block;
-
-    margin-top: 3px;
-
-    color:
-        rgba(255,255,255,0.72);
-
-    font-size: 11px;
-}
-
-
-/* ========================================
-   VISUAL CONTENT
-======================================== */
-
-.visual-content {
-
-    position: relative;
-
-    z-index: 5;
-
-    max-width: 500px;
-
-    margin-top: 20px;
-}
-
-
-.visual-label {
-
-    margin-bottom: 15px;
-
-    color:
-        rgba(255,255,255,0.82);
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    letter-spacing: 2px;
-}
-
-
-.visual-content h1 {
-
-    color: #ffffff;
-
-    font-size:
-        clamp(42px, 4.4vw, 60px);
-
-    line-height: 1.04;
-
-    letter-spacing: -2.7px;
-
-    font-weight: 700;
-}
-
-
-.visual-content h1 span {
-
-    display: block;
-
-    color: #dfd7ff;
-}
-
-
-.visual-description {
-
-    max-width: 490px;
-
-    margin-top: 23px;
-
-    color:
-        rgba(255,255,255,0.76);
-
-    font-size: 14px;
-
-    line-height: 1.7;
-}
-
-
-/* ========================================
-   FEATURES
-======================================== */
-
-.feature-list {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 17px;
-
-    margin-top: 30px;
-}
-
-
-.feature-item {
-
-    display: flex;
-
-    align-items: flex-start;
-
-    gap: 12px;
-}
-
-
-.feature-icon {
-
-    width: 34px;
-
-    height: 34px;
-
-    flex-shrink: 0;
-
-    display: flex;
-
     align-items: center;
-
-    justify-content: center;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.22);
-
-    border-radius: 50%;
-
-    background:
-        rgba(255,255,255,0.10);
-
-    color: #ffffff;
-
-    font-size: 13px;
-
-    font-weight: 700;
 }
 
 
-.feature-item strong {
+/* =====================================================
+   HIDE OLD LEFT VISUAL PANEL
+===================================================== */
 
-    display: block;
+.signup-visual {
 
-    margin-bottom: 3px;
-
-    color: #ffffff;
-
-    font-size: 13px;
+    display: none;
 }
 
 
-.feature-item p {
-
-    color:
-        rgba(255,255,255,0.64);
-
-    font-size: 11px;
-
-    line-height: 1.5;
-}
-
-
-/* ========================================
-   VISUAL FOOTER
-======================================== */
-
-.visual-footer {
-
-    position: relative;
-
-    z-index: 5;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    color:
-        rgba(255,255,255,0.60);
-
-    font-size: 11px;
-}
-
-
-.footer-shield {
-
-    width: 27px;
-
-    height: 27px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border:
-        1px solid
-        rgba(255,255,255,0.20);
-
-    border-radius: 50%;
-
-    background:
-        rgba(255,255,255,0.08);
-
-    color: #ffffff;
-}
-
-
-/* ========================================
-   RIGHT FORM SECTION
-======================================== */
+/* =====================================================
+   FORM SECTION
+===================================================== */
 
 .signup-form-section {
 
+    width: 100%;
+
     display: flex;
 
+    justify-content: center;
     align-items: center;
 
-    justify-content: center;
+    padding: 0;
 
-    padding: 35px 55px;
-
-    background: #ffffff;
-
-    overflow-y: auto;
+    background: transparent;
 }
 
 
-/* ========================================
+/* =====================================================
    SIGNUP CARD
-======================================== */
+===================================================== */
 
 .signup-card {
 
     width: 100%;
 
-    max-width: 490px;
+    max-width: 500px;
+
+    padding: 34px 38px 30px;
+
+    background:
+        rgba(255,255,255,0.97);
+
+    border:
+        1px solid
+        rgba(255,255,255,0.40);
+
+    border-radius: 18px;
+
+    box-shadow:
+        0 25px 60px
+        rgba(50,15,60,0.25);
+
 }
 
 
-/* ========================================
+/* =====================================================
    HEADER
-======================================== */
+===================================================== */
+
+.signup-header {
+
+    margin-bottom: 24px;
+}
+
 
 .signup-small {
 
-    margin-bottom: 7px;
+    margin-bottom: 6px;
 
-    color: #7659cf;
+    color: #a32675;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-weight: 700;
+
+    letter-spacing: 1px;
+
+    text-transform: uppercase;
 }
 
 
@@ -564,17 +238,19 @@ body {
 
     color: #29263a;
 
-    font-size: 31px;
+    font-size: 29px;
 
-    line-height: 1.15;
+    line-height: 1.2;
 
-    letter-spacing: -1.2px;
+    letter-spacing: -0.8px;
+
+    font-weight: 700;
 }
 
 
 .signup-header > p:last-child {
 
-    margin-top: 8px;
+    margin-top: 7px;
 
     color: #888497;
 
@@ -582,9 +258,9 @@ body {
 }
 
 
-/* ========================================
+/* =====================================================
    ERROR
-======================================== */
+===================================================== */
 
 .signup-error {
 
@@ -594,7 +270,7 @@ body {
 
     gap: 10px;
 
-    margin-top: 20px;
+    margin-bottom: 18px;
 
     padding: 11px 13px;
 
@@ -614,13 +290,11 @@ body {
 .signup-error span {
 
     width: 20px;
-
     height: 20px;
 
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     flex-shrink: 0;
@@ -635,21 +309,25 @@ body {
 }
 
 
-/* ========================================
+/* =====================================================
    FORM
-======================================== */
+===================================================== */
 
 .signup-form {
 
-    margin-top: 23px;
+    width: 100%;
+
+    margin-top: 5px;
 }
 
 
-/* ========================================
-   FORM ROW
-======================================== */
+/* =====================================================
+   TWO COLUMN ROW
+===================================================== */
 
 .form-row {
+
+    width: 100%;
 
     display: grid;
 
@@ -660,9 +338,9 @@ body {
 }
 
 
-/* ========================================
+/* =====================================================
    FORM GROUP
-======================================== */
+===================================================== */
 
 .form-group {
 
@@ -671,6 +349,10 @@ body {
     margin-bottom: 15px;
 }
 
+
+/* =====================================================
+   LABEL
+===================================================== */
 
 .form-group label {
 
@@ -686,19 +368,21 @@ body {
 }
 
 
-/* ========================================
+/* =====================================================
    INPUT WRAPPER
-======================================== */
+===================================================== */
 
 .input-wrapper {
 
     position: relative;
+
+    width: 100%;
 }
 
 
-/* ========================================
+/* =====================================================
    INPUT ICON
-======================================== */
+===================================================== */
 
 .input-icon {
 
@@ -711,32 +395,34 @@ body {
     transform:
         translateY(-50%);
 
-    color: #9894a5;
+    color: #99939d;
 
     font-size: 13px;
 
     pointer-events: none;
+
+    z-index: 2;
 }
 
 
-/* ========================================
+/* =====================================================
    INPUTS + SELECT
-======================================== */
+===================================================== */
 
 .form-group input,
 .form-group select {
 
     width: 100%;
 
-    height: 45px;
+    height: 46px;
 
     padding:
         0 12px;
 
     border:
-        1px solid #d9d6e2;
+        1px solid #ddd8e1;
 
-    border-radius: 8px;
+    border-radius: 7px;
 
     outline: none;
 
@@ -750,13 +436,14 @@ body {
 
     transition:
         border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        box-shadow 0.2s ease,
+        background 0.2s ease;
 }
 
 
-/* ========================================
-   ICON INPUT
-======================================== */
+/* =====================================================
+   INPUT WITH ICON
+===================================================== */
 
 .input-wrapper input {
 
@@ -764,57 +451,71 @@ body {
 }
 
 
-/* ========================================
+/* =====================================================
    PLACEHOLDER
-======================================== */
+===================================================== */
 
 .form-group input::placeholder {
 
-    color: #aaa7b5;
+    color: #aaa5ae;
+
+    opacity: 1;
 }
 
 
-/* ========================================
+/* =====================================================
    HOVER
-======================================== */
+===================================================== */
 
 .form-group input:hover,
 .form-group select:hover {
 
-    border-color: #bbb6c8;
+    border-color: #c3bdc8;
 }
 
 
-/* ========================================
+/* =====================================================
    FOCUS
-======================================== */
+===================================================== */
 
 .form-group input:focus,
 .form-group select:focus {
 
-    border-color: #8064d8;
+    border-color: #a32675;
+
+    background: #ffffff;
 
     box-shadow:
         0 0 0 3px
-        rgba(128,100,216,0.10);
+        rgba(163,38,117,0.10);
 }
 
 
-/* ========================================
+/* =====================================================
    SELECT
-======================================== */
+===================================================== */
 
 .form-group select {
 
     cursor: pointer;
 
-    color: #4a4659;
+    color: #4a4652;
 }
 
 
-/* ========================================
+/* =====================================================
+   SELECT PLACEHOLDER
+===================================================== */
+
+.form-group select:invalid {
+
+    color: #aaa5ae;
+}
+
+
+/* =====================================================
    TERMS
-======================================== */
+===================================================== */
 
 .terms {
 
@@ -824,7 +525,7 @@ body {
 
     gap: 8px;
 
-    margin-top: 2px;
+    margin-top: 1px;
 
     margin-bottom: 18px;
 
@@ -841,7 +542,6 @@ body {
     appearance: none;
 
     width: 16px;
-
     height: 16px;
 
     margin: 0;
@@ -856,14 +556,16 @@ body {
     background: #ffffff;
 
     cursor: pointer;
+
+    position: relative;
 }
 
 
 .terms input:checked {
 
-    border-color: #8064d8;
+    border-color: #a32675;
 
-    background: #8064d8;
+    background: #a32675;
 }
 
 
@@ -871,15 +573,13 @@ body {
 
     content: "✓";
 
-    display: flex;
+    position: absolute;
 
-    align-items: center;
+    left: 50%;
+    top: 50%;
 
-    justify-content: center;
-
-    width: 100%;
-
-    height: 100%;
+    transform:
+        translate(-50%, -50%);
 
     color: #ffffff;
 
@@ -889,15 +589,15 @@ body {
 }
 
 
-/* ========================================
+/* =====================================================
    CREATE ACCOUNT BUTTON
-======================================== */
+===================================================== */
 
 .signup-btn {
 
     width: 100%;
 
-    height: 50px;
+    height: 51px;
 
     display: flex;
 
@@ -905,34 +605,35 @@ body {
 
     justify-content: center;
 
-    gap: 10px;
+    gap: 12px;
 
     border: none;
 
-    border-radius: 8px;
+    border-radius: 7px;
 
     background:
         linear-gradient(
             135deg,
-            #8064d8,
-            #7052c8
+            #d89167 0%,
+            #b33d7d 48%,
+            #6f1760 100%
         );
 
     color: #ffffff;
 
     font-family: inherit;
 
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 700;
 
-    cursor: pointer;
+    letter-spacing: 0.8px;
 
-    text-decoration: none;
+    cursor: pointer;
 
     box-shadow:
         0 8px 20px
-        rgba(112,82,200,0.20);
+        rgba(116,35,91,0.22);
 
     transition:
         transform 0.2s ease,
@@ -943,31 +644,50 @@ body {
 
 .signup-btn strong {
 
-    font-size: 18px;
+    font-size: 17px;
 
     font-weight: 400;
+
+    transition:
+        transform 0.2s ease;
 }
 
 
 .signup-btn:hover {
 
     transform:
-        translateY(-1px);
+        translateY(-2px);
 
     filter:
-        brightness(1.05);
+        brightness(1.06);
 
     box-shadow:
-        0 11px 26px
-        rgba(112,82,200,0.28);
+        0 12px 28px
+        rgba(116,35,91,0.30);
 }
 
 
-/* ========================================
+.signup-btn:hover strong {
+
+    transform:
+        translateX(3px);
+}
+
+
+.signup-btn:active {
+
+    transform:
+        translateY(0);
+}
+
+
+/* =====================================================
    LOGIN DIVIDER
-======================================== */
+===================================================== */
 
 .login-divider {
+
+    width: 100%;
 
     display: flex;
 
@@ -985,7 +705,7 @@ body {
 
     height: 1px;
 
-    background: #e9e6ef;
+    background: #ebe7ed;
 }
 
 
@@ -999,9 +719,9 @@ body {
 }
 
 
-/* ========================================
+/* =====================================================
    LOGIN BUTTON
-======================================== */
+===================================================== */
 
 .login-btn {
 
@@ -1012,19 +732,18 @@ body {
     display: flex;
 
     align-items: center;
-
     justify-content: center;
 
     margin-top: 13px;
 
     border:
-        1px solid #d8d4e1;
+        1px solid #ddd8e1;
 
-    border-radius: 8px;
+    border-radius: 7px;
 
     background: #ffffff;
 
-    color: #4a4659;
+    color: #514b58;
 
     text-decoration: none;
 
@@ -1035,123 +754,126 @@ body {
     transition:
         border-color 0.2s ease,
         background 0.2s ease,
-        color 0.2s ease;
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 
 .login-btn:hover {
 
-    border-color: #8064d8;
+    border-color: #b33d7d;
 
-    background: #faf8ff;
+    background: #fff8fc;
 
-    color: #684abf;
+    color: #8c2765;
+
+    transform:
+        translateY(-1px);
 }
 
 
-/* ========================================
+/* =====================================================
+   DESKTOP DECORATION
+===================================================== */
+
+.signup-container::before {
+
+    content: "";
+
+    position: fixed;
+
+    width: 120px;
+    height: 120px;
+
+    top: 8%;
+
+    right: 8%;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.18);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+.signup-container::after {
+
+    content: "";
+
+    position: fixed;
+
+    width: 80px;
+    height: 80px;
+
+    bottom: 10%;
+
+    left: 8%;
+
+    border:
+        1px solid
+        rgba(255,255,255,0.14);
+
+    border-radius: 50%;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
    TABLET
-======================================== */
+===================================================== */
 
-@media (max-width: 950px) {
-
-    .signup-container {
-
-        grid-template-columns:
-            0.9fr
-            1.1fr;
-    }
-
-
-    .signup-visual {
-
-        padding:
-            32px 34px;
-    }
-
-
-    .signup-form-section {
-
-        padding:
-            30px 35px;
-    }
-
-
-    .visual-content h1 {
-
-        font-size: 43px;
-    }
-
-}
-
-
-/* ========================================
-   MOBILE
-======================================== */
-
-@media (max-width: 760px) {
+@media (max-width: 700px) {
 
     .signup-page {
 
-        padding: 0;
+        padding:
+            30px 18px;
     }
 
 
     .signup-container {
 
-        min-height: 100vh;
-
-        max-height: none;
-
-        grid-template-columns: 1fr;
-
-        border-radius: 0;
-
-        border: none;
-    }
-
-
-    .signup-visual {
-
-        display: none;
-    }
-
-
-    .signup-form-section {
-
-        min-height: 100vh;
-
-        padding:
-            30px 22px;
-
-        align-items: center;
+        max-width: 500px;
     }
 
 
     .signup-card {
 
-        max-width: 500px;
+        padding:
+            30px 28px;
     }
-
 }
 
 
-/* ========================================
-   SMALL MOBILE
-======================================== */
+/* =====================================================
+   MOBILE
+===================================================== */
 
-@media (max-width: 500px) {
+@media (max-width: 560px) {
 
-    .signup-form-section {
+    .signup-page {
 
         padding:
-            25px 18px;
+            25px 15px;
+    }
+
+
+    .signup-card {
+
+        padding:
+            27px 22px 25px;
+
+        border-radius: 14px;
     }
 
 
     .signup-header h2 {
 
-        font-size: 28px;
+        font-size: 25px;
     }
 
 
@@ -1165,13 +887,73 @@ body {
 
     .form-group {
 
-        margin-bottom: 15px;
+        margin-bottom: 14px;
     }
 
 
-    .login-divider p {
+    .form-group input,
+    .form-group select {
+
+        height: 46px;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .signup-page {
+
+        padding:
+            20px 12px;
+    }
+
+
+    .signup-card {
+
+        padding:
+            24px 18px;
+    }
+
+
+    .signup-header h2 {
+
+        font-size: 23px;
+    }
+
+
+    .signup-header > p:last-child {
+
+        font-size: 12px;
+    }
+
+
+    .form-group label {
+
+        font-size: 11px;
+    }
+
+
+    .form-group input,
+    .form-group select {
+
+        height: 44px;
+
+        font-size: 11px;
+    }
+
+
+    .signup-btn {
+
+        height: 48px;
+    }
+
+
+    .terms {
 
         font-size: 10px;
     }
-
 }
