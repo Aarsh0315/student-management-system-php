@@ -1,6 +1,6 @@
 /* =====================================================
-   MY SCHOOL - DASHBOARD NAVBAR
-   Matching Login / Signup Design
+   MY SCHOOL - NAVBAR
+   Professional Dashboard Theme
 ===================================================== */
 
 
@@ -15,31 +15,46 @@
 }
 
 
+html {
+    scroll-behavior: smooth;
+}
+
+
+body {
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+}
+
+
+
 /* =====================================================
    NAVBAR
 ===================================================== */
 
 .navbar {
-
     width: 100%;
 
-    background: rgba(255, 255, 255, 0.97);
-
-    border-bottom:
-        1px solid #ebe6ee;
-
-    box-shadow:
-        0 3px 14px
-        rgba(70, 30, 70, 0.06);
-
     position: sticky;
-
     top: 0;
 
     z-index: 1000;
 
-    backdrop-filter: blur(10px);
+    background: rgba(255, 255, 255, 0.97);
+
+    border-bottom:
+        1px solid #eadfe7;
+
+    box-shadow:
+        0 3px 16px
+        rgba(48, 45, 61, 0.05);
+
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
 }
+
 
 
 /* =====================================================
@@ -52,7 +67,7 @@
 
     max-width: 1450px;
 
-    min-height: 72px;
+    min-height: 70px;
 
     margin: 0 auto;
 
@@ -65,8 +80,9 @@
 
     justify-content: space-between;
 
-    gap: 28px;
+    gap: 25px;
 }
+
 
 
 /* =====================================================
@@ -79,15 +95,15 @@
 
     align-items: center;
 
-    color: #29263a;
+    color: #302d3d;
 
     text-decoration: none;
 
-    font-size: 24px;
+    font-size: 22px;
 
     font-weight: 700;
 
-    letter-spacing: -0.7px;
+    letter-spacing: -0.5px;
 
     white-space: nowrap;
 
@@ -100,35 +116,31 @@
 
 .navbar-brand:hover {
 
-    color: #8c2765;
+    color: #a32675;
 }
+
 
 
 /* =====================================================
    BRAND ACCENT
-   Optional small visual accent
 ===================================================== */
 
 .navbar-brand::before {
 
     content: "";
 
-    width: 6px;
+    width: 5px;
 
-    height: 24px;
+    height: 23px;
 
-    margin-right: 10px;
+    margin-right: 9px;
 
     border-radius: 5px;
 
-    background:
-        linear-gradient(
-            180deg,
-            #d89167,
-            #a32675,
-            #6f1760
-        );
+    background: #a32675;
+
 }
+
 
 
 /* =====================================================
@@ -143,10 +155,11 @@
 
     justify-content: flex-end;
 
-    gap: 14px;
+    gap: 12px;
 
     min-width: 0;
 }
+
 
 
 /* =====================================================
@@ -163,6 +176,7 @@
 }
 
 
+
 /* =====================================================
    NAV LINK
 ===================================================== */
@@ -171,7 +185,7 @@
 
     position: relative;
 
-    min-height: 40px;
+    min-height: 38px;
 
     display: flex;
 
@@ -184,11 +198,11 @@
 
     border-radius: 8px;
 
-    color: #777181;
+    color: #77707a;
 
     text-decoration: none;
 
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 500;
 
@@ -196,9 +210,9 @@
 
     transition:
         color 0.2s ease,
-        background 0.2s ease,
-        transform 0.2s ease;
+        background 0.2s ease;
 }
+
 
 
 /* =====================================================
@@ -207,10 +221,11 @@
 
 .nav-link:hover {
 
-    color: #6f1760;
+    color: #8d205f;
 
-    background: #fff5fa;
+    background: #fff7fb;
 }
+
 
 
 /* =====================================================
@@ -219,17 +234,13 @@
 
 .nav-link.active {
 
-    color: #6f1760;
+    color: #a32675;
 
-    background:
-        linear-gradient(
-            135deg,
-            #fff4f8,
-            #faf4ff
-        );
+    background: #fff4f9;
 
     font-weight: 600;
 }
+
 
 
 /* =====================================================
@@ -243,23 +254,17 @@
     position: absolute;
 
     left: 12px;
-
     right: 12px;
 
-    bottom: 4px;
+    bottom: 3px;
 
     height: 2px;
 
     border-radius: 3px;
 
-    background:
-        linear-gradient(
-            90deg,
-            #d89167,
-            #a32675,
-            #6f1760
-        );
+    background: #a32675;
 }
+
 
 
 /* =====================================================
@@ -274,15 +279,16 @@
 
     gap: 9px;
 
-    padding-left: 16px;
+    padding-left: 15px;
 
     border-left:
-        1px solid #ebe6ee;
+        1px solid #eadfe7;
 
     text-decoration: none;
 
     flex-shrink: 0;
 }
+
 
 
 /* =====================================================
@@ -303,31 +309,31 @@
 
     border-radius: 50%;
 
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f5,
-            #f5edff
-        );
+    background: #fff4f9;
 
-    color: #8c2765;
+    color: #a32675;
 
     border:
-        1px solid #ead7e5;
+        1px solid #ead1e1;
 
-    font-size: 13px;
+    font-size: 12px;
 
     font-weight: 700;
 
     box-shadow:
         0 3px 10px
-        rgba(120, 40, 100, 0.08);
+        rgba(163, 38, 117, 0.08);
 
     transition:
         transform 0.2s ease,
         box-shadow 0.2s ease;
 }
 
+
+
+/* =====================================================
+   AVATAR HOVER
+===================================================== */
 
 .profile-link:hover .user-avatar {
 
@@ -336,8 +342,9 @@
 
     box-shadow:
         0 5px 14px
-        rgba(120, 40, 100, 0.13);
+        rgba(163, 38, 117, 0.14);
 }
+
 
 
 /* =====================================================
@@ -350,13 +357,13 @@
 
     flex-direction: column;
 
-    gap: 2px;
+    gap: 1px;
 }
 
 
 .user-info strong {
 
-    max-width: 110px;
+    max-width: 115px;
 
     overflow: hidden;
 
@@ -366,7 +373,7 @@
 
     color: #393443;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-weight: 600;
 }
@@ -374,21 +381,22 @@
 
 .user-info span {
 
-    color: #9993a2;
+    color: #99929d;
 
-    font-size: 10px;
+    font-size: 9px;
 
     white-space: nowrap;
 }
 
 
+
 /* =====================================================
-   LOGOUT
+   LOGOUT BUTTON
 ===================================================== */
 
 .logout-btn {
 
-    min-height: 38px;
+    min-height: 36px;
 
     display: flex;
 
@@ -397,20 +405,20 @@
     justify-content: center;
 
     padding:
-        0 15px;
-
-    border:
-        1px solid #ded9e2;
-
-    border-radius: 8px;
+        0 14px;
 
     background: #ffffff;
 
-    color: #5f5967;
+    color: #625b67;
+
+    border:
+        1px solid #ded6df;
+
+    border-radius: 8px;
 
     text-decoration: none;
 
-    font-size: 12px;
+    font-size: 11px;
 
     font-weight: 600;
 
@@ -424,21 +432,23 @@
 }
 
 
+
 /* =====================================================
    LOGOUT HOVER
 ===================================================== */
 
 .logout-btn:hover {
 
-    background: #fff5f6;
+    background: #fff5f5;
 
-    border-color: #efcaca;
+    border-color: #edcaca;
 
-    color: #b42318;
+    color: #b42323;
 
     transform:
         translateY(-1px);
 }
+
 
 
 /* =====================================================
@@ -451,10 +461,11 @@
 
     outline:
         3px solid
-        rgba(163, 38, 117, 0.15);
+        rgba(163, 38, 117, 0.13);
 
     outline-offset: 2px;
 }
+
 
 
 /* =====================================================
@@ -474,7 +485,7 @@
 
     .navbar-brand {
 
-        font-size: 22px;
+        font-size: 21px;
     }
 
 
@@ -483,7 +494,7 @@
         padding:
             0 9px;
 
-        font-size: 12px;
+        font-size: 11px;
     }
 
 
@@ -497,7 +508,9 @@
 
         display: none;
     }
+
 }
+
 
 
 /* =====================================================
@@ -515,7 +528,7 @@
 
         flex-direction: column;
 
-        gap: 12px;
+        gap: 11px;
     }
 
 
@@ -533,7 +546,7 @@
 
         flex-wrap: wrap;
 
-        gap: 9px;
+        gap: 8px;
     }
 
 
@@ -549,7 +562,9 @@
 
         display: flex;
     }
+
 }
+
 
 
 /* =====================================================
@@ -571,15 +586,15 @@
 
         justify-content: flex-start;
 
-        font-size: 21px;
+        font-size: 20px;
     }
 
 
     .navbar-brand::before {
 
-        height: 21px;
-
         width: 5px;
+
+        height: 20px;
 
         margin-right: 8px;
     }
@@ -596,6 +611,8 @@
         padding-bottom: 3px;
 
         scrollbar-width: thin;
+
+        -webkit-overflow-scrolling: touch;
     }
 
 
@@ -612,9 +629,9 @@
         flex-shrink: 0;
 
         padding:
-            0 10px;
+            0 9px;
 
-        font-size: 12px;
+        font-size: 11px;
     }
 
 
@@ -628,7 +645,9 @@
 
         flex-shrink: 0;
     }
+
 }
+
 
 
 /* =====================================================
@@ -639,7 +658,7 @@
 
     .navbar-brand {
 
-        font-size: 20px;
+        font-size: 19px;
     }
 
 
@@ -660,6 +679,9 @@
     .logout-btn {
 
         padding:
-            0 12px;
+            0 11px;
+
+        font-size: 10px;
     }
+
 }
