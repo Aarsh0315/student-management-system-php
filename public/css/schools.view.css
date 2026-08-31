@@ -1,6 +1,6 @@
 /* =====================================================
    SCHOOLS PAGE
-   Matches My School Super Admin Theme
+   My School - Super Admin Theme
 ===================================================== */
 
 
@@ -18,14 +18,17 @@
 
     border-radius: 16px;
 
-    padding: 26px;
+    padding: 30px;
 
     margin-bottom: 35px;
+
+    box-sizing: border-box;
 
     box-shadow:
         0 5px 20px rgba(48, 45, 61, 0.04);
 
     overflow: hidden;
+
 }
 
 
@@ -43,14 +46,14 @@
 
     gap: 20px;
 
-    margin-bottom: 24px;
+    margin-bottom: 25px;
 
 }
 
 
 .schools-header h2 {
 
-    margin: 0 0 5px;
+    margin: 0 0 6px;
 
     color: #302d3d;
 
@@ -67,7 +70,7 @@
 
     margin: 0;
 
-    color: #898390;
+    color: #756d79;
 
     font-size: 13px;
 
@@ -109,7 +112,7 @@
     white-space: nowrap;
 
     box-shadow:
-        0 4px 12px rgba(163, 38, 117, 0.15);
+        0 4px 10px rgba(163, 38, 117, 0.15);
 
     transition:
         background 0.2s ease,
@@ -122,9 +125,9 @@
 
 .add-school-btn:hover {
 
-    background: #8c2765;
+    background: #8d205f;
 
-    border-color: #8c2765;
+    border-color: #8d205f;
 
     transform: translateY(-1px);
 
@@ -148,7 +151,11 @@
 
     border-radius: 10px;
 
+    background: #ffffff;
+
     scrollbar-width: thin;
+
+    -webkit-overflow-scrolling: touch;
 
 }
 
@@ -176,7 +183,7 @@
 
 .table-wrapper thead {
 
-    background: #fbf8fa;
+    background: #faf7f9;
 
 }
 
@@ -185,7 +192,7 @@
 
     padding: 14px 15px;
 
-    color: #716b78;
+    color: #756d79;
 
     font-size: 10px;
 
@@ -195,7 +202,7 @@
 
     text-transform: uppercase;
 
-    letter-spacing: 0.5px;
+    letter-spacing: 0.45px;
 
     white-space: nowrap;
 
@@ -210,9 +217,9 @@
 
 .table-wrapper td {
 
-    padding: 16px 15px;
+    padding: 15px;
 
-    color: #6f6876;
+    color: #625b67;
 
     font-size: 12px;
 
@@ -248,9 +255,28 @@
 }
 
 
+/* =====================================================
+   ROW HOVER
+===================================================== */
+
 .table-wrapper tbody tr:hover {
 
     background: #fdf9fc;
+
+}
+
+
+/* =====================================================
+   DATABASE ID
+===================================================== */
+
+.table-wrapper td:first-child {
+
+    color: #9b949e;
+
+    font-size: 11px;
+
+    font-weight: 600;
 
 }
 
@@ -267,18 +293,15 @@
 
     font-weight: 600;
 
+    transition:
+        color 0.15s ease;
+
 }
 
 
-/* =====================================================
-   DATABASE ID
-===================================================== */
+.table-wrapper tbody tr:hover td strong {
 
-.table-wrapper td:first-child {
-
-    color: #a09aa5;
-
-    font-size: 11px;
+    color: #a32675;
 
 }
 
@@ -293,13 +316,15 @@
 
     align-items: center;
 
-    padding: 5px 9px;
+    justify-content: center;
 
-    background: #faf3f8;
+    padding: 5px 10px;
 
-    color: #8c2765;
+    background: #f9eaf4;
 
-    border: 1px solid #ead2e2;
+    color: #a32675;
+
+    border: 1px solid #efd1e1;
 
     border-radius: 6px;
 
@@ -308,6 +333,8 @@
     font-weight: 600;
 
     letter-spacing: 0.2px;
+
+    white-space: nowrap;
 
 }
 
@@ -324,17 +351,17 @@
 
     justify-content: center;
 
-    min-width: 32px;
+    min-width: 30px;
 
     height: 27px;
 
-    padding: 0 8px;
+    padding: 0 9px;
 
-    background: #f7eef5;
+    background: #f9eaf4;
 
-    color: #8c2765;
+    color: #a32675;
 
-    border: 1px solid #ead2e2;
+    border: 1px solid #efd1e1;
 
     border-radius: 6px;
 
@@ -365,12 +392,10 @@
 
     font-weight: 600;
 
+    white-space: nowrap;
+
 }
 
-
-/* =====================================================
-   STATUS DOT
-===================================================== */
 
 .status::before {
 
@@ -379,6 +404,8 @@
     width: 6px;
 
     height: 6px;
+
+    flex-shrink: 0;
 
     border-radius: 50%;
 
@@ -391,7 +418,7 @@
 
 .status.active {
 
-    background: #f0f9f3;
+    background: #eff9f3;
 
     color: #28784a;
 
@@ -402,7 +429,7 @@
 
 .status.active::before {
 
-    background: #3aa866;
+    background: #39a866;
 
 }
 
@@ -464,9 +491,9 @@
 
     background: #ffffff;
 
-    color: #8c2765;
+    color: #a32675;
 
-    border: 1px solid #d9b8cd;
+    border: 1px solid #e3c7d8;
 
     border-radius: 7px;
 
@@ -480,7 +507,8 @@
         background 0.2s ease,
         border-color 0.2s ease,
         color 0.2s ease,
-        transform 0.2s ease;
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 
 }
 
@@ -495,6 +523,9 @@
 
     transform: translateY(-1px);
 
+    box-shadow:
+        0 4px 10px rgba(163, 38, 117, 0.18);
+
 }
 
 
@@ -508,7 +539,7 @@
 
     text-align: center;
 
-    border: 1px dashed #dfd3dc;
+    border: 1px dashed #ddcfd9;
 
     border-radius: 10px;
 
@@ -534,7 +565,7 @@
 
     margin: 0;
 
-    color: #898390;
+    color: #756d79;
 
     font-size: 13px;
 
@@ -550,7 +581,7 @@
 .add-school-btn:focus-visible,
 .view-btn:focus-visible {
 
-    outline: 3px solid rgba(163, 38, 117, 0.18);
+    outline: 3px solid rgba(163, 38, 117, 0.16);
 
     outline-offset: 3px;
 
@@ -565,7 +596,7 @@
 
     .schools-card {
 
-        padding: 22px;
+        padding: 24px;
 
     }
 
@@ -594,7 +625,7 @@
 
     .schools-card {
 
-        padding: 18px;
+        padding: 19px;
 
         border-radius: 14px;
 
@@ -643,7 +674,7 @@
 
     .schools-card {
 
-        padding: 15px;
+        padding: 16px;
 
     }
 

@@ -18,9 +18,11 @@
 
     border-radius: 16px;
 
-    padding: 28px;
+    padding: 30px;
 
     margin-bottom: 35px;
+
+    box-sizing: border-box;
 
     box-shadow:
         0 5px 20px rgba(48, 45, 61, 0.04);
@@ -68,7 +70,7 @@
 
     margin: 0;
 
-    color: #77707a;
+    color: #756d79;
 
     font-size: 13px;
 
@@ -110,7 +112,7 @@
     white-space: nowrap;
 
     box-shadow:
-        0 4px 12px rgba(163, 38, 117, 0.16);
+        0 4px 10px rgba(163, 38, 117, 0.15);
 
     transition:
         background 0.2s ease,
@@ -130,7 +132,7 @@
     transform: translateY(-1px);
 
     box-shadow:
-        0 7px 16px rgba(163, 38, 117, 0.22);
+        0 6px 15px rgba(163, 38, 117, 0.22);
 
 }
 
@@ -190,7 +192,7 @@
 
     padding: 14px 15px;
 
-    color: #77707a;
+    color: #756d79;
 
     font-size: 10px;
 
@@ -200,7 +202,7 @@
 
     text-transform: uppercase;
 
-    letter-spacing: 0.4px;
+    letter-spacing: 0.45px;
 
     white-space: nowrap;
 
@@ -225,7 +227,7 @@
 
     white-space: nowrap;
 
-    border-bottom: 1px solid #f0e9ee;
+    border-bottom: 1px solid #f0ebef;
 
 }
 
@@ -259,7 +261,7 @@
 
 .table-wrapper tbody tr:hover {
 
-    background: #fdf9fb;
+    background: #fdf9fc;
 
 }
 
@@ -274,6 +276,8 @@
 
     align-items: center;
 
+    justify-content: center;
+
     padding: 5px 9px;
 
     background: #f7f1f5;
@@ -287,6 +291,8 @@
     font-size: 11px;
 
     font-weight: 600;
+
+    white-space: nowrap;
 
 }
 
@@ -303,6 +309,16 @@
 
     font-weight: 600;
 
+    transition:
+        color 0.15s ease;
+
+}
+
+
+.table-wrapper tbody tr:hover .student-name {
+
+    color: #a32675;
+
 }
 
 
@@ -316,19 +332,23 @@
 
     align-items: center;
 
+    justify-content: center;
+
     padding: 5px 9px;
 
-    background: #f8edf5;
+    background: #f9eaf4;
 
     color: #a32675;
 
-    border: 1px solid #ead1e1;
+    border: 1px solid #efd1e1;
 
     border-radius: 6px;
 
     font-size: 11px;
 
     font-weight: 600;
+
+    white-space: nowrap;
 
 }
 
@@ -375,7 +395,7 @@
 
     gap: 6px;
 
-    padding: 5px 9px;
+    padding: 5px 10px;
 
     border-radius: 20px;
 
@@ -383,12 +403,10 @@
 
     font-weight: 600;
 
+    white-space: nowrap;
+
 }
 
-
-/* =====================================================
-   STATUS DOT
-===================================================== */
 
 .status::before {
 
@@ -397,6 +415,8 @@
     width: 6px;
 
     height: 6px;
+
+    flex-shrink: 0;
 
     border-radius: 50%;
 
@@ -461,15 +481,15 @@
 
     min-width: 52px;
 
-    min-height: 31px;
+    min-height: 32px;
 
     padding: 0 12px;
 
-    background: #a32675;
+    background: #ffffff;
 
-    color: #ffffff;
+    color: #a32675;
 
-    border: 1px solid #a32675;
+    border: 1px solid #e3c7d8;
 
     border-radius: 7px;
 
@@ -479,9 +499,12 @@
 
     font-weight: 600;
 
+    white-space: nowrap;
+
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
+        color 0.2s ease,
         transform 0.2s ease,
         box-shadow 0.2s ease;
 
@@ -490,9 +513,11 @@
 
 .view-btn:hover {
 
-    background: #8d205f;
+    background: #a32675;
 
-    border-color: #8d205f;
+    border-color: #a32675;
+
+    color: #ffffff;
 
     transform: translateY(-1px);
 
@@ -512,11 +537,11 @@
 
     text-align: center;
 
-    border: 1px dashed #dfd3dc;
+    border: 1px dashed #ddcfd9;
 
     border-radius: 10px;
 
-    background: #faf7f9;
+    background: #fcfafc;
 
 }
 
@@ -538,9 +563,11 @@
 
     margin: 0;
 
-    color: #77707a;
+    color: #756d79;
 
     font-size: 13px;
+
+    line-height: 1.5;
 
 }
 
@@ -552,7 +579,7 @@
 .add-student-btn:focus-visible,
 .view-btn:focus-visible {
 
-    outline: 3px solid rgba(163, 38, 117, 0.15);
+    outline: 3px solid rgba(163, 38, 117, 0.16);
 
     outline-offset: 3px;
 
@@ -563,11 +590,11 @@
    TABLET
 ===================================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
 
     .students-card {
 
-        padding: 22px;
+        padding: 24px;
 
     }
 
@@ -575,6 +602,13 @@
     .students-header {
 
         margin-bottom: 20px;
+
+    }
+
+
+    .table-wrapper table {
+
+        min-width: 1050px;
 
     }
 
@@ -589,7 +623,7 @@
 
     .students-card {
 
-        padding: 18px;
+        padding: 19px;
 
         border-radius: 14px;
 
@@ -638,7 +672,7 @@
 
     .students-card {
 
-        padding: 15px;
+        padding: 16px;
 
     }
 

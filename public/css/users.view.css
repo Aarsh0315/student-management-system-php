@@ -22,6 +22,8 @@
 
     margin-bottom: 35px;
 
+    box-sizing: border-box;
+
     box-shadow:
         0 5px 20px rgba(48, 45, 61, 0.04);
 
@@ -89,7 +91,9 @@
 
     justify-content: center;
 
-    padding: 10px 17px;
+    min-height: 40px;
+
+    padding: 0 17px;
 
     background: #a32675;
 
@@ -121,9 +125,9 @@
 
 .add-user-btn:hover {
 
-    background: #8f1f65;
+    background: #8d205f;
 
-    border-color: #8f1f65;
+    border-color: #8d205f;
 
     transform: translateY(-1px);
 
@@ -146,6 +150,12 @@
     border: 1px solid #eee5eb;
 
     border-radius: 10px;
+
+    background: #ffffff;
+
+    scrollbar-width: thin;
+
+    -webkit-overflow-scrolling: touch;
 
 }
 
@@ -173,14 +183,14 @@
 
 .table-wrapper thead {
 
-    background: #faf7f9;
+    background: #fdf6fa;
 
 }
 
 
 .table-wrapper th {
 
-    padding: 13px 15px;
+    padding: 14px 15px;
 
     color: #756d79;
 
@@ -283,6 +293,9 @@
 
     font-weight: 600;
 
+    transition:
+        color 0.15s ease;
+
 }
 
 
@@ -368,10 +381,6 @@
 }
 
 
-/* =====================================================
-   STATUS DOT
-===================================================== */
-
 .status::before {
 
     content: "";
@@ -379,6 +388,8 @@
     width: 6px;
 
     height: 6px;
+
+    flex-shrink: 0;
 
     border-radius: 50%;
 
@@ -458,7 +469,9 @@
 
     min-width: 52px;
 
-    padding: 7px 12px;
+    min-height: 32px;
+
+    padding: 0 12px;
 
     background: #ffffff;
 
