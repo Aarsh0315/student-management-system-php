@@ -1,11 +1,12 @@
-/* ========================================
+/* =====================================================
    STUDENT DETAILS PAGE
-======================================== */
+   My School - Super Admin Theme
+===================================================== */
 
 
-/* ========================================
+/* =====================================================
    STUDENT PROFILE CARD
-======================================== */
+===================================================== */
 
 .student-profile-card {
 
@@ -15,7 +16,7 @@
 
     background: #ffffff;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #eadfe7;
 
     border-radius: 16px;
 
@@ -32,14 +33,14 @@
     box-sizing: border-box;
 
     box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
+        0 5px 20px rgba(48, 45, 61, 0.04);
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    PROFILE LEFT
-======================================== */
+===================================================== */
 
 .student-profile-left {
 
@@ -50,13 +51,13 @@
     gap: 18px;
 
     min-width: 0;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    LARGE AVATAR
-======================================== */
+===================================================== */
 
 .student-large-avatar {
 
@@ -64,13 +65,17 @@
 
     height: 68px;
 
+    min-width: 68px;
+
     flex-shrink: 0;
 
     border-radius: 50%;
 
-    background: #2563eb;
+    background: #f8edf5;
 
-    color: #ffffff;
+    color: #a32675;
+
+    border: 1px solid #ead1e1;
 
     display: flex;
 
@@ -83,18 +88,19 @@
     font-weight: 700;
 
     box-shadow:
-        0 5px 15px rgba(37, 99, 235, 0.20);
+        0 5px 15px rgba(163, 38, 117, 0.10);
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    PROFILE INFO
-======================================== */
+===================================================== */
 
 .student-profile-info {
 
     min-width: 0;
+
 }
 
 
@@ -102,13 +108,14 @@
 
     margin: 0 0 5px;
 
-    color: #172033;
+    color: #302d3d;
 
     font-size: 20px;
 
     font-weight: 700;
 
     line-height: 1.3;
+
 }
 
 
@@ -116,20 +123,20 @@
 
     margin: 0 0 9px;
 
-    color: #64748b;
+    color: #77707a;
 
     font-size: 13px;
 
     line-height: 1.4;
 
     word-break: break-word;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    CLASS BADGE
-======================================== */
+===================================================== */
 
 .student-class-badge {
 
@@ -139,11 +146,11 @@
 
     padding: 5px 10px;
 
-    background: #eff6ff;
+    background: #f8edf5;
 
-    color: #2563eb;
+    color: #a32675;
 
-    border: 1px solid #dbeafe;
+    border: 1px solid #ead1e1;
 
     border-radius: 20px;
 
@@ -152,13 +159,13 @@
     font-weight: 600;
 
     line-height: 1;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    STATUS
-======================================== */
+===================================================== */
 
 .student-profile-card .status {
 
@@ -177,6 +184,7 @@
     font-weight: 600;
 
     white-space: nowrap;
+
 }
 
 
@@ -191,55 +199,57 @@
     flex-shrink: 0;
 
     border-radius: 50%;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    ACTIVE STATUS
-======================================== */
+===================================================== */
 
 .student-profile-card .status.active {
 
-    background: #ecfdf3;
+    background: #eff9f3;
 
-    color: #15803d;
+    color: #28784a;
 
-    border: 1px solid #bbf7d0;
+    border: 1px solid #cce8d6;
+
 }
 
 
 .student-profile-card .status.active::before {
 
-    background: #22c55e;
+    background: #35a563;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    INACTIVE STATUS
-======================================== */
+===================================================== */
 
 .student-profile-card .status.inactive {
 
-    background: #fef2f2;
+    background: #fff4f4;
 
-    color: #b91c1c;
+    color: #b44747;
 
-    border: 1px solid #fecaca;
+    border: 1px solid #f1cccc;
+
 }
 
 
 .student-profile-card .status.inactive::before {
 
-    background: #ef4444;
+    background: #d95353;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    DETAILS CARD
-======================================== */
+===================================================== */
 
 .student-details-card {
 
@@ -249,7 +259,7 @@
 
     background: #ffffff;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #eadfe7;
 
     border-radius: 16px;
 
@@ -258,14 +268,14 @@
     box-sizing: border-box;
 
     box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
+        0 5px 20px rgba(48, 45, 61, 0.04);
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    DETAILS HEADER
-======================================== */
+===================================================== */
 
 .details-header {
 
@@ -273,7 +283,8 @@
 
     padding-bottom: 18px;
 
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid #eee5eb;
+
 }
 
 
@@ -281,13 +292,14 @@
 
     margin: 0 0 5px;
 
-    color: #172033;
+    color: #302d3d;
 
     font-size: 19px;
 
     font-weight: 700;
 
     line-height: 1.3;
+
 }
 
 
@@ -295,18 +307,41 @@
 
     margin: 0;
 
-    color: #64748b;
+    color: #77707a;
 
     font-size: 12px;
 
     line-height: 1.5;
+
 }
 
 
+/* =====================================================
+   DETAILS HEADER ACCENT
+===================================================== */
 
-/* ========================================
+.details-header h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 38px;
+
+    height: 3px;
+
+    margin-top: 8px;
+
+    background: #a32675;
+
+    border-radius: 5px;
+
+}
+
+
+/* =====================================================
    DETAILS GRID
-======================================== */
+===================================================== */
 
 .details-grid {
 
@@ -315,20 +350,20 @@
     grid-template-columns:
         repeat(3, minmax(0, 1fr));
 
-    border-top: 1px solid #eef0f3;
+    border-top: 1px solid #eee5eb;
 
-    border-left: 1px solid #eef0f3;
+    border-left: 1px solid #eee5eb;
 
     border-radius: 10px;
 
     overflow: hidden;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    DETAILS ITEM
-======================================== */
+===================================================== */
 
 .details-item {
 
@@ -346,26 +381,32 @@
 
     gap: 7px;
 
-    border-right: 1px solid #eef0f3;
+    border-right: 1px solid #eee5eb;
 
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid #eee5eb;
 
     box-sizing: border-box;
 
     transition:
         background 0.15s ease;
+
 }
 
 
 .details-item:hover {
 
-    background: #f8fafc;
+    background: #fdf9fb;
+
 }
 
 
+/* =====================================================
+   DETAIL LABEL
+===================================================== */
+
 .details-item span {
 
-    color: #94a3b8;
+    color: #9b949e;
 
     font-size: 10px;
 
@@ -374,50 +415,66 @@
     text-transform: uppercase;
 
     letter-spacing: 0.5px;
+
 }
 
 
+/* =====================================================
+   DETAIL VALUE
+===================================================== */
+
 .details-item strong {
 
-    color: #172033;
+    color: #302d3d;
 
     font-size: 13px;
 
     font-weight: 600;
 
     word-break: break-word;
+
 }
 
 
+/* =====================================================
+   STUDENT ID
+===================================================== */
 
-/* ========================================
+.details-item:first-child strong {
+
+    color: #a32675;
+
+}
+
+
+/* =====================================================
    ADDRESS BOX
-======================================== */
+===================================================== */
 
 .address-box {
 
     padding: 17px 18px;
 
-    background: #f8fafc;
+    background: #faf7f9;
 
-    border: 1px solid #eef0f3;
+    border: 1px solid #eee5eb;
 
     border-radius: 10px;
 
-    color: #475569;
+    color: #625b67;
 
     font-size: 13px;
 
     line-height: 1.6;
 
     word-break: break-word;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    ACTIONS
-======================================== */
+===================================================== */
 
 .student-actions {
 
@@ -428,13 +485,13 @@
     justify-content: flex-start;
 
     margin-bottom: 35px;
+
 }
 
 
-
-/* ========================================
+/* =====================================================
    BACK BUTTON
-======================================== */
+===================================================== */
 
 .student-actions .back-btn {
 
@@ -448,9 +505,9 @@
 
     background: #ffffff;
 
-    color: #475569;
+    color: #625b67;
 
-    border: 1px solid #dbe2ea;
+    border: 1px solid #d9cfd7;
 
     border-radius: 8px;
 
@@ -465,25 +522,39 @@
         border-color 0.2s ease,
         color 0.2s ease,
         transform 0.2s ease;
+
 }
 
 
 .student-actions .back-btn:hover {
 
-    background: #f8fafc;
+    background: #faf6f9;
 
-    border-color: #cbd5e1;
+    border-color: #cdbeca;
 
-    color: #2563eb;
+    color: #a32675;
 
     transform: translateX(-2px);
+
 }
 
 
+/* =====================================================
+   FOCUS
+===================================================== */
 
-/* ========================================
+.student-actions .back-btn:focus-visible {
+
+    outline: 3px solid rgba(163, 38, 117, 0.15);
+
+    outline-offset: 3px;
+
+}
+
+
+/* =====================================================
    TABLET
-======================================== */
+===================================================== */
 
 @media (max-width: 900px) {
 
@@ -491,15 +562,15 @@
 
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
+
     }
 
 }
 
 
-
-/* ========================================
+/* =====================================================
    MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 650px) {
 
@@ -510,12 +581,14 @@
         align-items: flex-start;
 
         padding: 20px;
+
     }
 
 
     .student-profile-left {
 
         width: 100%;
+
     }
 
 
@@ -524,18 +597,21 @@
         width: 100%;
 
         justify-content: center;
+
     }
 
 
     .student-details-card {
 
         padding: 20px;
+
     }
 
 
     .details-grid {
 
         grid-template-columns: 1fr;
+
     }
 
 
@@ -545,52 +621,80 @@
 
         height: 60px;
 
+        min-width: 60px;
+
         font-size: 21px;
+
     }
 
 
     .student-profile-info h2 {
 
         font-size: 18px;
+
     }
 
 }
 
 
-
-/* ========================================
+/* =====================================================
    SMALL MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 400px) {
 
     .student-details-card {
 
         padding: 17px;
+
     }
 
 
     .student-profile-card {
 
         padding: 17px;
+
+    }
+
+
+    .student-profile-left {
+
+        gap: 13px;
+
+    }
+
+
+    .student-large-avatar {
+
+        width: 54px;
+
+        height: 54px;
+
+        min-width: 54px;
+
+        font-size: 19px;
+
     }
 
 
     .student-profile-info h2 {
 
-        font-size: 17px;
+        font-size: 16px;
+
     }
 
 
     .details-header h2 {
 
         font-size: 17px;
+
     }
 
 
     .details-header p {
 
         font-size: 11px;
+
     }
 
 }

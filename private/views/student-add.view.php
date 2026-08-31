@@ -15,7 +15,7 @@
     >
 
     <title>
-        Add Student - My School
+        Add Student - My School 
     </title>
 
 
