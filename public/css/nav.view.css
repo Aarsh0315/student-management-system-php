@@ -1,49 +1,53 @@
-/* ========================================
+/* =====================================================
+   MY SCHOOL - DASHBOARD NAVBAR
+   Matching Login / Signup Design
+===================================================== */
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
    NAVBAR
-======================================== */
+===================================================== */
 
 .navbar {
+
     width: 100%;
 
-    background: #ffffff;
+    background: rgba(255, 255, 255, 0.97);
 
     border-bottom:
-        1px solid #e4e7ec;
+        1px solid #ebe6ee;
 
     box-shadow:
-        0 2px 8px
-        rgba(16, 24, 40, 0.04);
+        0 3px 14px
+        rgba(70, 30, 70, 0.06);
 
     position: sticky;
 
     top: 0;
 
     z-index: 1000;
+
+    backdrop-filter: blur(10px);
 }
 
-.nav-avatar {
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #eff6ff;
-}
 
-.nav-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-}
-
-/* ========================================
+/* =====================================================
    NAVBAR CONTAINER
-======================================== */
+===================================================== */
 
 .navbar-container {
+
     width: 100%;
 
     max-width: 1450px;
@@ -61,24 +65,25 @@
 
     justify-content: space-between;
 
-    gap: 30px;
+    gap: 28px;
 }
 
 
-/* ========================================
+/* =====================================================
    BRAND
-======================================== */
+===================================================== */
 
 .navbar-brand {
+
     display: flex;
 
     align-items: center;
 
-    color: #172033;
+    color: #29263a;
 
     text-decoration: none;
 
-    font-size: 25px;
+    font-size: 24px;
 
     font-weight: 700;
 
@@ -94,32 +99,62 @@
 
 
 .navbar-brand:hover {
-    color: #0f172a;
+
+    color: #8c2765;
 }
 
 
-/* ========================================
+/* =====================================================
+   BRAND ACCENT
+   Optional small visual accent
+===================================================== */
+
+.navbar-brand::before {
+
+    content: "";
+
+    width: 6px;
+
+    height: 24px;
+
+    margin-right: 10px;
+
+    border-radius: 5px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #d89167,
+            #a32675,
+            #6f1760
+        );
+}
+
+
+/* =====================================================
    RIGHT SIDE
-======================================== */
+===================================================== */
 
 .nav-right {
+
     display: flex;
 
     align-items: center;
 
     justify-content: flex-end;
 
-    gap: 18px;
+    gap: 14px;
 
     min-width: 0;
 }
 
 
-/* ========================================
+/* =====================================================
    NAVIGATION
-======================================== */
+===================================================== */
 
 .nav-links {
+
     display: flex;
 
     align-items: center;
@@ -128,11 +163,12 @@
 }
 
 
-/* ========================================
+/* =====================================================
    NAV LINK
-======================================== */
+===================================================== */
 
 .nav-link {
+
     position: relative;
 
     min-height: 40px;
@@ -146,9 +182,9 @@
     padding:
         0 12px;
 
-    border-radius: 7px;
+    border-radius: 8px;
 
-    color: #667085;
+    color: #777181;
 
     text-decoration: none;
 
@@ -160,39 +196,48 @@
 
     transition:
         color 0.2s ease,
-        background 0.2s ease;
+        background 0.2s ease,
+        transform 0.2s ease;
 }
 
 
-/* ========================================
-   HOVER
-======================================== */
+/* =====================================================
+   NAV LINK HOVER
+===================================================== */
 
 .nav-link:hover {
-    color: #172033;
 
-    background: #f2f4f7;
+    color: #6f1760;
+
+    background: #fff5fa;
 }
 
 
-/* ========================================
-   ACTIVE
-======================================== */
+/* =====================================================
+   ACTIVE LINK
+===================================================== */
 
 .nav-link.active {
-    color: #172033;
 
-    background: #eef1f5;
+    color: #6f1760;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff4f8,
+            #faf4ff
+        );
 
     font-weight: 600;
 }
 
 
-/* ========================================
-   ACTIVE UNDERLINE
-======================================== */
+/* =====================================================
+   ACTIVE INDICATOR
+===================================================== */
 
 .nav-link.active::after {
+
     content: "";
 
     position: absolute;
@@ -205,17 +250,24 @@
 
     height: 2px;
 
-    border-radius: 2px;
+    border-radius: 3px;
 
-    background: #172033;
+    background:
+        linear-gradient(
+            90deg,
+            #d89167,
+            #a32675,
+            #6f1760
+        );
 }
 
 
-/* ========================================
+/* =====================================================
    PROFILE LINK
-======================================== */
+===================================================== */
 
 .profile-link {
+
     display: flex;
 
     align-items: center;
@@ -225,7 +277,7 @@
     padding-left: 16px;
 
     border-left:
-        1px solid #e4e7ec;
+        1px solid #ebe6ee;
 
     text-decoration: none;
 
@@ -233,14 +285,15 @@
 }
 
 
-/* ========================================
+/* =====================================================
    USER AVATAR
-======================================== */
+===================================================== */
 
 .user-avatar {
-    width: 36px;
 
-    height: 36px;
+    width: 37px;
+
+    height: 37px;
 
     display: flex;
 
@@ -250,21 +303,49 @@
 
     border-radius: 50%;
 
-    background: #eef1f5;
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f5,
+            #f5edff
+        );
 
-    color: #172033;
+    color: #8c2765;
+
+    border:
+        1px solid #ead7e5;
 
     font-size: 13px;
 
     font-weight: 700;
+
+    box-shadow:
+        0 3px 10px
+        rgba(120, 40, 100, 0.08);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
-/* ========================================
+.profile-link:hover .user-avatar {
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 5px 14px
+        rgba(120, 40, 100, 0.13);
+}
+
+
+/* =====================================================
    USER INFO
-======================================== */
+===================================================== */
 
 .user-info {
+
     display: flex;
 
     flex-direction: column;
@@ -274,7 +355,8 @@
 
 
 .user-info strong {
-    max-width: 100px;
+
+    max-width: 110px;
 
     overflow: hidden;
 
@@ -282,7 +364,7 @@
 
     white-space: nowrap;
 
-    color: #344054;
+    color: #393443;
 
     font-size: 12px;
 
@@ -291,7 +373,8 @@
 
 
 .user-info span {
-    color: #98a2b3;
+
+    color: #9993a2;
 
     font-size: 10px;
 
@@ -299,11 +382,12 @@
 }
 
 
-/* ========================================
+/* =====================================================
    LOGOUT
-======================================== */
+===================================================== */
 
 .logout-btn {
+
     min-height: 38px;
 
     display: flex;
@@ -313,16 +397,16 @@
     justify-content: center;
 
     padding:
-        0 14px;
+        0 15px;
 
     border:
-        1px solid #e4e7ec;
+        1px solid #ded9e2;
 
-    border-radius: 7px;
+    border-radius: 8px;
 
     background: #ffffff;
 
-    color: #475467;
+    color: #5f5967;
 
     text-decoration: none;
 
@@ -335,37 +419,67 @@
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
-        color 0.2s ease;
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
+
+/* =====================================================
+   LOGOUT HOVER
+===================================================== */
 
 .logout-btn:hover {
-    background: #fef2f2;
 
-    border-color: #fecaca;
+    background: #fff5f6;
+
+    border-color: #efcaca;
 
     color: #b42318;
+
+    transform:
+        translateY(-1px);
 }
 
 
-/* ========================================
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.nav-link:focus-visible,
+.profile-link:focus-visible,
+.logout-btn:focus-visible {
+
+    outline:
+        3px solid
+        rgba(163, 38, 117, 0.15);
+
+    outline-offset: 2px;
+}
+
+
+/* =====================================================
    TABLET
-======================================== */
+===================================================== */
 
 @media (max-width: 1200px) {
 
     .navbar-container {
+
         padding:
             0 22px;
+
+        gap: 18px;
     }
 
 
     .navbar-brand {
-        font-size: 23px;
+
+        font-size: 22px;
     }
 
 
     .nav-link {
+
         padding:
             0 9px;
 
@@ -374,52 +488,57 @@
 
 
     .profile-link {
+
         padding-left: 10px;
     }
 
 
     .user-info {
+
         display: none;
     }
-
 }
 
 
-/* ========================================
+/* =====================================================
    SMALL TABLET
-======================================== */
+===================================================== */
 
 @media (max-width: 950px) {
 
     .navbar-container {
+
         min-height: auto;
 
         padding:
-            14px 20px;
+            13px 20px;
 
         flex-direction: column;
 
-        gap: 14px;
+        gap: 12px;
     }
 
 
     .navbar-brand {
+
         justify-content: center;
     }
 
 
     .nav-right {
+
         width: 100%;
 
         justify-content: center;
 
         flex-wrap: wrap;
 
-        gap: 10px;
+        gap: 9px;
     }
 
 
     .profile-link {
+
         border-left: none;
 
         padding-left: 0;
@@ -427,34 +546,47 @@
 
 
     .user-info {
+
         display: flex;
     }
-
 }
 
 
-/* ========================================
+/* =====================================================
    MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 650px) {
 
     .navbar-container {
+
         padding:
-            13px 15px;
+            12px 15px;
 
         align-items: stretch;
     }
 
 
     .navbar-brand {
+
         justify-content: flex-start;
 
-        font-size: 22px;
+        font-size: 21px;
+    }
+
+
+    .navbar-brand::before {
+
+        height: 21px;
+
+        width: 5px;
+
+        margin-right: 8px;
     }
 
 
     .nav-right {
+
         justify-content: flex-start;
 
         flex-wrap: nowrap;
@@ -468,6 +600,7 @@
 
 
     .nav-links {
+
         flex-shrink: 0;
 
         flex-wrap: nowrap;
@@ -475,6 +608,7 @@
 
 
     .nav-link {
+
         flex-shrink: 0;
 
         padding:
@@ -485,37 +619,47 @@
 
 
     .profile-link {
+
         flex-shrink: 0;
     }
 
 
     .logout-btn {
+
         flex-shrink: 0;
     }
-
 }
 
 
-/* ========================================
+/* =====================================================
    SMALL MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 450px) {
 
     .navbar-brand {
-        font-size: 21px;
+
+        font-size: 20px;
     }
 
 
     .user-info {
+
         display: none;
     }
 
 
     .user-avatar {
+
         width: 34px;
 
         height: 34px;
     }
 
+
+    .logout-btn {
+
+        padding:
+            0 12px;
+    }
 }
