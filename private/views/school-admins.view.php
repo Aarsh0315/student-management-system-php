@@ -66,24 +66,24 @@ $admins = $data['admins'] ?? [];
 
     <section class="welcome">
 
-        <div>
+    <div>
 
-            <p class="welcome-small">
-                School Admin
-            </p>
+        <p class="welcome-small">
+            Super Admin
+        </p>
 
-            <h1>
-                School Admins
-            </h1>
+        <h1>
+            School Admin
+        </h1>
 
-            <p class="welcome-text">
-                Manage administrators assigned
-                to schools.
-            </p>
+        <p class="welcome-text">
+            Manage and monitor administrators assigned
+            to schools across the system.
+        </p>
 
-        </div>
+    </div>
 
-    </section>
+</section>
 
 
     <!-- =========================

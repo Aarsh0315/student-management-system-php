@@ -1,21 +1,22 @@
-/* ========================================
+/* =====================================================
    PARENT DETAILS PAGE
-======================================== */
+   My School Theme
+===================================================== */
 
 
-/* ========================================
+/* =====================================================
    PARENT PROFILE CARD
-======================================== */
+===================================================== */
 
 .parent-profile-card {
 
     width: 100%;
 
-    padding: 28px;
+    padding: 30px;
 
     background: #ffffff;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #eadfe7;
 
     border-radius: 16px;
 
@@ -32,14 +33,26 @@
     box-sizing: border-box;
 
     box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
+        0 5px 20px rgba(48, 45, 61, 0.04);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
 
+.parent-profile-card:hover {
 
-/* ========================================
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 28px rgba(48, 45, 61, 0.07);
+}
+
+
+/* =====================================================
    PROFILE LEFT
-======================================== */
+===================================================== */
 
 .parent-profile-left {
 
@@ -53,24 +66,23 @@
 }
 
 
-
-/* ========================================
-   LARGE AVATAR
-======================================== */
+/* =====================================================
+   PARENT AVATAR
+===================================================== */
 
 .parent-large-avatar {
 
-    width: 68px;
+    width: 90px;
 
-    height: 68px;
+    height: 90px;
 
-    flex-shrink: 0;
+    min-width: 90px;
 
     border-radius: 50%;
 
-    background: #2563eb;
+    background: #f9eaf4;
 
-    color: #ffffff;
+    color: #a32675;
 
     display: flex;
 
@@ -78,19 +90,20 @@
 
     justify-content: center;
 
-    font-size: 23px;
+    font-size: 30px;
 
     font-weight: 700;
 
+    border: 3px solid #f0cfe2;
+
     box-shadow:
-        0 5px 15px rgba(37, 99, 235, 0.20);
+        0 6px 16px rgba(163, 38, 117, 0.10);
 }
 
 
-
-/* ========================================
+/* =====================================================
    PROFILE INFO
-======================================== */
+===================================================== */
 
 .parent-profile-info {
 
@@ -102,9 +115,9 @@
 
     margin: 0 0 5px;
 
-    color: #172033;
+    color: #302d3d;
 
-    font-size: 20px;
+    font-size: 21px;
 
     font-weight: 700;
 
@@ -114,22 +127,21 @@
 
 .parent-profile-info p {
 
-    margin: 0 0 9px;
+    margin: 0 0 10px;
 
-    color: #64748b;
+    color: #756d79;
 
     font-size: 13px;
 
-    line-height: 1.4;
+    line-height: 1.5;
 
     word-break: break-word;
 }
 
 
-
-/* ========================================
+/* =====================================================
    ROLE BADGE
-======================================== */
+===================================================== */
 
 .parent-role-badge {
 
@@ -139,11 +151,11 @@
 
     padding: 5px 10px;
 
-    background: #eff6ff;
+    background: #f9eaf4;
 
-    color: #2563eb;
+    color: #a32675;
 
-    border: 1px solid #dbeafe;
+    border: 1px solid #f0cfe2;
 
     border-radius: 20px;
 
@@ -155,10 +167,9 @@
 }
 
 
-
-/* ========================================
+/* =====================================================
    STATUS
-======================================== */
+===================================================== */
 
 .parent-profile-card .status {
 
@@ -167,6 +178,8 @@
     align-items: center;
 
     gap: 6px;
+
+    margin-left: auto;
 
     padding: 6px 11px;
 
@@ -194,62 +207,59 @@
 }
 
 
-
-/* ========================================
-   ACTIVE STATUS
-======================================== */
+/* =====================================================
+   ACTIVE
+===================================================== */
 
 .parent-profile-card .status.active {
 
-    background: #ecfdf3;
+    background: #eff9f3;
 
-    color: #15803d;
+    color: #28784a;
 
-    border: 1px solid #bbf7d0;
+    border: 1px solid #cce8d6;
 }
 
 
 .parent-profile-card .status.active::before {
 
-    background: #22c55e;
+    background: #39a866;
 }
 
 
-
-/* ========================================
-   INACTIVE STATUS
-======================================== */
+/* =====================================================
+   INACTIVE
+===================================================== */
 
 .parent-profile-card .status.inactive {
 
-    background: #fef2f2;
+    background: #fff4f4;
 
-    color: #b91c1c;
+    color: #b44747;
 
-    border: 1px solid #fecaca;
+    border: 1px solid #f1cccc;
 }
 
 
 .parent-profile-card .status.inactive::before {
 
-    background: #ef4444;
+    background: #d95353;
 }
 
 
-
-/* ========================================
+/* =====================================================
    DETAILS CARD
-======================================== */
+===================================================== */
 
 .parent-details-card {
 
     width: 100%;
 
-    padding: 28px;
+    padding: 30px;
 
     background: #ffffff;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #eadfe7;
 
     border-radius: 16px;
 
@@ -258,30 +268,29 @@
     box-sizing: border-box;
 
     box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
+        0 5px 20px rgba(48, 45, 61, 0.04);
 }
 
 
-
-/* ========================================
+/* =====================================================
    DETAILS HEADER
-======================================== */
+===================================================== */
 
-.details-header {
+.parent-details-card .details-header {
 
     margin-bottom: 22px;
 
     padding-bottom: 18px;
 
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid #eee5eb;
 }
 
 
-.details-header h2 {
+.parent-details-card .details-header h2 {
 
     margin: 0 0 5px;
 
-    color: #172033;
+    color: #302d3d;
 
     font-size: 19px;
 
@@ -291,11 +300,29 @@
 }
 
 
-.details-header p {
+.parent-details-card .details-header h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 38px;
+
+    height: 3px;
+
+    margin-top: 8px;
+
+    background: #a32675;
+
+    border-radius: 5px;
+}
+
+
+.parent-details-card .details-header p {
 
     margin: 0;
 
-    color: #64748b;
+    color: #756d79;
 
     font-size: 12px;
 
@@ -303,21 +330,20 @@
 }
 
 
-
-/* ========================================
+/* =====================================================
    DETAILS GRID
-======================================== */
+===================================================== */
 
-.details-grid {
+.parent-details-card .details-grid {
 
     display: grid;
 
     grid-template-columns:
         repeat(3, minmax(0, 1fr));
 
-    border-top: 1px solid #eef0f3;
+    border-top: 1px solid #eee5eb;
 
-    border-left: 1px solid #eef0f3;
+    border-left: 1px solid #eee5eb;
 
     border-radius: 10px;
 
@@ -325,12 +351,11 @@
 }
 
 
-
-/* ========================================
+/* =====================================================
    DETAILS ITEM
-======================================== */
+===================================================== */
 
-.details-item {
+.parent-details-card .details-item {
 
     min-height: 88px;
 
@@ -346,26 +371,32 @@
 
     gap: 7px;
 
-    border-right: 1px solid #eef0f3;
+    border-right: 1px solid #eee5eb;
 
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid #eee5eb;
 
     box-sizing: border-box;
 
     transition:
-        background 0.15s ease;
+        background 0.2s ease;
 }
 
 
-.details-item:hover {
+.parent-details-card .details-item:hover {
 
-    background: #f8fafc;
+    background: #fdf9fc;
 }
 
 
-.details-item span {
+/* =====================================================
+   DETAIL LABEL
+===================================================== */
 
-    color: #94a3b8;
+.parent-details-card .details-item span {
+
+    display: block;
+
+    color: #9b949e;
 
     font-size: 10px;
 
@@ -377,22 +408,37 @@
 }
 
 
-.details-item strong {
+/* =====================================================
+   DETAIL VALUE
+===================================================== */
 
-    color: #172033;
+.parent-details-card .details-item strong {
+
+    color: #302d3d;
 
     font-size: 13px;
 
     font-weight: 600;
 
+    line-height: 1.4;
+
     word-break: break-word;
 }
 
 
+/* =====================================================
+   PARENT ID
+===================================================== */
 
-/* ========================================
+.parent-details-card .details-item:first-child strong {
+
+    color: #a32675;
+}
+
+
+/* =====================================================
    CHILDREN TABLE WRAPPER
-======================================== */
+===================================================== */
 
 .children-table-wrapper {
 
@@ -400,16 +446,17 @@
 
     overflow-x: auto;
 
-    border: 1px solid #eef0f3;
+    border: 1px solid #eee5eb;
 
     border-radius: 10px;
+
+    box-sizing: border-box;
 }
 
 
-
-/* ========================================
+/* =====================================================
    CHILDREN TABLE
-======================================== */
+===================================================== */
 
 .children-table-wrapper table {
 
@@ -423,14 +470,13 @@
 }
 
 
-
-/* ========================================
+/* =====================================================
    TABLE HEADER
-======================================== */
+===================================================== */
 
 .children-table-wrapper thead {
 
-    background: #f8fafc;
+    background: #faf7f9;
 }
 
 
@@ -438,7 +484,7 @@
 
     padding: 13px 14px;
 
-    color: #64748b;
+    color: #756d79;
 
     font-size: 10px;
 
@@ -452,20 +498,19 @@
 
     white-space: nowrap;
 
-    border-bottom: 1px solid #e5e7eb;
+    border-bottom: 1px solid #eadfe7;
 }
 
 
-
-/* ========================================
+/* =====================================================
    TABLE BODY
-======================================== */
+===================================================== */
 
 .children-table-wrapper td {
 
     padding: 15px 14px;
 
-    color: #475569;
+    color: #625b67;
 
     font-size: 12px;
 
@@ -473,14 +518,13 @@
 
     white-space: nowrap;
 
-    border-bottom: 1px solid #eef0f3;
+    border-bottom: 1px solid #eee5eb;
 }
 
 
-
-/* ========================================
+/* =====================================================
    LAST ROW
-======================================== */
+===================================================== */
 
 .children-table-wrapper tbody tr:last-child td {
 
@@ -488,10 +532,9 @@
 }
 
 
-
-/* ========================================
+/* =====================================================
    ROW HOVER
-======================================== */
+===================================================== */
 
 .children-table-wrapper tbody tr {
 
@@ -502,18 +545,17 @@
 
 .children-table-wrapper tbody tr:hover {
 
-    background: #f8fafc;
+    background: #fdf9fc;
 }
 
 
-
-/* ========================================
+/* =====================================================
    STUDENT NAME
-======================================== */
+===================================================== */
 
 .children-table-wrapper td strong {
 
-    color: #172033;
+    color: #302d3d;
 
     font-size: 13px;
 
@@ -521,10 +563,9 @@
 }
 
 
-
-/* ========================================
+/* =====================================================
    STUDENT ID
-======================================== */
+===================================================== */
 
 .student-id {
 
@@ -534,11 +575,11 @@
 
     padding: 5px 9px;
 
-    background: #f1f5f9;
+    background: #f9eaf4;
 
-    color: #475569;
+    color: #a32675;
 
-    border: 1px solid #e2e8f0;
+    border: 1px solid #f0cfe2;
 
     border-radius: 6px;
 
@@ -550,10 +591,9 @@
 }
 
 
-
-/* ========================================
-   STATUS INSIDE CHILDREN TABLE
-======================================== */
+/* =====================================================
+   CHILD STATUS
+===================================================== */
 
 .children-table-wrapper .status {
 
@@ -585,42 +625,49 @@
 }
 
 
+/* =====================================================
+   CHILD ACTIVE
+===================================================== */
+
 .children-table-wrapper .status.active {
 
-    background: #ecfdf3;
+    background: #eff9f3;
 
-    color: #15803d;
+    color: #28784a;
 
-    border: 1px solid #bbf7d0;
+    border: 1px solid #cce8d6;
 }
 
 
 .children-table-wrapper .status.active::before {
 
-    background: #22c55e;
+    background: #39a866;
 }
 
 
+/* =====================================================
+   CHILD INACTIVE
+===================================================== */
+
 .children-table-wrapper .status.inactive {
 
-    background: #fef2f2;
+    background: #fff4f4;
 
-    color: #b91c1c;
+    color: #b44747;
 
-    border: 1px solid #fecaca;
+    border: 1px solid #f1cccc;
 }
 
 
 .children-table-wrapper .status.inactive::before {
 
-    background: #ef4444;
+    background: #d95353;
 }
 
 
-
-/* ========================================
+/* =====================================================
    EMPTY STATE
-======================================== */
+===================================================== */
 
 .empty-state {
 
@@ -628,11 +675,11 @@
 
     text-align: center;
 
-    border: 1px dashed #dbe2ea;
+    border: 1px dashed #d9cfd7;
 
     border-radius: 10px;
 
-    background: #f8fafc;
+    background: #faf7f9;
 }
 
 
@@ -640,7 +687,7 @@
 
     margin: 0 0 8px;
 
-    color: #172033;
+    color: #302d3d;
 
     font-size: 18px;
 
@@ -652,7 +699,7 @@
 
     margin: 0;
 
-    color: #64748b;
+    color: #756d79;
 
     font-size: 13px;
 
@@ -660,10 +707,9 @@
 }
 
 
-
-/* ========================================
+/* =====================================================
    ACTIONS
-======================================== */
+===================================================== */
 
 .parent-actions {
 
@@ -677,10 +723,9 @@
 }
 
 
-
-/* ========================================
+/* =====================================================
    BACK BUTTON
-======================================== */
+===================================================== */
 
 .parent-actions .back-btn {
 
@@ -694,9 +739,9 @@
 
     background: #ffffff;
 
-    color: #475569;
+    color: #625b67;
 
-    border: 1px solid #dbe2ea;
+    border: 1px solid #d9cfd7;
 
     border-radius: 8px;
 
@@ -716,36 +761,59 @@
 
 .parent-actions .back-btn:hover {
 
-    background: #f8fafc;
+    background: #faf6f9;
 
-    border-color: #cbd5e1;
+    border-color: #cdbeca;
 
-    color: #2563eb;
+    color: #a32675;
 
     transform: translateX(-2px);
 }
 
 
+/* =====================================================
+   FOCUS
+===================================================== */
 
-/* ========================================
+.parent-actions .back-btn:focus-visible {
+
+    outline:
+        3px solid rgba(163, 38, 117, 0.15);
+
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
    TABLET
-======================================== */
+===================================================== */
 
 @media (max-width: 900px) {
 
-    .details-grid {
+    .parent-details-card .details-grid {
 
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
     }
-
 }
 
 
+/* =====================================================
+   SMALL TABLET
+===================================================== */
 
-/* ========================================
+@media (max-width: 800px) {
+
+    .parent-details-card {
+
+        padding: 24px;
+    }
+}
+
+
+/* =====================================================
    MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 650px) {
 
@@ -756,18 +824,24 @@
         align-items: flex-start;
 
         padding: 20px;
+
+        border-radius: 14px;
     }
 
 
     .parent-profile-left {
 
         width: 100%;
+
+        gap: 14px;
     }
 
 
     .parent-profile-card .status {
 
         width: 100%;
+
+        margin-left: 0;
 
         justify-content: center;
     }
@@ -776,10 +850,12 @@
     .parent-details-card {
 
         padding: 20px;
+
+        border-radius: 14px;
     }
 
 
-    .details-grid {
+    .parent-details-card .details-grid {
 
         grid-template-columns: 1fr;
     }
@@ -787,11 +863,13 @@
 
     .parent-large-avatar {
 
-        width: 60px;
+        width: 72px;
 
-        height: 60px;
+        height: 72px;
 
-        font-size: 21px;
+        min-width: 72px;
+
+        font-size: 25px;
     }
 
 
@@ -801,20 +879,36 @@
     }
 
 
+    .parent-profile-info p {
+
+        font-size: 12px;
+    }
+
+
+    .parent-details-card .details-header h2 {
+
+        font-size: 18px;
+    }
+
+
     .children-table-wrapper {
 
         border-radius: 8px;
     }
-
 }
 
 
-
-/* ========================================
+/* =====================================================
    SMALL MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 400px) {
+
+    .parent-profile-card {
+
+        padding: 17px;
+    }
+
 
     .parent-details-card {
 
@@ -822,9 +916,21 @@
     }
 
 
-    .parent-profile-card {
+    .parent-profile-left {
 
-        padding: 17px;
+        gap: 12px;
+    }
+
+
+    .parent-large-avatar {
+
+        width: 60px;
+
+        height: 60px;
+
+        min-width: 60px;
+
+        font-size: 21px;
     }
 
 
@@ -834,15 +940,34 @@
     }
 
 
-    .details-header h2 {
+    .parent-profile-info p {
+
+        font-size: 11px;
+    }
+
+
+    .parent-details-card .details-header h2 {
 
         font-size: 17px;
     }
 
 
-    .details-header p {
+    .parent-details-card .details-header p {
 
         font-size: 11px;
     }
 
+
+    .parent-details-card .details-item {
+
+        min-height: 75px;
+
+        padding: 15px;
+    }
+
+
+    .parent-details-card .details-item strong {
+
+        font-size: 12px;
+    }
 }

@@ -22,16 +22,15 @@ $admin = $data['admin'] ?? $data['user'] ?? null;
         rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css?v=2"
     >
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/school-admin-details.view.css?v=2">
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
 
-     <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/profile.view.css?v=2"
-    >
 
     <link
         rel="stylesheet"
@@ -53,19 +52,20 @@ $admin = $data['admin'] ?? $data['user'] ?? null;
 
     <section class="welcome">
 
-        <p class="welcome-small">
-            School Admin
-        </p>
+    <p class="welcome-small">
+        Super Admin
+    </p>
 
-        <h1>
-            School Admin Details
-        </h1>
+    <h1>
+        School Admin
+    </h1>
 
-        <p class="welcome-text">
-            View the complete information of this school administrator.
-        </p>
+    <p class="welcome-text">
+        View the complete information of this school administrator
+        and their assigned school.
+    </p>
 
-    </section>
+</section>
 
 
     <?php if ($admin): ?>
