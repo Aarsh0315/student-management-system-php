@@ -51,6 +51,11 @@ $users = $data['users'] ?? [];
 
 <?php require "../private/views/includes/nav.view.php"; ?>
 
+<?php
+
+require "../private/views/includes/sidebar.view.php";
+
+?>
 
 <main class="dashboard">
 
