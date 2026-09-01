@@ -482,6 +482,19 @@ $initial = strtoupper(
 
                 </div>
 
+                <!-- ====================================
+     LOGOUT
+===================================== -->
+
+<a
+    href="<?= ROOT ?>/logout"
+    class="navbar-logout"
+    title="Logout"
+>
+    <span class="logout-icon">↪</span>
+    <span class="logout-text">Logout</span>
+</a>
+
             </a>
 
         </div>

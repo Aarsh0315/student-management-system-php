@@ -1206,3 +1206,155 @@
         height: 34px;
     }
 }
+
+/* =====================================================
+   LOGOUT BUTTON
+===================================================== */
+
+.navbar-logout {
+
+    min-height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 14px;
+
+    border: 1px solid #e3dce5;
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #706976;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =====================================================
+   LOGOUT ICON
+===================================================== */
+
+.logout-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 16px;
+
+    line-height: 1;
+
+    transition:
+        transform 0.2s ease;
+}
+
+
+/* =====================================================
+   LOGOUT HOVER
+===================================================== */
+
+.navbar-logout:hover {
+
+    color: #a32675;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff6f9,
+            #faf5ff
+        );
+
+    border-color: #dec4d8;
+
+    transform:
+        translateY(-1px);
+
+    box-shadow:
+        0 5px 14px
+        rgba(120, 40, 100, 0.08);
+}
+
+
+.navbar-logout:hover .logout-icon {
+
+    transform:
+        translateX(2px);
+}
+
+
+/* =====================================================
+   LOGOUT FOCUS
+===================================================== */
+
+.navbar-logout:focus-visible {
+
+    outline:
+        3px solid
+        rgba(163, 38, 117, 0.13);
+
+    outline-offset: 2px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .logout-text {
+
+        display: none;
+    }
+
+    .navbar-logout {
+
+        width: 38px;
+
+        padding: 0;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .navbar-logout {
+
+        width: 36px;
+
+        min-height: 36px;
+    }
+
+    .logout-icon {
+
+        font-size: 15px;
+    }
+
+}

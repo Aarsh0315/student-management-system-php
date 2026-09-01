@@ -72,6 +72,10 @@ if ($rank === 'super_admin') {
         href="<?= ROOT ?>/css/nav.view.css"
     >
 
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css"
+    >
 </head>
 
 
@@ -79,6 +83,8 @@ if ($rank === 'super_admin') {
 
 
 <?php require "../private/views/includes/nav.view.php"; ?>
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -418,6 +424,8 @@ if ($rank === 'super_admin') {
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 </body>
 
