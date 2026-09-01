@@ -13,27 +13,6 @@
 }
 
 
-html {
-    margin: 0;
-    padding: 0;
-}
-
-
-body {
-    margin: 0;
-    padding: 0;
-
-    background: #f5f7fa;
-
-    color: #302d3d;
-
-    font-family:
-        Arial,
-        Helvetica,
-        sans-serif;
-}
-
-
 /* =====================================================
    DASHBOARD
 ===================================================== */
@@ -47,16 +26,20 @@ body {
     margin: 0 auto;
 
     padding: 55px 0 60px;
+
 }
 
 
 /* =====================================================
-   WELCOME
+   PAGE HEADER
 ===================================================== */
 
 .welcome {
 
+    width: 100%;
+
     margin-bottom: 35px;
+
 }
 
 
@@ -64,11 +47,16 @@ body {
 
     margin: 0 0 8px;
 
-    color: #4f6f95;
+    color: #a32675;
 
-    font-size: 14px;
+    font-size: 13px;
 
-    font-weight: 500;
+    font-weight: 700;
+
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+
 }
 
 
@@ -76,13 +64,14 @@ body {
 
     margin: 0 0 10px;
 
-    color: #14213d;
+    color: #302d3d;
 
     font-size: 36px;
 
     font-weight: 700;
 
     line-height: 1.2;
+
 }
 
 
@@ -90,11 +79,12 @@ body {
 
     margin: 0;
 
-    color: #5d789b;
+    color: #756d79;
 
     font-size: 16px;
 
     line-height: 1.5;
+
 }
 
 
@@ -120,6 +110,7 @@ body {
         0 5px 20px rgba(48, 45, 61, 0.04);
 
     overflow: hidden;
+
 }
 
 
@@ -138,6 +129,7 @@ body {
     gap: 20px;
 
     margin-bottom: 32px;
+
 }
 
 
@@ -145,13 +137,14 @@ body {
 
     margin: 0 0 7px;
 
-    color: #172033;
+    color: #302d3d;
 
     font-size: 24px;
 
     font-weight: 700;
 
     line-height: 1.3;
+
 }
 
 
@@ -159,16 +152,17 @@ body {
 
     margin: 0;
 
-    color: #687b95;
+    color: #756d79;
 
     font-size: 14px;
 
     line-height: 1.5;
+
 }
 
 
 /* =====================================================
-   CLASSES TABLE WRAPPER
+   TABLE WRAPPER
 ===================================================== */
 
 .classes-table-wrapper {
@@ -186,11 +180,12 @@ body {
     scrollbar-width: thin;
 
     -webkit-overflow-scrolling: touch;
+
 }
 
 
 /* =====================================================
-   CLASSES TABLE
+   TABLE
 ===================================================== */
 
 .classes-table {
@@ -202,6 +197,7 @@ body {
     border-collapse: collapse;
 
     background: #ffffff;
+
 }
 
 
@@ -212,6 +208,7 @@ body {
 .classes-table thead {
 
     background: #fdf7fa;
+
 }
 
 
@@ -229,11 +226,12 @@ body {
 
     text-transform: uppercase;
 
-    letter-spacing: 0.3px;
+    letter-spacing: 0.4px;
 
     white-space: nowrap;
 
     border-bottom: 1px solid #eadfe7;
+
 }
 
 
@@ -245,7 +243,7 @@ body {
 
     padding: 17px 16px;
 
-    color: #52627a;
+    color: #625b67;
 
     font-size: 13px;
 
@@ -254,6 +252,7 @@ body {
     white-space: nowrap;
 
     border-bottom: 1px solid #f0ebef;
+
 }
 
 
@@ -264,17 +263,19 @@ body {
 .classes-table tbody tr:last-child td {
 
     border-bottom: none;
+
 }
 
 
 /* =====================================================
-   ROW
+   TABLE ROW
 ===================================================== */
 
 .classes-table tbody tr {
 
     transition:
         background 0.15s ease;
+
 }
 
 
@@ -285,6 +286,7 @@ body {
 .classes-table tbody tr:hover {
 
     background: #fdf9fc;
+
 }
 
 
@@ -294,7 +296,7 @@ body {
 
 .class-name {
 
-    color: #172033;
+    color: #302d3d;
 
     font-size: 14px;
 
@@ -302,12 +304,14 @@ body {
 
     transition:
         color 0.15s ease;
+
 }
 
 
 .classes-table tbody tr:hover .class-name {
 
     color: #a32675;
+
 }
 
 
@@ -342,6 +346,7 @@ body {
     font-weight: 600;
 
     white-space: nowrap;
+
 }
 
 
@@ -376,6 +381,7 @@ body {
     font-weight: 600;
 
     white-space: nowrap;
+
 }
 
 
@@ -400,6 +406,7 @@ body {
     font-weight: 600;
 
     white-space: nowrap;
+
 }
 
 
@@ -414,11 +421,12 @@ body {
     flex-shrink: 0;
 
     border-radius: 50%;
+
 }
 
 
 /* =====================================================
-   ACTIVE
+   ACTIVE STATUS
 ===================================================== */
 
 .status.active {
@@ -428,17 +436,19 @@ body {
     color: #28784a;
 
     border: 1px solid #cce8d6;
+
 }
 
 
 .status.active::before {
 
     background: #35a563;
+
 }
 
 
 /* =====================================================
-   INACTIVE
+   INACTIVE STATUS
 ===================================================== */
 
 .status.inactive {
@@ -448,12 +458,14 @@ body {
     color: #b44747;
 
     border: 1px solid #f1cccc;
+
 }
 
 
 .status.inactive::before {
 
     background: #d95353;
+
 }
 
 
@@ -497,6 +509,7 @@ body {
         color 0.2s ease,
         transform 0.2s ease,
         box-shadow 0.2s ease;
+
 }
 
 
@@ -512,6 +525,7 @@ body {
 
     box-shadow:
         0 4px 10px rgba(163, 38, 117, 0.18);
+
 }
 
 
@@ -530,6 +544,7 @@ body {
     border-radius: 10px;
 
     background: #fcfafc;
+
 }
 
 
@@ -542,6 +557,7 @@ body {
     font-size: 19px;
 
     font-weight: 700;
+
 }
 
 
@@ -554,6 +570,7 @@ body {
     font-size: 13px;
 
     line-height: 1.5;
+
 }
 
 
@@ -566,6 +583,7 @@ body {
     outline: 3px solid rgba(163, 38, 117, 0.16);
 
     outline-offset: 3px;
+
 }
 
 
@@ -573,47 +591,42 @@ body {
    TABLET
 ===================================================== */
 
-@media (max-width: 1250px) {
+@media (max-width: 950px) {
 
     .dashboard {
 
         max-width: calc(100% - 50px);
 
         padding-top: 45px;
-    }
 
-}
-
-
-/* =====================================================
-   SMALL TABLET
-===================================================== */
-
-@media (max-width: 900px) {
-
-    .dashboard {
-
-        max-width: calc(100% - 35px);
-
-        padding-top: 35px;
     }
 
 
     .classes-card {
 
         padding: 27px;
+
+    }
+
+
+    .classes-header {
+
+        margin-bottom: 25px;
+
     }
 
 
     .classes-header h2 {
 
         font-size: 22px;
+
     }
 
 
     .welcome h1 {
 
         font-size: 32px;
+
     }
 
 }
@@ -630,18 +643,21 @@ body {
         max-width: calc(100% - 24px);
 
         padding: 25px 0 40px;
+
     }
 
 
     .welcome {
 
         margin-bottom: 25px;
+
     }
 
 
     .welcome-small {
 
-        font-size: 13px;
+        font-size: 12px;
+
     }
 
 
@@ -650,12 +666,14 @@ body {
         font-size: 28px;
 
         margin-bottom: 8px;
+
     }
 
 
     .welcome-text {
 
         font-size: 14px;
+
     }
 
 
@@ -664,6 +682,7 @@ body {
         padding: 20px;
 
         border-radius: 14px;
+
     }
 
 
@@ -676,30 +695,35 @@ body {
         gap: 15px;
 
         margin-bottom: 22px;
+
     }
 
 
     .classes-header h2 {
 
         font-size: 20px;
+
     }
 
 
     .classes-header p {
 
         font-size: 12px;
+
     }
 
 
     .classes-table-wrapper {
 
         border-radius: 8px;
+
     }
 
 
     .classes-table {
 
         min-width: 700px;
+
     }
 
 
@@ -708,6 +732,7 @@ body {
         padding: 13px;
 
         font-size: 10px;
+
     }
 
 
@@ -716,6 +741,25 @@ body {
         padding: 14px 13px;
 
         font-size: 12px;
+
+    }
+
+
+    .class-name {
+
+        font-size: 13px;
+
+    }
+
+
+    .view-btn {
+
+        min-width: 55px;
+
+        min-height: 34px;
+
+        font-size: 11px;
+
     }
 
 }
@@ -730,202 +774,42 @@ body {
     .dashboard {
 
         max-width: calc(100% - 18px);
+
     }
 
 
     .welcome h1 {
 
         font-size: 25px;
+
     }
 
 
     .classes-card {
 
         padding: 17px;
+
     }
 
 
     .classes-header h2 {
 
         font-size: 18px;
+
+    }
+
+
+    .classes-header p {
+
+        font-size: 11px;
+
     }
 
 
     .empty-state {
 
         padding: 45px 18px;
+
     }
 
-}
-
-
-/* =====================================================
-   EXACT PAGE SIZING / SPACING
-===================================================== */
-
-.dashboard {
-
-    width: 100%;
-
-    max-width: 1200px;
-
-    margin: 0 auto;
-
-    padding: 55px 0 60px;
-}
-
-
-/* =====================================================
-   WELCOME SPACING
-===================================================== */
-
-.welcome {
-
-    margin-bottom: 35px;
-}
-
-
-.welcome-small {
-
-    margin: 0 0 8px;
-
-    font-size: 14px;
-}
-
-
-.welcome h1 {
-
-    margin: 0 0 10px;
-
-    font-size: 36px;
-}
-
-
-.welcome-text {
-
-    margin: 0;
-
-    font-size: 16px;
-}
-
-
-/* =====================================================
-   MAIN CARD
-===================================================== */
-
-.classes-card {
-
-    width: 100%;
-
-    padding: 35px;
-
-    margin-bottom: 40px;
-
-    border-radius: 16px;
-}
-
-
-/* =====================================================
-   CARD HEADER
-===================================================== */
-
-.classes-header {
-
-    margin-bottom: 32px;
-}
-
-
-.classes-header h2 {
-
-    margin: 0 0 7px;
-
-    font-size: 24px;
-}
-
-
-.classes-header p {
-
-    margin: 0;
-
-    font-size: 14px;
-}
-
-
-/* =====================================================
-   TABLE
-===================================================== */
-
-.classes-table-wrapper {
-
-    border-radius: 10px;
-}
-
-
-.classes-table {
-
-    width: 100%;
-
-    min-width: 700px;
-}
-
-
-/* =====================================================
-   TABLE HEADER
-===================================================== */
-
-.classes-table th {
-
-    padding: 15px 16px;
-
-    font-size: 11px;
-}
-
-
-/* =====================================================
-   TABLE ROWS
-===================================================== */
-
-.classes-table td {
-
-    padding: 17px 16px;
-
-    font-size: 13px;
-}
-
-
-/* =====================================================
-   CLASS NAME
-===================================================== */
-
-.class-name {
-
-    font-size: 14px;
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-.status {
-
-    padding: 6px 11px;
-
-    font-size: 11px;
-}
-
-
-/* =====================================================
-   VIEW BUTTON
-===================================================== */
-
-.view-btn {
-
-    min-width: 60px;
-
-    min-height: 36px;
-
-    padding: 0 14px;
-
-    font-size: 12px;
 }

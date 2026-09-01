@@ -368,7 +368,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ♙
+                        🎓
                     </span>
 
                     <span>
@@ -389,8 +389,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ♟
-                    </span>
+    👨‍🏫
+</span>
 
                     <span>
                         Teachers
@@ -410,8 +410,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ▤
-                    </span>
+    🏫
+</span>
 
                     <span>
                         Classes
@@ -431,8 +431,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ◌
-                    </span>
+    👨‍👩‍👧
+</span>
 
                     <span>
                         Parents
@@ -462,8 +462,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ✓
-                    </span>
+    📝
+</span>
 
                     <span>
                         Tests
@@ -483,8 +483,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ≡
-                    </span>
+    📊
+</span>
 
                     <span>
                         Results

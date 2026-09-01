@@ -8,6 +8,85 @@
    PARENTS CARD
 ===================================================== */
 
+* {
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard {
+
+    width: 100%;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+
+    padding: 55px 0 60px;
+
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.welcome {
+
+    width: 100%;
+
+    margin-bottom: 35px;
+
+}
+
+
+.welcome-small {
+
+    margin: 0 0 8px;
+
+    color: #a32675;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.7px;
+
+    text-transform: uppercase;
+
+}
+
+
+.welcome h1 {
+
+    margin: 0 0 10px;
+
+    color: #302d3d;
+
+    font-size: 36px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+.welcome-text {
+
+    margin: 0;
+
+    color: #756d79;
+
+    font-size: 16px;
+
+    line-height: 1.5;
+
+}
+
 .parents-card {
 
     width: 100%;

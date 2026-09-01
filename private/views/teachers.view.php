@@ -21,34 +21,40 @@ $teachers = $data['teachers'] ?? [];
     </title>
 
 
-    <!-- NAVBAR -->
+    <!-- NAVBAR CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=2">
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
 
 
-    <!-- TEACHERS -->
+    <!-- TEACHERS CSS -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/teachers.view.css?v=2"
     >
 
+    <link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/home.view.css?v=2"
+>
 
-    <!-- FOOTER -->
+
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
     >
 
 
-    <!-- SIDEBAR -->
+    <!-- SIDEBAR CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/sidebar.view.css"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
     >
 
 </head>
@@ -65,9 +71,9 @@ $teachers = $data['teachers'] ?? [];
 <main class="dashboard">
 
 
-    <!-- =================================================
+    <!-- =========================
          PAGE HEADER
-    ================================================== -->
+    ========================== -->
 
     <section class="welcome">
 
@@ -118,16 +124,16 @@ $teachers = $data['teachers'] ?? [];
 
 
 
-    <!-- =================================================
+    <!-- =========================
          TEACHERS CARD
-    ================================================== -->
+    ========================== -->
 
     <section class="teachers-card">
 
 
-        <!-- =================================================
+        <!-- =========================
              HEADER
-        ================================================== -->
+        ========================== -->
 
         <div class="teachers-header">
 
@@ -149,9 +155,7 @@ $teachers = $data['teachers'] ?? [];
             </div>
 
 
-            <!-- =================================================
-                 ADD TEACHER
-            ================================================== -->
+            <!-- ADD TEACHER -->
 
             <a
                 href="<?= ROOT ?>/teachers/add"
@@ -167,9 +171,9 @@ $teachers = $data['teachers'] ?? [];
         <?php if (!empty($teachers)): ?>
 
 
-            <!-- =================================================
+            <!-- =========================
                  TABLE
-            ================================================== -->
+            ========================== -->
 
             <div class="table-wrapper">
 
@@ -243,7 +247,6 @@ $teachers = $data['teachers'] ?? [];
                                 </td>
 
 
-
                                 <!-- NAME -->
 
                                 <td>
@@ -263,7 +266,6 @@ $teachers = $data['teachers'] ?? [];
                                 </td>
 
 
-
                                 <!-- EMAIL -->
 
                                 <td>
@@ -274,7 +276,6 @@ $teachers = $data['teachers'] ?? [];
                                     ) ?>
 
                                 </td>
-
 
 
                                 <!-- DEPARTMENT -->
@@ -293,7 +294,6 @@ $teachers = $data['teachers'] ?? [];
                                 </td>
 
 
-
                                 <!-- DESIGNATION -->
 
                                 <td>
@@ -310,7 +310,6 @@ $teachers = $data['teachers'] ?? [];
                                 </td>
 
 
-
                                 <!-- PHONE -->
 
                                 <td>
@@ -325,7 +324,6 @@ $teachers = $data['teachers'] ?? [];
                                     </span>
 
                                 </td>
-
 
 
                                 <!-- STATUS -->
@@ -354,7 +352,6 @@ $teachers = $data['teachers'] ?? [];
                                     <?php endif; ?>
 
                                 </td>
-
 
 
                                 <!-- ACTION -->
@@ -393,9 +390,9 @@ $teachers = $data['teachers'] ?? [];
         <?php else: ?>
 
 
-            <!-- =================================================
+            <!-- =========================
                  EMPTY STATE
-            ================================================== -->
+            ========================== -->
 
             <div class="empty-state">
 

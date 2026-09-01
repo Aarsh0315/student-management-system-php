@@ -36,6 +36,11 @@ $division =
         href="<?= ROOT ?>/css/home.view.css?v=3"
     >
 
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=3"
+    >
+
 
     <!-- NAVBAR CSS -->
 
@@ -71,6 +76,7 @@ $division =
 ======================================== -->
 
 <?php require "../private/views/includes/nav.view.php"; ?>
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -461,7 +467,8 @@ $division =
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 
-
+<script src="<?= ROOT ?>/js/sidebar.js"></script>
+<script src="<?= ROOT ?>/js/nav.js"></script>
 </body>
 
 </html>
