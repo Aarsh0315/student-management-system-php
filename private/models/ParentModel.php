@@ -9,211 +9,214 @@ class ParentModel extends Model
     ========================================
     */
 
+    public function getAllParents()
+    {
+        $query = "
+            SELECT
+                u.user_id,
+                u.firstname,
+                u.lastname,
+                u.email,
+                u.gender,
+                u.rank,
+                u.school_id,
+                u.status,
+
+                s.school_name,
+
+                (
+                    SELECT st.parent_phone
+                    FROM students st
+                    WHERE st.parent_id = u.user_id
+                    LIMIT 1
+                ) AS phone
+
+            FROM users u
+
+            LEFT JOIN schools s
+                ON u.school_id = s.id
+
+            WHERE u.rank = 'parent'
+
+            ORDER BY u.id DESC
+        ";
+
+        return $this->query($query);
+    }
+
+
     /*
-========================================
-GET ALL PARENTS
-SUPER ADMIN
-========================================
-*/
+    ========================================
+    GET PARENTS BY SCHOOL
+    ========================================
+    */
 
-public function getAllParents()
-{
-    $query = "
-        SELECT
-            u.user_id,
-            u.firstname,
-            u.lastname,
-            u.email,
-            u.gender,
-            u.rank,
-            u.school_id,
-            u.status,
+    public function getParentsBySchool($school_id)
+    {
+        $query = "
+            SELECT
+                u.user_id,
+                u.firstname,
+                u.lastname,
+                u.email,
+                u.gender,
+                u.rank,
+                u.school_id,
+                u.status,
 
-            s.school_name,
+                s.school_name,
 
-            (
-                SELECT st.parent_phone
-                FROM students st
-                WHERE st.parent_id = u.user_id
-                LIMIT 1
-            ) AS phone
+                GROUP_CONCAT(
+                    DISTINCT CONCAT(
+                        su.firstname,
+                        ' ',
+                        su.lastname
+                    )
+                    ORDER BY su.firstname
+                    SEPARATOR ', '
+                ) AS student_names
 
-        FROM users u
+            FROM users u
 
-        LEFT JOIN schools s
-            ON u.school_id = s.id
+            LEFT JOIN schools s
+                ON u.school_id = s.id
 
-        WHERE u.rank = 'parent'
+            LEFT JOIN students st
+                ON st.parent_id = u.user_id
 
-        ORDER BY u.id DESC
-    ";
+            LEFT JOIN users su
+                ON st.user_id = su.user_id
 
-    return $this->query($query);
-}
+            WHERE u.rank = 'parent'
 
-public function getParentsBySchool($school_id)
-{
-    $query = "
-        SELECT
-            u.user_id,
-            u.firstname,
-            u.lastname,
-            u.email,
-            u.gender,
-            u.rank,
-            u.school_id,
-            u.status,
+            AND u.school_id = :school_id
 
-            s.school_name,
+            GROUP BY
+                u.user_id,
+                u.firstname,
+                u.lastname,
+                u.email,
+                u.gender,
+                u.rank,
+                u.school_id,
+                u.status,
+                s.school_name
 
-            GROUP_CONCAT(
-                DISTINCT CONCAT(
-                    su.firstname,
-                    ' ',
-                    su.lastname
-                )
-                ORDER BY su.firstname
-                SEPARATOR ', '
-            ) AS student_names
+            ORDER BY u.user_id DESC
+        ";
 
-        FROM users u
+        return $this->query(
+            $query,
+            [
+                'school_id' => $school_id
+            ]
+        );
+    }
 
-        LEFT JOIN schools s
-            ON u.school_id = s.id
 
-        LEFT JOIN students st
-            ON st.parent_id = u.user_id
+    /*
+    ========================================
+    GET PARENT BY USER ID + SCHOOL
+    SCHOOL ADMIN
+    ========================================
+    */
 
-        LEFT JOIN users su
-            ON st.user_id = su.user_id
+    public function getParentByUserIdAndSchool(
+        $user_id,
+        $school_id
+    ) {
 
-        WHERE u.rank = 'parent'
+        $query = "
+            SELECT
+                u.user_id,
+                u.firstname,
+                u.lastname,
+                u.email,
+                u.gender,
+                u.rank,
+                u.school_id,
+                u.status,
 
-        AND u.school_id = :school_id
+                s.school_name
 
-        GROUP BY
-            u.user_id,
-            u.firstname,
-            u.lastname,
-            u.email,
-            u.gender,
-            u.rank,
-            u.school_id,
-            u.status,
-            s.school_name
+            FROM users u
 
-        ORDER BY u.user_id DESC
-    ";
+            LEFT JOIN schools s
+                ON u.school_id = s.id
 
-    return $this->query(
-        $query,
-        [
-            'school_id' => $school_id
-        ]
-    );
-}
+            WHERE u.user_id = :user_id
 
-/*
-========================================
-GET PARENT BY USER ID + SCHOOL
-SCHOOL ADMIN
-========================================
-*/
+            AND u.school_id = :school_id
 
-public function getParentByUserIdAndSchool(
-    $user_id,
-    $school_id
-) {
+            AND u.rank = 'parent'
 
-    $query = "
-        SELECT
-            u.user_id,
-            u.firstname,
-            u.lastname,
-            u.email,
-            u.gender,
-            u.rank,
-            u.school_id,
-            u.status,
+            LIMIT 1
+        ";
 
-            s.school_name
+        $result = $this->query(
+            $query,
+            [
+                'user_id'   => $user_id,
+                'school_id' => $school_id
+            ]
+        );
 
-        FROM users u
+        return $result[0] ?? false;
+    }
 
-        LEFT JOIN schools s
-            ON u.school_id = s.id
 
-        WHERE u.user_id = :user_id
+    /*
+    ========================================
+    GET PARENT CHILDREN BY SCHOOL
+    SCHOOL ADMIN
+    ========================================
+    */
 
-        AND u.school_id = :school_id
+    public function getChildrenBySchool(
+        $parent_id,
+        $school_id
+    ) {
 
-        AND u.rank = 'parent'
+        $query = "
+            SELECT
+                s.student_id,
+                s.user_id,
+                s.parent_id,
+                s.school_id,
+                s.admission_number,
+                s.class,
+                s.division,
+                s.roll_number,
+                s.date_of_birth,
+                s.admission_date,
+                s.address,
+                s.status,
 
-        LIMIT 1
-    ";
+                u.firstname,
+                u.lastname,
+                u.email
 
-    $result = $this->query(
-        $query,
-        [
-            'user_id' => $user_id,
-            'school_id' => $school_id
-        ]
-    );
+            FROM students s
 
-    return $result[0] ?? false;
-}
+            INNER JOIN users u
+                ON s.user_id = u.user_id
 
-/*
-========================================
-GET PARENT CHILDREN BY SCHOOL
-SCHOOL ADMIN
-========================================
-*/
+            WHERE s.parent_id = :parent_id
 
-public function getChildrenBySchool(
-    $parent_id,
-    $school_id
-) {
+            AND s.school_id = :school_id
 
-    $query = "
-        SELECT
-            s.student_id,
-            s.user_id,
-            s.parent_id,
-            s.school_id,
-            s.admission_number,
-            s.class,
-            s.division,
-            s.roll_number,
-            s.date_of_birth,
-            s.admission_date,
-            s.address,
-            s.status,
+            ORDER BY s.student_id DESC
+        ";
 
-            u.firstname,
-            u.lastname,
-            u.email
+        return $this->query(
+            $query,
+            [
+                'parent_id' => $parent_id,
+                'school_id' => $school_id
+            ]
+        );
+    }
 
-        FROM students s
-
-        INNER JOIN users u
-            ON s.user_id = u.user_id
-
-        WHERE s.parent_id = :parent_id
-
-        AND s.school_id = :school_id
-
-        ORDER BY s.student_id DESC
-    ";
-
-    return $this->query(
-        $query,
-        [
-            'parent_id' => $parent_id,
-            'school_id' => $school_id
-        ]
-    );
-}
 
     /*
     ========================================
@@ -292,48 +295,72 @@ public function getChildrenBySchool(
         return $result[0] ?? false;
     }
 
-/*
-========================================
-GET PARENT'S CHILDREN
-========================================
-*/
 
-public function getChildren($parent_id)
-{
-    $query = "
-        SELECT
-            s.student_id,
-            s.user_id,
-            s.parent_id,
-            s.school_id,
-            s.admission_number,
-            s.class,
-            s.division,
-            s.roll_number,
-            s.date_of_birth,
-            s.admission_date,
-            s.address,
-            s.status,
+    /*
+    ========================================
+    GET PARENT'S CHILDREN
+    ========================================
+    */
 
-            u.firstname,
-            u.lastname,
-            u.email
+    public function getChildren($parent_id)
+    {
+        $query = "
+            SELECT
+                s.student_id,
+                s.user_id,
+                s.parent_id,
+                s.school_id,
+                s.admission_number,
+                s.class,
+                s.division,
+                s.roll_number,
+                s.date_of_birth,
+                s.admission_date,
+                s.address,
+                s.status,
 
-        FROM students s
+                u.firstname,
+                u.lastname,
+                u.email
 
-        INNER JOIN users u
-            ON s.user_id = u.user_id
+            FROM students s
 
-        WHERE s.parent_id = :parent_id
+            INNER JOIN users u
+                ON s.user_id = u.user_id
 
-        ORDER BY s.student_id DESC
-    ";
+            WHERE s.parent_id = :parent_id
 
-    return $this->query(
-        $query,
-        [
-            'parent_id' => $parent_id
-        ]
-    );
-}
+            ORDER BY s.student_id DESC
+        ";
+
+        return $this->query(
+            $query,
+            [
+                'parent_id' => $parent_id
+            ]
+        );
+    }
+
+
+    /*
+    ========================================
+    GET TOTAL PARENT COUNT
+    SUPER ADMIN DASHBOARD
+    ========================================
+    */
+
+    public function getTotalParentCount()
+    {
+        $query = "
+            SELECT COUNT(*) AS total
+
+            FROM users
+
+            WHERE rank = 'parent'
+        ";
+
+        $result = $this->query($query);
+
+        return $result[0]->total ?? 0;
+    }
 }

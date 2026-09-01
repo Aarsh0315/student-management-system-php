@@ -92,5 +92,30 @@ public function getResultDetails(
     );
 }
 
+/*
+========================================
+GET TOTAL RESULT COUNT
+SUPER ADMIN DASHBOARD
+========================================
+*/
+/*
+========================================
+GET TOTAL RESULT COUNT
+SUPER ADMIN DASHBOARD
+========================================
+*/
+
+public function getTotalResultCount()
+{
+    $query = "
+        SELECT COUNT(*) AS total
+        FROM results
+    ";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
+
 
 }

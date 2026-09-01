@@ -86,4 +86,50 @@ public function createSchool($data)
 
     return $this->query($query, $data);
 }
+
+/* =====================================================
+   TOTAL SCHOOL COUNT
+===================================================== */
+
+public function getTotalSchoolCount()
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM schools
+              WHERE status = 'active'";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
+
+/*
+=====================================================
+GET RECENT SCHOOLS
+SUPER ADMIN DASHBOARD
+=====================================================
+*/
+
+/*
+=====================================================
+GET RECENT SCHOOLS
+SUPER ADMIN DASHBOARD
+=====================================================
+*/
+
+public function getRecentSchools($limit = 3)
+{
+    $limit = (int) $limit;
+
+    $query = "
+        SELECT
+            id,
+            school_id,
+            school_name
+        FROM schools
+        ORDER BY id DESC
+        LIMIT $limit
+    ";
+
+    return $this->query($query);
+}
 }

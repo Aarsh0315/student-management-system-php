@@ -1,31 +1,57 @@
 <?php
 
+/* =====================================================
+   SUPER ADMIN DASHBOARD
+===================================================== */
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+/* =====================================================
+   USER INFORMATION
+===================================================== */
+
 $firstname = $_SESSION['firstname'] ?? 'Super Admin';
 
-/*
-|--------------------------------------------------------------------------
-| KPI DATA
-|--------------------------------------------------------------------------
-| Use values coming from your controller when available.
-| Fallback values are 0.
-*/
-
-$schoolCount = $data['schoolCount'] ?? 0;
-$userCount = $data['userCount'] ?? 0;
-$studentCount = $data['studentCount'] ?? 0;
-$staffCount = $data['staffCount'] ?? 0;
-$parentCount = $data['parentCount'] ?? 0;
-$testCount = $data['testCount'] ?? 0;
-$resultCount = $data['resultCount'] ?? 0;
+$initial = strtoupper(
+    substr($firstname, 0, 1)
+);
 
 
-/*
-|--------------------------------------------------------------------------
-| RECENT ACTIVITY
-|--------------------------------------------------------------------------
-*/
+/* =====================================================
+   KPI DATA
+===================================================== */
 
-$recentActivities = $data['recentActivities'] ?? [];
+$schoolCount =
+    $data['schoolCount'] ?? 0;
+
+$userCount =
+    $data['userCount'] ?? 0;
+
+$studentCount =
+    $data['studentCount'] ?? 0;
+
+$staffCount =
+    $data['staffCount'] ?? 0;
+
+$parentCount =
+    $data['parentCount'] ?? 0;
+
+$testCount =
+    $data['testCount'] ?? 0;
+
+$resultCount =
+    $data['resultCount'] ?? 0;
+
+
+/* =====================================================
+   RECENT ACTIVITY
+===================================================== */
+
+$recentActivities =
+    $data['recentActivities'] ?? [];
 
 ?>
 
@@ -47,7 +73,9 @@ $recentActivities = $data['recentActivities'] ?? [];
     </title>
 
 
-    <!-- NAVBAR -->
+    <!-- =================================================
+         NAVBAR CSS
+    ================================================== -->
 
     <link
         rel="stylesheet"
@@ -55,20 +83,29 @@ $recentActivities = $data['recentActivities'] ?? [];
     >
 
 
-    <!-- SUPER ADMIN DASHBOARD -->
+    <!-- =================================================
+         SUPER ADMIN CSS
+    ================================================== -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/superadmin.view.css?v=6"
     >
 
+
+    <!-- =================================================
+         SIDEBAR CSS
+    ================================================== -->
+
     <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/sidebar.view.css?v=1"
->
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=1"
+    >
 
 
-    <!-- FOOTER -->
+    <!-- =================================================
+         FOOTER CSS
+    ================================================== -->
 
     <link
         rel="stylesheet"
@@ -85,14 +122,27 @@ $recentActivities = $data['recentActivities'] ?? [];
      NAVBAR
 ===================================================== -->
 
-<?php require "../private/views/includes/nav.view.php"; ?>
+<?php
 
-<?php require "../private/views/includes/sidebar.view.php"; ?>
+require "../private/views/includes/nav.view.php";
+
+?>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<?php
+
+require "../private/views/includes/sidebar.view.php";
+
+?>
 
 
 
 <!-- =====================================================
-     MAIN
+     MAIN DASHBOARD
 ===================================================== -->
 
 <main class="superadmin-page">
@@ -101,7 +151,7 @@ $recentActivities = $data['recentActivities'] ?? [];
 
 
         <!-- =================================================
-             WELCOME
+             WELCOME SECTION
         ================================================== -->
 
         <section class="dashboard-welcome">
@@ -109,33 +159,40 @@ $recentActivities = $data['recentActivities'] ?? [];
 
             <div class="welcome-content">
 
+
                 <p class="welcome-label">
                     SCHOOL OVERVIEW
                 </p>
 
 
                 <h1>
+
                     Welcome back,
                     <?= htmlspecialchars($firstname) ?>
+
                 </h1>
 
 
                 <p class="welcome-description">
-                    Here's an overview of your school management
-                    system and recent activity.
+
+                    Here's an overview of your school
+                    management system and recent activity.
+
                 </p>
+
 
             </div>
 
 
-            <!-- STATUS -->
+
+            <!-- SYSTEM STATUS -->
 
             <div class="dashboard-status">
 
                 <span class="status-dot"></span>
 
                 <span>
-                    Active
+                    System Active
                 </span>
 
             </div>
@@ -152,7 +209,9 @@ $recentActivities = $data['recentActivities'] ?? [];
         <section class="kpi-grid">
 
 
-            <!-- SCHOOLS -->
+            <!-- =================================================
+                 SCHOOLS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/schools"
@@ -170,8 +229,13 @@ $recentActivities = $data['recentActivities'] ?? [];
                         Schools
                     </span>
 
+
                     <strong class="kpi-value">
-                        <?= number_format($schoolCount) ?>
+
+                        <?= number_format(
+                            $schoolCount
+                        ) ?>
+
                     </strong>
 
                 </div>
@@ -185,7 +249,49 @@ $recentActivities = $data['recentActivities'] ?? [];
 
 
 
-            <!-- STUDENTS -->
+            <!-- =================================================
+                 USERS
+            ================================================== -->
+
+            <a
+                href="<?= ROOT ?>/users"
+                class="kpi-card"
+            >
+
+                <div class="kpi-icon">
+                    US
+                </div>
+
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
+                        Users
+                    </span>
+
+
+                    <strong class="kpi-value">
+
+                        <?= number_format(
+                            $userCount
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <span class="kpi-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+
+            <!-- =================================================
+                 STUDENTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/students"
@@ -203,8 +309,13 @@ $recentActivities = $data['recentActivities'] ?? [];
                         Students
                     </span>
 
+
                     <strong class="kpi-value">
-                        <?= number_format($studentCount) ?>
+
+                        <?= number_format(
+                            $studentCount
+                        ) ?>
+
                     </strong>
 
                 </div>
@@ -218,7 +329,9 @@ $recentActivities = $data['recentActivities'] ?? [];
 
 
 
-            <!-- STAFF -->
+            <!-- =================================================
+                 STAFF
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/staff"
@@ -236,8 +349,13 @@ $recentActivities = $data['recentActivities'] ?? [];
                         Staff
                     </span>
 
+
                     <strong class="kpi-value">
-                        <?= number_format($staffCount) ?>
+
+                        <?= number_format(
+                            $staffCount
+                        ) ?>
+
                     </strong>
 
                 </div>
@@ -251,7 +369,9 @@ $recentActivities = $data['recentActivities'] ?? [];
 
 
 
-            <!-- PARENTS -->
+            <!-- =================================================
+                 PARENTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/parents"
@@ -269,8 +389,13 @@ $recentActivities = $data['recentActivities'] ?? [];
                         Parents
                     </span>
 
+
                     <strong class="kpi-value">
-                        <?= number_format($parentCount) ?>
+
+                        <?= number_format(
+                            $parentCount
+                        ) ?>
+
                     </strong>
 
                 </div>
@@ -284,7 +409,9 @@ $recentActivities = $data['recentActivities'] ?? [];
 
 
 
-            <!-- TESTS -->
+            <!-- =================================================
+                 TESTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/tests"
@@ -302,8 +429,13 @@ $recentActivities = $data['recentActivities'] ?? [];
                         Tests
                     </span>
 
+
                     <strong class="kpi-value">
-                        <?= number_format($testCount) ?>
+
+                        <?= number_format(
+                            $testCount
+                        ) ?>
+
                     </strong>
 
                 </div>
@@ -317,7 +449,9 @@ $recentActivities = $data['recentActivities'] ?? [];
 
 
 
-            <!-- RESULTS -->
+            <!-- =================================================
+                 RESULTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/results"
@@ -335,8 +469,13 @@ $recentActivities = $data['recentActivities'] ?? [];
                         Results
                     </span>
 
+
                     <strong class="kpi-value">
-                        <?= number_format($resultCount) ?>
+
+                        <?= number_format(
+                            $resultCount
+                        ) ?>
+
                     </strong>
 
                 </div>
@@ -354,7 +493,7 @@ $recentActivities = $data['recentActivities'] ?? [];
 
 
         <!-- =================================================
-             MAIN DASHBOARD GRID
+             DASHBOARD GRID
         ================================================== -->
 
         <section class="dashboard-grid">
@@ -367,7 +506,10 @@ $recentActivities = $data['recentActivities'] ?? [];
             <div class="activity-card">
 
 
+                <!-- CARD HEADER -->
+
                 <div class="card-header">
+
 
                     <div>
 
@@ -375,8 +517,10 @@ $recentActivities = $data['recentActivities'] ?? [];
                             Recent Activity
                         </h2>
 
+
                         <p>
-                            Latest updates across your school system.
+                            Latest updates across your
+                            school system.
                         </p>
 
                     </div>
@@ -386,39 +530,59 @@ $recentActivities = $data['recentActivities'] ?? [];
                         Recent
                     </span>
 
+
                 </div>
 
 
 
+                <!-- ACTIVITY LIST -->
+
                 <div class="activity-list">
 
 
-                    <?php if (!empty($recentActivities)): ?>
+                    <?php if (
+                        !empty($recentActivities)
+                    ): ?>
 
 
                         <?php foreach (
-                            $recentActivities as $activity
+                            $recentActivities
+                            as $activity
                         ): ?>
 
 
-                            <div class="activity-item">
+                            <div
+                                class="activity-item"
+                            >
 
 
-                                <div class="activity-icon">
+                                <!-- ACTIVITY ICON -->
+
+                                <div
+                                    class="activity-icon"
+                                >
 
                                     <?= htmlspecialchars(
-                                        $activity['initials'] ?? 'MS'
+                                        $activity['initials']
+                                        ?? 'MS'
                                     ) ?>
 
                                 </div>
 
 
-                                <div class="activity-info">
+
+                                <!-- ACTIVITY INFORMATION -->
+
+                                <div
+                                    class="activity-info"
+                                >
+
 
                                     <strong>
 
                                         <?= htmlspecialchars(
-                                            $activity['title'] ?? 'System activity'
+                                            $activity['title']
+                                            ?? 'System activity'
                                         ) ?>
 
                                     </strong>
@@ -433,13 +597,18 @@ $recentActivities = $data['recentActivities'] ?? [];
 
                                     </span>
 
+
                                 </div>
 
+
+
+                                <!-- TIME -->
 
                                 <time>
 
                                     <?= htmlspecialchars(
-                                        $activity['time'] ?? ''
+                                        $activity['time']
+                                        ?? ''
                                     ) ?>
 
                                 </time>
@@ -454,21 +623,32 @@ $recentActivities = $data['recentActivities'] ?? [];
                     <?php else: ?>
 
 
-                        <!-- EMPTY ACTIVITY -->
+                        <!-- =================================================
+                             EMPTY ACTIVITY
+                        ================================================== -->
 
-                        <div class="activity-empty">
+                        <div
+                            class="activity-empty"
+                        >
 
-                            <div class="empty-icon">
+
+                            <div
+                                class="empty-icon"
+                            >
                                 ✓
                             </div>
+
 
                             <h3>
                                 No recent activity
                             </h3>
 
+
                             <p>
-                                Recent system activity will appear here.
+                                Recent system activity
+                                will appear here.
                             </p>
+
 
                         </div>
 
@@ -490,7 +670,10 @@ $recentActivities = $data['recentActivities'] ?? [];
             <div class="management-card">
 
 
+                <!-- CARD HEADER -->
+
                 <div class="card-header">
+
 
                     <div>
 
@@ -498,15 +681,19 @@ $recentActivities = $data['recentActivities'] ?? [];
                             Quick Management
                         </h2>
 
+
                         <p>
                             Frequently used system areas.
                         </p>
 
                     </div>
 
+
                 </div>
 
 
+
+                <!-- MANAGEMENT LIST -->
 
                 <div class="management-list">
 
@@ -518,12 +705,16 @@ $recentActivities = $data['recentActivities'] ?? [];
                         class="management-item"
                     >
 
-                        <span class="management-icon">
+                        <span
+                            class="management-icon"
+                        >
                             SC
                         </span>
 
 
-                        <span class="management-info">
+                        <span
+                            class="management-info"
+                        >
 
                             <strong>
                                 Schools
@@ -536,7 +727,9 @@ $recentActivities = $data['recentActivities'] ?? [];
                         </span>
 
 
-                        <span class="management-arrow">
+                        <span
+                            class="management-arrow"
+                        >
                             →
                         </span>
 
@@ -551,12 +744,16 @@ $recentActivities = $data['recentActivities'] ?? [];
                         class="management-item"
                     >
 
-                        <span class="management-icon">
+                        <span
+                            class="management-icon"
+                        >
                             US
                         </span>
 
 
-                        <span class="management-info">
+                        <span
+                            class="management-info"
+                        >
 
                             <strong>
                                 Users
@@ -569,7 +766,9 @@ $recentActivities = $data['recentActivities'] ?? [];
                         </span>
 
 
-                        <span class="management-arrow">
+                        <span
+                            class="management-arrow"
+                        >
                             →
                         </span>
 
@@ -584,12 +783,16 @@ $recentActivities = $data['recentActivities'] ?? [];
                         class="management-item"
                     >
 
-                        <span class="management-icon">
+                        <span
+                            class="management-icon"
+                        >
                             ST
                         </span>
 
 
-                        <span class="management-info">
+                        <span
+                            class="management-info"
+                        >
 
                             <strong>
                                 Students
@@ -602,7 +805,9 @@ $recentActivities = $data['recentActivities'] ?? [];
                         </span>
 
 
-                        <span class="management-arrow">
+                        <span
+                            class="management-arrow"
+                        >
                             →
                         </span>
 
@@ -617,12 +822,16 @@ $recentActivities = $data['recentActivities'] ?? [];
                         class="management-item"
                     >
 
-                        <span class="management-icon">
+                        <span
+                            class="management-icon"
+                        >
                             SF
                         </span>
 
 
-                        <span class="management-info">
+                        <span
+                            class="management-info"
+                        >
 
                             <strong>
                                 Staff
@@ -635,7 +844,48 @@ $recentActivities = $data['recentActivities'] ?? [];
                         </span>
 
 
-                        <span class="management-arrow">
+                        <span
+                            class="management-arrow"
+                        >
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- PARENTS -->
+
+                    <a
+                        href="<?= ROOT ?>/parents"
+                        class="management-item"
+                    >
+
+                        <span
+                            class="management-icon"
+                        >
+                            PR
+                        </span>
+
+
+                        <span
+                            class="management-info"
+                        >
+
+                            <strong>
+                                Parents
+                            </strong>
+
+                            <small>
+                                Manage parent records
+                            </small>
+
+                        </span>
+
+
+                        <span
+                            class="management-arrow"
+                        >
                             →
                         </span>
 
@@ -650,12 +900,16 @@ $recentActivities = $data['recentActivities'] ?? [];
                         class="management-item"
                     >
 
-                        <span class="management-icon">
+                        <span
+                            class="management-icon"
+                        >
                             TS
                         </span>
 
 
-                        <span class="management-info">
+                        <span
+                            class="management-info"
+                        >
 
                             <strong>
                                 Tests
@@ -668,7 +922,9 @@ $recentActivities = $data['recentActivities'] ?? [];
                         </span>
 
 
-                        <span class="management-arrow">
+                        <span
+                            class="management-arrow"
+                        >
                             →
                         </span>
 
@@ -683,12 +939,16 @@ $recentActivities = $data['recentActivities'] ?? [];
                         class="management-item"
                     >
 
-                        <span class="management-icon">
+                        <span
+                            class="management-icon"
+                        >
                             RS
                         </span>
 
 
-                        <span class="management-info">
+                        <span
+                            class="management-info"
+                        >
 
                             <strong>
                                 Results
@@ -701,7 +961,9 @@ $recentActivities = $data['recentActivities'] ?? [];
                         </span>
 
 
-                        <span class="management-arrow">
+                        <span
+                            class="management-arrow"
+                        >
                             →
                         </span>
 
@@ -725,51 +987,86 @@ $recentActivities = $data['recentActivities'] ?? [];
         <section class="system-summary">
 
 
+            <!-- TOTAL USERS -->
+
             <div class="summary-item">
+
 
                 <span>
                     Total Users
                 </span>
 
+
                 <strong>
-                    <?= number_format($userCount) ?>
+
+                    <?= number_format(
+                        $userCount
+                    ) ?>
+
                 </strong>
+
 
             </div>
 
 
+
+            <!-- DIVIDER -->
+
             <div class="summary-divider"></div>
 
 
+
+            <!-- SCHOOL ADMINS -->
+
             <div class="summary-item">
+
 
                 <span>
                     School Admins
                 </span>
 
+
                 <strong>
-                    <a href="<?= ROOT ?>/schooladmins">
+
+                    <a
+                        href="<?= ROOT ?>/schooladmins"
+                    >
                         Manage
                     </a>
+
                 </strong>
+
 
             </div>
 
 
+
+            <!-- DIVIDER -->
+
             <div class="summary-divider"></div>
 
 
+
+            <!-- PROFILE -->
+
             <div class="summary-item">
+
 
                 <span>
                     Your Account
                 </span>
 
+
                 <strong>
-                    <a href="<?= ROOT ?>/profile">
+
+                    <a
+                        href="<?= ROOT ?>/profile"
+                    >
                         View Profile →
                     </a>
+
                 </strong>
+
 
             </div>
 
@@ -787,8 +1084,18 @@ $recentActivities = $data['recentActivities'] ?? [];
      FOOTER
 ===================================================== -->
 
-<?php require "../private/views/includes/footer.view.php"; ?>
+<?php
 
+require "../private/views/includes/footer.view.php";
+
+?>
+
+
+
+<!-- =====================================================
+     SIDEBAR JAVASCRIPT
+===================================================== -->
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 

@@ -329,4 +329,37 @@ class StudentTestsModel extends Model
 
         return !empty($result);
     }
+
+    /*
+========================================
+GET TOTAL TEST COUNT
+SUPER ADMIN DASHBOARD
+========================================
+*/
+
+/*
+========================================
+GET TOTAL TEST COUNT
+SUPER ADMIN DASHBOARD
+========================================
+*/
+
+/*
+========================================
+GET TOTAL TEST COUNT
+SUPER ADMIN DASHBOARD
+========================================
+*/
+
+public function getTotalTestCount()
+{
+    $query = "
+        SELECT COUNT(*) AS total
+        FROM tests
+    ";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
 }

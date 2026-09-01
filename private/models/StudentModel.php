@@ -893,4 +893,19 @@ public function getStudentsByClass(
         ]
     );
 }
+
+/* =====================================================
+   TOTAL STUDENT COUNT
+===================================================== */
+
+public function getTotalStudentCount()
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM students
+              WHERE status = 'active'";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
 }

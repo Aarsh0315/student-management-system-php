@@ -457,4 +457,19 @@ VALUES
 
         return $result[0] ?? false;
     }
+
+    /* =====================================================
+   TOTAL STAFF COUNT
+===================================================== */
+
+public function getTotalStaffCount()
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM staff
+              WHERE status = 'active'";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
 }

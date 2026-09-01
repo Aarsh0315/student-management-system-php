@@ -125,23 +125,279 @@ $initial = strtoupper(
              SEARCH
         ===================================== -->
 
-        <div class="navbar-search">
+        <div class="navbar-search" id="navbarSearch">
 
-            <span class="search-icon">
-                ⌕
-            </span>
+    <span class="search-icon">
+        ⌕
+    </span>
 
-            <input
-                type="search"
-                placeholder="Search anything..."
-                aria-label="Search"
+    <input
+        type="search"
+        id="globalSearch"
+        placeholder="Search anything..."
+        autocomplete="off"
+        aria-label="Search"
+    >
+
+    <span class="search-shortcut">
+        /
+    </span>
+
+
+    <!-- SEARCH RESULTS -->
+
+    <div
+        class="search-dropdown"
+        id="searchDropdown"
+    >
+
+        <!-- MANAGEMENT -->
+
+        <div class="search-section">
+
+            <div class="search-section-title">
+                MANAGEMENT
+            </div>
+
+
+            <a
+                href="<?= ROOT ?>/schools"
+                class="search-item"
+                data-search="schools school management"
             >
 
-            <span class="search-shortcut">
-                /
-            </span>
+                <span class="search-item-icon">
+                    ▣
+                </span>
+
+                <span class="search-item-content">
+
+                    <strong>
+                        Schools
+                    </strong>
+
+                    <small>
+                        Manage schools
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/users"
+                class="search-item"
+                data-search="users user management"
+            >
+
+                <span class="search-item-icon">
+                    ◉
+                </span>
+
+                <span class="search-item-content">
+
+                    <strong>
+                        Users
+                    </strong>
+
+                    <small>
+                        Manage system users
+                    </small>
+
+                </span>
+
+            </a>
 
         </div>
+
+
+        <!-- PEOPLE -->
+
+        <div class="search-section">
+
+            <div class="search-section-title">
+                PEOPLE
+            </div>
+
+
+            <a
+                href="<?= ROOT ?>/students"
+                class="search-item"
+                data-search="students student people"
+            >
+
+                <span class="search-item-icon">
+                    ♙
+                </span>
+
+                <span class="search-item-content">
+
+                    <strong>
+                        Students
+                    </strong>
+
+                    <small>
+                        Manage student records
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/staff"
+                class="search-item"
+                data-search="staff teacher teachers people"
+            >
+
+                <span class="search-item-icon">
+                    ♟
+                </span>
+
+                <span class="search-item-content">
+
+                    <strong>
+                        Staff
+                    </strong>
+
+                    <small>
+                        Manage staff members
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/parents"
+                class="search-item"
+                data-search="parents parent people"
+            >
+
+                <span class="search-item-icon">
+                    ◌
+                </span>
+
+                <span class="search-item-content">
+
+                    <strong>
+                        Parents
+                    </strong>
+
+                    <small>
+                        Manage parents
+                    </small>
+
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- ACADEMICS -->
+
+        <div class="search-section">
+
+            <div class="search-section-title">
+                ACADEMICS
+            </div>
+
+
+            <a
+                href="<?= ROOT ?>/tests"
+                class="search-item"
+                data-search="tests test exam assessment academics"
+            >
+
+                <span class="search-item-icon">
+                    ✓
+                </span>
+
+                <span class="search-item-content">
+
+                    <strong>
+                        Tests
+                    </strong>
+
+                    <small>
+                        Manage assessments
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/results"
+                class="search-item"
+                data-search="results result marks academics"
+            >
+
+                <span class="search-item-icon">
+                    ≡
+                </span>
+
+                <span class="search-item-content">
+
+                    <strong>
+                        Results
+                    </strong>
+
+                    <small>
+                        View academic results
+                    </small>
+
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/schooladmins"
+                class="search-item"
+                data-search="school admins school administrators management"
+            >
+
+                <span class="search-item-icon">
+                    ◈
+                </span>
+
+                <span class="search-item-content">
+
+                    <strong>
+                        School Admins
+                    </strong>
+
+                    <small>
+                        Manage school administrators
+                    </small>
+
+                </span>
+
+            </a>
+
+        </div>
+
+
+        <!-- NO RESULTS -->
+
+        <div
+            class="search-no-results"
+            id="searchNoResults"
+        >
+
+            No matching pages found.
+
+        </div>
+
+    </div>
+
+</div>
 
 
 
