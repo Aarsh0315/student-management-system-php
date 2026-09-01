@@ -169,6 +169,83 @@ class SchoolAdmin extends Controller
         ========================================
         */
 
+        /*
+========================================
+RECENT ACTIVITY
+========================================
+*/
+
+$data['recent_activities'] = [];
+
+
+/*
+----------------------------------------
+STUDENT ACTIVITY
+----------------------------------------
+*/
+
+if ($data['student_count'] > 0) {
+
+    $data['recent_activities'][] = [
+
+        'icon' => 'ST',
+
+        'title' => 'Students',
+
+        'description' =>
+            $data['student_count']
+            . ' student(s) registered in your school.',
+
+        'time' => 'Current'
+    ];
+}
+
+
+/*
+----------------------------------------
+TEACHER ACTIVITY
+----------------------------------------
+*/
+
+if ($data['staff_count'] > 0) {
+
+    $data['recent_activities'][] = [
+
+        'icon' => 'TC',
+
+        'title' => 'Teachers',
+
+        'description' =>
+            $data['staff_count']
+            . ' teacher(s) registered in your school.',
+
+        'time' => 'Current'
+    ];
+}
+
+
+/*
+----------------------------------------
+PARENT ACTIVITY
+----------------------------------------
+*/
+
+if ($data['parent_count'] > 0) {
+
+    $data['recent_activities'][] = [
+
+        'icon' => 'PR',
+
+        'title' => 'Parents',
+
+        'description' =>
+            $data['parent_count']
+            . ' parent(s) associated with your school.',
+
+        'time' => 'Current'
+    ];
+}
+
         $this->view(
             'home',
             $data

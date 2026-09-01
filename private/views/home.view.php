@@ -16,8 +16,6 @@ if (session_status() === PHP_SESSION_NONE) {
 $firstname =
     $_SESSION['firstname'] ?? 'School Admin';
 
-$lastname =
-    $_SESSION['lastname'] ?? '';
 
 $initial =
     strtoupper(
@@ -32,24 +30,46 @@ $initial =
 $studentCount =
     $data['student_count'] ?? 0;
 
+
 $staffCount =
     $data['staff_count'] ?? 0;
+
 
 $parentCount =
     $data['parent_count'] ?? 0;
 
+
 $classCount =
     $data['class_count'] ?? 0;
+
 
 $testCount =
     $data['test_count'] ?? 0;
 
+
 $resultCount =
     $data['result_count'] ?? 0;
 
+
+/* =====================================================
+   RECENT ACTIVITY
+===================================================== */
+
+$recentActivities =
+    $data['recentActivities'] ?? [];
+
+/* ========================================
+   RECENT ACTIVITIES
+======================================== */
+
+$recent_activities =
+    $data['recent_activities'] ?? [];
+
 ?>
 
+
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -67,7 +87,7 @@ $resultCount =
 
 
     <!-- =================================================
-         NAVBAR
+         NAVBAR CSS
     ================================================== -->
 
     <link
@@ -77,7 +97,7 @@ $resultCount =
 
 
     <!-- =================================================
-         SCHOOL ADMIN DASHBOARD
+         SCHOOL ADMIN CSS
     ================================================== -->
 
     <link
@@ -87,7 +107,7 @@ $resultCount =
 
 
     <!-- =================================================
-         SIDEBAR
+         SIDEBAR CSS
     ================================================== -->
 
     <link
@@ -97,7 +117,7 @@ $resultCount =
 
 
     <!-- =================================================
-         FOOTER
+         FOOTER CSS
     ================================================== -->
 
     <link
@@ -116,7 +136,9 @@ $resultCount =
 ===================================================== -->
 
 <?php
+
 require "../private/views/includes/nav.view.php";
+
 ?>
 
 
@@ -125,7 +147,9 @@ require "../private/views/includes/nav.view.php";
 ===================================================== -->
 
 <?php
+
 require "../private/views/includes/sidebar.view.php";
+
 ?>
 
 
@@ -147,8 +171,9 @@ require "../private/views/includes/sidebar.view.php";
 
             <div class="welcome-content">
 
+
                 <p class="welcome-label">
-                    SCHOOL ADMINISTRATION
+                    SCHOOL OVERVIEW
                 </p>
 
 
@@ -156,31 +181,36 @@ require "../private/views/includes/sidebar.view.php";
 
                     Welcome back,
                     <?= htmlspecialchars($firstname) ?>
+                    Admin
 
                 </h1>
 
 
                 <p class="welcome-description">
 
-                    Here's an overview of your school's
-                    students, staff, parents and academic activity.
+                    Here's an overview of your school
+                    management system and recent activity.
 
                 </p>
+
 
             </div>
 
 
-            <!-- STATUS -->
+            <!-- =================================================
+                 SYSTEM STATUS
+            ================================================== -->
 
             <div class="dashboard-status">
 
                 <span class="status-dot"></span>
 
                 <span>
-                    Active
+                    System Active
                 </span>
 
             </div>
+
 
         </section>
 
@@ -193,7 +223,9 @@ require "../private/views/includes/sidebar.view.php";
         <section class="kpi-grid">
 
 
-            <!-- STUDENTS -->
+            <!-- =================================================
+                 STUDENTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/students"
@@ -201,7 +233,7 @@ require "../private/views/includes/sidebar.view.php";
             >
 
                 <div class="kpi-icon">
-                    🎓
+                    ST
                 </div>
 
 
@@ -231,7 +263,9 @@ require "../private/views/includes/sidebar.view.php";
 
 
 
-            <!-- STAFF -->
+            <!-- =================================================
+                 STAFF
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/staff"
@@ -239,7 +273,7 @@ require "../private/views/includes/sidebar.view.php";
             >
 
                 <div class="kpi-icon">
-                    🧑‍🏫
+                    SF
                 </div>
 
 
@@ -269,7 +303,9 @@ require "../private/views/includes/sidebar.view.php";
 
 
 
-            <!-- PARENTS -->
+            <!-- =================================================
+                 PARENTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/parents"
@@ -277,7 +313,7 @@ require "../private/views/includes/sidebar.view.php";
             >
 
                 <div class="kpi-icon">
-                    👨‍👩‍👧
+                    PR
                 </div>
 
 
@@ -307,7 +343,9 @@ require "../private/views/includes/sidebar.view.php";
 
 
 
-            <!-- CLASSES -->
+            <!-- =================================================
+                 CLASSES
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/classes"
@@ -315,7 +353,7 @@ require "../private/views/includes/sidebar.view.php";
             >
 
                 <div class="kpi-icon">
-                    🏫
+                    CL
                 </div>
 
 
@@ -345,7 +383,9 @@ require "../private/views/includes/sidebar.view.php";
 
 
 
-            <!-- TESTS -->
+            <!-- =================================================
+                 TESTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/tests"
@@ -353,7 +393,7 @@ require "../private/views/includes/sidebar.view.php";
             >
 
                 <div class="kpi-icon">
-                    📝
+                    TS
                 </div>
 
 
@@ -383,7 +423,9 @@ require "../private/views/includes/sidebar.view.php";
 
 
 
-            <!-- RESULTS -->
+            <!-- =================================================
+                 RESULTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/results"
@@ -391,7 +433,7 @@ require "../private/views/includes/sidebar.view.php";
             >
 
                 <div class="kpi-icon">
-                    📊
+                    RS
                 </div>
 
 
@@ -424,505 +466,330 @@ require "../private/views/includes/sidebar.view.php";
 
 
 
-        <!-- =================================================
-             MAIN DASHBOARD GRID
-        ================================================== -->
+        <!-- ========================================
+     MAIN DASHBOARD GRID
+======================================== -->
 
-        <section class="dashboard-grid">
-
-
-            <!-- =================================================
-                 SCHOOL OVERVIEW
-            ================================================== -->
-
-            <div class="activity-card">
+<section class="dashboard-grid">
 
 
-                <div class="card-header">
+    <!-- ========================================
+         RECENT ACTIVITY
+    ======================================== -->
 
-                    <div>
+    <div class="activity-card">
 
-                        <h2>
-                            School Overview
-                        </h2>
+        <div class="card-header">
 
-                        <p>
-                            Quick overview of your school's
-                            management areas.
-                        </p>
+            <div>
+
+                <h2>
+                    Recent Activity
+                </h2>
+
+                <p>
+                    Recent activity from your school
+                </p>
+
+            </div>
+
+            <span class="activity-count">
+                <?= count($recent_activities) ?>
+            </span>
+
+        </div>
+
+
+        <div class="activity-list">
+
+
+            <?php if (!empty($recent_activities)): ?>
+
+
+                <?php foreach (
+                    $recent_activities
+                    as $activity
+                ): ?>
+
+
+                    <div class="activity-item">
+
+
+                        <div class="activity-icon">
+
+                            <?= htmlspecialchars(
+                                $activity['icon']
+                            ) ?>
+
+                        </div>
+
+
+                        <div class="activity-info">
+
+                            <strong>
+
+                                <?= htmlspecialchars(
+                                    $activity['title']
+                                ) ?>
+
+                            </strong>
+
+
+                            <span>
+
+                                <?= htmlspecialchars(
+                                    $activity['description']
+                                ) ?>
+
+                            </span>
+
+                        </div>
+
+
+                        <time>
+
+                            <?= htmlspecialchars(
+                                $activity['time']
+                            ) ?>
+
+                        </time>
+
 
                     </div>
 
 
-                    <span class="activity-count">
-                        Overview
-                    </span>
+                <?php endforeach; ?>
 
-                </div>
 
+            <?php else: ?>
 
 
-                <div class="activity-list">
+                <div class="activity-empty">
 
-
-                    <!-- STUDENTS -->
-
-                    <a
-                        href="<?= ROOT ?>/students"
-                        class="overview-item"
-                    >
-
-                        <div class="overview-icon">
-                            🎓
-                        </div>
-
-
-                        <div class="overview-info">
-
-                            <strong>
-                                Students
-                            </strong>
-
-                            <span>
-                                Registered students
-                            </span>
-
-                        </div>
-
-
-                        <strong class="overview-count">
-
-                            <?= number_format(
-                                $studentCount
-                            ) ?>
-
-                        </strong>
-
-                    </a>
-
-
-
-                    <!-- STAFF -->
-
-                    <a
-                        href="<?= ROOT ?>/staff"
-                        class="overview-item"
-                    >
-
-                        <div class="overview-icon">
-                            🧑‍🏫
-                        </div>
-
-
-                        <div class="overview-info">
-
-                            <strong>
-                                Staff
-                            </strong>
-
-                            <span>
-                                Teachers and staff members
-                            </span>
-
-                        </div>
-
-
-                        <strong class="overview-count">
-
-                            <?= number_format(
-                                $staffCount
-                            ) ?>
-
-                        </strong>
-
-                    </a>
-
-
-
-                    <!-- PARENTS -->
-
-                    <a
-                        href="<?= ROOT ?>/parents"
-                        class="overview-item"
-                    >
-
-                        <div class="overview-icon">
-                            👨‍👩‍👧
-                        </div>
-
-
-                        <div class="overview-info">
-
-                            <strong>
-                                Parents
-                            </strong>
-
-                            <span>
-                                Parents associated with students
-                            </span>
-
-                        </div>
-
-
-                        <strong class="overview-count">
-
-                            <?= number_format(
-                                $parentCount
-                            ) ?>
-
-                        </strong>
-
-                    </a>
-
-
-
-                    <!-- CLASSES -->
-
-                    <a
-                        href="<?= ROOT ?>/classes"
-                        class="overview-item"
-                    >
-
-                        <div class="overview-icon">
-                            🏫
-                        </div>
-
-
-                        <div class="overview-info">
-
-                            <strong>
-                                Classes
-                            </strong>
-
-                            <span>
-                                Classes and divisions
-                            </span>
-
-                        </div>
-
-
-                        <strong class="overview-count">
-
-                            <?= number_format(
-                                $classCount
-                            ) ?>
-
-                        </strong>
-
-                    </a>
-
-
-
-                    <!-- TESTS -->
-
-                    <a
-                        href="<?= ROOT ?>/tests"
-                        class="overview-item"
-                    >
-
-                        <div class="overview-icon">
-                            📝
-                        </div>
-
-
-                        <div class="overview-info">
-
-                            <strong>
-                                Tests
-                            </strong>
-
-                            <span>
-                                Academic assessments
-                            </span>
-
-                        </div>
-
-
-                        <strong class="overview-count">
-
-                            <?= number_format(
-                                $testCount
-                            ) ?>
-
-                        </strong>
-
-                    </a>
-
-
-
-                    <!-- RESULTS -->
-
-                    <a
-                        href="<?= ROOT ?>/results"
-                        class="overview-item"
-                    >
-
-                        <div class="overview-icon">
-                            📊
-                        </div>
-
-
-                        <div class="overview-info">
-
-                            <strong>
-                                Results
-                            </strong>
-
-                            <span>
-                                Student academic results
-                            </span>
-
-                        </div>
-
-
-                        <strong class="overview-count">
-
-                            <?= number_format(
-                                $resultCount
-                            ) ?>
-
-                        </strong>
-
-                    </a>
-
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =================================================
-                 QUICK MANAGEMENT
-            ================================================== -->
-
-            <div class="management-card">
-
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Quick Management
-                        </h2>
-
-                        <p>
-                            Frequently used school areas.
-                        </p>
-
+                    <div class="empty-icon">
+                        ✓
                     </div>
 
+                    <h3>
+                        No Recent Activity
+                    </h3>
+
+                    <p>
+                        There is no recent activity
+                        to display.
+                    </p>
+
                 </div>
 
 
+            <?php endif; ?>
 
-                <div class="management-list">
 
+        </div>
 
-                    <!-- STUDENTS -->
+    </div>
 
-                    <a
-                        href="<?= ROOT ?>/students"
-                        class="management-item"
-                    >
 
-                        <span class="management-icon">
-                            🎓
-                        </span>
 
+    <!-- ========================================
+         SCHOOL MANAGEMENT
+    ======================================== -->
 
-                        <span class="management-info">
+    <div class="management-card">
 
-                            <strong>
-                                Students
-                            </strong>
+        <div class="card-header">
 
-                            <small>
-                                Manage student records
-                            </small>
+            <div>
 
-                        </span>
+                <h2>
+                    School Management
+                </h2>
 
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- STAFF -->
-
-                    <a
-                        href="<?= ROOT ?>/staff"
-                        class="management-item"
-                    >
-
-                        <span class="management-icon">
-                            🧑‍🏫
-                        </span>
-
-
-                        <span class="management-info">
-
-                            <strong>
-                                Staff
-                            </strong>
-
-                            <small>
-                                Manage teachers and staff
-                            </small>
-
-                        </span>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- PARENTS -->
-
-                    <a
-                        href="<?= ROOT ?>/parents"
-                        class="management-item"
-                    >
-
-                        <span class="management-icon">
-                            👨‍👩‍👧
-                        </span>
-
-
-                        <span class="management-info">
-
-                            <strong>
-                                Parents
-                            </strong>
-
-                            <small>
-                                Manage parent records
-                            </small>
-
-                        </span>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- CLASSES -->
-
-                    <a
-                        href="<?= ROOT ?>/classes"
-                        class="management-item"
-                    >
-
-                        <span class="management-icon">
-                            🏫
-                        </span>
-
-
-                        <span class="management-info">
-
-                            <strong>
-                                Classes
-                            </strong>
-
-                            <small>
-                                Manage classes and divisions
-                            </small>
-
-                        </span>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- TESTS -->
-
-                    <a
-                        href="<?= ROOT ?>/tests"
-                        class="management-item"
-                    >
-
-                        <span class="management-icon">
-                            📝
-                        </span>
-
-
-                        <span class="management-info">
-
-                            <strong>
-                                Tests
-                            </strong>
-
-                            <small>
-                                View academic assessments
-                            </small>
-
-                        </span>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- RESULTS -->
-
-                    <a
-                        href="<?= ROOT ?>/results"
-                        class="management-item"
-                    >
-
-                        <span class="management-icon">
-                            📊
-                        </span>
-
-
-                        <span class="management-info">
-
-                            <strong>
-                                Results
-                            </strong>
-
-                            <small>
-                                View student results
-                            </small>
-
-                        </span>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-                </div>
+                <p>
+                    Manage your school
+                </p>
 
             </div>
 
+        </div>
 
-        </section>
+
+        <div class="management-list">
+
+
+            <a
+                href="<?= ROOT ?>/students"
+                class="management-item"
+            >
+
+                <div class="management-icon">
+                    ST
+                </div>
+
+                <div class="management-info">
+
+                    <strong>
+                        Students
+                    </strong>
+
+                    <small>
+                        Manage school students
+                    </small>
+
+                </div>
+
+                <span class="management-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/teachers"
+                class="management-item"
+            >
+
+                <div class="management-icon">
+                    TC
+                </div>
+
+                <div class="management-info">
+
+                    <strong>
+                        Teachers
+                    </strong>
+
+                    <small>
+                        Manage teachers and staff
+                    </small>
+
+                </div>
+
+                <span class="management-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/parents"
+                class="management-item"
+            >
+
+                <div class="management-icon">
+                    PR
+                </div>
+
+                <div class="management-info">
+
+                    <strong>
+                        Parents
+                    </strong>
+
+                    <small>
+                        Manage student parents
+                    </small>
+
+                </div>
+
+                <span class="management-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/classes"
+                class="management-item"
+            >
+
+                <div class="management-icon">
+                    CL
+                </div>
+
+                <div class="management-info">
+
+                    <strong>
+                        Classes
+                    </strong>
+
+                    <small>
+                        View classes and divisions
+                    </small>
+
+                </div>
+
+                <span class="management-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/tests"
+                class="management-item"
+            >
+
+                <div class="management-icon">
+                    TS
+                </div>
+
+                <div class="management-info">
+
+                    <strong>
+                        Tests
+                    </strong>
+
+                    <small>
+                        View school tests
+                    </small>
+
+                </div>
+
+                <span class="management-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+            <a
+                href="<?= ROOT ?>/results"
+                class="management-item"
+            >
+
+                <div class="management-icon">
+                    RS
+                </div>
+
+                <div class="management-info">
+
+                    <strong>
+                        Results
+                    </strong>
+
+                    <small>
+                        View student results
+                    </small>
+
+                </div>
+
+                <span class="management-arrow">
+                    →
+                </span>
+
+            </a>
+
+
+        </div>
+
+    </div>
+
+</section>
 
 
 
@@ -941,15 +808,20 @@ require "../private/views/includes/sidebar.view.php";
                     Total Students
                 </span>
 
+
                 <strong>
+
                     <?= number_format(
                         $studentCount
                     ) ?>
+
                 </strong>
 
             </div>
 
 
+
+            <!-- DIVIDER -->
 
             <div class="summary-divider"></div>
 
@@ -963,37 +835,20 @@ require "../private/views/includes/sidebar.view.php";
                     Total Staff
                 </span>
 
+
                 <strong>
+
                     <?= number_format(
                         $staffCount
                     ) ?>
+
                 </strong>
 
             </div>
 
 
 
-            <div class="summary-divider"></div>
-
-
-
-            <!-- TOTAL PARENTS -->
-
-            <div class="summary-item">
-
-                <span>
-                    Total Parents
-                </span>
-
-                <strong>
-                    <?= number_format(
-                        $parentCount
-                    ) ?>
-                </strong>
-
-            </div>
-
-
+            <!-- DIVIDER -->
 
             <div class="summary-divider"></div>
 
@@ -1006,6 +861,7 @@ require "../private/views/includes/sidebar.view.php";
                 <span>
                     Your Account
                 </span>
+
 
                 <strong>
 
@@ -1034,11 +890,14 @@ require "../private/views/includes/sidebar.view.php";
 ===================================================== -->
 
 <?php
+
 require "../private/views/includes/footer.view.php";
+
 ?>
 
 
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 

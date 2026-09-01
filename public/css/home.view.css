@@ -1,5 +1,6 @@
 /* =====================================================
    MY SCHOOL - SCHOOL ADMIN DASHBOARD
+   Same styling as Super Admin Dashboard
 ===================================================== */
 
 
@@ -70,8 +71,6 @@ body {
     gap: 25px;
 
     margin-bottom: 28px;
-
-    padding: 0;
 }
 
 
@@ -250,9 +249,9 @@ body {
 
     border-radius: 11px;
 
-    font-size: 20px;
+    font-size: 10px;
 
-    line-height: 1;
+    font-weight: 700;
 }
 
 
@@ -275,10 +274,6 @@ body {
     font-size: 10px;
 
     font-weight: 500;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.4px;
 }
 
 
@@ -397,6 +392,10 @@ body {
 }
 
 
+/* =====================================================
+   ACTIVITY COUNT
+===================================================== */
+
 .activity-count {
     padding: 5px 9px;
 
@@ -411,13 +410,11 @@ body {
     font-size: 9px;
 
     font-weight: 600;
-
-    white-space: nowrap;
 }
 
 
 /* =====================================================
-   OVERVIEW LIST
+   ACTIVITY LIST
 ===================================================== */
 
 .activity-list {
@@ -426,21 +423,19 @@ body {
 
 
 /* =====================================================
-   OVERVIEW ITEM
+   ACTIVITY ITEM
 ===================================================== */
 
-.overview-item {
-    min-height: 67px;
+.activity-item {
+    min-height: 76px;
 
     display: flex;
 
     align-items: center;
 
-    gap: 12px;
+    gap: 13px;
 
-    padding: 10px 20px;
-
-    text-decoration: none;
+    padding: 12px 20px;
 
     border-bottom: 1px solid #f2edf1;
 
@@ -449,21 +444,21 @@ body {
 }
 
 
-.overview-item:last-child {
+.activity-item:last-child {
     border-bottom: none;
 }
 
 
-.overview-item:hover {
+.activity-item:hover {
     background: #fffafd;
 }
 
 
 /* =====================================================
-   OVERVIEW ICON
+   ACTIVITY ICON
 ===================================================== */
 
-.overview-icon {
+.activity-icon {
     width: 36px;
 
     height: 36px;
@@ -476,23 +471,30 @@ body {
 
     justify-content: center;
 
-    background: #fff1f7;
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6,
+            #f7edf8
+        );
+
+    color: #a32675;
 
     border: 1px solid #efd9e7;
 
-    border-radius: 9px;
+    font-size: 9px;
 
-    font-size: 17px;
-
-    line-height: 1;
+    font-weight: 700;
 }
 
 
 /* =====================================================
-   OVERVIEW INFO
+   ACTIVITY INFO
 ===================================================== */
 
-.overview-info {
+.activity-info {
     flex: 1;
 
     min-width: 0;
@@ -501,12 +503,12 @@ body {
 
     flex-direction: column;
 
-    gap: 1px;
+    gap: 2px;
 }
 
 
-.overview-info strong {
-    color: #514a58;
+.activity-info strong {
+    color: #4b4552;
 
     font-size: 11px;
 
@@ -514,32 +516,79 @@ body {
 }
 
 
-.overview-info span {
-    color: #9b939f;
+.activity-info span {
+    color: #9a929f;
 
     font-size: 9px;
 }
 
 
-.overview-item:hover .overview-info strong {
-    color: #a32675;
+/* =====================================================
+   ACTIVITY TIME
+===================================================== */
+
+.activity-item time {
+    color: #aaa1ad;
+
+    font-size: 9px;
+
+    white-space: nowrap;
 }
 
 
 /* =====================================================
-   OVERVIEW COUNT
+   EMPTY ACTIVITY
 ===================================================== */
 
-.overview-count {
-    color: #a32675;
+.activity-empty {
+    padding: 38px 20px;
 
-    font-size: 12px;
+    text-align: center;
+}
+
+
+.empty-icon {
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto 10px;
+
+    background: #f1faf5;
+
+    color: #2e9c5d;
+
+    border: 1px solid #d3eadc;
+
+    border-radius: 50%;
+
+    font-size: 14px;
 
     font-weight: 700;
+}
 
-    min-width: 25px;
 
-    text-align: right;
+.activity-empty h3 {
+    margin: 0 0 4px;
+
+    color: #4d4653;
+
+    font-size: 12px;
+}
+
+
+.activity-empty p {
+    margin: 0;
+
+    color: #99919d;
+
+    font-size: 10px;
 }
 
 
@@ -605,13 +654,15 @@ body {
 
     background: #fff1f7;
 
+    color: #a32675;
+
     border: 1px solid #efd9e7;
 
     border-radius: 9px;
 
-    font-size: 15px;
+    font-size: 8px;
 
-    line-height: 1;
+    font-weight: 700;
 }
 
 
@@ -646,11 +697,6 @@ body {
 }
 
 
-.management-item:hover .management-info strong {
-    color: #a32675;
-}
-
-
 /* =====================================================
    MANAGEMENT ARROW
 ===================================================== */
@@ -674,7 +720,7 @@ body {
 
 
 /* =====================================================
-   SYSTEM SUMMARY
+   SCHOOL SUMMARY
 ===================================================== */
 
 .system-summary {
@@ -772,7 +818,6 @@ body {
 ===================================================== */
 
 .kpi-card:focus-visible,
-.overview-item:focus-visible,
 .management-item:focus-visible,
 .summary-item a:focus-visible {
 
@@ -874,9 +919,9 @@ body {
     }
 
 
-    .overview-item {
+    .activity-item {
         padding:
-            11px 16px;
+            12px 16px;
     }
 
 
@@ -933,8 +978,6 @@ body {
         height: 42px;
 
         min-width: 42px;
-
-        font-size: 18px;
     }
 
 
@@ -943,35 +986,13 @@ body {
     }
 
 
-    .overview-item {
+    .activity-item {
         gap: 10px;
     }
 
 
-    .overview-icon {
-        width: 34px;
-
-        height: 34px;
-
-        min-width: 34px;
-
-        font-size: 15px;
-    }
-
-
-    .management-item {
-        gap: 10px;
-    }
-
-
-    .management-icon {
-        width: 32px;
-
-        height: 32px;
-
-        min-width: 32px;
-
-        font-size: 14px;
+    .activity-item time {
+        display: none;
     }
 
 
