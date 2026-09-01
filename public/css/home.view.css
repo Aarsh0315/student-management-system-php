@@ -1,511 +1,982 @@
-/* ========================================
-   GLOBAL RESET
-======================================== */
+/* =====================================================
+   MY SCHOOL - SCHOOL ADMIN DASHBOARD
+===================================================== */
+
+
+/* =====================================================
+   RESET
+===================================================== */
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
+
 
 html {
     scroll-behavior: smooth;
 }
 
-html,
+
 body {
-    width: 100%;
-    min-width: 0;
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #faf9fc;
+
+    color: #29263a;
+
+    line-height: 1.5;
+
     overflow-x: hidden;
 }
 
-body {
-    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-    background: #f4f7fb;
-    color: #1e293b;
-    min-height: 100vh;
-    line-height: 1.5;
-}
 
+/* =====================================================
+   PAGE
+===================================================== */
 
-/* ========================================
-   LINKS
-======================================== */
-
-a {
-    color: inherit;
-}
-
-
-/* ========================================
-   DASHBOARD
-======================================== */
-
-.dashboard {
+.schooladmin-page {
     width: 100%;
+
+    padding: 42px 30px 60px;
+}
+
+
+.schooladmin-container {
+    width: 100%;
+
     max-width: 1250px;
+
     margin: 0 auto;
-    padding: 45px 30px 60px;
 }
 
 
-/* ========================================
+/* =====================================================
    WELCOME
-======================================== */
+===================================================== */
 
-.welcome {
-    width: 100%;
-    margin-bottom: 30px;
-}
-
-.welcome-small {
-    color: #64748b;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 7px;
-}
-
-.welcome h1 {
-    color: #172033;
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.7px;
-    margin-bottom: 8px;
-}
-
-.welcome-text {
-    color: #64748b;
-    font-size: 15px;
-    line-height: 1.6;
-}
-
-
-/* ========================================
-   PROFILE CARD
-======================================== */
-
-.profile-card {
-    width: 100%;
-    background: #ffffff;
-    border: 1px solid #e5e7eb;
-    border-radius: 16px;
-    padding: 25px 28px;
-
+.dashboard-welcome {
     display: flex;
-    align-items: center;
+
+    align-items: flex-start;
+
     justify-content: space-between;
 
-    margin-bottom: 35px;
+    gap: 25px;
 
-    box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
+    margin-bottom: 28px;
 
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.profile-card:hover {
-    transform: translateY(-2px);
-
-    box-shadow:
-        0 10px 30px rgba(15, 23, 42, 0.08);
+    padding: 0;
 }
 
 
-/* ========================================
-   PROFILE LEFT
-======================================== */
+.welcome-label {
+    margin: 0 0 8px;
 
-.profile-left {
-    display: flex;
-    align-items: center;
-    gap: 18px;
-}
+    color: #8c2765;
 
+    font-size: 10px;
 
-/* ========================================
-   PROFILE AVATAR
-======================================== */
-
-.profile-avatar {
-    width: 68px;
-    height: 68px;
-    min-width: 68px;
-
-    border-radius: 50%;
-
-    background: #eff6ff;
-    color: #2563eb;
-
-    border: 3px solid #dbeafe;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 24px;
     font-weight: 700;
 
-    box-shadow:
-        0 7px 20px rgba(37, 99, 235, 0.15);
+    letter-spacing: 0.9px;
+
+    text-transform: uppercase;
 }
 
 
-/* ========================================
-   PROFILE DETAILS
-======================================== */
+.welcome-content h1 {
+    margin: 0 0 7px;
 
-.profile-details h2 {
-    color: #172033;
-    font-size: 19px;
-    font-weight: 650;
-    line-height: 1.3;
-    margin-bottom: 5px;
+    color: #29263a;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.7px;
 }
 
-.profile-details p {
-    color: #64748b;
-    font-size: 14px;
-    margin-bottom: 9px;
+
+.welcome-description {
+    margin: 0;
+
+    color: #827a89;
+
+    font-size: 13px;
 }
 
-.profile-details span {
-    display: inline-block;
 
-    background: #eff6ff;
-    color: #2563eb;
+/* =====================================================
+   STATUS
+===================================================== */
 
-    padding: 5px 11px;
+.dashboard-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    padding: 7px 12px;
+
+    margin-top: 5px;
+
+    background: #f0faf4;
+
+    color: #26764c;
+
+    border: 1px solid #cce9d7;
 
     border-radius: 20px;
 
-    font-size: 11px;
+    font-size: 10px;
+
     font-weight: 600;
-
-    text-transform: capitalize;
 }
 
 
-/* ========================================
-   VIEW PROFILE BUTTON
-======================================== */
+.status-dot {
+    width: 6px;
 
-.profile-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    height: 6px;
 
-    text-decoration: none;
+    border-radius: 50%;
 
-    background: #2563eb;
-    color: #ffffff;
-
-    padding: 11px 18px;
-
-    border: 1px solid #2563eb;
-    border-radius: 8px;
-
-    font-size: 13px;
-    font-weight: 600;
-
-    box-shadow:
-        0 4px 12px rgba(37, 99, 235, 0.18);
-
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.profile-btn:hover {
-    background: #1d4ed8;
-    border-color: #1d4ed8;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 7px 16px rgba(37, 99, 235, 0.25);
+    background: #2eaa65;
 }
 
 
-/* ========================================
-   DASHBOARD CARDS
-======================================== */
+/* =====================================================
+   KPI GRID
+===================================================== */
 
-.dashboard-cards {
+.kpi-grid {
     display: grid;
 
     grid-template-columns:
         repeat(3, 1fr);
 
-    gap: 22px;
+    gap: 16px;
 
-    margin-bottom: 35px;
+    margin-bottom: 30px;
 }
 
 
-/* ========================================
-   DASHBOARD CARD
-======================================== */
+/* =====================================================
+   KPI CARD
+===================================================== */
 
-.dashboard-card {
+.kpi-card {
+    min-height: 105px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
     position: relative;
 
-    min-height: 210px;
-
-    padding: 27px;
+    padding: 18px;
 
     background: #ffffff;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #eadfe8;
 
-    border-radius: 16px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
-}
-
-
-/* ========================================
-   TOP BLUE LINE
-======================================== */
-
-.dashboard-card::before {
-    content: "";
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 3px;
-
-    background: #2563eb;
-
-    transform: scaleX(0);
-    transform-origin: left;
-
-    transition:
-        transform 0.3s ease;
-}
-
-.dashboard-card:hover::before {
-    transform: scaleX(1);
-}
-
-
-/* ========================================
-   CARD HOVER
-======================================== */
-
-.dashboard-card:hover {
-    transform: translateY(-4px);
-
-    border-color: #dbe5f0;
-
-    box-shadow:
-        0 12px 30px rgba(15, 23, 42, 0.09);
-}
-
-
-/* ========================================
-   CARD ICON
-======================================== */
-
-.card-icon {
-    width: 48px;
-    height: 48px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 18px;
-
-    background: #eff6ff;
-
-    color: #2563eb;
-
-    border: 1px solid #dbeafe;
-
-    border-radius: 12px;
-
-    font-size: 18px;
-    font-weight: 700;
-}
-
-
-/* ========================================
-   CARD TITLE
-======================================== */
-
-.dashboard-card h3 {
-    color: #172033;
-
-    font-size: 18px;
-
-    font-weight: 650;
-
-    line-height: 1.3;
-
-    margin-bottom: 9px;
-}
-
-
-/* ========================================
-   CARD DESCRIPTION
-======================================== */
-
-.dashboard-card p {
-    color: #64748b;
-
-    font-size: 13px;
-
-    line-height: 1.6;
-
-    margin-bottom: 12px;
-}
-
-
-/* ========================================
-   CARD COUNT
-======================================== */
-
-.dashboard-count {
-    display: block;
-
-    color: #172033;
-
-    font-size: 24px;
-
-    font-weight: 700;
-
-    margin-bottom: 14px;
-}
-
-
-/* ========================================
-   CARD LINK
-======================================== */
-
-.dashboard-card a {
-    display: inline-flex;
-    align-items: center;
+    border-radius: 13px;
 
     text-decoration: none;
 
-    color: #2563eb;
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
 
-    font-size: 13px;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
 
-    font-weight: 600;
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+
+    background: #fffafd;
+
+    border-color: #e5cddd;
+
+    box-shadow:
+        0 10px 25px
+        rgba(70, 30, 70, 0.07);
+}
+
+
+/* =====================================================
+   KPI ICON
+===================================================== */
+
+.kpi-icon {
+    width: 46px;
+
+    height: 46px;
+
+    min-width: 46px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6,
+            #f8ecf8
+        );
+
+    color: #a32675;
+
+    border: 1px solid #efd8e6;
+
+    border-radius: 11px;
+
+    font-size: 20px;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   KPI CONTENT
+===================================================== */
+
+.kpi-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+}
+
+
+.kpi-label {
+    color: #8f8795;
+
+    font-size: 10px;
+
+    font-weight: 500;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+}
+
+
+.kpi-value {
+    color: #29263a;
+
+    font-size: 22px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+
+/* =====================================================
+   KPI ARROW
+===================================================== */
+
+.kpi-arrow {
+    position: absolute;
+
+    right: 16px;
+
+    bottom: 14px;
+
+    color: #c1b7c0;
+
+    font-size: 14px;
 
     transition:
         color 0.2s ease,
         transform 0.2s ease;
 }
 
-.dashboard-card a:hover {
-    color: #1d4ed8;
+
+.kpi-card:hover .kpi-arrow {
+    color: #a32675;
 
     transform: translateX(3px);
 }
 
 
-/* ========================================
+/* =====================================================
+   MAIN GRID
+===================================================== */
+
+.dashboard-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1.45fr)
+        minmax(320px, 0.9fr);
+
+    gap: 18px;
+
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   COMMON CARD
+===================================================== */
+
+.activity-card,
+.management-card {
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 13px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #f0e9ef;
+}
+
+
+.card-header h2 {
+    margin: 0 0 4px;
+
+    color: #29263a;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.card-header p {
+    margin: 0;
+
+    color: #958d99;
+
+    font-size: 10px;
+}
+
+
+.activity-count {
+    padding: 5px 9px;
+
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 15px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   OVERVIEW LIST
+===================================================== */
+
+.activity-list {
+    width: 100%;
+}
+
+
+/* =====================================================
+   OVERVIEW ITEM
+===================================================== */
+
+.overview-item {
+    min-height: 67px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 10px 20px;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #f2edf1;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.overview-item:last-child {
+    border-bottom: none;
+}
+
+
+.overview-item:hover {
+    background: #fffafd;
+}
+
+
+/* =====================================================
+   OVERVIEW ICON
+===================================================== */
+
+.overview-icon {
+    width: 36px;
+
+    height: 36px;
+
+    min-width: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fff1f7;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 9px;
+
+    font-size: 17px;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   OVERVIEW INFO
+===================================================== */
+
+.overview-info {
+    flex: 1;
+
+    min-width: 0;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+
+.overview-info strong {
+    color: #514a58;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.overview-info span {
+    color: #9b939f;
+
+    font-size: 9px;
+}
+
+
+.overview-item:hover .overview-info strong {
+    color: #a32675;
+}
+
+
+/* =====================================================
+   OVERVIEW COUNT
+===================================================== */
+
+.overview-count {
+    color: #a32675;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    min-width: 25px;
+
+    text-align: right;
+}
+
+
+/* =====================================================
+   MANAGEMENT LIST
+===================================================== */
+
+.management-list {
+    padding: 4px 0;
+}
+
+
+/* =====================================================
+   MANAGEMENT ITEM
+===================================================== */
+
+.management-item {
+    min-height: 61px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 10px 18px;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #f2edf1;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.management-item:last-child {
+    border-bottom: none;
+}
+
+
+.management-item:hover {
+    background: #fffafd;
+}
+
+
+/* =====================================================
+   MANAGEMENT ICON
+===================================================== */
+
+.management-icon {
+    width: 33px;
+
+    height: 33px;
+
+    min-width: 33px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fff1f7;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 9px;
+
+    font-size: 15px;
+
+    line-height: 1;
+}
+
+
+/* =====================================================
+   MANAGEMENT INFO
+===================================================== */
+
+.management-info {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1px;
+}
+
+
+.management-info strong {
+    color: #514a58;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.management-info small {
+    color: #9b939f;
+
+    font-size: 9px;
+}
+
+
+.management-item:hover .management-info strong {
+    color: #a32675;
+}
+
+
+/* =====================================================
+   MANAGEMENT ARROW
+===================================================== */
+
+.management-arrow {
+    color: #b5acb7;
+
+    font-size: 13px;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.management-item:hover .management-arrow {
+    color: #a32675;
+
+    transform: translateX(3px);
+}
+
+
+/* =====================================================
+   SYSTEM SUMMARY
+===================================================== */
+
+.system-summary {
+    min-height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-around;
+
+    gap: 20px;
+
+    padding: 14px 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+}
+
+
+/* =====================================================
+   SUMMARY ITEM
+===================================================== */
+
+.summary-item {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+    text-align: center;
+}
+
+
+.summary-item span {
+    color: #958d99;
+
+    font-size: 9px;
+
+    font-weight: 500;
+}
+
+
+.summary-item strong {
+    color: #514a58;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+.summary-item a {
+    color: #a32675;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease;
+}
+
+
+.summary-item a:hover {
+    color: #6f1760;
+}
+
+
+/* =====================================================
+   SUMMARY DIVIDER
+===================================================== */
+
+.summary-divider {
+    width: 1px;
+
+    height: 30px;
+
+    background: #eee6ed;
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.kpi-card:focus-visible,
+.overview-item:focus-visible,
+.management-item:focus-visible,
+.summary-item a:focus-visible {
+
+    outline:
+        3px solid
+        rgba(163, 38, 117, 0.15);
+
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
    TABLET
-======================================== */
+===================================================== */
 
 @media (max-width: 950px) {
 
-    .dashboard {
-        padding: 35px 20px 50px;
+    .schooladmin-page {
+        padding:
+            35px 20px 50px;
     }
 
-    .dashboard-cards {
+
+    .kpi-grid {
         grid-template-columns:
             repeat(2, 1fr);
-
-        gap: 18px;
     }
+
+
+    .dashboard-grid {
+        grid-template-columns:
+            1fr;
+    }
+
 }
 
 
-/* ========================================
+/* =====================================================
    MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 650px) {
 
-    .dashboard {
-        padding: 30px 15px 45px;
+    .schooladmin-page {
+        padding:
+            28px 15px 45px;
     }
 
-    .welcome h1 {
-        font-size: 27px;
-    }
 
-    .welcome-text {
-        font-size: 14px;
-    }
-
-    .profile-card {
-        padding: 20px;
-
+    .dashboard-welcome {
         flex-direction: column;
 
-        align-items: flex-start;
-
-        gap: 20px;
-    }
-
-    .profile-left {
-        width: 100%;
-    }
-
-    .profile-btn {
-        width: 100%;
-        text-align: center;
-    }
-
-    .dashboard-cards {
-        grid-template-columns: 1fr;
         gap: 15px;
+
+        margin-bottom: 23px;
     }
+
+
+    .welcome-content h1 {
+        font-size: 25px;
+    }
+
+
+    .welcome-description {
+        font-size: 12px;
+    }
+
+
+    .dashboard-status {
+        margin-top: 0;
+    }
+
+
+    .kpi-grid {
+        grid-template-columns:
+            1fr;
+
+        gap: 11px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .kpi-card {
+        min-height: 90px;
+    }
+
+
+    .dashboard-grid {
+        gap: 14px;
+
+        margin-bottom: 14px;
+    }
+
+
+    .card-header {
+        padding:
+            16px;
+    }
+
+
+    .overview-item {
+        padding:
+            11px 16px;
+    }
+
+
+    .management-item {
+        padding:
+            10px 16px;
+    }
+
+
+    .system-summary {
+        flex-direction: column;
+
+        padding:
+            18px;
+
+        gap: 14px;
+    }
+
+
+    .summary-divider {
+        width: 70%;
+
+        height: 1px;
+    }
+
 }
 
 
-/* ========================================
+/* =====================================================
    SMALL MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 400px) {
 
-    .profile-left {
-        gap: 12px;
+    .schooladmin-page {
+        padding:
+            22px 12px 35px;
     }
 
-    .profile-avatar {
-        width: 55px;
-        height: 55px;
-        min-width: 55px;
-        font-size: 19px;
+
+    .welcome-content h1 {
+        font-size: 22px;
     }
 
-    .profile-details h2 {
-        font-size: 16px;
+
+    .kpi-card {
+        padding: 15px;
     }
 
-    .profile-details p {
-        font-size: 12px;
+
+    .kpi-icon {
+        width: 42px;
+
+        height: 42px;
+
+        min-width: 42px;
+
+        font-size: 18px;
     }
+
+
+    .kpi-value {
+        font-size: 20px;
+    }
+
+
+    .overview-item {
+        gap: 10px;
+    }
+
+
+    .overview-icon {
+        width: 34px;
+
+        height: 34px;
+
+        min-width: 34px;
+
+        font-size: 15px;
+    }
+
+
+    .management-item {
+        gap: 10px;
+    }
+
+
+    .management-icon {
+        width: 32px;
+
+        height: 32px;
+
+        min-width: 32px;
+
+        font-size: 14px;
+    }
+
+
+    .card-header h2 {
+        font-size: 14px;
+    }
+
 }

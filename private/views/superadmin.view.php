@@ -165,10 +165,10 @@ require "../private/views/includes/sidebar.view.php";
                 </p>
 
 
-                <h1>
+                <h1> 
 
                     Welcome back,
-                    <?= htmlspecialchars($firstname) ?>
+                    <?= htmlspecialchars($firstname) ?> Admin
 
                 </h1>
 

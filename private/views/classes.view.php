@@ -28,6 +28,11 @@ $classes = $data['classes'] ?? [];
         href="<?= ROOT ?>/css/home.view.css?v=3"
     >
 
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=3"
+    >
+
 
     <!-- NAVBAR CSS -->
 
@@ -59,7 +64,7 @@ $classes = $data['classes'] ?? [];
 
 
 <?php require "../private/views/includes/nav.view.php"; ?>
-
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 <main class="dashboard">
 
@@ -288,6 +293,9 @@ $classes = $data['classes'] ?? [];
 
 
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+<script src="<?= ROOT ?>/js/nav.view.js?v=1"></script>  
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

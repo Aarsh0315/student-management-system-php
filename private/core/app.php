@@ -14,8 +14,6 @@ class App
     {
         $URL = $this->getURL();
 
-        // ...
-
 
         /* =========================
            CONTROLLER
@@ -23,7 +21,61 @@ class App
 
         if (!empty($URL[0])) {
 
-            $controllerName = ucfirst($URL[0]);
+
+            /*
+            ========================================
+            CONTROLLER ROUTE MAPPING
+            ========================================
+            */
+
+            $controllerMap = [
+
+                'school-admin' =>
+                    'SchoolAdmin',
+
+                'schooladmins' =>
+                    'SchoolAdmins',
+
+                'superadmin' =>
+                    'Superadmin',
+
+                'studentDashboard' =>
+                    'StudentDashboard',
+
+                'teacherDashboard' =>
+                    'TeacherDashboard'
+
+            ];
+
+
+            /*
+            ========================================
+            GET CONTROLLER NAME
+            ========================================
+            */
+
+            if (
+                isset(
+                    $controllerMap[$URL[0]]
+                )
+            ) {
+
+                $controllerName =
+                    $controllerMap[$URL[0]];
+
+            } else {
+
+                $controllerName =
+                    ucfirst($URL[0]);
+
+            }
+
+
+            /*
+            ========================================
+            CONTROLLER FILE
+            ========================================
+            */
 
             $controllerFile =
                 "../private/controllers/"
@@ -31,9 +83,20 @@ class App
                 . ".php";
 
 
-            if (file_exists($controllerFile)) {
+            /*
+            ========================================
+            CHECK CONTROLLER
+            ========================================
+            */
 
-                $this->controller = $controllerName;
+            if (
+                file_exists(
+                    $controllerFile
+                )
+            ) {
+
+                $this->controller =
+                    $controllerName;
 
                 unset($URL[0]);
 
@@ -46,12 +109,14 @@ class App
            LOAD CONTROLLER
         ========================= */
 
-        require_once "../private/controllers/"
+        require_once
+            "../private/controllers/"
             . $this->controller
             . ".php";
 
 
-        $this->controller = new $this->controller;
+        $this->controller =
+            new $this->controller;
 
 
         /* =========================
@@ -60,12 +125,15 @@ class App
 
         if (isset($URL[1])) {
 
-            if (method_exists(
-                $this->controller,
-                $URL[1]
-            )) {
+            if (
+                method_exists(
+                    $this->controller,
+                    $URL[1]
+                )
+            ) {
 
-                $this->method = $URL[1];
+                $this->method =
+                    $URL[1];
 
                 unset($URL[1]);
 
@@ -95,19 +163,32 @@ class App
             ],
             $this->params
         );
+
     }
 
 
     private function getURL()
     {
+
         if (isset($_GET['url'])) {
 
-            $url = trim($_GET['url'], "/");
+            $url =
+                trim(
+                    $_GET['url'],
+                    "/"
+                );
 
-            return explode("/", $url);
+
+            return explode(
+                "/",
+                $url
+            );
 
         }
 
+
         return [];
+
     }
+
 }

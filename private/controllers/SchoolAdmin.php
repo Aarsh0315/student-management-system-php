@@ -170,7 +170,7 @@ class SchoolAdmin extends Controller
         */
 
         $this->view(
-            'school-admin',
+            'home',
             $data
         );
     }

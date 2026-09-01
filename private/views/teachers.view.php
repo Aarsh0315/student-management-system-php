@@ -25,23 +25,14 @@ $teachers = $data['teachers'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=3"
-    >
-
-
-    <!-- HOME / COMMON -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css?v=3"
-    >
+        href="<?= ROOT ?>/css/nav.view.css?v=2">
 
 
     <!-- TEACHERS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teachers.view.css?v=1"
+        href="<?= ROOT ?>/css/teachers.view.css?v=2"
     >
 
 
@@ -49,7 +40,15 @@ $teachers = $data['teachers'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css?v=3"
+        href="<?= ROOT ?>/css/footer.view.css"
+    >
+
+
+    <!-- SIDEBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css"
     >
 
 </head>
@@ -60,20 +59,37 @@ $teachers = $data['teachers'] ?? [];
 
 <?php require "../private/views/includes/nav.view.php"; ?>
 
+<?php require "../private/views/includes/sidebar.view.php"; ?>
+
 
 <main class="dashboard">
 
 
-    <!-- ========================================
+    <!-- =================================================
          PAGE HEADER
-    ======================================== -->
+    ================================================== -->
 
     <section class="welcome">
 
         <div>
 
             <p class="welcome-small">
-                School Admin
+
+                <?php
+
+                $rank =
+                    $_SESSION['rank'] ?? '';
+
+                ?>
+
+                <?= htmlspecialchars(
+
+                    $rank === 'super_admin'
+                        ? 'Super Admin'
+                        : 'School Admin'
+
+                ) ?>
+
             </p>
 
 
@@ -83,8 +99,17 @@ $teachers = $data['teachers'] ?? [];
 
 
             <p class="welcome-text">
-                Manage teachers and staff
-                members in your school.
+
+                <?= htmlspecialchars(
+
+                    $rank === 'super_admin'
+
+                        ? 'Manage all teachers and staff members across the schools.'
+
+                        : 'Manage teachers and staff members in your school.'
+
+                ) ?>
+
             </p>
 
         </div>
@@ -93,16 +118,16 @@ $teachers = $data['teachers'] ?? [];
 
 
 
-    <!-- ========================================
+    <!-- =================================================
          TEACHERS CARD
-    ======================================== -->
+    ================================================== -->
 
     <section class="teachers-card">
 
 
-        <!-- ========================================
+        <!-- =================================================
              HEADER
-        ======================================== -->
+        ================================================== -->
 
         <div class="teachers-header">
 
@@ -111,6 +136,7 @@ $teachers = $data['teachers'] ?? [];
                 <h2>
                     All Teachers
                 </h2>
+
 
                 <p>
 
@@ -123,7 +149,9 @@ $teachers = $data['teachers'] ?? [];
             </div>
 
 
-            <!-- ADD TEACHER -->
+            <!-- =================================================
+                 ADD TEACHER
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/teachers/add"
@@ -139,9 +167,9 @@ $teachers = $data['teachers'] ?? [];
         <?php if (!empty($teachers)): ?>
 
 
-            <!-- ========================================
+            <!-- =================================================
                  TABLE
-            ======================================== -->
+            ================================================== -->
 
             <div class="table-wrapper">
 
@@ -223,9 +251,11 @@ $teachers = $data['teachers'] ?? [];
                                     <strong class="teacher-name">
 
                                         <?= htmlspecialchars(
+
                                             ($teacher->firstname ?? '')
                                             . ' '
                                             . ($teacher->lastname ?? '')
+
                                         ) ?>
 
                                     </strong>
@@ -251,10 +281,14 @@ $teachers = $data['teachers'] ?? [];
 
                                 <td>
 
-                                    <?= htmlspecialchars(
-                                        $teacher->department
-                                        ?? '-'
-                                    ) ?>
+                                    <span class="teacher-department">
+
+                                        <?= htmlspecialchars(
+                                            $teacher->department
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
 
                                 </td>
 
@@ -264,10 +298,14 @@ $teachers = $data['teachers'] ?? [];
 
                                 <td>
 
-                                    <?= htmlspecialchars(
-                                        $teacher->designation
-                                        ?? '-'
-                                    ) ?>
+                                    <span class="teacher-designation">
+
+                                        <?= htmlspecialchars(
+                                            $teacher->designation
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
 
                                 </td>
 
@@ -277,10 +315,14 @@ $teachers = $data['teachers'] ?? [];
 
                                 <td>
 
-                                    <?= htmlspecialchars(
-                                        $teacher->phone
-                                        ?? '-'
-                                    ) ?>
+                                    <span class="teacher-phone">
+
+                                        <?= htmlspecialchars(
+                                            $teacher->phone
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
 
                                 </td>
 
@@ -319,14 +361,18 @@ $teachers = $data['teachers'] ?? [];
 
                                 <td>
 
-                                    <a
-                                        href="<?= ROOT ?>/teachers/details/<?= urlencode(
-                                            $teacher->staff_id ?? ''
-                                        ) ?>"
-                                        class="view-btn"
-                                    >
-                                        View
-                                    </a>
+                                    <div class="table-actions">
+
+                                        <a
+                                            href="<?= ROOT ?>/teachers/details/<?= urlencode(
+                                                $teacher->staff_id ?? ''
+                                            ) ?>"
+                                            class="view-btn"
+                                        >
+                                            View
+                                        </a>
+
+                                    </div>
 
                                 </td>
 
@@ -347,9 +393,9 @@ $teachers = $data['teachers'] ?? [];
         <?php else: ?>
 
 
-            <!-- ========================================
+            <!-- =================================================
                  EMPTY STATE
-            ======================================== -->
+            ================================================== -->
 
             <div class="empty-state">
 
@@ -357,9 +403,12 @@ $teachers = $data['teachers'] ?? [];
                     No teachers found
                 </h3>
 
+
                 <p>
+
                     There are currently no teachers
-                    registered in your school.
+                    registered in the system.
+
                 </p>
 
             </div>
@@ -375,6 +424,11 @@ $teachers = $data['teachers'] ?? [];
 
 
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>
