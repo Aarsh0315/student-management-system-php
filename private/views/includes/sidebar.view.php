@@ -142,7 +142,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ▣
+                       🏫
                     </span>
 
                     <span>
@@ -163,7 +163,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ◉
+                        👥
                     </span>
 
                     <span>
@@ -194,7 +194,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ♙
+                        🎓
                     </span>
 
                     <span>
@@ -215,7 +215,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ♟
+                        👨‍🏫
                     </span>
 
                     <span>
@@ -236,7 +236,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ◌
+                        👨‍👩‍👧
                     </span>
 
                     <span>
@@ -267,7 +267,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ✓
+                        📝
                     </span>
 
                     <span>
@@ -288,7 +288,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ≡
+                        📊
                     </span>
 
                     <span>
@@ -309,7 +309,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ◈
+                        🧑‍💼
                     </span>
 
                     <span>
