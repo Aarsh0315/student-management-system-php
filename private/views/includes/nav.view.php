@@ -192,7 +192,7 @@ $initial = strtoupper(
             >
 
                 <span class="search-item-icon">
-                    ◉
+                    👥
                 </span>
 
                 <span class="search-item-content">
@@ -228,7 +228,7 @@ $initial = strtoupper(
             >
 
                 <span class="search-item-icon">
-                    ♙
+                    🎓
                 </span>
 
                 <span class="search-item-content">
@@ -253,7 +253,7 @@ $initial = strtoupper(
             >
 
                 <span class="search-item-icon">
-                    ♟
+                    👨‍🏫
                 </span>
 
                 <span class="search-item-content">
@@ -278,7 +278,7 @@ $initial = strtoupper(
             >
 
                 <span class="search-item-icon">
-                    ◌
+                   👨‍👩‍👧
                 </span>
 
                 <span class="search-item-content">
@@ -314,7 +314,7 @@ $initial = strtoupper(
             >
 
                 <span class="search-item-icon">
-                    ✓
+                    📝
                 </span>
 
                 <span class="search-item-content">
@@ -339,7 +339,7 @@ $initial = strtoupper(
             >
 
                 <span class="search-item-icon">
-                    ≡
+                    📊
                 </span>
 
                 <span class="search-item-content">
@@ -364,7 +364,7 @@ $initial = strtoupper(
             >
 
                 <span class="search-item-icon">
-                    ◈
+                    🧑‍💼
                 </span>
 
                 <span class="search-item-content">
