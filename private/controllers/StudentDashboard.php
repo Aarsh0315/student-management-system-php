@@ -141,14 +141,117 @@ class StudentDashboard extends Controller
 
         /*
         ========================================
-        LOAD VIEW
+        GET SCHOOL / CLASS / DIVISION
+        ========================================
+        */
+
+        $school_id =
+            $student->school_id
+            ?? ($_SESSION['school_id'] ?? null);
+
+        $class =
+            $student->class
+            ?? null;
+
+        $division =
+            $student->division
+            ?? null;
+
+
+        /*
+        ========================================
+        DEFAULT DASHBOARD DATA
+        ========================================
+        */
+
+        $testCount = 0;
+
+        $resultCount = 0;
+
+        $recentTests = [];
+
+
+        /*
+        ========================================
+        LOAD STUDENT TESTS MODEL
+        ========================================
+        */
+
+        if (
+            $school_id &&
+            $class &&
+            $division
+        ) {
+
+            $studentTestsModel =
+                $this->model('StudentTestsModel');
+
+
+            /*
+            ----------------------------------------
+            TOTAL TESTS
+            ----------------------------------------
+            */
+
+            $testCount =
+                $studentTestsModel->getStudentTestCount(
+                    $school_id,
+                    $class,
+                    $division
+                );
+
+
+            /*
+            ----------------------------------------
+            RECENT TESTS
+            ----------------------------------------
+            */
+
+            $recentTests =
+                $studentTestsModel->getRecentTests(
+                    $school_id,
+                    $class,
+                    $division,
+                    5
+                );
+        }
+
+
+        /*
+        ========================================
+        LOAD STUDENT RESULTS MODEL
+        ========================================
+        */
+
+        $studentResultsModel =
+            $this->model('StudentResultsModel');
+
+
+        /*
+        ========================================
+        TOTAL RESULTS
+        ========================================
+        */
+
+        $resultCount =
+            $studentResultsModel->getStudentResultCount(
+                $student_id
+            );
+
+
+        /*
+        ========================================
+        LOAD DASHBOARD VIEW
         ========================================
         */
 
         $this->view(
             'student-dashboard',
             [
-                'student' => $student
+                'student'     => $student,
+                'testCount'   => $testCount,
+                'resultCount' => $resultCount,
+                'recentTests' => $recentTests
             ]
         );
     }

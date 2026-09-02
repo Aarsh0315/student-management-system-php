@@ -362,4 +362,127 @@ public function getTotalTestCount()
 
     return $result[0]->total ?? 0;
 }
+
+/*
+========================================
+GET STUDENT TEST COUNT
+========================================
+*/
+
+public function getStudentTestCount(
+    $school_id,
+    $class,
+    $division
+) {
+
+    $query = "SELECT
+                COUNT(*) AS total
+
+              FROM tests
+
+              WHERE school_id = :school_id
+
+              AND class = :class
+
+              AND division = :division
+
+              AND status = 'active'";
+
+    $result = $this->query(
+        $query,
+        [
+            'school_id' => $school_id,
+            'class'     => $class,
+            'division'  => $division
+        ]
+    );
+
+    return (int) ($result[0]->total ?? 0);
+}
+
+
+/*
+========================================
+GET RECENT TESTS FOR STUDENT
+========================================
+*/
+
+public function getRecentTests(
+    $school_id,
+    $class,
+    $division,
+    $limit = 5
+) {
+
+    $limit = (int) $limit;
+
+    if ($limit <= 0) {
+        $limit = 5;
+    }
+
+    $query = "SELECT
+                test_id,
+                teacher_id,
+                title,
+                description,
+                class,
+                division,
+                total_marks,
+                duration,
+                start_date,
+                end_date,
+                status,
+                created_at
+
+              FROM tests
+
+              WHERE school_id = :school_id
+
+              AND class = :class
+
+              AND division = :division
+
+              AND status = 'active'
+
+              ORDER BY created_at DESC
+
+              LIMIT {$limit}";
+
+    return $this->query(
+        $query,
+        [
+            'school_id' => $school_id,
+            'class'     => $class,
+            'division'  => $division
+        ]
+    );
+}
+
+
+/*
+========================================
+GET STUDENT RESULT COUNT
+========================================
+*/
+
+public function getStudentResultCount(
+    $student_id
+) {
+
+    $query = "SELECT
+                COUNT(*) AS total
+
+              FROM results
+
+              WHERE student_id = :student_id";
+
+    $result = $this->query(
+        $query,
+        [
+            'student_id' => $student_id
+        ]
+    );
+
+    return (int) ($result[0]->total ?? 0);
+}
 }

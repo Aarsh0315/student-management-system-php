@@ -4,8 +4,45 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-$student =
-    $data['student'] ?? null;
+
+/*
+=====================================================
+STUDENT INFORMATION
+=====================================================
+*/
+
+$firstname = $_SESSION['firstname'] ?? 'Student';
+$lastname  = $_SESSION['lastname'] ?? '';
+
+$initial = strtoupper(
+    substr($firstname, 0, 1)
+);
+
+
+/*
+=====================================================
+DASHBOARD DATA
+=====================================================
+*/
+
+$student = $data['student'] ?? null;
+
+$testCount = $data['testCount'] ?? 0;
+
+$resultCount = $data['resultCount'] ?? 0;
+
+$recentTests = $data['recentTests'] ?? [];
+
+
+/*
+=====================================================
+STUDENT CLASS INFORMATION
+=====================================================
+*/
+
+$class = $student->class ?? '-';
+
+$division = $student->division ?? '-';
 
 ?>
 
@@ -26,27 +63,27 @@ $student =
     </title>
 
 
-    <!-- DASHBOARD CSS -->
+    <!-- NAVBAR -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css?v=2"
+        href="<?= ROOT ?>/css/nav.view.css?v=3"
     >
 
 
-    <!-- STUDENT DASHBOARD CSS -->
+    <!-- SIDEBAR -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-dashboard.view.css?v=1"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=1"
     >
 
 
-    <!-- STUDENT NAVBAR -->
+    <!-- STUDENT DASHBOARD -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-nav.view.css?v=1"
+        href="<?= ROOT ?>/css/student-dashboard.view.css?v=3"
     >
 
 
@@ -54,7 +91,7 @@ $student =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css?v=1"
+        href="<?= ROOT ?>/css/footer.view.css?v=3"
     >
 
 </head>
@@ -63,250 +100,615 @@ $student =
 <body>
 
 
-<?php require "../private/views/includes/student-nav.view.php"; ?>
+<?php require "../private/views/includes/nav.view.php"; ?>
 
 
-<main class="dashboard">
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
-    <!-- ========================================
-         PAGE HEADER
-    ======================================== -->
+<!-- =====================================================
+     STUDENT DASHBOARD
+===================================================== -->
 
-    <section class="welcome">
+<main class="student-page">
 
-        <div>
-
-            <p class="welcome-small">
-                Student
-            </p>
+    <div class="student-container">
 
 
-            <h1>
-                Dashboard
-            </h1>
+        <!-- =================================================
+             WELCOME
+        ================================================== -->
+
+        <section class="dashboard-welcome">
+
+            <div class="welcome-content">
+
+                <p class="welcome-label">
+                    STUDENT OVERVIEW
+                </p>
 
 
-            <p class="welcome-text">
-                View your classes, tests, results
-                and academic activities.
-            </p>
+                <h1>
 
-        </div>
+                    Welcome back,
+                    <?= htmlspecialchars($firstname) ?>
 
-    </section>
+                </h1>
 
 
+                <p class="welcome-description">
 
-    <!-- ========================================
-         STUDENT PROFILE CARD
-    ======================================== -->
+                    View your class, tests, results
+                    and academic activities.
 
-    <section class="student-profile-card">
-
-
-        <div class="student-profile-left">
-
-
-            <!-- AVATAR -->
-
-            <div class="student-large-avatar">
-
-                <?php
-
-                $firstname =
-                    $student->firstname
-                    ?? 'S';
-
-                echo strtoupper(
-                    substr(
-                        $firstname,
-                        0,
-                        1
-                    )
-                );
-
-                ?>
+                </p>
 
             </div>
 
 
+            <!-- STATUS -->
 
-            <!-- PROFILE INFORMATION -->
+            <div class="dashboard-status">
 
-            <div class="student-profile-info">
+                <span class="status-dot"></span>
 
-                <h2>
-
-                    <?= htmlspecialchars(
-                        $student->firstname
-                        ?? 'Student'
-                    ) ?>
-
-                    <?= htmlspecialchars(
-                        $student->lastname
-                        ?? ''
-                    ) ?>
-
-                </h2>
-
-
-                <p>
-
-                    <?= htmlspecialchars(
-                        $student->email
-                        ?? '-'
-                    ) ?>
-
-                </p>
-
-
-                <span class="student-role-badge">
-                    Student
+                <span>
+                    Active
                 </span>
 
             </div>
 
-
-        </div>
-
-
-
-        <!-- VIEW PROFILE -->
-
-        <a
-            href="<?= ROOT ?>/profile"
-            class="student-profile-btn"
-        >
-            View Profile
-        </a>
-
-
-    </section>
+        </section>
 
 
 
-    <!-- ========================================
-         DASHBOARD CARDS
-    ======================================== -->
+        <!-- =================================================
+             KPI CARDS
+        ================================================== -->
 
-    <section class="student-dashboard-grid">
+        <section class="kpi-grid">
 
 
-        <!-- ========================================
-             MY CLASS
-        ======================================== -->
-
-        <div class="student-dashboard-card">
-
-            <h2>
-                My Class
-            </h2>
-
-            <p>
-                View your class and division
-                information.
-            </p>
+            <!-- =================================================
+                 MY CLASS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/studentclasses"
-                class="dashboard-card-link"
+                class="kpi-card"
             >
-                View Class →
+
+                <div class="kpi-icon">
+                    CL
+                </div>
+
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
+                        My Class
+                    </span>
+
+
+                    <strong class="kpi-value">
+
+                        <?= htmlspecialchars($class) ?>
+
+                        <?php if ($division !== '-'): ?>
+
+                            -
+                            <?= htmlspecialchars($division) ?>
+
+                        <?php endif; ?>
+
+                    </strong>
+
+                </div>
+
+
+                <span class="kpi-arrow">
+                    →
+                </span>
+
             </a>
 
-        </div>
 
 
-
-        <!-- ========================================
-             TESTS
-        ======================================== -->
-
-        <div class="student-dashboard-card">
-
-            <h2>
-                Tests
-            </h2>
-
-            <p>
-                View available tests and
-                assessments.
-            </p>
+            <!-- =================================================
+                 TESTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/studenttests"
-                class="dashboard-card-link"
+                class="kpi-card"
             >
-                View Tests →
+
+                <div class="kpi-icon">
+                    TS
+                </div>
+
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
+                        Tests
+                    </span>
+
+
+                    <strong class="kpi-value">
+
+                        <?= number_format(
+                            $testCount
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <span class="kpi-arrow">
+                    →
+                </span>
+
             </a>
 
-        </div>
 
 
-
-        <!-- ========================================
-             RESULTS
-        ======================================== -->
-
-        <div class="student-dashboard-card">
-
-            <h2>
-                Results
-            </h2>
-
-            <p>
-                View your test results and
-                academic performance.
-            </p>
+            <!-- =================================================
+                 RESULTS
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/studentresults"
-                class="dashboard-card-link"
+                class="kpi-card"
             >
-                View Results →
+
+                <div class="kpi-icon">
+                    RS
+                </div>
+
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
+                        Results
+                    </span>
+
+
+                    <strong class="kpi-value">
+
+                        <?= number_format(
+                            $resultCount
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <span class="kpi-arrow">
+                    →
+                </span>
+
             </a>
 
-        </div>
+
+        </section>
 
 
 
-        <!-- ========================================
-             ATTENDANCE
-        ======================================== -->
+        <!-- =================================================
+             MAIN DASHBOARD GRID
+        ================================================== -->
 
-        <!-- ========================================
-             PARENTS
-        ======================================== -->
-
-        <div class="student-dashboard-card">
-
-            <h2>
-                Parents
-            </h2>
-
-            <p>
-                View your parent and guardian
-                information.
-            </p>
-
-            <a
-                href="<?= ROOT ?>/studentparents"
-                class="dashboard-card-link"
-            >
-                View Parents →
-            </a>
-
-        </div>
+        <section class="dashboard-grid">
 
 
-    </section>
+            <!-- =================================================
+                 RECENT TESTS
+            ================================================== -->
 
+            <div class="activity-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Tests
+                        </h2>
+
+                        <p>
+                            Your latest tests and assessments.
+                        </p>
+
+                    </div>
+
+
+                    <a
+                        href="<?= ROOT ?>/studenttests"
+                        class="activity-count"
+                    >
+                        View All
+                    </a>
+
+                </div>
+
+
+
+                <div class="activity-list">
+
+
+                    <?php if (!empty($recentTests)): ?>
+
+
+                        <?php foreach ($recentTests as $test): ?>
+
+
+                            <a
+                                href="<?= ROOT ?>/studenttests"
+                                class="activity-item"
+                            >
+
+
+                                <div class="activity-icon">
+                                    TS
+                                </div>
+
+
+                                <div class="activity-info">
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            $test->title
+                                            ?? 'Test'
+                                        ) ?>
+
+                                    </strong>
+
+
+                                    <span>
+
+                                        <?php
+
+                                        $testClass =
+                                            $test->class
+                                            ?? null;
+
+                                        $testDivision =
+                                            $test->division
+                                            ?? null;
+
+                                        $testSubject =
+                                            $test->subject
+                                            ?? null;
+
+                                        ?>
+
+                                        <?php if ($testClass): ?>
+
+                                            Class
+                                            <?= htmlspecialchars(
+                                                $testClass
+                                            ) ?>
+
+                                            <?php if ($testDivision): ?>
+
+                                                -
+                                                <?= htmlspecialchars(
+                                                    $testDivision
+                                                ) ?>
+
+                                            <?php endif; ?>
+
+                                        <?php elseif ($testSubject): ?>
+
+                                            <?= htmlspecialchars(
+                                                $testSubject
+                                            ) ?>
+
+                                        <?php else: ?>
+
+                                            Academic Test
+
+                                        <?php endif; ?>
+
+                                    </span>
+
+                                </div>
+
+
+                                <time>
+
+                                    <?= !empty(
+                                        $test->created_at
+                                    )
+
+                                        ? date(
+                                            'd M Y',
+                                            strtotime(
+                                                $test->created_at
+                                            )
+                                        )
+
+                                        : '-'
+                                    ?>
+
+                                </time>
+
+
+                            </a>
+
+
+                        <?php endforeach; ?>
+
+
+                    <?php else: ?>
+
+
+                        <div class="activity-empty">
+
+
+                            <div class="empty-icon">
+                                TS
+                            </div>
+
+
+                            <strong>
+                                No recent tests
+                            </strong>
+
+
+                            <span>
+                                Your recent tests will appear here.
+                            </span>
+
+
+                        </div>
+
+
+                    <?php endif; ?>
+
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- =================================================
+                 QUICK ACCESS
+            ================================================== -->
+
+            <div class="management-card">
+
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Quick Access
+                        </h2>
+
+                        <p>
+                            Access your main academic areas.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="management-list">
+
+
+                    <!-- =================================================
+                         TESTS
+                    ================================================== -->
+
+                    <a
+                        href="<?= ROOT ?>/studenttests"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            TS
+                        </div>
+
+
+                        <div class="management-info">
+
+                            <strong>
+                                Tests
+                            </strong>
+
+                            <small>
+                                View available tests
+                            </small>
+
+                        </div>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- =================================================
+                         MY CLASS
+                    ================================================== -->
+
+                    <a
+                        href="<?= ROOT ?>/studentclasses"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            CL
+                        </div>
+
+
+                        <div class="management-info">
+
+                            <strong>
+                                My Class
+                            </strong>
+
+                            <small>
+                                View your class and division
+                            </small>
+
+                        </div>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- =================================================
+                         RESULTS
+                    ================================================== -->
+
+                    <a
+                        href="<?= ROOT ?>/studentresults"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            RS
+                        </div>
+
+
+                        <div class="management-info">
+
+                            <strong>
+                                Results
+                            </strong>
+
+                            <small>
+                                View your academic results
+                            </small>
+
+                        </div>
+
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             STUDENT SUMMARY
+        ================================================== -->
+
+        <section class="system-summary">
+
+
+            <!-- CLASS -->
+
+            <div class="summary-item">
+
+                <span class="summary-label">
+                    Class
+                </span>
+
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $class
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <div class="summary-divider"></div>
+
+
+
+            <!-- DIVISION -->
+
+            <div class="summary-item">
+
+                <span class="summary-label">
+                    Division
+                </span>
+
+
+                <strong>
+
+                    <?= htmlspecialchars(
+                        $division
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <div class="summary-divider"></div>
+
+
+
+            <!-- ACCOUNT -->
+
+            <div class="summary-item">
+
+                <span class="summary-label">
+                    Your Account
+                </span>
+
+
+                <strong>
+                    Student
+                </strong>
+
+            </div>
+
+
+        </section>
+
+
+    </div>
 
 </main>
 
 
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<script src="<?= ROOT ?>/js/nav.js"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js"></script>
 
 
 </body>

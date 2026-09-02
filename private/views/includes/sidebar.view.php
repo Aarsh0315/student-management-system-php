@@ -494,6 +494,88 @@ $currentPage = explode(
 
             </div>
 
+            <?php elseif ($rank === 'student'): ?>
+
+<div class="sidebar-section">
+
+    <p class="sidebar-section-title">
+        MAIN
+    </p>
+
+
+    <!-- DASHBOARD -->
+
+    <a
+        href="<?= ROOT ?>/home"
+        class="sidebar-link <?= $currentPage === 'home' ? 'active' : '' ?>"
+    >
+
+        <span class="sidebar-icon">
+            ▦
+        </span>
+
+        <span>
+            Dashboard
+        </span>
+
+    </a>
+
+
+    <!-- TESTS -->
+
+    <a
+        href="<?= ROOT ?>/studenttests"
+        class="sidebar-link <?= $currentPage === 'studenttests' ? 'active' : '' ?>"
+    >
+
+        <span class="sidebar-icon">
+            📝
+        </span>
+
+        <span>
+            Tests
+        </span>
+
+    </a>
+
+
+    <!-- MY CLASS -->
+
+    <a
+        href="<?= ROOT ?>/studentclasses"
+        class="sidebar-link <?= $currentPage === 'studentclasses' ? 'active' : '' ?>"
+    >
+
+        <span class="sidebar-icon">
+            🏫
+        </span>
+
+        <span>
+            My Class
+        </span>
+
+    </a>
+
+
+    <!-- RESULTS -->
+
+    <a
+        href="<?= ROOT ?>/studentresults"
+        class="sidebar-link <?= $currentPage === 'studentresults' ? 'active' : '' ?>"
+    >
+
+        <span class="sidebar-icon">
+           📊
+        </span>
+
+        <span>
+            Results
+        </span>
+
+    </a>
+
+</div>
+
 
 
         <!-- =================================

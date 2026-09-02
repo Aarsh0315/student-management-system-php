@@ -117,5 +117,30 @@ public function getTotalResultCount()
     return $result[0]->total ?? 0;
 }
 
+/*
+========================================
+GET STUDENT RESULT COUNT
+========================================
+*/
+
+public function getStudentResultCount($student_id)
+{
+    $query = "
+        SELECT COUNT(*) AS total
+
+        FROM results
+
+        WHERE student_id = :student_id
+    ";
+
+    $result = $this->query(
+        $query,
+        [
+            'student_id' => $student_id
+        ]
+    );
+
+    return (int) ($result[0]->total ?? 0);
+}
 
 }

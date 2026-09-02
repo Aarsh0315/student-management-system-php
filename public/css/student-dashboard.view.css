@@ -1,520 +1,1032 @@
-/* ========================================
-   STUDENT DASHBOARD
-======================================== */
+/* =====================================================
+   MY SCHOOL - STUDENT DASHBOARD
+===================================================== */
 
 
-/* ========================================
-   STUDENT PROFILE CARD
-======================================== */
+/* =====================================================
+   RESET
+===================================================== */
 
-.student-profile-card {
+* {
+    box-sizing: border-box;
+}
 
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #faf9fc;
+
+    color: #29263a;
+
+    line-height: 1.5;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.student-page {
     width: 100%;
 
-    padding: 28px;
+    padding: 42px 30px 60px;
+}
 
-    background: #ffffff;
 
-    border: 1px solid #e5e7eb;
+.student-container {
+    width: 100%;
 
-    border-radius: 16px;
+    max-width: 1250px;
 
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   WELCOME
+===================================================== */
+
+.dashboard-welcome {
     display: flex;
 
-    align-items: center;
+    align-items: flex-start;
 
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 25px;
 
-    margin-bottom: 40px;
-
-    box-sizing: border-box;
-
-    box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
-
+    margin-bottom: 28px;
 }
 
 
-/* ========================================
-   PROFILE LEFT
-======================================== */
+.welcome-label {
+    margin: 0 0 8px;
 
-.student-profile-left {
+    color: #8c2765;
 
-    display: flex;
-
-    align-items: center;
-
-    gap: 18px;
-
-    min-width: 0;
-
-}
-
-
-/* ========================================
-   LARGE AVATAR
-======================================== */
-
-.student-large-avatar {
-
-    width: 68px;
-
-    height: 68px;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-    background: #eff6ff;
-
-    color: #2563eb;
-
-    border: 2px solid #dbeafe;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    font-size: 23px;
+    font-size: 10px;
 
     font-weight: 700;
 
-    box-shadow:
-        0 5px 15px rgba(37, 99, 235, 0.12);
+    letter-spacing: 0.9px;
 
+    text-transform: uppercase;
 }
 
 
-/* ========================================
-   PROFILE INFO
-======================================== */
+.welcome-content h1 {
+    margin: 0 0 7px;
 
-.student-profile-info {
+    color: #29263a;
 
-    min-width: 0;
-
-}
-
-
-.student-profile-info h2 {
-
-    margin: 0 0 5px;
-
-    color: #172033;
-
-    font-size: 20px;
+    font-size: 30px;
 
     font-weight: 700;
 
-    line-height: 1.3;
+    line-height: 1.25;
 
+    letter-spacing: -0.7px;
 }
 
 
-.student-profile-info p {
+.welcome-description {
+    margin: 0;
 
-    margin: 0 0 9px;
-
-    color: #64748b;
+    color: #827a89;
 
     font-size: 13px;
-
-    line-height: 1.4;
-
-    word-break: break-word;
-
 }
 
 
-/* ========================================
-   STUDENT ROLE BADGE
-======================================== */
+/* =====================================================
+   STATUS
+===================================================== */
 
-.student-role-badge {
-
+.dashboard-status {
     display: inline-flex;
 
     align-items: center;
 
-    padding: 5px 10px;
+    gap: 7px;
 
-    background: #eff6ff;
+    padding: 7px 12px;
 
-    color: #2563eb;
+    margin-top: 5px;
 
-    border: 1px solid #dbeafe;
+    background: #f0faf4;
+
+    color: #26764c;
+
+    border: 1px solid #cce9d7;
 
     border-radius: 20px;
 
     font-size: 10px;
 
     font-weight: 600;
-
-    line-height: 1;
-
 }
 
 
-/* ========================================
-   VIEW PROFILE BUTTON
-======================================== */
+.status-dot {
+    width: 6px;
 
-.student-profile-btn {
+    height: 6px;
 
-    display: inline-flex;
+    border-radius: 50%;
+
+    background: #2eaa65;
+}
+
+
+/* =====================================================
+   KPI GRID
+===================================================== */
+
+.kpi-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 16px;
+
+    margin-bottom: 30px;
+}
+
+
+/* =====================================================
+   KPI CARD
+===================================================== */
+
+.kpi-card {
+    min-height: 105px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    position: relative;
+
+    padding: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 13px;
+
+    text-decoration: none;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+.kpi-card:hover {
+    transform: translateY(-3px);
+
+    background: #fffafd;
+
+    border-color: #e5cddd;
+
+    box-shadow:
+        0 10px 25px
+        rgba(70, 30, 70, 0.07);
+}
+
+
+/* =====================================================
+   KPI ICON
+===================================================== */
+
+.kpi-icon {
+    width: 46px;
+
+    height: 46px;
+
+    min-width: 46px;
+
+    display: flex;
 
     align-items: center;
 
     justify-content: center;
 
-    min-height: 40px;
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6,
+            #f8ecf8
+        );
 
-    padding: 0 18px;
+    color: #a32675;
 
-    background: #2563eb;
+    border: 1px solid #efd8e6;
 
-    color: #ffffff;
+    border-radius: 11px;
 
-    border: 1px solid #2563eb;
+    font-size: 10px;
 
-    border-radius: 8px;
+    font-weight: 700;
+}
 
-    text-decoration: none;
 
-    font-size: 12px;
+/* =====================================================
+   KPI CONTENT
+===================================================== */
 
-    font-weight: 600;
+.kpi-content {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 2px;
+
+    min-width: 0;
+}
+
+
+.kpi-label {
+    color: #8f8795;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+
+.kpi-value {
+    color: #29263a;
+
+    font-size: 20px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
 
     white-space: nowrap;
 
-    box-shadow:
-        0 4px 12px rgba(37, 99, 235, 0.18);
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   KPI ARROW
+===================================================== */
+
+.kpi-arrow {
+    position: absolute;
+
+    right: 16px;
+
+    bottom: 14px;
+
+    color: #c1b7c0;
+
+    font-size: 14px;
 
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-
+        color 0.2s ease,
+        transform 0.2s ease;
 }
 
 
-.student-profile-btn:hover {
+.kpi-card:hover .kpi-arrow {
+    color: #a32675;
 
-    background: #1d4ed8;
-
-    border-color: #1d4ed8;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 7px 16px rgba(37, 99, 235, 0.25);
-
+    transform: translateX(3px);
 }
 
 
-/* ========================================
-   DASHBOARD GRID
-======================================== */
+/* =====================================================
+   MAIN GRID
+===================================================== */
 
-.student-dashboard-grid {
-
-    width: 100%;
-
+.dashboard-grid {
     display: grid;
 
     grid-template-columns:
-        repeat(3, minmax(0, 1fr));
+        minmax(0, 1.45fr)
+        minmax(320px, 0.9fr);
 
-    gap: 25px;
+    gap: 18px;
 
-    margin-bottom: 35px;
-
+    margin-bottom: 20px;
 }
 
 
-/* ========================================
-   DASHBOARD CARD
-======================================== */
+/* =====================================================
+   COMMON CARD
+===================================================== */
 
-.student-dashboard-card {
-
-    min-height: 190px;
-
-    padding: 28px;
-
+.activity-card,
+.management-card {
     background: #ffffff;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #eadfe8;
 
-    border-radius: 16px;
+    border-radius: 13px;
 
-    box-sizing: border-box;
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #f0e9ef;
+}
+
+
+.card-header h2 {
+    margin: 0 0 4px;
+
+    color: #29263a;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.card-header p {
+    margin: 0;
+
+    color: #958d99;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   VIEW ALL
+===================================================== */
+
+.activity-count {
+    padding: 5px 9px;
+
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 15px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+.activity-count:hover {
+    background: #f9e4f0;
+
+    border-color: #e4c4d8;
+}
+
+
+/* =====================================================
+   ACTIVITY LIST
+===================================================== */
+
+.activity-list {
+    width: 100%;
+}
+
+
+/* =====================================================
+   ACTIVITY ITEM
+===================================================== */
+
+.activity-item {
+    min-height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 12px 20px;
+
+    border-bottom: 1px solid #f2edf1;
+
+    text-decoration: none;
+
+    transition:
+        background 0.15s ease;
+}
+
+
+.activity-item:last-child {
+    border-bottom: none;
+}
+
+
+.activity-item:hover {
+    background: #fffafd;
+}
+
+
+/* =====================================================
+   ACTIVITY ICON
+===================================================== */
+
+.activity-icon {
+    width: 36px;
+
+    height: 36px;
+
+    min-width: 36px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6,
+            #f7edf8
+        );
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    font-size: 9px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   ACTIVITY INFO
+===================================================== */
+
+.activity-info {
+    flex: 1;
+
+    min-width: 0;
 
     display: flex;
 
     flex-direction: column;
 
-    align-items: flex-start;
-
-    box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
-
-    transition:
-        box-shadow 0.2s ease,
-        transform 0.2s ease,
-        border-color 0.2s ease;
-
+    gap: 2px;
 }
 
 
-.student-dashboard-card:hover {
+.activity-info strong {
+    color: #4b4552;
 
-    transform: translateY(-2px);
-
-    border-color: #dbe2ea;
-
-    box-shadow:
-        0 8px 25px rgba(15, 23, 42, 0.07);
-
-}
-
-
-/* ========================================
-   CARD HEADING
-======================================== */
-
-.student-dashboard-card h2 {
-
-    margin: 0 0 12px;
-
-    color: #172033;
-
-    font-size: 19px;
-
-    font-weight: 700;
-
-    line-height: 1.3;
-
-}
-
-
-/* ========================================
-   CARD DESCRIPTION
-======================================== */
-
-.student-dashboard-card p {
-
-    margin: 0;
-
-    color: #64748b;
-
-    font-size: 13px;
-
-    line-height: 1.6;
-
-}
-
-
-/* ========================================
-   CARD LINK
-======================================== */
-
-.dashboard-card-link {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    margin-top: auto;
-
-    padding-top: 25px;
-
-    color: #2563eb;
-
-    text-decoration: none;
-
-    font-size: 13px;
+    font-size: 11px;
 
     font-weight: 600;
 
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+.activity-info span {
+    color: #9a929f;
+
+    font-size: 9px;
+
+    overflow: hidden;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   ACTIVITY DATE
+===================================================== */
+
+.activity-item time {
+    color: #aaa1ad;
+
+    font-size: 9px;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   EMPTY ACTIVITY
+===================================================== */
+
+.activity-empty {
+    padding: 38px 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+.empty-icon {
+    width: 38px;
+
+    height: 38px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin-bottom: 10px;
+
+    background: #f1faf5;
+
+    color: #2e9c5d;
+
+    border: 1px solid #d3eadc;
+
+    border-radius: 50%;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+
+.activity-empty strong {
+    margin-bottom: 4px;
+
+    color: #4d4653;
+
+    font-size: 12px;
+}
+
+
+.activity-empty span {
+    color: #99919d;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   MANAGEMENT LIST
+===================================================== */
+
+.management-list {
+    padding: 4px 0;
+}
+
+
+/* =====================================================
+   MANAGEMENT ITEM
+===================================================== */
+
+.management-item {
+    min-height: 61px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    padding: 10px 18px;
+
+    text-decoration: none;
+
+    border-bottom: 1px solid #f2edf1;
+
     transition:
+        background 0.15s ease;
+}
 
+
+.management-item:last-child {
+    border-bottom: none;
+}
+
+
+.management-item:hover {
+    background: #fffafd;
+}
+
+
+/* =====================================================
+   MANAGEMENT ICON
+===================================================== */
+
+.management-icon {
+    width: 33px;
+
+    height: 33px;
+
+    min-width: 33px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 9px;
+
+    font-size: 8px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   MANAGEMENT INFO
+===================================================== */
+
+.management-info {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 1px;
+
+    min-width: 0;
+}
+
+
+.management-info strong {
+    color: #514a58;
+
+    font-size: 11px;
+
+    font-weight: 600;
+}
+
+
+.management-info small {
+    color: #9b939f;
+
+    font-size: 9px;
+}
+
+
+/* =====================================================
+   MANAGEMENT ARROW
+===================================================== */
+
+.management-arrow {
+    color: #b5acb7;
+
+    font-size: 13px;
+
+    transition:
         color 0.2s ease,
-
         transform 0.2s ease;
-
 }
 
 
-.dashboard-card-link:hover {
+.management-item:hover .management-arrow {
+    color: #a32675;
 
-    color: #1d4ed8;
-
-    transform: translateX(2px);
-
+    transform: translateX(3px);
 }
 
 
-/* ========================================
+/* =====================================================
+   SYSTEM SUMMARY
+===================================================== */
+
+.system-summary {
+    min-height: 76px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-around;
+
+    gap: 20px;
+
+    padding: 14px 20px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+}
+
+
+/* =====================================================
+   SUMMARY ITEM
+===================================================== */
+
+.summary-item {
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    gap: 3px;
+
+    text-align: center;
+}
+
+
+.summary-item span {
+    color: #958d99;
+
+    font-size: 9px;
+
+    font-weight: 500;
+}
+
+
+.summary-item strong {
+    color: #514a58;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   SUMMARY DIVIDER
+===================================================== */
+
+.summary-divider {
+    width: 1px;
+
+    height: 30px;
+
+    background: #eee6ed;
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.kpi-card:focus-visible,
+.management-item:focus-visible,
+.activity-item:focus-visible {
+    outline:
+        3px solid
+        rgba(163, 38, 117, 0.15);
+
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
    TABLET
-======================================== */
+===================================================== */
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
 
-    .student-profile-card {
-
-        padding: 24px;
-
-        margin-bottom: 30px;
-
-    }
-
-
-    .student-dashboard-grid {
-
+    .kpi-grid {
         grid-template-columns:
-            repeat(2, minmax(0, 1fr));
-
-        gap: 20px;
-
-    }
-
-
-    .student-dashboard-card {
-
-        padding: 24px;
-
+            repeat(2, 1fr);
     }
 
 }
 
 
-/* ========================================
+@media (max-width: 950px) {
+
+    .student-page {
+        padding:
+            35px 20px 50px;
+    }
+
+
+    .dashboard-grid {
+        grid-template-columns:
+            1fr;
+    }
+
+}
+
+
+/* =====================================================
    MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 650px) {
 
-    .student-profile-card {
+    .student-page {
+        padding:
+            28px 15px 45px;
+    }
 
+
+    .dashboard-welcome {
         flex-direction: column;
 
-        align-items: flex-start;
+        gap: 15px;
 
-        padding: 20px;
-
-        border-radius: 14px;
-
-        margin-bottom: 25px;
-
+        margin-bottom: 23px;
     }
 
 
-    .student-profile-left {
-
-        width: 100%;
-
+    .welcome-content h1 {
+        font-size: 25px;
     }
 
 
-    .student-profile-btn {
-
-        width: 100%;
-
-    }
-
-
-    .student-dashboard-grid {
-
-        grid-template-columns: 1fr;
-
-        gap: 18px;
-
-    }
-
-
-    .student-dashboard-card {
-
-        min-height: 170px;
-
-        padding: 22px;
-
-        border-radius: 14px;
-
-    }
-
-
-    .student-dashboard-card h2 {
-
-        font-size: 18px;
-
-    }
-
-
-    .student-dashboard-card p {
-
+    .welcome-description {
         font-size: 12px;
+    }
 
+
+    .dashboard-status {
+        margin-top: 0;
+    }
+
+
+    .kpi-grid {
+        grid-template-columns:
+            1fr;
+
+        gap: 11px;
+
+        margin-bottom: 22px;
+    }
+
+
+    .kpi-card {
+        min-height: 90px;
+    }
+
+
+    .dashboard-grid {
+        gap: 14px;
+
+        margin-bottom: 14px;
+    }
+
+
+    .card-header {
+        padding:
+            16px;
+    }
+
+
+    .activity-item {
+        padding:
+            12px 16px;
+    }
+
+
+    .management-item {
+        padding:
+            10px 16px;
+    }
+
+
+    .system-summary {
+        flex-direction: column;
+
+        padding: 18px;
+
+        gap: 14px;
+    }
+
+
+    .summary-divider {
+        width: 70%;
+
+        height: 1px;
     }
 
 }
 
 
-/* ========================================
+/* =====================================================
    SMALL MOBILE
-======================================== */
+===================================================== */
 
 @media (max-width: 400px) {
 
-    .student-profile-card {
-
-        padding: 17px;
-
+    .student-page {
+        padding:
+            22px 12px 35px;
     }
 
 
-    .student-large-avatar {
-
-        width: 60px;
-
-        height: 60px;
-
-        font-size: 21px;
-
+    .welcome-content h1 {
+        font-size: 22px;
     }
 
 
-    .student-profile-info h2 {
-
-        font-size: 18px;
-
+    .kpi-card {
+        padding: 15px;
     }
 
 
-    .student-profile-info p {
+    .kpi-icon {
+        width: 42px;
 
-        font-size: 12px;
+        height: 42px;
 
+        min-width: 42px;
     }
 
 
-    .student-dashboard-card {
-
-        padding: 18px;
-
+    .kpi-value {
+        font-size: 20px;
     }
 
 
-    .student-dashboard-card h2 {
+    .activity-item {
+        gap: 10px;
+    }
 
-        font-size: 17px;
 
+    .activity-item time {
+        display: none;
+    }
+
+
+    .card-header h2 {
+        font-size: 14px;
     }
 
 }
