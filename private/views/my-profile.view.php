@@ -106,13 +106,13 @@ $initial = strtoupper(
     ($_SESSION['rank'] ?? '') === 'teacher'
 ): ?>
 
-    <?php require "../private/views/includes/teacher-nav.view.php"; ?>
+    <?php require "../private/views/includes/nav.view.php"; ?>
 
 <?php elseif (
     ($_SESSION['rank'] ?? '') === 'student'
 ): ?>
 
-    <?php require "../private/views/includes/student-nav.view.php"; ?>
+    <?php require "../private/views/includes/nav.view.php"; ?>
 
 <?php else: ?>
 
