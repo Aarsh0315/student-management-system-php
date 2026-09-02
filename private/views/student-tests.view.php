@@ -1,6 +1,5 @@
 <?php
 
-
 $tests = $data['tests'] ?? [];
 
 ?>
@@ -22,11 +21,19 @@ $tests = $data['tests'] ?? [];
     </title>
 
 
-    <!-- DASHBOARD -->
+    <!-- SHARED NAVBAR -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css?v=2"
+        href="<?= ROOT ?>/css/nav.view.css?v=3"
+    >
+
+
+    <!-- SHARED SIDEBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=1"
     >
 
 
@@ -34,15 +41,7 @@ $tests = $data['tests'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-tests.view.css?v=2"
-    >
-
-
-    <!-- NAVBAR -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/student-nav.view.css?v=2"
+        href="<?= ROOT ?>/css/student-tests.view.css?v=3"
     >
 
 
@@ -50,7 +49,7 @@ $tests = $data['tests'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css?v=2"
+        href="<?= ROOT ?>/css/footer.view.css?v=3"
     >
 
 </head>
@@ -59,270 +58,348 @@ $tests = $data['tests'] ?? [];
 <body>
 
 
-<?php require "../private/views/includes/student-nav.view.php"; ?>
+<!-- ========================================
+     SHARED NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
 
 
-<main class="dashboard">
+<!-- ========================================
+     SHARED SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
-    <!-- ========================================
-         PAGE HEADER
-    ========================================= -->
+<main class="student-tests-page">
 
-    <section class="welcome">
-
-        <div>
-
-            <p class="welcome-small">
-                Student
-            </p>
-
-            <h1>
-                Tests
-            </h1>
-
-            <p class="welcome-text">
-                View and attempt tests assigned
-                to your class.
-            </p>
-
-        </div>
-
-    </section>
+    <div class="student-tests-container">
 
 
+        <!-- ========================================
+             PAGE HEADER
+        ======================================== -->
 
-    <!-- ========================================
-         TESTS CARD
-    ========================================= -->
+        <section class="tests-welcome">
 
-    <section class="tests-card">
+            <div class="tests-welcome-content">
 
+                <p class="tests-welcome-label">
+                    STUDENT ACADEMICS
+                </p>
 
-        <div class="tests-header">
+                <h1>
+                    Tests
+                </h1>
 
-            <div>
-
-                <h2>
-                    Available Tests
-                </h2>
-
-                <p>
-
-                    <?= count($tests) ?>
-
-                    test(s) available
-
+                <p class="tests-welcome-description">
+                    View and attempt tests assigned to your class.
                 </p>
 
             </div>
 
-        </div>
 
+            <div class="tests-status">
 
+                <span class="status-dot"></span>
 
-        <?php if (!empty($tests)): ?>
-
-
-            <div class="table-wrapper">
-
-                <table>
-
-                    <thead>
-
-                        <tr>
-
-                            <th>
-                                Test
-                            </th>
-
-                            <th>
-                                Class
-                            </th>
-
-                            <th>
-                                Division
-                            </th>
-
-                            <th>
-                                Duration
-                            </th>
-
-                            <th>
-                                Action
-                            </th>
-
-                        </tr>
-
-                    </thead>
-
-
-                    <tbody>
-
-
-                        <?php foreach (
-                            $tests as $test
-                        ): ?>
-
-
-                            <tr>
-
-
-                                <!-- ========================================
-                                     TEST NAME
-                                ========================================= -->
-
-                                <td>
-
-                                    <strong class="test-name">
-
-                                        <?= htmlspecialchars(
-                                            $test->title
-                                            ?? '-'
-                                        ) ?>
-
-                                    </strong>
-
-                                </td>
-
-
-
-                                <!-- ========================================
-                                     CLASS
-                                ========================================= -->
-
-                                <td>
-
-                                    <span class="test-class">
-
-                                        <?= htmlspecialchars(
-                                            $test->class
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
-
-
-
-                                <!-- ========================================
-                                     DIVISION
-                                ========================================= -->
-
-                                <td>
-
-                                    <span class="test-division">
-
-                                        <?= htmlspecialchars(
-                                            $test->division
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
-
-
-
-                                <!-- ========================================
-                                     DURATION
-                                ========================================= -->
-
-                                <td>
-
-                                    <?= htmlspecialchars(
-                                        $test->duration
-                                        ?? '0'
-                                    ) ?>
-
-                                    min
-
-                                </td>
-
-
-
-                                <!-- ========================================
-                                     ACTION
-                                ========================================= -->
-
-                                <td>
-
-                                    <?php if (!empty($test->result)): ?>
-
-                                        <!-- ========================================
-                                             ALREADY SUBMITTED
-                                        ========================================= -->
-
-                                        <span class="status submitted">
-
-                                            ✓ Submitted
-
-                                        </span>
-
-
-                                    <?php else: ?>
-
-                                        <!-- ========================================
-                                             START TEST
-                                        ========================================= -->
-
-                                        <a
-                                            href="<?= ROOT ?>/studenttests/start/<?= htmlspecialchars($test->test_id) ?>"
-                                            class="start-test-btn"
-                                        >
-                                            Start Test
-                                        </a>
-
-                                    <?php endif; ?>
-
-                                </td>
-
-
-                            </tr>
-
-
-                        <?php endforeach; ?>
-
-
-                    </tbody>
-
-                </table>
+                <span>
+                    Active
+                </span>
 
             </div>
 
+        </section>
 
-        <?php else: ?>
+
+
+        <!-- ========================================
+             TESTS CARD
+        ======================================== -->
+
+        <section class="tests-card">
 
 
             <!-- ========================================
-                 EMPTY STATE
-            ========================================= -->
+                 TESTS HEADER
+            ======================================== -->
 
-            <div class="empty-state">
+            <div class="tests-header">
 
-                <h3>
-                    No Tests Available
-                </h3>
+                <div>
 
-                <p>
-                    There are currently no tests
-                    assigned to your class.
-                </p>
+                    <h2>
+                        Available Tests
+                    </h2>
+
+                    <p>
+                        <?= count($tests) ?>
+                        test(s) available for you.
+                    </p>
+
+                </div>
+
+
+                <div class="tests-header-icon">
+                    TS
+                </div>
 
             </div>
 
 
-        <?php endif; ?>
+
+            <?php if (!empty($tests)): ?>
 
 
-    </section>
+                <!-- ========================================
+                     TABLE
+                ======================================== -->
 
+                <div class="tests-table-wrapper">
+
+                    <table class="tests-table">
+
+                        <thead>
+
+                            <tr>
+
+                                <th>
+                                    Test
+                                </th>
+
+                                <th>
+                                    Class
+                                </th>
+
+                                <th>
+                                    Division
+                                </th>
+
+                                <th>
+                                    Duration
+                                </th>
+
+                                <th>
+                                    Action
+                                </th>
+
+                            </tr>
+
+                        </thead>
+
+
+                        <tbody>
+
+
+                            <?php foreach (
+                                $tests as $test
+                            ): ?>
+
+
+                                <tr>
+
+
+                                    <!-- ========================================
+                                         TEST
+                                    ======================================== -->
+
+                                    <td>
+
+                                        <div class="test-name-cell">
+
+                                            <div class="test-icon">
+                                                TS
+                                            </div>
+
+                                            <div>
+
+                                                <strong class="test-name">
+
+                                                    <?= htmlspecialchars(
+                                                        $test->title
+                                                        ?? '-'
+                                                    ) ?>
+
+                                                </strong>
+
+                                                <?php if (!empty($test->description)): ?>
+
+                                                    <span class="test-description">
+
+                                                        <?= htmlspecialchars(
+                                                            $test->description
+                                                        ) ?>
+
+                                                    </span>
+
+                                                <?php endif; ?>
+
+                                            </div>
+
+                                        </div>
+
+                                    </td>
+
+
+
+                                    <!-- ========================================
+                                         CLASS
+                                    ======================================== -->
+
+                                    <td>
+
+                                        <span class="test-class">
+
+                                            <?= htmlspecialchars(
+                                                $test->class
+                                                ?? '-'
+                                            ) ?>
+
+                                        </span>
+
+                                    </td>
+
+
+
+                                    <!-- ========================================
+                                         DIVISION
+                                    ======================================== -->
+
+                                    <td>
+
+                                        <span class="test-division">
+
+                                            <?= htmlspecialchars(
+                                                $test->division
+                                                ?? '-'
+                                            ) ?>
+
+                                        </span>
+
+                                    </td>
+
+
+
+                                    <!-- ========================================
+                                         DURATION
+                                    ======================================== -->
+
+                                    <td>
+
+                                        <span class="test-duration">
+
+                                            <?= htmlspecialchars(
+                                                $test->duration
+                                                ?? '0'
+                                            ) ?>
+
+                                            min
+
+                                        </span>
+
+                                    </td>
+
+
+
+                                    <!-- ========================================
+                                         ACTION
+                                    ======================================== -->
+
+                                    <td>
+
+                                        <?php if (!empty($test->result)): ?>
+
+
+                                            <span class="status submitted">
+
+                                                <span class="submitted-dot"></span>
+
+                                                Submitted
+
+                                            </span>
+
+
+                                        <?php else: ?>
+
+
+                                            <a
+                                                href="<?= ROOT ?>/studenttests/start/<?= htmlspecialchars($test->test_id) ?>"
+                                                class="start-test-btn"
+                                            >
+                                                Start Test
+                                                <span>→</span>
+                                            </a>
+
+
+                                        <?php endif; ?>
+
+                                    </td>
+
+
+                                </tr>
+
+
+                            <?php endforeach; ?>
+
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+
+            <?php else: ?>
+
+
+                <!-- ========================================
+                     EMPTY STATE
+                ======================================== -->
+
+                <div class="empty-state">
+
+                    <div class="empty-icon">
+                        TS
+                    </div>
+
+                    <h3>
+                        No Tests Available
+                    </h3>
+
+                    <p>
+                        There are currently no tests
+                        assigned to your class.
+                    </p>
+
+                </div>
+
+
+            <?php endif; ?>
+
+
+        </section>
+
+
+    </div>
 
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     SHARED JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

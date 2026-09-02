@@ -1,6 +1,138 @@
 /* ========================================
    STUDENT TESTS PAGE
+   MY SCHOOL
 ======================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: #faf9fc;
+
+    color: #302d3d;
+}
+
+
+/* ========================================
+   MAIN PAGE
+======================================== */
+
+.student-tests-page {
+    width: 100%;
+
+    padding: 42px 30px 60px;
+}
+
+.student-tests-container {
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+}
+
+
+/* ========================================
+   PAGE HEADER
+======================================== */
+
+.tests-welcome {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 28px;
+}
+
+.tests-welcome-content {
+    min-width: 0;
+}
+
+.tests-welcome-label {
+    margin-bottom: 8px;
+
+    color: #a32675;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+
+    text-transform: uppercase;
+}
+
+.tests-welcome h1 {
+    margin-bottom: 7px;
+
+    color: #29263a;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+.tests-welcome-description {
+    color: #777181;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.tests-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 13px;
+
+    border: 1px solid #cce8d6;
+
+    border-radius: 20px;
+
+    background: #eff9f3;
+
+    color: #28784a;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #39a866;
+}
 
 
 /* ========================================
@@ -8,24 +140,18 @@
 ======================================== */
 
 .tests-card {
-
     width: 100%;
 
-    padding: 28px;
+    padding: 23px 24px;
 
     background: #ffffff;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #eadfe7;
 
     border-radius: 16px;
 
-    margin-bottom: 35px;
-
-    box-sizing: border-box;
-
     box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
-
+        0 4px 14px rgba(48, 45, 61, 0.035);
 }
 
 
@@ -34,45 +160,57 @@
 ======================================== */
 
 .tests-header {
-
     display: flex;
 
     align-items: center;
 
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 15px;
 
-    margin-bottom: 25px;
-
+    margin-bottom: 20px;
 }
-
 
 .tests-header h2 {
+    margin-bottom: 5px;
 
-    margin: 0 0 6px;
+    color: #302d3d;
 
-    color: #172033;
-
-    font-size: 20px;
+    font-size: 17px;
 
     font-weight: 700;
-
-    line-height: 1.3;
-
 }
 
-
 .tests-header p {
+    color: #918b99;
 
-    margin: 0;
-
-    color: #64748b;
-
-    font-size: 13px;
+    font-size: 12px;
 
     line-height: 1.5;
+}
 
+.tests-header-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 11px;
+
+    background: #f9eaf4;
+
+    color: #a32675;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
 }
 
 
@@ -80,22 +218,14 @@
    TABLE WRAPPER
 ======================================== */
 
-.table-wrapper {
-
+.tests-table-wrapper {
     width: 100%;
 
     overflow-x: auto;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #ebe6ee;
 
-    border-radius: 10px;
-
-    background: #ffffff;
-
-    scrollbar-width: thin;
-
-    -webkit-overflow-scrolling: touch;
-
+    border-radius: 11px;
 }
 
 
@@ -103,93 +233,61 @@
    TABLE
 ======================================== */
 
-.table-wrapper table {
-
+.tests-table {
     width: 100%;
 
     min-width: 900px;
 
     border-collapse: collapse;
-
-    background: #ffffff;
-
 }
 
-
-/* ========================================
-   TABLE HEADER
-======================================== */
-
-.table-wrapper thead {
-
-    background: #f8fafc;
-
+.tests-table thead {
+    background: #fff5fa;
 }
 
+.tests-table th {
+    padding: 13px 16px;
 
-.table-wrapper th {
+    border-bottom: 1px solid #eadfe7;
 
-    padding: 14px 15px;
-
-    color: #64748b;
+    color: #756d79;
 
     font-size: 10px;
 
     font-weight: 700;
 
+    letter-spacing: 0.6px;
+
     text-align: left;
 
     text-transform: uppercase;
 
-    letter-spacing: 0.4px;
-
     white-space: nowrap;
-
-    border-bottom: 1px solid #e5e7eb;
-
 }
 
+.tests-table td {
+    padding: 14px 16px;
 
-/* ========================================
-   TABLE BODY
-======================================== */
+    border-bottom: 1px solid #f0ebf0;
 
-.table-wrapper td {
-
-    padding: 15px;
-
-    color: #475569;
+    color: #393443;
 
     font-size: 12px;
 
     vertical-align: middle;
-
-    white-space: nowrap;
-
-    border-bottom: 1px solid #eef0f3;
-
 }
 
-
-.table-wrapper tbody tr:last-child td {
-
+.tests-table tbody tr:last-child td {
     border-bottom: none;
-
 }
 
-
-.table-wrapper tbody tr {
-
+.tests-table tbody tr {
     transition:
         background 0.15s ease;
-
 }
 
-
-.table-wrapper tbody tr:hover {
-
-    background: #f8fafc;
-
+.tests-table tbody tr:hover {
+    background: #fffafd;
 }
 
 
@@ -197,14 +295,74 @@
    TEST NAME
 ======================================== */
 
+.test-name-cell {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    min-width: 230px;
+}
+
+.test-icon {
+    width: 34px;
+    height: 34px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    flex-shrink: 0;
+
+    border-radius: 9px;
+
+    background: #f9eaf4;
+
+    color: #a32675;
+
+    font-size: 9px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.3px;
+}
+
+.test-name-cell > div:last-child {
+    min-width: 0;
+}
+
 .test-name {
+    display: block;
 
-    color: #172033;
+    margin-bottom: 3px;
 
-    font-size: 13px;
+    color: #393443;
 
-    font-weight: 600;
+    font-size: 12px;
 
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+.test-description {
+    display: block;
+
+    max-width: 260px;
+
+    overflow: hidden;
+
+    color: #a8a2b2;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
 }
 
 
@@ -213,25 +371,23 @@
 ======================================== */
 
 .test-class {
-
     display: inline-flex;
 
     align-items: center;
 
     padding: 5px 9px;
 
-    background: #eff6ff;
+    border: 1px solid #eadfe7;
 
-    color: #2563eb;
+    border-radius: 7px;
 
-    border: 1px solid #dbeafe;
+    background: #fcf8fb;
 
-    border-radius: 6px;
+    color: #393443;
 
     font-size: 11px;
 
     font-weight: 600;
-
 }
 
 
@@ -240,7 +396,6 @@
 ======================================== */
 
 .test-division {
-
     display: inline-flex;
 
     align-items: center;
@@ -249,135 +404,72 @@
 
     min-width: 28px;
 
-    padding: 5px 9px;
+    padding: 5px 8px;
 
-    background: #f8fafc;
+    border: 1px solid #eadfe7;
 
-    color: #475569;
+    border-radius: 7px;
 
-    border: 1px solid #e2e8f0;
+    background: #f9eaf4;
 
-    border-radius: 6px;
+    color: #a32675;
 
     font-size: 11px;
 
-    font-weight: 600;
-
+    font-weight: 700;
 }
 
 
 /* ========================================
-   MARKS
+   DURATION
 ======================================== */
 
-.marks-count {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-width: 32px;
-
-    padding: 5px 9px;
-
-    background: #f1f5f9;
-
-    color: #334155;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 6px;
+.test-duration {
+    color: #756d79;
 
     font-size: 11px;
-
-    font-weight: 600;
-
-}
-
-
-/* ========================================
-   STATUS
-======================================== */
-
-.status {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 6px;
-
-    padding: 5px 10px;
-
-    border-radius: 20px;
-
-    font-size: 10px;
 
     font-weight: 600;
 
     white-space: nowrap;
-
-}
-
-
-.status::before {
-
-    content: "";
-
-    width: 6px;
-
-    height: 6px;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
 }
 
 
 /* ========================================
-   AVAILABLE
-======================================== */
-
-.status.active {
-
-    background: #ecfdf3;
-
-    color: #15803d;
-
-    border: 1px solid #bbf7d0;
-
-}
-
-
-.status.active::before {
-
-    background: #22c55e;
-
-}
-
-
-/* ========================================
-   SUBMITTED
+   SUBMITTED STATUS
 ======================================== */
 
 .status.submitted {
+    display: inline-flex;
 
-    background: #eff6ff;
+    align-items: center;
 
-    color: #2563eb;
+    gap: 7px;
 
-    border: 1px solid #dbeafe;
+    padding: 7px 10px;
 
+    border: 1px solid #cce8d6;
+
+    border-radius: 18px;
+
+    background: #eff9f3;
+
+    color: #28784a;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
 }
 
+.submitted-dot {
+    width: 6px;
+    height: 6px;
 
-.status.submitted::before {
+    border-radius: 50%;
 
-    background: #2563eb;
-
+    background: #39a866;
 }
 
 
@@ -386,136 +478,50 @@
 ======================================== */
 
 .start-test-btn {
-
     display: inline-flex;
 
     align-items: center;
 
     justify-content: center;
 
-    min-width: 85px;
+    gap: 8px;
 
-    min-height: 32px;
+    padding: 8px 12px;
 
-    padding: 0 13px;
+    border: 1px solid #a32675;
 
-    background: #2563eb;
+    border-radius: 8px;
+
+    background: #a32675;
 
     color: #ffffff;
 
-    border: 1px solid #2563eb;
+    font-size: 10px;
 
-    border-radius: 7px;
+    font-weight: 700;
 
     text-decoration: none;
-
-    font-size: 11px;
-
-    font-weight: 600;
 
     white-space: nowrap;
 
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-
+        background 0.18s ease,
+        border-color 0.18s ease,
+        transform 0.18s ease;
 }
-
 
 .start-test-btn:hover {
+    background: #8d205f;
 
-    background: #1d4ed8;
-
-    border-color: #1d4ed8;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 4px 10px rgba(37, 99, 235, 0.18);
-
-}
-
-
-/* ========================================
-   SUBMITTED TEST
-======================================== */
-
-.submitted-test {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    margin-bottom: 7px;
-
-}
-
-
-/* ========================================
-   TEST SCORE
-======================================== */
-
-.test-score {
-
-    color: #475569;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-}
-
-
-/* ========================================
-   VIEW RESULT BUTTON
-======================================== */
-
-.view-result-btn {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-height: 30px;
-
-    padding: 0 11px;
-
-    background: #ffffff;
-
-    color: #2563eb;
-
-    border: 1px solid #bfdbfe;
-
-    border-radius: 7px;
-
-    text-decoration: none;
-
-    font-size: 10px;
-
-    font-weight: 600;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease;
-
-}
-
-
-.view-result-btn:hover {
-
-    background: #eff6ff;
-
-    border-color: #93c5fd;
+    border-color: #8d205f;
 
     transform: translateY(-1px);
+}
 
+.start-test-btn span {
+    font-size: 13px;
+
+    line-height: 1;
 }
 
 
@@ -524,144 +530,133 @@
 ======================================== */
 
 .empty-state {
+    display: flex;
 
-    padding: 60px 25px;
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 55px 20px;
+
+    border: 1px dashed #eadfe7;
+
+    border-radius: 11px;
+
+    background: #fffafd;
 
     text-align: center;
-
-    border: 1px dashed #dbe2ea;
-
-    border-radius: 10px;
-
-    background: #f8fafc;
-
 }
 
+.empty-icon {
+    width: 44px;
+    height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+
+    border-radius: 11px;
+
+    background: #f9eaf4;
+
+    color: #a32675;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
+}
 
 .empty-state h3 {
+    margin-bottom: 5px;
 
-    margin: 0 0 8px;
+    color: #393443;
 
-    color: #172033;
-
-    font-size: 18px;
+    font-size: 14px;
 
     font-weight: 700;
-
 }
-
 
 .empty-state p {
+    max-width: 360px;
 
-    margin: 0;
+    color: #918b99;
 
-    color: #64748b;
+    font-size: 12px;
 
-    font-size: 13px;
-
-    line-height: 1.5;
-
+    line-height: 1.6;
 }
 
 
 /* ========================================
-   TABLET
+   RESPONSIVE
 ======================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
 
-    .tests-card {
-
-        padding: 22px;
-
-    }
-
-
-    .tests-header {
-
-        margin-bottom: 20px;
-
+    .student-tests-page {
+        padding: 35px 22px 50px;
     }
 
 }
 
 
-/* ========================================
-   MOBILE
-======================================== */
+@media (max-width: 700px) {
 
-@media (max-width: 650px) {
-
-    .tests-card {
-
-        padding: 18px;
-
-        border-radius: 14px;
-
+    .student-tests-page {
+        padding: 28px 16px 45px;
     }
 
-
-    .tests-header {
-
+    .tests-welcome {
         align-items: flex-start;
 
+        flex-direction: column;
+
+        margin-bottom: 22px;
     }
 
-
-    .table-wrapper {
-
-        border-radius: 8px;
-
+    .tests-welcome h1 {
+        font-size: 26px;
     }
 
-
-    .table-wrapper table {
-
-        min-width: 900px;
-
+    .tests-card {
+        padding: 19px 17px;
     }
 
-
-    .table-wrapper th {
-
-        padding: 12px;
-
-    }
-
-
-    .table-wrapper td {
-
-        padding: 13px 12px;
-
+    .tests-header {
+        align-items: flex-start;
     }
 
 }
 
 
-/* ========================================
-   SMALL MOBILE
-======================================== */
+@media (max-width: 450px) {
 
-@media (max-width: 400px) {
+    .student-tests-page {
+        padding: 24px 12px 40px;
+    }
+
+    .tests-welcome h1 {
+        font-size: 24px;
+    }
+
+    .tests-welcome-description {
+        font-size: 13px;
+    }
 
     .tests-card {
-
-        padding: 15px;
-
+        padding: 17px 13px;
     }
 
-
-    .tests-header h2 {
-
-        font-size: 18px;
-
-    }
-
-
-    .tests-header p {
-
-        font-size: 12px;
-
+    .tests-header-icon {
+        width: 38px;
+        height: 38px;
     }
 
 }
