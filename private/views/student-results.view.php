@@ -21,7 +21,9 @@ $results = $data['results'] ?? [];
     </title>
 
 
-    <!-- DASHBOARD CSS -->
+    <!-- ========================================
+         DASHBOARD CSS
+    ========================================= -->
 
     <link
         rel="stylesheet"
@@ -29,27 +31,43 @@ $results = $data['results'] ?? [];
     >
 
 
-    <!-- STUDENT RESULTS CSS -->
+    <!-- ========================================
+         NAVBAR CSS
+    ========================================= -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-results.view.css?v=1"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
 
 
-    <!-- STUDENT NAVBAR -->
+    <!-- ========================================
+         SIDEBAR CSS
+    ========================================= -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-nav.view.css?v=1"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
     >
 
 
-    <!-- FOOTER -->
+    <!-- ========================================
+         STUDENT RESULTS CSS
+    ========================================= -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css?v=1"
+        href="<?= ROOT ?>/css/student-results.view.css?v=2"
+    >
+
+
+    <!-- ========================================
+         FOOTER CSS
+    ========================================= -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
     >
 
 </head>
@@ -58,7 +76,18 @@ $results = $data['results'] ?? [];
 <body>
 
 
-<?php require "../private/views/includes/student-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+========================================= -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+========================================= -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -66,7 +95,7 @@ $results = $data['results'] ?? [];
 
     <!-- ========================================
          PAGE HEADER
-    ======================================== -->
+    ========================================= -->
 
     <section class="welcome">
 
@@ -76,15 +105,12 @@ $results = $data['results'] ?? [];
                 Student
             </p>
 
-
             <h1>
                 Results
             </h1>
 
-
             <p class="welcome-text">
-                View your test results and
-                academic performance.
+                View your test results and academic performance.
             </p>
 
         </div>
@@ -95,10 +121,14 @@ $results = $data['results'] ?? [];
 
     <!-- ========================================
          RESULTS CARD
-    ======================================== -->
+    ========================================= -->
 
     <section class="results-card">
 
+
+        <!-- ========================================
+             CARD HEADER
+        ========================================= -->
 
         <div class="results-header">
 
@@ -122,20 +152,26 @@ $results = $data['results'] ?? [];
 
 
 
+        <!-- ========================================
+             RESULTS TABLE
+        ========================================= -->
+
         <?php if (!empty($results)): ?>
 
 
-            <!-- ========================================
-                 RESULTS TABLE
-            ======================================== -->
-
             <div class="table-wrapper">
 
+
                 <table>
+
 
                     <thead>
 
                         <tr>
+
+                            <th>
+                                Result ID
+                            </th>
 
                             <th>
                                 Test
@@ -146,11 +182,11 @@ $results = $data['results'] ?? [];
                             </th>
 
                             <th>
-                                Division
+                                Total Marks
                             </th>
 
                             <th>
-                                Marks
+                                Obtained
                             </th>
 
                             <th>
@@ -162,15 +198,13 @@ $results = $data['results'] ?? [];
                             </th>
 
                             <th>
-                                Date
-                            </th>
-                            <th>
                                 Action
                             </th>
 
                         </tr>
 
                     </thead>
+
 
 
                     <tbody>
@@ -184,11 +218,32 @@ $results = $data['results'] ?? [];
                             <tr>
 
 
-                                <!-- TEST -->
+                                <!-- ========================================
+                                     RESULT ID
+                                ========================================= -->
 
                                 <td>
 
-                                    <strong class="result-test-name">
+                                    <span class="result-id">
+
+                                        <?= htmlspecialchars(
+                                            $result->result_id
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
+
+                                </td>
+
+
+
+                                <!-- ========================================
+                                     TEST
+                                ========================================= -->
+
+                                <td>
+
+                                    <strong class="test-name">
 
                                         <?= htmlspecialchars(
                                             $result->title
@@ -200,7 +255,10 @@ $results = $data['results'] ?? [];
                                 </td>
 
 
-                                <!-- CLASS -->
+
+                                <!-- ========================================
+                                     CLASS
+                                ========================================= -->
 
                                 <td>
 
@@ -211,39 +269,31 @@ $results = $data['results'] ?? [];
                                             ?? '-'
                                         ) ?>
 
-                                    </span>
+                                        <?php if (
+                                            !empty($result->division)
+                                        ): ?>
 
-                                </td>
+                                            -
 
+                                            <?= htmlspecialchars(
+                                                $result->division
+                                            ) ?>
 
-                                <!-- DIVISION -->
-
-                                <td>
-
-                                    <span class="result-division">
-
-                                        <?= htmlspecialchars(
-                                            $result->division
-                                            ?? '-'
-                                        ) ?>
+                                        <?php endif; ?>
 
                                     </span>
 
                                 </td>
 
 
-                                <!-- MARKS -->
+
+                                <!-- ========================================
+                                     TOTAL MARKS
+                                ========================================= -->
 
                                 <td>
 
-                                    <span class="result-marks">
-
-                                        <?= htmlspecialchars(
-                                            $result->obtained_marks
-                                            ?? '0'
-                                        ) ?>
-
-                                        /
+                                    <span class="marks-count">
 
                                         <?= htmlspecialchars(
                                             $result->total_marks
@@ -255,73 +305,96 @@ $results = $data['results'] ?? [];
                                 </td>
 
 
-                                <!-- PERCENTAGE -->
+
+                                <!-- ========================================
+                                     OBTAINED MARKS
+                                ========================================= -->
 
                                 <td>
 
-                                    <strong class="result-percentage">
+                                    <strong class="obtained-marks">
 
                                         <?= htmlspecialchars(
-                                            $result->percentage
+                                            $result->obtained_marks
                                             ?? '0'
-                                        ) ?>%
+                                        ) ?>
 
                                     </strong>
 
                                 </td>
 
 
-                                <!-- STATUS -->
+
+                                <!-- ========================================
+                                     PERCENTAGE
+                                ========================================= -->
 
                                 <td>
 
-                                    <span class="result-status submitted">
+                                    <span class="percentage">
 
-                                        <span class="status-dot"></span>
-
-                                        Submitted
+                                        <?= htmlspecialchars(
+                                            $result->percentage
+                                            ?? '0'
+                                        ) ?>%
 
                                     </span>
 
                                 </td>
 
 
-                                <!-- DATE -->
+
+                                <!-- ========================================
+                                     STATUS
+                                ========================================= -->
 
                                 <td>
 
                                     <?php
 
-                                    $date =
-                                        $result->created_at
-                                        ?? null;
-
-                                    if ($date) {
-
-                                        echo htmlspecialchars(
-                                            date(
-                                                'd M Y',
-                                                strtotime($date)
-                                            )
-                                        );
-
-                                    } else {
-
-                                        echo '-';
-
-                                    }
+                                    $status = strtolower(
+                                        trim(
+                                            $result->status ?? ''
+                                        )
+                                    );
 
                                     ?>
 
+
+                                    <?php if (
+                                        $status === 'pass'
+                                        || $status === 'passed'
+                                    ): ?>
+
+                                        <span class="status pass">
+                                            Pass
+                                        </span>
+
+                                    <?php else: ?>
+
+                                        <span class="status fail">
+                                            Fail
+                                        </span>
+
+                                    <?php endif; ?>
+
                                 </td>
+
+
+
+                                <!-- ========================================
+                                     ACTION
+                                ========================================= -->
 
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/studentresults/details/<?= urlencode($result->test_id) ?>"
-                                        class="view-result-btn"
+                                        href="<?= ROOT ?>/studentresults/details/<?= urlencode(
+                                            $result->test_id ?? ''
+                                        ) ?>"
+                                        class="view-btn"
                                     >
-                                        View Result
+                                        View
                                     </a>
 
                                 </td>
@@ -335,7 +408,9 @@ $results = $data['results'] ?? [];
 
                     </tbody>
 
+
                 </table>
+
 
             </div>
 
@@ -345,18 +420,17 @@ $results = $data['results'] ?? [];
 
             <!-- ========================================
                  EMPTY STATE
-            ======================================== -->
+            ========================================= -->
 
             <div class="empty-state">
 
                 <h3>
-                    No Results Yet
+                    No Results Found
                 </h3>
 
-
                 <p>
-                    Your test results will appear
-                    here after you submit a test.
+                    Your test results will appear here
+                    after you submit a test.
                 </p>
 
             </div>
@@ -371,7 +445,21 @@ $results = $data['results'] ?? [];
 </main>
 
 
+
+<!-- ========================================
+     FOOTER
+========================================= -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+========================================= -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

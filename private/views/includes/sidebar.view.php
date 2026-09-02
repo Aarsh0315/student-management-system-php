@@ -506,8 +506,8 @@ $currentPage = explode(
     <!-- DASHBOARD -->
 
     <a
-        href="<?= ROOT ?>/home"
-        class="sidebar-link <?= $currentPage === 'home' ? 'active' : '' ?>"
+        href="<?= ROOT ?>/studentDashboard"
+        class="sidebar-link <?= $currentPage === 'studentDashboard' ? 'active' : '' ?>"
     >
 
         <span class="sidebar-icon">

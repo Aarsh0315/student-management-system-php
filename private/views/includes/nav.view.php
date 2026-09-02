@@ -34,7 +34,7 @@ if ($rank === 'super_admin') {
 
 } elseif ($rank === 'student') {
 
-    $dashboardUrl = ROOT . '/home';
+    $dashboardUrl = ROOT . '/studentDashboard';
     $roleName = 'Student';
 
 } elseif ($rank === 'parent') {
@@ -913,7 +913,7 @@ $initial = strtoupper(
                         <!-- CLASSES -->
 
                         <a
-                            href="<?= ROOT ?>/classes"
+                            href="<?= ROOT ?>/studentclasses"
                             class="search-item"
                             data-search="classes class division student"
                         >
@@ -941,7 +941,7 @@ $initial = strtoupper(
                         <!-- TESTS -->
 
                         <a
-                            href="<?= ROOT ?>/tests"
+                            href="<?= ROOT ?>/studenttests"
                             class="search-item"
                             data-search="tests test exam student"
                         >
@@ -969,7 +969,7 @@ $initial = strtoupper(
                         <!-- RESULTS -->
 
                         <a
-                            href="<?= ROOT ?>/results"
+                            href="<?= ROOT ?>/studentresults"
                             class="search-item"
                             data-search="results result marks student"
                         >
