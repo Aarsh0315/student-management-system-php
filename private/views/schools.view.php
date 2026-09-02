@@ -24,6 +24,10 @@ $schools = $data['schools'] ?? [];
     >
 
     <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=2">
+
+    <link
     rel="stylesheet"
     href="<?= ROOT ?>/css/schools.view.css?v=4"
 >
@@ -42,6 +46,7 @@ $schools = $data['schools'] ?? [];
         rel="stylesheet"
         href="<?= ROOT ?>/css/sidebar.view.css?v=2"
     > 
+
 
 
 </head>

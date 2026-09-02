@@ -12,53 +12,59 @@
 
     width: 100%;
 
-    max-width: 1200px;
+    max-width: 1380px;
 
     margin: 0 auto;
 
-    padding: 30px 25px 50px;
+    padding: 50px 30px 60px;
 
     box-sizing: border-box;
+
 }
 
 
 /* =====================================================
-   WELCOME SECTION
+   PAGE HEADER
 ===================================================== */
 
 .welcome {
 
-    margin-bottom: 25px;
+    width: 100%;
+
+    margin-bottom: 32px;
+
 }
 
 
 .welcome-small {
 
-    margin: 0 0 7px;
+    margin: 0 0 10px;
 
-    color: #64748b;
+    color: #a32675;
 
-    font-size: 11px;
+    font-size: 10px;
 
     font-weight: 700;
 
+    letter-spacing: 0.8px;
+
     text-transform: uppercase;
 
-    letter-spacing: 0.6px;
 }
 
 
 .welcome h1 {
 
-    margin: 0 0 8px;
+    margin: 0 0 10px;
 
     color: #302d3d;
 
-    font-size: 28px;
+    font-size: 30px;
 
     font-weight: 700;
 
-    line-height: 1.25;
+    line-height: 1.2;
+
 }
 
 
@@ -70,7 +76,8 @@
 
     font-size: 13px;
 
-    line-height: 1.6;
+    line-height: 1.5;
+
 }
 
 
