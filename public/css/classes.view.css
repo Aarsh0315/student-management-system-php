@@ -17,15 +17,24 @@
    DASHBOARD
 ===================================================== */
 
+
+
+
+/* =====================================================
+   CLASSES CARD
+===================================================== */
+
 .dashboard {
 
     width: 100%;
 
-    max-width: 1200px;
+    max-width: 1380px;
 
     margin: 0 auto;
 
-    padding: 55px 0 60px;
+    padding: 50px 30px 60px;
+
+    box-sizing: border-box;
 
 }
 
@@ -38,22 +47,22 @@
 
     width: 100%;
 
-    margin-bottom: 35px;
+    margin-bottom: 32px;
 
 }
 
 
 .welcome-small {
 
-    margin: 0 0 8px;
+    margin: 0 0 10px;
 
     color: #a32675;
 
-    font-size: 13px;
+    font-size: 10px;
 
     font-weight: 700;
 
-    letter-spacing: 0.7px;
+    letter-spacing: 0.8px;
 
     text-transform: uppercase;
 
@@ -66,7 +75,7 @@
 
     color: #302d3d;
 
-    font-size: 36px;
+    font-size: 30px;
 
     font-weight: 700;
 
@@ -81,16 +90,11 @@
 
     color: #756d79;
 
-    font-size: 16px;
+    font-size: 13px;
 
     line-height: 1.5;
 
 }
-
-
-/* =====================================================
-   CLASSES CARD
-===================================================== */
 
 .classes-card {
 

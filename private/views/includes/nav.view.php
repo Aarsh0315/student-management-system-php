@@ -146,256 +146,247 @@ $initial = strtoupper(
 
     <!-- SEARCH RESULTS -->
 
-    <div
-        class="search-dropdown"
-        id="searchDropdown"
-    >
+    <!-- SEARCH RESULTS -->
 
-        <!-- MANAGEMENT -->
+<div
+    class="search-dropdown"
+    id="searchDropdown"
+>
 
-        <div class="search-section">
+    <!-- MANAGEMENT -->
+    <div class="search-section">
 
-            <div class="search-section-title">
-                MANAGEMENT
-            </div>
+        <div class="search-section-title">
+            MANAGEMENT
+        </div>
 
 
+        <?php if ($rank === 'super_admin'): ?>
+
+            <!-- SCHOOLS -->
             <a
                 href="<?= ROOT ?>/schools"
                 class="search-item"
                 data-search="schools school management"
             >
-
                 <span class="search-item-icon">
                     ▣
                 </span>
 
                 <span class="search-item-content">
-
-                    <strong>
-                        Schools
-                    </strong>
+                    <strong>Schools</strong>
 
                     <small>
                         Manage schools
                     </small>
-
                 </span>
-
             </a>
 
 
+            <!-- USERS -->
             <a
                 href="<?= ROOT ?>/users"
                 class="search-item"
                 data-search="users user management"
             >
-
                 <span class="search-item-icon">
                     👥
                 </span>
 
                 <span class="search-item-content">
-
-                    <strong>
-                        Users
-                    </strong>
+                    <strong>Users</strong>
 
                     <small>
                         Manage system users
                     </small>
-
                 </span>
-
             </a>
 
+        <?php endif; ?>
+
+    </div>
+
+
+    <!-- PEOPLE -->
+
+    <div class="search-section">
+
+        <div class="search-section-title">
+            PEOPLE
         </div>
 
 
-        <!-- PEOPLE -->
+        <!-- STUDENTS -->
 
-        <div class="search-section">
+        <a
+            href="<?= ROOT ?>/students"
+            class="search-item"
+            data-search="students student people"
+        >
+            <span class="search-item-icon">
+                🎓
+            </span>
 
-            <div class="search-section-title">
-                PEOPLE
-            </div>
+            <span class="search-item-content">
+                <strong>Students</strong>
 
-
-            <a
-                href="<?= ROOT ?>/students"
-                class="search-item"
-                data-search="students student people"
-            >
-
-                <span class="search-item-icon">
-                    🎓
-                </span>
-
-                <span class="search-item-content">
-
-                    <strong>
-                        Students
-                    </strong>
-
-                    <small>
-                        Manage student records
-                    </small>
-
-                </span>
-
-            </a>
+                <small>
+                    Manage student records
+                </small>
+            </span>
+        </a>
 
 
-            <a
-                href="<?= ROOT ?>/staff"
-                class="search-item"
-                data-search="staff teacher teachers people"
-            >
+        <!-- STAFF -->
 
-                <span class="search-item-icon">
-                    👨‍🏫
-                </span>
+        <a
+            href="<?= ROOT ?>/staff"
+            class="search-item"
+            data-search="staff teacher teachers people"
+        >
+            <span class="search-item-icon">
+                👨‍🏫
+            </span>
 
-                <span class="search-item-content">
+            <span class="search-item-content">
+                <strong>Staff</strong>
 
-                    <strong>
-                        Staff
-                    </strong>
-
-                    <small>
-                        Manage staff members
-                    </small>
-
-                </span>
-
-            </a>
+                <small>
+                    Manage staff members
+                </small>
+            </span>
+        </a>
 
 
-            <a
-                href="<?= ROOT ?>/parents"
-                class="search-item"
-                data-search="parents parent people"
-            >
+        <!-- PARENTS -->
 
-                <span class="search-item-icon">
-                   👨‍👩‍👧
-                </span>
+        <a
+            href="<?= ROOT ?>/parents"
+            class="search-item"
+            data-search="parents parent people"
+        >
+            <span class="search-item-icon">
+                👨‍👩‍👧
+            </span>
 
-                <span class="search-item-content">
+            <span class="search-item-content">
+                <strong>Parents</strong>
 
-                    <strong>
-                        Parents
-                    </strong>
+                <small>
+                    Manage parents
+                </small>
+            </span>
+        </a>
 
-                    <small>
-                        Manage parents
-                    </small>
+    </div>
 
-                </span>
 
-            </a>
+    <!-- ACADEMICS -->
 
+    <div class="search-section">
+
+        <div class="search-section-title">
+            ACADEMICS
         </div>
 
 
-        <!-- ACADEMICS -->
+        <!-- TESTS -->
 
-        <div class="search-section">
+        <a
+            href="<?= ROOT ?>/classes"
+            class="search-item"
+            data-search="classes class division academics"
+        >
+            <span class="search-item-icon">
+                🏫
+            </span>
 
-            <div class="search-section-title">
-                ACADEMICS
-            </div>
+            <span class="search-item-content">
+                <strong>Classes</strong>
+
+                <small>
+                    Manage classes and divisions
+                </small>
+            </span>
+        </a>
+
+        <a
+            href="<?= ROOT ?>/tests"
+            class="search-item"
+            data-search="tests test exam assessment academics"
+        >
+            <span class="search-item-icon">
+                📝
+            </span>
+
+            <span class="search-item-content">
+                <strong>Tests</strong>
+
+                <small>
+                    Manage assessments
+                </small>
+            </span>
+        </a>
 
 
-            <a
-                href="<?= ROOT ?>/tests"
-                class="search-item"
-                data-search="tests test exam assessment academics"
-            >
+        <!-- RESULTS -->
 
-                <span class="search-item-icon">
-                    📝
-                </span>
+        <a
+            href="<?= ROOT ?>/results"
+            class="search-item"
+            data-search="results result marks academics"
+        >
+            <span class="search-item-icon">
+                📊
+            </span>
 
-                <span class="search-item-content">
+            <span class="search-item-content">
+                <strong>Results</strong>
 
-                    <strong>
-                        Tests
-                    </strong>
-
-                    <small>
-                        Manage assessments
-                    </small>
-
-                </span>
-
-            </a>
+                <small>
+                    View academic results
+                </small>
+            </span>
+        </a>
 
 
-            <a
-                href="<?= ROOT ?>/results"
-                class="search-item"
-                data-search="results result marks academics"
-            >
+        <!-- SCHOOL ADMINS -->
 
-                <span class="search-item-icon">
-                    📊
-                </span>
-
-                <span class="search-item-content">
-
-                    <strong>
-                        Results
-                    </strong>
-
-                    <small>
-                        View academic results
-                    </small>
-
-                </span>
-
-            </a>
-
+        <?php if ($rank === 'super_admin'): ?>
 
             <a
                 href="<?= ROOT ?>/schooladmins"
                 class="search-item"
                 data-search="school admins school administrators management"
             >
-
                 <span class="search-item-icon">
                     🧑‍💼
                 </span>
 
                 <span class="search-item-content">
-
-                    <strong>
-                        School Admins
-                    </strong>
+                    <strong>School Admins</strong>
 
                     <small>
                         Manage school administrators
                     </small>
-
                 </span>
-
             </a>
 
-        </div>
-
-
-        <!-- NO RESULTS -->
-
-        <div
-            class="search-no-results"
-            id="searchNoResults"
-        >
-
-            No matching pages found.
-
-        </div>
+        <?php endif; ?>
 
     </div>
+
+
+    <!-- NO RESULTS -->
+
+    <div
+        class="search-no-results"
+        id="searchNoResults"
+    >
+        No matching pages found.
+    </div>
+
+</div>
 
 </div>
 

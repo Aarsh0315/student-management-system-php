@@ -294,8 +294,9 @@ $classes = $data['classes'] ?? [];
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 
-<script src="<?= ROOT ?>/js/nav.view.js?v=1"></script>  
-<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js"></script>
+<script src="<?= ROOT ?>/js/nav.js"></script>
 
 
 </body>
