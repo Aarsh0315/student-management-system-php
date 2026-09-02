@@ -1,555 +1,614 @@
-/* ========================================
-   TEACHER ADD STUDENT PAGE
-======================================== */
+/* =========================================================
+   TEACHER STUDENT ADD
+   My School - Super Admin / Teacher Theme
+========================================================= */
 
 
-/* ========================================
-   STUDENT FORM
-======================================== */
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-.student-form {
-
-    width: 100%;
-
-    margin: 0;
-
-    padding: 0;
-
-}
-
-
-/* ========================================
-   FORM CARD
-======================================== */
-
-.form-card {
-
-    width: 100%;
-
-    background: #ffffff;
-
-    border: 1px solid #e5e7eb;
-
-    border-radius: 16px;
-
-    padding: 28px;
-
-    margin-bottom: 25px;
-
+* {
     box-sizing: border-box;
+}
 
-    box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
+html {
+    width: 100%;
+    overflow-x: hidden;
+}
 
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+
+    background: #faf9fc;
+    color: #302d3d;
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Roboto,
+        Arial,
+        sans-serif;
+
+    overflow-x: hidden;
 }
 
 
-/* ========================================
-   FORM HEADER
-======================================== */
+/* =========================================================
+   DASHBOARD
+========================================================= */
 
-.form-header {
+.dashboard {
+    width: 100%;
+    max-width: 1380px;
 
-    margin-bottom: 22px;
+    margin: 0 auto;
 
-    padding-bottom: 18px;
+    padding: 50px 30px 60px;
 
-    border-bottom: 1px solid #eef0f3;
-
+    min-height: calc(100vh - 72px);
 }
 
 
-.form-header h2 {
+/* =========================================================
+   PAGE HEADER
+========================================================= */
 
+.welcome {
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.welcome-small {
     margin: 0 0 6px;
 
-    color: #172033;
+    color: #a32675;
 
-    font-size: 19px;
+    font-size: 10px;
+    font-weight: 700;
 
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.welcome h1 {
+    margin: 0 0 8px;
+
+    color: #302d3d;
+
+    font-size: 30px;
     font-weight: 700;
 
     line-height: 1.3;
-
 }
 
-
-.form-header p {
-
+.welcome-text {
     margin: 0;
 
-    color: #64748b;
+    color: #756d79;
 
-    font-size: 12px;
-
-    line-height: 1.5;
-
+    font-size: 13px;
+    line-height: 1.6;
 }
 
 
-/* ========================================
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.student-form-card {
+    width: 100%;
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe7;
+    border-radius: 16px;
+
+    box-shadow: 0 5px 20px rgba(48, 45, 61, 0.04);
+}
+
+
+/* =========================================================
+   FORM SECTION
+========================================================= */
+
+.form-section {
+    width: 100%;
+
+    margin-bottom: 30px;
+}
+
+.form-section:last-of-type {
+    margin-bottom: 0;
+}
+
+
+/* =========================================================
+   FORM SECTION HEADER
+========================================================= */
+
+.form-section-header {
+    margin-bottom: 22px;
+
+    padding-bottom: 17px;
+
+    border-bottom: 1px solid #eee5eb;
+}
+
+.form-section-header h2 {
+    position: relative;
+
+    margin: 0 0 6px;
+
+    color: #302d3d;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+.form-section-header h2::after {
+    content: "";
+
+    display: block;
+
+    width: 38px;
+    height: 3px;
+
+    margin-top: 9px;
+
+    background: #a32675;
+
+    border-radius: 5px;
+}
+
+.form-section-header p {
+    margin: 0;
+
+    color: #918b99;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
    FORM GRID
-======================================== */
+========================================================= */
 
 .form-grid {
+    width: 100%;
 
     display: grid;
 
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(2, 1fr);
 
-    column-gap: 22px;
-
-    row-gap: 20px;
-
+    gap: 20px 22px;
 }
 
 
-/* ========================================
+/* =========================================================
    FORM GROUP
-======================================== */
+========================================================= */
 
 .form-group {
+    width: 100%;
 
     display: flex;
-
     flex-direction: column;
 
-    min-width: 0;
-
+    gap: 7px;
 }
 
 
-/* ========================================
-   FULL WIDTH
-======================================== */
-
-.form-group.full-width {
-
-    grid-column: 1 / -1;
-
-}
-
-
-/* ========================================
+/* =========================================================
    LABEL
-======================================== */
+========================================================= */
 
 .form-group label {
-
-    margin-bottom: 7px;
-
-    color: #334155;
+    color: #625b67;
 
     font-size: 11px;
-
     font-weight: 600;
 
     line-height: 1.4;
-
 }
 
 
-/* ========================================
-   INPUT
-======================================== */
+/* =========================================================
+   INPUT / SELECT / TEXTAREA
+========================================================= */
 
 .form-group input,
 .form-group select,
 .form-group textarea {
-
     width: 100%;
 
-    padding: 11px 12px;
+    padding: 11px 13px;
 
     background: #ffffff;
 
-    color: #172033;
+    color: #302d3d;
 
-    border: 1px solid #dbe2ea;
-
+    border: 1px solid #ddd4dc;
     border-radius: 8px;
 
     outline: none;
 
     font-family: inherit;
 
-    font-size: 12px;
-
-    line-height: 1.4;
-
-    box-sizing: border-box;
+    font-size: 13px;
 
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease,
         background 0.2s ease;
-
 }
 
 
-/* ========================================
-   INPUT PLACEHOLDER
-======================================== */
+/* =========================================================
+   INPUT
+========================================================= */
 
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-
-    color: #94a3b8;
-
+.form-group input {
+    height: 42px;
 }
 
 
-/* ========================================
+/* =========================================================
    SELECT
-======================================== */
+========================================================= */
 
 .form-group select {
+    height: 42px;
 
     cursor: pointer;
-
-    appearance: auto;
-
 }
 
 
-/* ========================================
+/* =========================================================
    TEXTAREA
-======================================== */
+========================================================= */
 
 .form-group textarea {
-
     min-height: 105px;
 
     resize: vertical;
 
+    line-height: 1.6;
 }
 
 
-/* ========================================
-   INPUT HOVER
-======================================== */
+/* =========================================================
+   PLACEHOLDER
+========================================================= */
 
-.form-group input:hover,
-.form-group select:hover,
-.form-group textarea:hover {
-
-    border-color: #cbd5e1;
-
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #aaa4ad;
 }
 
 
-/* ========================================
-   INPUT FOCUS
-======================================== */
+/* =========================================================
+   FOCUS
+========================================================= */
 
 .form-group input:focus,
 .form-group select:focus,
 .form-group textarea:focus {
+    border-color: #a32675;
 
-    border-color: #2563eb;
+    background: #fffafd;
 
-    box-shadow:
-        0 0 0 3px rgba(37, 99, 235, 0.10);
-
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.08);
 }
 
 
-/* ========================================
-   DATE INPUT
-======================================== */
+/* =========================================================
+   FILE INPUT
+========================================================= */
 
-.form-group input[type="date"] {
+.form-group input[type="file"] {
+    height: auto;
+
+    padding: 9px 10px;
 
     cursor: pointer;
 
+    background: #faf7f9;
+
+    font-size: 12px;
+}
+
+.form-group input[type="file"]::file-selector-button {
+    margin-right: 10px;
+
+    padding: 7px 11px;
+
+    background: #f8edf5;
+
+    color: #a32675;
+
+    border: 1px solid #ead1e1;
+    border-radius: 6px;
+
+    font-family: inherit;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
 }
 
 
-/* ========================================
+/* =========================================================
+   SMALL HELP TEXT
+========================================================= */
+
+.form-group small {
+    margin-top: 0;
+
+    color: #9b949e;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ADDRESS SECTION
+========================================================= */
+
+.form-section .form-group > textarea {
+    width: 100%;
+}
+
+
+/* =========================================================
    FORM ACTIONS
-======================================== */
+========================================================= */
 
 .form-actions {
+    width: 100%;
 
     display: flex;
 
     align-items: center;
-
-    justify-content: flex-start;
+    justify-content: flex-end;
 
     gap: 12px;
 
-    margin-top: 5px;
+    margin-top: 30px;
 
-    margin-bottom: 35px;
+    padding-top: 22px;
 
+    border-top: 1px solid #eee5eb;
 }
 
 
-/* ========================================
-   BACK / CANCEL BUTTON
-======================================== */
+/* =========================================================
+   CANCEL BUTTON
+========================================================= */
 
 .cancel-btn {
+    min-height: 40px;
+
+    padding: 0 17px;
 
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
-
-    min-height: 40px;
-
-    padding: 0 16px;
 
     background: #ffffff;
 
-    color: #475569;
+    color: #625b67;
 
-    border: 1px solid #dbe2ea;
-
+    border: 1px solid #ddd4dc;
     border-radius: 8px;
+
+    font-size: 12px;
+    font-weight: 600;
 
     text-decoration: none;
 
-    font-size: 12px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    box-sizing: border-box;
-
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
         color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
         transform 0.2s ease;
-
 }
-
 
 .cancel-btn:hover {
+    color: #a32675;
 
-    background: #f8fafc;
+    border-color: #a32675;
 
-    border-color: #cbd5e1;
+    background: #fff7fb;
 
-    color: #2563eb;
-
-    transform: translateX(-2px);
-
+    transform: translateY(-1px);
 }
 
 
-/* ========================================
+/* =========================================================
    SAVE BUTTON
-======================================== */
+========================================================= */
 
 .save-btn {
+    min-height: 40px;
+
+    padding: 0 19px;
 
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
-    min-height: 40px;
-
-    padding: 0 18px;
-
-    background: #2563eb;
+    background: #a32675;
 
     color: #ffffff;
 
-    border: 1px solid #2563eb;
-
+    border: 1px solid #a32675;
     border-radius: 8px;
 
     font-family: inherit;
 
     font-size: 12px;
-
     font-weight: 600;
 
     cursor: pointer;
-
-    white-space: nowrap;
-
-    box-shadow:
-        0 4px 12px rgba(37, 99, 235, 0.18);
 
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
         transform 0.2s ease,
         box-shadow 0.2s ease;
-
 }
 
-
 .save-btn:hover {
+    background: #8d205f;
 
-    background: #1d4ed8;
-
-    border-color: #1d4ed8;
+    border-color: #8d205f;
 
     transform: translateY(-1px);
 
-    box-shadow:
-        0 7px 16px rgba(37, 99, 235, 0.25);
-
+    box-shadow: 0 5px 12px rgba(163, 38, 117, 0.18);
 }
-
-
-/* ========================================
-   SAVE BUTTON ACTIVE
-======================================== */
 
 .save-btn:active {
-
     transform: translateY(0);
-
 }
 
 
-/* ========================================
+/* =========================================================
+   REQUIRED FIELD
+========================================================= */
+
+.form-group input:required,
+.form-group select:required {
+    background-color: #ffffff;
+}
+
+
+/* =========================================================
    TABLET
-======================================== */
+========================================================= */
 
 @media (max-width: 900px) {
 
-    .form-card {
-
-        padding: 22px;
-
+    .dashboard {
+        padding: 40px 24px 50px;
     }
 
+    .student-form-card {
+        padding: 25px;
+    }
 
     .form-grid {
-
-        column-gap: 18px;
-
-        row-gap: 18px;
-
+        grid-template-columns: repeat(2, 1fr);
     }
 
 }
 
 
-/* ========================================
+/* =========================================================
    MOBILE
-======================================== */
+========================================================= */
 
 @media (max-width: 650px) {
 
-    .form-card {
-
-        padding: 18px;
-
-        border-radius: 14px;
-
+    .dashboard {
+        padding: 30px 18px 40px;
     }
 
+    .welcome {
+        margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+        font-size: 26px;
+    }
+
+    .welcome-text {
+        font-size: 12px;
+    }
+
+    .student-form-card {
+        padding: 20px;
+    }
 
     .form-grid {
-
         grid-template-columns: 1fr;
 
-        row-gap: 17px;
-
+        gap: 18px;
     }
 
-
-    .form-group.full-width {
-
-        grid-column: auto;
-
+    .form-section {
+        margin-bottom: 26px;
     }
 
-
-    .form-header {
-
-        margin-bottom: 18px;
-
-        padding-bottom: 15px;
-
+    .form-section-header {
+        margin-bottom: 20px;
     }
 
-
-    .form-header h2 {
-
-        font-size: 18px;
-
+    .form-section-header h2 {
+        font-size: 17px;
     }
-
-
-    .form-header p {
-
-        font-size: 12px;
-
-    }
-
 
     .form-actions {
+        justify-content: stretch;
 
         flex-direction: column-reverse;
 
-        align-items: stretch;
-
         gap: 10px;
-
-        margin-bottom: 30px;
-
     }
-
 
     .cancel-btn,
     .save-btn {
-
         width: 100%;
-
     }
 
 }
 
 
-/* ========================================
+/* =========================================================
    SMALL MOBILE
-======================================== */
+========================================================= */
 
 @media (max-width: 400px) {
 
-    .form-card {
-
-        padding: 15px;
-
+    .dashboard {
+        padding: 25px 14px 35px;
     }
 
-
-    .form-header h2 {
-
-        font-size: 17px;
-
+    .welcome h1 {
+        font-size: 24px;
     }
 
-
-    .form-header p {
-
-        font-size: 11px;
-
+    .student-form-card {
+        padding: 17px;
     }
 
+    .form-section-header h2 {
+        font-size: 16px;
+    }
 
     .form-group input,
-    .form-group select,
-    .form-group textarea {
+    .form-group select {
+        height: 40px;
 
         font-size: 12px;
+    }
 
-        padding: 10px 11px;
-
+    .form-group textarea {
+        font-size: 12px;
     }
 
 }

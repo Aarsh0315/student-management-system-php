@@ -21,23 +21,39 @@ $test = $data['test'] ?? null;
     </title>
 
 
+    <!-- DASHBOARD CSS -->
+
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
 
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-test-create.view.css?v=2"
-    >
-
+    <!-- NAVBAR CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=3"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
 
+
+    <!-- SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
+    >
+
+
+    <!-- ADD QUESTION CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/teacher-test-addquestion.view.css?v=2"
+    >
+
+
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
@@ -50,13 +66,26 @@ $test = $data['test'] ?? null;
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
 
 
-    <!-- PAGE HEADER -->
+    <!-- ========================================
+         PAGE HEADER
+    ========================================= -->
 
     <section class="welcome">
 
@@ -84,10 +113,14 @@ $test = $data['test'] ?? null;
 
 
 
-    <!-- QUESTION FORM -->
+    <!-- ========================================
+         QUESTION FORM
+    ========================================= -->
 
     <section class="test-form-card">
 
+
+        <!-- FORM HEADER -->
 
         <div class="test-form-header">
 
@@ -103,13 +136,19 @@ $test = $data['test'] ?? null;
 
 
 
+        <!-- ========================================
+             FORM
+        ========================================= -->
+
         <form
             method="POST"
-            action="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id) ?>"
+            action="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id ?? '') ?>"
         >
 
 
-            <!-- QUESTION -->
+            <!-- ========================================
+                 QUESTION
+            ========================================= -->
 
             <div class="form-group">
 
@@ -129,153 +168,185 @@ $test = $data['test'] ?? null;
 
 
 
-            <!-- OPTION A -->
+            <!-- ========================================
+                 OPTIONS
+            ========================================= -->
 
-            <div class="form-group">
+            <div class="options-section">
 
-                <label for="option_a">
-                    Option A
-                </label>
-
-                <input
-                    type="text"
-                    id="option_a"
-                    name="option_a"
-                    placeholder="Enter option A"
-                    required
-                >
-
-            </div>
+                <div class="section-label">
+                    Answer Options
+                </div>
 
 
+                <div class="options-grid">
 
-            <!-- OPTION B -->
 
-            <div class="form-group">
+                    <!-- OPTION A -->
 
-                <label for="option_b">
-                    Option B
-                </label>
+                    <div class="form-group">
 
-                <input
-                    type="text"
-                    id="option_b"
-                    name="option_b"
-                    placeholder="Enter option B"
-                    required
-                >
+                        <label for="option_a">
+                            Option A
+                        </label>
 
-            </div>
+                        <input
+                            type="text"
+                            id="option_a"
+                            name="option_a"
+                            placeholder="Enter option A"
+                            required
+                        >
+
+                    </div>
 
 
 
-            <!-- OPTION C -->
+                    <!-- OPTION B -->
 
-            <div class="form-group">
+                    <div class="form-group">
 
-                <label for="option_c">
-                    Option C
-                </label>
+                        <label for="option_b">
+                            Option B
+                        </label>
 
-                <input
-                    type="text"
-                    id="option_c"
-                    name="option_c"
-                    placeholder="Enter option C"
-                    required
-                >
+                        <input
+                            type="text"
+                            id="option_b"
+                            name="option_b"
+                            placeholder="Enter option B"
+                            required
+                        >
 
-            </div>
-
-
-
-            <!-- OPTION D -->
-
-            <div class="form-group">
-
-                <label for="option_d">
-                    Option D
-                </label>
-
-                <input
-                    type="text"
-                    id="option_d"
-                    name="option_d"
-                    placeholder="Enter option D"
-                    required
-                >
-
-            </div>
+                    </div>
 
 
 
-            <!-- CORRECT ANSWER -->
+                    <!-- OPTION C -->
 
-            <div class="form-group">
+                    <div class="form-group">
 
-                <label for="correct_answer">
-                    Correct Answer
-                </label>
+                        <label for="option_c">
+                            Option C
+                        </label>
 
-                <select
-                    id="correct_answer"
-                    name="correct_answer"
-                    required
-                >
+                        <input
+                            type="text"
+                            id="option_c"
+                            name="option_c"
+                            placeholder="Enter option C"
+                            required
+                        >
 
-                    <option value="">
-                        Select correct answer
-                    </option>
+                    </div>
 
-                    <option value="A">
-                        Option A
-                    </option>
 
-                    <option value="B">
-                        Option B
-                    </option>
 
-                    <option value="C">
-                        Option C
-                    </option>
+                    <!-- OPTION D -->
 
-                    <option value="D">
-                        Option D
-                    </option>
+                    <div class="form-group">
 
-                </select>
+                        <label for="option_d">
+                            Option D
+                        </label>
+
+                        <input
+                            type="text"
+                            id="option_d"
+                            name="option_d"
+                            placeholder="Enter option D"
+                            required
+                        >
+
+                    </div>
+
+
+                </div>
 
             </div>
 
 
 
-            <!-- MARKS -->
+            <!-- ========================================
+                 CORRECT ANSWER + MARKS
+            ========================================= -->
 
-            <div class="form-group">
+            <div class="form-row">
 
-                <label for="marks">
-                    Marks
-                </label>
 
-                <input
-                    type="number"
-                    id="marks"
-                    name="marks"
-                    min="1"
-                    placeholder="Example: 2"
-                    required
-                >
+                <!-- CORRECT ANSWER -->
+
+                <div class="form-group">
+
+                    <label for="correct_answer">
+                        Correct Answer
+                    </label>
+
+                    <select
+                        id="correct_answer"
+                        name="correct_answer"
+                        required
+                    >
+
+                        <option value="">
+                            Select correct answer
+                        </option>
+
+                        <option value="A">
+                            Option A
+                        </option>
+
+                        <option value="B">
+                            Option B
+                        </option>
+
+                        <option value="C">
+                            Option C
+                        </option>
+
+                        <option value="D">
+                            Option D
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- MARKS -->
+
+                <div class="form-group">
+
+                    <label for="marks">
+                        Marks
+                    </label>
+
+                    <input
+                        type="number"
+                        id="marks"
+                        name="marks"
+                        min="1"
+                        placeholder="Example: 2"
+                        required
+                    >
+
+                </div>
+
 
             </div>
 
 
 
-            <!-- ACTIONS -->
+            <!-- ========================================
+                 ACTIONS
+            ========================================= -->
 
             <div class="form-actions">
 
+
                 <a
-                    href="<?= ROOT ?>/teachertests/details/<?= urlencode($test->test_id) ?>"
+                    href="<?= ROOT ?>/teachertests/details/<?= urlencode($test->test_id ?? '') ?>"
                     class="cancel-btn"
                 >
                     Cancel
@@ -289,6 +360,7 @@ $test = $data['test'] ?? null;
                     Add Question
                 </button>
 
+
             </div>
 
 
@@ -301,7 +373,20 @@ $test = $data['test'] ?? null;
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

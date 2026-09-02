@@ -1,13 +1,17 @@
 /* =========================================================
-   TEACHER TEST CREATE
+   TEACHER ADD QUESTION
    My School - Super Admin Theme
+========================================================= */
+
+
+/* =========================================================
+   GLOBAL
 ========================================================= */
 
 
 /* =========================================================
    FORM CARD
 ========================================================= */
-
 
 
 .dashboard {
@@ -229,10 +233,54 @@
 .form-group select:focus {
     border-color: #a32675;
 
-    background: #fff;
+    background: #ffffff;
 
     box-shadow:
         0 0 0 3px rgba(163, 38, 117, 0.08);
+}
+
+
+/* =========================================================
+   OPTIONS SECTION
+========================================================= */
+
+.options-section {
+    margin-top: 5px;
+
+    margin-bottom: 4px;
+
+    padding: 20px;
+
+    background: #fdf9fb;
+
+    border: 1px solid #eee5eb;
+
+    border-radius: 12px;
+}
+
+.section-label {
+    margin-bottom: 18px;
+
+    color: #302d3d;
+
+    font-size: 12px;
+
+    font-weight: 700;
+}
+
+.options-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    column-gap: 20px;
+
+    row-gap: 0;
+}
+
+.options-grid .form-group {
+    margin-bottom: 18px;
 }
 
 
@@ -316,7 +364,7 @@
 
 
 /* =========================================================
-   CREATE TEST BUTTON
+   ADD QUESTION BUTTON
 ========================================================= */
 
 .create-test-btn {
@@ -402,6 +450,14 @@
         border-radius: 13px;
     }
 
+    .options-section {
+        padding: 16px;
+    }
+
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+
     .form-row {
         grid-template-columns: 1fr;
 
@@ -453,8 +509,13 @@
     }
 
     .form-group input,
-    .form-group textarea {
+    .form-group textarea,
+    .form-group select {
         font-size: 11px;
+    }
+
+    .options-section {
+        padding: 14px;
     }
 
 }

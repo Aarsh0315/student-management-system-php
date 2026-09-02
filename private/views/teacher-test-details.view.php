@@ -10,6 +10,7 @@ foreach ($questions as $question) {
 
     $totalQuestionMarks +=
         (int) ($question->marks ?? 0);
+
 }
 
 ?>
@@ -31,20 +32,39 @@ foreach ($questions as $question) {
     </title>
 
 
+    <!-- DASHBOARD CSS -->
+
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-test-details.view.css?v=1"
-    >
+
+    <!-- NAVBAR CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=3"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
+
+
+    <!-- SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
+    >
+
+
+    <!-- TEST DETAILS CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/teacher-test-details.view.css?v=2"
+    >
+
+
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
@@ -57,13 +77,26 @@ foreach ($questions as $question) {
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
 
 
-    <!-- PAGE HEADER -->
+    <!-- ========================================
+         PAGE HEADER
+    ======================================== -->
 
     <section class="welcome">
 
@@ -87,64 +120,110 @@ foreach ($questions as $question) {
 
 
 
-    <!-- TEST CARD -->
+    <!-- ========================================
+         TEST DETAILS CARD
+    ======================================== -->
 
     <section class="test-details-card">
 
+
+        <!-- ========================================
+             TEST HEADER
+        ======================================== -->
 
         <div class="test-details-header">
 
             <div>
 
                 <h2>
+
                     <?= htmlspecialchars(
                         $test->title ?? '-'
                     ) ?>
+
                 </h2>
 
+
                 <p>
+
                     <?= htmlspecialchars(
                         $test->description ?? ''
                     ) ?>
+
                 </p>
 
             </div>
 
 
-            <span
-                class="status <?= htmlspecialchars(
+            <!-- STATUS + ACTION -->
+
+            <div class="test-header-actions">
+
+
+                <?php
+
+                $status = strtolower(
                     $test->status ?? 'draft'
-                ) ?>"
-            >
-                <?= htmlspecialchars(
-                    ucfirst(
-                        $test->status ?? 'Draft'
-                    )
-                ) ?>
-            </span>
+                );
 
-            <?php if (
-                ($test->status ?? 'draft') === 'draft'
-            ): ?>
+                ?>
 
-                <a
-                    href="<?= ROOT ?>/teachertests/publish/<?= urlencode($test->test_id) ?>"
-                    class="publish-test-btn"
-                    onclick="return confirm('Are you sure you want to publish this test?');"
-                >
-                    Publish Test
-                </a>
 
-            <?php endif; ?>
+                <!-- STATUS -->
+
+                <?php if ($status === 'active'): ?>
+
+                    <span class="status active">
+                        Active
+                    </span>
+
+
+                <?php elseif ($status === 'closed'): ?>
+
+                    <span class="status closed">
+                        Closed
+                    </span>
+
+
+                <?php else: ?>
+
+                    <span class="status draft">
+                        Draft
+                    </span>
+
+                <?php endif; ?>
+
+
+
+                <!-- PUBLISH -->
+
+                <?php if ($status === 'draft'): ?>
+
+                    <a
+                        href="<?= ROOT ?>/teachertests/publish/<?= urlencode($test->test_id ?? '') ?>"
+                        class="publish-test-btn"
+                        onclick="return confirm('Are you sure you want to publish this test?');"
+                    >
+                        Publish Test
+                    </a>
+
+                <?php endif; ?>
+
+
+            </div>
 
         </div>
 
 
 
-        <!-- TEST INFORMATION -->
+        <!-- ========================================
+             TEST INFORMATION
+        ======================================== -->
 
         <div class="test-info-grid">
 
+
+            <!-- CLASS -->
 
             <div class="test-info-item">
 
@@ -153,13 +232,18 @@ foreach ($questions as $question) {
                 </span>
 
                 <strong>
+
                     <?= htmlspecialchars(
                         $test->class ?? '-'
                     ) ?>
+
                 </strong>
 
             </div>
 
+
+
+            <!-- DIVISION -->
 
             <div class="test-info-item">
 
@@ -168,13 +252,18 @@ foreach ($questions as $question) {
                 </span>
 
                 <strong>
+
                     <?= htmlspecialchars(
                         $test->division ?? '-'
                     ) ?>
+
                 </strong>
 
             </div>
 
+
+
+            <!-- QUESTION MARKS -->
 
             <div class="test-info-item">
 
@@ -183,11 +272,18 @@ foreach ($questions as $question) {
                 </span>
 
                 <strong>
+
                     <?= $totalQuestionMarks ?>
+
+                    marks
+
                 </strong>
 
             </div>
 
+
+
+            <!-- DURATION -->
 
             <div class="test-info-item">
 
@@ -196,10 +292,13 @@ foreach ($questions as $question) {
                 </span>
 
                 <strong>
+
                     <?= htmlspecialchars(
                         $test->duration ?? '0'
                     ) ?>
+
                     minutes
+
                 </strong>
 
             </div>
@@ -209,9 +308,14 @@ foreach ($questions as $question) {
 
 
 
-        <!-- QUESTIONS -->
+        <!-- ========================================
+             QUESTIONS SECTION
+        ======================================== -->
 
         <div class="questions-section">
+
+
+            <!-- QUESTIONS HEADER -->
 
             <div class="questions-header">
 
@@ -222,15 +326,20 @@ foreach ($questions as $question) {
                     </h2>
 
                     <p>
+
                         <?= count($questions) ?>
+
                         question(s)
+
                     </p>
 
                 </div>
 
 
+                <!-- ADD QUESTION -->
+
                 <a
-                    href="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id) ?>"
+                    href="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id ?? '') ?>"
                     class="add-question-btn"
                 >
                     + Add Question
@@ -239,20 +348,34 @@ foreach ($questions as $question) {
             </div>
 
 
+
+            <!-- ========================================
+                 QUESTIONS
+            ======================================== -->
+
             <?php if (!empty($questions)): ?>
+
 
                 <?php foreach (
                     $questions as $index => $question
                 ): ?>
 
+
                     <div class="question-card">
+
+
+                        <!-- QUESTION NUMBER -->
 
                         <div class="question-number">
 
-                            Question <?= $index + 1 ?>
+                            Question
+                            <?= $index + 1 ?>
 
                         </div>
 
+
+
+                        <!-- QUESTION -->
 
                         <h3>
 
@@ -264,76 +387,118 @@ foreach ($questions as $question) {
                         </h3>
 
 
+
+                        <!-- MCQ OPTIONS -->
+
                         <?php if (
                             ($question->question_type ?? '')
                             === 'mcq'
                         ): ?>
 
+
                             <div class="options">
 
+
                                 <div>
+
                                     A.
+
                                     <?= htmlspecialchars(
                                         $question->option_a
                                         ?? '-'
                                     ) ?>
+
                                 </div>
 
+
                                 <div>
+
                                     B.
+
                                     <?= htmlspecialchars(
                                         $question->option_b
                                         ?? '-'
                                     ) ?>
+
                                 </div>
 
+
                                 <div>
+
                                     C.
+
                                     <?= htmlspecialchars(
                                         $question->option_c
                                         ?? '-'
                                     ) ?>
+
                                 </div>
 
+
                                 <div>
+
                                     D.
+
                                     <?= htmlspecialchars(
                                         $question->option_d
                                         ?? '-'
                                     ) ?>
+
                                 </div>
 
+
                             </div>
+
 
                         <?php endif; ?>
 
 
+
+                        <!-- QUESTION FOOTER -->
+
                         <div class="question-footer">
 
+
                             <span>
+
                                 Type:
+
                                 <?= htmlspecialchars(
                                     strtoupper(
                                         $question->question_type
                                         ?? '-'
                                     )
                                 ) ?>
+
                             </span>
 
+
                             <strong>
+
                                 <?= htmlspecialchars(
                                     $question->marks ?? '0'
                                 ) ?>
+
                                 marks
+
                             </strong>
+
 
                         </div>
 
+
                     </div>
+
 
                 <?php endforeach; ?>
 
+
             <?php else: ?>
+
+
+                <!-- ========================================
+                     EMPTY QUESTIONS
+                ======================================== -->
 
                 <div class="empty-state">
 
@@ -346,8 +511,9 @@ foreach ($questions as $question) {
                         before publishing it.
                     </p>
 
+
                     <a
-                        href="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id) ?>"
+                        href="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id ?? '') ?>"
                         class="add-question-btn"
                     >
                         + Add First Question
@@ -355,7 +521,9 @@ foreach ($questions as $question) {
 
                 </div>
 
+
             <?php endif; ?>
+
 
         </div>
 
@@ -363,10 +531,40 @@ foreach ($questions as $question) {
     </section>
 
 
+
+    <!-- ========================================
+         BACK BUTTON
+    ======================================== -->
+
+    <div class="test-back-actions">
+
+        <a
+            href="<?= ROOT ?>/teachertests"
+            class="back-btn"
+        >
+            ← Back to Tests
+        </a>
+
+    </div>
+
+
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

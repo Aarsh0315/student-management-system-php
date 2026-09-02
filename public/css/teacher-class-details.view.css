@@ -1,283 +1,325 @@
-/* ========================================
-   TEACHER CLASS DETAILS PAGE
-======================================== */
+/* =========================================================
+   TEACHER CLASS DETAILS
+   My School - Super Admin / Teacher Theme
+========================================================= */
 
 
-/* ========================================
-   CLASS STUDENTS CARD
-======================================== */
+/* =========================================================
+   GLOBAL
+========================================================= */
 
-.class-students-card {
+
+
+/* =========================================================
+   CARD HEADER
+========================================================= */
+
+
+.dashboard {
 
     width: 100%;
 
-    padding: 28px;
+    max-width: 1380px;
 
-    background: #ffffff;
+    margin: 0 auto;
 
-    border: 1px solid #e5e7eb;
-
-    border-radius: 16px;
-
-    margin-bottom: 25px;
+    padding: 50px 30px 60px;
 
     box-sizing: border-box;
 
-    box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.welcome {
+
+    width: 100%;
+
+    margin-bottom: 32px;
 
 }
 
 
-/* ========================================
-   CLASS STUDENTS HEADER
-======================================== */
+.welcome-small {
 
-.class-students-header {
+    margin: 0 0 10px;
 
-    margin-bottom: 22px;
+    color: #a32675;
 
-}
-
-
-.class-students-header h2 {
-
-    margin: 0 0 5px;
-
-    color: #172033;
-
-    font-size: 19px;
+    font-size: 10px;
 
     font-weight: 700;
 
-    line-height: 1.3;
+    letter-spacing: 0.8px;
+
+    text-transform: uppercase;
 
 }
 
 
-.class-students-header p {
+.welcome h1 {
+
+    margin: 0 0 10px;
+
+    color: #302d3d;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+.welcome-text {
 
     margin: 0;
 
-    color: #64748b;
+    color: #756d79;
 
-    font-size: 12px;
+    font-size: 13px;
 
     line-height: 1.5;
 
 }
 
+.class-students-header {
+    width: 100%;
 
-/* ========================================
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eee5eb;
+}
+
+.class-students-header h2 {
+    position: relative;
+
+    margin: 0 0 6px;
+
+    color: #302d3d;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+.class-students-header h2::after {
+    content: "";
+
+    display: block;
+
+    width: 38px;
+    height: 3px;
+
+    margin-top: 9px;
+
+    background: #a32675;
+
+    border-radius: 5px;
+}
+
+.class-students-header p {
+    margin: 0;
+
+    color: #918b99;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
    TABLE WRAPPER
-======================================== */
+========================================================= */
 
-.class-students-card .table-wrapper {
-
+.table-wrapper {
     width: 100%;
 
     overflow-x: auto;
 
-    border: 1px solid #eef0f3;
+    border: 1px solid #eee5eb;
 
     border-radius: 10px;
 
-    box-sizing: border-box;
+    scrollbar-width: thin;
+}
 
+.table-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: #faf7f9;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: #d9c8d4;
+
+    border-radius: 10px;
 }
 
 
-/* ========================================
+/* =========================================================
    TABLE
-======================================== */
+========================================================= */
 
-.class-students-card .table-wrapper table {
-
+table {
     width: 100%;
+
+    min-width: 900px;
 
     border-collapse: collapse;
 
     background: #ffffff;
-
 }
 
 
-/* ========================================
+/* =========================================================
    TABLE HEADER
-======================================== */
+========================================================= */
 
-.class-students-card .table-wrapper thead {
-
-    background: #f8fafc;
-
+thead {
+    background: #faf7f9;
 }
 
+thead th {
+    padding: 14px 17px;
 
-.class-students-card .table-wrapper th {
-
-    padding: 14px 16px;
-
-    color: #64748b;
+    color: #756d79;
 
     font-size: 10px;
-
-    font-weight: 600;
+    font-weight: 700;
 
     text-align: left;
 
     text-transform: uppercase;
-
     letter-spacing: 0.4px;
 
+    border-bottom: 1px solid #eee5eb;
+
     white-space: nowrap;
-
-    border-bottom: 1px solid #e5e7eb;
-
 }
 
 
-/* ========================================
+/* =========================================================
    TABLE BODY
-======================================== */
+========================================================= */
 
-.class-students-card .table-wrapper td {
+tbody tr {
+    background: #ffffff;
 
-    padding: 15px 16px;
+    transition: background 0.2s ease;
+}
 
-    color: #475569;
+tbody tr:hover {
+    background: #fdf9fb;
+}
+
+tbody td {
+    padding: 16px 17px;
+
+    color: #625b67;
 
     font-size: 12px;
 
+    border-bottom: 1px solid #f0e9ee;
+
     vertical-align: middle;
-
-    border-bottom: 1px solid #eef0f3;
-
 }
 
-
-/* ========================================
-   LAST ROW
-======================================== */
-
-.class-students-card
-.table-wrapper
-tbody
-tr:last-child
-td {
-
+tbody tr:last-child td {
     border-bottom: none;
-
 }
 
 
-/* ========================================
-   ROW
-======================================== */
-
-.class-students-card
-.table-wrapper
-tbody
-tr {
-
-    transition:
-        background 0.15s ease;
-
-}
-
-
-/* ========================================
-   ROW HOVER
-======================================== */
-
-.class-students-card
-.table-wrapper
-tbody
-tr:hover {
-
-    background: #f8fafc;
-
-}
-
-
-/* ========================================
+/* =========================================================
    STUDENT ID
-======================================== */
+========================================================= */
 
-.class-students-card .student-id {
-
+.student-id {
     display: inline-flex;
 
     align-items: center;
 
     padding: 5px 9px;
 
-    background: #f1f5f9;
+    background: #faf7f9;
 
-    color: #475569;
+    color: #625b67;
 
-    border: 1px solid #e2e8f0;
-
-    border-radius: 6px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-}
-
-
-/* ========================================
-   STUDENT NAME
-======================================== */
-
-.class-students-card .student-name {
-
-    color: #172033;
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-}
-
-
-/* ========================================
-   ROLL NUMBER
-======================================== */
-
-.class-students-card .roll-number {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-width: 30px;
-
-    padding: 5px 9px;
-
-    background: #f8fafc;
-
-    color: #334155;
-
-    border: 1px solid #e2e8f0;
+    border: 1px solid #eee5eb;
 
     border-radius: 7px;
 
-    font-size: 11px;
-
+    font-size: 10px;
     font-weight: 600;
 
+    white-space: nowrap;
 }
 
 
-/* ========================================
+/* =========================================================
+   STUDENT NAME
+========================================================= */
+
+.student-name {
+    color: #302d3d;
+
+    font-size: 13px;
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+.student-name:hover {
+    color: #a32675;
+}
+
+
+/* =========================================================
+   ROLL NUMBER
+========================================================= */
+
+.roll-number {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 35px;
+
+    padding: 5px 9px;
+
+    background: #f8edf5;
+
+    color: #a32675;
+
+    border: 1px solid #ead1e1;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
    STATUS
-======================================== */
+========================================================= */
 
-.class-students-card .status {
-
+.status {
     display: inline-flex;
 
     align-items: center;
@@ -289,329 +331,295 @@ tr:hover {
     border-radius: 20px;
 
     font-size: 10px;
-
     font-weight: 600;
 
     white-space: nowrap;
-
 }
 
 
-.class-students-card .status::before {
+/* Status dot */
 
+.status::before {
     content: "";
 
     width: 6px;
-
     height: 6px;
 
-    flex-shrink: 0;
-
     border-radius: 50%;
-
 }
 
 
-/* ========================================
-   ACTIVE STATUS
-======================================== */
+/* Active */
 
-.class-students-card .status.active {
+.status.active {
+    color: #28784a;
 
-    background: #ecfdf3;
+    background: #eff9f3;
 
-    color: #15803d;
+    border: 1px solid #cce8d6;
+}
 
-    border: 1px solid #bbf7d0;
-
+.status.active::before {
+    background: #39a866;
 }
 
 
-.class-students-card .status.active::before {
+/* Inactive */
 
-    background: #22c55e;
+.status.inactive {
+    color: #b44747;
 
+    background: #fff4f4;
+
+    border: 1px solid #f1cccc;
+}
+
+.status.inactive::before {
+    background: #d86666;
 }
 
 
-/* ========================================
-   INACTIVE STATUS
-======================================== */
-
-.class-students-card .status.inactive {
-
-    background: #fef2f2;
-
-    color: #b91c1c;
-
-    border: 1px solid #fecaca;
-
-}
-
-
-.class-students-card .status.inactive::before {
-
-    background: #ef4444;
-
-}
-
-
-/* ========================================
+/* =========================================================
    VIEW BUTTON
-   SAME AS CLASSES PAGE
-======================================== */
+========================================================= */
 
-.class-students-card .view-btn {
-
+.view-btn {
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
-    padding: 10px 16px;
+    min-height: 34px;
 
-    background: #2563eb;
+    padding: 0 13px;
 
-    color: #ffffff;
+    background: #ffffff;
 
-    border: 1px solid #2563eb;
+    color: #a32675;
 
-    border-radius: 8px;
+    border: 1px solid #dfc5d5;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+    font-weight: 600;
 
     text-decoration: none;
 
-    font-size: 12px;
-
-    font-weight: 600;
-
     transition:
+        color 0.2s ease,
         background 0.2s ease,
         border-color 0.2s ease,
-        color 0.2s ease,
         transform 0.2s ease;
-
 }
 
-
-.class-students-card .view-btn:hover {
-
-    background: #1d4ed8;
-
-    border-color: #1d4ed8;
+.view-btn:hover {
+    background: #a32675;
 
     color: #ffffff;
 
-    transform: translateY(-1px);
+    border-color: #a32675;
 
+    transform: translateY(-1px);
 }
 
 
-/* ========================================
+/* =========================================================
    EMPTY STATE
-======================================== */
+========================================================= */
 
-.class-students-card .empty-state {
+.empty-state {
+    width: 100%;
 
-    padding: 50px 20px;
+    padding: 55px 25px;
 
     text-align: center;
 
+    background: #faf7f9;
+
+    border: 1px dashed #e4d7e0;
+
+    border-radius: 10px;
 }
 
+.empty-state h3 {
+    margin: 0 0 7px;
 
-.class-students-card .empty-state h3 {
+    color: #302d3d;
 
-    margin: 0 0 8px;
-
-    color: #172033;
-
-    font-size: 18px;
-
+    font-size: 16px;
     font-weight: 700;
-
 }
 
-
-.class-students-card .empty-state p {
-
+.empty-state p {
     margin: 0;
 
-    color: #64748b;
+    color: #918b99;
 
-    font-size: 13px;
+    font-size: 12px;
 
-    line-height: 1.5;
-
+    line-height: 1.6;
 }
 
 
-/* ========================================
-   ACTIONS
-======================================== */
+/* =========================================================
+   CLASS ACTIONS
+========================================================= */
 
 .class-actions {
+    width: 100%;
 
     display: flex;
 
     align-items: center;
 
-    justify-content: flex-start;
-
-    margin-bottom: 35px;
-
+    margin-top: 20px;
 }
 
 
-/* ========================================
+/* =========================================================
    BACK BUTTON
-======================================== */
+========================================================= */
 
-.class-actions .back-btn {
-
+.back-btn {
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
-    padding: 10px 16px;
+    min-height: 40px;
+
+    padding: 0 17px;
 
     background: #ffffff;
 
-    color: #475569;
+    color: #625b67;
 
-    border: 1px solid #dbe2ea;
+    border: 1px solid #ddd4dc;
 
     border-radius: 8px;
 
-    text-decoration: none;
-
     font-size: 12px;
-
     font-weight: 600;
 
+    text-decoration: none;
+
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
         color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
         transform 0.2s ease;
+}
 
+.back-btn:hover {
+    color: #a32675;
+
+    border-color: #a32675;
+
+    background: #fff7fb;
+
+    transform: translateY(-1px);
 }
 
 
-.class-actions .back-btn:hover {
-
-    background: #f8fafc;
-
-    border-color: #cbd5e1;
-
-    color: #2563eb;
-
-    transform: translateX(-2px);
-
-}
-
-
-/* ========================================
+/* =========================================================
    TABLET
-======================================== */
+========================================================= */
 
 @media (max-width: 900px) {
 
+    .dashboard {
+        padding: 40px 24px 50px;
+    }
+
     .class-students-card {
-
-        padding: 22px;
-
+        padding: 25px;
     }
 
 }
 
 
-/* ========================================
+/* =========================================================
    MOBILE
-======================================== */
+========================================================= */
 
 @media (max-width: 650px) {
 
+    .dashboard {
+        padding: 30px 18px 40px;
+    }
+
+    .welcome {
+        margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+        font-size: 26px;
+    }
+
+    .welcome-text {
+        font-size: 12px;
+    }
+
     .class-students-card {
-
         padding: 20px;
-
-        border-radius: 14px;
-
     }
 
+    .class-students-header {
+        margin-bottom: 20px;
+    }
 
-    .class-students-card
+    .class-students-header h2 {
+        font-size: 17px;
+    }
+
     .table-wrapper {
-
-        border-radius: 8px;
-
+        overflow-x: auto;
     }
 
-
-    .class-students-card
-    .table-wrapper
-    th {
-
-        padding: 12px;
-
+    table {
+        min-width: 800px;
     }
 
-
-    .class-students-card
-    .table-wrapper
-    td {
-
-        padding: 13px 12px;
-
-    }
-
-
-    .class-students-card
-    .view-btn {
-
-        padding: 9px 13px;
-
-        font-size: 11px;
-
-    }
-
-
-    .class-actions .back-btn {
-
-        width: 100%;
-
+    .class-actions {
+        margin-top: 16px;
     }
 
 }
 
 
-/* ========================================
+/* =========================================================
    SMALL MOBILE
-======================================== */
+========================================================= */
 
 @media (max-width: 400px) {
 
-    .class-students-card {
-
-        padding: 17px;
-
+    .dashboard {
+        padding: 25px 14px 35px;
     }
 
+    .welcome h1 {
+        font-size: 24px;
+    }
+
+    .class-students-card {
+        padding: 17px;
+    }
 
     .class-students-header h2 {
-
-        font-size: 17px;
-
+        font-size: 16px;
     }
 
-
     .class-students-header p {
-
         font-size: 11px;
+    }
 
+    thead th {
+        padding: 12px 14px;
+    }
+
+    tbody td {
+        padding: 14px;
     }
 
 }

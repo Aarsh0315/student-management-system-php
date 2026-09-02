@@ -29,27 +29,35 @@ $tests = $data['tests'] ?? [];
     >
 
 
+    <!-- NAVBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
+
+
+    <!-- SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
+    >
+
+
     <!-- TEACHER TESTS CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-tests.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-tests.view.css?v=2"
     >
 
 
-    <!-- FOOTER -->
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/footer.view.css?v=2"
-    >
-
-
-    <!-- TEACHER NAVBAR -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=3"
     >
 
 </head>
@@ -58,7 +66,18 @@ $tests = $data['tests'] ?? [];
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -66,7 +85,7 @@ $tests = $data['tests'] ?? [];
 
     <!-- ========================================
          PAGE HEADER
-    ========================================= -->
+    ======================================== -->
 
     <section class="welcome">
 
@@ -93,14 +112,14 @@ $tests = $data['tests'] ?? [];
 
     <!-- ========================================
          TESTS CARD
-    ========================================= -->
+    ======================================== -->
 
     <section class="tests-card">
 
 
         <!-- ========================================
-             HEADER
-        ========================================= -->
+             CARD HEADER
+        ======================================== -->
 
         <div class="tests-header">
 
@@ -139,7 +158,7 @@ $tests = $data['tests'] ?? [];
 
             <!-- ========================================
                  TABLE
-            ========================================= -->
+            ======================================== -->
 
             <div class="table-wrapper">
 
@@ -148,6 +167,10 @@ $tests = $data['tests'] ?? [];
                     <thead>
 
                         <tr>
+
+                            <th>
+                                Test ID
+                            </th>
 
                             <th>
                                 Test
@@ -191,6 +214,23 @@ $tests = $data['tests'] ?? [];
 
 
                             <tr>
+
+
+                                <!-- TEST ID -->
+
+                                <td>
+
+                                    <span class="test-id">
+
+                                        <?= htmlspecialchars(
+                                            $test->test_id
+                                            ?? '-'
+                                        ) ?>
+
+                                    </span>
+
+                                </td>
+
 
 
                                 <!-- TEST -->
@@ -248,11 +288,11 @@ $tests = $data['tests'] ?? [];
 
                                 <td>
 
-                                    <span class="marks-count">
+                                    <span class="marks">
 
                                         <?= htmlspecialchars(
                                             $test->total_marks
-                                            ?? '0'
+                                            ?? '-'
                                         ) ?>
 
                                     </span>
@@ -293,11 +333,9 @@ $tests = $data['tests'] ?? [];
 
                                     <?php
 
-                                    $status =
-                                        strtolower(
-                                            $test->status
-                                            ?? 'draft'
-                                        );
+                                    $status = strtolower(
+                                        $test->status ?? 'draft'
+                                    );
 
                                     ?>
 
@@ -306,28 +344,31 @@ $tests = $data['tests'] ?? [];
                                         $status === 'active'
                                     ): ?>
 
-                                        <span
-                                            class="status active"
-                                        >
+                                        <span class="status active">
                                             Active
                                         </span>
 
+
                                     <?php elseif (
-                                        $status === 'closed'
+                                        $status === 'draft'
                                     ): ?>
 
-                                        <span
-                                            class="status inactive"
-                                        >
-                                            Closed
+                                        <span class="status draft">
+                                            Draft
                                         </span>
+
 
                                     <?php else: ?>
 
-                                        <span
-                                            class="status draft"
-                                        >
-                                            Draft
+                                        <span class="status inactive">
+
+                                            <?= htmlspecialchars(
+                                                ucfirst(
+                                                    $test->status
+                                                    ?? 'Unknown'
+                                                )
+                                            ) ?>
+
                                         </span>
 
                                     <?php endif; ?>
@@ -341,7 +382,9 @@ $tests = $data['tests'] ?? [];
                                 <td>
 
                                     <a
-                                        href="<?= ROOT ?>/teachertests/details/<?= urlencode($test->test_id ?? '') ?>"
+                                        href="<?= ROOT ?>/teachertests/details/<?= urlencode(
+                                            $test->test_id ?? ''
+                                        ) ?>"
                                         class="view-btn"
                                     >
                                         View
@@ -368,7 +411,7 @@ $tests = $data['tests'] ?? [];
 
             <!-- ========================================
                  EMPTY STATE
-            ========================================= -->
+            ======================================== -->
 
             <div class="empty-state">
 
@@ -399,7 +442,20 @@ $tests = $data['tests'] ?? [];
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

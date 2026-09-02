@@ -41,11 +41,19 @@ $parent_email =
     >
 
 
-    <!-- TEACHER NAVBAR -->
+    <!-- NAVBAR CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=2"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
+
+
+    <!-- SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
     >
 
 
@@ -53,11 +61,11 @@ $parent_email =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-parent-details.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-parent-details.view.css?v=2"
     >
 
 
-    <!-- FOOTER -->
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
@@ -70,7 +78,18 @@ $parent_email =
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -190,6 +209,8 @@ $parent_email =
         <div class="details-grid">
 
 
+            <!-- PARENT NAME -->
+
             <div class="details-item">
 
                 <span>
@@ -208,6 +229,8 @@ $parent_email =
 
 
 
+            <!-- PHONE -->
+
             <div class="details-item">
 
                 <span>
@@ -225,6 +248,8 @@ $parent_email =
             </div>
 
 
+
+            <!-- EMAIL -->
 
             <div class="details-item">
 
@@ -245,12 +270,13 @@ $parent_email =
 
         </div>
 
+
     </section>
 
 
 
     <!-- ========================================
-         STUDENTS CARD
+         ASSOCIATED STUDENTS
     ======================================== -->
 
     <section class="parent-details-card">
@@ -285,8 +311,9 @@ $parent_email =
                 ): ?>
 
 
-                    <div class="details-item">
+                    <!-- STUDENT -->
 
+                    <div class="details-item">
 
                         <span>
                             Student
@@ -302,13 +329,13 @@ $parent_email =
 
                         </strong>
 
-
                     </div>
 
 
 
-                    <div class="details-item">
+                    <!-- STUDENT ID -->
 
+                    <div class="details-item">
 
                         <span>
                             Student ID
@@ -323,13 +350,13 @@ $parent_email =
 
                         </strong>
 
-
                     </div>
 
 
 
-                    <div class="details-item">
+                    <!-- CLASS -->
 
+                    <div class="details-item">
 
                         <span>
                             Class
@@ -344,13 +371,13 @@ $parent_email =
 
                         </strong>
 
-
                     </div>
 
 
 
-                    <div class="details-item">
+                    <!-- DIVISION -->
 
+                    <div class="details-item">
 
                         <span>
                             Division
@@ -365,13 +392,13 @@ $parent_email =
 
                         </strong>
 
-
                     </div>
 
 
 
-                    <div class="details-item">
+                    <!-- ROLL NUMBER -->
 
+                    <div class="details-item">
 
                         <span>
                             Roll Number
@@ -386,7 +413,6 @@ $parent_email =
 
                         </strong>
 
-
                     </div>
 
 
@@ -398,6 +424,8 @@ $parent_email =
 
         <?php else: ?>
 
+
+            <!-- EMPTY STATE -->
 
             <div class="empty-state">
 
@@ -439,7 +467,20 @@ $parent_email =
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

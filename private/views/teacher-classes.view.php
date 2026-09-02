@@ -33,23 +33,31 @@ $classes = $data['classes'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-classes.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-classes.view.css?v=2"
     >
 
 
-    <!-- FOOTER -->
+    <!-- NAVBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
+
+
+    <!-- SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
+    >
+
+
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/footer.view.css?v=2"
-    >
-
-
-    <!-- TEACHER NAVBAR -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=2"
     >
 
 </head>
@@ -58,15 +66,26 @@ $classes = $data['classes'] ?? [];
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
 
 
-    <!-- =========================
+    <!-- ========================================
          PAGE HEADER
-    ========================== -->
+    ======================================== -->
 
     <section class="welcome">
 
@@ -91,9 +110,9 @@ $classes = $data['classes'] ?? [];
 
 
 
-    <!-- =========================
+    <!-- ========================================
          CLASSES CARD
-    ========================== -->
+    ======================================== -->
 
     <section class="classes-card">
 
@@ -125,9 +144,9 @@ $classes = $data['classes'] ?? [];
         <?php if (!empty($classes)): ?>
 
 
-            <!-- =========================
+            <!-- ========================================
                  TABLE
-            ========================== -->
+            ======================================== -->
 
             <div class="table-wrapper">
 
@@ -228,21 +247,7 @@ $classes = $data['classes'] ?? [];
 
                                 <td>
 
-                                    <?php
-                                    /*
-                                    ========================================
-                                    STATUS
-                                    ========================================
-
-                                    Classes are currently generated
-                                    from active students, so the
-                                    class itself is considered active.
-                                    */
-                                    ?>
-
-                                    <span
-                                        class="status active"
-                                    >
+                                    <span class="status active">
                                         Active
                                     </span>
 
@@ -280,9 +285,9 @@ $classes = $data['classes'] ?? [];
         <?php else: ?>
 
 
-            <!-- =========================
+            <!-- ========================================
                  EMPTY STATE
-            ========================== -->
+            ======================================== -->
 
             <div class="empty-state">
 
@@ -307,7 +312,20 @@ $classes = $data['classes'] ?? [];
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

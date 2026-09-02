@@ -24,16 +24,9 @@ $division =
 
     <title>
         Class <?= htmlspecialchars($class) ?>
-        - <?= htmlspecialchars($division) ?>
+        -
+        <?= htmlspecialchars($division) ?>
     </title>
-
-
-    <!-- TEACHER NAVBAR -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=4"
-    >
 
 
     <!-- DASHBOARD CSS -->
@@ -44,19 +37,35 @@ $division =
     >
 
 
+    <!-- NAVBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
+
+
+    <!-- SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
+    >
+
+
     <!-- CLASS DETAILS CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-class-details.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-class-details.view.css?v=2"
     >
 
 
-    <!-- FOOTER -->
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css?v=4"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
     >
 
 </head>
@@ -65,7 +74,18 @@ $division =
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -88,9 +108,16 @@ $division =
             </h1>
 
             <p class="welcome-text">
-                Division <?= htmlspecialchars($division) ?>
+
+                Division
+                <?= htmlspecialchars($division) ?>
+
                 ·
-                <?= count($students) ?> student(s)
+
+                <?= count($students) ?>
+
+                student(s)
+
             </p>
 
         </div>
@@ -117,10 +144,12 @@ $division =
                 </h2>
 
                 <p>
+
                     Students enrolled in
                     Class <?= htmlspecialchars($class) ?>
                     -
                     <?= htmlspecialchars($division) ?>.
+
                 </p>
 
             </div>
@@ -262,17 +291,13 @@ $division =
                                         === 'active'
                                     ): ?>
 
-                                        <span
-                                            class="status active"
-                                        >
+                                        <span class="status active">
                                             Active
                                         </span>
 
                                     <?php else: ?>
 
-                                        <span
-                                            class="status inactive"
-                                        >
+                                        <span class="status inactive">
                                             Inactive
                                         </span>
 
@@ -356,7 +381,20 @@ $division =
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

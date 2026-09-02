@@ -25,36 +25,27 @@ $students = $data['students'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=2"
-    >
-
-    <link
-        rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css?v=2"
     >
-
-
-    <!-- TEACHER STUDENTS CSS -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/teacher-students.view.css?v=2"
     >
 
-
-    <!-- FOOTER -->
-
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/footer.view.css?v=2"
     >
 
-
-    <!-- TEACHER NAVBAR -->
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=2"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
     >
 
 </head>
@@ -63,7 +54,9 @@ $students = $data['students'] ?? [];
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -75,34 +68,25 @@ $students = $data['students'] ?? [];
 
     <section class="welcome">
 
-    <div>
+        <div>
 
-        <p class="welcome-small">
-            Teacher
-        </p>
+            <p class="welcome-small">
 
-        <h1>
-            Students
-        </h1>
+                Teacher
 
-        <p class="welcome-text">
-            View and manage students assigned to your school.
-        </p>
+            </p>
 
-    </div>
+            <h1>
+                Students
+            </h1>
 
+            <p class="welcome-text">
+                View and manage students assigned to your school.
+            </p>
 
-    <!-- ADD STUDENT BUTTON -->
+        </div>
 
-    <a
-        href="<?= ROOT ?>/teacherstudents/add"
-        class="add-student-btn"
-    >
-        + Add Student
-    </a>
-
-</section>
-
+    </section>
 
 
     <!-- =========================
@@ -132,8 +116,17 @@ $students = $data['students'] ?? [];
 
             </div>
 
-        </div>
 
+            <!-- ADD STUDENT -->
+
+            <a
+                href="<?= ROOT ?>/teacherstudents/add"
+                class="add-student-btn"
+            >
+                + Add Student
+            </a>
+
+        </div>
 
 
         <?php if (!empty($students)): ?>
@@ -215,7 +208,6 @@ $students = $data['students'] ?? [];
                                 </td>
 
 
-
                                 <!-- NAME -->
 
                                 <td>
@@ -231,7 +223,6 @@ $students = $data['students'] ?? [];
                                     </strong>
 
                                 </td>
-
 
 
                                 <!-- CLASS -->
@@ -250,7 +241,6 @@ $students = $data['students'] ?? [];
                                 </td>
 
 
-
                                 <!-- DIVISION -->
 
                                 <td>
@@ -261,7 +251,6 @@ $students = $data['students'] ?? [];
                                     ) ?>
 
                                 </td>
-
 
 
                                 <!-- PARENT -->
@@ -276,7 +265,6 @@ $students = $data['students'] ?? [];
                                 </td>
 
 
-
                                 <!-- EMAIL -->
 
                                 <td>
@@ -287,7 +275,6 @@ $students = $data['students'] ?? [];
                                     ) ?>
 
                                 </td>
-
 
 
                                 <!-- STATUS -->
@@ -316,7 +303,6 @@ $students = $data['students'] ?? [];
                                     <?php endif; ?>
 
                                 </td>
-
 
 
                                 <!-- ACTION -->
@@ -377,6 +363,11 @@ $students = $data['students'] ?? [];
 
 
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

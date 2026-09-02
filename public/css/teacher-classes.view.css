@@ -1,104 +1,201 @@
-/* ========================================
-   CLASSES PAGE
-======================================== */
+/* =========================================================
+   TEACHER CLASSES
+   My School - Super Admin / Teacher Theme
+========================================================= */
 
-.classes-card {
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+
+
+/* =========================================================
+   DASHBOARD
+========================================================= */
+.dashboard {
 
     width: 100%;
 
-    background: #ffffff;
+    max-width: 1380px;
 
-    border: 1px solid #e5e7eb;
+    margin: 0 auto;
 
-    border-radius: 16px;
+    padding: 50px 30px 60px;
 
-    padding: 28px;
+    box-sizing: border-box;
 
-    margin-bottom: 35px;
-
-    box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
-
-    overflow: hidden;
-
-    transition:
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
 }
 
 
-/* ========================================
-   CLASSES HEADER
-======================================== */
+/* =====================================================
+   PAGE HEADER
+===================================================== */
 
-.classes-header {
+.welcome {
 
-    display: flex;
+    width: 100%;
 
-    align-items: center;
+    margin-bottom: 32px;
 
-    justify-content: space-between;
-
-    gap: 20px;
-
-    margin-bottom: 25px;
 }
 
 
-.classes-header h2 {
+.welcome-small {
 
-    margin: 0 0 6px;
+    margin: 0 0 10px;
 
-    color: #172033;
+    color: #a32675;
 
-    font-size: 20px;
+    font-size: 10px;
 
     font-weight: 700;
 
-    line-height: 1.3;
+    letter-spacing: 0.8px;
+
+    text-transform: uppercase;
+
 }
 
 
-.classes-header p {
+.welcome h1 {
+
+    margin: 0 0 10px;
+
+    color: #302d3d;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+.welcome-text {
 
     margin: 0;
 
-    color: #64748b;
+    color: #756d79;
 
     font-size: 13px;
 
     line-height: 1.5;
+
 }
 
 
-/* ========================================
+/* =========================================================
+   CLASSES CARD
+========================================================= */
+
+.classes-card {
+    width: 100%;
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe7;
+    border-radius: 16px;
+
+    box-shadow: 0 5px 20px rgba(48, 45, 61, 0.04);
+}
+
+
+/* =========================================================
+   CLASSES HEADER
+========================================================= */
+
+.classes-header {
+    width: 100%;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 22px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eee5eb;
+}
+
+.classes-header h2 {
+    position: relative;
+
+    margin: 0 0 6px;
+
+    color: #302d3d;
+
+    font-size: 19px;
+    font-weight: 700;
+
+    line-height: 1.4;
+}
+
+.classes-header h2::after {
+    content: "";
+
+    display: block;
+
+    width: 38px;
+    height: 3px;
+
+    margin-top: 9px;
+
+    background: #a32675;
+
+    border-radius: 5px;
+}
+
+.classes-header p {
+    margin: 0;
+
+    color: #918b99;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
    TABLE WRAPPER
-======================================== */
+========================================================= */
 
 .table-wrapper {
-
     width: 100%;
 
     overflow-x: auto;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #eee5eb;
 
     border-radius: 10px;
 
-    background: #ffffff;
-
     scrollbar-width: thin;
+}
 
-    -webkit-overflow-scrolling: touch;
+.table-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+    background: #faf7f9;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+    background: #d9c8d4;
+    border-radius: 10px;
 }
 
 
-/* ========================================
+/* =========================================================
    TABLE
-======================================== */
+========================================================= */
 
-.table-wrapper table {
-
+table {
     width: 100%;
 
     min-width: 850px;
@@ -109,422 +206,383 @@
 }
 
 
-/* ========================================
+/* =========================================================
    TABLE HEADER
-======================================== */
+========================================================= */
 
-.table-wrapper thead {
-
-    background: #f8fafc;
+thead {
+    background: #faf7f9;
 }
 
+thead th {
+    padding: 14px 17px;
 
-.table-wrapper th {
-
-    padding: 14px 15px;
-
-    color: #64748b;
+    color: #756d79;
 
     font-size: 10px;
-
     font-weight: 700;
 
     text-align: left;
 
     text-transform: uppercase;
-
     letter-spacing: 0.4px;
 
-    white-space: nowrap;
+    border-bottom: 1px solid #eee5eb;
 
-    border-bottom: 1px solid #e5e7eb;
+    white-space: nowrap;
 }
 
 
-/* ========================================
+/* =========================================================
    TABLE BODY
-======================================== */
+========================================================= */
 
-.table-wrapper td {
+tbody tr {
+    background: #ffffff;
 
-    padding: 15px;
+    transition: background 0.2s ease;
+}
 
-    color: #475569;
+tbody tr:hover {
+    background: #fdf9fb;
+}
+
+tbody td {
+    padding: 16px 17px;
+
+    color: #625b67;
 
     font-size: 12px;
 
+    border-bottom: 1px solid #f0e9ee;
+
     vertical-align: middle;
-
-    white-space: nowrap;
-
-    border-bottom: 1px solid #eef0f3;
 }
 
-
-/* ========================================
-   LAST ROW
-======================================== */
-
-.table-wrapper tbody tr:last-child td {
-
+tbody tr:last-child td {
     border-bottom: none;
 }
 
 
-/* ========================================
-   ROW
-======================================== */
-
-.table-wrapper tbody tr {
-
-    transition:
-        background 0.15s ease;
-}
-
-
-/* ========================================
-   ROW HOVER
-======================================== */
-
-.table-wrapper tbody tr:hover {
-
-    background: #f8fafc;
-}
-
-
-/* ========================================
-   CLASS ID
-======================================== */
-
-.class-id {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    padding: 5px 9px;
-
-    background: #f1f5f9;
-
-    color: #475569;
-
-    border: 1px solid #e2e8f0;
-
-    border-radius: 6px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
-
-/* ========================================
+/* =========================================================
    CLASS NAME
-======================================== */
+========================================================= */
 
 .class-name {
+    display: inline-flex;
+    align-items: center;
 
-    color: #172033;
+    min-width: 36px;
+
+    color: #302d3d;
 
     font-size: 13px;
+    font-weight: 700;
+}
 
-    font-weight: 600;
+.class-name:hover {
+    color: #a32675;
 }
 
 
-/* ========================================
+/* =========================================================
    CLASS DIVISION
-======================================== */
+========================================================= */
 
 .class-division {
-
     display: inline-flex;
-
     align-items: center;
+    justify-content: center;
 
-    padding: 5px 9px;
+    min-width: 32px;
 
-    background: #eff6ff;
+    padding: 5px 10px;
 
-    color: #2563eb;
+    background: #f8edf5;
 
-    border: 1px solid #dbeafe;
+    color: #a32675;
 
-    border-radius: 6px;
+    border: 1px solid #ead1e1;
 
-    font-size: 11px;
+    border-radius: 20px;
 
+    font-size: 10px;
     font-weight: 600;
 }
 
 
-/* ========================================
+/* =========================================================
    STUDENT COUNT
-======================================== */
+========================================================= */
 
 .student-count {
-
     display: inline-flex;
-
     align-items: center;
+    justify-content: center;
+
+    min-width: 34px;
 
     padding: 5px 9px;
 
-    background: #f1f5f9;
+    background: #faf7f9;
 
-    color: #475569;
+    color: #625b67;
 
-    border: 1px solid #e2e8f0;
+    border: 1px solid #eee5eb;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
     font-size: 11px;
-
     font-weight: 600;
 }
 
 
-/* ========================================
+/* =========================================================
    STATUS
-======================================== */
+========================================================= */
 
 .status {
-
     display: inline-flex;
 
     align-items: center;
 
     gap: 6px;
 
-    padding: 5px 9px;
+    padding: 6px 11px;
 
     border-radius: 20px;
 
     font-size: 10px;
-
     font-weight: 600;
+
+    white-space: nowrap;
 }
 
 
-/* ========================================
-   STATUS DOT
-======================================== */
+/* Status dot */
 
 .status::before {
-
     content: "";
 
     width: 6px;
-
     height: 6px;
 
     border-radius: 50%;
 }
 
 
-/* ========================================
-   ACTIVE
-======================================== */
+/* Active */
 
 .status.active {
+    color: #28784a;
 
-    background: #ecfdf3;
+    background: #eff9f3;
 
-    color: #15803d;
-
-    border: 1px solid #bbf7d0;
+    border: 1px solid #cce8d6;
 }
-
 
 .status.active::before {
-
-    background: #22c55e;
+    background: #39a866;
 }
 
 
-/* ========================================
-   INACTIVE
-======================================== */
+/* Inactive */
 
 .status.inactive {
+    color: #b44747;
 
-    background: #fef2f2;
+    background: #fff4f4;
 
-    color: #b91c1c;
-
-    border: 1px solid #fecaca;
+    border: 1px solid #f1cccc;
 }
-
 
 .status.inactive::before {
-
-    background: #ef4444;
+    background: #d86666;
 }
 
 
-/* ========================================
+/* =========================================================
    VIEW BUTTON
-======================================== */
+========================================================= */
 
 .view-btn {
-
     display: inline-flex;
 
     align-items: center;
-
     justify-content: center;
 
-    min-width: 52px;
+    min-height: 34px;
 
-    min-height: 31px;
+    padding: 0 13px;
 
-    padding: 0 12px;
+    background: #ffffff;
 
-    background: #2563eb;
+    color: #a32675;
 
-    color: #ffffff;
-
-    border: 1px solid #2563eb;
+    border: 1px solid #dfc5d5;
 
     border-radius: 7px;
 
-    text-decoration: none;
-
     font-size: 11px;
-
     font-weight: 600;
 
+    text-decoration: none;
+
     transition:
+        color 0.2s ease,
         background 0.2s ease,
         border-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        transform 0.2s ease;
 }
-
 
 .view-btn:hover {
+    background: #a32675;
 
-    background: #1d4ed8;
+    color: #ffffff;
 
-    border-color: #1d4ed8;
+    border-color: #a32675;
 
     transform: translateY(-1px);
-
-    box-shadow:
-        0 4px 10px rgba(37, 99, 235, 0.18);
 }
 
 
-/* ========================================
+/* =========================================================
    EMPTY STATE
-======================================== */
+========================================================= */
 
 .empty-state {
+    width: 100%;
 
-    padding: 60px 25px;
+    padding: 55px 25px;
 
     text-align: center;
 
-    border: 1px dashed #dbe2ea;
+    background: #faf7f9;
+
+    border: 1px dashed #e4d7e0;
 
     border-radius: 10px;
-
-    background: #f8fafc;
 }
 
-
 .empty-state h3 {
+    margin: 0 0 7px;
 
-    margin: 0 0 8px;
+    color: #302d3d;
 
-    color: #172033;
-
-    font-size: 18px;
-
+    font-size: 16px;
     font-weight: 700;
 }
 
-
 .empty-state p {
-
     margin: 0;
 
-    color: #64748b;
+    color: #918b99;
 
-    font-size: 13px;
+    font-size: 12px;
+    line-height: 1.6;
 }
 
 
-/* ========================================
+/* =========================================================
    TABLET
-======================================== */
+========================================================= */
 
 @media (max-width: 900px) {
 
-    .classes-card {
-
-        padding: 22px;
+    .dashboard {
+        padding: 40px 24px 50px;
     }
-
-    .classes-header {
-
-        margin-bottom: 20px;
-    }
-}
-
-
-/* ========================================
-   MOBILE
-======================================== */
-
-@media (max-width: 650px) {
 
     .classes-card {
-
-        padding: 18px;
-
-        border-radius: 14px;
-    }
-
-    .classes-header {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 15px;
+        padding: 25px;
     }
 
     .table-wrapper {
-
-        border-radius: 8px;
+        border-radius: 9px;
     }
 
-    .table-wrapper table {
-
-        min-width: 850px;
-    }
 }
 
 
-/* ========================================
-   SMALL MOBILE
-======================================== */
+/* =========================================================
+   MOBILE
+========================================================= */
 
-@media (max-width: 400px) {
+@media (max-width: 650px) {
+
+    .dashboard {
+        padding: 30px 18px 40px;
+    }
+
+    .welcome {
+        margin-bottom: 25px;
+    }
+
+    .welcome h1 {
+        font-size: 26px;
+    }
+
+    .welcome-text {
+        font-size: 12px;
+    }
 
     .classes-card {
+        padding: 20px;
+    }
 
-        padding: 15px;
+    .classes-header {
+        margin-bottom: 20px;
     }
 
     .classes-header h2 {
+        font-size: 17px;
+    }
 
-        font-size: 18px;
+    .table-wrapper {
+        margin: 0;
+
+        overflow-x: auto;
+    }
+
+    table {
+        min-width: 780px;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .dashboard {
+        padding: 25px 14px 35px;
+    }
+
+    .welcome h1 {
+        font-size: 24px;
+    }
+
+    .classes-card {
+        padding: 17px;
+    }
+
+    .classes-header h2 {
+        font-size: 16px;
     }
 
     .classes-header p {
-
-        font-size: 12px;
+        font-size: 11px;
     }
+
+    thead th {
+        padding: 12px 14px;
+    }
+
+    tbody td {
+        padding: 14px;
+    }
+
 }

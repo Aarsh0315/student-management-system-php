@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,23 +27,31 @@
     >
 
 
+    <!-- NAVBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
+
+
+    <!-- SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
+    >
+
+
     <!-- TEACHER TEST CREATE CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-test-create.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-test-create.view.css?v=2"
     >
 
 
-    <!-- TEACHER NAVBAR -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=3"
-    >
-
-
-    <!-- FOOTER -->
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
@@ -52,7 +64,18 @@
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -87,10 +110,12 @@
 
     <!-- ========================================
          CREATE TEST CARD
-    ========================================= -->
+    ======================================== -->
 
     <section class="test-form-card">
 
+
+        <!-- FORM HEADER -->
 
         <div class="test-form-header">
 
@@ -105,6 +130,10 @@
         </div>
 
 
+
+        <!-- ========================================
+             CREATE TEST FORM
+        ======================================== -->
 
         <form
             method="POST"
@@ -292,10 +321,11 @@
 
 
             <!-- ========================================
-                 ACTIONS
+                 FORM ACTIONS
             ========================================= -->
 
             <div class="form-actions">
+
 
                 <a
                     href="<?= ROOT ?>/teachertests"
@@ -312,6 +342,7 @@
                     Create Test
                 </button>
 
+
             </div>
 
 
@@ -324,7 +355,20 @@
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>

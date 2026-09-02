@@ -29,27 +29,35 @@ $parents = $data['parents'] ?? [];
     >
 
 
+    <!-- NAVBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
+
+
+    <!-- SIDEBAR CSS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
+    >
+
+
     <!-- TEACHER PARENTS CSS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-parents.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-parents.view.css?v=2"
     >
 
 
-    <!-- FOOTER -->
+    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/footer.view.css?v=2"
-    >
-
-
-    <!-- TEACHER NAVBAR -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-nav.view.css?v=2"
     >
 
 </head>
@@ -58,15 +66,26 @@ $parents = $data['parents'] ?? [];
 <body>
 
 
-<?php require "../private/views/includes/teacher-nav.view.php"; ?>
+<!-- ========================================
+     NAVBAR
+======================================== -->
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+
+<!-- ========================================
+     SIDEBAR
+======================================== -->
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
 
 
-    <!-- =========================
+    <!-- ========================================
          PAGE HEADER
-    ========================== -->
+    ========================================= -->
 
     <section class="welcome">
 
@@ -91,14 +110,16 @@ $parents = $data['parents'] ?? [];
 
 
 
-    <!-- =========================
+    <!-- ========================================
          PARENTS CARD
-    ========================== -->
+    ======================================== -->
 
     <section class="parents-card">
 
 
-        <!-- HEADER -->
+        <!-- ========================================
+             HEADER
+        ========================================= -->
 
         <div class="parents-header">
 
@@ -122,12 +143,12 @@ $parents = $data['parents'] ?? [];
 
 
 
+        <!-- ========================================
+             PARENTS TABLE
+        ======================================== -->
+
         <?php if (!empty($parents)): ?>
 
-
-            <!-- =========================
-                 TABLE
-            ========================== -->
 
             <div class="table-wrapper">
 
@@ -263,9 +284,9 @@ $parents = $data['parents'] ?? [];
         <?php else: ?>
 
 
-            <!-- =========================
+            <!-- ========================================
                  EMPTY STATE
-            ========================== -->
+            ========================================= -->
 
             <div class="empty-state">
 
@@ -290,7 +311,20 @@ $parents = $data['parents'] ?? [];
 </main>
 
 
+<!-- ========================================
+     FOOTER
+======================================== -->
+
 <?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<!-- ========================================
+     JAVASCRIPT
+======================================== -->
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
 </body>
