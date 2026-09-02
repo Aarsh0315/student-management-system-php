@@ -1,72 +1,215 @@
 /* ========================================
    STUDENT CLASS PAGE
+   MY SCHOOL
 ======================================== */
 
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
 
-/* ========================================
-   CLASS CARD
-======================================== */
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 
-.student-class-card {
+    background: #faf9fc;
+
+    color: #302d3d;
+}
+
+
+.dashboard {
 
     width: 100%;
 
-    padding: 28px;
+    max-width: 1380px;
 
-    background: #ffffff;
+    margin: 0 auto;
 
-    border: 1px solid #e5e7eb;
-
-    border-radius: 16px;
-
-    margin-bottom: 25px;
+    padding: 50px 30px 60px;
 
     box-sizing: border-box;
 
-    box-shadow:
-        0 5px 20px rgba(15, 23, 42, 0.04);
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.welcome {
+
+    width: 100%;
+
+    margin-bottom: 32px;
 
 }
 
 
-/* ========================================
-   CLASS CARD HEADER
-======================================== */
+.welcome-small {
 
-.student-class-card > div:first-child h2 {
+    margin: 0 0 10px;
 
-    margin: 0 0 6px;
+    color: #a32675;
 
-    color: #172033;
-
-    font-size: 20px;
+    font-size: 10px;
 
     font-weight: 700;
 
-    line-height: 1.3;
+    letter-spacing: 0.8px;
+
+    text-transform: uppercase;
 
 }
 
 
-.student-class-card > div:first-child p {
+.welcome h1 {
+
+    margin: 0 0 10px;
+
+    color: #302d3d;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+
+}
+
+
+.welcome-text {
 
     margin: 0;
 
-    color: #64748b;
+    color: #756d79;
 
     font-size: 13px;
 
     line-height: 1.5;
 
 }
+/* ========================================
+   MAIN PAGE
+======================================== */
+
+.student-class-page {
+    width: 100%;
+
+    padding: 42px 30px 60px;
+}
+
+.student-class-container {
+    width: 100%;
+    max-width: 1250px;
+
+    margin: 0 auto;
+}
 
 
 /* ========================================
-   CLASS HEADER
+   PAGE HEADER
 ======================================== */
 
-.student-class-card:first-of-type {
+.class-welcome {
+    display: flex;
 
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 28px;
+}
+
+.class-welcome-content {
+    min-width: 0;
+}
+
+.class-welcome-label {
+    margin-bottom: 8px;
+
+    color: #a32675;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    letter-spacing: 1.4px;
+
+    text-transform: uppercase;
+}
+
+.class-welcome h1 {
+    margin-bottom: 7px;
+
+    color: #29263a;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+.class-welcome-description {
+    color: #777181;
+
+    font-size: 14px;
+
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   STATUS
+======================================== */
+
+.class-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 8px 13px;
+
+    border: 1px solid #cce8d6;
+
+    border-radius: 20px;
+
+    background: #eff9f3;
+
+    color: #28784a;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #39a866;
+}
+
+
+/* ========================================
+   CLASS OVERVIEW CARD
+======================================== */
+
+.class-overview-card {
     display: flex;
 
     align-items: center;
@@ -75,64 +218,154 @@
 
     gap: 20px;
 
+    padding: 23px 24px;
+
+    margin-bottom: 18px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe7;
+
+    border-radius: 16px;
+
+    box-shadow:
+        0 4px 14px rgba(48, 45, 61, 0.035);
+}
+
+.class-overview-left {
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+    min-width: 0;
+}
+
+.class-icon {
+    width: 48px;
+    height: 48px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 13px;
+
+    background: #f9eaf4;
+
+    color: #a32675;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.4px;
+}
+
+.class-overview-info {
+    min-width: 0;
+}
+
+.class-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #918b99;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 1px;
+}
+
+.class-overview-info h2 {
+    margin-bottom: 4px;
+
+    color: #302d3d;
+
+    font-size: 21px;
+
+    font-weight: 700;
+}
+
+.class-divider {
+    margin: 0 3px;
+
+    color: #a8a2b2;
+}
+
+.class-overview-info p {
+    color: #777181;
+
+    font-size: 12px;
+
+    line-height: 1.5;
 }
 
 
 /* ========================================
-   STATUS
+   ACTIVE BADGE
 ======================================== */
 
-.student-class-card .status {
-
+.active-badge {
     display: inline-flex;
 
     align-items: center;
 
-    gap: 6px;
+    gap: 7px;
 
-    padding: 6px 11px;
+    padding: 7px 12px;
 
-    border-radius: 20px;
+    border: 1px solid #cce8d6;
 
-    font-size: 10px;
+    border-radius: 18px;
+
+    background: #eff9f3;
+
+    color: #28784a;
+
+    font-size: 11px;
 
     font-weight: 600;
 
     white-space: nowrap;
-
 }
 
-
-.student-class-card .status::before {
-
-    content: "";
-
+.badge-dot {
     width: 6px;
-
     height: 6px;
-
-    flex-shrink: 0;
 
     border-radius: 50%;
 
+    background: #39a866;
 }
 
 
-.student-class-card .status.active {
+/* ========================================
+   COMMON CARD
+======================================== */
 
-    background: #ecfdf3;
+.class-card {
+    width: 100%;
 
-    color: #15803d;
+    margin-bottom: 18px;
 
-    border: 1px solid #bbf7d0;
+    padding: 23px 24px;
 
-}
+    background: #ffffff;
 
+    border: 1px solid #eadfe7;
 
-.student-class-card .status.active::before {
+    border-radius: 16px;
 
-    background: #22c55e;
-
+    box-shadow:
+        0 4px 14px rgba(48, 45, 61, 0.035);
 }
 
 
@@ -141,77 +374,78 @@
 ======================================== */
 
 .class-section-header {
+    display: flex;
 
-    margin-bottom: 22px;
+    align-items: center;
 
-    padding-bottom: 18px;
+    justify-content: space-between;
 
-    border-bottom: 1px solid #eef0f3;
+    gap: 15px;
 
+    margin-bottom: 20px;
 }
-
 
 .class-section-header h2 {
+    margin-bottom: 5px;
 
-    margin: 0 0 5px;
+    color: #302d3d;
 
-    color: #172033;
-
-    font-size: 19px;
+    font-size: 17px;
 
     font-weight: 700;
-
-    line-height: 1.3;
-
 }
 
-
 .class-section-header p {
-
-    margin: 0;
-
-    color: #64748b;
+    color: #918b99;
 
     font-size: 12px;
 
     line-height: 1.5;
-
 }
 
 
 /* ========================================
-   DETAILS GRID
+   STUDENT COUNT
+======================================== */
+
+.student-count {
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 7px 11px;
+
+    border: 1px solid #eadfe7;
+
+    border-radius: 8px;
+
+    background: #fff5fa;
+
+    color: #a32675;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* ========================================
+   MY INFORMATION GRID
 ======================================== */
 
 .class-details-grid {
-
     display: grid;
 
     grid-template-columns:
         repeat(4, minmax(0, 1fr));
 
-    border-top: 1px solid #eef0f3;
-
-    border-left: 1px solid #eef0f3;
-
-    border-radius: 10px;
-
-    overflow: hidden;
-
+    gap: 12px;
 }
 
-
-/* ========================================
-   DETAIL ITEM
-======================================== */
-
 .class-detail-item {
-
     min-height: 88px;
-
-    padding: 17px 18px;
-
-    background: #ffffff;
 
     display: flex;
 
@@ -219,31 +453,21 @@
 
     justify-content: center;
 
-    gap: 7px;
+    padding: 15px 16px;
 
-    border-right: 1px solid #eef0f3;
+    border: 1px solid #eee5eb;
 
-    border-bottom: 1px solid #eef0f3;
+    border-radius: 11px;
 
-    box-sizing: border-box;
-
-    transition:
-
-        background 0.15s ease;
-
+    background: #fcf8fb;
 }
-
-
-.class-detail-item:hover {
-
-    background: #f8fafc;
-
-}
-
 
 .class-detail-item span {
+    display: block;
 
-    color: #94a3b8;
+    margin-bottom: 7px;
+
+    color: #918b99;
 
     font-size: 10px;
 
@@ -251,131 +475,92 @@
 
     text-transform: uppercase;
 
-    letter-spacing: 0.5px;
-
+    letter-spacing: 0.7px;
 }
 
-
 .class-detail-item strong {
+    color: #393443;
 
-    color: #172033;
+    font-size: 14px;
 
-    font-size: 13px;
-
-    font-weight: 600;
+    font-weight: 700;
 
     word-break: break-word;
-
 }
 
 
 /* ========================================
-   CLASSMATES TABLE WRAPPER
+   TABLE WRAPPER
 ======================================== */
 
 .classmates-table-wrapper {
-
     width: 100%;
 
     overflow-x: auto;
 
-    border: 1px solid #e5e7eb;
+    border: 1px solid #ebe6ee;
 
-    border-radius: 10px;
-
-    background: #ffffff;
-
+    border-radius: 11px;
 }
 
 
 /* ========================================
-   CLASSMATES TABLE
+   TABLE
 ======================================== */
 
 .classmates-table {
-
     width: 100%;
 
+    min-width: 600px;
+
     border-collapse: collapse;
-
-    background: #ffffff;
-
 }
-
-
-/* ========================================
-   TABLE HEADER
-======================================== */
 
 .classmates-table thead {
-
-    background: #f8fafc;
-
+    background: #fff5fa;
 }
 
-
 .classmates-table th {
+    padding: 13px 16px;
 
-    padding: 14px 16px;
+    border-bottom: 1px solid #eadfe7;
 
-    color: #64748b;
+    color: #756d79;
 
     font-size: 10px;
 
     font-weight: 700;
 
+    letter-spacing: 0.6px;
+
     text-align: left;
 
     text-transform: uppercase;
-
-    letter-spacing: 0.4px;
-
-    white-space: nowrap;
-
-    border-bottom: 1px solid #e5e7eb;
-
 }
 
-
-/* ========================================
-   TABLE BODY
-======================================== */
-
 .classmates-table td {
+    padding: 13px 16px;
 
-    padding: 15px 16px;
+    border-bottom: 1px solid #f0ebf0;
 
-    color: #475569;
+    color: #393443;
 
     font-size: 12px;
 
     vertical-align: middle;
-
-    border-bottom: 1px solid #eef0f3;
-
 }
-
 
 .classmates-table tbody tr:last-child td {
-
     border-bottom: none;
-
 }
-
 
 .classmates-table tbody tr {
-
     transition:
-
         background 0.15s ease;
-
 }
 
-
 .classmates-table tbody tr:hover {
-
-    background: #f8fafc;
-
+    background: #fffafd;
 }
 
 
@@ -384,29 +569,27 @@
 ======================================== */
 
 .roll-number {
-
     display: inline-flex;
 
     align-items: center;
 
     justify-content: center;
 
-    min-width: 30px;
+    min-width: 42px;
 
-    padding: 5px 9px;
+    padding: 5px 8px;
 
-    background: #f1f5f9;
+    border: 1px solid #eadfe7;
 
-    color: #475569;
+    border-radius: 7px;
 
-    border: 1px solid #e2e8f0;
+    background: #f9eaf4;
 
-    border-radius: 6px;
+    color: #a32675;
 
     font-size: 11px;
 
-    font-weight: 600;
-
+    font-weight: 700;
 }
 
 
@@ -414,14 +597,42 @@
    STUDENT NAME
 ======================================== */
 
-.classmates-table strong {
+.student-name-cell {
+    display: flex;
 
-    color: #172033;
+    align-items: center;
 
-    font-size: 13px;
+    gap: 10px;
+}
+
+.student-avatar {
+    width: 31px;
+    height: 31px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 9px;
+
+    background: #f9eaf4;
+
+    color: #a32675;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.student-name-cell strong {
+    color: #393443;
+
+    font-size: 12px;
 
     font-weight: 600;
-
 }
 
 
@@ -429,155 +640,177 @@
    EMPTY STATE
 ======================================== */
 
-.student-class-card .empty-state {
+.empty-state {
+    display: flex;
 
-    padding: 50px 20px;
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 45px 20px;
+
+    border: 1px dashed #eadfe7;
+
+    border-radius: 11px;
+
+    background: #fffafd;
 
     text-align: center;
-
-    border: 1px dashed #dbe2ea;
-
-    border-radius: 10px;
-
-    background: #f8fafc;
-
 }
 
+.empty-icon {
+    width: 42px;
+    height: 42px;
 
-.student-class-card .empty-state h3 {
+    display: flex;
 
-    margin: 0 0 8px;
+    align-items: center;
+    justify-content: center;
 
-    color: #172033;
+    margin-bottom: 13px;
 
-    font-size: 18px;
+    border-radius: 11px;
+
+    background: #f9eaf4;
+
+    color: #a32675;
+
+    font-size: 11px;
+
+    font-weight: 800;
+}
+
+.empty-state h3 {
+    margin-bottom: 5px;
+
+    color: #393443;
+
+    font-size: 14px;
 
     font-weight: 700;
-
 }
 
+.empty-state p {
+    max-width: 350px;
 
-.student-class-card .empty-state p {
+    color: #918b99;
 
-    margin: 0;
+    font-size: 12px;
 
-    color: #64748b;
-
-    font-size: 13px;
-
+    line-height: 1.6;
 }
 
 
 /* ========================================
-   TABLET
+   RESPONSIVE
 ======================================== */
 
-@media (max-width: 900px) {
+@media (max-width: 950px) {
 
-    .student-class-card {
-
-        padding: 22px;
-
+    .student-class-page {
+        padding: 35px 22px 50px;
     }
-
 
     .class-details-grid {
-
         grid-template-columns:
             repeat(2, minmax(0, 1fr));
-
     }
 
 }
 
 
-/* ========================================
-   MOBILE
-======================================== */
+@media (max-width: 700px) {
 
-@media (max-width: 650px) {
-
-    .student-class-card {
-
-        padding: 20px;
-
-        border-radius: 14px;
-
+    .student-class-page {
+        padding: 28px 16px 45px;
     }
 
-
-    .student-class-card:first-of-type {
+    .class-welcome {
+        align-items: flex-start;
 
         flex-direction: column;
 
+        margin-bottom: 22px;
+    }
+
+    .class-welcome h1 {
+        font-size: 26px;
+    }
+
+    .class-overview-card {
         align-items: flex-start;
 
+        flex-direction: column;
     }
 
-
-    .student-class-card:first-of-type .status {
-
-        width: 100%;
-
-        justify-content: center;
-
+    .active-badge {
+        align-self: flex-start;
     }
 
+    .class-card {
+        padding: 19px 17px;
+    }
 
     .class-details-grid {
-
         grid-template-columns: 1fr;
 
+        gap: 9px;
     }
 
+    .class-detail-item {
+        min-height: auto;
 
-    .classmates-table-wrapper {
-
-        border-radius: 8px;
-
+        padding: 13px 14px;
     }
 
+    .class-section-header {
+        align-items: flex-start;
 
-    .classmates-table th {
-
-        padding: 12px;
-
+        flex-direction: column;
     }
 
-
-    .classmates-table td {
-
-        padding: 13px 12px;
-
+    .student-count {
+        align-self: flex-start;
     }
 
 }
 
 
-/* ========================================
-   SMALL MOBILE
-======================================== */
+@media (max-width: 450px) {
 
-@media (max-width: 400px) {
-
-    .student-class-card {
-
-        padding: 17px;
-
+    .student-class-page {
+        padding: 24px 12px 40px;
     }
 
-
-    .class-section-header h2 {
-
-        font-size: 17px;
-
+    .class-welcome h1 {
+        font-size: 24px;
     }
 
+    .class-welcome-description {
+        font-size: 13px;
+    }
 
-    .class-section-header p {
+    .class-overview-card {
+        padding: 18px;
+    }
 
-        font-size: 11px;
+    .class-overview-left {
+        align-items: flex-start;
+    }
 
+    .class-icon {
+        width: 42px;
+        height: 42px;
+    }
+
+    .class-overview-info h2 {
+        font-size: 18px;
+    }
+
+    .classmates-table {
+        min-width: 520px;
     }
 
 }
