@@ -66,6 +66,11 @@ $initial = strtoupper(
 
     <link
         rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css"
+    > 
+
+    <link
+        rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css"
     >
 
@@ -85,6 +90,8 @@ $initial = strtoupper(
 
 
 <?php require "../private/views/includes/nav.view.php"; ?>
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
 <main class="dashboard">
@@ -409,6 +416,8 @@ $initial = strtoupper(
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 
+<script src="<?= ROOT ?>/js/nav.js"></script>
+<script src="<?= ROOT ?>/js/sidebar.js"></script>
 
 </body>
 
