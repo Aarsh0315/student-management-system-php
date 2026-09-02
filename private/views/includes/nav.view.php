@@ -29,7 +29,7 @@ if ($rank === 'super_admin') {
 
 } elseif ($rank === 'teacher') {
 
-    $dashboardUrl = ROOT . '/home';
+    $dashboardUrl = ROOT . '/teacherDashboard';
     $roleName = 'Teacher';
 
 } elseif ($rank === 'student') {

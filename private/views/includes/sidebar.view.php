@@ -500,38 +500,129 @@ $currentPage = explode(
              OTHER USERS
         ================================== -->
 
-        <?php else: ?>
+        <!-- =================================
+     TEACHER
+================================== -->
+
+<?php elseif ($rank === 'teacher'): ?>
+
+    <div class="sidebar-section">
+
+        <p class="sidebar-section-title">
+            MAIN
+        </p>
+
+        <!-- DASHBOARD -->
+        <a
+            href="<?= ROOT ?>/teacherDashboard"
+            class="sidebar-link <?= $currentPage === 'home' ? 'active' : '' ?>"
+        >
+            <span class="sidebar-icon">⌂</span>
+
+            <span>
+                Dashboard
+            </span>
+        </a>
+
+        <!-- STUDENTS -->
+        <a
+            href="<?= ROOT ?>/teacherstudents"
+            class="sidebar-link <?= $currentPage === 'teacherstudents' ? 'active' : '' ?>"
+        >
+            <span class="sidebar-icon">👥</span>
+
+            <span>
+                Students
+            </span>
+        </a>
+
+        <!-- CLASSES -->
+        <a
+            href="<?= ROOT ?>/teacherclasses"
+            class="sidebar-link <?= $currentPage === 'teacherclasses' ? 'active' : '' ?>"
+        >
+            <span class="sidebar-icon">🏫</span>
+
+            <span>
+                Classes
+            </span>
+        </a>
+
+        <!-- PARENTS -->
+        <a
+            href="<?= ROOT ?>/teacherparents"
+            class="sidebar-link <?= $currentPage === 'teacherparents' ? 'active' : '' ?>"
+        >
+            <span class="sidebar-icon">👨‍👩‍👧</span>
+
+            <span>
+                Parents
+            </span>
+        </a>
+
+    </div>
 
 
-            <div class="sidebar-section">
+    <div class="sidebar-section">
 
-                <p class="sidebar-section-title">
-                    MENU
-                </p>
+        <p class="sidebar-section-title">
+            ACADEMICS
+        </p>
+
+        <!-- TESTS -->
+        <a
+            href="<?= ROOT ?>/teachertests"
+            class="sidebar-link <?= $currentPage === 'teachertests' ? 'active' : '' ?>"
+        >
+            <span class="sidebar-icon">📝</span>
+
+            <span>
+                Tests
+            </span>
+        </a>
+
+        <!-- RESULTS -->
+        <a
+            href="<?= ROOT ?>/teacherresults"
+            class="sidebar-link <?= $currentPage === 'teacherresults' ? 'active' : '' ?>"
+        >
+            <span class="sidebar-icon">📊</span>
+
+            <span>
+                Results
+            </span>
+        </a>
+
+    </div>
 
 
-                <a
-                    href="<?= ROOT ?>/home"
-                    class="sidebar-link
-                    <?= $currentPage === 'home'
-                        ? 'active'
-                        : '' ?>"
-                >
+<!-- =================================
+     OTHER USERS
+================================== -->
 
-                    <span class="sidebar-icon">
-                        ▦
-                    </span>
+<?php else: ?>
 
-                    <span>
-                        Dashboard
-                    </span>
+    <div class="sidebar-section">
 
-                </a>
+        <p class="sidebar-section-title">
+            MENU
+        </p>
 
-            </div>
+        <!-- DASHBOARD -->
+        <a
+            href="<?= ROOT ?>/teacherDashboard"
+            class="sidebar-link <?= $currentPage === 'teacherDashboard' ? 'active' : '' ?>"
+        >
+            <span class="sidebar-icon">⌂</span>
 
+            <span>
+                Dashboard
+            </span>
+        </a>
 
-        <?php endif; ?>
+    </div>
+
+<?php endif; ?>
 
 
 

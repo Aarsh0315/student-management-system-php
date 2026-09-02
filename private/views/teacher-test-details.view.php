@@ -1,17 +1,7 @@
 <?php
 
 $test = $data['test'] ?? null;
-
 $questions = $data['questions'] ?? [];
-
-$totalQuestionMarks = 0;
-
-foreach ($questions as $question) {
-
-    $totalQuestionMarks +=
-        (int) ($question->marks ?? 0);
-
-}
 
 ?>
 
@@ -27,28 +17,20 @@ foreach ($questions as $question) {
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        Test Details - My School
-    </title>
+    <title>Test Details - My School</title>
 
 
-    <!-- DASHBOARD CSS -->
+    <!-- COMMON CSS -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
-
-    <!-- NAVBAR CSS -->
-
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
-
-
-    <!-- SIDEBAR CSS -->
 
     <link
         rel="stylesheet"
@@ -64,7 +46,7 @@ foreach ($questions as $question) {
     >
 
 
-    <!-- FOOTER CSS -->
+    <!-- FOOTER -->
 
     <link
         rel="stylesheet"
@@ -77,16 +59,7 @@ foreach ($questions as $question) {
 <body>
 
 
-<!-- ========================================
-     NAVBAR
-======================================== -->
-
 <?php require "../private/views/includes/nav.view.php"; ?>
-
-
-<!-- ========================================
-     SIDEBAR
-======================================== -->
 
 <?php require "../private/views/includes/sidebar.view.php"; ?>
 
@@ -96,7 +69,7 @@ foreach ($questions as $question) {
 
     <!-- ========================================
          PAGE HEADER
-    ======================================== -->
+    ========================================= -->
 
     <section class="welcome">
 
@@ -111,7 +84,7 @@ foreach ($questions as $question) {
             </h1>
 
             <p class="welcome-text">
-                Manage your test and questions.
+                View complete test information, questions and correct answers.
             </p>
 
         </div>
@@ -120,403 +93,598 @@ foreach ($questions as $question) {
 
 
 
-    <!-- ========================================
-         TEST DETAILS CARD
-    ======================================== -->
-
-    <section class="test-details-card">
+    <?php if ($test): ?>
 
 
         <!-- ========================================
-             TEST HEADER
-        ======================================== -->
+             TEST PROFILE CARD
+        ========================================= -->
 
-        <div class="test-details-header">
+        <section class="test-profile-card">
 
-            <div>
-
-                <h2>
-
-                    <?= htmlspecialchars(
-                        $test->title ?? '-'
-                    ) ?>
-
-                </h2>
+            <div class="test-profile-top">
 
 
-                <p>
-
-                    <?= htmlspecialchars(
-                        $test->description ?? ''
-                    ) ?>
-
-                </p>
-
-            </div>
+                <div class="test-icon">
+                    T
+                </div>
 
 
-            <!-- STATUS + ACTION -->
+                <div class="test-profile-info">
 
-            <div class="test-header-actions">
-
-
-                <?php
-
-                $status = strtolower(
-                    $test->status ?? 'draft'
-                );
-
-                ?>
+                    <h2>
+                        <?= htmlspecialchars(
+                            $test->title ?? '-'
+                        ) ?>
+                    </h2>
 
 
-                <!-- STATUS -->
+                    <p>
 
-                <?php if ($status === 'active'): ?>
+                        Test ID:
 
-                    <span class="status active">
-                        Active
-                    </span>
+                        <strong>
+                            <?= htmlspecialchars(
+                                $test->test_id ?? '-'
+                            ) ?>
+                        </strong>
 
-
-                <?php elseif ($status === 'closed'): ?>
-
-                    <span class="status closed">
-                        Closed
-                    </span>
+                    </p>
 
 
-                <?php else: ?>
+                    <?php
 
-                    <span class="status draft">
-                        Draft
-                    </span>
+                    $status = strtolower(
+                        $test->status ?? 'draft'
+                    );
 
-                <?php endif; ?>
+                    ?>
 
 
+                    <?php if ($status === 'active'): ?>
 
-                <!-- PUBLISH -->
+                        <span class="status active">
+                            Active
+                        </span>
 
-                <?php if ($status === 'draft'): ?>
+                    <?php elseif ($status === 'closed'): ?>
 
-                    <a
-                        href="<?= ROOT ?>/teachertests/publish/<?= urlencode($test->test_id ?? '') ?>"
-                        class="publish-test-btn"
-                        onclick="return confirm('Are you sure you want to publish this test?');"
-                    >
-                        Publish Test
-                    </a>
+                        <span class="status closed">
+                            Closed
+                        </span>
 
-                <?php endif; ?>
+                    <?php else: ?>
+
+                        <span class="status draft">
+                            Draft
+                        </span>
+
+                    <?php endif; ?>
+
+
+                </div>
 
 
             </div>
 
-        </div>
+
+        </section>
 
 
 
         <!-- ========================================
              TEST INFORMATION
-        ======================================== -->
+        ========================================= -->
 
-        <div class="test-info-grid">
+        <section class="test-details-card">
 
 
-            <!-- CLASS -->
+            <div class="details-header">
 
-            <div class="test-info-item">
+                <h2>
+                    Test Information
+                </h2>
 
-                <span>
-                    Class
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $test->class ?? '-'
-                    ) ?>
-
-                </strong>
+                <p>
+                    Basic information about this test.
+                </p>
 
             </div>
 
 
+            <div class="details-grid">
 
-            <!-- DIVISION -->
 
-            <div class="test-info-item">
+                <div class="details-item">
 
-                <span>
-                    Division
-                </span>
+                    <span>
+                        School ID
+                    </span>
 
-                <strong>
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->school_id ?? '-'
+                        ) ?>
+                    </strong>
 
-                    <?= htmlspecialchars(
-                        $test->division ?? '-'
-                    ) ?>
+                </div>
 
-                </strong>
+
+                <div class="details-item">
+
+                    <span>
+                        Teacher ID
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->teacher_id ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="details-item">
+
+                    <span>
+                        Class
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->class ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="details-item">
+
+                    <span>
+                        Division
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->division ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="details-item">
+
+                    <span>
+                        Total Marks
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->total_marks ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="details-item">
+
+                    <span>
+                        Duration
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $test->duration ?? '-'
+                        ) ?>
+
+                        minutes
+
+                    </strong>
+
+                </div>
+
+
+                <div class="details-item">
+
+                    <span>
+                        Start Date
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->start_date ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <div class="details-item">
+
+                    <span>
+                        End Date
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->end_date ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
 
             </div>
 
 
+            <?php if (!empty($test->description)): ?>
 
-            <!-- QUESTION MARKS -->
+                <div class="description-box">
 
-            <div class="test-info-item">
+                    <span>
+                        Description
+                    </span>
 
-                <span>
-                    Question Marks
-                </span>
+                    <p>
 
-                <strong>
+                        <?= nl2br(
+                            htmlspecialchars(
+                                $test->description
+                            )
+                        ) ?>
 
-                    <?= $totalQuestionMarks ?>
+                    </p>
 
-                    marks
+                </div>
 
-                </strong>
-
-            </div>
-
-
-
-            <!-- DURATION -->
-
-            <div class="test-info-item">
-
-                <span>
-                    Duration
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $test->duration ?? '0'
-                    ) ?>
-
-                    minutes
-
-                </strong>
-
-            </div>
+            <?php endif; ?>
 
 
-        </div>
+        </section>
 
 
 
         <!-- ========================================
-             QUESTIONS SECTION
-        ======================================== -->
+             QUESTIONS
+        ========================================= -->
 
-        <div class="questions-section">
+        <section class="questions-card">
 
-
-            <!-- QUESTIONS HEADER -->
 
             <div class="questions-header">
 
                 <div>
 
                     <h2>
-                        Questions
+                        Questions & Answers
                     </h2>
 
                     <p>
 
                         <?= count($questions) ?>
 
-                        question(s)
+                        question(s) in this test.
 
                     </p>
 
                 </div>
 
 
-                <!-- ADD QUESTION -->
+                <div class="test-header-actions">
 
-                <a
-                    href="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id ?? '') ?>"
-                    class="add-question-btn"
-                >
-                    + Add Question
-                </a>
+                    <?php if ($status === 'draft'): ?>
+
+                        <a
+                            href="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id ?? '') ?>"
+                            class="add-question-btn"
+                        >
+                            + Add Question
+                        </a>
+
+                    <?php endif; ?>
+
+                </div>
+
 
             </div>
 
 
 
-            <!-- ========================================
-                 QUESTIONS
-            ======================================== -->
-
             <?php if (!empty($questions)): ?>
 
 
-                <?php foreach (
-                    $questions as $index => $question
-                ): ?>
+                <div class="questions-list">
 
 
-                    <div class="question-card">
+                    <?php
+
+                    $questionNumber = 1;
+
+                    foreach ($questions as $question):
+
+                    ?>
 
 
-                        <!-- QUESTION NUMBER -->
+                        <!-- ========================================
+                             QUESTION CARD
+                        ========================================= -->
 
-                        <div class="question-number">
-
-                            Question
-                            <?= $index + 1 ?>
-
-                        </div>
+                        <div class="question-card">
 
 
+                            <div class="question-top">
 
-                        <!-- QUESTION -->
+                                <span class="question-number">
 
-                        <h3>
+                                    Question
+                                    <?= $questionNumber ?>
 
-                            <?= htmlspecialchars(
-                                $question->question
-                                ?? '-'
-                            ) ?>
-
-                        </h3>
+                                </span>
 
 
-
-                        <!-- MCQ OPTIONS -->
-
-                        <?php if (
-                            ($question->question_type ?? '')
-                            === 'mcq'
-                        ): ?>
-
-
-                            <div class="options">
-
-
-                                <div>
-
-                                    A.
+                                <span class="question-marks">
 
                                     <?= htmlspecialchars(
-                                        $question->option_a
-                                        ?? '-'
+                                        $question->marks ?? '0'
                                     ) ?>
 
-                                </div>
+                                    marks
 
-
-                                <div>
-
-                                    B.
-
-                                    <?= htmlspecialchars(
-                                        $question->option_b
-                                        ?? '-'
-                                    ) ?>
-
-                                </div>
-
-
-                                <div>
-
-                                    C.
-
-                                    <?= htmlspecialchars(
-                                        $question->option_c
-                                        ?? '-'
-                                    ) ?>
-
-                                </div>
-
-
-                                <div>
-
-                                    D.
-
-                                    <?= htmlspecialchars(
-                                        $question->option_d
-                                        ?? '-'
-                                    ) ?>
-
-                                </div>
-
+                                </span>
 
                             </div>
 
 
-                        <?php endif; ?>
+                            <!-- QUESTION -->
 
-
-
-                        <!-- QUESTION FOOTER -->
-
-                        <div class="question-footer">
-
-
-                            <span>
-
-                                Type:
+                            <h3>
 
                                 <?= htmlspecialchars(
-                                    strtoupper(
-                                        $question->question_type
-                                        ?? '-'
-                                    )
+                                    $question->question ?? '-'
                                 ) ?>
 
-                            </span>
+                            </h3>
 
 
-                            <strong>
 
-                                <?= htmlspecialchars(
-                                    $question->marks ?? '0'
-                                ) ?>
+                            <!-- ====================================
+                                 MCQ OPTIONS
+                            ===================================== -->
 
-                                marks
+                            <?php if (
+                                strtolower(
+                                    $question->question_type ?? ''
+                                ) === 'mcq'
+                            ): ?>
 
-                            </strong>
+
+                                <div class="options">
+
+
+                                    <div
+                                        class="option
+                                        <?= strtoupper(
+                                            $question->correct_answer ?? ''
+                                        ) === 'A'
+                                            ? 'correct-option'
+                                            : ''
+                                        ?>"
+                                    >
+
+                                        <strong>
+                                            A
+                                        </strong>
+
+                                        <span>
+
+                                            <?= htmlspecialchars(
+                                                $question->option_a ?? '-'
+                                            ) ?>
+
+                                        </span>
+
+
+                                        <?php if (
+                                            strtoupper(
+                                                $question->correct_answer ?? ''
+                                            ) === 'A'
+                                        ): ?>
+
+                                            <span class="answer-badge">
+                                                Correct
+                                            </span>
+
+                                        <?php endif; ?>
+
+                                    </div>
+
+
+
+                                    <div
+                                        class="option
+                                        <?= strtoupper(
+                                            $question->correct_answer ?? ''
+                                        ) === 'B'
+                                            ? 'correct-option'
+                                            : ''
+                                        ?>"
+                                    >
+
+                                        <strong>
+                                            B
+                                        </strong>
+
+                                        <span>
+
+                                            <?= htmlspecialchars(
+                                                $question->option_b ?? '-'
+                                            ) ?>
+
+                                        </span>
+
+
+                                        <?php if (
+                                            strtoupper(
+                                                $question->correct_answer ?? ''
+                                            ) === 'B'
+                                        ): ?>
+
+                                            <span class="answer-badge">
+                                                Correct
+                                            </span>
+
+                                        <?php endif; ?>
+
+                                    </div>
+
+
+
+                                    <div
+                                        class="option
+                                        <?= strtoupper(
+                                            $question->correct_answer ?? ''
+                                        ) === 'C'
+                                            ? 'correct-option'
+                                            : ''
+                                        ?>"
+                                    >
+
+                                        <strong>
+                                            C
+                                        </strong>
+
+                                        <span>
+
+                                            <?= htmlspecialchars(
+                                                $question->option_c ?? '-'
+                                            ) ?>
+
+                                        </span>
+
+
+                                        <?php if (
+                                            strtoupper(
+                                                $question->correct_answer ?? ''
+                                            ) === 'C'
+                                        ): ?>
+
+                                            <span class="answer-badge">
+                                                Correct
+                                            </span>
+
+                                        <?php endif; ?>
+
+                                    </div>
+
+
+
+                                    <div
+                                        class="option
+                                        <?= strtoupper(
+                                            $question->correct_answer ?? ''
+                                        ) === 'D'
+                                            ? 'correct-option'
+                                            : ''
+                                        ?>"
+                                    >
+
+                                        <strong>
+                                            D
+                                        </strong>
+
+                                        <span>
+
+                                            <?= htmlspecialchars(
+                                                $question->option_d ?? '-'
+                                            ) ?>
+
+                                        </span>
+
+
+                                        <?php if (
+                                            strtoupper(
+                                                $question->correct_answer ?? ''
+                                            ) === 'D'
+                                        ): ?>
+
+                                            <span class="answer-badge">
+                                                Correct
+                                            </span>
+
+                                        <?php endif; ?>
+
+                                    </div>
+
+
+                                </div>
+
+
+
+                                <!-- ====================================
+                                     CORRECT ANSWER
+                                ===================================== -->
+
+                                <div class="correct-answer">
+
+                                    <span class="answer-label">
+                                        Correct Answer
+                                    </span>
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            strtoupper(
+                                                $question->correct_answer ?? '-'
+                                            )
+                                        ) ?>
+
+                                    </strong>
+
+                                </div>
+
+
+                            <?php endif; ?>
 
 
                         </div>
 
 
-                    </div>
+                    <?php
+
+                    $questionNumber++;
+
+                    endforeach;
+
+                    ?>
 
 
-                <?php endforeach; ?>
+                </div>
 
 
             <?php else: ?>
 
 
-                <!-- ========================================
-                     EMPTY QUESTIONS
-                ======================================== -->
-
                 <div class="empty-state">
 
                     <h3>
-                        No Questions Yet
+                        No Questions Found
                     </h3>
 
                     <p>
-                        Add questions to this test
-                        before publishing it.
+                        This test does not have any questions yet.
                     </p>
 
 
                     <a
                         href="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id ?? '') ?>"
-                        class="add-question-btn"
+                        class="empty-create-btn"
                     >
-                        + Add First Question
+                        Add First Question
                     </a>
 
                 </div>
@@ -525,45 +693,74 @@ foreach ($questions as $question) {
             <?php endif; ?>
 
 
+        </section>
+
+
+
+        <!-- ========================================
+             ACTIONS
+        ========================================= -->
+
+        <div class="test-actions">
+
+
+            <?php if ($status === 'draft' && !empty($questions)): ?>
+
+                <a
+                    href="<?= ROOT ?>/teachertests/publish/<?= urlencode($test->test_id ?? '') ?>"
+                    class="publish-test-btn"
+                    onclick="return confirm('Are you sure you want to publish this test?')"
+                >
+                    Publish Test
+                </a>
+
+            <?php endif; ?>
+
+
+            <a
+                href="<?= ROOT ?>/teachertests"
+                class="back-btn"
+            >
+                ← Back to Tests
+            </a>
+
+
         </div>
 
 
-    </section>
+    <?php else: ?>
 
 
+        <section class="empty-state">
 
-    <!-- ========================================
-         BACK BUTTON
-    ======================================== -->
+            <h3>
+                Test Not Found
+            </h3>
 
-    <div class="test-back-actions">
+            <p>
+                The requested test could not be found.
+            </p>
 
-        <a
-            href="<?= ROOT ?>/teachertests"
-            class="back-btn"
-        >
-            ← Back to Tests
-        </a>
+            <a
+                href="<?= ROOT ?>/teachertests"
+                class="back-btn"
+            >
+                ← Back to Tests
+            </a>
 
-    </div>
+        </section>
+
+
+    <?php endif; ?>
 
 
 </main>
 
 
-<!-- ========================================
-     FOOTER
-======================================== -->
-
 <?php require "../private/views/includes/footer.view.php"; ?>
 
 
-<!-- ========================================
-     JAVASCRIPT
-======================================== -->
-
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
-
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
