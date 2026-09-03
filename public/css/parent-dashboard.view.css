@@ -1,5 +1,5 @@
 /* =====================================================
-   MY SCHOOL - SUPER ADMIN DASHBOARD
+   MY SCHOOL - PARENT DASHBOARD
 ===================================================== */
 
 
@@ -38,14 +38,14 @@ body {
    PAGE
 ===================================================== */
 
-.superadmin-page {
+.parent-page {
     width: 100%;
 
     padding: 42px 30px 60px;
 }
 
 
-.superadmin-container {
+.parent-container {
     width: 100%;
 
     max-width: 1250px;
@@ -429,6 +429,8 @@ body {
 
     border-bottom: 1px solid #f2edf1;
 
+    text-decoration: none;
+
     transition:
         background 0.15s ease;
 }
@@ -512,7 +514,7 @@ body {
 
 
 /* =====================================================
-   ACTIVITY TIME
+   ACTIVITY ARROW
 ===================================================== */
 
 .activity-item time {
@@ -521,6 +523,17 @@ body {
     font-size: 9px;
 
     white-space: nowrap;
+
+    transition:
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.activity-item:hover time {
+    color: #a32675;
+
+    transform: translateX(3px);
 }
 
 
@@ -769,21 +782,6 @@ body {
 }
 
 
-.summary-item a {
-    color: #a32675;
-
-    text-decoration: none;
-
-    transition:
-        color 0.2s ease;
-}
-
-
-.summary-item a:hover {
-    color: #6f1760;
-}
-
-
 /* =====================================================
    SUMMARY DIVIDER
 ===================================================== */
@@ -802,8 +800,7 @@ body {
 ===================================================== */
 
 .kpi-card:focus-visible,
-.management-item:focus-visible,
-.summary-item a:focus-visible {
+.management-item:focus-visible {
     outline:
         3px solid
         rgba(163, 38, 117, 0.15);
@@ -812,13 +809,14 @@ body {
 }
 
 
+
 /* =====================================================
    TABLET
 ===================================================== */
 
 @media (max-width: 950px) {
 
-    .superadmin-page {
+    .parent-page {
         padding:
             35px 20px 50px;
     }
@@ -844,7 +842,7 @@ body {
 
 @media (max-width: 650px) {
 
-    .superadmin-page {
+    .parent-page {
         padding:
             28px 15px 45px;
     }
@@ -939,7 +937,7 @@ body {
 
 @media (max-width: 400px) {
 
-    .superadmin-page {
+    .parent-page {
         padding:
             22px 12px 35px;
     }
@@ -982,6 +980,4 @@ body {
         font-size: 14px;
     }
 
-} 
-
-
+}

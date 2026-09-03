@@ -336,33 +336,6 @@ $initial = strtoupper(
                         </div>
 
 
-                        <!-- CLASSES -->
-
-                        <a
-                            href="<?= ROOT ?>/classes"
-                            class="search-item"
-                            data-search="classes class division academics"
-                        >
-
-                            <span class="search-item-icon">
-                                🏫
-                            </span>
-
-                            <span class="search-item-content">
-
-                                <strong>
-                                    Classes
-                                </strong>
-
-                                <small>
-                                    Manage classes and divisions
-                                </small>
-
-                            </span>
-
-                        </a>
-
-
 
                         <!-- TESTS -->
 
@@ -1070,6 +1043,18 @@ $initial = strtoupper(
         ===================================== -->
 
         <div class="navbar-right">
+
+        <!-- THEME TOGGLE -->
+        <button
+            type="button"
+            class="theme-toggle"
+            id="themeToggle"
+            aria-label="Switch theme"
+            title="Switch theme"
+        >
+            <span class="theme-icon" id="themeIcon">☾</span>
+            <span class="theme-text" id="themeText">Dark</span>
+        </button>
 
 
             <!-- =================================

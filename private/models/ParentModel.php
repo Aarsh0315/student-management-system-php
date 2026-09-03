@@ -363,4 +363,73 @@ class ParentModel extends Model
 
         return $result[0]->total ?? 0;
     }
+
+    /*
+========================================
+GET PARENT DASHBOARD CHILDREN
+========================================
+*/
+
+public function getDashboardChildren($parent_id)
+{
+    $query = "
+        SELECT
+            s.student_id,
+            s.user_id,
+            s.parent_id,
+            s.school_id,
+            s.admission_number,
+            s.class,
+            s.division,
+            s.roll_number,
+            s.status,
+
+            u.firstname,
+            u.lastname,
+            u.email
+
+        FROM students s
+
+        INNER JOIN users u
+            ON s.user_id = u.user_id
+
+        WHERE s.parent_id = :parent_id
+
+        ORDER BY s.student_id DESC
+    ";
+
+    return $this->query(
+        $query,
+        [
+            'parent_id' => $parent_id
+        ]
+    );
+}
+
+
+/*
+========================================
+GET CHILDREN COUNT
+========================================
+*/
+
+public function getChildrenCount($parent_id)
+{
+    $query = "
+        SELECT COUNT(*) AS total
+
+        FROM students
+
+        WHERE parent_id = :parent_id
+    ";
+
+    $result = $this->query(
+        $query,
+        [
+            'parent_id' => $parent_id
+        ]
+    );
+
+    return (int) ($result[0]->total ?? 0);
+}
 }

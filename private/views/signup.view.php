@@ -412,10 +412,6 @@ $error = $data['error'] ?? '';
                                     Teacher
                                 </option>
 
-                                <option value="admin">
-                                    Staff
-                                </option>
-
                                 <option value="parent">
                                     Parent
                                 </option>

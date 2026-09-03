@@ -48,7 +48,6 @@ $error = $data['error'] ?? '';
         </div>
 
 
-
         <!-- TITLE -->
 
         <div class="login-heading">
@@ -64,7 +63,6 @@ $error = $data['error'] ?? '';
         </div>
 
 
-
         <!-- ERROR -->
 
         <?php if (!empty($error)): ?>
@@ -78,7 +76,6 @@ $error = $data['error'] ?? '';
             </div>
 
         <?php endif; ?>
-
 
 
         <!-- =====================================
@@ -111,7 +108,6 @@ $error = $data['error'] ?? '';
             </div>
 
 
-
             <!-- PASSWORD -->
 
             <div class="input-group">
@@ -141,11 +137,9 @@ $error = $data['error'] ?? '';
             </div>
 
 
-
             <!-- OPTIONS -->
 
             <div class="login-options">
-
 
                 <label class="remember">
 
@@ -168,9 +162,7 @@ $error = $data['error'] ?? '';
                     Forgot Password?
                 </a>
 
-
             </div>
-
 
 
             <!-- LOGIN BUTTON -->
@@ -192,7 +184,6 @@ $error = $data['error'] ?? '';
 
 
         </form>
-
 
 
         <!-- =====================================
@@ -218,6 +209,24 @@ $error = $data['error'] ?? '';
 </div>
 
 
+<!-- =====================================
+     THEME TOGGLE
+===================================== -->
+
+<button
+    type="button"
+    class="login-theme-toggle"
+    id="loginThemeToggle"
+    aria-label="Switch theme"
+    title="Switch to dark mode"
+>
+    <span id="loginThemeIcon">☾</span>
+
+    <span id="loginThemeText">
+        Dark
+    </span>
+</button>
+
 
 <script>
 
@@ -240,14 +249,136 @@ function togglePassword()
 
         button.innerHTML = "🙈";
 
+        button.setAttribute(
+            "aria-label",
+            "Hide password"
+        );
+
     } else {
 
         password.type = "password";
 
         button.innerHTML = "👁";
 
+        button.setAttribute(
+            "aria-label",
+            "Show password"
+        );
+
     }
 }
+
+
+/* =====================================
+   LOGIN THEME TOGGLE
+===================================== */
+
+const loginThemeToggle =
+    document.getElementById("loginThemeToggle");
+
+const loginThemeIcon =
+    document.getElementById("loginThemeIcon");
+
+const loginThemeText =
+    document.getElementById("loginThemeText");
+
+
+function applyLoginTheme(theme)
+{
+    document.documentElement.setAttribute(
+        "data-theme",
+        theme
+    );
+
+
+    if (theme === "dark") {
+
+        loginThemeIcon.textContent = "☀";
+
+        loginThemeText.textContent = "Light";
+
+        loginThemeToggle.setAttribute(
+            "aria-label",
+            "Switch to light mode"
+        );
+
+        loginThemeToggle.setAttribute(
+            "title",
+            "Switch to light mode"
+        );
+
+    } else {
+
+        loginThemeIcon.textContent = "☾";
+
+        loginThemeText.textContent = "Dark";
+
+        loginThemeToggle.setAttribute(
+            "aria-label",
+            "Switch to dark mode"
+        );
+
+        loginThemeToggle.setAttribute(
+            "title",
+            "Switch to dark mode"
+        );
+
+    }
+}
+
+
+/* =====================================
+   LOAD SAVED THEME
+===================================== */
+
+const savedLoginTheme =
+    localStorage.getItem("mySchoolLoginTheme");
+
+
+if (
+    savedLoginTheme === "dark" ||
+    savedLoginTheme === "light"
+) {
+
+    applyLoginTheme(savedLoginTheme);
+
+} else {
+
+    applyLoginTheme("light");
+
+}
+
+
+/* =====================================
+   THEME BUTTON
+===================================== */
+
+loginThemeToggle.addEventListener(
+    "click",
+    function()
+    {
+
+        const currentTheme =
+            document.documentElement
+                .getAttribute("data-theme");
+
+
+        const newTheme =
+            currentTheme === "dark"
+                ? "light"
+                : "dark";
+
+
+        localStorage.setItem(
+            "mySchoolLoginTheme",
+            newTheme
+        );
+
+
+        applyLoginTheme(newTheme);
+
+    }
+);
 
 </script>
 

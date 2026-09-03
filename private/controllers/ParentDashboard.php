@@ -55,7 +55,25 @@ class ParentDashboard extends Controller
 
         /*
         ========================================
-        CHECK SCHOOL
+        GET PARENT USER ID
+        ========================================
+        */
+
+        $parent_id =
+            $_SESSION['user_id'] ?? null;
+
+
+        if (!$parent_id) {
+
+            die(
+                "Parent user ID not found."
+            );
+        }
+
+
+        /*
+        ========================================
+        GET SCHOOL
         ========================================
         */
 
@@ -73,11 +91,74 @@ class ParentDashboard extends Controller
 
         /*
         ========================================
-        TEMPORARY CHILDREN DATA
+        LOAD PARENT MODEL
         ========================================
         */
 
-        $children = [];
+        $parentModel =
+            $this->model('ParentModel');
+
+
+        /*
+        ========================================
+        GET PARENT DETAILS
+        ========================================
+        */
+
+        $parent =
+            $parentModel->getParentByUserId(
+                $parent_id
+            );
+
+
+        if (!$parent) {
+
+            die(
+                "Parent account not found."
+            );
+        }
+
+
+        /*
+        ========================================
+        GET CHILDREN
+        ========================================
+        */
+
+        $children =
+            $parentModel->getDashboardChildren(
+                $parent_id
+            );
+
+
+        /*
+        ========================================
+        CHILDREN COUNT
+        ========================================
+        */
+
+        $childCount =
+            $parentModel->getChildrenCount(
+                $parent_id
+            );
+
+
+        /*
+        ========================================
+        TEST COUNT
+        ========================================
+        */
+
+        $testCount = 0;
+
+
+        /*
+        ========================================
+        RESULT COUNT
+        ========================================
+        */
+
+        $resultCount = 0;
 
 
         /*
@@ -89,7 +170,11 @@ class ParentDashboard extends Controller
         $this->view(
             'parent-dashboard',
             [
-                'children' => $children
+                'parent'      => $parent,
+                'children'    => $children,
+                'childCount'  => $childCount,
+                'testCount'   => $testCount,
+                'resultCount' => $resultCount
             ]
         );
     }

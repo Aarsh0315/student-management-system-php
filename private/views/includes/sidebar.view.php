@@ -26,6 +26,7 @@ $currentPage = explode(
 
 ?>
 
+
 <!-- ========================================
      SIDEBAR OVERLAY
 ======================================== -->
@@ -103,6 +104,8 @@ $currentPage = explode(
         <?php if ($rank === 'super_admin'): ?>
 
 
+            <!-- MAIN -->
+
             <div class="sidebar-section">
 
                 <p class="sidebar-section-title">
@@ -121,7 +124,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ▦
+                        DB
                     </span>
 
                     <span>
@@ -142,7 +145,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                       🏫
+                        SC
                     </span>
 
                     <span>
@@ -163,7 +166,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        👥
+                        US
                     </span>
 
                     <span>
@@ -175,6 +178,8 @@ $currentPage = explode(
             </div>
 
 
+
+            <!-- PEOPLE -->
 
             <div class="sidebar-section">
 
@@ -194,7 +199,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        🎓
+                        ST
                     </span>
 
                     <span>
@@ -215,7 +220,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        👨‍🏫
+                        SF
                     </span>
 
                     <span>
@@ -236,7 +241,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        👨‍👩‍👧
+                        PR
                     </span>
 
                     <span>
@@ -248,6 +253,8 @@ $currentPage = explode(
             </div>
 
 
+
+            <!-- ACADEMICS -->
 
             <div class="sidebar-section">
 
@@ -267,7 +274,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        📝
+                        TS
                     </span>
 
                     <span>
@@ -288,7 +295,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        📊
+                        RS
                     </span>
 
                     <span>
@@ -309,7 +316,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        🧑‍💼
+                        SA
                     </span>
 
                     <span>
@@ -329,6 +336,8 @@ $currentPage = explode(
         <?php elseif ($rank === 'admin'): ?>
 
 
+            <!-- MAIN -->
+
             <div class="sidebar-section">
 
                 <p class="sidebar-section-title">
@@ -347,7 +356,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        ▦
+                        DB
                     </span>
 
                     <span>
@@ -368,7 +377,7 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-                        🎓
+                        ST
                     </span>
 
                     <span>
@@ -389,8 +398,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-    👨‍🏫
-</span>
+                        SF
+                    </span>
 
                     <span>
                         Teachers
@@ -410,8 +419,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-    🏫
-</span>
+                        CL
+                    </span>
 
                     <span>
                         Classes
@@ -431,8 +440,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-    👨‍👩‍👧
-</span>
+                        PR
+                    </span>
 
                     <span>
                         Parents
@@ -443,6 +452,8 @@ $currentPage = explode(
             </div>
 
 
+
+            <!-- ACADEMICS -->
 
             <div class="sidebar-section">
 
@@ -462,8 +473,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-    📝
-</span>
+                        TS
+                    </span>
 
                     <span>
                         Tests
@@ -483,8 +494,8 @@ $currentPage = explode(
                 >
 
                     <span class="sidebar-icon">
-    📊
-</span>
+                        RS
+                    </span>
 
                     <span>
                         Results
@@ -494,217 +505,377 @@ $currentPage = explode(
 
             </div>
 
-            <?php elseif ($rank === 'student'): ?>
-
-<div class="sidebar-section">
-
-    <p class="sidebar-section-title">
-        MAIN
-    </p>
-
-
-    <!-- DASHBOARD -->
-
-    <a
-        href="<?= ROOT ?>/studentDashboard"
-        class="sidebar-link <?= $currentPage === 'studentDashboard' ? 'active' : '' ?>"
-    >
-
-        <span class="sidebar-icon">
-            ▦
-        </span>
-
-        <span>
-            Dashboard
-        </span>
-
-    </a>
-
-
-    <!-- TESTS -->
-
-    <a
-        href="<?= ROOT ?>/studenttests"
-        class="sidebar-link <?= $currentPage === 'studenttests' ? 'active' : '' ?>"
-    >
-
-        <span class="sidebar-icon">
-            📝
-        </span>
-
-        <span>
-            Tests
-        </span>
-
-    </a>
-
-
-    <!-- MY CLASS -->
-
-    <a
-        href="<?= ROOT ?>/studentclasses"
-        class="sidebar-link <?= $currentPage === 'studentclasses' ? 'active' : '' ?>"
-    >
-
-        <span class="sidebar-icon">
-            🏫
-        </span>
-
-        <span>
-            My Class
-        </span>
-
-    </a>
-
-
-    <!-- RESULTS -->
-
-    <a
-        href="<?= ROOT ?>/studentresults"
-        class="sidebar-link <?= $currentPage === 'studentresults' ? 'active' : '' ?>"
-    >
-
-        <span class="sidebar-icon">
-           📊
-        </span>
-
-        <span>
-            Results
-        </span>
-
-    </a>
-
-</div>
-
 
 
         <!-- =================================
-             OTHER USERS
+             STUDENT
         ================================== -->
 
+        <?php elseif ($rank === 'student'): ?>
+
+
+            <div class="sidebar-section">
+
+                <p class="sidebar-section-title">
+                    MAIN
+                </p>
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="<?= ROOT ?>/studentDashboard"
+                    class="sidebar-link
+                    <?= $currentPage === 'studentDashboard'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        DB
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <!-- MY CLASS -->
+
+                <a
+                    href="<?= ROOT ?>/studentclasses"
+                    class="sidebar-link
+                    <?= $currentPage === 'studentclasses'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        CL
+                    </span>
+
+                    <span>
+                        My Class
+                    </span>
+
+                </a>
+
+
+                <!-- TESTS -->
+
+                <a
+                    href="<?= ROOT ?>/studenttests"
+                    class="sidebar-link
+                    <?= $currentPage === 'studenttests'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        TS
+                    </span>
+
+                    <span>
+                        Tests
+                    </span>
+
+                </a>
+
+
+                <!-- RESULTS -->
+
+                <a
+                    href="<?= ROOT ?>/studentresults"
+                    class="sidebar-link
+                    <?= $currentPage === 'studentresults'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        RS
+                    </span>
+
+                    <span>
+                        Results
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
         <!-- =================================
-     TEACHER
-================================== -->
+             TEACHER
+        ================================== -->
 
-<?php elseif ($rank === 'teacher'): ?>
-
-    <div class="sidebar-section">
-
-        <p class="sidebar-section-title">
-            MAIN
-        </p>
-
-        <!-- DASHBOARD -->
-        <a
-            href="<?= ROOT ?>/teacherDashboard"
-            class="sidebar-link <?= $currentPage === 'home' ? 'active' : '' ?>"
-        >
-            <span class="sidebar-icon">⌂</span>
-
-            <span>
-                Dashboard
-            </span>
-        </a>
-
-        <!-- STUDENTS -->
-        <a
-            href="<?= ROOT ?>/teacherstudents"
-            class="sidebar-link <?= $currentPage === 'teacherstudents' ? 'active' : '' ?>"
-        >
-            <span class="sidebar-icon">👥</span>
-
-            <span>
-                Students
-            </span>
-        </a>
-
-        <!-- CLASSES -->
-        <a
-            href="<?= ROOT ?>/teacherclasses"
-            class="sidebar-link <?= $currentPage === 'teacherclasses' ? 'active' : '' ?>"
-        >
-            <span class="sidebar-icon">🏫</span>
-
-            <span>
-                Classes
-            </span>
-        </a>
-
-        <!-- PARENTS -->
-        <a
-            href="<?= ROOT ?>/teacherparents"
-            class="sidebar-link <?= $currentPage === 'teacherparents' ? 'active' : '' ?>"
-        >
-            <span class="sidebar-icon">👨‍👩‍👧</span>
-
-            <span>
-                Parents
-            </span>
-        </a>
-
-    </div>
+        <?php elseif ($rank === 'teacher'): ?>
 
 
-    <div class="sidebar-section">
+            <!-- MAIN -->
 
-        <p class="sidebar-section-title">
-            ACADEMICS
-        </p>
+            <div class="sidebar-section">
 
-        <!-- TESTS -->
-        <a
-            href="<?= ROOT ?>/teachertests"
-            class="sidebar-link <?= $currentPage === 'teachertests' ? 'active' : '' ?>"
-        >
-            <span class="sidebar-icon">📝</span>
-
-            <span>
-                Tests
-            </span>
-        </a>
-
-        <!-- RESULTS -->
-        <a
-            href="<?= ROOT ?>/teacherresults"
-            class="sidebar-link <?= $currentPage === 'teacherresults' ? 'active' : '' ?>"
-        >
-            <span class="sidebar-icon">📊</span>
-
-            <span>
-                Results
-            </span>
-        </a>
-
-    </div>
+                <p class="sidebar-section-title">
+                    MAIN
+                </p>
 
 
-<!-- =================================
-     OTHER USERS
-================================== -->
+                <!-- DASHBOARD -->
 
-<?php else: ?>
+                <a
+                    href="<?= ROOT ?>/teacherDashboard"
+                    class="sidebar-link
+                    <?= $currentPage === 'teacherDashboard'
+                        ? 'active'
+                        : '' ?>"
+                >
 
-    <div class="sidebar-section">
+                    <span class="sidebar-icon">
+                        DB
+                    </span>
 
-        <p class="sidebar-section-title">
-            MENU
-        </p>
+                    <span>
+                        Dashboard
+                    </span>
 
-        <!-- DASHBOARD -->
-        <a
-            href="<?= ROOT ?>/teacherDashboard"
-            class="sidebar-link <?= $currentPage === 'teacherDashboard' ? 'active' : '' ?>"
-        >
-            <span class="sidebar-icon">⌂</span>
+                </a>
 
-            <span>
-                Dashboard
-            </span>
-        </a>
 
-    </div>
+                <!-- STUDENTS -->
 
-<?php endif; ?>
+                <a
+                    href="<?= ROOT ?>/teacherstudents"
+                    class="sidebar-link
+                    <?= $currentPage === 'teacherstudents'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        ST
+                    </span>
+
+                    <span>
+                        Students
+                    </span>
+
+                </a>
+
+
+                <!-- CLASSES -->
+
+                <a
+                    href="<?= ROOT ?>/teacherclasses"
+                    class="sidebar-link
+                    <?= $currentPage === 'teacherclasses'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        CL
+                    </span>
+
+                    <span>
+                        Classes
+                    </span>
+
+                </a>
+
+
+                <!-- PARENTS -->
+
+                <a
+                    href="<?= ROOT ?>/teacherparents"
+                    class="sidebar-link
+                    <?= $currentPage === 'teacherparents'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        PR
+                    </span>
+
+                    <span>
+                        Parents
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+            <!-- ACADEMICS -->
+
+            <div class="sidebar-section">
+
+                <p class="sidebar-section-title">
+                    ACADEMICS
+                </p>
+
+
+                <!-- TESTS -->
+
+                <a
+                    href="<?= ROOT ?>/teachertests"
+                    class="sidebar-link
+                    <?= $currentPage === 'teachertests'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        TS
+                    </span>
+
+                    <span>
+                        Tests
+                    </span>
+
+                </a>
+
+
+                <!-- RESULTS -->
+
+                <a
+                    href="<?= ROOT ?>/teacherresults"
+                    class="sidebar-link
+                    <?= $currentPage === 'teacherresults'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        RS
+                    </span>
+
+                    <span>
+                        Results
+                    </span>
+
+                </a>
+
+            </div>
+
+
+
+        <!-- =================================
+             PARENT
+        ================================== -->
+
+        <?php elseif ($rank === 'parent'): ?>
+
+
+            <!-- MAIN -->
+
+            <div class="sidebar-section">
+
+                <p class="sidebar-section-title">
+                    MAIN
+                </p>
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="<?= ROOT ?>/parentDashboard"
+                    class="sidebar-link
+                    <?= $currentPage === 'parentDashboard'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        DB
+                    </span>
+
+                    <span>
+                        Dashboard
+                    </span>
+
+                </a>
+
+
+                <!-- MY CHILDREN -->
+
+                <a
+                    href="<?= ROOT ?>/parentchildren"
+                    class="sidebar-link
+                    <?= $currentPage === 'parentchildren'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        ST
+                    </span>
+
+                    <span>
+                        My Children
+                    </span>
+
+                </a>
+
+            <!-- ACADEMICS -->
+
+            <div class="sidebar-section">
+
+                <p class="sidebar-section-title">
+                    ACADEMICS
+                </p>
+
+
+                <!-- TESTS -->
+
+                <a
+                    href="<?= ROOT ?>/parenttests"
+                    class="sidebar-link
+                    <?= $currentPage === 'parenttests'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        TS
+                    </span>
+
+                    <span>
+                        Tests
+                    </span>
+
+                </a>
+
+
+                <!-- RESULTS -->
+
+                <a
+                    href="<?= ROOT ?>/parentresults"
+                    class="sidebar-link
+                    <?= $currentPage === 'parentresults'
+                        ? 'active'
+                        : '' ?>"
+                >
+
+                    <span class="sidebar-icon">
+                        RS
+                    </span>
+
+                    <span>
+                        Results
+                    </span>
+
+                </a>
+
+            </div>
+
+
+        <?php endif; ?>
 
 
 
@@ -730,7 +901,7 @@ $currentPage = explode(
             >
 
                 <span class="sidebar-icon">
-                    ◉
+                    PF
                 </span>
 
                 <span>
@@ -748,7 +919,7 @@ $currentPage = explode(
             >
 
                 <span class="sidebar-icon">
-                    ↪
+                    LO
                 </span>
 
                 <span>

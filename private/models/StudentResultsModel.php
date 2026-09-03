@@ -143,4 +143,132 @@ public function getStudentResultCount($student_id)
     return (int) ($result[0]->total ?? 0);
 }
 
+/*
+========================================
+GET PARENT CHILDREN RESULTS
+========================================
+*/
+
+public function getParentChildrenResults($parent_id, $school_id)
+{
+    $query = "SELECT
+                r.result_id,
+                r.test_id,
+                r.student_id,
+                r.total_marks,
+                r.obtained_marks,
+                r.percentage,
+                r.status,
+                r.created_at,
+
+                s.school_id,
+                s.class,
+                s.division,
+                s.roll_number,
+                s.admission_number,
+
+                u.firstname,
+                u.lastname,
+
+                t.title,
+                t.duration
+
+              FROM results r
+
+              INNER JOIN students s
+              ON r.student_id = s.student_id
+
+              INNER JOIN users u
+              ON s.user_id = u.user_id
+
+              INNER JOIN tests t
+              ON r.test_id = t.test_id
+
+              WHERE s.parent_id = :parent_id
+
+              AND s.school_id = :school_id
+
+              ORDER BY r.created_at DESC";
+
+
+    return $this->query(
+        $query,
+        [
+            'parent_id' => $parent_id,
+            'school_id' => $school_id
+        ]
+    );
+}
+
+
+/*
+========================================
+GET PARENT RESULT DETAILS
+========================================
+*/
+
+public function getParentResultDetails(
+    $result_id,
+    $parent_id,
+    $school_id
+) {
+
+    $query = "SELECT
+
+                r.result_id,
+                r.test_id,
+                r.student_id,
+                r.total_marks,
+                r.obtained_marks,
+                r.percentage,
+                r.status,
+                r.created_at,
+
+                s.school_id,
+                s.class,
+                s.division,
+                s.roll_number,
+                s.admission_number,
+
+                u.firstname,
+                u.lastname,
+
+                t.title,
+                t.description,
+                t.duration,
+                t.start_date,
+                t.end_date
+
+              FROM results r
+
+              INNER JOIN students s
+              ON r.student_id = s.student_id
+
+              INNER JOIN users u
+              ON s.user_id = u.user_id
+
+              INNER JOIN tests t
+              ON r.test_id = t.test_id
+
+              WHERE r.result_id = :result_id
+
+              AND s.parent_id = :parent_id
+
+              AND s.school_id = :school_id
+
+              LIMIT 1";
+
+
+    $result = $this->query(
+        $query,
+        [
+            'result_id' => $result_id,
+            'parent_id' => $parent_id,
+            'school_id' => $school_id
+        ]
+    );
+
+
+    return $result[0] ?? null;
+}
 }

@@ -774,3 +774,272 @@ input {
     }
 
 }
+
+/* =====================================================
+   LOGIN THEME TOGGLE
+   ===================================================== */
+
+.login-theme-toggle {
+    position: fixed;
+    right: 22px;
+    bottom: 22px;
+
+    height: 40px;
+    min-width: 82px;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 7px;
+
+    padding: 0 12px;
+
+    background: #ffffff;
+
+    color: #393443;
+
+    border: 1px solid #eadfe7;
+
+    border-radius: 10px;
+
+    font-family: inherit;
+
+    font-size: 11px;
+    font-weight: 600;
+
+    cursor: pointer;
+
+    box-shadow:
+        0 6px 20px rgba(70, 30, 70, 0.08);
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+
+    z-index: 9999;
+}
+
+
+/* HOVER */
+
+.login-theme-toggle:hover {
+    background: #fff5fa;
+
+    border-color: #dcb4cf;
+
+    color: #a32675;
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 9px 24px rgba(120, 40, 100, 0.12);
+}
+
+
+/* ICON */
+
+.login-theme-toggle span:first-child {
+    font-size: 15px;
+
+    line-height: 1;
+}
+
+
+/* TEXT */
+
+.login-theme-toggle span:last-child {
+    line-height: 1;
+}
+
+
+/* =====================================================
+   DARK MODE
+   ===================================================== */
+
+html[data-theme="dark"] body {
+    background: #17151b;
+    color: #eee8ef;
+}
+
+
+/* LOGIN PAGE */
+
+html[data-theme="dark"] .login-page {
+    background: #17151b;
+}
+
+
+/* LOGIN BOX */
+
+html[data-theme="dark"] .login-box {
+    background: #211e27;
+
+    border-color: #37313d;
+
+    box-shadow:
+        0 15px 45px rgba(0, 0, 0, 0.30);
+}
+
+
+/* HEADING */
+
+html[data-theme="dark"] .login-heading h1 {
+    color: #f4eff5;
+}
+
+html[data-theme="dark"] .login-heading p {
+    color: #99919f;
+}
+
+
+/* USER ICON */
+
+html[data-theme="dark"] .user-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #382a35,
+            #30283a
+        );
+
+    color: #df91ba;
+
+    border-color: #503a4a;
+}
+
+
+/* INPUT */
+
+html[data-theme="dark"] .input-group {
+    background: #29252f;
+
+    border-color: #49414d;
+}
+
+html[data-theme="dark"] .input-group input {
+    background: transparent;
+
+    color: #eee8ef;
+}
+
+html[data-theme="dark"] .input-group input::placeholder {
+    color: #77717e;
+}
+
+
+/* INPUT ICON */
+
+html[data-theme="dark"] .input-icon {
+    color: #918a97;
+}
+
+
+/* PASSWORD BUTTON */
+
+html[data-theme="dark"] .password-toggle {
+    color: #918a97;
+}
+
+html[data-theme="dark"] .password-toggle:hover {
+    color: #df91ba;
+}
+
+
+/* REMEMBER ME */
+
+html[data-theme="dark"] .remember {
+    color: #aaa2ad;
+}
+
+
+/* FORGOT PASSWORD */
+
+html[data-theme="dark"] .forgot-password {
+    color: #df91ba;
+}
+
+html[data-theme="dark"] .forgot-password:hover {
+    color: #efb3d1;
+}
+
+
+/* SIGNUP */
+
+html[data-theme="dark"] .signup-link {
+    color: #918a97;
+}
+
+html[data-theme="dark"] .signup-link a {
+    color: #df91ba;
+}
+
+html[data-theme="dark"] .signup-link a:hover {
+    color: #efb3d1;
+}
+
+
+/* ERROR */
+
+html[data-theme="dark"] .login-error {
+    background: #3a252b;
+
+    color: #ef9a9a;
+
+    border-color: #63343d;
+}
+
+
+/* =====================================================
+   DARK THEME BUTTON
+   ===================================================== */
+
+html[data-theme="dark"] .login-theme-toggle {
+    background: #29252f;
+
+    color: #eee8ef;
+
+    border-color: #49414d;
+
+    box-shadow:
+        0 6px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+html[data-theme="dark"] .login-theme-toggle:hover {
+    background: #382a35;
+
+    border-color: #a32675;
+
+    color: #e3a0c5;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    .login-theme-toggle {
+        right: 14px;
+        bottom: 14px;
+
+        min-width: 42px;
+
+        width: 42px;
+
+        padding: 0;
+
+        border-radius: 10px;
+    }
+
+
+    .login-theme-toggle span:last-child {
+        display: none;
+    }
+
+}

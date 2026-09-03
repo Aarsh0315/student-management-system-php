@@ -678,3 +678,205 @@ body.sidebar-open {
     overflow: hidden;
 
 }
+
+/* =====================================================
+   DARK MODE - SIDEBAR
+===================================================== */
+
+html[data-theme="dark"] .sidebar {
+    background: #211e27;
+    border-right-color: #37313d;
+    box-shadow: 6px 0 25px rgba(0, 0, 0, 0.22);
+}
+
+
+/* =====================================================
+   DARK MODE - SIDEBAR HEADER
+===================================================== */
+
+html[data-theme="dark"] .sidebar-header {
+    border-bottom-color: #37313d;
+}
+
+html[data-theme="dark"] .sidebar-title-icon {
+    background: linear-gradient(
+        135deg,
+        #392632,
+        #30283a
+    );
+
+    color: #df91ba;
+    border-color: #503a4a;
+}
+
+html[data-theme="dark"] .sidebar-title strong {
+    color: #f4eff5;
+}
+
+html[data-theme="dark"] .sidebar-title span {
+    color: #99919f;
+}
+
+
+/* =====================================================
+   DARK MODE - CLOSE BUTTON
+===================================================== */
+
+html[data-theme="dark"] .sidebar-close {
+    color: #aaa2ad;
+}
+
+html[data-theme="dark"] .sidebar-close:hover {
+    background: #352d37;
+    color: #df91ba;
+}
+
+
+/* =====================================================
+   DARK MODE - SIDEBAR CONTENT
+===================================================== */
+
+html[data-theme="dark"] .sidebar-content {
+    scrollbar-color: #504653 transparent;
+}
+
+
+/* =====================================================
+   DARK MODE - SECTION TITLE
+===================================================== */
+
+html[data-theme="dark"] .sidebar-section-title {
+    color: #8f8795;
+}
+
+
+/* =====================================================
+   DARK MODE - SIDEBAR LINK
+===================================================== */
+
+html[data-theme="dark"] .sidebar-link {
+    color: #aaa2ad;
+}
+
+html[data-theme="dark"] .sidebar-icon {
+    color: #958c9a;
+}
+
+
+/* =====================================================
+   DARK MODE - LINK HOVER
+===================================================== */
+
+html[data-theme="dark"] .sidebar-link:hover {
+    color: #e09bc1;
+    background: #302a34;
+}
+
+html[data-theme="dark"] .sidebar-link:hover .sidebar-icon {
+    color: #df91ba;
+    background: #3a2d38;
+}
+
+
+/* =====================================================
+   DARK MODE - ACTIVE LINK
+===================================================== */
+
+html[data-theme="dark"] .sidebar-link.active {
+    color: #e5a3c6;
+
+    background: linear-gradient(
+        135deg,
+        #382a35,
+        #332d3b
+    );
+}
+
+html[data-theme="dark"] .sidebar-link.active .sidebar-icon {
+    color: #d88db5;
+    background: #29242d;
+
+    box-shadow:
+        0 3px 9px rgba(0, 0, 0, 0.20);
+}
+
+
+/* =====================================================
+   DARK MODE - ACTIVE INDICATOR
+===================================================== */
+
+html[data-theme="dark"] .sidebar-link.active::before {
+    background: linear-gradient(
+        180deg,
+        #d89167,
+        #a32675,
+        #6f1760
+    );
+}
+
+
+/* =====================================================
+   DARK MODE - LOGOUT
+===================================================== */
+
+html[data-theme="dark"] .sidebar-logout {
+    color: #aaa2ad;
+}
+
+html[data-theme="dark"] .sidebar-logout:hover {
+    background: #38292f;
+    color: #ef9a9a;
+}
+
+html[data-theme="dark"] .sidebar-logout:hover .sidebar-icon {
+    color: #ef9a9a;
+    background: #422d31;
+}
+
+
+/* =====================================================
+   DARK MODE - SIDEBAR FOOTER
+===================================================== */
+
+html[data-theme="dark"] .sidebar-footer {
+    background: #1d1a22;
+    border-top-color: #37313d;
+}
+
+
+/* =====================================================
+   DARK MODE - FOOTER AVATAR
+===================================================== */
+
+html[data-theme="dark"] .sidebar-footer-avatar {
+    background: linear-gradient(
+        135deg,
+        #392632,
+        #30283a
+    );
+
+    color: #df91ba;
+    border-color: #503a4a;
+}
+
+
+/* =====================================================
+   DARK MODE - FOOTER INFO
+===================================================== */
+
+html[data-theme="dark"] .sidebar-footer-info strong {
+    color: #eee8ef;
+}
+
+html[data-theme="dark"] .sidebar-footer-info span {
+    color: #928a98;
+}
+
+
+/* =====================================================
+   DARK MODE - OVERLAY
+===================================================== */
+
+html[data-theme="dark"] .sidebar-overlay {
+    background: rgba(0, 0, 0, 0.52);
+}

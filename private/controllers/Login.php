@@ -104,84 +104,94 @@ class Login extends Controller
 
 
                     /*
-                    ========================================
-                    REDIRECT BASED ON ROLE
-                    ========================================
-                    */
+========================================
+REDIRECT BASED ON ROLE
+========================================
+*/
+
+// SUPER ADMIN
+
+if ($result->rank === 'super_admin') {
+
+    header(
+        "Location: "
+        . ROOT
+        . "/superadmin"
+    );
+
+    exit;
+}
 
 
-                    // SUPER ADMIN
+// SCHOOL ADMIN
 
-                    if (
-                        $result->rank
-                        === 'super_admin'
-                    ) {
+if ($result->rank === 'admin') {
 
-                        header(
-                            "Location: "
-                            . ROOT
-                            . "/superadmin"
-                        );
+    header(
+        "Location: "
+        . ROOT
+        . "/school-admin"
+    );
 
-                        exit;
-                    }
+    exit;
+}
 
 
-                    // SCHOOL ADMIN
+// TEACHER
 
-                    if (
-                        $result->rank
-                        === 'admin'
-                    ) {
+if ($result->rank === 'teacher') {
 
-                        header(
-                            "Location: "
-                            . ROOT
-                            . "/school-admin"
-                        );
+    header(
+        "Location: "
+        . ROOT
+        . "/teacherDashboard"
+    );
 
-                        exit;
-                    }
-
-                    // TEACHER
-
-                    if ($_SESSION['rank'] === 'teacher') {
-
-                    header(
-                        "Location: " . ROOT . "/teacherDashboard"
-                    );
-
-                    exit;
-                }
-
-                    // STUDENT
-
-                    if ($_SESSION['rank'] === 'student') {
-
-                        header(
-                            "Location: "
-                            . ROOT
-                            . "/studentDashboard"
-                        );
-
-                        exit;
-                    }
+    exit;
+}
 
 
-                    /*
-                    ========================================
-                    OTHER USERS
-                    ========================================
-                    */
+// STUDENT
 
-                    header(
-                        "Location: "
-                        . ROOT
-                        . "/home"
-                    );
+if ($result->rank === 'student') {
 
-                    exit;
+    header(
+        "Location: "
+        . ROOT
+        . "/studentDashboard"
+    );
 
+    exit;
+}
+
+
+// PARENT
+
+if ($result->rank === 'parent') {
+
+    header(
+        "Location: "
+        . ROOT
+        . "/parentDashboard"
+    );
+
+    exit;
+}
+
+
+/*
+========================================
+OTHER USERS
+========================================
+*/
+
+header(
+    "Location: "
+    . ROOT
+    . "/home"
+);
+
+exit;
 
                 } else {
 

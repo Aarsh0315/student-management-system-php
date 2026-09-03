@@ -304,4 +304,52 @@ public function publishTest(
         ]
     );
 }
+
+/*
+========================================
+GET ACTIVE TESTS BY CLASS & DIVISION
+========================================
+*/
+
+public function getTestsByClassDivision(
+    $school_id,
+    $class,
+    $division
+) {
+    $query = "SELECT
+                test_id,
+                teacher_id,
+                school_id,
+                title,
+                description,
+                class,
+                division,
+                total_marks,
+                duration,
+                start_date,
+                end_date,
+                status,
+                created_at
+
+              FROM tests
+
+              WHERE school_id = :school_id
+
+              AND class = :class
+
+              AND division = :division
+
+              AND status = 'active'
+
+              ORDER BY id DESC";
+
+    return $this->query(
+        $query,
+        [
+            'school_id' => $school_id,
+            'class'     => $class,
+            'division'  => $division
+        ]
+    );
+}
 }

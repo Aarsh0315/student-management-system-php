@@ -1,0 +1,683 @@
+/* =====================================================
+   PARENT RESULTS PAGE
+   My School Theme
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background: #faf9fc;
+    color: #302d3d;
+}
+
+
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.dashboard {
+
+    width: 100%;
+
+    max-width: 1380px;
+
+    margin: 0 auto;
+
+    padding: 50px 30px 60px;
+
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.welcome {
+
+    width: 100%;
+
+    margin-bottom: 32px;
+}
+
+.welcome-small {
+
+    margin: 0 0 10px;
+
+    color: #a32675;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.8px;
+
+    text-transform: uppercase;
+}
+
+.welcome h1 {
+
+    margin: 0 0 10px;
+
+    color: #302d3d;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.2;
+}
+
+.welcome-text {
+
+    margin: 0;
+
+    color: #756d79;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   RESULTS CARD
+===================================================== */
+
+.results-card {
+
+    width: 100%;
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe7;
+
+    border-radius: 16px;
+
+    box-sizing: border-box;
+
+    margin-bottom: 35px;
+
+    box-shadow:
+        0 5px 20px rgba(48, 45, 61, 0.04);
+}
+
+
+/* =====================================================
+   RESULTS HEADER
+===================================================== */
+
+.results-header {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 22px;
+
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #eee5eb;
+}
+
+.results-header h2 {
+
+    margin: 0 0 5px;
+
+    color: #302d3d;
+
+    font-size: 19px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+.results-header h2::after {
+
+    content: "";
+
+    display: block;
+
+    width: 38px;
+
+    height: 3px;
+
+    margin-top: 8px;
+
+    background: #a32675;
+
+    border-radius: 5px;
+}
+
+.results-header p {
+
+    margin: 0;
+
+    color: #756d79;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   TABLE WRAPPER
+===================================================== */
+
+.table-wrapper {
+
+    width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid #eee5eb;
+
+    border-radius: 10px;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrapper table {
+
+    width: 100%;
+
+    min-width: 1050px;
+
+    border-collapse: collapse;
+
+    background: #ffffff;
+}
+
+
+/* =====================================================
+   TABLE HEADER
+===================================================== */
+
+.table-wrapper thead {
+
+    background: #faf7f9;
+}
+
+.table-wrapper th {
+
+    padding: 13px 15px;
+
+    color: #918b99;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.5px;
+
+    border-bottom: 1px solid #eee5eb;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   TABLE BODY
+===================================================== */
+
+.table-wrapper td {
+
+    padding: 14px 15px;
+
+    color: #625b67;
+
+    font-size: 12px;
+
+    border-bottom: 1px solid #f0e9ee;
+
+    vertical-align: middle;
+}
+
+.table-wrapper tbody tr:last-child td {
+
+    border-bottom: none;
+}
+
+.table-wrapper tbody tr {
+
+    transition:
+        background 0.2s ease;
+}
+
+.table-wrapper tbody tr:hover {
+
+    background: #fdf9fc;
+}
+
+
+/* =====================================================
+   RESULT ID
+===================================================== */
+
+.result-id {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 8px;
+
+    background: #f9eaf4;
+
+    color: #a32675;
+
+    border: 1px solid #f0cfe2;
+
+    border-radius: 6px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   RESULT NAME
+===================================================== */
+
+.result-name {
+
+    color: #302d3d;
+
+    font-size: 13px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   CHILD
+===================================================== */
+
+.child-name-cell {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    white-space: nowrap;
+}
+
+.child-avatar {
+
+    width: 30px;
+
+    height: 30px;
+
+    flex-shrink: 0;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #f9eaf4;
+
+    color: #a32675;
+
+    border: 1px solid #f0cfe2;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.child-name-cell strong {
+
+    color: #393443;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   MARKS
+===================================================== */
+
+.marks {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 5px 9px;
+
+    background: #faf7f9;
+
+    color: #625b67;
+
+    border: 1px solid #eee5eb;
+
+    border-radius: 6px;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   PERCENTAGE
+===================================================== */
+
+.percentage {
+
+    color: #a32675;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 10px;
+
+    border-radius: 20px;
+
+    background: #faf7f9;
+
+    color: #756d79;
+
+    border: 1px solid #eee5eb;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status::before {
+
+    content: "";
+
+    width: 6px;
+
+    height: 6px;
+
+    flex-shrink: 0;
+
+    border-radius: 50%;
+
+    background: #918b99;
+}
+
+
+/* =====================================================
+   PASS
+===================================================== */
+
+.status.pass {
+
+    background: #eff9f3;
+
+    color: #28784a;
+
+    border: 1px solid #cce8d6;
+}
+
+.status.pass::before {
+
+    background: #39a866;
+}
+
+
+/* =====================================================
+   FAIL
+===================================================== */
+
+.status.fail {
+
+    background: #fef2f4;
+
+    color: #b4233c;
+
+    border: 1px solid #f3ccd4;
+}
+
+.status.fail::before {
+
+    background: #e25555;
+}
+
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.view-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 7px 12px;
+
+    background: #ffffff;
+
+    color: #a32675;
+
+    border: 1px solid #e3c7d8;
+
+    border-radius: 7px;
+
+    text-decoration: none;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.view-btn:hover {
+
+    background: #f9eaf4;
+
+    border-color: #d8afc7;
+
+    color: #8d205f;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-state {
+
+    padding: 60px 25px;
+
+    text-align: center;
+
+    border: 1px dashed #d9cfd7;
+
+    border-radius: 10px;
+
+    background: #faf7f9;
+}
+
+.empty-state h3 {
+
+    margin: 0 0 8px;
+
+    color: #302d3d;
+
+    font-size: 18px;
+
+    font-weight: 700;
+}
+
+.empty-state p {
+
+    margin: 0;
+
+    color: #756d79;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .results-card {
+
+        padding: 24px;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .dashboard {
+
+        padding: 35px 18px 45px;
+    }
+
+
+    .welcome h1 {
+
+        font-size: 25px;
+    }
+
+
+    .results-card {
+
+        padding: 20px;
+
+        border-radius: 14px;
+    }
+
+
+    .results-header {
+
+        align-items: flex-start;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .dashboard {
+
+        padding: 25px 12px 35px;
+    }
+
+
+    .welcome h1 {
+
+        font-size: 23px;
+    }
+
+
+    .results-card {
+
+        padding: 17px;
+    }
+
+}
+
+/* =====================================================
+   TEST ID
+===================================================== */
+
+.test-id {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    padding: 8px 11px;
+
+    background: #faf7f9;
+
+    color: #756d79;
+
+    border: 1px solid #eadfe7;
+
+    border-radius: 7px;
+
+    font-size: 11px;
+
+    font-weight: 500;
+
+    white-space: nowrap;
+}
