@@ -582,13 +582,33 @@ const submitUrl =
         $test->test_id
     ) ?>";
 
-const csrfToken =
-    "<?= htmlspecialchars(
-        CSRF::token(),
-        ENT_QUOTES,
-        'UTF-8'
-    ) ?>";
+const csrfToken = "<?= htmlspecialchars(CSRF::token(), ENT_QUOTES, 'UTF-8') ?>";
 
+const integrityEventUrl = "<?= ROOT ?>/studenttests/event";
+
+
+function logExamEvent(eventType) {
+
+    fetch(integrityEventUrl, {
+
+        method: "POST",
+
+        keepalive: true,
+
+        headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+        },
+
+        body:
+            "csrf_token=" + encodeURIComponent(csrfToken) +
+            "&test_id=" + encodeURIComponent("<?= $test->test_id ?>") +
+            "&event_type=" + encodeURIComponent(eventType)
+
+    }).catch(() => {
+        // Do not interrupt the exam if event logging fails
+    });
+
+}
 
 const testsUrl =
     "<?= ROOT ?>/studenttests";
@@ -1079,6 +1099,9 @@ function submitTest() {
     }
 
 
+    logExamEvent('exam_submitted');
+
+
     /*
     Create form
     */
@@ -1205,6 +1228,9 @@ function autoSubmitExam() {
     }
 
 
+    logExamEvent('exam_submitted');
+
+
     /*
     Collect answers
     */
@@ -1329,6 +1355,8 @@ async function startExamCamera() {
         examCameraStatus.innerHTML =
             '<span></span> Camera unavailable';
 
+        logExamEvent('camera_disconnected');
+
 
         return false;
 
@@ -1364,6 +1392,8 @@ async function startExamCamera() {
 
             '<span></span> Camera Active';
 
+        logExamEvent('camera_connected');
+
 
         return true;
 
@@ -1389,6 +1419,8 @@ async function startExamCamera() {
         examCameraStatus.innerHTML =
 
             '<span></span> Camera Required';
+
+        logExamEvent('camera_disconnected');
 
 
         return false;
@@ -1689,6 +1721,7 @@ beginSecureExam
             examLocked =
                 true;
 
+            logExamEvent('exam_started');
 
             secureOverlay.remove();
 
@@ -1712,6 +1745,8 @@ document.addEventListener(
         ) {
 
             event.preventDefault();
+
+            logExamEvent('right_click_attempt');
 
         }
 
@@ -1744,6 +1779,14 @@ document.addEventListener(
                 ) {
 
                     event.preventDefault();
+
+                    if (eventName === 'copy') {
+                        logExamEvent('copy_attempt');
+                    }
+
+                    if (eventName === 'paste') {
+                        logExamEvent('paste_attempt');
+                    }
 
                 }
 
@@ -1992,6 +2035,7 @@ document.addEventListener(
 
         ) {
 
+            logExamEvent('tab_switch');
 
             autoSubmitExam();
 
@@ -2011,6 +2055,16 @@ document.addEventListener(
     'fullscreenchange',
     function() {
 
+        if (
+            document.fullscreenElement
+            &&
+            examLocked
+        ) {
+
+            logExamEvent('fullscreen_entered');
+
+        }
+
 
         if (
 
@@ -2026,6 +2080,7 @@ document.addEventListener(
 
         ) {
 
+            logExamEvent('fullscreen_exited');
 
             autoSubmitExam();
 

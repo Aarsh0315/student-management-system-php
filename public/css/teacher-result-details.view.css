@@ -534,6 +534,30 @@
 
 @media (max-width: 950px) {
 
+        .integrity-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+
+    .integrity-item:nth-child(3n) {
+        border-right: 1px solid #eee5eb;
+    }
+
+
+    .integrity-item:nth-child(2n) {
+        border-right: none;
+    }
+
+
+    .integrity-item:nth-last-child(-n + 3) {
+        border-bottom: 1px solid #eee5eb;
+    }
+
+
+    .integrity-item:nth-last-child(-n + 2) {
+        border-bottom: none;
+    }
+
     .dashboard {
         padding: 40px 24px 50px;
     }
@@ -575,6 +599,61 @@
 ===================================================== */
 
 @media (max-width: 650px) {
+
+        .integrity-status-row {
+        flex-direction: column;
+
+        align-items: flex-start;
+
+        gap: 14px;
+
+        padding: 16px;
+    }
+
+
+    .integrity-grid {
+        grid-template-columns: 1fr;
+    }
+
+
+    .integrity-item {
+        min-height: auto;
+
+        padding: 15px 16px;
+
+        border-right: none !important;
+
+        border-bottom: 1px solid #eee5eb !important;
+    }
+
+
+    .integrity-item:last-child {
+        border-bottom: none !important;
+    }
+
+
+    .integrity-event {
+        grid-template-columns: 1fr;
+
+        gap: 5px;
+
+        padding: 14px 15px;
+    }
+
+
+    .integrity-event-time {
+        font-size: 9px;
+    }
+
+
+    .integrity-event-content strong {
+        font-size: 11px;
+    }
+
+
+    .integrity-risk {
+        min-width: 85px;
+    }
 
     .dashboard {
         padding: 30px 15px 40px;
@@ -673,4 +752,395 @@
     .result-section-header p {
         font-size: 12px;
     }
+}
+
+
+/* =====================================================
+   EXAM INTEGRITY
+===================================================== */
+
+.exam-integrity-card {
+    margin-top: 0;
+}
+
+
+/* =====================================================
+   INTEGRITY STATUS ROW
+===================================================== */
+
+.integrity-status-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 18px 20px;
+
+    margin-bottom: 22px;
+
+    background: #fff5fa;
+
+    border: 1px solid #f0d7e6;
+
+    border-radius: 10px;
+
+    box-sizing: border-box;
+}
+
+
+.integrity-label {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #302d3d;
+
+    font-size: 13px;
+
+    font-weight: 700;
+}
+
+
+.integrity-description {
+    margin: 0;
+
+    color: #756d79;
+
+    font-size: 11px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   RISK BADGE
+===================================================== */
+
+.integrity-risk {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    min-width: 90px;
+
+    padding: 7px 13px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.3px;
+
+    white-space: nowrap;
+}
+
+
+.integrity-risk::before {
+    content: "";
+
+    width: 6px;
+    height: 6px;
+
+    margin-right: 7px;
+
+    border-radius: 50%;
+}
+
+
+/* LOW */
+
+.integrity-risk.low {
+    background: #eff9f3;
+
+    color: #28784a;
+
+    border: 1px solid #cce8d6;
+}
+
+
+.integrity-risk.low::before {
+    background: #39a866;
+}
+
+
+/* MEDIUM */
+
+.integrity-risk.medium {
+    background: #fff7ef;
+
+    color: #b86a31;
+
+    border: 1px solid #f0d7c2;
+}
+
+
+.integrity-risk.medium::before {
+    background: #d89167;
+}
+
+
+/* HIGH */
+
+.integrity-risk.high {
+    background: #fef2f4;
+
+    color: #b4233c;
+
+    border: 1px solid #f3ccd4;
+}
+
+
+.integrity-risk.high::before {
+    background: #e25555;
+}
+
+
+
+/* =====================================================
+   INTEGRITY GRID
+===================================================== */
+
+.integrity-grid {
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    margin-bottom: 28px;
+
+    border: 1px solid #eee5eb;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.integrity-item {
+    min-height: 82px;
+
+    padding: 17px 18px;
+
+    background: #ffffff;
+
+    border-right: 1px solid #eee5eb;
+
+    border-bottom: 1px solid #eee5eb;
+
+    box-sizing: border-box;
+}
+
+
+.integrity-item:nth-child(3n) {
+    border-right: none;
+}
+
+
+.integrity-item:nth-last-child(-n + 3) {
+    border-bottom: none;
+}
+
+
+.integrity-item span {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #756d79;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.3px;
+}
+
+
+.integrity-item strong {
+    display: block;
+
+    color: #302d3d;
+
+    font-size: 18px;
+
+    font-weight: 700;
+
+    line-height: 1.3;
+}
+
+
+
+/* =====================================================
+   ACTIVITY TIMELINE
+===================================================== */
+
+.integrity-timeline-section {
+    margin-top: 5px;
+}
+
+
+.integrity-timeline-section h3 {
+    margin: 0 0 15px;
+
+    color: #302d3d;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+
+.integrity-timeline {
+    width: 100%;
+
+    border: 1px solid #eee5eb;
+
+    border-radius: 10px;
+
+    overflow: hidden;
+}
+
+
+.integrity-event {
+    display: grid;
+
+    grid-template-columns: 180px 1fr;
+
+    gap: 20px;
+
+    padding: 14px 17px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eee5eb;
+
+    box-sizing: border-box;
+}
+
+
+.integrity-event:last-child {
+    border-bottom: none;
+}
+
+
+.integrity-event-time {
+    color: #918b99;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+.integrity-event-content strong {
+    display: block;
+
+    color: #302d3d;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    line-height: 1.5;
+}
+
+
+.integrity-event-content p {
+    margin: 4px 0 0;
+
+    color: #756d79;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+
+/* =====================================================
+   EMPTY INTEGRITY STATE
+===================================================== */
+
+.integrity-empty {
+    padding: 25px 20px;
+
+    text-align: center;
+
+    background: #faf7f9;
+
+    border: 1px dashed #ddcfd9;
+
+    border-radius: 10px;
+}
+
+
+.integrity-empty strong {
+    display: block;
+
+    margin-bottom: 5px;
+
+    color: #302d3d;
+
+    font-size: 12px;
+
+    font-weight: 600;
+}
+
+
+.integrity-empty p {
+    margin: 0;
+
+    color: #918b99;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+}
+
+
+
+/* =====================================================
+   INTEGRITY NOTICE
+===================================================== */
+
+.integrity-note {
+    margin-top: 20px;
+
+    padding: 14px 16px;
+
+    background: #faf7f9;
+
+    border-left: 3px solid #a32675;
+
+    border-radius: 6px;
+}
+
+
+.integrity-note strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #302d3d;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+
+.integrity-note p {
+    margin: 0;
+
+    color: #756d79;
+
+    font-size: 10px;
+
+    line-height: 1.6;
 }

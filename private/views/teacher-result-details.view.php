@@ -2,6 +2,14 @@
 
 $result = $data['result'] ?? null;
 
+$integrity = $data['integrity'] ?? null;
+
+$riskLevel = strtoupper(
+    $data['riskLevel'] ?? 'LOW'
+);
+
+$events = $data['events'] ?? [];
+
 ?>
 
 <!DOCTYPE html>
@@ -135,32 +143,46 @@ $result = $data['result'] ?? null;
                 ?>
 
 
-                <?php if ($status === 'pass' || $status === 'passed'): ?>
+                <?php if (
+                    $status === 'pass' ||
+                    $status === 'passed'
+                ): ?>
 
                     <span class="result-status passed">
                         Passed
                     </span>
 
-                <?php elseif ($status === 'fail' || $status === 'failed'): ?>
+
+                <?php elseif (
+                    $status === 'fail' ||
+                    $status === 'failed'
+                ): ?>
 
                     <span class="result-status failed">
                         Failed
                     </span>
 
-                <?php elseif ($status === 'pending'): ?>
+
+                <?php elseif (
+                    $status === 'pending'
+                ): ?>
 
                     <span class="result-status pending">
                         Pending
                     </span>
 
+
                 <?php else: ?>
 
                     <span class="result-status">
+
                         <?= htmlspecialchars(
                             ucfirst(
-                                $result->status ?? 'Completed'
+                                $result->status
+                                ?? 'Completed'
                             )
                         ) ?>
+
                     </span>
 
                 <?php endif; ?>
@@ -183,9 +205,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->result_id ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -219,9 +243,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->student_id ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -234,11 +260,13 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->test_title
                             ?? $result->title
                             ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -251,9 +279,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->class ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -266,9 +296,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->division ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -281,9 +313,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->total_marks ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -296,9 +330,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong class="obtained-marks">
+
                         <?= htmlspecialchars(
                             $result->obtained_marks ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -311,9 +347,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong class="percentage">
+
                         <?= htmlspecialchars(
                             $result->percentage ?? '-'
                         ) ?>%
+
                     </strong>
 
                 </div>
@@ -323,6 +361,7 @@ $result = $data['result'] ?? null;
 
 
         </section>
+
 
 
         <!-- ========================================
@@ -376,9 +415,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->email ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -391,9 +432,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->admission_number ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -406,9 +449,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->class ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -421,9 +466,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->division ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -436,9 +483,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->roll_number ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -448,6 +497,7 @@ $result = $data['result'] ?? null;
 
 
         </section>
+
 
 
         <!-- ========================================
@@ -480,9 +530,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->test_id ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -495,11 +547,13 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->test_title
                             ?? $result->title
                             ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -517,8 +571,12 @@ $result = $data['result'] ?? null;
                             $result->duration ?? '-'
                         ) ?>
 
-                        <?php if (!empty($result->duration)): ?>
+                        <?php if (
+                            !empty($result->duration)
+                        ): ?>
+
                             minutes
+
                         <?php endif; ?>
 
                     </strong>
@@ -533,9 +591,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->total_marks ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -567,9 +627,11 @@ $result = $data['result'] ?? null;
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
                             $result->created_at ?? '-'
                         ) ?>
+
                     </strong>
 
                 </div>
@@ -581,9 +643,332 @@ $result = $data['result'] ?? null;
         </section>
 
 
+
+        <!-- ========================================
+             EXAM INTEGRITY
+        ========================================= -->
+
+        <section class="result-info-card exam-integrity-card">
+
+
+            <div class="result-section-header">
+
+                <h2>
+                    Exam Integrity
+                </h2>
+
+                <p>
+                    Activity recorded during the student's examination.
+                </p>
+
+            </div>
+
+
+            <?php
+
+            $riskClass =
+                strtolower($riskLevel);
+
+            ?>
+
+
+            <!-- ========================================
+                 INTEGRITY STATUS
+            ========================================= -->
+
+            <div class="integrity-status-row">
+
+                <div>
+
+                    <span class="integrity-label">
+                        Integrity Status
+                    </span>
+
+                    <p class="integrity-description">
+                        Based on recorded examination activity.
+                    </p>
+
+                </div>
+
+
+                <span
+                    class="integrity-risk <?= htmlspecialchars(
+                        $riskClass
+                    ) ?>"
+                >
+
+                    <?= htmlspecialchars(
+                        $riskLevel
+                    ) ?>
+
+                    RISK
+
+                </span>
+
+            </div>
+
+
+
+            <!-- ========================================
+                 INTEGRITY COUNTS
+            ========================================= -->
+
+            <div class="integrity-grid">
+
+
+                <div class="integrity-item">
+
+                    <span>
+                        Tab Switches
+                    </span>
+
+                    <strong>
+
+                        <?= (int) (
+                            $integrity->tab_switches
+                            ?? 0
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="integrity-item">
+
+                    <span>
+                        Fullscreen Exits
+                    </span>
+
+                    <strong>
+
+                        <?= (int) (
+                            $integrity->fullscreen_exits
+                            ?? 0
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="integrity-item">
+
+                    <span>
+                        Copy Attempts
+                    </span>
+
+                    <strong>
+
+                        <?= (int) (
+                            $integrity->copy_attempts
+                            ?? 0
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="integrity-item">
+
+                    <span>
+                        Paste Attempts
+                    </span>
+
+                    <strong>
+
+                        <?= (int) (
+                            $integrity->paste_attempts
+                            ?? 0
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="integrity-item">
+
+                    <span>
+                        Right Click Attempts
+                    </span>
+
+                    <strong>
+
+                        <?= (int) (
+                            $integrity->right_click_attempts
+                            ?? 0
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <div class="integrity-item">
+
+                    <span>
+                        Camera Disconnects
+                    </span>
+
+                    <strong>
+
+                        <?= (int) (
+                            $integrity->camera_disconnects
+                            ?? 0
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+
+            <!-- ========================================
+                 ACTIVITY TIMELINE
+            ========================================= -->
+
+            <div class="integrity-timeline-section">
+
+                <h3>
+                    Activity Timeline
+                </h3>
+
+
+                <?php if (!empty($events)): ?>
+
+
+                    <div class="integrity-timeline">
+
+
+                        <?php foreach (
+                            $events as $event
+                        ): ?>
+
+
+                            <?php
+
+                            $eventName =
+                                str_replace(
+                                    '_',
+                                    ' ',
+                                    $event->event_type
+                                    ?? ''
+                                );
+
+                            $eventName =
+                                ucwords(
+                                    $eventName
+                                );
+
+                            ?>
+
+
+                            <div class="integrity-event">
+
+
+                                <div class="integrity-event-time">
+
+                                    <?= htmlspecialchars(
+                                        $event->created_at
+                                        ?? '-'
+                                    ) ?>
+
+                                </div>
+
+
+                                <div class="integrity-event-content">
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            $eventName
+                                        ) ?>
+
+                                    </strong>
+
+
+                                    <?php if (
+                                        !empty(
+                                            $event->event_details
+                                        )
+                                    ): ?>
+
+                                        <p>
+
+                                            <?= htmlspecialchars(
+                                                $event->event_details
+                                            ) ?>
+
+                                        </p>
+
+                                    <?php endif; ?>
+
+
+                                </div>
+
+
+                            </div>
+
+
+                        <?php endforeach; ?>
+
+
+                    </div>
+
+
+                <?php else: ?>
+
+
+                    <div class="integrity-empty">
+
+                        <strong>
+                            No integrity events recorded
+                        </strong>
+
+                        <p>
+                            No examination activity has been recorded for this attempt.
+                        </p>
+
+                    </div>
+
+
+                <?php endif; ?>
+
+
+            </div>
+
+
+
+            <!-- ========================================
+                 INTEGRITY NOTE
+            ========================================= -->
+
+            <div class="integrity-note">
+
+                <strong>
+                    Integrity Notice
+                </strong>
+
+                <p>
+                    The integrity status is an activity-based risk indicator.
+                    It does not by itself prove that cheating occurred or did not occur.
+                </p>
+
+            </div>
+
+
+        </section>
+
+
+
         <!-- ========================================
              ACTION
-        ========================================= -->
+        ======================================== -->
 
         <div class="result-actions">
 

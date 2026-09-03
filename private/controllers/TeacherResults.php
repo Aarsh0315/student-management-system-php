@@ -210,7 +210,7 @@ class TeacherResults extends Controller
 
         /*
         ========================================
-        LOAD MODEL
+        LOAD RESULT MODEL
         ========================================
         */
 
@@ -242,11 +242,95 @@ class TeacherResults extends Controller
             $this->view(
                 'teacher-result-details',
                 [
-                    'result' => null
+                    'result' => null,
+
+                    'integrity' => null,
+
+                    'riskLevel' => 'LOW',
+
+                    'events' => []
                 ]
             );
 
             return;
+        }
+
+
+        /*
+        ========================================
+        EXAM INTEGRITY
+        ========================================
+        */
+
+        $integrityModel =
+            $this->model(
+                'ExamIntegrityModel'
+            );
+
+
+        /*
+        ----------------------------------------
+        GET STUDENT ID
+        ----------------------------------------
+        */
+
+        $student_id =
+            $result->student_id ?? null;
+
+
+        /*
+        ----------------------------------------
+        GET TEST ID
+        ----------------------------------------
+        */
+
+        $test_id =
+            $result->test_id ?? null;
+
+
+        /*
+        ----------------------------------------
+        DEFAULT VALUES
+        ----------------------------------------
+        */
+
+        $integrity = null;
+
+        $riskLevel = 'LOW';
+
+        $events = [];
+
+
+        /*
+        ----------------------------------------
+        LOAD INTEGRITY DATA
+        ----------------------------------------
+        */
+
+        if (
+            $student_id &&
+            $test_id
+        ) {
+
+            $integrity =
+                $integrityModel->getIntegritySummary(
+                    $test_id,
+                    $student_id
+                );
+
+
+            $riskLevel =
+                $integrityModel->getRiskLevel(
+                    $test_id,
+                    $student_id
+                );
+
+
+            $events =
+                $integrityModel->getEvents(
+                    $test_id,
+                    $student_id
+                );
         }
 
 
@@ -259,7 +343,17 @@ class TeacherResults extends Controller
         $this->view(
             'teacher-result-details',
             [
-                'result' => $result
+                'result' =>
+                    $result,
+
+                'integrity' =>
+                    $integrity,
+
+                'riskLevel' =>
+                    $riskLevel,
+
+                'events' =>
+                    $events
             ]
         );
     }

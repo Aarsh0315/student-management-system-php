@@ -1589,4 +1589,346 @@ if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
 
         exit;
     }
+
+    /*
+=====================================================
+LOG EXAM INTEGRITY EVENT
+=====================================================
+*/
+
+/*
+=====================================================
+LOG EXAM INTEGRITY EVENT
+=====================================================
+*/
+
+/*
+=====================================================
+LOG EXAM INTEGRITY EVENT
+=====================================================
+*/
+
+public function event()
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+
+        http_response_code(401);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK STUDENT
+    ========================================
+    */
+
+    if (
+        ($_SESSION['rank'] ?? '') !== 'student'
+    ) {
+
+        http_response_code(403);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    POST ONLY
+    ========================================
+    */
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+
+        http_response_code(405);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CSRF CHECK
+    ========================================
+    */
+
+    if (
+        !CSRF::verify(
+            $_POST['csrf_token'] ?? ''
+        )
+    ) {
+
+        http_response_code(403);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    GET TEST ID
+    ========================================
+    */
+
+    $test_id = trim(
+        $_POST['test_id'] ?? ''
+    );
+
+
+    $event_type = trim(
+        $_POST['event_type'] ?? ''
+    );
+
+
+    if (
+        $test_id === '' ||
+        $event_type === ''
+    ) {
+
+        http_response_code(400);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    ALLOWED EVENTS
+    ========================================
+    */
+
+    $allowedEvents = [
+
+        'exam_started',
+
+        'camera_connected',
+
+        'camera_disconnected',
+
+        'fullscreen_entered',
+
+        'fullscreen_exited',
+
+        'tab_switch',
+
+        'copy_attempt',
+
+        'paste_attempt',
+
+        'right_click_attempt',
+
+        'exam_submitted'
+
+    ];
+
+
+    if (
+        !in_array(
+            $event_type,
+            $allowedEvents,
+            true
+        )
+    ) {
+
+        http_response_code(400);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    GET SCHOOL
+    ========================================
+    */
+
+    $school_id =
+        $_SESSION['school_id'] ?? null;
+
+
+    if (!$school_id) {
+
+        http_response_code(403);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOAD TEST MODEL
+    ========================================
+    */
+
+    $testModel =
+        $this->model('StudentTestsModel');
+
+
+    /*
+    ========================================
+    GET STUDENT
+    ========================================
+    */
+
+    $studentQuery = "SELECT
+                        student_id,
+                        class,
+                        division
+
+                     FROM students
+
+                     WHERE user_id = :user_id
+
+                     AND school_id = :school_id
+
+                     LIMIT 1";
+
+
+    $studentResult =
+        $testModel->query(
+            $studentQuery,
+            [
+                'user_id' =>
+                    $_SESSION['user_id'],
+
+                'school_id' =>
+                    $school_id
+            ]
+        );
+
+
+    $student =
+        $studentResult[0] ?? null;
+
+
+    if (!$student) {
+
+        http_response_code(403);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    GET TEST
+    ========================================
+    */
+
+    $testQuery = "SELECT
+                    test_id,
+                    school_id,
+                    class,
+                    division,
+                    status
+
+                  FROM tests
+
+                  WHERE test_id = :test_id
+
+                  AND school_id = :school_id
+
+                  AND class = :class
+
+                  AND division = :division
+
+                  AND status = 'active'
+
+                  LIMIT 1";
+
+
+    $testResult =
+        $testModel->query(
+            $testQuery,
+            [
+                'test_id' =>
+                    $test_id,
+
+                'school_id' =>
+                    $school_id,
+
+                'class' =>
+                    $student->class,
+
+                'division' =>
+                    $student->division
+            ]
+        );
+
+
+    $test =
+        $testResult[0] ?? null;
+
+
+    if (!$test) {
+
+        http_response_code(403);
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOG EVENT
+    ========================================
+    */
+
+    $integrityModel =
+        $this->model(
+            'ExamIntegrityModel'
+        );
+
+
+    $logged =
+        $integrityModel->logEvent(
+
+            $test_id,
+
+            $student->student_id,
+
+            $event_type
+
+        );
+
+
+    /*
+    ========================================
+    RESPONSE
+    ========================================
+    */
+
+    header(
+        'Content-Type: application/json'
+    );
+
+
+    echo json_encode([
+        'success' => true
+    ]);
+
+
+    exit;
+}
+
+
 }

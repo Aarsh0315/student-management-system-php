@@ -908,4 +908,47 @@ public function getTotalStudentCount()
 
     return $result[0]->total ?? 0;
 }
+
+/*
+=====================================================
+GET STUDENT BY USER ID AND SCHOOL
+=====================================================
+*/
+
+public function getStudentByUserIdAndSchool(
+    $user_id,
+    $school_id
+) {
+    $query = "SELECT
+                st.student_id,
+                st.user_id,
+                st.school_id,
+                st.class,
+                st.division,
+                st.status,
+
+                u.firstname,
+                u.lastname,
+                u.email
+
+              FROM students st
+
+              INNER JOIN users u
+              ON st.user_id = u.user_id
+
+              WHERE st.user_id = :user_id
+
+              AND st.school_id = :school_id
+
+              AND st.status = 'active'
+
+              LIMIT 1";
+
+    $result = $this->query($query, [
+        'user_id'   => $user_id,
+        'school_id' => $school_id
+    ]);
+
+    return $result[0] ?? false;
+}
 }
