@@ -1,25 +1,6 @@
 <?php
 
 $result = $data['result'] ?? null;
-$questions = $data['questions'] ?? [];
-
-$studentName = '-';
-
-if ($result) {
-
-    $studentName = trim(
-        ($result->firstname ?? '') . ' ' .
-        ($result->lastname ?? '')
-    );
-
-    if ($studentName === '') {
-        $studentName = '-';
-    }
-}
-
-$percentage = (float) ($result->percentage ?? 0);
-
-$status = strtolower($result->status ?? '');
 
 ?>
 
@@ -30,28 +11,54 @@ $status = strtolower($result->status ?? '');
 
     <meta charset="UTF-8">
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
     <title>
         Result Details - My School
     </title>
 
 
-    <link rel="stylesheet"
-          href="<?= ROOT ?>/css/home.view.css">
+    <!-- NAV -->
 
-    <link rel="stylesheet"
-          href="<?= ROOT ?>/css/parent-result-details.view.css?v=1">
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=2"
+    >
 
-    <link rel="stylesheet"
-          href="<?= ROOT ?>/css/footer.view.css">
 
-    <link rel="stylesheet"
-          href="<?= ROOT ?>/css/nav.view.css">
+    <!-- HOME -->
 
-    <link rel="stylesheet"
-          href="<?= ROOT ?>/css/sidebar.view.css">
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/home.view.css?v=2"
+    >
+
+
+    <!-- RESULT DETAILS -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/result-details.view.css?v=1"
+    >
+
+
+    <!-- FOOTER -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css"
+    >
+
+
+    <!-- SIDEBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css"
+    >
 
 </head>
 
@@ -67,9 +74,9 @@ $status = strtolower($result->status ?? '');
 <main class="dashboard">
 
 
-    <!-- =========================================
+    <!-- ========================================
          PAGE HEADER
-    ========================================== -->
+    ======================================== -->
 
     <section class="welcome">
 
@@ -82,7 +89,7 @@ $status = strtolower($result->status ?? '');
         </h1>
 
         <p class="welcome-text">
-            View your child's performance and question-wise result.
+            View the complete details of your child's result.
         </p>
 
     </section>
@@ -92,153 +99,101 @@ $status = strtolower($result->status ?? '');
     <?php if ($result): ?>
 
 
-        <!-- =========================================
-             RESULT PROFILE
-        ========================================== -->
+        <!-- ========================================
+             RESULT SUMMARY
+        ======================================== -->
 
-        <section class="result-profile-card">
-
-            <div class="result-profile-top">
+        <section class="result-summary-card">
 
 
-                <!-- RESULT ICON -->
+            <div class="result-summary-header">
 
-                <div class="result-icon">
-                    RS
-                </div>
-
-
-                <!-- RESULT INFORMATION -->
-
-                <div class="result-profile-info">
+                <div>
 
                     <h2>
+
                         <?= htmlspecialchars(
-                            $result->title ?? '-'
+                            $result->test_title
+                            ?? $result->title
+                            ?? 'Test Result'
                         ) ?>
+
                     </h2>
 
-
                     <p>
-
-                        Test ID:
-
-                        <span class="test-id-badge">
-
-                            <?= htmlspecialchars(
-                                $result->test_id ?? '-'
-                            ) ?>
-
-                        </span>
-
+                        Child result information
                     </p>
-
-
-                    <p>
-
-                        Child:
-
-                        <strong>
-                            <?= htmlspecialchars(
-                                $studentName
-                            ) ?>
-                        </strong>
-
-                    </p>
-
-
-                    <?php if ($status === 'pass'): ?>
-
-                        <span class="status pass">
-                            Pass
-                        </span>
-
-                    <?php elseif ($status === 'fail'): ?>
-
-                        <span class="status fail">
-                            Fail
-                        </span>
-
-                    <?php else: ?>
-
-                        <span class="status">
-
-                            <?= htmlspecialchars(
-                                ucfirst(
-                                    $result->status ?? '-'
-                                )
-                            ) ?>
-
-                        </span>
-
-                    <?php endif; ?>
-
 
                 </div>
 
 
-                <!-- SCORE -->
+                <?php
 
-                <div class="result-score">
+                $status =
+                    strtolower(
+                        $result->status ?? ''
+                    );
 
-                    <strong>
-                        <?= number_format(
-                            $percentage,
-                            1
-                        ) ?>%
-                    </strong>
+                ?>
 
-                    <span>
-                        Score
+
+                <?php if (
+                    $status === 'passed' ||
+                    $status === 'pass'
+                ): ?>
+
+                    <span class="result-status passed">
+                        Passed
                     </span>
 
-                </div>
+                <?php elseif (
+                    $status === 'failed' ||
+                    $status === 'fail'
+                ): ?>
 
-
-            </div>
-
-        </section>
-
-
-
-        <!-- =========================================
-             RESULT INFORMATION
-        ========================================== -->
-
-        <section class="result-details-card">
-
-
-            <div class="details-header">
-
-                <h2>
-                    Result Information
-                </h2>
-
-                <p>
-                    Detailed performance information for this test.
-                </p>
-
-            </div>
-
-
-
-            <div class="details-grid">
-
-
-                <!-- TEST ID -->
-
-                <div class="details-item">
-
-                    <span>
-                        Test ID
+                    <span class="result-status failed">
+                        Failed
                     </span>
 
-                    <strong class="test-id-value">
+                <?php else: ?>
+
+                    <span class="result-status">
 
                         <?= htmlspecialchars(
-                            $result->test_id ?? '-'
+                            ucfirst(
+                                $result->status
+                                ?? 'Completed'
+                            )
                         ) ?>
 
+                    </span>
+
+                <?php endif; ?>
+
+
+            </div>
+
+
+
+            <!-- ========================================
+                 RESULT INFORMATION
+            ======================================== -->
+
+            <div class="result-summary-grid">
+
+
+                <!-- RESULT ID -->
+
+                <div class="result-summary-item">
+
+                    <span>
+                        Result ID
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $result->result_id ?? '-'
+                        ) ?>
                     </strong>
 
                 </div>
@@ -247,16 +202,62 @@ $status = strtolower($result->status ?? '');
 
                 <!-- CHILD -->
 
-                <div class="details-item">
+                <div class="result-summary-item">
 
                     <span>
                         Child
                     </span>
 
                     <strong>
+
                         <?= htmlspecialchars(
-                            $studentName
+                            trim(
+                                ($result->firstname ?? '')
+                                . ' '
+                                . ($result->lastname ?? '')
+                            ) ?: '-'
                         ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- STUDENT ID -->
+
+                <div class="result-summary-item">
+
+                    <span>
+                        Student ID
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $result->student_id ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+
+                <!-- TEST -->
+
+                <div class="result-summary-item">
+
+                    <span>
+                        Test
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->test_title
+                            ?? $result->title
+                            ?? '-'
+                        ) ?>
+
                     </strong>
 
                 </div>
@@ -265,7 +266,7 @@ $status = strtolower($result->status ?? '');
 
                 <!-- CLASS -->
 
-                <div class="details-item">
+                <div class="result-summary-item">
 
                     <span>
                         Class
@@ -283,7 +284,7 @@ $status = strtolower($result->status ?? '');
 
                 <!-- DIVISION -->
 
-                <div class="details-item">
+                <div class="result-summary-item">
 
                     <span>
                         Division
@@ -299,9 +300,27 @@ $status = strtolower($result->status ?? '');
 
 
 
+                <!-- TOTAL MARKS -->
+
+                <div class="result-summary-item">
+
+                    <span>
+                        Total Marks
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $result->total_marks ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+
                 <!-- OBTAINED MARKS -->
 
-                <div class="details-item">
+                <div class="result-summary-item">
 
                     <span>
                         Obtained Marks
@@ -310,27 +329,7 @@ $status = strtolower($result->status ?? '');
                     <strong class="obtained-marks">
 
                         <?= htmlspecialchars(
-                            $result->obtained_marks ?? '0'
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-
-                <!-- TOTAL MARKS -->
-
-                <div class="details-item">
-
-                    <span>
-                        Total Marks
-                    </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->total_marks ?? '0'
+                            $result->obtained_marks ?? '-'
                         ) ?>
 
                     </strong>
@@ -341,17 +340,16 @@ $status = strtolower($result->status ?? '');
 
                 <!-- PERCENTAGE -->
 
-                <div class="details-item">
+                <div class="result-summary-item">
 
                     <span>
                         Percentage
                     </span>
 
-                    <strong class="percentage-value">
+                    <strong class="percentage">
 
-                        <?= number_format(
-                            $percentage,
-                            1
+                        <?= htmlspecialchars(
+                            $result->percentage ?? '-'
                         ) ?>%
 
                     </strong>
@@ -359,10 +357,277 @@ $status = strtolower($result->status ?? '');
                 </div>
 
 
+            </div>
 
-                <!-- STATUS -->
 
-                <div class="details-item">
+        </section>
+
+
+
+        <!-- ========================================
+             CHILD INFORMATION
+        ======================================== -->
+
+        <section class="result-info-card">
+
+
+            <div class="result-section-header">
+
+                <h2>
+                    Child Information
+                </h2>
+
+                <p>
+                    Information about the child who attempted the test.
+                </p>
+
+            </div>
+
+
+
+            <div class="result-information-grid">
+
+
+                <!-- CHILD NAME -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Child Name
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            trim(
+                                ($result->firstname ?? '')
+                                . ' '
+                                . ($result->lastname ?? '')
+                            ) ?: '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Email
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->email ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- ADMISSION NUMBER -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Admission Number
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->admission_number
+                            ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- CLASS -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Class
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->class ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- DIVISION -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Division
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->division ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- ROLL NUMBER -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Roll Number
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->roll_number ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- ========================================
+             TEST INFORMATION
+        ======================================== -->
+
+        <section class="result-info-card">
+
+
+            <div class="result-section-header">
+
+                <h2>
+                    Test Information
+                </h2>
+
+                <p>
+                    Details about the test associated with this result.
+                </p>
+
+            </div>
+
+
+
+            <div class="result-information-grid">
+
+
+                <!-- TEST ID -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Test ID
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->test_id ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- TEST TITLE -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Test Title
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->test_title
+                            ?? $result->title
+                            ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- DURATION -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Duration
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->duration ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- TOTAL MARKS -->
+
+                <div class="result-information-item">
+
+                    <span>
+                        Total Marks
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            $result->total_marks ?? '-'
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+
+                <!-- RESULT STATUS -->
+
+                <div class="result-information-item">
 
                     <span>
                         Result Status
@@ -381,337 +646,57 @@ $status = strtolower($result->status ?? '');
                 </div>
 
 
-            </div>
 
+                <!-- RESULT DATE -->
 
-
-            <!-- =====================================
-                 TEST DESCRIPTION
-            ====================================== -->
-
-            <?php if (!empty($result->description)): ?>
-
-                <div class="description-box">
+                <div class="result-information-item">
 
                     <span>
-                        Test Description
+                        Result Date
                     </span>
 
-                    <p>
+                    <strong>
 
-                        <?= nl2br(
-                            htmlspecialchars(
-                                $result->description
-                            )
+                        <?= htmlspecialchars(
+                            $result->created_at ?? '-'
                         ) ?>
 
-                    </p>
+                    </strong>
 
                 </div>
 
-            <?php endif; ?>
-
-
-        </section>
-
-
-
-        <!-- =========================================
-             QUESTION RESULTS
-        ========================================== -->
-
-        <section class="questions-card">
-
-
-            <div class="questions-header">
-
-                <h2>
-                    Question-wise Result
-                </h2>
-
-                <p>
-
-                    <?= count($questions) ?>
-
-                    question(s) evaluated.
-
-                </p>
 
             </div>
 
 
-
-            <?php if (!empty($questions)): ?>
-
-
-                <?php foreach ($questions as $index => $question): ?>
-
-
-                    <?php
-
-                    $studentAnswer =
-                        trim(
-                            (string) (
-                                $question->student_answer
-                                ?? ''
-                            )
-                        );
-
-                    $correctAnswer =
-                        trim(
-                            (string) (
-                                $question->correct_answer
-                                ?? ''
-                            )
-                        );
-
-
-                    $isCorrect =
-                        $studentAnswer !== '' &&
-                        $correctAnswer !== '' &&
-                        strcasecmp(
-                            $studentAnswer,
-                            $correctAnswer
-                        ) === 0;
-
-                    ?>
-
-
-                    <div class="question-card">
-
-
-                        <!-- QUESTION TOP -->
-
-                        <div class="question-top">
-
-                            <span class="question-number">
-
-                                Question
-                                <?= $index + 1 ?>
-
-                            </span>
-
-
-                            <span class="question-marks">
-
-                                <?= htmlspecialchars(
-                                    $question->marks ?? '0'
-                                ) ?>
-
-                                Marks
-
-                            </span>
-
-                        </div>
-
-
-
-                        <!-- QUESTION -->
-
-                        <h3>
-
-                            <?= nl2br(
-                                htmlspecialchars(
-                                    $question->question
-                                    ?? '-'
-                                )
-                            ) ?>
-
-                        </h3>
-
-
-
-                        <!-- OPTIONS -->
-
-                        <?php
-
-                        $options = [
-
-                            'A' => $question->option_a ?? null,
-
-                            'B' => $question->option_b ?? null,
-
-                            'C' => $question->option_c ?? null,
-
-                            'D' => $question->option_d ?? null
-
-                        ];
-
-                        $hasOptions = false;
-
-                        foreach ($options as $option) {
-
-                            if (
-                                $option !== null &&
-                                trim((string) $option) !== ''
-                            ) {
-
-                                $hasOptions = true;
-
-                                break;
-                            }
-                        }
-
-                        ?>
-
-
-                        <?php if ($hasOptions): ?>
-
-
-                            <div class="options">
-
-
-                                <?php foreach (
-                                    $options as $letter => $option
-                                ): ?>
-
-
-                                    <?php if (
-                                        $option !== null &&
-                                        trim((string) $option) !== ''
-                                    ): ?>
-
-
-                                        <div class="option">
-
-                                            <strong>
-
-                                                <?= $letter ?>
-
-                                            </strong>
-
-                                            <span>
-
-                                                <?= htmlspecialchars(
-                                                    $option
-                                                ) ?>
-
-                                            </span>
-
-                                        </div>
-
-
-                                    <?php endif; ?>
-
-
-                                <?php endforeach; ?>
-
-
-                            </div>
-
-
-                        <?php endif; ?>
-
-
-
-                        <!-- ANSWER SECTION -->
-
-                        <div class="answer-section">
-
-
-                            <div class="answer-row">
-
-                                <span class="answer-label">
-                                    Your Answer
-                                </span>
-
-                                <?php if ($studentAnswer !== ''): ?>
-
-                                    <strong
-                                        class="<?= $isCorrect
-                                            ? 'answer-correct'
-                                            : 'answer-wrong' ?>"
-                                    >
-
-                                        <?= htmlspecialchars(
-                                            $studentAnswer
-                                        ) ?>
-
-                                    </strong>
-
-                                <?php else: ?>
-
-                                    <strong class="answer-not-attempted">
-
-                                        Not Attempted
-
-                                    </strong>
-
-                                <?php endif; ?>
-
-                            </div>
-
-
-
-                            <div class="answer-row">
-
-                                <span class="answer-label">
-                                    Correct Answer
-                                </span>
-
-                                <strong class="correct-answer-text">
-
-                                    <?= htmlspecialchars(
-                                        $correctAnswer ?: '-'
-                                    ) ?>
-
-                                </strong>
-
-                            </div>
-
-
-                        </div>
-
-
-                    </div>
-
-
-                <?php endforeach; ?>
-
-
-            <?php else: ?>
-
-
-                <div class="empty-state">
-
-                    <h3>
-                        No Question Details
-                    </h3>
-
-                    <p>
-                        Question-wise result details are not available.
-                    </p>
-
-                </div>
-
-
-            <?php endif; ?>
-
-
         </section>
 
 
 
-        <!-- =========================================
-             BACK BUTTON
-        ========================================== -->
+        <!-- ========================================
+             ACTIONS
+        ======================================== -->
 
-        <a
-            href="<?= ROOT ?>/parentresults"
-            class="back-btn"
-        >
-            Back to Results
-        </a>
+        <div class="result-actions">
+
+            <a
+                href="<?= ROOT ?>/parentresults"
+                class="back-results-btn"
+            >
+                ← Back to Results
+            </a>
+
+        </div>
 
 
     <?php else: ?>
 
 
-        <!-- =========================================
-             RESULT NOT FOUND
-        ========================================== -->
+        <!-- ========================================
+             EMPTY STATE
+        ======================================== -->
 
-        <section class="questions-card">
+        <section class="result-info-card">
 
             <div class="empty-state">
 
@@ -723,18 +708,19 @@ $status = strtolower($result->status ?? '');
                     The requested result could not be found.
                 </p>
 
+
+                <div class="result-actions">
+
+                    <a
+                        href="<?= ROOT ?>/parentresults"
+                        class="back-results-btn"
+                    >
+                        ← Back to Results
+                    </a>
+
+                </div>
+
             </div>
-
-
-            <br>
-
-
-            <a
-                href="<?= ROOT ?>/parentresults"
-                class="back-btn"
-            >
-                Back to Results
-            </a>
 
         </section>
 

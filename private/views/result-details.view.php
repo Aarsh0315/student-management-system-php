@@ -81,7 +81,7 @@ $result = $data['result'] ?? null;
     <section class="welcome">
 
         <p class="welcome-small">
-            Parent
+            Results
         </p>
 
         <h1>
@@ -89,11 +89,10 @@ $result = $data['result'] ?? null;
         </h1>
 
         <p class="welcome-text">
-            View the complete details of your child's result.
+            View the complete details of this student result.
         </p>
 
     </section>
-
 
 
     <?php if ($result): ?>
@@ -111,17 +110,15 @@ $result = $data['result'] ?? null;
                 <div>
 
                     <h2>
-
                         <?= htmlspecialchars(
                             $result->test_title
                             ?? $result->title
                             ?? 'Test Result'
                         ) ?>
-
                     </h2>
 
                     <p>
-                        Child result information
+                        Student result information
                     </p>
 
                 </div>
@@ -137,19 +134,13 @@ $result = $data['result'] ?? null;
                 ?>
 
 
-                <?php if (
-                    $status === 'passed' ||
-                    $status === 'pass'
-                ): ?>
+                <?php if ($status === 'passed'): ?>
 
                     <span class="result-status passed">
                         Passed
                     </span>
 
-                <?php elseif (
-                    $status === 'failed' ||
-                    $status === 'fail'
-                ): ?>
+                <?php elseif ($status === 'failed'): ?>
 
                     <span class="result-status failed">
                         Failed
@@ -158,21 +149,17 @@ $result = $data['result'] ?? null;
                 <?php else: ?>
 
                     <span class="result-status">
-
                         <?= htmlspecialchars(
                             ucfirst(
-                                $result->status
-                                ?? 'Completed'
+                                $result->status ?? 'Completed'
                             )
                         ) ?>
-
                     </span>
 
                 <?php endif; ?>
 
 
             </div>
-
 
 
             <!-- ========================================
@@ -182,13 +169,9 @@ $result = $data['result'] ?? null;
             <div class="result-summary-grid">
 
 
-                <!-- RESULT ID -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Result ID
-                    </span>
+                    <span>Result ID</span>
 
                     <strong>
                         <?= htmlspecialchars(
@@ -199,17 +182,11 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- CHILD -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Child
-                    </span>
+                    <span>Student</span>
 
                     <strong>
-
                         <?= htmlspecialchars(
                             trim(
                                 ($result->firstname ?? '')
@@ -217,20 +194,14 @@ $result = $data['result'] ?? null;
                                 . ($result->lastname ?? '')
                             ) ?: '-'
                         ) ?>
-
                     </strong>
 
                 </div>
 
 
-
-                <!-- STUDENT ID -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Student ID
-                    </span>
+                    <span>Student ID</span>
 
                     <strong>
                         <?= htmlspecialchars(
@@ -241,36 +212,24 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- TEST -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Test
-                    </span>
+                    <span>Test</span>
 
                     <strong>
-
                         <?= htmlspecialchars(
                             $result->test_title
                             ?? $result->title
                             ?? '-'
                         ) ?>
-
                     </strong>
 
                 </div>
 
 
-
-                <!-- CLASS -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Class
-                    </span>
+                    <span>Class</span>
 
                     <strong>
                         <?= htmlspecialchars(
@@ -281,14 +240,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- DIVISION -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Division
-                    </span>
+                    <span>Division</span>
 
                     <strong>
                         <?= htmlspecialchars(
@@ -299,14 +253,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- TOTAL MARKS -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Total Marks
-                    </span>
+                    <span>Total Marks</span>
 
                     <strong>
                         <?= htmlspecialchars(
@@ -317,41 +266,27 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- OBTAINED MARKS -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Obtained Marks
-                    </span>
+                    <span>Obtained Marks</span>
 
                     <strong class="obtained-marks">
-
                         <?= htmlspecialchars(
                             $result->obtained_marks ?? '-'
                         ) ?>
-
                     </strong>
 
                 </div>
 
 
-
-                <!-- PERCENTAGE -->
-
                 <div class="result-summary-item">
 
-                    <span>
-                        Percentage
-                    </span>
+                    <span>Percentage</span>
 
                     <strong class="percentage">
-
                         <?= htmlspecialchars(
                             $result->percentage ?? '-'
                         ) ?>%
-
                     </strong>
 
                 </div>
@@ -363,9 +298,8 @@ $result = $data['result'] ?? null;
         </section>
 
 
-
         <!-- ========================================
-             CHILD INFORMATION
+             STUDENT INFORMATION
         ======================================== -->
 
         <section class="result-info-card">
@@ -374,27 +308,22 @@ $result = $data['result'] ?? null;
             <div class="result-section-header">
 
                 <h2>
-                    Child Information
+                    Student Information
                 </h2>
 
                 <p>
-                    Information about the child who attempted the test.
+                    Information about the student who attempted the test.
                 </p>
 
             </div>
 
 
-
             <div class="result-information-grid">
 
 
-                <!-- CHILD NAME -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Child Name
-                    </span>
+                    <span>Student Name</span>
 
                     <strong>
 
@@ -411,14 +340,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- EMAIL -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Email
-                    </span>
+                    <span>Email</span>
 
                     <strong>
 
@@ -431,14 +355,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- ADMISSION NUMBER -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Admission Number
-                    </span>
+                    <span>Admission Number</span>
 
                     <strong>
 
@@ -452,14 +371,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- CLASS -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Class
-                    </span>
+                    <span>Class</span>
 
                     <strong>
 
@@ -472,14 +386,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- DIVISION -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Division
-                    </span>
+                    <span>Division</span>
 
                     <strong>
 
@@ -492,14 +401,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- ROLL NUMBER -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Roll Number
-                    </span>
+                    <span>Roll Number</span>
 
                     <strong>
 
@@ -516,7 +420,6 @@ $result = $data['result'] ?? null;
 
 
         </section>
-
 
 
         <!-- ========================================
@@ -539,17 +442,12 @@ $result = $data['result'] ?? null;
             </div>
 
 
-
             <div class="result-information-grid">
 
 
-                <!-- TEST ID -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Test ID
-                    </span>
+                    <span>Test ID</span>
 
                     <strong>
 
@@ -562,14 +460,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- TEST TITLE -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Test Title
-                    </span>
+                    <span>Test Title</span>
 
                     <strong>
 
@@ -584,14 +477,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- DURATION -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Duration
-                    </span>
+                    <span>Duration</span>
 
                     <strong>
 
@@ -604,14 +492,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- TOTAL MARKS -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Total Marks
-                    </span>
+                    <span>Total Marks</span>
 
                     <strong>
 
@@ -624,14 +507,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- RESULT STATUS -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Result Status
-                    </span>
+                    <span>Result Status</span>
 
                     <strong>
 
@@ -646,14 +524,9 @@ $result = $data['result'] ?? null;
                 </div>
 
 
-
-                <!-- RESULT DATE -->
-
                 <div class="result-information-item">
 
-                    <span>
-                        Result Date
-                    </span>
+                    <span>Result Date</span>
 
                     <strong>
 
@@ -672,7 +545,6 @@ $result = $data['result'] ?? null;
         </section>
 
 
-
         <!-- ========================================
              ACTIONS
         ======================================== -->
@@ -680,7 +552,7 @@ $result = $data['result'] ?? null;
         <div class="result-actions">
 
             <a
-                href="<?= ROOT ?>/parentresults"
+                href="<?= ROOT ?>/results"
                 class="back-results-btn"
             >
                 ← Back to Results
@@ -708,11 +580,10 @@ $result = $data['result'] ?? null;
                     The requested result could not be found.
                 </p>
 
-
                 <div class="result-actions">
 
                     <a
-                        href="<?= ROOT ?>/parentresults"
+                        href="<?= ROOT ?>/results"
                         class="back-results-btn"
                     >
                         ← Back to Results

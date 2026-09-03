@@ -1,5 +1,19 @@
 <?php
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    if (
+        !CSRF::verify(
+            $_POST['csrf_token'] ?? ''
+        )
+    ) {
+
+        die("Invalid security token.");
+    }
+
+    // Rest of your code...
+}
+
 require_once "../private/models/User.php";
 require_once "../private/models/School.php";
 

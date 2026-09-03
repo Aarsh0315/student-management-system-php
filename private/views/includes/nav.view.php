@@ -867,6 +867,8 @@ $initial = strtoupper(
 
                 <?php endif; ?>
 
+                
+
 
 
                 <!-- ====================================
@@ -972,51 +974,33 @@ $initial = strtoupper(
 
 
 
-                <!-- ====================================
-                     PARENT
-                ===================================== -->
+               <?php if (($rank ?? '') === 'parent'): ?>
 
-                <?php if ($rank === 'parent'): ?>
+    <a href="<?= ROOT ?>/parentchildren" class="search-result-item">
+        <span class="search-result-icon">ST</span>
+        <div>
+            <strong>My Children</strong>
+            <small>View your children</small>
+        </div>
+    </a>
 
+    <a href="<?= ROOT ?>/parenttests" class="search-result-item">
+        <span class="search-result-icon">TS</span>
+        <div>
+            <strong>Tests</strong>
+            <small>View children tests</small>
+        </div>
+    </a>
 
-                    <div class="search-section">
+    <a href="<?= ROOT ?>/parentresults" class="search-result-item">
+        <span class="search-result-icon">RS</span>
+        <div>
+            <strong>Results</strong>
+            <small>View children results</small>
+        </div>
+    </a>
 
-                        <div class="search-section-title">
-                            STUDENT INFORMATION
-                        </div>
-
-
-                        <!-- RESULTS -->
-
-                        <a
-                            href="<?= ROOT ?>/results"
-                            class="search-item"
-                            data-search="results result marks child student parent"
-                        >
-
-                            <span class="search-item-icon">
-                                📊
-                            </span>
-
-                            <span class="search-item-content">
-
-                                <strong>
-                                    Results
-                                </strong>
-
-                                <small>
-                                    View your child's results
-                                </small>
-
-                            </span>
-
-                        </a>
-
-
-                    </div>
-
-
-                <?php endif; ?>
+<?php endif; ?>
 
 
 

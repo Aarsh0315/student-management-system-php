@@ -5,3 +5,4 @@ require "config.php";
 require "database.php";
 require "model.php";
 require "controller.php";
+require "csrf.php";

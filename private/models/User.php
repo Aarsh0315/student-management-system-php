@@ -384,4 +384,23 @@ public function getRecentUsers($limit = 3)
 
     return $this->query($query);
 }
+
+/* =====================================================
+   FIND ACTIVE USER BY EMAIL
+===================================================== */
+
+public function findActiveByEmail($email)
+{
+    $query = "SELECT *
+              FROM $this->table
+              WHERE email = :email
+              AND status = 'active'
+              LIMIT 1";
+
+    $result = $this->query($query, [
+        'email' => $email
+    ]);
+
+    return $result[0] ?? false;
+}
 }

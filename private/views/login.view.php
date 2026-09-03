@@ -88,6 +88,8 @@ $error = $data['error'] ?? '';
             class="login-form"
         >
 
+        <?= CSRF::field() ?>
+
 
             <!-- EMAIL -->
 

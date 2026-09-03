@@ -4,211 +4,246 @@ class Login extends Controller
 {
     public function index()
     {
+        /*
+        ========================================
+        START SESSION
+        ========================================
+        */
+
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+
+        /*
+        ========================================
+        LOGIN DATA
+        ========================================
+        */
+
         $data = [];
 
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
-            $email = trim($_POST['email']);
+        /*
+        ========================================
+        HANDLE LOGIN
+        ========================================
+        */
 
-            $password = $_POST['password'];
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-
-            /*
-            ========================================
-            LOAD USER MODEL
-            ========================================
-            */
-
-            $user = $this->model("User");
+            $email = trim($_POST['email'] ?? '');
+            $password = $_POST['password'] ?? '';
 
 
             /*
             ========================================
-            FIND USER
+            VALIDATE INPUT
             ========================================
             */
 
-            $result = $user->findByEmail($email);
+            if ($email === '' || $password === '') {
 
+                $data['error'] = "Please enter your email and password.";
 
-            /*
-            ========================================
-            USER NOT FOUND
-            ========================================
-            */
+            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-            if (!$result) {
-
-                $data['error'] =
-                    "This email is not registered.";
+                $data['error'] = "Please enter a valid email address.";
 
             } else {
 
 
                 /*
                 ========================================
-                CHECK PASSWORD
+                LOAD USER MODEL
                 ========================================
                 */
 
-                if (
-                    password_verify(
-                        $password,
-                        $result->password
-                    )
-                ) {
+                $user = $this->model("User");
 
 
-                    /*
-                    ========================================
-                    START SESSION
-                    ========================================
-                    */
+                /*
+                ========================================
+                FIND USER
+                ========================================
+                */
 
-                    if (
-                        session_status()
-                        === PHP_SESSION_NONE
-                    ) {
-
-                        session_start();
-
-                    }
+                $result = $user->findByEmail($email);
 
 
-                    /*
-                    ========================================
-                    STORE USER INFORMATION
-                    ========================================
-                    */
+                /*
+                ========================================
+                USER NOT FOUND
+                ========================================
+                */
 
-                    $_SESSION['user_id'] =
-                        $result->user_id;
+                if (!$result) {
 
-                    $_SESSION['firstname'] =
-                        $result->firstname;
-
-                    $_SESSION['lastname'] =
-                        $result->lastname;
-
-                    $_SESSION['email'] =
-                        $result->email;
-
-                    $_SESSION['gender'] =
-                        $result->gender;
-
-                    $_SESSION['rank'] =
-                        $result->rank;
-
-                    $_SESSION['school_id'] =
-                        $result->school_id;
-
-
-                    /*
-========================================
-REDIRECT BASED ON ROLE
-========================================
-*/
-
-// SUPER ADMIN
-
-if ($result->rank === 'super_admin') {
-
-    header(
-        "Location: "
-        . ROOT
-        . "/superadmin"
-    );
-
-    exit;
-}
-
-
-// SCHOOL ADMIN
-
-if ($result->rank === 'admin') {
-
-    header(
-        "Location: "
-        . ROOT
-        . "/school-admin"
-    );
-
-    exit;
-}
-
-
-// TEACHER
-
-if ($result->rank === 'teacher') {
-
-    header(
-        "Location: "
-        . ROOT
-        . "/teacherDashboard"
-    );
-
-    exit;
-}
-
-
-// STUDENT
-
-if ($result->rank === 'student') {
-
-    header(
-        "Location: "
-        . ROOT
-        . "/studentDashboard"
-    );
-
-    exit;
-}
-
-
-// PARENT
-
-if ($result->rank === 'parent') {
-
-    header(
-        "Location: "
-        . ROOT
-        . "/parentDashboard"
-    );
-
-    exit;
-}
-
-
-/*
-========================================
-OTHER USERS
-========================================
-*/
-
-header(
-    "Location: "
-    . ROOT
-    . "/home"
-);
-
-exit;
+                    $data['error'] =
+                        "Invalid email or password.";
 
                 } else {
 
 
                     /*
                     ========================================
-                    WRONG PASSWORD
+                    CHECK PASSWORD
                     ========================================
                     */
 
-                    $data['error'] =
-                        "Incorrect password.";
+                    if (
+                        !isset($result->password) ||
+                        !password_verify(
+                            $password,
+                            $result->password
+                        )
+                    ) {
 
+                        $data['error'] =
+                            "Invalid email or password.";
+
+                    } else {
+
+
+                        /*
+                        ========================================
+                        SESSION FIXATION PROTECTION
+                        ========================================
+                        */
+
+                        session_regenerate_id(true);
+
+
+                        /*
+                        ========================================
+                        STORE REQUIRED USER DATA
+                        ========================================
+                        */
+
+                        $_SESSION['user_id'] =
+                            $result->user_id;
+
+                        $_SESSION['firstname'] =
+                            $result->firstname;
+
+                        $_SESSION['lastname'] =
+                            $result->lastname;
+
+                        $_SESSION['email'] =
+                            $result->email;
+
+                        $_SESSION['gender'] =
+                            $result->gender;
+
+                        $_SESSION['rank'] =
+                            $result->rank;
+
+                        $_SESSION['school_id'] =
+                            $result->school_id;
+
+
+                        /*
+                        ========================================
+                        LOGIN TIMESTAMP
+                        ========================================
+                        */
+
+                        $_SESSION['login_time'] = time();
+                        $_SESSION['last_activity'] = time();
+
+
+                        /*
+                        ========================================
+                        REDIRECT BASED ON ROLE
+                        ========================================
+                        */
+
+                        // SUPER ADMIN
+
+                        if ($result->rank === 'super_admin') {
+
+                            header(
+                                "Location: "
+                                . ROOT
+                                . "/superadmin"
+                            );
+
+                            exit;
+                        }
+
+
+                        // SCHOOL ADMIN
+
+                        if ($result->rank === 'admin') {
+
+                            header(
+                                "Location: "
+                                . ROOT
+                                . "/school-admin"
+                            );
+
+                            exit;
+                        }
+
+
+                        // TEACHER
+
+                        if ($result->rank === 'teacher') {
+
+                            header(
+                                "Location: "
+                                . ROOT
+                                . "/teacherDashboard"
+                            );
+
+                            exit;
+                        }
+
+
+                        // STUDENT
+
+                        if ($result->rank === 'student') {
+
+                            header(
+                                "Location: "
+                                . ROOT
+                                . "/studentDashboard"
+                            );
+
+                            exit;
+                        }
+
+
+                        // PARENT
+
+                        if ($result->rank === 'parent') {
+
+                            header(
+                                "Location: "
+                                . ROOT
+                                . "/parentDashboard"
+                            );
+
+                            exit;
+                        }
+
+
+                        /*
+                        ========================================
+                        OTHER USERS
+                        ========================================
+                        */
+
+                        header(
+                            "Location: "
+                            . ROOT
+                            . "/home"
+                        );
+
+                        exit;
+                    }
                 }
-
             }
-
         }
 
 
