@@ -1,18 +1,5 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-
-    if (
-        !CSRF::verify(
-            $_POST['csrf_token'] ?? ''
-        )
-    ) {
-
-        die("Invalid security token.");
-    }
-
-    // Rest of your code...
-}
 
 require_once "../private/models/User.php";
 require_once "../private/models/School.php";
@@ -358,45 +345,39 @@ class Users extends Controller
 
         ]);
     }
+    public function details($user_id = null)
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
- public function details($user_id = null)
-{
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
+        if (
+            !isset($_SESSION['rank']) ||
+            $_SESSION['rank'] !== 'super_admin'
+        ) {
+            header("Location: " . ROOT . "/home");
+            exit;
+        }
+
+        if ($user_id === null || $user_id === '') {
+            header("Location: " . ROOT . "/users");
+            exit;
+        }
+
+        $user = new User();
+
+        $userData = $user->getUserDetails($user_id);
+
+        if (!$userData) {
+            die(
+                "User not found. User ID: "
+                . htmlspecialchars($user_id)
+            );
+        }
+
+        $this->view('user-details', [
+            'user' => $userData
+        ]);
     }
-
-    // Only Super Admin
-    if (
-        !isset($_SESSION['rank']) ||
-        $_SESSION['rank'] !== 'super_admin'
-    ) {
-        header("Location: " . ROOT . "/home");
-        exit;
-    }
-
-    // Check ID
-    if ($user_id === null || $user_id === '') {
-        header("Location: " . ROOT . "/users");
-        exit;
-    }
-
-    $user = new User();
-
-    // Get selected user
-    $userData = $user->getUserDetails($user_id);
-
-    if (!$userData) {
-        die(
-            "User not found. User ID: "
-            . htmlspecialchars($user_id)
-        );
-    }
-
-    // Send user data to view
-    $this->view('user-details', [
-        'user' => $userData
-    ]);
 }
 
-
-}

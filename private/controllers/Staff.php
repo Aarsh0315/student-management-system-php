@@ -340,6 +340,23 @@ class Staff extends Controller
             exit;
         }
 
+        /*
+========================================
+CSRF PROTECTION
+========================================
+*/
+
+if (
+    !CSRF::verify(
+        $_POST['csrf_token'] ?? ''
+    )
+) {
+
+    die(
+        "Invalid security token. Please refresh the page and try again."
+    );
+}
+
 
         /*
         ========================================

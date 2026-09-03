@@ -136,6 +136,8 @@ class TeacherTests extends Controller
         exit;
     }
 
+    
+
 
     /*
     ========================================
@@ -192,6 +194,9 @@ class TeacherTests extends Controller
     */
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+            die("Invalid security token. Please refresh the page and try again.");
+        }  
 
 
         /*
@@ -656,6 +661,9 @@ public function addquestion($test_id = null)
     */
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+        die("Invalid security token. Please refresh the page and try again.");
+    }
 
 
         /*
@@ -855,14 +863,47 @@ public function publish($test_id = null)
 
     if (!isset($_SESSION['user_id'])) {
 
-        header(
-            "Location: " .
-            ROOT .
-            "/login"
-        );
+    header(
+        "Location: " .
+        ROOT .
+        "/login"
+    );
 
-        exit;
-    }
+    exit;
+}
+
+
+/*
+========================================
+CHECK POST REQUEST
+========================================
+*/
+
+if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+
+    header(
+        "Location: " .
+        ROOT .
+        "/teachertests"
+    );
+
+    exit;
+}
+
+
+/*
+========================================
+CHECK CSRF TOKEN
+========================================
+*/
+
+if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+
+    die(
+        "Invalid security token. Please refresh the page and try again."
+    );
+
+}
 
 
     /*

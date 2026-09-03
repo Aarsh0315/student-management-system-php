@@ -706,13 +706,23 @@ $questions = $data['questions'] ?? [];
 
             <?php if ($status === 'draft' && !empty($questions)): ?>
 
-                <a
-                    href="<?= ROOT ?>/teachertests/publish/<?= urlencode($test->test_id ?? '') ?>"
-                    class="publish-test-btn"
-                    onclick="return confirm('Are you sure you want to publish this test?')"
+                <form
+                    method="POST"
+                    action="<?= ROOT ?>/teachertests/publish/<?= urlencode($test->test_id ?? '') ?>"
+                    onsubmit="return confirm('Are you sure you want to publish this test?')"
+                    class="publish-test-form"
                 >
-                    Publish Test
-                </a>
+
+                    <?= CSRF::field() ?>
+
+                    <button
+                        type="submit"
+                        class="publish-test-btn"
+                    >
+                        Publish Test
+                    </button>
+
+                </form>
 
             <?php endif; ?>
 

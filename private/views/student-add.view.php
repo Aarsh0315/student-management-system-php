@@ -91,6 +91,8 @@
             enctype="multipart/form-data"
         >
 
+        <?= CSRF::field() ?>
+
 
             <!-- =========================
                  PERSONAL INFORMATION

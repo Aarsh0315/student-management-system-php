@@ -403,4 +403,27 @@ public function findActiveByEmail($email)
 
     return $result[0] ?? false;
 }
+
+public function updateProfile(
+    $user_id,
+    $firstname,
+    $lastname,
+    $gender
+) {
+    $query = "UPDATE users
+              SET firstname = :firstname,
+                  lastname = :lastname,
+                  gender = :gender
+              WHERE user_id = :user_id
+              LIMIT 1";
+
+    $this->query($query, [
+        'firstname' => $firstname,
+        'lastname'  => $lastname,
+        'gender'    => $gender,
+        'user_id'   => $user_id
+    ]);
+
+    return true;
+}
 }

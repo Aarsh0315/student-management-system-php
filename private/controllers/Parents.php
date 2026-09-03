@@ -416,6 +416,10 @@ public function add()
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
+    if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+        die("Invalid security token. Please refresh the page and try again.");
+    }
+
         $firstname =
             trim($_POST['firstname'] ?? '');
 

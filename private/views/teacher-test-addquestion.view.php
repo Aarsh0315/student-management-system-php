@@ -145,6 +145,8 @@ $test = $data['test'] ?? null;
             action="<?= ROOT ?>/teachertests/addquestion/<?= urlencode($test->test_id ?? '') ?>"
         >
 
+        <?= CSRF::field() ?>
+
 
             <!-- ========================================
                  QUESTION

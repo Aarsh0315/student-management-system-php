@@ -224,6 +224,21 @@ $initial = strtoupper(
 
         </div>
 
+        <!-- =========================
+            EDIT PROFILE
+        ========================= -->
+
+        <div class="profile-actions">
+
+            <a
+                href="<?= ROOT ?>/profile/edit"
+                class="profile-edit-btn"
+            >
+                Edit Profile
+            </a>
+
+        </div>
+
 
     </section>
 

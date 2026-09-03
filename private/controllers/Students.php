@@ -290,6 +290,21 @@ public function create()
         exit;
     }
 
+    /*
+========================================
+CSRF PROTECTION
+========================================
+*/
+
+if (
+    !CSRF::verify(
+        $_POST['csrf_token'] ?? ''
+    )
+) {
+
+    die("Invalid security token. Please refresh the page and try again.");
+}
+
 
     /*
     ========================================
@@ -460,7 +475,7 @@ if (
         $admission_number === '' ||
         $class === '' ||
         $division === '' ||
-        $$parent_firstname === '' ||
+        $parent_firstname === '' ||
         $parent_lastname === '' ||
         $parent_email === '' ||
         $parent_phone === ''

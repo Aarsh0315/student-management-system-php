@@ -999,6 +999,21 @@ CHECK ATTEMPT
         }
 
 
+/*
+========================================
+CHECK CSRF TOKEN
+========================================
+*/
+
+if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+
+    die(
+        "Invalid security token. Please refresh the page and try again."
+    );
+
+}
+
+
         /*
         ========================================
         CHECK STUDENT

@@ -582,6 +582,13 @@ const submitUrl =
         $test->test_id
     ) ?>";
 
+const csrfToken =
+    "<?= htmlspecialchars(
+        CSRF::token(),
+        ENT_QUOTES,
+        'UTF-8'
+    ) ?>";
+
 
 const testsUrl =
     "<?= ROOT ?>/studenttests";
@@ -1089,6 +1096,22 @@ function submitTest() {
     form.action =
         submitUrl;
 
+    const csrfInput =
+    document.createElement('input');
+
+    csrfInput.type =
+        'hidden';
+
+    csrfInput.name =
+        'csrf_token';
+
+    csrfInput.value =
+        csrfToken;
+
+    form.appendChild(
+        csrfInput
+    );
+
 
     /*
     Add answers
@@ -1188,6 +1211,11 @@ function autoSubmitExam() {
 
     const formData =
         new FormData();
+
+    formData.append(
+    'csrf_token',
+    csrfToken
+);    
 
 
     collectAnswers(

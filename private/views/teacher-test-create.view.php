@@ -140,6 +140,8 @@
             action="<?= ROOT ?>/teachertests/create"
         >
 
+         <?= CSRF::field() ?>
+
 
             <!-- ========================================
                  TEST TITLE

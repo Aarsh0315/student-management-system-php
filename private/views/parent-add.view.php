@@ -125,6 +125,8 @@ $schools = $data['schools'] ?? [];
             action="<?= ROOT ?>/parents/add"
         >
 
+         <?= CSRF::field() ?>
+
 
             <!-- ========================================
                  PERSONAL INFORMATION
