@@ -699,12 +699,62 @@ require "../private/views/includes/sidebar.view.php";
 
                                 <td>
 
-                                    <a
-                                        href="<?= ROOT ?>/users/details/<?= urlencode($user->user_id) ?>"
-                                        class="view-btn"
-                                    >
-                                        View
-                                    </a>
+                                    <div class="table-actions">
+
+    <a
+        href="<?= ROOT ?>/users/details/<?= urlencode($user->user_id) ?>"
+        class="view-btn"
+    >
+        View
+    </a>
+
+    <a
+        href="<?= ROOT ?>/users/edit/<?= urlencode($user->user_id) ?>"
+        class="edit-btn"
+    >
+        Edit
+    </a>
+
+    <?php if ($user->status === 'active'): ?>
+
+        <form
+            method="POST"
+            action="<?= ROOT ?>/users/deactivate/<?= urlencode($user->user_id) ?>"
+            onsubmit="return confirm('Are you sure you want to deactivate this user?');"
+        >
+
+            <?= CSRF::field() ?>
+
+            <button
+                type="submit"
+                class="delete-btn"
+            >
+                Deactivate
+            </button>
+
+        </form>
+
+    <?php else: ?>
+
+        <form
+            method="POST"
+            action="<?= ROOT ?>/users/activate/<?= urlencode($user->user_id) ?>"
+        >
+
+            <?= CSRF::field() ?>
+
+            <button
+                type="submit"
+                class="activate-btn"
+            >
+                Activate
+            </button>
+
+        </form>
+
+    <?php endif; ?>
+
+</div>
 
                                 </td>
 

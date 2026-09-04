@@ -534,4 +534,33 @@ public function updateProfile(
 
     return true;
 }
+
+
+public function updateUser($user_id, $data)
+{
+    $query = "UPDATE users
+              SET
+                  firstname = :firstname,
+                  lastname = :lastname,
+                  email = :email,
+                  gender = :gender,
+                  school_id = :school_id,
+                  rank = :rank,
+                  status = :status,
+                  profile_image = :profile_image
+              WHERE user_id = :user_id
+              LIMIT 1";
+
+    return $this->query($query, [
+        'firstname'      => $data['firstname'],
+        'lastname'       => $data['lastname'],
+        'email'          => $data['email'],
+        'gender'         => $data['gender'],
+        'school_id'      => $data['school_id'],
+        'rank'           => $data['rank'],
+        'status'         => $data['status'],
+        'profile_image'  => $data['profile_image'],
+        'user_id'        => $user_id
+    ]);
+}
 }

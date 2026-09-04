@@ -21,51 +21,116 @@ class Students extends Controller
     $studentModel = new StudentModel();
 
 
-    // ==============================
-    // SUPER ADMIN
-    // ==============================
+    /* ==============================
+       SUPER ADMIN
+    ============================== */
 
     if ($rank === 'super_admin') {
 
-        $students = $studentModel->getAllStudents();
+        $search = trim($_GET['search'] ?? '');
 
+        $sort = $_GET['sort'] ?? 'student_id';
+
+        $direction = $_GET['direction'] ?? 'DESC';
+
+        $gender = $_GET['gender'] ?? '';
+
+        $status = $_GET['status'] ?? '';
+
+        $school_id = $_GET['school_id'] ?? '';
+
+
+        $students = $studentModel->getAllStudents(
+            $search,
+            $sort,
+            $direction,
+            $gender,
+            $status,
+            $school_id
+        );
+
+
+        /* ==============================
+           LOAD SCHOOLS FOR FILTER
+        ============================== */
+
+        $schoolModel = new School();
+
+        $schools = $schoolModel->getAllSchools();
+
+
+        $this->view('students', [
+
+            'students'   => $students,
+
+            'schools'    => $schools,
+
+            'search'     => $search,
+
+            'sort'       => $sort,
+
+            'direction'  => $direction,
+
+            'gender'     => $gender,
+
+            'status'     => $status,
+
+            'school_id'  => $school_id
+
+        ]);
+
+        return;
     }
 
 
-    // ==============================
-    // SCHOOL ADMIN
-    // ==============================
+    /* ==============================
+       SCHOOL ADMIN
+    ============================== */
 
     elseif ($rank === 'admin') {
 
         $school_id = $_SESSION['school_id'] ?? null;
 
+
         if (!$school_id) {
-            die("No school is assigned to this account.");
+
+            die(
+                "No school is assigned to this account."
+            );
         }
 
-        $students = $studentModel->getStudentsBySchool(
-            $school_id
-        );
 
+        $students =
+            $studentModel->getStudentsBySchool(
+                $school_id
+            );
+
+
+        $this->view('students', [
+
+            'students' => $students
+
+        ]);
+
+        return;
     }
 
 
-    // ==============================
-    // OTHER USERS
-    // ==============================
+    /* ==============================
+       OTHER USERS
+    ============================== */
 
     else {
 
-        header("Location: " . ROOT . "/home");
-        exit;
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
 
+        exit;
     }
 
-
-    $this->view('students', [
-        'students' => $students
-    ]);
 }
 
 	public function details($student_id = null)

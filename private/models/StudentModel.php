@@ -5,45 +5,169 @@
 
 class StudentModel extends Model
 {
-    public function getAllStudents()
-    {
-        $query = "SELECT
-                    st.student_id,
-                    st.user_id,
-                    st.school_id,
-                    st.admission_number,
-                    st.class,
-                    st.division,
-                    st.roll_number,
-                    st.date_of_birth,
-                    st.admission_date,
-                    st.parent_name,
-                    st.parent_phone,
-                    st.parent_email,
-                    st.address,
-                    st.status,
+   public function getAllStudents(
+    $search = '',
+    $sort = 'student_id',
+    $direction = 'DESC',
+    $gender = '',
+    $status = '',
+    $school_id = ''
+) {
+    $allowedSorts = [
+        'student_id' => 'st.student_id',
+        'name'       => 'u.firstname',
+        'class'      => 'st.class',
+        'division'   => 'st.division',
+        'school'     => 'sc.school_name',
+        'parent'     => 'st.parent_name',
+        'email'      => 'u.email',
+        'gender'     => 'u.gender',
+        'status'     => 'st.status'
+    ];
 
-                    u.firstname,
-                    u.lastname,
-                    u.email,
-                    u.gender,
-                    u.profile_image,
+    if (!isset($allowedSorts[$sort])) {
+        $sort = 'student_id';
+    }
 
-                    sc.school_name,
-                    sc.school_id AS school_code
+    $sortColumn = $allowedSorts[$sort];
 
-                  FROM students st
+    $direction = strtoupper($direction);
 
-                  INNER JOIN users u
+    if (!in_array($direction, ['ASC', 'DESC'], true)) {
+        $direction = 'DESC';
+    }
+
+
+    $query = "SELECT
+                st.student_id,
+                st.user_id,
+                st.school_id,
+                st.admission_number,
+                st.class,
+                st.division,
+                st.roll_number,
+                st.date_of_birth,
+                st.admission_date,
+                st.parent_name,
+                st.parent_phone,
+                st.parent_email,
+                st.address,
+                st.status,
+
+                u.firstname,
+                u.lastname,
+                u.email,
+                u.gender,
+                u.profile_image,
+
+                sc.school_name,
+                sc.school_id AS school_code
+
+              FROM students st
+
+              INNER JOIN users u
                   ON st.user_id = u.user_id
 
-                  LEFT JOIN schools sc
-                  ON st.school_id = sc.id
+              LEFT JOIN schools sc
+                  ON st.school_id = sc.id";
 
-                  ORDER BY st.student_id DESC";
 
-        return $this->query($query);
+    $conditions = [];
+
+    $params = [];
+
+
+    /* =========================
+       SEARCH
+    ========================== */
+
+    if ($search !== '') {
+
+        $conditions[] = "(
+            st.student_id LIKE :search
+            OR st.admission_number LIKE :search
+            OR u.firstname LIKE :search
+            OR u.lastname LIKE :search
+            OR u.email LIKE :search
+            OR st.parent_name LIKE :search
+            OR st.parent_email LIKE :search
+        )";
+
+        $params['search'] = '%' . $search . '%';
     }
+
+
+    /* =========================
+       GENDER
+    ========================== */
+
+    $allowedGenders = [
+        'Male',
+        'Female',
+        'Other'
+    ];
+
+    if (
+        $gender !== '' &&
+        in_array($gender, $allowedGenders, true)
+    ) {
+
+        $conditions[] = "u.gender = :gender";
+
+        $params['gender'] = $gender;
+    }
+
+
+    /* =========================
+       STATUS
+    ========================== */
+
+    if (
+        $status !== '' &&
+        in_array($status, ['active', 'inactive'], true)
+    ) {
+
+        $conditions[] = "st.status = :status";
+
+        $params['status'] = $status;
+    }
+
+
+    /* =========================
+       SCHOOL
+    ========================== */
+
+    if ($school_id !== '') {
+
+        $conditions[] = "st.school_id = :school_id";
+
+        $params['school_id'] = $school_id;
+    }
+
+
+    /* =========================
+       WHERE
+    ========================== */
+
+    if (!empty($conditions)) {
+
+        $query .= " WHERE " .
+            implode(" AND ", $conditions);
+    }
+
+
+    /* =========================
+       ORDER
+    ========================== */
+
+    $query .= " ORDER BY {$sortColumn} {$direction}";
+
+
+    return $this->query(
+        $query,
+        $params
+    );
+}
 
     public function getStudentDetails($student_id)
 {
