@@ -1203,4 +1203,148 @@ public function updateStudent(
 
     return true;
 }
+
+/* =====================================================
+   DEACTIVATE STUDENT
+===================================================== */
+
+public function deactivateStudent($student_id)
+{
+    // Get linked user ID
+    $studentQuery = "SELECT user_id
+                     FROM students
+                     WHERE student_id = :student_id
+                     LIMIT 1";
+
+    $student = $this->query(
+        $studentQuery,
+        [
+            'student_id' => $student_id
+        ]
+    );
+
+    if (empty($student)) {
+        return false;
+    }
+
+    $user_id = $student[0]->user_id;
+
+
+    // -----------------------------------------------
+    // Deactivate student record
+    // -----------------------------------------------
+
+    $studentQuery = "UPDATE students
+                     SET status = 'inactive'
+                     WHERE student_id = :student_id
+                     LIMIT 1";
+
+    $studentResult = $this->query(
+        $studentQuery,
+        [
+            'student_id' => $student_id
+        ]
+    );
+
+
+    // -----------------------------------------------
+    // Deactivate linked user account
+    // -----------------------------------------------
+
+    $userQuery = "UPDATE users
+                  SET status = 'inactive'
+                  WHERE user_id = :user_id
+                  LIMIT 1";
+
+    $userResult = $this->query(
+        $userQuery,
+        [
+            'user_id' => $user_id
+        ]
+    );
+
+
+    if ($studentResult === false || $userResult === false) {
+        return false;
+    }
+
+
+    return true;
+}
+
+
+/* =====================================================
+   ACTIVATE STUDENT
+===================================================== */
+/* =====================================================
+   ACTIVATE STUDENT
+===================================================== */
+
+public function activateStudent($student_id)
+{
+    // Get the linked user ID
+    $studentQuery = "SELECT user_id
+                     FROM students
+                     WHERE student_id = :student_id
+                     LIMIT 1";
+
+    $student = $this->query(
+        $studentQuery,
+        [
+            'student_id' => $student_id
+        ]
+    );
+
+    if (empty($student)) {
+        return false;
+    }
+
+    $user_id = $student[0]->user_id;
+
+
+    // -----------------------------------------------
+    // Activate student record
+    // -----------------------------------------------
+
+    $studentQuery = "UPDATE students
+                     SET status = 'active'
+                     WHERE student_id = :student_id
+                     LIMIT 1";
+
+    $studentResult = $this->query(
+        $studentQuery,
+        [
+            'student_id' => $student_id
+        ]
+    );
+
+
+    // -----------------------------------------------
+    // Activate linked user account
+    // -----------------------------------------------
+
+    $userQuery = "UPDATE users
+                  SET status = 'active'
+                  WHERE user_id = :user_id
+                  LIMIT 1";
+
+    $userResult = $this->query(
+        $userQuery,
+        [
+            'user_id' => $user_id
+        ]
+    );
+
+
+    // -----------------------------------------------
+    // Check both updates
+    // -----------------------------------------------
+
+    if ($studentResult === false || $userResult === false) {
+        return false;
+    }
+
+
+    return true;
+}
 }

@@ -662,7 +662,11 @@ if ($password !== '' && $password !== $password2) {
         ]);
     }
 
-    public function deactivate($user_id = null)
+   /* =========================
+   DEACTIVATE USER
+========================= */
+
+public function deactivate($user_id = null)
 {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -698,19 +702,67 @@ if ($password !== '' && $password !== $password2) {
         die("User not found.");
     }
 
-    // Prevent Super Admin from deactivating their own account
+
+    /* =========================
+       PREVENT SUPER ADMIN
+    ========================= */
+
     if ($currentUser->rank === 'super_admin') {
         die("Super Admin account cannot be deactivated.");
     }
+
+
+    /* =========================
+       DEACTIVATE USER
+    ========================= */
 
     $query = "UPDATE users
               SET status = 'inactive'
               WHERE user_id = :user_id
               LIMIT 1";
 
-    $user->query($query, [
-        'user_id' => $user_id
-    ]);
+    $result = $user->query(
+        $query,
+        [
+            'user_id' => $user_id
+        ]
+    );
+
+
+    if ($result === false) {
+        die("Unable to deactivate user.");
+    }
+
+
+    /* =========================
+       IF USER IS STUDENT
+       SYNC STUDENTS TABLE
+    ========================= */
+
+    if ($currentUser->rank === 'student') {
+
+        $studentQuery = "UPDATE students
+                         SET status = 'inactive'
+                         WHERE user_id = :user_id
+                         LIMIT 1";
+
+        $studentResult = $user->query(
+            $studentQuery,
+            [
+                'user_id' => $user_id
+            ]
+        );
+
+
+        if ($studentResult === false) {
+            die("Unable to deactivate student.");
+        }
+    }
+
+
+    /* =========================
+       REDIRECT
+    ========================= */
 
     header(
         "Location: " .
@@ -720,6 +772,9 @@ if ($password !== '' && $password !== $password2) {
 
     exit;
 }
+/* =========================
+   ACTIVATE USER
+========================= */
 
 public function activate($user_id = null)
 {
@@ -757,14 +812,58 @@ public function activate($user_id = null)
         die("User not found.");
     }
 
+
+    /* =========================
+       ACTIVATE USER
+    ========================= */
+
     $query = "UPDATE users
               SET status = 'active'
               WHERE user_id = :user_id
               LIMIT 1";
 
-    $user->query($query, [
-        'user_id' => $user_id
-    ]);
+    $result = $user->query(
+        $query,
+        [
+            'user_id' => $user_id
+        ]
+    );
+
+
+    if ($result === false) {
+        die("Unable to activate user.");
+    }
+
+
+    /* =========================
+       IF USER IS STUDENT
+       SYNC STUDENTS TABLE
+    ========================= */
+
+    if ($currentUser->rank === 'student') {
+
+        $studentQuery = "UPDATE students
+                         SET status = 'active'
+                         WHERE user_id = :user_id
+                         LIMIT 1";
+
+        $studentResult = $user->query(
+            $studentQuery,
+            [
+                'user_id' => $user_id
+            ]
+        );
+
+
+        if ($studentResult === false) {
+            die("Unable to activate student.");
+        }
+    }
+
+
+    /* =========================
+       REDIRECT
+    ========================= */
 
     header(
         "Location: " .

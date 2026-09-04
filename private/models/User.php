@@ -535,9 +535,18 @@ public function updateProfile(
     return true;
 }
 
+/* =====================================================
+   UPDATE USER
+===================================================== */
 
 public function updateUser($user_id, $data)
 {
+    /*
+    =====================================================
+    UPDATE USERS TABLE
+    =====================================================
+    */
+
     $query = "UPDATE users
               SET
                   firstname = :firstname,
@@ -551,16 +560,64 @@ public function updateUser($user_id, $data)
               WHERE user_id = :user_id
               LIMIT 1";
 
-    return $this->query($query, [
-        'firstname'      => $data['firstname'],
-        'lastname'       => $data['lastname'],
-        'email'          => $data['email'],
-        'gender'         => $data['gender'],
-        'school_id'      => $data['school_id'],
-        'rank'           => $data['rank'],
-        'status'         => $data['status'],
-        'profile_image'  => $data['profile_image'],
-        'user_id'        => $user_id
-    ]);
+    $userResult = $this->query(
+        $query,
+        [
+            'firstname'      => $data['firstname'],
+            'lastname'       => $data['lastname'],
+            'email'          => $data['email'],
+            'gender'         => $data['gender'],
+            'school_id'      => $data['school_id'],
+            'rank'           => $data['rank'],
+            'status'         => $data['status'],
+            'profile_image'  => $data['profile_image'],
+            'user_id'        => $user_id
+        ]
+    );
+
+
+    /*
+    =====================================================
+    IF USER IS A STUDENT
+    SYNC STUDENTS TABLE STATUS
+    =====================================================
+    */
+
+    if (
+        $userResult !== false &&
+        ($data['rank'] ?? '') === 'student'
+    ) {
+
+        $studentQuery = "UPDATE students
+                         SET status = :status
+                         WHERE user_id = :user_id
+                         LIMIT 1";
+
+        $studentResult = $this->query(
+            $studentQuery,
+            [
+                'status'  => $data['status'],
+                'user_id' => $user_id
+            ]
+        );
+
+
+        if ($studentResult === false) {
+            return false;
+        }
+    }
+
+
+    /*
+    =====================================================
+    SUCCESS
+    =====================================================
+    */
+
+    if ($userResult === false) {
+        return false;
+    }
+
+    return true;
 }
 }

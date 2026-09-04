@@ -1635,4 +1635,150 @@ class Students extends Controller
             ]
         );
     }
+
+    /* =====================================================
+   DEACTIVATE STUDENT
+===================================================== */
+
+public function deactivate($student_id)
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    // Login check
+    if (!isset($_SESSION['rank'])) {
+        header("Location: " . ROOT . "/login");
+        exit;
+    }
+
+
+    $rank = $_SESSION['rank'];
+
+
+    // Only Super Admin and Admin
+    if ($rank !== 'super_admin' && $rank !== 'admin') {
+        header("Location: " . ROOT . "/home");
+        exit;
+    }
+
+
+    // POST only
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header("Location: " . ROOT . "/students");
+        exit;
+    }
+
+
+    // CSRF
+    if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+        die("Invalid CSRF token.");
+    }
+
+
+    $studentModel = new StudentModel();
+
+
+    // Admin can only deactivate students from own school
+    if ($rank === 'admin') {
+
+        $school_id = $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+            die("No school is assigned to this account.");
+        }
+
+
+        $student = $studentModel->getStudentDetailsBySchool(
+            $student_id,
+            $school_id
+        );
+
+        if (!$student) {
+            header("Location: " . ROOT . "/students");
+            exit;
+        }
+    }
+
+
+    $result = $studentModel->deactivateStudent($student_id);
+
+
+    header("Location: " . ROOT . "/students");
+    exit;
+}
+
+/* =====================================================
+   ACTIVATE STUDENT
+===================================================== */
+
+public function activate($student_id)
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    // Login check
+    if (!isset($_SESSION['rank'])) {
+        header("Location: " . ROOT . "/login");
+        exit;
+    }
+
+
+    $rank = $_SESSION['rank'];
+
+
+    // Only Super Admin and Admin
+    if ($rank !== 'super_admin' && $rank !== 'admin') {
+        header("Location: " . ROOT . "/home");
+        exit;
+    }
+
+
+    // POST only
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header("Location: " . ROOT . "/students");
+        exit;
+    }
+
+
+    // CSRF
+    if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+        die("Invalid CSRF token.");
+    }
+
+
+    $studentModel = new StudentModel();
+
+
+    // Admin can only activate students from own school
+    if ($rank === 'admin') {
+
+        $school_id = $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+            die("No school is assigned to this account.");
+        }
+
+
+        $student = $studentModel->getStudentDetailsBySchool(
+            $student_id,
+            $school_id
+        );
+
+        if (!$student) {
+            header("Location: " . ROOT . "/students");
+            exit;
+        }
+    }
+
+
+    $result = $studentModel->activateStudent($student_id);
+
+
+    header("Location: " . ROOT . "/students");
+    exit;
+}
 }
