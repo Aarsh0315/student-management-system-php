@@ -1083,55 +1083,75 @@ if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
         );
     }
 
-    /*
-========================================
+   /*
+=====================================================
 CREATE STUDENT NOTIFICATIONS
-========================================
+=====================================================
 */
 
+$notificationModel = $this->model('NotificationModel');
+
+
 /*
-========================================
+=====================================================
 GET STUDENTS FOR TEST
-========================================
+=====================================================
 */
 
 $studentQuery = "SELECT
                     s.user_id
-
                  FROM students s
-
                  WHERE s.school_id = :school_id
-
                  AND s.class = :class
-
                  AND s.division = :division";
 
+$students = $testModel->query(
+    $studentQuery,
+    [
+        'school_id' => $school_id,
+        'class'     => $test->class,
+        'division'  => $test->division
+    ]
+);
 
-$students =
-    $testModel->query(
-        $studentQuery,
-        [
-            'school_id' => $school_id,
-            'class'     => $test->class,
-            'division'  => $test->division
-        ]
+
+/*
+=====================================================
+CREATE NOTIFICATION FOR EACH STUDENT
+=====================================================
+*/
+
+foreach ($students as $student) {
+
+    if (empty($student->user_id)) {
+        continue;
+    }
+
+    $notificationModel->createNotification(
+        $student->user_id,
+        $school_id,
+        'New Test Available',
+        'A new test "' . $test->title . '" has been published for your class. You can now view and take the test.',
+        'test',
+        $test_id
     );
-
-    /*
-    ========================================
-    REDIRECT
-    ========================================
-    */
-
-    header(
-        "Location: " .
-        ROOT .
-        "/teachertests/details/" .
-        urlencode($test_id)
-    );
-
-    exit;
 }
 
 
+/*
+=====================================================
+REDIRECT
+=====================================================
+*/
+
+header(
+    "Location: " .
+    ROOT .
+    "/teachertests/details/" .
+    urlencode($test_id)
+);
+
+exit;
+
+}
 }

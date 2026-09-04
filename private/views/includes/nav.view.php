@@ -5,17 +5,20 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 
-/* ========================================
-   USER ROLE
-======================================== */
+/*
+=====================================================
+USER ROLE
+=====================================================
+*/
 
 $rank = $_SESSION['rank'] ?? '';
 
 
-
-/* ========================================
-   DASHBOARD URL
-======================================== */
+/*
+=====================================================
+DASHBOARD URL
+=====================================================
+*/
 
 if ($rank === 'super_admin') {
 
@@ -39,7 +42,7 @@ if ($rank === 'super_admin') {
 
 } elseif ($rank === 'parent') {
 
-    $dashboardUrl = ROOT . '/home';
+    $dashboardUrl = ROOT . '/parentDashboard';
     $roleName = 'Parent';
 
 } else {
@@ -50,38 +53,34 @@ if ($rank === 'super_admin') {
 }
 
 
-
-/* ========================================
-   USER INFORMATION
-======================================== */
+/*
+=====================================================
+USER INFORMATION
+=====================================================
+*/
 
 $firstname = $_SESSION['firstname'] ?? 'User';
 
-
 $initial = strtoupper(
-    substr(
-        $firstname,
-        0,
-        1
-    )
+    substr($firstname, 0, 1)
 );
 
 ?>
 
 
 
-<!-- ========================================
+<!-- =================================================
      TOP NAVBAR
-======================================== -->
+================================================== -->
 
 <header class="top-navbar">
 
     <div class="top-navbar-container">
 
 
-        <!-- ====================================
+        <!-- =================================================
              LEFT SIDE
-        ===================================== -->
+        ================================================== -->
 
         <div class="navbar-left">
 
@@ -118,9 +117,9 @@ $initial = strtoupper(
 
 
 
-        <!-- ====================================
+        <!-- =================================================
              SEARCH
-        ===================================== -->
+        ================================================== -->
 
         <div
             class="navbar-search"
@@ -147,9 +146,9 @@ $initial = strtoupper(
 
 
 
-            <!-- ====================================
+            <!-- =================================================
                  SEARCH RESULTS
-            ===================================== -->
+            ================================================== -->
 
             <div
                 class="search-dropdown"
@@ -157,10 +156,9 @@ $initial = strtoupper(
             >
 
 
-
-                <!-- ====================================
+                <!-- =================================================
                      SUPER ADMIN
-                ===================================== -->
+                ================================================== -->
 
                 <?php if ($rank === 'super_admin'): ?>
 
@@ -183,7 +181,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                ▣
+                                SC
                             </span>
 
                             <span class="search-item-content">
@@ -201,7 +199,6 @@ $initial = strtoupper(
                         </a>
 
 
-
                         <!-- USERS -->
 
                         <a
@@ -211,7 +208,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                👥
+                                US
                             </span>
 
                             <span class="search-item-content">
@@ -250,7 +247,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                🎓
+                                ST
                             </span>
 
                             <span class="search-item-content">
@@ -268,7 +265,6 @@ $initial = strtoupper(
                         </a>
 
 
-
                         <!-- STAFF -->
 
                         <a
@@ -278,7 +274,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                👨‍🏫
+                                SF
                             </span>
 
                             <span class="search-item-content">
@@ -296,7 +292,6 @@ $initial = strtoupper(
                         </a>
 
 
-
                         <!-- PARENTS -->
 
                         <a
@@ -306,7 +301,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                👨‍👩‍👧
+                                PR
                             </span>
 
                             <span class="search-item-content">
@@ -336,7 +331,6 @@ $initial = strtoupper(
                         </div>
 
 
-
                         <!-- TESTS -->
 
                         <a
@@ -346,7 +340,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                📝
+                                TS
                             </span>
 
                             <span class="search-item-content">
@@ -364,7 +358,6 @@ $initial = strtoupper(
                         </a>
 
 
-
                         <!-- RESULTS -->
 
                         <a
@@ -374,7 +367,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                📊
+                                RS
                             </span>
 
                             <span class="search-item-content">
@@ -392,7 +385,6 @@ $initial = strtoupper(
                         </a>
 
 
-
                         <!-- SCHOOL ADMINS -->
 
                         <a
@@ -402,7 +394,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                🧑‍💼
+                                SA
                             </span>
 
                             <span class="search-item-content">
@@ -426,14 +418,12 @@ $initial = strtoupper(
 
 
 
-                <!-- ====================================
+                <!-- =================================================
                      SCHOOL ADMIN
-                ===================================== -->
+                ================================================== -->
 
                 <?php if ($rank === 'admin'): ?>
 
-
-                    <!-- PEOPLE -->
 
                     <div class="search-section">
 
@@ -442,8 +432,6 @@ $initial = strtoupper(
                         </div>
 
 
-                        <!-- STUDENTS -->
-
                         <a
                             href="<?= ROOT ?>/students"
                             class="search-item"
@@ -451,7 +439,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                🎓
+                                ST
                             </span>
 
                             <span class="search-item-content">
@@ -469,9 +457,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- STAFF -->
-
                         <a
                             href="<?= ROOT ?>/staff"
                             class="search-item"
@@ -479,7 +464,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                👨‍🏫
+                                SF
                             </span>
 
                             <span class="search-item-content">
@@ -497,9 +482,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- PARENTS -->
-
                         <a
                             href="<?= ROOT ?>/parents"
                             class="search-item"
@@ -507,7 +489,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                👨‍👩‍👧
+                                PR
                             </span>
 
                             <span class="search-item-content">
@@ -528,16 +510,12 @@ $initial = strtoupper(
 
 
 
-                    <!-- ACADEMICS -->
-
                     <div class="search-section">
 
                         <div class="search-section-title">
                             ACADEMICS
                         </div>
 
-
-                        <!-- CLASSES -->
 
                         <a
                             href="<?= ROOT ?>/classes"
@@ -546,7 +524,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                🏫
+                                CL
                             </span>
 
                             <span class="search-item-content">
@@ -564,9 +542,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- TESTS -->
-
                         <a
                             href="<?= ROOT ?>/tests"
                             class="search-item"
@@ -574,7 +549,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                📝
+                                TS
                             </span>
 
                             <span class="search-item-content">
@@ -592,9 +567,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- RESULTS -->
-
                         <a
                             href="<?= ROOT ?>/results"
                             class="search-item"
@@ -602,7 +574,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                📊
+                                RS
                             </span>
 
                             <span class="search-item-content">
@@ -620,9 +592,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- ATTENDANCE -->
-
                         <a
                             href="<?= ROOT ?>/attendance"
                             class="search-item"
@@ -630,7 +599,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                ✓
+                                AT
                             </span>
 
                             <span class="search-item-content">
@@ -648,9 +617,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- FEES -->
-
                         <a
                             href="<?= ROOT ?>/fees"
                             class="search-item"
@@ -658,7 +624,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                ₹
+                                FE
                             </span>
 
                             <span class="search-item-content">
@@ -676,9 +642,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- NOTICES -->
-
                         <a
                             href="<?= ROOT ?>/notices"
                             class="search-item"
@@ -686,7 +649,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                ▤
+                                NO
                             </span>
 
                             <span class="search-item-content">
@@ -710,12 +673,11 @@ $initial = strtoupper(
 
 
 
-                <!-- ====================================
+                <!-- =================================================
                      TEACHER
-                ===================================== -->
+                ================================================== -->
 
                 <?php if ($rank === 'teacher'): ?>
-
 
                     <div class="search-section">
 
@@ -724,8 +686,6 @@ $initial = strtoupper(
                         </div>
 
 
-                        <!-- STUDENTS -->
-
                         <a
                             href="<?= ROOT ?>/teacherstudents"
                             class="search-item"
@@ -733,7 +693,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                🎓
+                                ST
                             </span>
 
                             <span class="search-item-content">
@@ -751,9 +711,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- CLASSES -->
-
                         <a
                             href="<?= ROOT ?>/teacherclasses"
                             class="search-item"
@@ -761,7 +718,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                🏫
+                                CL
                             </span>
 
                             <span class="search-item-content">
@@ -779,9 +736,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- TESTS -->
-
                         <a
                             href="<?= ROOT ?>/teachertests"
                             class="search-item"
@@ -789,7 +743,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                📝
+                                TS
                             </span>
 
                             <span class="search-item-content">
@@ -807,9 +761,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- RESULTS -->
-
                         <a
                             href="<?= ROOT ?>/teacherresults"
                             class="search-item"
@@ -817,7 +768,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                📊
+                                RS
                             </span>
 
                             <span class="search-item-content">
@@ -835,9 +786,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- PARENTS -->
-
                         <a
                             href="<?= ROOT ?>/teacherparents"
                             class="search-item"
@@ -845,7 +793,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                👨‍👩‍👧
+                                PR
                             </span>
 
                             <span class="search-item-content">
@@ -864,19 +812,15 @@ $initial = strtoupper(
 
                     </div>
 
-
                 <?php endif; ?>
 
-                
 
 
-
-                <!-- ====================================
+                <!-- =================================================
                      STUDENT
-                ===================================== -->
+                ================================================== -->
 
                 <?php if ($rank === 'student'): ?>
-
 
                     <div class="search-section">
 
@@ -885,8 +829,6 @@ $initial = strtoupper(
                         </div>
 
 
-                        <!-- CLASSES -->
-
                         <a
                             href="<?= ROOT ?>/studentclasses"
                             class="search-item"
@@ -894,7 +836,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                🏫
+                                CL
                             </span>
 
                             <span class="search-item-content">
@@ -912,9 +854,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- TESTS -->
-
                         <a
                             href="<?= ROOT ?>/studenttests"
                             class="search-item"
@@ -922,7 +861,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                📝
+                                TS
                             </span>
 
                             <span class="search-item-content">
@@ -940,9 +879,6 @@ $initial = strtoupper(
                         </a>
 
 
-
-                        <!-- RESULTS -->
-
                         <a
                             href="<?= ROOT ?>/studentresults"
                             class="search-item"
@@ -950,7 +886,7 @@ $initial = strtoupper(
                         >
 
                             <span class="search-item-icon">
-                                📊
+                                RS
                             </span>
 
                             <span class="search-item-content">
@@ -969,44 +905,106 @@ $initial = strtoupper(
 
                     </div>
 
+                <?php endif; ?>
+
+
+
+                <!-- =================================================
+                     PARENT
+                ================================================== -->
+
+                <?php if ($rank === 'parent'): ?>
+
+                    <div class="search-section">
+
+                        <div class="search-section-title">
+                            FAMILY
+                        </div>
+
+
+                        <a
+                            href="<?= ROOT ?>/parentchildren"
+                            class="search-item"
+                            data-search="children child students parent"
+                        >
+
+                            <span class="search-item-icon">
+                                ST
+                            </span>
+
+                            <span class="search-item-content">
+
+                                <strong>
+                                    My Children
+                                </strong>
+
+                                <small>
+                                    View your children
+                                </small>
+
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            href="<?= ROOT ?>/parenttests"
+                            class="search-item"
+                            data-search="tests test exam parent children"
+                        >
+
+                            <span class="search-item-icon">
+                                TS
+                            </span>
+
+                            <span class="search-item-content">
+
+                                <strong>
+                                    Tests
+                                </strong>
+
+                                <small>
+                                    View children tests
+                                </small>
+
+                            </span>
+
+                        </a>
+
+
+                        <a
+                            href="<?= ROOT ?>/parentresults"
+                            class="search-item"
+                            data-search="results result marks parent children"
+                        >
+
+                            <span class="search-item-icon">
+                                RS
+                            </span>
+
+                            <span class="search-item-content">
+
+                                <strong>
+                                    Results
+                                </strong>
+
+                                <small>
+                                    View children results
+                                </small>
+
+                            </span>
+
+                        </a>
+
+                    </div>
 
                 <?php endif; ?>
 
 
 
-               <?php if (($rank ?? '') === 'parent'): ?>
-
-    <a href="<?= ROOT ?>/parentchildren" class="search-result-item">
-        <span class="search-result-icon">ST</span>
-        <div>
-            <strong>My Children</strong>
-            <small>View your children</small>
-        </div>
-    </a>
-
-    <a href="<?= ROOT ?>/parenttests" class="search-result-item">
-        <span class="search-result-icon">TS</span>
-        <div>
-            <strong>Tests</strong>
-            <small>View children tests</small>
-        </div>
-    </a>
-
-    <a href="<?= ROOT ?>/parentresults" class="search-result-item">
-        <span class="search-result-icon">RS</span>
-        <div>
-            <strong>Results</strong>
-            <small>View children results</small>
-        </div>
-    </a>
-
-<?php endif; ?>
-
-
-
-                <!-- ====================================
+                <!-- =================================================
                      NO RESULTS
-                ===================================== -->
+                ================================================== -->
 
                 <div
                     class="search-no-results"
@@ -1022,74 +1020,102 @@ $initial = strtoupper(
 
 
 
-        <!-- ====================================
+        <!-- =================================================
              RIGHT SIDE
-        ===================================== -->
+        ================================================== -->
 
         <div class="navbar-right">
 
-        <!-- THEME TOGGLE -->
-        <button
-            type="button"
-            class="theme-toggle"
-            id="themeToggle"
-            aria-label="Switch theme"
-            title="Switch theme"
-        >
-            <span class="theme-icon" id="themeIcon">☾</span>
-            <span class="theme-text" id="themeText">Dark</span>
-        </button>
 
-
-            <!-- =================================
-                 NOTIFICATIONS
-            ================================== -->
+            <!-- =================================================
+                 THEME TOGGLE
+            ================================================== -->
 
             <button
                 type="button"
-                class="navbar-icon-btn"
+                class="theme-toggle"
+                id="themeToggle"
+                aria-label="Switch theme"
+                title="Switch theme"
+            >
+
+                <span
+                    class="theme-icon"
+                    id="themeIcon"
+                >
+                    ☾
+                </span>
+
+                <span
+                    class="theme-text"
+                    id="themeText"
+                >
+                    Dark
+                </span>
+
+            </button>
+
+
+
+            <!-- =================================================
+                 NOTIFICATIONS
+            ================================================== -->
+
+            <a
+                href="<?= ROOT ?>/notifications"
+                class="navbar-icon-btn notification-link"
                 aria-label="Notifications"
                 title="Notifications"
             >
 
                 <span class="navbar-icon">
-                    ♧
+                    NT
                 </span>
 
-                <span class="notification-badge">
-                    3
-                </span>
 
-            </button>
+                <?php
 
+                $notificationCount = 0;
 
+                if (
+                    isset($_SESSION['user_id']) &&
+                    !empty($_SESSION['user_id'])
+                ) {
 
-            <!-- =================================
-                 MESSAGES
-            ================================== -->
+                    require_once __DIR__ .
+                        '/../../models/NotificationModel.php';
 
-            <button
-                type="button"
-                class="navbar-icon-btn"
-                aria-label="Messages"
-                title="Messages"
-            >
+                    $notificationModel =
+                        new NotificationModel();
 
-                <span class="navbar-icon">
-                    ✉
-                </span>
+                    $notificationCount =
+                        $notificationModel->getUnreadCount(
+                            $_SESSION['user_id'],
+                            $_SESSION['school_id'] ?? null
+                        );
+                }
 
-                <span class="message-badge">
-                    2
-                </span>
-
-            </button>
+                ?>
 
 
+                <?php if ($notificationCount > 0): ?>
 
-            <!-- =================================
+                    <span class="notification-badge">
+                        <?= $notificationCount > 99
+                            ? '99+'
+                            : $notificationCount
+                        ?>
+                    </span>
+
+                <?php endif; ?>
+
+            </a>
+
+
+
+            <!-- =================================================
                  PROFILE
-            ================================== -->
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/profile"
@@ -1119,9 +1145,9 @@ $initial = strtoupper(
 
 
 
-            <!-- =================================
+            <!-- =================================================
                  LOGOUT
-            ================================== -->
+            ================================================== -->
 
             <a
                 href="<?= ROOT ?>/logout"

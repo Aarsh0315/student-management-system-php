@@ -1,0 +1,512 @@
+/* =====================================================
+   EDIT SCHOOL PAGE
+   My School - Super Admin Theme
+===================================================== */
+
+
+/* =====================================================
+   EDIT SCHOOL FORM
+===================================================== */
+
+.school-edit-form {
+    width: 100%;
+}
+
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.school-edit-form .form-group {
+    min-height: 88px;
+    padding: 17px 18px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+
+    background: #ffffff;
+
+    border-right: 1px solid #eee5eb;
+    border-bottom: 1px solid #eee5eb;
+
+    transition: background 0.2s ease;
+}
+
+
+.school-edit-form .form-group:hover {
+    background: #fdf9fc;
+}
+
+
+/* =====================================================
+   LABEL
+===================================================== */
+
+.school-edit-form .form-group label {
+    color: #9b949e;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+
+/* =====================================================
+   INPUT
+===================================================== */
+
+.school-edit-form .form-group input,
+.school-edit-form .form-group select {
+
+    width: 100%;
+    height: 40px;
+
+    padding: 9px 12px;
+
+    background: #ffffff;
+
+    color: #302d3d;
+
+    border: 1px solid #eadfe7;
+
+    border-radius: 7px;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* =====================================================
+   INPUT FOCUS
+===================================================== */
+
+.school-edit-form .form-group input:focus,
+.school-edit-form .form-group select:focus {
+
+    border-color: #a32675;
+
+    box-shadow:
+        0 0 0 3px rgba(163, 38, 117, 0.08);
+}
+
+
+/* =====================================================
+   READ ONLY SCHOOL ID
+===================================================== */
+
+.school-edit-form .form-group input[readonly] {
+
+    background: #faf7f9;
+
+    color: #756d79;
+
+    cursor: not-allowed;
+}
+
+
+/* =====================================================
+   HELP TEXT
+===================================================== */
+
+.school-edit-form .form-group small {
+
+    color: #918b99;
+
+    font-size: 10px;
+
+    line-height: 1.4;
+}
+
+
+/* =====================================================
+   ADDRESS FIELD
+===================================================== */
+
+.school-edit-form .full-width {
+
+    width: 100%;
+}
+
+
+/* =====================================================
+   TEXTAREA
+===================================================== */
+
+.school-edit-form .form-group textarea {
+
+    width: 100%;
+
+    min-height: 120px;
+
+    padding: 11px 12px;
+
+    background: #ffffff;
+
+    color: #302d3d;
+
+    border: 1px solid #eadfe7;
+
+    border-radius: 7px;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    resize: vertical;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.school-edit-form .form-group textarea:focus {
+
+    border-color: #a32675;
+
+    box-shadow:
+        0 0 0 3px rgba(163, 38, 117, 0.08);
+}
+
+
+/* =====================================================
+   ERROR MESSAGE
+===================================================== */
+
+.form-error {
+
+    margin-bottom: 24px;
+
+    padding: 12px 15px;
+
+    background: #fef2f4;
+
+    color: #b4233c;
+
+    border: 1px solid #f3ccd4;
+
+    border-radius: 8px;
+
+    font-size: 12px;
+
+    line-height: 1.5;
+}
+
+
+/* =====================================================
+   FORM ACTIONS
+===================================================== */
+
+.school-edit-form .school-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 8px;
+
+    padding-top: 24px;
+
+    border-top: 1px solid #eee5eb;
+}
+
+
+/* =====================================================
+   UPDATE BUTTON
+===================================================== */
+
+.save-school-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 18px;
+
+    background: #a32675;
+
+    color: #ffffff;
+
+    border: 1px solid #a32675;
+
+    border-radius: 8px;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+.save-school-btn:hover {
+
+    background: #8d205f;
+
+    border-color: #8d205f;
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 5px 14px rgba(163, 38, 117, 0.16);
+}
+
+
+/* =====================================================
+   BUTTON FOCUS
+===================================================== */
+
+.save-school-btn:focus-visible,
+.back-btn:focus-visible {
+
+    outline: 3px solid rgba(163, 38, 117, 0.16);
+
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
+   CANCEL BUTTON
+===================================================== */
+
+.school-edit-form .back-btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 10px 16px;
+
+    background: #ffffff;
+
+    color: #625b67;
+
+    border: 1px solid #d9cfd7;
+
+    border-radius: 8px;
+
+    text-decoration: none;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+.school-edit-form .back-btn:hover {
+
+    background: #faf6f9;
+
+    border-color: #cdbeca;
+
+    color: #a32675;
+
+    transform: translateX(-2px);
+}
+
+
+/* =====================================================
+   SELECT
+===================================================== */
+
+.school-edit-form select {
+
+    appearance: auto;
+
+    cursor: pointer;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1000px) {
+
+    .school-edit-form .information-grid {
+
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   SMALL TABLET
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .school-edit-form .information-grid {
+
+        grid-template-columns: 1fr;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .school-details-card {
+
+        padding: 20px;
+
+        border-radius: 14px;
+    }
+
+
+    .school-details-header {
+
+        align-items: flex-start;
+
+        flex-wrap: wrap;
+
+        gap: 14px;
+    }
+
+
+    .school-details-header .status {
+
+        margin-left: 0;
+
+        width: 100%;
+
+        justify-content: center;
+    }
+
+
+    .school-avatar {
+
+        width: 60px;
+
+        height: 60px;
+
+        min-width: 60px;
+
+        font-size: 21px;
+    }
+
+
+    .school-details-header h2 {
+
+        font-size: 18px;
+    }
+
+
+    .school-edit-form .school-actions {
+
+        flex-direction: column-reverse;
+
+        align-items: stretch;
+    }
+
+
+    .school-edit-form .school-actions a,
+    .school-edit-form .school-actions button {
+
+        width: 100%;
+
+        text-align: center;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .school-details-card {
+
+        padding: 17px;
+    }
+
+
+    .school-details-header h2 {
+
+        font-size: 17px;
+    }
+
+
+    .school-details-header p {
+
+        font-size: 11px;
+    }
+
+
+    .school-edit-form .form-group {
+
+        min-height: 75px;
+
+        padding: 15px;
+    }
+
+
+    .school-edit-form .form-group input,
+    .school-edit-form .form-group select,
+    .school-edit-form .form-group textarea {
+
+        font-size: 12px;
+    }
+
+}

@@ -880,3 +880,655 @@ html[data-theme="dark"] .sidebar-footer-info span {
 html[data-theme="dark"] .sidebar-overlay {
     background: rgba(0, 0, 0, 0.52);
 }
+
+/* =====================================================
+   MY SCHOOL — SIDEBAR PREMIUM UPGRADE
+   Add at the END of sidebar.view.css
+   ===================================================== */
+
+
+/* =====================================================
+   SIDEBAR
+   ===================================================== */
+
+.sidebar {
+    width: 272px;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff 0%,
+            #fdfafd 100%
+        );
+
+    border-right: 1px solid #e8dfe7;
+
+    box-shadow:
+        5px 0 24px rgba(48, 45, 61, 0.055);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.25s ease;
+}
+
+
+/* =====================================================
+   SIDEBAR HEADER
+   ===================================================== */
+
+.sidebar-header {
+    min-height: 76px;
+
+    padding: 0 20px;
+
+    border-bottom: 1px solid #eee7ed;
+
+    background:
+        linear-gradient(
+            180deg,
+            #ffffff,
+            #fefcff
+        );
+}
+
+
+/* =====================================================
+   SIDEBAR TITLE
+   ===================================================== */
+
+.sidebar-title {
+    gap: 12px;
+}
+
+.sidebar-title-icon {
+    width: 40px;
+    height: 40px;
+
+    border-radius: 11px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6 0%,
+            #f8eaf5 55%,
+            #f5edff 100%
+        );
+
+    border: 1px solid #ead5e3;
+
+    color: #a32675;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    box-shadow:
+        0 3px 10px rgba(163, 38, 117, 0.07);
+}
+
+.sidebar-title strong {
+    color: #302d3d;
+
+    font-size: 15px;
+    font-weight: 750;
+
+    letter-spacing: -0.15px;
+}
+
+.sidebar-title span {
+    color: #98919d;
+
+    font-size: 9px;
+    font-weight: 500;
+
+    letter-spacing: 0.15px;
+}
+
+
+/* =====================================================
+   CLOSE BUTTON
+   ===================================================== */
+
+.sidebar-close {
+    width: 34px;
+    height: 34px;
+
+    border: 1px solid transparent;
+    border-radius: 9px;
+
+    color: #817985;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.sidebar-close:hover {
+    background: #fff4f9;
+
+    border-color: #ead8e5;
+
+    color: #a32675;
+
+    transform: rotate(2deg);
+}
+
+
+/* =====================================================
+   SIDEBAR CONTENT
+   ===================================================== */
+
+.sidebar-content {
+    padding: 22px 12px 18px;
+
+    scrollbar-width: thin;
+    scrollbar-color: #d8c3d2 transparent;
+}
+
+
+/* =====================================================
+   SIDEBAR SECTION
+   ===================================================== */
+
+.sidebar-section {
+    margin-bottom: 27px;
+}
+
+
+/* =====================================================
+   SECTION TITLE
+   ===================================================== */
+
+.sidebar-section-title {
+    margin: 0 0 9px;
+
+    padding: 0 13px;
+
+    color: #a098a5;
+
+    font-size: 9px;
+    font-weight: 750;
+
+    letter-spacing: 1.05px;
+
+    text-transform: uppercase;
+}
+
+
+/* =====================================================
+   SIDEBAR LINK
+   ===================================================== */
+
+.sidebar-link {
+    min-height: 46px;
+
+    gap: 12px;
+
+    padding: 0 12px;
+
+    margin-bottom: 4px;
+
+    border-radius: 11px;
+
+    color: #6f6875;
+
+    font-size: 12px;
+    font-weight: 550;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+
+/* =====================================================
+   SIDEBAR ICON
+   ===================================================== */
+
+.sidebar-icon {
+    width: 32px;
+    height: 32px;
+
+    border-radius: 9px;
+
+    color: #89818e;
+
+    background: transparent;
+
+    font-size: 15px;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* =====================================================
+   HOVER
+   ===================================================== */
+
+.sidebar-link:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #fff5fa,
+            #fcf7fb
+        );
+
+    color: #8c2765;
+
+    transform: translateX(2px);
+
+    box-shadow:
+        0 3px 10px rgba(163, 38, 117, 0.035);
+}
+
+.sidebar-link:hover .sidebar-icon {
+    background: #fff0f6;
+
+    color: #a32675;
+
+    transform: scale(1.04);
+}
+
+
+/* =====================================================
+   ACTIVE LINK
+   ===================================================== */
+
+.sidebar-link.active {
+    color: #7b205b;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6 0%,
+            #fff5fa 55%,
+            #faf5ff 100%
+        );
+
+    font-weight: 650;
+
+    box-shadow:
+        0 4px 14px rgba(163, 38, 117, 0.055);
+}
+
+
+/* =====================================================
+   ACTIVE ICON
+   ===================================================== */
+
+.sidebar-link.active .sidebar-icon {
+    background: #ffffff;
+
+    color: #a32675;
+
+    border: 1px solid #f0dbe8;
+
+    box-shadow:
+        0 3px 9px rgba(163, 38, 117, 0.09);
+
+    transform: none;
+}
+
+
+/* =====================================================
+   ACTIVE INDICATOR
+   ===================================================== */
+
+.sidebar-link.active::before {
+    left: 0;
+
+    top: 8px;
+    bottom: 8px;
+
+    width: 3px;
+
+    border-radius: 0 5px 5px 0;
+
+    background:
+        linear-gradient(
+            180deg,
+            #d89167 0%,
+            #a32675 55%,
+            #6f1760 100%
+        );
+
+    box-shadow:
+        1px 0 6px rgba(163, 38, 117, 0.18);
+}
+
+
+/* =====================================================
+   LOGOUT
+   ===================================================== */
+
+.sidebar-logout {
+    margin-top: 7px;
+
+    color: #766e79;
+}
+
+.sidebar-logout:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #fff5f6,
+            #fff8fa
+        );
+
+    color: #b4233c;
+
+    box-shadow:
+        0 3px 10px rgba(180, 35, 60, 0.045);
+}
+
+.sidebar-logout:hover .sidebar-icon {
+    background: #fff0f2;
+
+    color: #b4233c;
+}
+
+
+/* =====================================================
+   SIDEBAR FOOTER
+   ===================================================== */
+
+.sidebar-footer {
+    padding: 16px 17px;
+
+    border-top: 1px solid #eee7ed;
+
+    background:
+        linear-gradient(
+            180deg,
+            #fefcff,
+            #fbf8fb
+        );
+}
+
+
+/* =====================================================
+   FOOTER AVATAR
+   ===================================================== */
+
+.sidebar-footer-avatar {
+    width: 38px;
+    height: 38px;
+
+    min-width: 38px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6,
+            #f6ebf7
+        );
+
+    color: #a32675;
+
+    border: 1px solid #e7cfdf;
+
+    font-size: 12px;
+    font-weight: 750;
+
+    box-shadow:
+        0 3px 9px rgba(163, 38, 117, 0.07);
+}
+
+
+/* =====================================================
+   FOOTER USER INFO
+   ===================================================== */
+
+.sidebar-footer-info {
+    gap: 3px;
+}
+
+.sidebar-footer-info strong {
+    max-width: 165px;
+
+    color: #393443;
+
+    font-size: 11px;
+    font-weight: 650;
+}
+
+.sidebar-footer-info span {
+    color: #98919d;
+
+    font-size: 9px;
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+
+.sidebar-content::-webkit-scrollbar {
+    width: 5px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+    background: #dbc7d5;
+    border-radius: 10px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: #b98ba8;
+}
+
+
+/* =====================================================
+   OVERLAY
+   ===================================================== */
+
+.sidebar-overlay {
+    background: rgba(38, 25, 38, 0.24);
+
+    backdrop-filter: blur(3px);
+}
+
+
+/* =====================================================
+   DARK MODE — PREMIUM
+   ===================================================== */
+
+html[data-theme="dark"] .sidebar {
+    background:
+        linear-gradient(
+            180deg,
+            #211e27 0%,
+            #1e1b23 100%
+        );
+
+    border-right-color: #37313d;
+
+    box-shadow:
+        6px 0 25px rgba(0, 0, 0, 0.25);
+}
+
+
+html[data-theme="dark"] .sidebar-header {
+    background:
+        linear-gradient(
+            180deg,
+            #242029,
+            #211e27
+        );
+
+    border-bottom-color: #37313d;
+}
+
+
+html[data-theme="dark"] .sidebar-title-icon {
+    background:
+        linear-gradient(
+            135deg,
+            #392632,
+            #30283a
+        );
+
+    border-color: #503a4a;
+
+    color: #e09ac1;
+}
+
+
+html[data-theme="dark"] .sidebar-title strong {
+    color: #f3edf3;
+}
+
+
+html[data-theme="dark"] .sidebar-title span {
+    color: #99919f;
+}
+
+
+html[data-theme="dark"] .sidebar-close {
+    color: #aaa1ad;
+}
+
+
+html[data-theme="dark"] .sidebar-close:hover {
+    background: #352b36;
+
+    border-color: #493c47;
+
+    color: #df91ba;
+}
+
+
+html[data-theme="dark"] .sidebar-section-title {
+    color: #8e8795;
+}
+
+
+html[data-theme="dark"] .sidebar-link {
+    color: #aaa2ad;
+}
+
+
+html[data-theme="dark"] .sidebar-icon {
+    color: #968d9b;
+}
+
+
+html[data-theme="dark"] .sidebar-link:hover {
+    background:
+        linear-gradient(
+            135deg,
+            #302831,
+            #302b36
+        );
+
+    color: #e0a0c4;
+
+    box-shadow:
+        none;
+}
+
+
+html[data-theme="dark"] .sidebar-link:hover .sidebar-icon {
+    background: #3a2d38;
+
+    color: #df91ba;
+}
+
+
+html[data-theme="dark"] .sidebar-link.active {
+    background:
+        linear-gradient(
+            135deg,
+            #382a35,
+            #332d3b
+        );
+
+    color: #e3a2c5;
+
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.14);
+}
+
+
+html[data-theme="dark"] .sidebar-link.active .sidebar-icon {
+    background: #29242d;
+
+    border-color: #493943;
+
+    color: #dc91b8;
+
+    box-shadow:
+        0 3px 9px rgba(0, 0, 0, 0.22);
+}
+
+
+html[data-theme="dark"] .sidebar-link.active::before {
+    background:
+        linear-gradient(
+            180deg,
+            #d89167,
+            #a32675,
+            #6f1760
+        );
+}
+
+
+html[data-theme="dark"] .sidebar-footer {
+    background:
+        linear-gradient(
+            180deg,
+            #1f1c24,
+            #1c1920
+        );
+
+    border-top-color: #37313d;
+}
+
+
+html[data-theme="dark"] .sidebar-footer-avatar {
+    background:
+        linear-gradient(
+            135deg,
+            #392632,
+            #30283a
+        );
+
+    border-color: #503a4a;
+
+    color: #df91ba;
+}
+
+
+html[data-theme="dark"] .sidebar-footer-info strong {
+    color: #eee8ef;
+}
+
+
+html[data-theme="dark"] .sidebar-footer-info span {
+    color: #938b99;
+}
+
+
+html[data-theme="dark"] .sidebar-content {
+    scrollbar-color: #514653 transparent;
+}
+
+
+html[data-theme="dark"] .sidebar-content::-webkit-scrollbar-thumb {
+    background: #514653;
+}
+
+
+html[data-theme="dark"] .sidebar-content::-webkit-scrollbar-thumb:hover {
+    background: #74536b;
+}

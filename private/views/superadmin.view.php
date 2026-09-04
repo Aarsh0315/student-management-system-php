@@ -79,7 +79,7 @@ $recentActivities =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=3"
+        href="<?= ROOT ?>/css/nav.view.css?v=6"
     >
 
 

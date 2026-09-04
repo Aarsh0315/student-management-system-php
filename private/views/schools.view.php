@@ -2,6 +2,16 @@
 
 $schools = $data['schools'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
+$status = $data['status'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
@@ -25,36 +35,37 @@ $schools = $data['schools'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=2">
+        href="<?= ROOT ?>/css/superadmin.view.css?v=2"
+    >
 
     <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/schools.view.css?v=4"
->
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/schools.view.css?v=5"
+    >
 
     <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/footer.view.css?v=2"
->
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=2"
+    >
 
-<link
+    <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
-    > 
+    >
 
-<link
+    <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/sidebar.view.css?v=2"
-    > 
-
-
+    >
 
 </head>
+
 
 <body>
 
 
 <?php require "../private/views/includes/nav.view.php"; ?>
+
 
 <!-- =====================================================
      SIDEBAR
@@ -70,7 +81,9 @@ require "../private/views/includes/sidebar.view.php";
 <main class="dashboard">
 
 
-    <!-- PAGE HEADER -->
+    <!-- =====================================================
+         PAGE HEADER
+    ===================================================== -->
 
     <section class="welcome">
 
@@ -93,9 +106,16 @@ require "../private/views/includes/sidebar.view.php";
     </section>
 
 
-    <!-- SCHOOL TABLE -->
+    <!-- =====================================================
+         SCHOOL TABLE
+    ===================================================== -->
 
     <section class="schools-card">
+
+
+        <!-- =================================================
+             SCHOOL HEADER
+        ================================================== -->
 
         <div class="schools-header">
 
@@ -106,8 +126,21 @@ require "../private/views/includes/sidebar.view.php";
                 </h2>
 
                 <p>
+
                     <?= count($schools) ?>
-                    school(s) registered
+
+                    school(s) found
+
+                    <?php if ($search !== ''): ?>
+
+                        for
+
+                        <strong>
+                            "<?= htmlspecialchars($search) ?>"
+                        </strong>
+
+                    <?php endif; ?>
+
                 </p>
 
             </div>
@@ -122,6 +155,218 @@ require "../private/views/includes/sidebar.view.php";
 
         </div>
 
+
+        <!-- =================================================
+             SEARCH + SORT
+        ================================================== -->
+
+        <div class="schools-toolbar">
+
+
+            <!-- SEARCH -->
+
+            <form
+                method="GET"
+                action="<?= ROOT ?>/schools"
+                class="school-search-form"
+            >
+
+                <div class="school-search-box">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search school by name..."
+                        value="<?= htmlspecialchars($search) ?>"
+                    >
+
+                </div>
+
+
+                <!-- KEEP SORT WHEN SEARCHING -->
+
+                <input
+                    type="hidden"
+                    name="sort"
+                    value="<?= htmlspecialchars($sort) ?>"
+                >
+
+                <input
+                    type="hidden"
+                    name="direction"
+                    value="<?= htmlspecialchars($direction) ?>"
+                >
+                <input
+                    type="hidden"
+                    name="status"
+                    value="<?= htmlspecialchars($status) ?>"
+                >
+
+
+                <button
+                    type="submit"
+                    class="search-btn"
+                >
+                    Search
+                </button>
+
+
+                <?php if ($search !== ''): ?>
+
+                    <a
+                        href="<?= ROOT ?>/schools"
+                        class="clear-search-btn"
+                    >
+                        Clear
+                    </a>
+
+                <?php endif; ?>
+
+            </form>
+
+
+            <!-- SORT -->
+
+            <form
+                method="GET"
+                action="<?= ROOT ?>/schools"
+                class="school-sort-form"
+            >
+
+
+                <!-- KEEP SEARCH WHEN SORTING -->
+
+                <input
+                    type="hidden"
+                    name="search"
+                    value="<?= htmlspecialchars($search) ?>"
+                >
+
+
+                <label for="school-sort">
+                    Sort by
+                </label>
+
+
+                <select
+                    name="sort"
+                    id="school-sort"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value="id"
+                        <?= $sort === 'id' ? 'selected' : '' ?>
+                    >
+                        ID
+                    </option>
+
+                    <option
+                        value="school_name"
+                        <?= $sort === 'school_name' ? 'selected' : '' ?>
+                    >
+                        School Name
+                    </option>
+
+                    <option
+                        value="school_id"
+                        <?= $sort === 'school_id' ? 'selected' : '' ?>
+                    >
+                        School ID
+                    </option>
+
+                    <option
+                        value="email"
+                        <?= $sort === 'email' ? 'selected' : '' ?>
+                    >
+                        Email
+                    </option>
+
+                    <option
+                        value="phone"
+                        <?= $sort === 'phone' ? 'selected' : '' ?>
+                    >
+                        Phone
+                    </option>
+
+                    <option
+                        value="status"
+                        <?= $sort === 'status' ? 'selected' : '' ?>
+                    >
+                        Status
+                    </option>
+
+                </select>
+
+
+                <select
+                    name="direction"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value="ASC"
+                        <?= $direction === 'ASC' ? 'selected' : '' ?>
+                    >
+                        Ascending
+                    </option>
+
+                    <option
+                        value="DESC"
+                        <?= $direction === 'DESC' ? 'selected' : '' ?>
+                    >
+                        Descending
+                    </option>
+
+                </select>
+
+                <label for="school-status">
+                    Status
+                </label>
+
+                <select
+                    name="status"
+                    id="school-status"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value=""
+                        <?= $status === '' ? 'selected' : '' ?>
+                    >
+                        All Status
+                    </option>
+
+                    <option
+                        value="active"
+                        <?= $status === 'active' ? 'selected' : '' ?>
+                    >
+                        Active
+                    </option>
+
+                    <option
+                        value="inactive"
+                        <?= $status === 'inactive' ? 'selected' : '' ?>
+                    >
+                        Inactive
+                    </option>
+
+                </select>
+
+
+            </form>
+
+
+        </div>
+
+
+        <!-- =================================================
+             SCHOOL LIST
+        ================================================== -->
 
         <?php if (!empty($schools)): ?>
 
@@ -175,15 +420,18 @@ require "../private/views/includes/sidebar.view.php";
 
                         <?php foreach ($schools as $school): ?>
 
+
                             <tr>
 
 
                                 <!-- DATABASE ID -->
 
                                 <td>
+
                                     <?= htmlspecialchars(
                                         $school->id
                                     ) ?>
+
                                 </td>
 
 
@@ -192,9 +440,11 @@ require "../private/views/includes/sidebar.view.php";
                                 <td>
 
                                     <strong>
+
                                         <?= htmlspecialchars(
                                             $school->school_name
                                         ) ?>
+
                                     </strong>
 
                                 </td>
@@ -240,15 +490,9 @@ require "../private/views/includes/sidebar.view.php";
                                 <!-- STUDENT COUNT -->
 
                                 <td>
-
                                     <span class="student-count">
-
-                                        <?= htmlspecialchars(
-                                            $school->student_count ?? 0
-                                        ) ?>
-
+                                        <?= htmlspecialchars($school->student_count ?? 0) ?>
                                     </span>
-
                                 </td>
 
 
@@ -278,25 +522,54 @@ require "../private/views/includes/sidebar.view.php";
                                 <!-- ACTIONS -->
 
                                 <td>
+    <div class="school-actions">
 
-                                    <div class="table-actions">
+        <a href="<?= ROOT ?>/schools/details/<?= urlencode($school->school_id) ?>"
+           class="view-btn">
+            View
+        </a>
 
-                                        <!-- VIEW SCHOOL -->
+        <a href="<?= ROOT ?>/schools/edit/<?= urlencode($school->school_id) ?>"
+           class="edit-btn">
+            Edit
+        </a>
 
-                                        <a
-                                            href="<?= ROOT ?>/schools/details/<?= urlencode($school->school_id) ?>"
-                                            class="view-btn"
-                                        >
-                                            View
-                                        </a>
+       <?php if ($school->status === 'active'): ?>
 
+    <form method="POST"
+          action="<?= ROOT ?>/schools/delete/<?= urlencode($school->school_id) ?>"
+          onsubmit="return confirm('Are you sure you want to deactivate this school?');">
 
-                                    </div>
+        <?= CSRF::field() ?>
 
-                                </td>
+        <button type="submit" class="delete-btn">
+            Deactivate
+        </button>
+
+    </form>
+
+<?php else: ?>
+
+    <form method="POST"
+          action="<?= ROOT ?>/schools/activate/<?= urlencode($school->school_id) ?>"
+          onsubmit="return confirm('Are you sure you want to activate this school?');">
+
+        <?= CSRF::field() ?>
+
+        <button type="submit" class="activate-btn">
+            Activate
+        </button>
+
+    </form>
+
+<?php endif; ?>
+
+    </div>
+</td>
 
 
                             </tr>
+
 
                         <?php endforeach; ?>
 
@@ -310,6 +583,10 @@ require "../private/views/includes/sidebar.view.php";
         <?php else: ?>
 
 
+            <!-- =================================================
+                 EMPTY STATE
+            ================================================== -->
+
             <div class="empty-state">
 
                 <h3>
@@ -317,9 +594,32 @@ require "../private/views/includes/sidebar.view.php";
                 </h3>
 
                 <p>
-                    There are currently no schools
-                    registered in the system.
+
+                    <?php if ($search !== ''): ?>
+
+                        No school matches
+                        "<?= htmlspecialchars($search) ?>".
+
+                    <?php else: ?>
+
+                        There are currently no schools
+                        registered in the system.
+
+                    <?php endif; ?>
+
                 </p>
+
+
+                <?php if ($search !== ''): ?>
+
+                    <a
+                        href="<?= ROOT ?>/schools"
+                        class="clear-search-btn"
+                    >
+                        View All Schools
+                    </a>
+
+                <?php endif; ?>
 
             </div>
 
@@ -335,7 +635,9 @@ require "../private/views/includes/sidebar.view.php";
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 
+
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 

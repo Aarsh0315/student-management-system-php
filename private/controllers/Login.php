@@ -44,11 +44,13 @@ class Login extends Controller
 
             if ($email === '' || $password === '') {
 
-                $data['error'] = "Please enter your email and password.";
+                $data['error'] =
+                    "Please enter your email and password.";
 
             } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
-                $data['error'] = "Please enter a valid email address.";
+                $data['error'] =
+                    "Please enter a valid email address.";
 
             } else {
 
@@ -107,140 +109,286 @@ class Login extends Controller
 
                         /*
                         ========================================
-                        SESSION FIXATION PROTECTION
+                        CHECK USER ACCOUNT STATUS
                         ========================================
                         */
 
-                        session_regenerate_id(true);
+                        if (
+                            isset($result->status) &&
+                            $result->status !== 'active'
+                        ) {
+
+                            $data['error'] =
+                                "Your account is inactive. Please contact your administrator.";
+
+                        } else {
 
 
-                        /*
-                        ========================================
-                        STORE REQUIRED USER DATA
-                        ========================================
-                        */
+                            /*
+                            ========================================
+                            CHECK SCHOOL STATUS
+                            SUPER ADMIN HAS NO SCHOOL
+                            ========================================
+                            */
 
-                        $_SESSION['user_id'] =
-                            $result->user_id;
+                            if (
+                                $result->rank !== 'super_admin' &&
+                                !empty($result->school_id)
+                            ) {
 
-                        $_SESSION['firstname'] =
-                            $result->firstname;
+                                $schoolQuery = "SELECT
+                                                    status
+                                                FROM schools
+                                                WHERE id = :school_id
+                                                LIMIT 1";
 
-                        $_SESSION['lastname'] =
-                            $result->lastname;
+                                $schoolResult = $user->query(
+                                    $schoolQuery,
+                                    [
+                                        'school_id' =>
+                                            $result->school_id
+                                    ]
+                                );
 
-                        $_SESSION['email'] =
-                            $result->email;
-
-                        $_SESSION['gender'] =
-                            $result->gender;
-
-                        $_SESSION['rank'] =
-                            $result->rank;
-
-                        $_SESSION['school_id'] =
-                            $result->school_id;
-
-
-                        /*
-                        ========================================
-                        LOGIN TIMESTAMP
-                        ========================================
-                        */
-
-                        $_SESSION['login_time'] = time();
-                        $_SESSION['last_activity'] = time();
+                                $school = $schoolResult[0] ?? null;
 
 
-                        /*
-                        ========================================
-                        REDIRECT BASED ON ROLE
-                        ========================================
-                        */
+                                /*
+                                ========================================
+                                SCHOOL NOT FOUND / INACTIVE
+                                ========================================
+                                */
 
-                        // SUPER ADMIN
+                                if (
+                                    !$school ||
+                                    $school->status !== 'active'
+                                ) {
 
-                        if ($result->rank === 'super_admin') {
+                                    $data['error'] =
+                                        "Your school is currently inactive. Please contact your administrator.";
 
-                            header(
-                                "Location: "
-                                . ROOT
-                                . "/superadmin"
-                            );
+                                } else {
 
-                            exit;
+                                    /*
+                                    ========================================
+                                    LOGIN SUCCESS
+                                    ========================================
+                                    */
+
+                                    session_regenerate_id(true);
+
+
+                                    /*
+                                    ========================================
+                                    STORE USER DATA
+                                    ========================================
+                                    */
+
+                                    $_SESSION['user_id'] =
+                                        $result->user_id;
+
+                                    $_SESSION['firstname'] =
+                                        $result->firstname;
+
+                                    $_SESSION['lastname'] =
+                                        $result->lastname;
+
+                                    $_SESSION['email'] =
+                                        $result->email;
+
+                                    $_SESSION['gender'] =
+                                        $result->gender;
+
+                                    $_SESSION['rank'] =
+                                        $result->rank;
+
+                                    $_SESSION['school_id'] =
+                                        $result->school_id;
+
+
+                                    /*
+                                    ========================================
+                                    LOGIN TIMESTAMP
+                                    ========================================
+                                    */
+
+                                    $_SESSION['login_time'] =
+                                        time();
+
+                                    $_SESSION['last_activity'] =
+                                        time();
+
+
+                                    /*
+                                    ========================================
+                                    REDIRECT BASED ON ROLE
+                                    ========================================
+                                    */
+
+                                    // SUPER ADMIN
+
+                                    if (
+                                        $result->rank === 'super_admin'
+                                    ) {
+
+                                        header(
+                                            "Location: "
+                                            . ROOT
+                                            . "/superadmin"
+                                        );
+
+                                        exit;
+                                    }
+
+
+                                    // SCHOOL ADMIN
+
+                                    if (
+                                        $result->rank === 'admin'
+                                    ) {
+
+                                        header(
+                                            "Location: "
+                                            . ROOT
+                                            . "/school-admin"
+                                        );
+
+                                        exit;
+                                    }
+
+
+                                    // TEACHER
+
+                                    if (
+                                        $result->rank === 'teacher'
+                                    ) {
+
+                                        header(
+                                            "Location: "
+                                            . ROOT
+                                            . "/teacherDashboard"
+                                        );
+
+                                        exit;
+                                    }
+
+
+                                    // STUDENT
+
+                                    if (
+                                        $result->rank === 'student'
+                                    ) {
+
+                                        header(
+                                            "Location: "
+                                            . ROOT
+                                            . "/studentDashboard"
+                                        );
+
+                                        exit;
+                                    }
+
+
+                                    // PARENT
+
+                                    if (
+                                        $result->rank === 'parent'
+                                    ) {
+
+                                        header(
+                                            "Location: "
+                                            . ROOT
+                                            . "/parentDashboard"
+                                        );
+
+                                        exit;
+                                    }
+
+
+                                    /*
+                                    ========================================
+                                    OTHER USERS
+                                    ========================================
+                                    */
+
+                                    header(
+                                        "Location: "
+                                        . ROOT
+                                        . "/home"
+                                    );
+
+                                    exit;
+                                }
+
+                            } else {
+
+                                /*
+                                ========================================
+                                SUPER ADMIN LOGIN
+                                ========================================
+                                */
+
+                                session_regenerate_id(true);
+
+
+                                $_SESSION['user_id'] =
+                                    $result->user_id;
+
+                                $_SESSION['firstname'] =
+                                    $result->firstname;
+
+                                $_SESSION['lastname'] =
+                                    $result->lastname;
+
+                                $_SESSION['email'] =
+                                    $result->email;
+
+                                $_SESSION['gender'] =
+                                    $result->gender;
+
+                                $_SESSION['rank'] =
+                                    $result->rank;
+
+                                $_SESSION['school_id'] =
+                                    $result->school_id;
+
+
+                                $_SESSION['login_time'] =
+                                    time();
+
+                                $_SESSION['last_activity'] =
+                                    time();
+
+
+                                /*
+                                ========================================
+                                SUPER ADMIN REDIRECT
+                                ========================================
+                                */
+
+                                if (
+                                    $result->rank === 'super_admin'
+                                ) {
+
+                                    header(
+                                        "Location: "
+                                        . ROOT
+                                        . "/superadmin"
+                                    );
+
+                                    exit;
+                                }
+
+
+                                header(
+                                    "Location: "
+                                    . ROOT
+                                    . "/home"
+                                );
+
+                                exit;
+                            }
                         }
-
-
-                        // SCHOOL ADMIN
-
-                        if ($result->rank === 'admin') {
-
-                            header(
-                                "Location: "
-                                . ROOT
-                                . "/school-admin"
-                            );
-
-                            exit;
-                        }
-
-
-                        // TEACHER
-
-                        if ($result->rank === 'teacher') {
-
-                            header(
-                                "Location: "
-                                . ROOT
-                                . "/teacherDashboard"
-                            );
-
-                            exit;
-                        }
-
-
-                        // STUDENT
-
-                        if ($result->rank === 'student') {
-
-                            header(
-                                "Location: "
-                                . ROOT
-                                . "/studentDashboard"
-                            );
-
-                            exit;
-                        }
-
-
-                        // PARENT
-
-                        if ($result->rank === 'parent') {
-
-                            header(
-                                "Location: "
-                                . ROOT
-                                . "/parentDashboard"
-                            );
-
-                            exit;
-                        }
-
-
-                        /*
-                        ========================================
-                        OTHER USERS
-                        ========================================
-                        */
-
-                        header(
-                            "Location: "
-                            . ROOT
-                            . "/home"
-                        );
-
-                        exit;
                     }
                 }
             }
