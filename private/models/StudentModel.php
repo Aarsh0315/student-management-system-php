@@ -1075,4 +1075,132 @@ public function getStudentByUserIdAndSchool(
 
     return $result[0] ?? false;
 }
+
+/* =====================================================
+   UPDATE STUDENT
+===================================================== */
+
+public function updateStudent(
+    $student_id,
+    $user_id,
+    $userData,
+    $studentData
+) {
+
+    /*
+    =====================================================
+    UPDATE USER INFORMATION
+    =====================================================
+    */
+
+    $userQuery = "UPDATE users
+                  SET
+                      firstname = :firstname,
+                      lastname = :lastname,
+                      email = :email,
+                      gender = :gender,
+                      status = :status
+                  WHERE user_id = :user_id
+                  LIMIT 1";
+
+
+    $userResult = $this->query(
+        $userQuery,
+        [
+            'firstname' => $userData['firstname'],
+            'lastname'  => $userData['lastname'],
+            'email'     => $userData['email'],
+            'gender'    => $userData['gender'],
+            'status'    => $userData['status'],
+            'user_id'   => $user_id
+        ]
+    );
+
+
+    /*
+    =====================================================
+    UPDATE STUDENT INFORMATION
+    =====================================================
+    */
+
+    $studentQuery = "UPDATE students
+                     SET
+                         admission_number = :admission_number,
+                         class = :class,
+                         division = :division,
+                         roll_number = :roll_number,
+                         date_of_birth = :date_of_birth,
+                         admission_date = :admission_date,
+                         parent_name = :parent_name,
+                         parent_phone = :parent_phone,
+                         parent_email = :parent_email,
+                         address = :address,
+                         school_id = :school_id,
+                         status = :status
+                     WHERE student_id = :student_id
+                     LIMIT 1";
+
+
+    $studentResult = $this->query(
+        $studentQuery,
+        [
+            'admission_number' =>
+                $studentData['admission_number'],
+
+            'class' =>
+                $studentData['class'],
+
+            'division' =>
+                $studentData['division'],
+
+            'roll_number' =>
+                $studentData['roll_number'],
+
+            'date_of_birth' =>
+                $studentData['date_of_birth'],
+
+            'admission_date' =>
+                $studentData['admission_date'],
+
+            'parent_name' =>
+                $studentData['parent_name'],
+
+            'parent_phone' =>
+                $studentData['parent_phone'],
+
+            'parent_email' =>
+                $studentData['parent_email'],
+
+            'address' =>
+                $studentData['address'],
+
+            'school_id' =>
+                $studentData['school_id'],
+
+            'status' =>
+                $studentData['status'],
+
+            'student_id' =>
+                $student_id
+        ]
+    );
+
+
+    /*
+    =====================================================
+    RETURN RESULT
+    =====================================================
+    */
+
+    if (
+        $userResult === false ||
+        $studentResult === false
+    ) {
+
+        return false;
+    }
+
+
+    return true;
+}
 }
