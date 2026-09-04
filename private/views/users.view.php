@@ -2,6 +2,18 @@
 
 $users = $data['users'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
+$role = $data['role'] ?? '';
+
+$status = $data['status'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
@@ -101,36 +113,350 @@ require "../private/views/includes/sidebar.view.php";
 
         <div class="users-header">
 
-            <div>
+    <div>
 
-                <h2>
-                    All Users
-                </h2>
+        <h2>
+            All Users
+        </h2>
 
-                <p>
+        <p>
 
-                    <?= count($users) ?>
+            <?= count($users) ?>
 
-                    user(s) registered
+            user(s) found
 
-                </p>
+            <?php if ($search !== ''): ?>
 
-            </div>
+                for
+
+                <strong>
+                    "<?= htmlspecialchars($search) ?>"
+                </strong>
+
+            <?php endif; ?>
+
+        </p>
+
+    </div>
 
 
-            <!-- ADD USER -->
+    <a
+        href="<?= ROOT ?>/users/add"
+        class="add-user-btn"
+    >
+        + Add User
+    </a>
 
-            <a
-                href="<?= ROOT ?>/users/add"
-                class="add-user-btn"
+</div>
+
+
+        <?php if (!empty($users)): ?>
+          <!-- =================================================
+     SEARCH + SORT
+================================================== -->
+
+<div class="users-toolbar">
+
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/users"
+        class="user-search-form"
+    >
+
+        <div class="user-search-box">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search user by name or email..."
+                value="<?= htmlspecialchars($search) ?>"
             >
-                + Add User
-            </a>
 
         </div>
 
 
-        <?php if (!empty($users)): ?>
+        <!-- KEEP SORT -->
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars($sort) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars($direction) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="role"
+            value="<?= htmlspecialchars($role) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="status"
+            value="<?= htmlspecialchars($status) ?>"
+        >
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/users"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/users"
+        class="user-sort-form"
+    >
+
+        <!-- KEEP SEARCH -->
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars($search) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="role"
+            value="<?= htmlspecialchars($role) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="status"
+            value="<?= htmlspecialchars($status) ?>"
+        >
+
+
+        <label for="user-sort">
+            Sort by
+        </label>
+
+
+        <select
+            name="sort"
+            id="user-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="id"
+                <?= $sort === 'id' ? 'selected' : '' ?>
+            >
+                ID
+            </option>
+
+            <option
+                value="name"
+                <?= $sort === 'name' ? 'selected' : '' ?>
+            >
+                Name
+            </option>
+
+            <option
+                value="email"
+                <?= $sort === 'email' ? 'selected' : '' ?>
+            >
+                Email
+            </option>
+
+            <option
+                value="school"
+                <?= $sort === 'school' ? 'selected' : '' ?>
+            >
+                School
+            </option>
+
+            <option
+                value="role"
+                <?= $sort === 'role' ? 'selected' : '' ?>
+            >
+                Role
+            </option>
+
+            <option
+                value="gender"
+                <?= $sort === 'gender' ? 'selected' : '' ?>
+            >
+                Gender
+            </option>
+
+            <option
+                value="status"
+                <?= $sort === 'status' ? 'selected' : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC' ? 'selected' : '' ?>
+            >
+                Ascending
+            </option>
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC' ? 'selected' : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+
+        <label for="user-role">
+            Role
+        </label>
+
+        <select
+            name="role"
+            id="user-role"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value=""
+                <?= $role === '' ? 'selected' : '' ?>
+            >
+                All Roles
+            </option>
+
+            <option
+                value="super_admin"
+                <?= $role === 'super_admin' ? 'selected' : '' ?>
+            >
+                Super Admin
+            </option>
+
+            <option
+                value="admin"
+                <?= $role === 'admin' ? 'selected' : '' ?>
+            >
+                School Admin
+            </option>
+
+            <option
+                value="principal"
+                <?= $role === 'principal' ? 'selected' : '' ?>
+            >
+                Principal
+            </option>
+
+            <option
+                value="vice_principal"
+                <?= $role === 'vice_principal' ? 'selected' : '' ?>
+            >
+                Vice Principal
+            </option>
+
+            <option
+                value="teacher"
+                <?= $role === 'teacher' ? 'selected' : '' ?>
+            >
+                Teacher
+            </option>
+
+            <option
+                value="student"
+                <?= $role === 'student' ? 'selected' : '' ?>
+            >
+                Student
+            </option>
+
+            <option
+                value="parent"
+                <?= $role === 'parent' ? 'selected' : '' ?>
+            >
+                Parent
+            </option>
+
+            <option
+                value="staff"
+                <?= $role === 'staff' ? 'selected' : '' ?>
+            >
+                Staff
+            </option>
+
+        </select>
+
+
+        <label for="user-status">
+            Status
+        </label>
+
+        <select
+            name="status"
+            id="user-status"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value=""
+                <?= $status === '' ? 'selected' : '' ?>
+            >
+                All Status
+            </option>
+
+            <option
+                value="active"
+                <?= $status === 'active' ? 'selected' : '' ?>
+            >
+                Active
+            </option>
+
+            <option
+                value="inactive"
+                <?= $status === 'inactive' ? 'selected' : '' ?>
+            >
+                Inactive
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
 
             <!-- =========================
@@ -403,18 +729,59 @@ require "../private/views/includes/sidebar.view.php";
                  EMPTY STATE
             ========================== -->
 
-            <div class="empty-state">
+            <!-- =================================================
+     EMPTY STATE
+================================================== -->
 
-                <h3>
-                    No users found
-                </h3>
+<div class="empty-state">
 
-                <p>
-                    There are currently no users
-                    registered in the system.
-                </p>
+    <h3>
+        No users found
+    </h3>
 
-            </div>
+    <p>
+
+        <?php if ($search !== ''): ?>
+
+            No user matches
+            <strong>
+                "<?= htmlspecialchars($search) ?>"
+            </strong>.
+
+        <?php elseif ($role !== ''): ?>
+
+            No users found for the selected role.
+
+        <?php elseif ($status !== ''): ?>
+
+            No <?= htmlspecialchars($status) ?> users found.
+
+        <?php else: ?>
+
+            There are currently no users
+            registered in the system.
+
+        <?php endif; ?>
+
+    </p>
+
+
+    <?php if (
+        $search !== '' ||
+        $role !== '' ||
+        $status !== ''
+    ): ?>
+
+        <a
+            href="<?= ROOT ?>/users"
+            class="clear-search-btn"
+        >
+            View All Users
+        </a>
+
+    <?php endif; ?>
+
+</div>
 
 
         <?php endif; ?>

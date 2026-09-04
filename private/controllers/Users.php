@@ -7,29 +7,76 @@ require_once "../private/models/School.php";
 class Users extends Controller
 {
     public function index()
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-        // Only Super Admin
-        if (
-            !isset($_SESSION['rank']) ||
-            $_SESSION['rank'] !== 'super_admin'
-        ) {
-            header("Location: " . ROOT . "/home");
-            exit;
-        }
-
-        $user = new User();
-
-        $users = $user->getAllUsers();
-
-        $this->view('users', [
-            'users' => $users
-        ]);
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
     }
 
+    /* =========================
+       ONLY SUPER ADMIN
+    ========================= */
+
+    if (
+        !isset($_SESSION['rank']) ||
+        $_SESSION['rank'] !== 'super_admin'
+    ) {
+        header("Location: " . ROOT . "/home");
+        exit;
+    }
+
+
+    /* =========================
+       GET FILTERS
+    ========================= */
+
+    $search = trim(
+        $_GET['search'] ?? ''
+    );
+
+    $sort = $_GET['sort'] ?? 'id';
+
+    $direction = $_GET['direction'] ?? 'DESC';
+
+    $role = $_GET['role'] ?? '';
+
+    $status = $_GET['status'] ?? '';
+
+
+    /* =========================
+       LOAD USERS
+    ========================= */
+
+    $user = new User();
+
+    $users = $user->getAllUsers(
+        $search,
+        $sort,
+        $direction,
+        $role,
+        $status
+    );
+
+
+    /* =========================
+       LOAD VIEW
+    ========================= */
+
+    $this->view('users', [
+
+        'users'     => $users,
+
+        'search'    => $search,
+
+        'sort'      => $sort,
+
+        'direction' => $direction,
+
+        'role'      => $role,
+
+        'status'    => $status
+
+    ]);
+}
 
     /* =========================
        ADD USER

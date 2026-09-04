@@ -8,6 +8,16 @@
    USERS CARD
 ===================================================== */
 
+html {
+    overflow-y: scroll;
+}
+
+/* =====================================================
+   USERS PAGE
+===================================================== */
+
+
+
 .dashboard {
 
     width: 100%;
@@ -748,4 +758,241 @@
 
     }
 
+}
+
+/* =====================================================
+   USERS TOOLBAR
+===================================================== */
+
+.users-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 0 20px;
+    border-bottom: 1px solid #eee5eb;
+    margin-bottom: 20px;
+}
+
+.user-search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-search-box {
+    position: relative;
+    width: 280px;
+}
+
+.user-search-box .search-icon {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #918b99;
+    font-size: 17px;
+    pointer-events: none;
+}
+
+.user-search-box input {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px 0 34px;
+    border: 1px solid #eadfe7;
+    border-radius: 7px;
+    background: #fff;
+    color: #302d3d;
+    font-family: inherit;
+    font-size: 11px;
+    outline: none;
+}
+
+.user-search-box input:focus {
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.08);
+}
+
+.search-btn {
+    height: 38px;
+    padding: 0 15px;
+    border: 1px solid #a32675;
+    border-radius: 7px;
+    background: #a32675;
+    color: #fff;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.search-btn:hover {
+    background: #8d205f;
+    border-color: #8d205f;
+}
+
+.clear-search-btn {
+    display: inline-flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #eadfe7;
+    border-radius: 7px;
+    background: #fff;
+    color: #756d79;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.clear-search-btn:hover {
+    color: #a32675;
+    border-color: #dcb9cf;
+}
+
+.user-sort-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.user-sort-form label {
+    color: #756d79;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .35px;
+    white-space: nowrap;
+}
+
+.user-sort-form select {
+    height: 38px;
+    padding: 0 28px 0 10px;
+    border: 1px solid #eadfe7;
+    border-radius: 7px;
+    background: #fff;
+    color: #393443;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+.user-sort-form select:focus {
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, .08);
+}
+
+@media (max-width: 1100px) {
+
+    .users-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .user-sort-form {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 700px) {
+
+    .users-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .user-search-form,
+    .user-sort-form {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .user-search-box {
+        flex: 1;
+        width: auto;
+    }
+
+    .user-sort-form select {
+        flex: 1;
+    }
+}
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.empty-state {
+    width: 100%;
+    padding: 52px 30px;
+    text-align: center;
+    border: 1px dashed #e7cddd;
+    border-radius: 10px;
+    background: #fdfafd;
+}
+
+.empty-state h3 {
+    margin: 0 0 10px;
+    color: #302d3d;
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.empty-state p {
+    margin: 0;
+    color: #756d79;
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.empty-state p strong {
+    color: #a32675;
+    font-weight: 600;
+}
+
+.empty-state .clear-search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 18px;
+    min-height: 34px;
+    padding: 0 14px;
+    border: 1px solid #e1c4d5;
+    border-radius: 7px;
+    background: #fff;
+    color: #a32675;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.empty-state .clear-search-btn:hover {
+    background: #a32675;
+    border-color: #a32675;
+    color: #fff;
+}
+
+
+/* =====================================================
+   EMPTY STATE RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .empty-state {
+        padding: 42px 20px;
+    }
+
+    .empty-state h3 {
+        font-size: 14px;
+    }
+
+    .empty-state p {
+        font-size: 10px;
+    }
 }

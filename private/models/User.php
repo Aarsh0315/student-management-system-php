@@ -212,30 +212,138 @@ class User extends Model
        GET ALL USERS
     ===================================================== */
 
-    public function getAllUsers()
-    {
-        $query = "SELECT
-                    users.user_id,
-                    users.firstname,
-                    users.lastname,
-                    users.email,
-                    users.gender,
-                    users.rank,
-                    users.status,
-                    users.school_id,
+    public function getAllUsers(
+    $search = '',
+    $sort = 'id',
+    $direction = 'DESC',
+    $role = '',
+    $status = ''
+) {
+    $allowedSorts = [
+        'id'        => 'users.id',
+        'name'      => 'users.firstname',
+        'email'     => 'users.email',
+        'school'    => 'schools.school_name',
+        'role'      => 'users.rank',
+        'gender'    => 'users.gender',
+        'status'    => 'users.status'
+    ];
 
-                    schools.school_name,
-                    schools.school_id AS school_code
-
-                  FROM users
-
-                  LEFT JOIN schools
-                  ON users.school_id = schools.id
-
-                  ORDER BY users.user_id DESC";
-
-        return $this->query($query);
+    if (!isset($allowedSorts[$sort])) {
+        $sort = 'id';
     }
+
+    $sortColumn = $allowedSorts[$sort];
+
+    $direction = strtoupper($direction);
+
+    if (!in_array($direction, ['ASC', 'DESC'], true)) {
+        $direction = 'DESC';
+    }
+
+    $query = "SELECT
+                users.*,
+                schools.school_name
+              FROM users
+              LEFT JOIN schools
+                  ON schools.id = users.school_id";
+
+    $conditions = [];
+    $params = [];
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    if ($search !== '') {
+
+        $conditions[] = "(
+            users.user_id LIKE :search
+            OR users.firstname LIKE :search
+            OR users.lastname LIKE :search
+            OR users.email LIKE :search
+        )";
+
+        $params['search'] = '%' . $search . '%';
+    }
+
+
+    /*
+    ========================================
+    ROLE FILTER
+    ========================================
+    */
+
+    $allowedRoles = [
+        'super_admin',
+        'admin',
+        'principal',
+        'vice_principal',
+        'teacher',
+        'student',
+        'parent',
+        'staff'
+    ];
+
+    if (
+        $role !== '' &&
+        in_array($role, $allowedRoles, true)
+    ) {
+
+        $conditions[] = "users.rank = :role";
+
+        $params['role'] = $role;
+    }
+
+
+    /*
+    ========================================
+    STATUS FILTER
+    ========================================
+    */
+
+    if (
+        $status !== '' &&
+        in_array($status, ['active', 'inactive'], true)
+    ) {
+
+        $conditions[] = "users.status = :status";
+
+        $params['status'] = $status;
+    }
+
+
+    /*
+    ========================================
+    WHERE
+    ========================================
+    */
+
+    if (!empty($conditions)) {
+
+        $query .= " WHERE "
+            . implode(" AND ", $conditions);
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+        ORDER BY {$sortColumn} {$direction}
+    ";
+
+
+    return $this->query(
+        $query,
+        $params
+    );
+}
 
 
     /* =====================================================
