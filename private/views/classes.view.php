@@ -2,6 +2,14 @@
 
 $classes = $data['classes'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'class';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'ASC'
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -123,6 +131,158 @@ $classes = $data['classes'] ?? [];
 
 
     <?php if (!empty($classes)): ?>
+
+        <!-- ========================================
+     SEARCH + SORT
+======================================== -->
+
+<div class="classes-toolbar">
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/classes"
+        class="class-search-form"
+    >
+
+        <div class="class-search-box">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search class or division..."
+                value="<?= htmlspecialchars($search) ?>"
+            >
+
+        </div>
+
+
+        <!-- KEEP SORT -->
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars($sort) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars($direction) ?>"
+        >
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/classes"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/classes"
+        class="class-sort-form"
+    >
+
+        <!-- KEEP SEARCH -->
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars($search) ?>"
+        >
+
+
+        <label for="class-sort">
+            Sort by
+        </label>
+
+
+        <select
+            name="sort"
+            id="class-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="class"
+                <?= $sort === 'class' ? 'selected' : '' ?>
+            >
+                Class
+            </option>
+
+            <option
+                value="division"
+                <?= $sort === 'division' ? 'selected' : '' ?>
+            >
+                Division
+            </option>
+
+            <option
+                value="students"
+                <?= $sort === 'students' ? 'selected' : '' ?>
+            >
+                Students
+            </option>
+
+            <option
+                value="status"
+                <?= $sort === 'status' ? 'selected' : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC' ? 'selected' : '' ?>
+            >
+                Ascending
+            </option>
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC' ? 'selected' : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
         <div class="classes-table-wrapper">
 
@@ -262,27 +422,45 @@ $classes = $data['classes'] ?? [];
 
         <?php else: ?>
 
+    <!-- ========================================
+         EMPTY STATE
+    ======================================== -->
 
-            <!-- ========================================
-                 EMPTY STATE
-            ======================================== -->
+    <div class="empty-state">
 
-            <div class="empty-state">
+        <p>
 
-                <h3>
-                    No Classes Found
-                </h3>
+            <?php if ($search !== ''): ?>
+
+                No class matches
+                <strong>
+                    "<?= htmlspecialchars($search) ?>"
+                </strong>.
+
+            <?php else: ?>
+
+                There are currently no classes
+                registered in your school.
+
+            <?php endif; ?>
+
+        </p>
 
 
-                <p>
-                    There are currently no classes
-                    registered in your school.
-                </p>
+        <?php if ($search !== ''): ?>
 
-            </div>
-
+            <a
+                href="<?= ROOT ?>/classes"
+                class="clear-search-btn"
+            >
+                View All Classes
+            </a>
 
         <?php endif; ?>
+
+    </div>
+
+<?php endif; ?>
 
 
     </section>

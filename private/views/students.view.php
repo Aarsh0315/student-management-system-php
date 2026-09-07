@@ -86,25 +86,28 @@ require "../private/views/includes/sidebar.view.php";
          PAGE HEADER
     ========================== -->
 
-    <section class="welcome">
+   <section class="welcome">
 
-        <div>
+    <div>
 
-            <p class="welcome-small">
-                Super Admin
-            </p>
+        <p class="welcome-small">
+            <?= $_SESSION['rank'] === 'super_admin' ? 'Super Admin' : 'School Admin' ?>
+        </p>
 
-            <h1>
-                Students
-            </h1>
+        <h1>
+            Students
+        </h1>
 
-            <p class="welcome-text">
-                Manage all students registered in the system.
-            </p>
+        <p class="welcome-text">
+            <?= $_SESSION['rank'] === 'super_admin'
+                ? 'Manage all students registered in the system.'
+                : 'Manage students registered in your school.'
+            ?>
+        </p>
 
-        </div>
+    </div>
 
-    </section>
+</section>
 
 
     <!-- =========================

@@ -86,25 +86,29 @@ require "../private/views/includes/sidebar.view.php";
 
     <section class="welcome">
 
-        <div>
+    <div>
 
-            <p class="welcome-small">
-                Super Admin
+        <p class="welcome-small">
+            <?= $_SESSION['rank'] === 'super_admin' ? 'Super Admin' : 'School Admin' ?>
+        </p>
+
+        <h1>
+            Staff
+        </h1>
+
+        <p class="welcome-text">
+            <?= $_SESSION['rank'] === 'super_admin'
+                ? 'Manage all students registered in the system.'
+                :  'Manage all staff members registered in the system.'
+            ?>
+        </p>
+
+    </div>
+
+</section>
+
+
             </p>
-
-            <h1>
-                Staff
-            </h1>
-
-            <p class="welcome-text">
-                Manage all staff members registered in the system.
-            </p>
-
-        </div>
-
-    </section>
-
-
     <!-- =========================
          STAFF TABLE
     ========================== -->

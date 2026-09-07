@@ -787,22 +787,135 @@ public function createStudent($userData, $studentData)
         ]
     );
 }
+public function getClassesBySchool(
+    $school_id,
+    $search = '',
+    $sort = 'class',
+    $direction = 'ASC'
+) {
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
 
-public function getClassesBySchool($school_id)
-{
+    $allowedSorts = [
+        'class'    => 'class',
+        'division' => 'division',
+        'students' => 'student_count',
+        'status'   => 'status'
+    ];
+
+
+    if (!isset($allowedSorts[$sort])) {
+
+        $sort = 'class';
+    }
+
+
+    $sortColumn =
+        $allowedSorts[$sort];
+
+
+    /*
+    ========================================
+    DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper($direction);
+
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'ASC';
+    }
+
+
+    /*
+    ========================================
+    QUERY
+    ========================================
+    */
+
     $query = "SELECT
+
                 class,
                 division,
-                COUNT(*) AS student_count
-              FROM students
-              WHERE school_id = :school_id
-              AND status = 'active'
-              GROUP BY class, division
-              ORDER BY class, division";
 
-    return $this->query($query, [
+                COUNT(*) AS student_count,
+
+                'active' AS status
+
+              FROM students
+
+              WHERE school_id = :school_id
+
+              AND status = 'active'";
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    $params = [
         'school_id' => $school_id
-    ]);
+    ];
+
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                class LIKE :search
+                OR division LIKE :search
+            )
+        ";
+
+        $params['search'] =
+            '%' . $search . '%';
+    }
+
+
+    /*
+    ========================================
+    GROUP
+    ========================================
+    */
+
+    $query .= "
+
+              GROUP BY
+                class,
+                division";
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+
+              ORDER BY
+                {$sortColumn}
+                {$direction}";
+
+
+    return $this->query(
+        $query,
+        $params
+    );
 }
 
 public function getParentsBySchool($school_id)
@@ -879,35 +992,139 @@ public function getParentDetailsByName(
             'parent_name' => $parent_name
         ]
     );
-}
-public function getAllClasses()
-{
+}public function getAllClasses(
+    $search = '',
+    $sort = 'class',
+    $direction = 'ASC'
+) {
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
+
+    $allowedSorts = [
+        'class'    => 'st.class',
+        'division' => 'st.division',
+        'students' => 'student_count',
+        'status'   => 'status'
+    ];
+
+
+    if (!isset($allowedSorts[$sort])) {
+
+        $sort = 'class';
+    }
+
+
+    $sortColumn =
+        $allowedSorts[$sort];
+
+
+    /*
+    ========================================
+    DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper($direction);
+
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'ASC';
+    }
+
+
+    /*
+    ========================================
+    QUERY
+    ========================================
+    */
+
     $query = "SELECT
+
                 st.class,
                 st.division,
                 st.school_id,
+
                 sc.school_name,
-                COUNT(*) AS student_count
+
+                COUNT(*) AS student_count,
+
+                'active' AS status
 
               FROM students st
 
               LEFT JOIN schools sc
-              ON st.school_id = sc.id
+                ON st.school_id = sc.id
 
-              WHERE st.status = 'active'
+              WHERE st.status = 'active'";
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    $params = [];
+
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                st.class LIKE :search
+                OR st.division LIKE :search
+                OR sc.school_name LIKE :search
+            )
+        ";
+
+        $params['search'] =
+            '%' . $search . '%';
+    }
+
+
+    /*
+    ========================================
+    GROUP
+    ========================================
+    */
+
+    $query .= "
 
               GROUP BY
                 st.class,
                 st.division,
                 st.school_id,
-                sc.school_name
+                sc.school_name";
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
 
               ORDER BY
-                st.school_id,
-                st.class,
-                st.division";
+                {$sortColumn}
+                {$direction}";
 
-    return $this->query($query);
+
+    return $this->query(
+        $query,
+        $params
+    );
 }
 
 /*

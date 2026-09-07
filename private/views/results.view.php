@@ -2,6 +2,8 @@
 
 $results = $data['results'] ?? [];
 
+$tests = $data['tests'] ?? [];
+
 $search = $data['search'] ?? '';
 
 $sort = $data['sort'] ?? 'id';
@@ -9,6 +11,26 @@ $sort = $data['sort'] ?? 'id';
 $direction = strtoupper(
     $data['direction'] ?? 'DESC'
 );
+
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+$rank = $_SESSION['rank'] ?? '';
+
+if ($rank === 'super_admin') {
+
+    $roleName = 'Super Admin';
+
+} elseif ($rank === 'admin') {
+
+    $roleName = 'School Admin';
+
+} else {
+
+    $roleName = 'User';
+
+}
 
 ?>
 
@@ -83,21 +105,31 @@ $direction = strtoupper(
          PAGE HEADER
     ======================================== -->
 
-    <section class="welcome">
+     <section class="welcome">
 
         <div>
 
-            <p class="welcome-small">
-                Super Admin
+           <p class="welcome-small">
+                <?= htmlspecialchars($roleName) ?>
             </p>
 
             <h1>
                 Results
             </h1>
 
-            <p class="welcome-text">
-                View student results across all schools.
-            </p>
+            <?php if ($rank === 'super_admin'): ?>
+
+                <p class="welcome-text">
+                    View and manage tests across all schools.
+                </p>
+
+            <?php else: ?>
+
+                <p class="welcome-text">
+                    View tests created for your school.
+                </p>
+
+            <?php endif; ?>
 
         </div>
 
