@@ -9,82 +9,118 @@ class Staff extends Controller
        STAFF LIST
     ===================================================== */
 
-    public function index()
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+   /* =====================================================
+   STAFF LIST
+===================================================== */
 
-
-        if (!isset($_SESSION['rank'])) {
-
-            header("Location: " . ROOT . "/login");
-            exit;
-        }
-
-
-        $rank = $_SESSION['rank'];
-
-        $staffModel = new StaffModel();
-
-
-        /*
-        ========================================
-        SUPER ADMIN
-        ========================================
-        */
-
-        if ($rank === 'super_admin') {
-
-            $staff =
-                $staffModel->getAllStaff();
-        }
-
-
-        /*
-        ========================================
-        SCHOOL ADMIN
-        ========================================
-        */
-
-        elseif ($rank === 'admin') {
-
-            $school_id =
-                $_SESSION['school_id'] ?? null;
-
-
-            if (!$school_id) {
-
-                die(
-                    "No school is assigned to this account."
-                );
-            }
-
-
-            $staff =
-                $staffModel->getStaffBySchool(
-                    $school_id
-                );
-        }
-
-
-        /*
-        ========================================
-        OTHER USERS
-        ========================================
-        */
-
-        else {
-
-            header("Location: " . ROOT . "/home");
-            exit;
-        }
-
-
-        $this->view('staff', [
-            'staff' => $staff
-        ]);
+public function index()
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
     }
+
+    if (!isset($_SESSION['rank'])) {
+        header("Location: " . ROOT . "/login");
+        exit;
+    }
+
+    $rank = $_SESSION['rank'];
+
+    $staffModel = new StaffModel();
+
+    // GET parameters
+    $search = trim($_GET['search'] ?? '');
+    $sort = $_GET['sort'] ?? 'staff_id';
+    $direction = strtoupper($_GET['direction'] ?? 'DESC');
+    $status = $_GET['status'] ?? '';
+    $school_id = $_GET['school_id'] ?? '';
+
+    /*
+    |--------------------------------------------------------------------------
+    | SUPER ADMIN
+    |--------------------------------------------------------------------------
+    */
+
+    if ($rank === 'super_admin') {
+
+        $staff = $staffModel->getAllStaff(
+            $search,
+            $sort,
+            $direction,
+            $status,
+            $school_id
+        );
+
+        $schoolModel = new School();
+
+        $schools = $schoolModel->getAllSchools();
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCHOOL ADMIN
+    |--------------------------------------------------------------------------
+    */
+
+    elseif ($rank === 'admin') {
+
+        $school_id = $_SESSION['school_id'] ?? '';
+
+        if (!$school_id) {
+            die("No school is assigned to this account.");
+        }
+
+        $staff = $staffModel->getAllStaff(
+            $search,
+            $sort,
+            $direction,
+            $status,
+            $school_id
+        );
+
+        $schools = [];
+
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | OTHER ROLES
+    |--------------------------------------------------------------------------
+    */
+
+    else {
+
+        header("Location: " . ROOT . "/home");
+        exit;
+
+    }
+
+
+    /*
+    |--------------------------------------------------------------------------
+    | VIEW
+    |--------------------------------------------------------------------------
+    */
+
+    $this->view('staff', [
+
+        'staff'      => $staff,
+
+        'schools'    => $schools,
+
+        'search'     => $search,
+
+        'sort'       => $sort,
+
+        'direction'  => $direction,
+
+        'status'     => $status,
+
+        'school_id'  => $school_id
+
+    ]);
+}
 
 
     /* =====================================================
@@ -728,4 +764,332 @@ if (
             "Unable to create staff."
         );
     }
+
+    /* =====================================================
+   EDIT STAFF
+===================================================== */
+
+public function edit($staff_id = null)
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (!isset($_SESSION['rank'])) {
+        header("Location: " . ROOT . "/login");
+        exit;
+    }
+
+    $rank = $_SESSION['rank'];
+
+    if ($rank !== 'super_admin' && $rank !== 'admin') {
+        header("Location: " . ROOT . "/home");
+        exit;
+    }
+
+    if ($staff_id === null || $staff_id === '') {
+        header("Location: " . ROOT . "/staff");
+        exit;
+    }
+
+    $staffModel = new StaffModel();
+
+    /*
+    ========================================
+    GET STAFF
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
+
+        $staff = $staffModel->getStaffDetails($staff_id);
+
+        $schoolModel = new School();
+        $schools = $schoolModel->getAllSchools();
+
+    } else {
+
+        $school_id = $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+            die("No school is assigned to this account.");
+        }
+
+        $staff = $staffModel->getStaffDetailsBySchool(
+            $staff_id,
+            $school_id
+        );
+
+        $schools = [];
+    }
+
+    if (!$staff) {
+        die("Staff not found or you do not have permission to edit this staff member.");
+    }
+
+    $this->view('staff-edit', [
+        'staff'   => $staff,
+        'schools' => $schools,
+        'error'   => ''
+    ]);
+}
+
+
+/* =====================================================
+   UPDATE STAFF
+===================================================== */
+
+public function update($staff_id = null)
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+    if (!isset($_SESSION['rank'])) {
+        header("Location: " . ROOT . "/login");
+        exit;
+    }
+
+    $rank = $_SESSION['rank'];
+
+    if ($rank !== 'super_admin' && $rank !== 'admin') {
+        header("Location: " . ROOT . "/home");
+        exit;
+    }
+
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        header("Location: " . ROOT . "/staff");
+        exit;
+    }
+
+    if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+        die("Invalid security token. Please refresh the page and try again.");
+    }
+
+    if ($staff_id === null || $staff_id === '') {
+        header("Location: " . ROOT . "/staff");
+        exit;
+    }
+
+    $staffModel = new StaffModel();
+
+    /*
+    ========================================
+    GET CURRENT STAFF
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
+
+        $currentStaff = $staffModel->getStaffDetails($staff_id);
+
+    } else {
+
+        $school_id = $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+            die("No school is assigned to this account.");
+        }
+
+        $currentStaff = $staffModel->getStaffDetailsBySchool(
+            $staff_id,
+            $school_id
+        );
+    }
+
+    if (!$currentStaff) {
+        die("Staff not found or you do not have permission to edit this staff member.");
+    }
+
+    /*
+    ========================================
+    SCHOOL
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
+
+        $school_id = $_POST['school_id'] ?? null;
+
+    } else {
+
+        $school_id = $_SESSION['school_id'] ?? null;
+    }
+
+    if (!$school_id) {
+        die("School is required.");
+    }
+
+    /*
+    ========================================
+    FORM DATA
+    ========================================
+    */
+
+    $firstname = trim($_POST['firstname'] ?? '');
+    $lastname = trim($_POST['lastname'] ?? '');
+    $email = trim($_POST['email'] ?? '');
+    $gender = trim($_POST['gender'] ?? '');
+
+    $department = trim($_POST['department'] ?? '');
+    $designation = trim($_POST['designation'] ?? '');
+    $qualification = trim($_POST['qualification'] ?? '');
+
+    $joining_date = $_POST['joining_date'] ?? null;
+
+    $employment_type = trim(
+        $_POST['employment_type'] ?? ''
+    );
+
+    $phone = trim($_POST['phone'] ?? '');
+    $address = trim($_POST['address'] ?? '');
+
+    $status = $_POST['status'] ?? 'active';
+
+    /*
+    ========================================
+    VALIDATION
+    ========================================
+    */
+
+    if (
+        $firstname === '' ||
+        $lastname === '' ||
+        $email === '' ||
+        $gender === '' ||
+        $department === '' ||
+        $designation === ''
+    ) {
+        die("Please fill all required fields.");
+    }
+
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        die("Please enter a valid email address.");
+    }
+
+    if (!in_array($status, ['active', 'inactive'], true)) {
+        $status = 'active';
+    }
+
+    /*
+    ========================================
+    PROFILE IMAGE
+    ========================================
+    */
+
+    $profile_image = $currentStaff->profile_image ?? null;
+
+    if (
+        isset($_FILES['profile_image']) &&
+        $_FILES['profile_image']['error'] === UPLOAD_ERR_OK
+    ) {
+
+        $allowedTypes = [
+            'image/jpeg' => 'jpg',
+            'image/png'  => 'png',
+            'image/webp' => 'webp'
+        ];
+
+        $imageInfo = getimagesize(
+            $_FILES['profile_image']['tmp_name']
+        );
+
+        if ($imageInfo === false) {
+            die("Invalid image file.");
+        }
+
+        $mime = $imageInfo['mime'];
+
+        if (!isset($allowedTypes[$mime])) {
+            die("Only JPG, PNG and WEBP images are allowed.");
+        }
+
+        $uploadDirectory =
+            __DIR__ . '/../../public/uploads/users/';
+
+        if (!is_dir($uploadDirectory)) {
+            mkdir(
+                $uploadDirectory,
+                0755,
+                true
+            );
+        }
+
+        $profile_image =
+            uniqid('user_', true)
+            . '.'
+            . $allowedTypes[$mime];
+
+        $uploadPath =
+            $uploadDirectory . $profile_image;
+
+        if (!move_uploaded_file(
+            $_FILES['profile_image']['tmp_name'],
+            $uploadPath
+        )) {
+            die("Unable to save profile image.");
+        }
+    }
+
+    /*
+    ========================================
+    USER DATA
+    ========================================
+    */
+
+    $userData = [
+        'firstname'     => $firstname,
+        'lastname'      => $lastname,
+        'email'         => $email,
+        'gender'        => $gender,
+        'school_id'     => $school_id,
+        'status'        => $status,
+        'profile_image' => $profile_image
+    ];
+
+    /*
+    ========================================
+    STAFF DATA
+    ========================================
+    */
+
+    $staffData = [
+        'school_id'       => $school_id,
+        'department'      => $department,
+        'designation'     => $designation,
+        'qualification'   => $qualification,
+        'joining_date'    => $joining_date,
+        'employment_type' => $employment_type,
+        'phone'           => $phone,
+        'address'         => $address,
+        'status'          => $status
+    ];
+
+    /*
+    ========================================
+    UPDATE STAFF
+    ========================================
+    */
+
+    $updated = $staffModel->updateStaff(
+        $staff_id,
+        $currentStaff->user_id,
+        $userData,
+        $staffData
+    );
+
+    if ($updated) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/staff/details/" .
+            urlencode($staff_id)
+        );
+
+        exit;
+    }
+
+    die("Unable to update staff.");
+}
 }

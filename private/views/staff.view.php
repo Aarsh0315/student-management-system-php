@@ -1,6 +1,19 @@
 <?php
 
 $staff = $data['staff'] ?? [];
+$schools = $data['schools'] ?? [];
+
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'staff_id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
+$status = $data['status'] ?? '';
+
+$school_id = $data['school_id'] ?? '';
 
 ?>
 
@@ -26,23 +39,17 @@ $staff = $data['staff'] ?? [];
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
-    > 
+    >
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/home.view.css"
     >
 
-
-    <!-- STAFF CSS -->
-
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/staff.view.css"
+        href="<?= ROOT ?>/css/staff.view.css?v=3"
     >
-
-
-    <!-- FOOTER CSS -->
 
     <link
         rel="stylesheet"
@@ -61,7 +68,13 @@ $staff = $data['staff'] ?? [];
 
 
 <?php require "../private/views/includes/nav.view.php"; ?>
-<?php require "../private/views/includes/sidebar.view.php"; ?>
+
+
+<?php
+
+require "../private/views/includes/sidebar.view.php";
+
+?>
 
 
 <main class="dashboard">
@@ -84,8 +97,7 @@ $staff = $data['staff'] ?? [];
             </h1>
 
             <p class="welcome-text">
-                Manage all staff members
-                across the schools.
+                Manage all staff members registered in the system.
             </p>
 
         </div>
@@ -100,7 +112,9 @@ $staff = $data['staff'] ?? [];
     <section class="staff-card">
 
 
-        <!-- HEADER -->
+        <!-- =========================
+             HEADER
+        ========================== -->
 
         <div class="staff-header">
 
@@ -114,14 +128,22 @@ $staff = $data['staff'] ?? [];
 
                     <?= count($staff) ?>
 
-                    staff member(s) registered
+                    staff member(s) found
+
+                    <?php if ($search !== ''): ?>
+
+                        for
+
+                        <strong>
+                            "<?= htmlspecialchars($search) ?>"
+                        </strong>
+
+                    <?php endif; ?>
 
                 </p>
 
             </div>
 
-
-            <!-- ADD STAFF -->
 
             <a
                 href="<?= ROOT ?>/staff/add"
@@ -133,12 +155,335 @@ $staff = $data['staff'] ?? [];
         </div>
 
 
-        <?php if (!empty($staff)): ?>
+        <!-- =================================================
+             SEARCH + FILTER + SORT
+        ================================================== -->
+
+        <div class="staff-toolbar">
 
 
             <!-- =========================
-                 TABLE
+                 SEARCH
             ========================== -->
+
+            <form
+                method="GET"
+                action="<?= ROOT ?>/staff"
+                class="staff-search-form"
+            >
+
+                <div class="staff-search-box">
+
+                 <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        placeholder="Search staff by name, ID or email..."
+                        value="<?= htmlspecialchars($search) ?>"
+                    >
+
+                </div>
+
+
+                <!-- KEEP CURRENT SORT -->
+
+                <input
+                    type="hidden"
+                    name="sort"
+                    value="<?= htmlspecialchars($sort) ?>"
+                >
+
+                <input
+                    type="hidden"
+                    name="direction"
+                    value="<?= htmlspecialchars($direction) ?>"
+                >
+
+                <input
+                    type="hidden"
+                    name="status"
+                    value="<?= htmlspecialchars($status) ?>"
+                >
+
+                <input
+                    type="hidden"
+                    name="school_id"
+                    value="<?= htmlspecialchars($school_id) ?>"
+                >
+
+
+                <button
+                    type="submit"
+                    class="search-btn"
+                >
+                    Search
+                </button>
+
+
+                <?php if (
+                    $search !== '' ||
+                    $status !== '' ||
+                    $school_id !== '' ||
+                    $sort !== 'staff_id' ||
+                    $direction !== 'DESC'
+                ): ?>
+
+                    <a
+                        href="<?= ROOT ?>/staff"
+                        class="clear-search-btn"
+                    >
+                        Clear
+                    </a>
+
+                <?php endif; ?>
+
+
+            </form>
+
+
+            <!-- =========================
+                 SORT + FILTER
+            ========================== -->
+
+            <form
+                method="GET"
+                action="<?= ROOT ?>/staff"
+                class="staff-sort-form"
+            >
+
+
+                <!-- KEEP SEARCH -->
+
+                <input
+                    type="hidden"
+                    name="search"
+                    value="<?= htmlspecialchars($search) ?>"
+                >
+
+
+                <!-- SORT -->
+
+                <label for="staff-sort">
+                    Sort by
+                </label>
+
+
+                <select
+                    name="sort"
+                    id="staff-sort"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value="staff_id"
+                        <?= $sort === 'staff_id' ? 'selected' : '' ?>
+                    >
+                        ID
+                    </option>
+
+
+                    <option
+                        value="name"
+                        <?= $sort === 'name' ? 'selected' : '' ?>
+                    >
+                        Name
+                    </option>
+
+
+                    <option
+                        value="role"
+                        <?= $sort === 'role' ? 'selected' : '' ?>
+                    >
+                        Role
+                    </option>
+
+
+                    <option
+                        value="department"
+                        <?= $sort === 'department' ? 'selected' : '' ?>
+                    >
+                        Department
+                    </option>
+
+
+                    <option
+                        value="school"
+                        <?= $sort === 'school' ? 'selected' : '' ?>
+                    >
+                        School
+                    </option>
+
+
+                    <option
+                        value="email"
+                        <?= $sort === 'email' ? 'selected' : '' ?>
+                    >
+                        Email
+                    </option>
+
+
+                    <option
+                        value="qualification"
+                        <?= $sort === 'qualification' ? 'selected' : '' ?>
+                    >
+                        Qualification
+                    </option>
+
+
+                    <option
+                        value="joining_date"
+                        <?= $sort === 'joining_date' ? 'selected' : '' ?>
+                    >
+                        Joining Date
+                    </option>
+
+
+                    <option
+                        value="employment_type"
+                        <?= $sort === 'employment_type' ? 'selected' : '' ?>
+                    >
+                        Employment Type
+                    </option>
+
+
+                    <option
+                        value="status"
+                        <?= $sort === 'status' ? 'selected' : '' ?>
+                    >
+                        Status
+                    </option>
+
+                </select>
+
+
+                <!-- =========================
+                     DIRECTION
+                ========================== -->
+
+                <select
+                    name="direction"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value="ASC"
+                        <?= $direction === 'ASC' ? 'selected' : '' ?>
+                    >
+                        Ascending
+                    </option>
+
+
+                    <option
+                        value="DESC"
+                        <?= $direction === 'DESC' ? 'selected' : '' ?>
+                    >
+                        Descending
+                    </option>
+
+                </select>
+
+
+                <!-- =========================
+                     STATUS
+                ========================== -->
+
+                <label for="staff-status">
+                    Status
+                </label>
+
+
+                <select
+                    name="status"
+                    id="staff-status"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value=""
+                        <?= $status === '' ? 'selected' : '' ?>
+                    >
+                        All Status
+                    </option>
+
+
+                    <option
+                        value="active"
+                        <?= $status === 'active' ? 'selected' : '' ?>
+                    >
+                        Active
+                    </option>
+
+
+                    <option
+                        value="inactive"
+                        <?= $status === 'inactive' ? 'selected' : '' ?>
+                    >
+                        Inactive
+                    </option>
+
+                </select>
+
+
+                <!-- =========================
+                     SCHOOL
+                ========================== -->
+
+                <?php if (!empty($schools)): ?>
+
+                    <label for="staff-school">
+                        School
+                    </label>
+
+
+                    <select
+                        name="school_id"
+                        id="staff-school"
+                        onchange="this.form.submit()"
+                    >
+
+                        <option
+                            value=""
+                            <?= $school_id === '' ? 'selected' : '' ?>
+                        >
+                            All Schools
+                        </option>
+
+
+                        <?php foreach ($schools as $school): ?>
+
+                            <option
+                                value="<?= htmlspecialchars($school->id) ?>"
+                                <?= (string)$school_id === (string)$school->id ? 'selected' : '' ?>
+                            >
+
+                                <?= htmlspecialchars(
+                                    $school->school_name
+                                ) ?>
+
+                            </option>
+
+                        <?php endforeach; ?>
+
+                    </select>
+
+                <?php endif; ?>
+
+
+            </form>
+
+
+        </div>
+
+
+        <!-- =========================
+             TABLE
+        ========================== -->
+
+        <?php if (!empty($staff)): ?>
+
 
             <div class="table-wrapper">
 
@@ -173,6 +518,18 @@ $staff = $data['staff'] ?? [];
                             </th>
 
                             <th>
+                                Qualification
+                            </th>
+
+                            <th>
+                                Joining Date
+                            </th>
+
+                            <th>
+                                Employment Type
+                            </th>
+
+                            <th>
                                 Status
                             </th>
 
@@ -188,143 +545,166 @@ $staff = $data['staff'] ?? [];
                     <tbody>
 
 
-                        <?php foreach ($staff as $member): ?>
+                    <?php foreach ($staff as $member): ?>
 
 
-                            <tr>
+                        <tr>
 
 
-                                <!-- STAFF ID -->
+                            <!-- STAFF ID -->
 
-                                <td>
+                            <td>
 
-                                    <span class="staff-id">
+                                <?= htmlspecialchars(
+                                    $member->staff_id ?? '-'
+                                ) ?>
 
-                                        <?= htmlspecialchars(
-                                            $member->staff_id ?? '-'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
+                            </td>
 
 
-                                <!-- NAME -->
+                            <!-- NAME -->
 
-                                <td>
+                            <td>
 
-                                    <strong class="staff-name">
-
-                                        <?= htmlspecialchars(
-                                            ($member->firstname ?? '')
-                                            . ' '
-                                            . ($member->lastname ?? '')
-                                        ) ?>
-
-                                    </strong>
-
-                                </td>
-
-
-                                <!-- ROLE -->
-
-                                <td>
-
-                                    <span class="staff-role">
-
-                                        <?= htmlspecialchars(
-                                            $member->designation
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
-
-
-                                <!-- DEPARTMENT -->
-
-                                <td>
-
-                                    <span class="staff-department">
-
-                                        <?= htmlspecialchars(
-                                            $member->department
-                                            ?? '-'
-                                        ) ?>
-
-                                    </span>
-
-                                </td>
-
-
-                                <!-- SCHOOL -->
-
-                                <td>
-
-                                    <?php if (
-                                        !empty(
-                                            $member->school_name
-                                        )
-                                    ): ?>
-
-                                        <span class="staff-school">
-
-                                            <?= htmlspecialchars(
-                                                $member->school_name
-                                            ) ?>
-
-                                        </span>
-
-                                    <?php else: ?>
-
-                                        <span class="no-school">
-                                            No School
-                                        </span>
-
-                                    <?php endif; ?>
-
-                                </td>
-
-
-                                <!-- EMAIL -->
-
-                                <td>
+                                <strong>
 
                                     <?= htmlspecialchars(
-                                        $member->email ?? '-'
+                                        ($member->firstname ?? '')
+                                        . ' '
+                                        . ($member->lastname ?? '')
                                     ) ?>
 
-                                </td>
+                                </strong>
+
+                            </td>
 
 
-                                <!-- STATUS -->
+                            <!-- ROLE -->
 
-                                <td>
+                            <td>
 
-                                    <?php if (
-                                        ($member->status ?? '')
-                                        === 'active'
-                                    ): ?>
+                                <?= htmlspecialchars(
+                                    $member->designation ?? '-'
+                                ) ?>
 
-                                        <span class="status active">
-                                            Active
-                                        </span>
-
-                                    <?php else: ?>
-
-                                        <span class="status inactive">
-                                            Inactive
-                                        </span>
-
-                                    <?php endif; ?>
-
-                                </td>
+                            </td>
 
 
-                                <!-- ACTION -->
+                            <!-- DEPARTMENT -->
 
-                                <td>
+                            <td>
+
+                                <?= htmlspecialchars(
+                                    $member->department ?? '-'
+                                ) ?>
+
+                            </td>
+
+
+                            <!-- SCHOOL -->
+
+                            <td>
+
+                                <?php if (
+                                    !empty($member->school_name)
+                                ): ?>
+
+                                    <?= htmlspecialchars(
+                                        $member->school_name
+                                    ) ?>
+
+                                <?php else: ?>
+
+                                    <span class="no-school">
+                                        No School
+                                    </span>
+
+                                <?php endif; ?>
+
+                            </td>
+
+
+                            <!-- EMAIL -->
+
+                            <td>
+
+                                <?= htmlspecialchars(
+                                    $member->email ?? '-'
+                                ) ?>
+
+                            </td>
+
+
+                            <!-- QUALIFICATION -->
+
+                            <td>
+
+                                <?= htmlspecialchars(
+                                    $member->qualification ?? '-'
+                                ) ?>
+
+                            </td>
+
+
+                            <!-- JOINING DATE -->
+
+                            <td>
+
+                                <?= !empty($member->joining_date)
+                                    ? htmlspecialchars($member->joining_date)
+                                    : '-'
+                                ?>
+
+                            </td>
+
+
+                            <!-- EMPLOYMENT TYPE -->
+
+                            <td>
+
+                                <?= htmlspecialchars(
+                                    $member->employment_type ?? '-'
+                                ) ?>
+
+                            </td>
+
+
+                            <!-- STATUS -->
+
+                            <td>
+
+                                <?php if (
+                                    ($member->status ?? '')
+                                    === 'active'
+                                ): ?>
+
+                                    <span
+                                        class="status active"
+                                    >
+                                        Active
+                                    </span>
+
+                                <?php else: ?>
+
+                                    <span
+                                        class="status inactive"
+                                    >
+                                        Inactive
+                                    </span>
+
+                                <?php endif; ?>
+
+                            </td>
+
+
+                            <!-- ACTION -->
+
+                            <td>
+
+                                <div class="table-actions">
+
+
+                                    <!-- VIEW -->
 
                                     <a
                                         href="<?= ROOT ?>/staff/details/<?= urlencode($member->staff_id) ?>"
@@ -333,13 +713,26 @@ $staff = $data['staff'] ?? [];
                                         View
                                     </a>
 
-                                </td>
+
+                                    <!-- EDIT -->
+
+                                    <a
+                                        href="<?= ROOT ?>/staff/edit/<?= urlencode($member->staff_id) ?>"
+                                        class="edit-btn"
+                                    >
+                                        Edit
+                                    </a>
 
 
-                            </tr>
+                                </div>
+
+                            </td>
 
 
-                        <?php endforeach; ?>
+                        </tr>
+
+
+                    <?php endforeach; ?>
 
 
                     </tbody>
@@ -362,10 +755,57 @@ $staff = $data['staff'] ?? [];
                     No staff found
                 </h3>
 
+
                 <p>
-                    There are currently no staff
-                    members registered.
+
+
+                    <?php if ($search !== ''): ?>
+
+                        No staff member matches
+
+                        <strong>
+                            "<?= htmlspecialchars($search) ?>"
+                        </strong>.
+
+
+                    <?php elseif ($status !== ''): ?>
+
+                        No
+                        <?= htmlspecialchars($status) ?>
+                        staff members found.
+
+
+                    <?php elseif ($school_id !== ''): ?>
+
+                        No staff members found in the selected school.
+
+
+                    <?php else: ?>
+
+                        There are currently no staff members
+                        registered in the system.
+
+                    <?php endif; ?>
+
+
                 </p>
+
+
+                <?php if (
+                    $search !== '' ||
+                    $status !== '' ||
+                    $school_id !== ''
+                ): ?>
+
+                    <a
+                        href="<?= ROOT ?>/staff"
+                        class="clear-search-btn"
+                    >
+                        View All Staff
+                    </a>
+
+                <?php endif; ?>
+
 
             </div>
 
@@ -381,11 +821,13 @@ $staff = $data['staff'] ?? [];
 
 <!-- =========================
      FOOTER
-========================== -->
+========================= -->
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 
+
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 
 
