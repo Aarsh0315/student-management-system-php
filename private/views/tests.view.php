@@ -575,24 +575,42 @@ if ($rank === 'super_admin') {
 
         <?php else: ?>
 
+    <!-- ========================================
+         EMPTY STATE
+    ======================================== -->
 
-            <!-- ========================================
-                 EMPTY STATE
-            ======================================== -->
+    <div class="empty-state">
 
-            <div class="empty-state">
+        <h3>
+            No Tests Found
+        </h3>
 
-                <h3>
-                    No Tests Found
-                </h3>
+        <?php if ($search !== ''): ?>
 
-                <p>
-                    There are currently no tests
-                    registered in the system.
-                </p>
+            <p>
+                No test matches
+                <strong>
+                    "<?= htmlspecialchars($search) ?>"
+                </strong>.
+            </p>
 
-            </div>
+            <a
+                href="<?= ROOT ?>/tests"
+                class="view-all-tests-btn"
+            >
+                View All Tests
+            </a>
 
+        <?php else: ?>
+
+            <p>
+                There are currently no tests
+                registered in the system.
+            </p>
+
+        <?php endif; ?>
+
+    </div>
 
         <?php endif; ?>
 
