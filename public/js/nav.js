@@ -343,3 +343,53 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 });
+
+
+/* =====================================================
+   PROFILE DROPDOWN
+===================================================== */
+
+const profileMenu =
+    document.querySelector('.profile-menu');
+
+const profileMenuButton =
+    document.getElementById('profileMenuButton');
+
+const profileDropdown =
+    document.getElementById('profileDropdown');
+
+
+if (
+    profileMenu &&
+    profileMenuButton &&
+    profileDropdown
+) {
+
+    profileMenuButton.addEventListener(
+        'click',
+        function (event) {
+
+            event.stopPropagation();
+
+            profileMenu.classList.toggle('open');
+
+        }
+    );
+
+
+    document.addEventListener(
+        'click',
+        function (event) {
+
+            if (
+                !profileMenu.contains(event.target)
+            ) {
+
+                profileMenu.classList.remove('open');
+
+            }
+
+        }
+    );
+
+}

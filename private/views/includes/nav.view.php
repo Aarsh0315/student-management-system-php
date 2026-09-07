@@ -588,84 +588,7 @@ $initial = strtoupper(
                                 </small>
 
                             </span>
-
                         </a>
-
-
-                        <a
-                            href="<?= ROOT ?>/attendance"
-                            class="search-item"
-                            data-search="attendance students academics"
-                        >
-
-                            <span class="search-item-icon">
-                                AT
-                            </span>
-
-                            <span class="search-item-content">
-
-                                <strong>
-                                    Attendance
-                                </strong>
-
-                                <small>
-                                    Manage student attendance
-                                </small>
-
-                            </span>
-
-                        </a>
-
-
-                        <a
-                            href="<?= ROOT ?>/fees"
-                            class="search-item"
-                            data-search="fees fee payments finance"
-                        >
-
-                            <span class="search-item-icon">
-                                FE
-                            </span>
-
-                            <span class="search-item-content">
-
-                                <strong>
-                                    Fees
-                                </strong>
-
-                                <small>
-                                    Manage school fees
-                                </small>
-
-                            </span>
-
-                        </a>
-
-
-                        <a
-                            href="<?= ROOT ?>/notices"
-                            class="search-item"
-                            data-search="notices notice announcements"
-                        >
-
-                            <span class="search-item-icon">
-                                NO
-                            </span>
-
-                            <span class="search-item-content">
-
-                                <strong>
-                                    Notices
-                                </strong>
-
-                                <small>
-                                    Manage school notices
-                                </small>
-
-                            </span>
-
-                        </a>
-
                     </div>
 
 
@@ -1020,116 +943,156 @@ $initial = strtoupper(
 
 
 
-        <!-- =================================================
-             RIGHT SIDE
-        ================================================== -->
+<!-- =================================================
+     RIGHT SIDE
+================================================= -->
 
-        <div class="navbar-right">
+<div class="navbar-right">
 
 
-            <!-- =================================================
-                 THEME TOGGLE
-            ================================================== -->
+    <!-- =================================================
+         QUICK ADD
+    ================================================== -->
 
-            <button
-                type="button"
-                class="theme-toggle"
-                id="themeToggle"
-                aria-label="Switch theme"
-                title="Switch theme"
-            >
+    <button
+        type="button"
+        class="navbar-icon-btn quick-add-btn"
+        title="Quick Add"
+        aria-label="Quick Add"
+    >
 
-                <span
-                    class="theme-icon"
-                    id="themeIcon"
-                >
-                    ☾
-                </span>
+        <span class="quick-add-icon">
+            +
+        </span>
 
-                <span
-                    class="theme-text"
-                    id="themeText"
-                >
-                    Dark
-                </span>
-
-            </button>
+    </button>
 
 
 
-            <!-- =================================================
-                 NOTIFICATIONS
-            ================================================== -->
+    <!-- =================================================
+         NOTIFICATIONS
+    ================================================== -->
 
-            <a
-                href="<?= ROOT ?>/notifications"
-                class="navbar-icon-btn notification-link"
-                aria-label="Notifications"
-                title="Notifications"
-            >
+    <a
+        href="<?= ROOT ?>/notifications"
+        class="navbar-icon-btn notification-link"
+        aria-label="Notifications"
+        title="Notifications"
+    >
 
-                <span class="navbar-icon">
-                    NT
-                </span>
+        <span class="notification-icon">
+            ♟
+        </span>
 
 
-                <?php
+        <?php
 
-                $notificationCount = 0;
+        $notificationCount = 0;
 
-                if (
-                    isset($_SESSION['user_id']) &&
-                    !empty($_SESSION['user_id'])
-                ) {
+        if (
+            isset($_SESSION['user_id']) &&
+            !empty($_SESSION['user_id'])
+        ) {
 
-                    require_once __DIR__ .
-                        '/../../models/NotificationModel.php';
+            require_once __DIR__ .
+                '/../../models/NotificationModel.php';
 
-                    $notificationModel =
-                        new NotificationModel();
+            $notificationModel =
+                new NotificationModel();
 
-                    $notificationCount =
-                        $notificationModel->getUnreadCount(
-                            $_SESSION['user_id'],
-                            $_SESSION['school_id'] ?? null
-                        );
-                }
+            $notificationCount =
+                $notificationModel->getUnreadCount(
+                    $_SESSION['user_id'],
+                    $_SESSION['school_id'] ?? null
+                );
+        }
 
+        ?>
+
+
+        <?php if ($notificationCount > 0): ?>
+
+            <span class="notification-badge">
+
+                <?= $notificationCount > 99
+                    ? '99+'
+                    : $notificationCount
                 ?>
 
+            </span>
 
-                <?php if ($notificationCount > 0): ?>
+        <?php endif; ?>
 
-                    <span class="notification-badge">
-                        <?= $notificationCount > 99
-                            ? '99+'
-                            : $notificationCount
-                        ?>
-                    </span>
-
-                <?php endif; ?>
-
-            </a>
+    </a>
 
 
 
-            <!-- =================================================
-                 PROFILE
-            ================================================== -->
+    <!-- =================================================
+         SETTINGS
+    ================================================== -->
 
-            <a
-                href="<?= ROOT ?>/profile"
-                class="navbar-profile"
-            >
+    <a
+        href="<?= ROOT ?>/profile"
+        class="navbar-icon-btn settings-btn"
+        aria-label="Settings"
+        title="Settings"
+    >
 
-                <div class="navbar-avatar">
+        <span class="settings-icon">
+            ⚙
+        </span>
+
+    </a>
+
+
+
+    <!-- =================================================
+         PROFILE MENU
+    ================================================== -->
+
+    <div class="profile-menu">
+
+
+        <!-- PROFILE BUTTON -->
+
+        <button
+            type="button"
+            class="navbar-profile"
+            id="profileMenuButton"
+            aria-label="Open profile menu"
+            aria-expanded="false"
+        >
+
+            <div class="navbar-avatar">
+
+                <?= htmlspecialchars($initial) ?>
+
+            </div>
+
+        </button>
+
+
+
+        <!-- PROFILE DROPDOWN -->
+
+        <div
+            class="profile-dropdown"
+            id="profileDropdown"
+        >
+
+
+            <!-- USER INFO -->
+
+            <div class="profile-dropdown-header">
+
+                <div class="profile-dropdown-avatar">
 
                     <?= htmlspecialchars($initial) ?>
 
                 </div>
 
 
-                <div class="navbar-user-info">
+                <div class="profile-dropdown-info">
 
                     <strong>
                         <?= htmlspecialchars($firstname) ?>
@@ -1141,25 +1104,45 @@ $initial = strtoupper(
 
                 </div>
 
+            </div>
+
+
+
+            <div class="profile-dropdown-divider"></div>
+
+
+
+            <!-- PROFILE -->
+
+            <a
+                href="<?= ROOT ?>/profile"
+                class="profile-dropdown-item"
+            >
+
+                <span class="dropdown-item-icon">
+                    ◉
+                </span>
+
+                <span>
+                    Profile
+                </span>
+
             </a>
 
 
 
-            <!-- =================================================
-                 LOGOUT
-            ================================================== -->
+            <!-- LOGOUT -->
 
             <a
                 href="<?= ROOT ?>/logout"
-                class="navbar-logout"
-                title="Logout"
+                class="profile-dropdown-item logout-item"
             >
 
-                <span class="logout-icon">
+                <span class="dropdown-item-icon">
                     ↪
                 </span>
 
-                <span class="logout-text">
+                <span>
                     Logout
                 </span>
 
@@ -1169,5 +1152,8 @@ $initial = strtoupper(
         </div>
 
     </div>
+
+
+</div>
 
 </header>
