@@ -8,240 +8,607 @@ class ParentTests extends Controller
     ========================================
     */
 
-    public function index()
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
+   public function index()
+{
+    /*
+    ========================================
+    PARENT TESTS LIST
+    ========================================
+    */
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
+
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK PARENT ROLE
+    ========================================
+    */
+
+    if (
+        ($_SESSION['rank'] ?? '') !== 'parent'
+    ) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    GET PARENT ID
+    ========================================
+    */
+
+    $parent_id =
+        $_SESSION['user_id'] ?? null;
+
+
+    /*
+    ========================================
+    GET SCHOOL ID
+    ========================================
+    */
+
+    $school_id =
+        $_SESSION['school_id'] ?? null;
+
+
+    if (!$parent_id) {
+
+        die(
+            "Parent user ID not found."
+        );
+
+    }
+
+
+    if (!$school_id) {
+
+        die(
+            "No school is assigned to this account."
+        );
+
+    }
+
+
+    /*
+    ========================================
+    LOAD MODELS
+    ========================================
+    */
+
+    $parentModel =
+        $this->model('ParentModel');
+
+
+    $testModel =
+        $this->model('TeacherTestsModel');
+
+
+    /*
+    ========================================
+    GET CHILDREN
+    ========================================
+    */
+
+    $children =
+        $parentModel->getChildrenBySchool(
+            $parent_id,
+            $school_id
+        );
+
+
+    /*
+    ========================================
+    GET TESTS
+    ========================================
+    */
+
+    $tests = [];
+
+
+    foreach ($children as $child) {
+
+        $class =
+            $child->class ?? null;
+
+
+        $division =
+            $child->division ?? null;
+
+
+        if (!$class || !$division) {
+            continue;
         }
 
 
         /*
         ========================================
-        CHECK LOGIN
+        GET TESTS FOR CHILD'S CLASS
         ========================================
         */
 
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
+        $childTests =
+            $testModel->getTestsByClassDivision(
+                $school_id,
+                $class,
+                $division
             );
 
-            exit;
+
+        foreach ($childTests as $test) {
+
+            /*
+            Add child information
+            */
+
+            $test->student_id =
+                $child->student_id;
+
+
+            $test->student_name =
+                trim(
+                    ($child->firstname ?? '') .
+                    ' ' .
+                    ($child->lastname ?? '')
+                );
+
+
+            $tests[] = $test;
         }
+    }
 
 
-        /*
-        ========================================
-        CHECK PARENT ROLE
-        ========================================
-        */
+    /*
+    ========================================
+    REMOVE DUPLICATE TESTS
+    ========================================
+    */
 
-        if (($_SESSION['rank'] ?? '') !== 'parent') {
+    $uniqueTests = [];
 
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
+
+    foreach ($tests as $test) {
+
+        $key =
+            ($test->test_id ?? '') .
+            '_' .
+            ($test->student_id ?? '');
+
+
+        $uniqueTests[$key] = $test;
+    }
+
+
+    $tests =
+        array_values($uniqueTests);
+
+
+    /*
+    ========================================
+    GET SEARCH
+    ========================================
+    */
+
+    $search =
+        trim(
+            $_GET['search'] ?? ''
+        );
+
+
+    /*
+    ========================================
+    GET SORT
+    ========================================
+    */
+
+    $sort =
+        $_GET['sort'] ?? 'test_id';
+
+
+    /*
+    ========================================
+    GET SORT DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper(
+            $_GET['direction'] ?? 'DESC'
+        );
+
+
+    /*
+    ========================================
+    ALLOWED SORTS
+    ========================================
+    */
+
+    $allowedSorts = [
+        'test_id',
+        'test',
+        'child',
+        'class',
+        'division',
+        'total_marks',
+        'duration',
+        'status',
+        'created_at'
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $sort,
+            $allowedSorts,
+            true
+        )
+    ) {
+
+        $sort = 'test_id';
+    }
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    SEARCH TESTS
+    ========================================
+    */
+
+    if ($search !== '') {
+
+        $searchLower =
+            strtolower($search);
+
+
+        $tests =
+            array_filter(
+                $tests,
+                function ($test) use ($searchLower) {
+
+                    $testId =
+                        strtolower(
+                            (string) (
+                                $test->test_id ?? ''
+                            )
+                        );
+
+
+                    $title =
+                        strtolower(
+                            (string) (
+                                $test->title ?? ''
+                            )
+                        );
+
+
+                    $studentName =
+                        strtolower(
+                            (string) (
+                                $test->student_name ?? ''
+                            )
+                        );
+
+
+                    $class =
+                        strtolower(
+                            (string) (
+                                $test->class ?? ''
+                            )
+                        );
+
+
+                    $division =
+                        strtolower(
+                            (string) (
+                                $test->division ?? ''
+                            )
+                        );
+
+
+                    $status =
+                        strtolower(
+                            (string) (
+                                $test->status ?? ''
+                            )
+                        );
+
+
+                    return
+                        strpos(
+                            $testId,
+                            $searchLower
+                        ) !== false
+
+                        ||
+
+                        strpos(
+                            $title,
+                            $searchLower
+                        ) !== false
+
+                        ||
+
+                        strpos(
+                            $studentName,
+                            $searchLower
+                        ) !== false
+
+                        ||
+
+                        strpos(
+                            $class,
+                            $searchLower
+                        ) !== false
+
+                        ||
+
+                        strpos(
+                            $division,
+                            $searchLower
+                        ) !== false
+
+                        ||
+
+                        strpos(
+                            $status,
+                            $searchLower
+                        ) !== false;
+                }
             );
 
-            exit;
-        }
+
+        $tests =
+            array_values($tests);
+    }
 
 
-        /*
-        ========================================
-        GET PARENT ID
-        ========================================
-        */
+    /*
+    ========================================
+    SORT TESTS
+    ========================================
+    */
 
-        $parent_id =
-            $_SESSION['user_id'] ?? null;
+    usort(
+        $tests,
+        function ($a, $b) use (
+            $sort,
+            $direction
+        ) {
 
+            switch ($sort) {
 
-        /*
-        ========================================
-        GET SCHOOL ID
-        ========================================
-        */
+                case 'test_id':
 
-        $school_id =
-            $_SESSION['school_id'] ?? null;
+                    $valueA =
+                        $a->test_id ?? '';
 
+                    $valueB =
+                        $b->test_id ?? '';
 
-        if (!$parent_id) {
-
-            die(
-                "Parent user ID not found."
-            );
-
-        }
+                    break;
 
 
-        if (!$school_id) {
+                case 'test':
 
-            die(
-                "No school is assigned to this account."
-            );
+                    $valueA =
+                        $a->title ?? '';
 
-        }
+                    $valueB =
+                        $b->title ?? '';
 
-
-        /*
-        ========================================
-        LOAD MODELS
-        ========================================
-        */
-
-        $parentModel =
-            $this->model('ParentModel');
+                    break;
 
 
-        $testModel =
-            $this->model('TeacherTestsModel');
+                case 'child':
+
+                    $valueA =
+                        $a->student_name ?? '';
+
+                    $valueB =
+                        $b->student_name ?? '';
+
+                    break;
 
 
-        /*
-        ========================================
-        GET CHILDREN
-        ========================================
-        */
+                case 'class':
 
-        $children =
-            $parentModel->getChildrenBySchool(
-                $parent_id,
-                $school_id
-            );
+                    $valueA =
+                        $a->class ?? '';
+
+                    $valueB =
+                        $b->class ?? '';
+
+                    break;
 
 
-        /*
-        ========================================
-        GET TESTS
-        ========================================
-        */
+                case 'division':
 
-        $tests = [];
+                    $valueA =
+                        $a->division ?? '';
 
+                    $valueB =
+                        $b->division ?? '';
 
-        foreach ($children as $child) {
-
-            $class =
-                $child->class ?? null;
-
-            $division =
-                $child->division ?? null;
+                    break;
 
 
-            if (!$class || !$division) {
-                continue;
+                case 'total_marks':
+
+                    $valueA =
+                        (float) (
+                            $a->total_marks ?? 0
+                        );
+
+                    $valueB =
+                        (float) (
+                            $b->total_marks ?? 0
+                        );
+
+                    break;
+
+
+                case 'duration':
+
+                    $valueA =
+                        (float) (
+                            $a->duration ?? 0
+                        );
+
+                    $valueB =
+                        (float) (
+                            $b->duration ?? 0
+                        );
+
+                    break;
+
+
+                case 'status':
+
+                    $valueA =
+                        $a->status ?? '';
+
+                    $valueB =
+                        $b->status ?? '';
+
+                    break;
+
+
+                case 'created_at':
+
+                    $valueA =
+                        strtotime(
+                            $a->created_at ?? '0'
+                        );
+
+                    $valueB =
+                        strtotime(
+                            $b->created_at ?? '0'
+                        );
+
+                    break;
+
+
+                default:
+
+                    $valueA =
+                        $a->test_id ?? '';
+
+                    $valueB =
+                        $b->test_id ?? '';
+
+                    break;
             }
 
 
             /*
-            ========================================
-            GET TESTS FOR CHILD'S CLASS
-            ========================================
+            String comparison
             */
 
-            $childTests =
-                $testModel->getTestsByClassDivision(
-                    $school_id,
-                    $class,
-                    $division
-                );
+            if (
+                is_string($valueA) &&
+                is_string($valueB)
+            ) {
 
-
-            foreach ($childTests as $test) {
-
-                /*
-                Add child information so
-                parent knows which child
-                the test belongs to.
-                */
-
-                $test->student_id =
-                    $child->student_id;
-
-                $test->student_name =
-                    trim(
-                        ($child->firstname ?? '') .
-                        ' ' .
-                        ($child->lastname ?? '')
+                $comparison =
+                    strcasecmp(
+                        $valueA,
+                        $valueB
                     );
 
+            } else {
 
-                $tests[] = $test;
+                $comparison =
+                    $valueA <=> $valueB;
             }
+
+
+            /*
+            Apply direction
+            */
+
+            return
+                $direction === 'ASC'
+                    ? $comparison
+                    : -$comparison;
         }
+    );
 
 
-        /*
-        ========================================
-        REMOVE DUPLICATE TESTS
-        ========================================
-        */
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
 
-        $uniqueTests = [];
-
-
-        foreach ($tests as $test) {
-
-            $key =
-                ($test->test_id ?? '') .
-                '_' .
-                ($test->student_id ?? '');
-
-
-            $uniqueTests[$key] = $test;
-        }
-
-
-        $tests =
-            array_values($uniqueTests);
-
-
-        /*
-        ========================================
-        SORT TESTS
-        ========================================
-        */
-
-        usort(
-            $tests,
-            function ($a, $b) {
-
-                return strtotime(
-                    $b->created_at ?? '0'
-                ) <=> strtotime(
-                    $a->created_at ?? '0'
-                );
-
-            }
-        );
-
-
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
-
-        $this->view(
-            'parent-tests',
-            [
-                'tests'    => $tests,
-                'children' => $children
-            ]
-        );
-    }
+    $this->view(
+        'parent-tests',
+        [
+            'tests'     => $tests,
+            'children'  => $children,
+            'search'    => $search,
+            'sort'      => $sort,
+            'direction' => $direction
+        ]
+    );
+}
 
     /*
 ========================================

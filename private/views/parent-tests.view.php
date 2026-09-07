@@ -3,6 +3,17 @@
 $tests =
     $data['tests'] ?? [];
 
+$search =
+    $data['search'] ?? '';
+
+$sort =
+    $data['sort'] ?? 'test_id';
+
+$direction =
+    strtoupper(
+        $data['direction'] ?? 'DESC'
+    );
+
 ?>
 
 <!DOCTYPE html>
@@ -137,9 +148,222 @@ $tests =
 
         </div>
 
+        <!-- ========================================
+     SEARCH + SORT TOOLBAR
+========================================= -->
+
+<div class="parent-tests-toolbar">
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/parenttests"
+        class="parent-test-search-form"
+    >
+
+        <div class="parent-test-search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search tests..."
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        </div>
 
 
-        <?php if (!empty($tests)): ?>
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/parenttests"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/parenttests"
+        class="parent-test-sort-form"
+    >
+
+        <?php if ($search !== ''): ?>
+
+            <input
+                type="hidden"
+                name="search"
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        <?php endif; ?>
+
+
+        <label for="parent-test-sort">
+            Sort By
+        </label>
+
+
+        <select
+            id="parent-test-sort"
+            name="sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="test_id"
+                <?= $sort === 'test_id'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Test ID
+            </option>
+
+
+            <option
+                value="test"
+                <?= $sort === 'test'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Test
+            </option>
+
+
+            <option
+                value="child"
+                <?= $sort === 'child'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Child
+            </option>
+
+
+            <option
+                value="class"
+                <?= $sort === 'class'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Class
+            </option>
+
+
+            <option
+                value="division"
+                <?= $sort === 'division'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Division
+            </option>
+
+
+            <option
+                value="total_marks"
+                <?= $sort === 'total_marks'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Total Marks
+            </option>
+
+
+            <option
+                value="duration"
+                <?= $sort === 'duration'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Duration
+            </option>
+
+
+            <option
+                value="status"
+                <?= $sort === 'status'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Status
+            </option>
+
+
+            <option
+                value="created_at"
+                <?= $sort === 'created_at'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Date
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Ascending
+            </option>
+
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
+
+
+<!-- ========================================
+     TESTS TABLE
+========================================= -->
+
+<?php if (!empty($tests)): ?>
 
 
             <!-- ========================================
@@ -409,28 +633,48 @@ $tests =
             </div>
 
 
-        <?php else: ?>
+        <div class="empty-state">
 
+    <?php if ($search !== ''): ?>
 
-            <!-- ========================================
-                 EMPTY STATE
-            ======================================== -->
+        <h3>
+            No Tests Found
+        </h3>
 
-            <div class="empty-state">
+        <p>
+            No tests match
+            <strong>
+                "<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            </strong>.
+        </p>
 
-                <h3>
-                    No Tests Found
-                </h3>
+        <a
+            href="<?= ROOT ?>/parenttests"
+            class="empty-action-btn"
+        >
+            View All Tests
+        </a>
 
-                <p>
-                    There are currently no tests
-                    assigned to your children.
-                </p>
+    <?php else: ?>
 
-            </div>
+        <h3>
+            No Tests Found
+        </h3>
 
+        <p>
+            There are currently no tests
+            assigned to your children.
+        </p>
 
-        <?php endif; ?>
+    <?php endif; ?>
+
+</div>
+
+ <?php endif; ?>
 
 
     </section>
