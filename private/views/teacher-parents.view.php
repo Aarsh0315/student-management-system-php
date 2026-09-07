@@ -2,6 +2,14 @@
 
 $parents = $data['parents'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'parent_id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -149,6 +157,156 @@ $parents = $data['parents'] ?? [];
 
         <?php if (!empty($parents)): ?>
 
+            <!-- SEARCH & SORT TOOLBAR -->
+<div class="parents-toolbar">
+
+    <!-- SEARCH -->
+    <form
+        method="GET"
+        action="<?= ROOT ?>/teacherparents"
+        class="parent-search-form"
+    >
+
+        <div class="parent-search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search parents..."
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        </div>
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/teacherparents"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+    <!-- SORT -->
+    <form
+        method="GET"
+        action="<?= ROOT ?>/teacherparents"
+        class="parent-sort-form"
+    >
+
+        <?php if ($search !== ''): ?>
+
+            <input
+                type="hidden"
+                name="search"
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        <?php endif; ?>
+
+
+        <label for="parent-sort">
+            Sort By
+        </label>
+
+        <select
+            id="parent-sort"
+            name="sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="parent_id"
+                <?= $sort === 'parent_id' ? 'selected' : '' ?>
+            >
+                Parent ID
+            </option>
+
+            <option
+                value="parent_name"
+                <?= $sort === 'parent_name' ? 'selected' : '' ?>
+            >
+                Parent Name
+            </option>
+
+            <option
+                value="student_name"
+                <?= $sort === 'student_name' ? 'selected' : '' ?>
+            >
+                Student Name
+            </option>
+
+            <option
+                value="email"
+                <?= $sort === 'email' ? 'selected' : '' ?>
+            >
+                Email
+            </option>
+
+            <option
+                value="phone"
+                <?= $sort === 'phone' ? 'selected' : '' ?>
+            >
+                Phone
+            </option>
+
+            <option
+                value="status"
+                <?= $sort === 'status' ? 'selected' : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC' ? 'selected' : '' ?>
+            >
+                Ascending
+            </option>
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC' ? 'selected' : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
+
 
             <div class="table-wrapper">
 
@@ -283,26 +441,43 @@ $parents = $data['parents'] ?? [];
 
         <?php else: ?>
 
+<div class="empty-state">
 
-            <!-- ========================================
-                 EMPTY STATE
-            ========================================= -->
+    <?php if ($search !== ''): ?>
 
-            <div class="empty-state">
+        <h3>No Parents Found</h3>
 
-                <h3>
-                    No Parents Found
-                </h3>
+        <p>
+            No parents match
+            <strong>
+                "<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            </strong>.
+        </p>
 
-                <p>
-                    There are currently no parents
-                    associated with your students.
-                </p>
+        <a
+            href="<?= ROOT ?>/teacherparents"
+            class="empty-action-btn"
+        >
+            View All Parents
+        </a>
 
-            </div>
+    <?php else: ?>
 
+        <h3>No Parents Found</h3>
 
-        <?php endif; ?>
+        <p>
+            There are currently no parents available.
+        </p>
+
+    <?php endif; ?>
+
+</div>
+
+<?php endif; ?>
 
 
     </section>

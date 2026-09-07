@@ -1024,28 +1024,180 @@ public function getClassesBySchool(
         $params
     );
 }
+public function getParentsBySchool(
+    $school_id,
+    $search = '',
+    $sort = 'parent_id',
+    $direction = 'DESC'
+) {
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
 
-public function getParentsBySchool($school_id)
-{
+    $allowedSorts = [
+
+        'parent_id'    => 'p.user_id',
+        'parent_name'  => 'p.firstname',
+        'student_name' => 'su.firstname',
+        'email'        => 'p.email',
+        'phone'        => 'st.parent_phone',
+        'status'       => 'p.status'
+
+    ];
+
+
+    if (!isset($allowedSorts[$sort])) {
+
+        $sort = 'parent_id';
+    }
+
+
+    /*
+    ========================================
+    DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper($direction);
+
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    $sortColumn =
+        $allowedSorts[$sort];
+
+
+    /*
+    ========================================
+    QUERY
+    ========================================
+    */
+
     $query = "SELECT
-                parent_name,
-                parent_phone,
-                parent_email,
-                COUNT(*) AS student_count
-              FROM students
-              WHERE school_id = :school_id
-              AND status = 'active'
-              AND parent_name IS NOT NULL
-              AND parent_name != ''
-              GROUP BY
-                parent_name,
-                parent_phone,
-                parent_email
-              ORDER BY parent_name ASC";
 
-    return $this->query($query, [
+                p.user_id AS parent_id,
+
+                p.firstname AS parent_firstname,
+                p.lastname AS parent_lastname,
+
+                p.email,
+
+                st.parent_phone AS phone,
+
+                p.status,
+
+                st.student_id,
+
+                su.firstname AS student_firstname,
+                su.lastname AS student_lastname
+
+              FROM users p
+
+              INNER JOIN students st
+                  ON st.parent_id = p.user_id
+
+              INNER JOIN users su
+                  ON st.user_id = su.user_id
+
+              WHERE p.rank = 'parent'
+
+              AND p.school_id = :school_id";
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    $params = [
+
         'school_id' => $school_id
-    ]);
+
+    ];
+
+
+    if ($search !== '') {
+
+        $query .= "
+
+            AND (
+
+                CONCAT(
+                    p.firstname,
+                    ' ',
+                    p.lastname
+                ) LIKE :search1
+
+                OR CONCAT(
+                    su.firstname,
+                    ' ',
+                    su.lastname
+                ) LIKE :search2
+
+                OR p.email LIKE :search3
+
+                OR st.parent_phone LIKE :search4
+
+            )
+        ";
+
+
+        $searchValue =
+            '%' . $search . '%';
+
+
+        $params['search1'] =
+            $searchValue;
+
+        $params['search2'] =
+            $searchValue;
+
+        $params['search3'] =
+            $searchValue;
+
+        $params['search4'] =
+            $searchValue;
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+
+        ORDER BY
+            {$sortColumn}
+            {$direction}
+    ";
+
+
+    /*
+    ========================================
+    EXECUTE
+    ========================================
+    */
+
+    return $this->query(
+        $query,
+        $params
+    );
 }
 
 /*
