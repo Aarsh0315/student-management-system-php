@@ -518,21 +518,45 @@ if ($rank === 'super_admin') {
                  EMPTY STATE
             ======================================== -->
 
-            <div class="empty-state">
 
-                <h3>
-                    No Parents Found
-                </h3>
+    <!-- ========================================
+         EMPTY STATE
+    ======================================== -->
 
-                <p>
-                    There are currently no parents
-                    registered in the system.
-                </p>
+    <div class="empty-state">
 
-            </div>
+        <h3>
+            No Parents Found
+        </h3>
 
+        <?php if ($search !== ''): ?>
+
+            <p>
+                No parent matches
+                <strong>
+                    "<?= htmlspecialchars($search) ?>"
+                </strong>.
+            </p>
+
+            <a
+                href="<?= ROOT ?>/parents"
+                class="view-all-parents-btn"
+            >
+                View All Parents
+            </a>
+
+        <?php else: ?>
+
+            <p>
+                There are currently no parents
+                registered in the system.
+            </p>
 
         <?php endif; ?>
+
+    </div>
+
+<?php endif; ?>
 
 
     </section>
