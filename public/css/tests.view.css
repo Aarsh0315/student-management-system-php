@@ -708,3 +708,203 @@
     }
 
 }
+
+/* =====================================================
+   TESTS TOOLBAR
+===================================================== */
+
+.tests-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 18px 0 20px;
+    border-bottom: 1px solid #eee5eb;
+    margin-bottom: 20px;
+}
+
+
+/* =====================================================
+   SEARCH FORM
+===================================================== */
+
+.test-search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+/* =====================================================
+   SEARCH BOX
+===================================================== */
+
+.test-search-box {
+    position: relative;
+    width: 280px;
+}
+
+
+.test-search-box .search-icon {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #918b99;
+    font-size: 17px;
+    pointer-events: none;
+}
+
+
+.test-search-box input {
+    width: 100%;
+    height: 38px;
+    padding: 0 12px 0 34px;
+    border: 1px solid #eadfe7;
+    border-radius: 7px;
+    background: #fff;
+    color: #302d3d;
+    font-family: inherit;
+    font-size: 11px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+
+.test-search-box input:focus {
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.08);
+}
+
+
+/* =====================================================
+   SEARCH BUTTON
+===================================================== */
+
+.search-btn {
+    height: 38px;
+    padding: 0 15px;
+    border: 1px solid #a32675;
+    border-radius: 7px;
+    background: #a32675;
+    color: #fff;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+.search-btn:hover {
+    background: #8d205f;
+    border-color: #8d205f;
+}
+
+
+/* =====================================================
+   CLEAR SEARCH
+===================================================== */
+
+.clear-search-btn {
+    display: inline-flex;
+    align-items: center;
+    height: 38px;
+    padding: 0 12px;
+    border: 1px solid #eadfe7;
+    border-radius: 7px;
+    background: #fff;
+    color: #756d79;
+    font-size: 11px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+
+.clear-search-btn:hover {
+    color: #a32675;
+    border-color: #dcb9cf;
+}
+
+
+/* =====================================================
+   SORT FORM
+===================================================== */
+
+.test-sort-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+
+.test-sort-form label {
+    color: #756d79;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .35px;
+    white-space: nowrap;
+}
+
+
+.test-sort-form select {
+    height: 38px;
+    padding: 0 28px 0 10px;
+    border: 1px solid #eadfe7;
+    border-radius: 7px;
+    background: #fff;
+    color: #393443;
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.test-sort-form select:focus {
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, .08);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 1100px) {
+
+    .tests-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .test-sort-form {
+        flex-wrap: wrap;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .tests-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .test-search-form,
+    .test-sort-form {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .test-search-box {
+        flex: 1;
+        width: auto;
+    }
+
+    .test-sort-form select {
+        flex: 1;
+    }
+
+}

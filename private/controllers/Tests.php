@@ -8,7 +8,7 @@ class Tests extends Controller
     ========================================
     */
 
-    public function index()
+public function index()
 {
     /*
     ========================================
@@ -60,6 +60,73 @@ class Tests extends Controller
 
     /*
     ========================================
+    GET SEARCH + SORT
+    ========================================
+    */
+
+    $search = trim(
+        $_GET['search'] ?? ''
+    );
+
+    $sort =
+        $_GET['sort'] ?? 'id';
+
+    $direction = strtoupper(
+        $_GET['direction'] ?? 'DESC'
+    );
+
+
+    /*
+    ========================================
+    ALLOWED SORT OPTIONS
+    ========================================
+    */
+
+    $allowedSorts = [
+        'id',
+        'name',
+        'class',
+        'division',
+        'marks',
+        'duration',
+        'status'
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (!in_array(
+        $sort,
+        $allowedSorts,
+        true
+    )) {
+
+        $sort = 'id';
+    }
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    if (!in_array(
+        $direction,
+        ['ASC', 'DESC'],
+        true
+    )) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
     SUPER ADMIN
     ========================================
     */
@@ -67,7 +134,11 @@ class Tests extends Controller
     if ($rank === 'super_admin') {
 
         $tests =
-            $testModel->getAllTests();
+            $testModel->getAllTests(
+                $search,
+                $sort,
+                $direction
+            );
 
     }
 
@@ -95,7 +166,10 @@ class Tests extends Controller
 
         $tests =
             $testModel->getTestsBySchool(
-                $school_id
+                $school_id,
+                $search,
+                $sort,
+                $direction
             );
 
     }
@@ -128,7 +202,10 @@ class Tests extends Controller
     $this->view(
         'tests',
         [
-            'tests' => $tests
+            'tests'     => $tests,
+            'search'    => $search,
+            'sort'      => $sort,
+            'direction' => $direction
         ]
     );
 }

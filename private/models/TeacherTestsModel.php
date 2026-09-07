@@ -54,45 +54,41 @@ class TeacherTestsModel extends Model
     ========================================
     */
 
-    public function getTestsBySchool($school_id)
-    {
-        $query = "SELECT
-                    test_id,
-                    teacher_id,
-                    school_id,
-                    title,
-                    description,
-                    class,
-                    division,
-                    total_marks,
-                    duration,
-                    start_date,
-                    end_date,
-                    status,
-                    created_at
-
-                  FROM tests
-
-                  WHERE school_id = :school_id
-
-                  ORDER BY id DESC";
-
-        return $this->query(
-            $query,
-            [
-                'school_id' => $school_id
-            ]
-        );
-    }
-
     /*
 ========================================
-GET ALL TESTS
+GET TESTS BY SCHOOL
 ========================================
 */
 
-public function getAllTests()
-{
+public function getTestsBySchool(
+    $school_id,
+    $search = '',
+    $sort = 'id',
+    $direction = 'DESC'
+) {
+
+    $sortColumns = [
+
+        'id'       => 'id',
+        'name'     => 'title',
+        'class'    => 'class',
+        'division' => 'division',
+        'marks'    => 'total_marks',
+        'duration' => 'duration',
+        'status'   => 'status'
+
+    ];
+
+    $orderBy =
+        $sortColumns[$sort] ?? 'id';
+
+
+    $direction =
+        strtoupper($direction) === 'ASC'
+        ? 'ASC'
+        : 'DESC';
+
+
     $query = "SELECT
                 test_id,
                 teacher_id,
@@ -110,10 +106,163 @@ public function getAllTests()
 
               FROM tests
 
-              ORDER BY id DESC";
+              WHERE school_id = :school_id";
+
+
+    $params = [
+        'school_id' => $school_id
+    ];
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                test_id LIKE :search1
+                OR title LIKE :search2
+                OR class LIKE :search3
+                OR division LIKE :search4
+                OR status LIKE :search5
+            )
+        ";
+
+        $searchValue = '%' . $search . '%';
+
+        $params['search1'] = $searchValue;
+        $params['search2'] = $searchValue;
+        $params['search3'] = $searchValue;
+        $params['search4'] = $searchValue;
+        $params['search5'] = $searchValue;
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+        ORDER BY {$orderBy} {$direction}
+    ";
+
 
     return $this->query(
-        $query
+        $query,
+        $params
+    );
+}
+
+    /*
+========================================
+GET ALL TESTS
+========================================
+*/
+/*
+========================================
+GET ALL TESTS
+========================================
+*/
+
+public function getAllTests(
+    $search = '',
+    $sort = 'id',
+    $direction = 'DESC'
+) {
+
+    $sortColumns = [
+
+        'id'       => 'id',
+        'name'     => 'title',
+        'class'    => 'class',
+        'division' => 'division',
+        'marks'    => 'total_marks',
+        'duration' => 'duration',
+        'status'   => 'status'
+
+    ];
+
+    $orderBy =
+        $sortColumns[$sort] ?? 'id';
+
+
+    $direction =
+        strtoupper($direction) === 'ASC'
+        ? 'ASC'
+        : 'DESC';
+
+
+    $query = "SELECT
+                test_id,
+                teacher_id,
+                school_id,
+                title,
+                description,
+                class,
+                division,
+                total_marks,
+                duration,
+                start_date,
+                end_date,
+                status,
+                created_at
+
+              FROM tests
+
+              WHERE 1";
+
+
+    $params = [];
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                test_id LIKE :search1
+                OR title LIKE :search2
+                OR class LIKE :search3
+                OR division LIKE :search4
+                OR status LIKE :search5
+            )
+        ";
+
+        $searchValue = '%' . $search . '%';
+
+        $params['search1'] = $searchValue;
+        $params['search2'] = $searchValue;
+        $params['search3'] = $searchValue;
+        $params['search4'] = $searchValue;
+        $params['search5'] = $searchValue;
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+        ORDER BY {$orderBy} {$direction}
+    ";
+
+
+    return $this->query(
+        $query,
+        $params
     );
 }
 

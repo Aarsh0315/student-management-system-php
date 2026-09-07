@@ -2,6 +2,14 @@
 
 $tests = $data['tests'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -168,6 +176,179 @@ if ($rank === 'super_admin') {
             <!-- ========================================
                  TABLE
             ======================================== -->
+
+            <!-- =================================================
+     SEARCH + SORT
+================================================= -->
+
+<div class="tests-toolbar">
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/tests"
+        class="test-search-form"
+    >
+
+        <div class="test-search-box">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search test by ID, name, class, division..."
+                value="<?= htmlspecialchars($search) ?>"
+            >
+
+        </div>
+
+
+        <!-- KEEP SORT -->
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars($sort) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars($direction) ?>"
+        >
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/tests"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/tests"
+        class="test-sort-form"
+    >
+
+        <!-- KEEP SEARCH -->
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars($search) ?>"
+        >
+
+
+        <label for="test-sort">
+            Sort by
+        </label>
+
+
+        <select
+            name="sort"
+            id="test-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="id"
+                <?= $sort === 'id' ? 'selected' : '' ?>
+            >
+                Test ID
+            </option>
+
+            <option
+                value="name"
+                <?= $sort === 'name' ? 'selected' : '' ?>
+            >
+                Test Name
+            </option>
+
+            <option
+                value="class"
+                <?= $sort === 'class' ? 'selected' : '' ?>
+            >
+                Class
+            </option>
+
+            <option
+                value="division"
+                <?= $sort === 'division' ? 'selected' : '' ?>
+            >
+                Division
+            </option>
+
+            <option
+                value="marks"
+                <?= $sort === 'marks' ? 'selected' : '' ?>
+            >
+                Total Marks
+            </option>
+
+            <option
+                value="duration"
+                <?= $sort === 'duration' ? 'selected' : '' ?>
+            >
+                Duration
+            </option>
+
+            <option
+                value="status"
+                <?= $sort === 'status' ? 'selected' : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC' ? 'selected' : '' ?>
+            >
+                Ascending
+            </option>
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC' ? 'selected' : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
             <div class="table-wrapper">
 
