@@ -1,18 +1,14 @@
 <?php
 
-$tests =
-    $data['tests'] ?? [];
+$tests = $data['tests'] ?? [];
 
-$search =
-    $data['search'] ?? '';
+$search = $data['search'] ?? '';
 
-$sort =
-    $data['sort'] ?? 'test_id';
+$sort = $data['sort'] ?? 'test_id';
 
-$direction =
-    strtoupper(
-        $data['direction'] ?? 'DESC'
-    );
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
 
 ?>
 
@@ -53,7 +49,7 @@ $direction =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/parent-tests.view.css?v=1"
+        href="<?= ROOT ?>/css/parent-tests.view.css?v=2"
     >
 
 
@@ -148,222 +144,182 @@ $direction =
 
         </div>
 
-        <!-- ========================================
-     SEARCH + SORT TOOLBAR
-========================================= -->
+                <!-- ========================================
+             SEARCH + SORT TOOLBAR
+        ======================================== -->
 
-<div class="parent-tests-toolbar">
+        <div class="parent-tests-toolbar">
 
-    <!-- SEARCH -->
+            <!-- SEARCH -->
 
-    <form
-        method="GET"
-        action="<?= ROOT ?>/parenttests"
-        class="parent-test-search-form"
-    >
-
-        <div class="parent-test-search-box">
-
-            <span class="search-icon">⌕</span>
-
-            <input
-                type="text"
-                name="search"
-                placeholder="Search tests..."
-                value="<?= htmlspecialchars(
-                    $search,
-                    ENT_QUOTES,
-                    'UTF-8'
-                ) ?>"
+            <form
+                method="GET"
+                action="<?= ROOT ?>/parenttests"
+                class="parent-test-search-form"
             >
+
+                <div class="parent-test-search-box">
+
+                    <span class="search-icon">⌕</span>
+
+                    <input
+                        type="text"
+                        name="search"
+                        value="<?= htmlspecialchars(
+                            $search,
+                            ENT_QUOTES,
+                            'UTF-8'
+                        ) ?>"
+                        placeholder="Search tests..."
+                    >
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="search-btn"
+                >
+                    Search
+                </button>
+
+
+                <?php if (!empty($search)): ?>
+
+                    <a
+                        href="<?= ROOT ?>/parenttests"
+                        class="clear-search-btn"
+                    >
+                        Clear
+                    </a>
+
+                <?php endif; ?>
+
+            </form>
+
+
+            <!-- SORT -->
+
+            <form
+                method="GET"
+                action="<?= ROOT ?>/parenttests"
+                class="parent-test-sort-form"
+            >
+
+                <?php if (!empty($search)): ?>
+
+                    <input
+                        type="hidden"
+                        name="search"
+                        value="<?= htmlspecialchars(
+                            $search,
+                            ENT_QUOTES,
+                            'UTF-8'
+                        ) ?>"
+                    >
+
+                <?php endif; ?>
+
+
+                <select
+                    name="sort"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value="test_id"
+                        <?= $sort === 'test_id' ? 'selected' : '' ?>
+                    >
+                        Test ID
+                    </option>
+
+                    <option
+                        value="test"
+                        <?= $sort === 'test' ? 'selected' : '' ?>
+                    >
+                        Test
+                    </option>
+
+                    <option
+                        value="child"
+                        <?= $sort === 'child' ? 'selected' : '' ?>
+                    >
+                        Child
+                    </option>
+
+                    <option
+                        value="class"
+                        <?= $sort === 'class' ? 'selected' : '' ?>
+                    >
+                        Class
+                    </option>
+
+                    <option
+                        value="division"
+                        <?= $sort === 'division' ? 'selected' : '' ?>
+                    >
+                        Division
+                    </option>
+
+                    <option
+                        value="total_marks"
+                        <?= $sort === 'total_marks' ? 'selected' : '' ?>
+                    >
+                        Total Marks
+                    </option>
+
+                    <option
+                        value="duration"
+                        <?= $sort === 'duration' ? 'selected' : '' ?>
+                    >
+                        Duration
+                    </option>
+
+                    <option
+                        value="status"
+                        <?= $sort === 'status' ? 'selected' : '' ?>
+                    >
+                        Status
+                    </option>
+
+                    <option
+                        value="created_at"
+                        <?= $sort === 'created_at' ? 'selected' : '' ?>
+                    >
+                        Date
+                    </option>
+
+                </select>
+
+
+                <select
+                    name="direction"
+                    onchange="this.form.submit()"
+                >
+
+                    <option
+                        value="ASC"
+                        <?= $direction === 'ASC' ? 'selected' : '' ?>
+                    >
+                        Ascending
+                    </option>
+
+                    <option
+                        value="DESC"
+                        <?= $direction === 'DESC' ? 'selected' : '' ?>
+                    >
+                        Descending
+                    </option>
+
+                </select>
+
+            </form>
 
         </div>
 
 
-        <button
-            type="submit"
-            class="search-btn"
-        >
-            Search
-        </button>
 
-
-        <?php if ($search !== ''): ?>
-
-            <a
-                href="<?= ROOT ?>/parenttests"
-                class="clear-search-btn"
-            >
-                Clear
-            </a>
-
-        <?php endif; ?>
-
-    </form>
-
-
-    <!-- SORT -->
-
-    <form
-        method="GET"
-        action="<?= ROOT ?>/parenttests"
-        class="parent-test-sort-form"
-    >
-
-        <?php if ($search !== ''): ?>
-
-            <input
-                type="hidden"
-                name="search"
-                value="<?= htmlspecialchars(
-                    $search,
-                    ENT_QUOTES,
-                    'UTF-8'
-                ) ?>"
-            >
-
-        <?php endif; ?>
-
-
-        <label for="parent-test-sort">
-            Sort By
-        </label>
-
-
-        <select
-            id="parent-test-sort"
-            name="sort"
-            onchange="this.form.submit()"
-        >
-
-            <option
-                value="test_id"
-                <?= $sort === 'test_id'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Test ID
-            </option>
-
-
-            <option
-                value="test"
-                <?= $sort === 'test'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Test
-            </option>
-
-
-            <option
-                value="child"
-                <?= $sort === 'child'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Child
-            </option>
-
-
-            <option
-                value="class"
-                <?= $sort === 'class'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Class
-            </option>
-
-
-            <option
-                value="division"
-                <?= $sort === 'division'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Division
-            </option>
-
-
-            <option
-                value="total_marks"
-                <?= $sort === 'total_marks'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Total Marks
-            </option>
-
-
-            <option
-                value="duration"
-                <?= $sort === 'duration'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Duration
-            </option>
-
-
-            <option
-                value="status"
-                <?= $sort === 'status'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Status
-            </option>
-
-
-            <option
-                value="created_at"
-                <?= $sort === 'created_at'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Date
-            </option>
-
-        </select>
-
-
-        <select
-            name="direction"
-            onchange="this.form.submit()"
-        >
-
-            <option
-                value="ASC"
-                <?= $direction === 'ASC'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Ascending
-            </option>
-
-
-            <option
-                value="DESC"
-                <?= $direction === 'DESC'
-                    ? 'selected'
-                    : '' ?>
-            >
-                Descending
-            </option>
-
-        </select>
-
-    </form>
-
-</div>
-
-
-<!-- ========================================
-     TESTS TABLE
-========================================= -->
-
-<?php if (!empty($tests)): ?>
+        <?php if (!empty($tests)): ?>
 
 
             <!-- ========================================
@@ -633,48 +589,52 @@ $direction =
             </div>
 
 
-        <div class="empty-state">
+        <?php else: ?>
 
-    <?php if ($search !== ''): ?>
+    <!-- ========================================
+         EMPTY STATE
+    ======================================== -->
 
-        <h3>
-            No Tests Found
-        </h3>
+    <div class="empty-state">
 
-        <p>
-            No tests match
-            <strong>
-                "<?= htmlspecialchars(
+        <?php if (!empty($search)): ?>
+
+            <h3>
+                No Tests Found
+            </h3>
+
+            <p>
+                No tests match
+                "<strong><?= htmlspecialchars(
                     $search,
                     ENT_QUOTES,
                     'UTF-8'
-                ) ?>"
-            </strong>.
-        </p>
+                ) ?></strong>"
+            </p>
 
-        <a
-            href="<?= ROOT ?>/parenttests"
-            class="empty-action-btn"
-        >
-            View All Tests
-        </a>
+            <a
+                href="<?= ROOT ?>/parenttests"
+                class="empty-action-btn"
+            >
+                View All Tests
+            </a>
 
-    <?php else: ?>
+        <?php else: ?>
 
-        <h3>
-            No Tests Found
-        </h3>
+            <h3>
+                No Tests Found
+            </h3>
 
-        <p>
-            There are currently no tests
-            assigned to your children.
-        </p>
+            <p>
+                There are currently no tests
+                assigned to your children.
+            </p>
 
-    <?php endif; ?>
+        <?php endif; ?>
 
-</div>
+    </div>
 
- <?php endif; ?>
+<?php endif; ?>
 
 
     </section>
