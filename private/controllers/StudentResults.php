@@ -13,168 +13,262 @@ class StudentResults extends Controller
     ========================================
     */
 
-    public function index()
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
+   public function index()
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
-
-            exit;
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK STUDENT
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (
-            ($_SESSION['rank'] ?? '') !== 'student'
-        ) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
+        exit;
+    }
 
 
-        /*
-        ========================================
-        GET SCHOOL ID
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK STUDENT
+    ========================================
+    */
 
-        $school_id =
-            $_SESSION['school_id'] ?? null;
+    if (
+        ($_SESSION['rank'] ?? '') !== 'student'
+    ) {
 
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
 
-        if (!$school_id) {
-
-            die(
-                "No school is assigned to this student."
-            );
-        }
-
-
-        /*
-        ========================================
-        LOAD MODEL
-        ========================================
-        */
-
-        $resultModel =
-            $this->model(
-                'StudentResultsModel'
-            );
+        exit;
+    }
 
 
-        /*
-        ========================================
-        FIND ACTUAL STUDENT RECORD
-        ========================================
-        */
+    /*
+    ========================================
+    GET SCHOOL ID
+    ========================================
+    */
 
-        $studentQuery = "SELECT
-                            student_id
-
-                         FROM students
-
-                         WHERE user_id = :user_id
-
-                         AND school_id = :school_id
-
-                         LIMIT 1";
+    $school_id =
+        $_SESSION['school_id'] ?? null;
 
 
-        $studentResult =
-            $resultModel->query(
-                $studentQuery,
-                [
-                    'user_id'   => $_SESSION['user_id'],
-                    'school_id' => $school_id
-                ]
-            );
+    if (!$school_id) {
 
-
-        $student =
-            $studentResult[0] ?? null;
-
-
-        /*
-        ========================================
-        STUDENT NOT FOUND
-        ========================================
-        */
-
-        if (!$student) {
-
-            die(
-                "Student record not found."
-            );
-        }
-
-
-        /*
-        ========================================
-        ACTUAL STUDENT ID
-        ========================================
-        */
-
-        $student_id =
-            $student->student_id;
-
-
-        /*
-        ========================================
-        GET RESULTS
-        ========================================
-        */
-
-        $results =
-            $resultModel->getStudentResults(
-                $student_id
-            );
-
-
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
-
-        $this->view(
-            'student-results',
-            [
-                'results' => $results
-            ]
+        die(
+            "No school is assigned to this student."
         );
     }
+
+
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $resultModel =
+        $this->model(
+            'StudentResultsModel'
+        );
+
+
+    /*
+    ========================================
+    FIND ACTUAL STUDENT RECORD
+    ========================================
+    */
+
+    $studentQuery = "SELECT
+                        student_id
+
+                     FROM students
+
+                     WHERE user_id = :user_id
+
+                     AND school_id = :school_id
+
+                     LIMIT 1";
+
+
+    $studentResult =
+        $resultModel->query(
+            $studentQuery,
+            [
+                'user_id'   => $_SESSION['user_id'],
+                'school_id' => $school_id
+            ]
+        );
+
+
+    $student =
+        $studentResult[0] ?? null;
+
+
+    /*
+    ========================================
+    STUDENT NOT FOUND
+    ========================================
+    */
+
+    if (!$student) {
+
+        die(
+            "Student record not found."
+        );
+    }
+
+
+    /*
+    ========================================
+    ACTUAL STUDENT ID
+    ========================================
+    */
+
+    $student_id =
+        $student->student_id;
+
+
+    /*
+    ========================================
+    GET SEARCH
+    ========================================
+    */
+
+    $search =
+        trim(
+            $_GET['search'] ?? ''
+        );
+
+
+    /*
+    ========================================
+    GET SORT
+    ========================================
+    */
+
+    $sort =
+        $_GET['sort'] ?? 'result_id';
+
+
+    /*
+    ========================================
+    GET SORT DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper(
+            $_GET['direction'] ?? 'DESC'
+        );
+
+
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
+
+    $allowedSorts = [
+        'result_id',
+        'test',
+        'class',
+        'total_marks',
+        'obtained_marks',
+        'percentage',
+        'status',
+        'created_at'
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $sort,
+            $allowedSorts,
+            true
+        )
+    ) {
+
+        $sort = 'result_id';
+    }
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    GET STUDENT RESULTS
+    ========================================
+    */
+
+    $results =
+        $resultModel->getStudentResults(
+            $student_id,
+            $search,
+            $sort,
+            $direction
+        );
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'student-results',
+        [
+            'results'   => $results,
+            'search'    => $search,
+            'sort'      => $sort,
+            'direction' => $direction
+        ]
+    );
+}
 
     /*
 ========================================

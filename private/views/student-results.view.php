@@ -2,6 +2,14 @@
 
 $results = $data['results'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'result_id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -155,6 +163,212 @@ $results = $data['results'] ?? [];
         <!-- ========================================
              RESULTS TABLE
         ========================================= -->
+
+        <!-- ========================================
+     SEARCH + SORT TOOLBAR
+========================================= -->
+
+<div class="student-results-toolbar">
+
+    <!-- SEARCH FORM -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/studentresults"
+        class="student-result-search-form"
+    >
+
+        <div class="student-result-search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search results..."
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/studentresults"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+    <!-- SORT FORM -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/studentresults"
+        class="student-result-sort-form"
+    >
+
+        <?php if ($search !== ''): ?>
+
+            <input
+                type="hidden"
+                name="search"
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        <?php endif; ?>
+
+
+        <label for="student-result-sort">
+            Sort By
+        </label>
+
+
+        <select
+            id="student-result-sort"
+            name="sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="result_id"
+                <?= $sort === 'result_id'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Result ID
+            </option>
+
+
+            <option
+                value="test"
+                <?= $sort === 'test'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Test
+            </option>
+
+
+            <option
+                value="class"
+                <?= $sort === 'class'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Class
+            </option>
+
+
+            <option
+                value="total_marks"
+                <?= $sort === 'total_marks'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Total Marks
+            </option>
+
+
+            <option
+                value="obtained_marks"
+                <?= $sort === 'obtained_marks'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Obtained Marks
+            </option>
+
+
+            <option
+                value="percentage"
+                <?= $sort === 'percentage'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Percentage
+            </option>
+
+
+            <option
+                value="status"
+                <?= $sort === 'status'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Status
+            </option>
+
+
+            <option
+                value="created_at"
+                <?= $sort === 'created_at'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Date
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Ascending
+            </option>
+
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
+
+
+<!-- ========================================
+     RESULTS TABLE
+========================================= -->
+
 
         <?php if (!empty($results)): ?>
 
@@ -424,16 +638,44 @@ $results = $data['results'] ?? [];
 
             <div class="empty-state">
 
-                <h3>
-                    No Results Found
-                </h3>
+    <?php if ($search !== ''): ?>
 
-                <p>
-                    Your test results will appear here
-                    after you submit a test.
-                </p>
+        <h3>
+            No Results Found
+        </h3>
 
-            </div>
+        <p>
+            No results match
+            <strong>
+                "<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            </strong>.
+        </p>
+
+        <a
+            href="<?= ROOT ?>/studentresults"
+            class="empty-action-btn"
+        >
+            View All Results
+        </a>
+
+    <?php else: ?>
+
+        <h3>
+            No Results Found
+        </h3>
+
+        <p>
+            Your test results will appear here
+            after you submit a test.
+        </p>
+
+    <?php endif; ?>
+
+</div>
 
 
         <?php endif; ?>

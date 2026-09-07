@@ -8,40 +8,110 @@ class StudentResultsModel extends Model
     ========================================
     */
 
-    public function getStudentResults($student_id)
-    {
-        $query = "SELECT
-                    r.result_id,
-                    r.test_id,
-                    r.student_id,
-                    r.total_marks,
-                    r.obtained_marks,
-                    r.percentage,
-                    r.status,
-                    r.created_at,
+   /*
+========================================
+GET STUDENT RESULTS
+========================================
+*/
 
-                    t.title,
-                    t.class,
-                    t.division,
-                    t.duration
+public function getStudentResults(
+    $student_id,
+    $search = '',
+    $sort = 'result_id',
+    $direction = 'DESC'
+) {
+    $allowedSorts = [
+        'result_id'      => 'r.result_id',
+        'test'           => 't.title',
+        'class'          => 't.class',
+        'total_marks'    => 'r.total_marks',
+        'obtained_marks' => 'r.obtained_marks',
+        'percentage'     => 'r.percentage',
+        'status'         => 'r.status',
+        'created_at'     => 'r.created_at'
+    ];
 
-                  FROM results r
-
-                  INNER JOIN tests t
-                  ON r.test_id = t.test_id
-
-                  WHERE r.student_id = :student_id
-
-                  ORDER BY r.created_at DESC";
-
-
-        return $this->query(
-            $query,
-            [
-                'student_id' => $student_id
-            ]
-        );
+    if (!isset($allowedSorts[$sort])) {
+        $sort = 'result_id';
     }
+
+    $sortColumn = $allowedSorts[$sort];
+
+    $direction = strtoupper($direction);
+
+    if (!in_array($direction, ['ASC', 'DESC'], true)) {
+        $direction = 'DESC';
+    }
+
+
+    $query = "SELECT
+                r.result_id,
+                r.test_id,
+                r.student_id,
+                r.total_marks,
+                r.obtained_marks,
+                r.percentage,
+                r.status,
+                r.created_at,
+
+                t.title,
+                t.class,
+                t.division,
+                t.duration
+
+              FROM results r
+
+              INNER JOIN tests t
+              ON r.test_id = t.test_id
+
+              WHERE r.student_id = :student_id";
+
+
+    $params = [
+        'student_id' => $student_id
+    ];
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    if ($search !== '') {
+
+        $query .= " AND (
+            r.result_id LIKE :search1
+            OR t.title LIKE :search2
+            OR t.class LIKE :search3
+            OR t.division LIKE :search4
+            OR r.status LIKE :search5
+        )";
+
+        $value = '%' . $search . '%';
+
+        $params['search1'] = $value;
+        $params['search2'] = $value;
+        $params['search3'] = $value;
+        $params['search4'] = $value;
+        $params['search5'] = $value;
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= " ORDER BY {$sortColumn} {$direction}";
+
+
+    return $this->query(
+        $query,
+        $params
+    );
+}
 
  /*
 ========================================
