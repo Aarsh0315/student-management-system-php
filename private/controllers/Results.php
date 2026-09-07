@@ -60,6 +60,74 @@ class Results extends Controller
 
     /*
     ========================================
+    GET SEARCH + SORT
+    ========================================
+    */
+
+    $search = trim(
+        $_GET['search'] ?? ''
+    );
+
+    $sort =
+        $_GET['sort'] ?? 'id';
+
+    $direction = strtoupper(
+        $_GET['direction'] ?? 'DESC'
+    );
+
+
+    /*
+    ========================================
+    ALLOWED SORT OPTIONS
+    ========================================
+    */
+
+    $allowedSorts = [
+        'id',
+        'student',
+        'test',
+        'school',
+        'total_marks',
+        'obtained_marks',
+        'percentage',
+        'status'
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (!in_array(
+        $sort,
+        $allowedSorts,
+        true
+    )) {
+
+        $sort = 'id';
+    }
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    if (!in_array(
+        $direction,
+        ['ASC', 'DESC'],
+        true
+    )) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
     SUPER ADMIN
     ========================================
     */
@@ -67,7 +135,11 @@ class Results extends Controller
     if ($rank === 'super_admin') {
 
         $results =
-            $resultModel->getAllResults();
+            $resultModel->getAllResults(
+                $search,
+                $sort,
+                $direction
+            );
 
     }
 
@@ -95,7 +167,10 @@ class Results extends Controller
 
         $results =
             $resultModel->getResultsBySchool(
-                $school_id
+                $school_id,
+                $search,
+                $sort,
+                $direction
             );
 
     }
@@ -128,7 +203,10 @@ class Results extends Controller
     $this->view(
         'results',
         [
-            'results' => $results
+            'results'  => $results,
+            'search'   => $search,
+            'sort'     => $sort,
+            'direction'=> $direction
         ]
     );
 }

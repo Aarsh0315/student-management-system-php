@@ -46,8 +46,43 @@ GET RESULTS BY SCHOOL
 SCHOOL ADMIN
 ========================================
 */
-public function getResultsBySchool($school_id)
-{
+/*
+========================================
+GET RESULTS BY SCHOOL
+SCHOOL ADMIN
+========================================
+*/
+
+public function getResultsBySchool(
+    $school_id,
+    $search = '',
+    $sort = 'id',
+    $direction = 'DESC'
+) {
+
+    $sortColumns = [
+
+        'id'             => 'r.id',
+        'student'        => 'u.firstname',
+        'test'           => 't.title',
+        'school'         => 's.school_name',
+        'total_marks'    => 'r.total_marks',
+        'obtained_marks' => 'r.obtained_marks',
+        'percentage'     => 'r.percentage',
+        'status'         => 'r.status'
+
+    ];
+
+    $orderBy =
+        $sortColumns[$sort] ?? 'r.id';
+
+
+    $direction =
+        strtoupper($direction) === 'ASC'
+        ? 'ASC'
+        : 'DESC';
+
+
     $query = "SELECT
                 r.result_id,
                 r.test_id,
@@ -82,18 +117,66 @@ public function getResultsBySchool($school_id)
               LEFT JOIN tests t
                     ON r.test_id = t.test_id
 
-              WHERE r.school_id = :school_id
+              WHERE r.school_id = :school_id";
 
-              ORDER BY r.id DESC";
+
+    $params = [
+        'school_id' => $school_id
+    ];
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                r.result_id LIKE :search1
+
+                OR CONCAT(
+                    u.firstname,
+                    ' ',
+                    u.lastname
+                ) LIKE :search2
+
+                OR t.title LIKE :search3
+
+                OR s.school_name LIKE :search4
+
+                OR r.status LIKE :search5
+            )
+        ";
+
+        $searchValue = '%' . $search . '%';
+
+        $params['search1'] = $searchValue;
+        $params['search2'] = $searchValue;
+        $params['search3'] = $searchValue;
+        $params['search4'] = $searchValue;
+        $params['search5'] = $searchValue;
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+        ORDER BY {$orderBy} {$direction}
+    ";
+
 
     return $this->query(
         $query,
-        [
-            'school_id' => $school_id
-        ]
+        $params
     );
 }
-
     /*
     ========================================
     GET RESULT BY ID
@@ -142,8 +225,42 @@ SUPER ADMIN
 ========================================
 */
 
-public function getAllResults()
-{
+/*
+========================================
+GET ALL RESULTS
+SUPER ADMIN
+========================================
+*/
+
+public function getAllResults(
+    $search = '',
+    $sort = 'id',
+    $direction = 'DESC'
+) {
+
+    $sortColumns = [
+
+        'id'             => 'r.id',
+        'student'        => 'u.firstname',
+        'test'           => 't.title',
+        'school'         => 's.school_name',
+        'total_marks'    => 'r.total_marks',
+        'obtained_marks' => 'r.obtained_marks',
+        'percentage'     => 'r.percentage',
+        'status'         => 'r.status'
+
+    ];
+
+    $orderBy =
+        $sortColumns[$sort] ?? 'r.id';
+
+
+    $direction =
+        strtoupper($direction) === 'ASC'
+        ? 'ASC'
+        : 'DESC';
+
+
     $query = "SELECT
 
                 r.result_id,
@@ -196,14 +313,64 @@ public function getAllResults()
               LEFT JOIN tests t
                 ON r.test_id = t.test_id
 
+              WHERE 1";
 
-              ORDER BY r.id DESC";
+
+    $params = [];
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                r.result_id LIKE :search1
+
+                OR CONCAT(
+                    u.firstname,
+                    ' ',
+                    u.lastname
+                ) LIKE :search2
+
+                OR t.title LIKE :search3
+
+                OR s.school_name LIKE :search4
+
+                OR r.status LIKE :search5
+            )
+        ";
+
+        $searchValue = '%' . $search . '%';
+
+        $params['search1'] = $searchValue;
+        $params['search2'] = $searchValue;
+        $params['search3'] = $searchValue;
+        $params['search4'] = $searchValue;
+        $params['search5'] = $searchValue;
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+        ORDER BY {$orderBy} {$direction}
+    ";
+
 
     return $this->query(
-        $query
+        $query,
+        $params
     );
 }
-
 
     /*
     ========================================

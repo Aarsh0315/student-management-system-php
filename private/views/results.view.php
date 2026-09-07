@@ -2,6 +2,14 @@
 
 $results = $data['results'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -136,6 +144,186 @@ $results = $data['results'] ?? [];
             <!-- ========================================
                  TABLE
             ======================================== -->
+
+            <!-- =================================================
+     SEARCH + SORT
+================================================= -->
+
+<div class="results-toolbar">
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/results"
+        class="result-search-form"
+    >
+
+        <div class="result-search-box">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search result by ID, student, test, school..."
+                value="<?= htmlspecialchars($search) ?>"
+            >
+
+        </div>
+
+
+        <!-- KEEP SORT -->
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars($sort) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars($direction) ?>"
+        >
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/results"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/results"
+        class="result-sort-form"
+    >
+
+        <!-- KEEP SEARCH -->
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars($search) ?>"
+        >
+
+
+        <label for="result-sort">
+            Sort by
+        </label>
+
+
+        <select
+            name="sort"
+            id="result-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="id"
+                <?= $sort === 'id' ? 'selected' : '' ?>
+            >
+                Result ID
+            </option>
+
+            <option
+                value="student"
+                <?= $sort === 'student' ? 'selected' : '' ?>
+            >
+                Student
+            </option>
+
+            <option
+                value="test"
+                <?= $sort === 'test' ? 'selected' : '' ?>
+            >
+                Test
+            </option>
+
+            <option
+                value="school"
+                <?= $sort === 'school' ? 'selected' : '' ?>
+            >
+                School
+            </option>
+
+            <option
+                value="total_marks"
+                <?= $sort === 'total_marks' ? 'selected' : '' ?>
+            >
+                Total Marks
+            </option>
+
+            <option
+                value="obtained_marks"
+                <?= $sort === 'obtained_marks' ? 'selected' : '' ?>
+            >
+                Obtained Marks
+            </option>
+
+            <option
+                value="percentage"
+                <?= $sort === 'percentage' ? 'selected' : '' ?>
+            >
+                Percentage
+            </option>
+
+            <option
+                value="status"
+                <?= $sort === 'status' ? 'selected' : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC' ? 'selected' : '' ?>
+            >
+                Ascending
+            </option>
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC' ? 'selected' : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
             <div class="table-wrapper">
 
@@ -401,25 +589,46 @@ $results = $data['results'] ?? [];
         <?php else: ?>
 
 
-            <!-- ========================================
-                 EMPTY STATE
-            ======================================== -->
+        
 
-            <div class="empty-state">
+    <!-- ========================================
+         EMPTY STATE
+    ======================================== -->
 
-                <h3>
-                    No Results Found
-                </h3>
+    <div class="empty-state">
 
-                <p>
-                    There are currently no student
-                    results registered in the system.
-                </p>
+        <h3>
+            No Results Found
+        </h3>
 
-            </div>
+        <?php if ($search !== ''): ?>
 
+            <p>
+                No result matches
+                <strong>
+                    "<?= htmlspecialchars($search) ?>"
+                </strong>.
+            </p>
+
+            <a
+                href="<?= ROOT ?>/results"
+                class="view-all-results-btn"
+            >
+                View All Results
+            </a>
+
+        <?php else: ?>
+
+            <p>
+                There are currently no student
+                results registered in the system.
+            </p>
 
         <?php endif; ?>
+
+    </div>
+
+<?php endif; ?>
 
 
     </section>
