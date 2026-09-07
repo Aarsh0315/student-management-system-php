@@ -2,6 +2,17 @@
 
 $students = $data['students'] ?? [];
 
+$search =
+    $data['search'] ?? '';
+
+$sort =
+    $data['sort'] ?? 'student_id';
+
+$direction =
+    strtoupper(
+        $data['direction'] ?? 'DESC'
+    );
+
 ?>
 
 <!DOCTYPE html>
@@ -135,6 +146,162 @@ $students = $data['students'] ?? [];
             <!-- =========================
                  TABLE
             ========================== -->
+
+            <!-- =========================
+     SEARCH + SORT
+========================== -->
+
+<div class="students-toolbar">
+
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/teacherstudents"
+        class="student-search-form"
+    >
+
+        <div class="student-search-box">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search students..."
+                value="<?= htmlspecialchars($search) ?>"
+            >
+
+        </div>
+
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars($sort) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars($direction) ?>"
+        >
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/teacherstudents"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/teacherstudents"
+        class="student-sort-form"
+    >
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars($search) ?>"
+        >
+
+
+        <label for="student-sort">
+            Sort by
+        </label>
+
+
+        <select
+            name="sort"
+            id="student-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="student_id"
+                <?= $sort === 'student_id' ? 'selected' : '' ?>
+            >
+                Student ID
+            </option>
+
+            <option
+                value="name"
+                <?= $sort === 'name' ? 'selected' : '' ?>
+            >
+                Name
+            </option>
+
+            <option
+                value="class"
+                <?= $sort === 'class' ? 'selected' : '' ?>
+            >
+                Class
+            </option>
+
+            <option
+                value="division"
+                <?= $sort === 'division' ? 'selected' : '' ?>
+            >
+                Division
+            </option>
+
+            <option
+                value="status"
+                <?= $sort === 'status' ? 'selected' : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC' ? 'selected' : '' ?>
+            >
+                Ascending
+            </option>
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC' ? 'selected' : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
             <div class="table-wrapper">
 
@@ -335,22 +502,42 @@ $students = $data['students'] ?? [];
         <?php else: ?>
 
 
-            <!-- =========================
-                 EMPTY STATE
-            ========================== -->
 
-            <div class="empty-state">
 
-                <h3>
-                    No students found
-                </h3>
+    <div class="empty-state">
 
-                <p>
-                    There are currently no students
-                    registered in your school.
-                </p>
+        <?php if ($search !== ''): ?>
 
-            </div>
+            <p>
+                No students match
+                <strong>"<?= htmlspecialchars($search, ENT_QUOTES, 'UTF-8') ?>"</strong>.
+            </p>
+
+            <a
+                href="<?= ROOT ?>/teacherstudents"
+                class="empty-action-btn"
+            >
+                View All Students
+            </a>
+
+        <?php else: ?>
+
+            <p>
+                There are currently no students registered in your school.
+            </p>
+
+            <a
+                href="<?= ROOT ?>/teacherstudents/add"
+                class="empty-action-btn"
+            >
+                Add Student
+            </a>
+
+        <?php endif; ?>
+
+    </div>
+
+
 
 
         <?php endif; ?>

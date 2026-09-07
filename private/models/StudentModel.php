@@ -230,10 +230,70 @@ public function getStudentCountBySchool($school_id)
 
     return $result[0]->total ?? 0;
 }
+public function getStudentsBySchool(
+    $school_id,
+    $search = '',
+    $sort = 'student_id',
+    $direction = 'DESC'
+) {
 
-public function getStudentsBySchool($school_id)
-{
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
+
+    $allowedSorts = [
+
+        'student_id' => 'st.student_id',
+        'name'       => 'u.firstname',
+        'class'      => 'st.class',
+        'division'   => 'st.division',
+        'status'     => 'st.status'
+
+    ];
+
+
+    if (!isset($allowedSorts[$sort])) {
+
+        $sort = 'student_id';
+    }
+
+
+    $sortColumn =
+        $allowedSorts[$sort];
+
+
+    /*
+    ========================================
+    DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper($direction);
+
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    QUERY
+    ========================================
+    */
+
     $query = "SELECT
+
                 st.student_id,
                 st.user_id,
                 st.school_id,
@@ -250,10 +310,10 @@ public function getStudentsBySchool($school_id)
                 st.status,
 
                 u.firstname,
-u.lastname,
-u.email,
-u.gender,
-u.profile_image,
+                u.lastname,
+                u.email,
+                u.gender,
+                u.profile_image,
 
                 sc.school_name,
                 sc.school_id AS school_code
@@ -266,13 +326,60 @@ u.profile_image,
               LEFT JOIN schools sc
               ON st.school_id = sc.id
 
-              WHERE st.school_id = :school_id
+              WHERE st.school_id = :school_id";
 
-              ORDER BY st.student_id DESC";
 
-    return $this->query($query, [
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    $params = [
+
         'school_id' => $school_id
-    ]);
+
+    ];
+
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                st.student_id LIKE :search
+                OR st.admission_number LIKE :search
+                OR u.firstname LIKE :search
+                OR u.lastname LIKE :search
+                OR st.class LIKE :search
+                OR st.division LIKE :search
+                OR st.parent_name LIKE :search
+                OR u.email LIKE :search
+            )
+        ";
+
+
+        $params['search'] =
+            '%' . $search . '%';
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+        ORDER BY
+        {$sortColumn}
+        {$direction}
+    ";
+
+
+    return $this->query(
+        $query,
+        $params
+    );
 }
 
 public function getStudentDetailsBySchool($student_id, $school_id)

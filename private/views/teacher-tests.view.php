@@ -2,6 +2,10 @@
 
 $tests = $data['tests'] ?? [];
 
+$search = $data['search'] ?? '';
+$sort = $data['sort'] ?? 'test_id';
+$direction = strtoupper($data['direction'] ?? 'DESC');
+
 ?>
 
 <!DOCTYPE html>
@@ -159,6 +163,214 @@ $tests = $data['tests'] ?? [];
             <!-- ========================================
                  TABLE
             ======================================== -->
+
+            <!-- ========================================
+     SEARCH + SORT TOOLBAR
+======================================== -->
+
+<div class="tests-toolbar">
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/teachertests"
+        class="test-search-form"
+    >
+
+        <div class="test-search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search tests..."
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        </div>
+
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars(
+                $sort,
+                ENT_QUOTES,
+                'UTF-8'
+            ) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars(
+                $direction,
+                ENT_QUOTES,
+                'UTF-8'
+            ) ?>"
+        >
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/teachertests"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/teachertests"
+        class="test-sort-form"
+    >
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars(
+                $search,
+                ENT_QUOTES,
+                'UTF-8'
+            ) ?>"
+        >
+
+
+        <label for="test-sort">
+            Sort by
+        </label>
+
+
+        <select
+            name="sort"
+            id="test-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="test_id"
+                <?= $sort === 'test_id'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Test ID
+            </option>
+
+
+            <option
+                value="title"
+                <?= $sort === 'title'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Test Name
+            </option>
+
+
+            <option
+                value="class"
+                <?= $sort === 'class'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Class
+            </option>
+
+
+            <option
+                value="division"
+                <?= $sort === 'division'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Division
+            </option>
+
+
+            <option
+                value="total_marks"
+                <?= $sort === 'total_marks'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Total Marks
+            </option>
+
+
+            <option
+                value="duration"
+                <?= $sort === 'duration'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Duration
+            </option>
+
+
+            <option
+                value="status"
+                <?= $sort === 'status'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Ascending
+            </option>
+
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
             <div class="table-wrapper">
 
@@ -408,32 +620,50 @@ $tests = $data['tests'] ?? [];
 
         <?php else: ?>
 
+    <!-- ========================================
+         EMPTY STATE
+    ======================================== -->
 
-            <!-- ========================================
-                 EMPTY STATE
-            ======================================== -->
+    <div class="empty-state">
 
-            <div class="empty-state">
+        <?php if ($search !== ''): ?>
 
-                <h3>
-                    No Tests Found
-                </h3>
+            <p>
+                No tests match
+                <strong>
+                    "<?= htmlspecialchars(
+                        $search,
+                        ENT_QUOTES,
+                        'UTF-8'
+                    ) ?>"
+                </strong>.
+            </p>
 
-                <p>
-                    You have not created any tests yet.
-                </p>
+            <a
+                href="<?= ROOT ?>/teachertests"
+                class="empty-create-btn"
+            >
+                View All Tests
+            </a>
 
-                <a
-                    href="<?= ROOT ?>/teachertests/create"
-                    class="empty-create-btn"
-                >
-                    Create Your First Test
-                </a>
+        <?php else: ?>
 
-            </div>
+            <p>
+                You have not created any tests yet.
+            </p>
 
+            <a
+                href="<?= ROOT ?>/teachertests/create"
+                class="empty-create-btn"
+            >
+                Create Your First Test
+            </a>
 
         <?php endif; ?>
+
+    </div>
+
+<?php endif; ?>
 
 
     </section>

@@ -3,108 +3,213 @@
 class TeacherTests extends Controller
 {
     public function index()
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
-
-            exit;
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK TEACHER
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (
-            !in_array(
-                $_SESSION['rank'] ?? '',
-                ['teacher', 'staff']
-            )
-        ) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
+        exit;
+    }
 
 
-        /*
-        ========================================
-        GET SCHOOL
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK TEACHER
+    ========================================
+    */
 
-        $school_id =
-            $_SESSION['school_id'] ?? null;
+    if (
+        ($_SESSION['rank'] ?? '') !== 'teacher'
+    ) {
 
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
 
-        if (!$school_id) {
-
-            die(
-                "No school is assigned to this teacher."
-            );
-        }
-
-
-        /*
-        ========================================
-        TEMPORARY TEST DATA
-        ========================================
-        
-        We will connect the database
-        after the page structure works.
-        */
-
-        $testModel =
-    $this->model('TeacherTestsModel');
-
-        $tests =
-            $testModel->getTestsBySchool(
-                $school_id
-            );
+        exit;
+    }
 
 
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
+    /*
+    ========================================
+    GET SCHOOL
+    ========================================
+    */
 
-        $this->view(
-            'teacher-tests',
-            [
-                'tests' => $tests
-            ]
+    $school_id =
+        $_SESSION['school_id'] ?? null;
+
+
+    if (!$school_id) {
+
+        die(
+            "No school is assigned to this teacher."
         );
     }
+
+
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $testModel =
+        $this->model('TeacherTestsModel');
+
+
+    /*
+    ========================================
+    GET SEARCH
+    ========================================
+    */
+
+    $search =
+        trim(
+            $_GET['search'] ?? ''
+        );
+
+
+    /*
+    ========================================
+    GET SORT
+    ========================================
+    */
+
+    $sort =
+        $_GET['sort'] ?? 'test_id';
+
+
+    /*
+    ========================================
+    GET DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper(
+            $_GET['direction'] ?? 'DESC'
+        );
+
+
+    /*
+    ========================================
+    ALLOWED SORTS
+    ========================================
+    */
+
+    $allowedSorts = [
+
+        'test_id',
+        'title',
+        'class',
+        'division',
+        'total_marks',
+        'duration',
+        'status'
+
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $sort,
+            $allowedSorts,
+            true
+        )
+    ) {
+
+        $sort = 'test_id';
+    }
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    GET TESTS
+    ========================================
+    */
+
+    $tests =
+        $testModel->getTestsBySchool(
+            $school_id,
+            $search,
+            $sort,
+            $direction
+        );
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'teacher-tests',
+        [
+
+            'tests' =>
+                $tests,
+
+            'search' =>
+                $search,
+
+            'sort' =>
+                $sort,
+
+            'direction' =>
+                $direction
+
+        ]
+    );
+}
 
     public function create()
 {

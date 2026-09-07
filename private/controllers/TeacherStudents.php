@@ -5,103 +5,193 @@ require_once "../private/models/StudentModel.php";
 class TeacherStudents extends Controller
 {
     public function index()
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (!isset($_SESSION['user_id'])) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
-
-
-        /*
-        ========================================
-        CHECK TEACHER
-        ========================================
-        */
-
-        if (
-            ($_SESSION['rank'] ?? '') !== 'teacher'
-        ) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
-
-            exit;
-        }
+        exit;
+    }
 
 
-        /*
-        ========================================
-        GET SCHOOL ID
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK TEACHER
+    ========================================
+    */
 
-        $school_id =
-            $_SESSION['school_id'] ?? null;
+    if (
+        ($_SESSION['rank'] ?? '') !== 'teacher'
+    ) {
 
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
 
-        if (!$school_id) {
-
-            die(
-                "No school is assigned to this teacher."
-            );
-        }
-
-
-        /*
-        ========================================
-        LOAD STUDENT MODEL
-        ========================================
-        */
-
-        $studentModel =
-            new StudentModel();
+        exit;
+    }
 
 
-        /*
-        ========================================
-        GET STUDENTS
-        ========================================
-        */
+    /*
+    ========================================
+    GET SCHOOL ID
+    ========================================
+    */
 
-        $students =
-            $studentModel->getStudentsBySchool(
-                $school_id
-            );
+    $school_id =
+        $_SESSION['school_id'] ?? null;
 
 
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
+    if (!$school_id) {
 
-        $this->view(
-            'teacher-students',
-            [
-                'students' => $students
-            ]
+        die(
+            "No school is assigned to this teacher."
         );
     }
+
+
+    /*
+    ========================================
+    LOAD STUDENT MODEL
+    ========================================
+    */
+
+    $studentModel =
+        new StudentModel();
+
+
+    /*
+    ========================================
+    GET SEARCH + SORT
+    ========================================
+    */
+
+    $search =
+        trim(
+            $_GET['search'] ?? ''
+        );
+
+
+    $sort =
+        $_GET['sort'] ?? 'student_id';
+
+
+    $direction =
+        strtoupper(
+            $_GET['direction'] ?? 'DESC'
+        );
+
+
+    /*
+    ========================================
+    ALLOWED SORT OPTIONS
+    ========================================
+    */
+
+    $allowedSorts = [
+
+        'student_id',
+        'name',
+        'class',
+        'division',
+        'status'
+
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $sort,
+            $allowedSorts,
+            true
+        )
+    ) {
+
+        $sort = 'student_id';
+    }
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    GET STUDENTS
+    ========================================
+    */
+
+    $students =
+        $studentModel->getStudentsBySchool(
+            $school_id,
+            $search,
+            $sort,
+            $direction
+        );
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'teacher-students',
+        [
+
+            'students' =>
+                $students,
+
+            'search' =>
+                $search,
+
+            'sort' =>
+                $sort,
+
+            'direction' =>
+                $direction
+
+        ]
+    );
+}
 
     public function details($student_id = null)
 {

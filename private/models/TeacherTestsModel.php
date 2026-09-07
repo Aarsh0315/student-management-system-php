@@ -59,54 +59,82 @@ class TeacherTestsModel extends Model
 GET TESTS BY SCHOOL
 ========================================
 */
-
 public function getTestsBySchool(
     $school_id,
     $search = '',
-    $sort = 'id',
+    $sort = 'test_id',
     $direction = 'DESC'
 ) {
 
-    $sortColumns = [
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
 
-        'id'       => 'id',
-        'name'     => 'title',
-        'class'    => 'class',
-        'division' => 'division',
-        'marks'    => 'total_marks',
-        'duration' => 'duration',
-        'status'   => 'status'
+    $allowedSorts = [
+
+        'test_id'     => 't.test_id',
+        'title'       => 't.title',
+        'class'       => 't.class',
+        'division'    => 't.division',
+        'total_marks' => 't.total_marks',
+        'duration'    => 't.duration',
+        'status'      => 't.status'
 
     ];
 
-    $orderBy =
-        $sortColumns[$sort] ?? 'id';
+
+    if (!isset($allowedSorts[$sort])) {
+        $sort = 'test_id';
+    }
 
 
-    $direction =
-        strtoupper($direction) === 'ASC'
-        ? 'ASC'
-        : 'DESC';
+    $sortColumn = $allowedSorts[$sort];
 
+
+    /*
+    ========================================
+    DIRECTION
+    ========================================
+    */
+
+    $direction = strtoupper($direction);
+
+    if (!in_array(
+        $direction,
+        ['ASC', 'DESC'],
+        true
+    )) {
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    QUERY
+    ========================================
+    */
 
     $query = "SELECT
-                test_id,
-                teacher_id,
-                school_id,
-                title,
-                description,
-                class,
-                division,
-                total_marks,
-                duration,
-                start_date,
-                end_date,
-                status,
-                created_at
 
-              FROM tests
+                t.test_id,
+                t.teacher_id,
+                t.school_id,
+                t.title,
+                t.description,
+                t.class,
+                t.division,
+                t.total_marks,
+                t.duration,
+                t.start_date,
+                t.end_date,
+                t.status,
+                t.created_at
 
-              WHERE school_id = :school_id";
+              FROM tests t
+
+              WHERE t.school_id = :school_id";
 
 
     $params = [
@@ -124,21 +152,16 @@ public function getTestsBySchool(
 
         $query .= "
             AND (
-                test_id LIKE :search1
-                OR title LIKE :search2
-                OR class LIKE :search3
-                OR division LIKE :search4
-                OR status LIKE :search5
+                t.test_id LIKE :search
+                OR t.title LIKE :search
+                OR t.class LIKE :search
+                OR t.division LIKE :search
+                OR t.status LIKE :search
             )
         ";
 
-        $searchValue = '%' . $search . '%';
-
-        $params['search1'] = $searchValue;
-        $params['search2'] = $searchValue;
-        $params['search3'] = $searchValue;
-        $params['search4'] = $searchValue;
-        $params['search5'] = $searchValue;
+        $params['search'] =
+            '%' . $search . '%';
     }
 
 
@@ -149,7 +172,9 @@ public function getTestsBySchool(
     */
 
     $query .= "
-        ORDER BY {$orderBy} {$direction}
+        ORDER BY
+        {$sortColumn}
+        {$direction}
     ";
 
 
@@ -158,7 +183,6 @@ public function getTestsBySchool(
         $params
     );
 }
-
     /*
 ========================================
 GET ALL TESTS
