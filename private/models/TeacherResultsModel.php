@@ -52,20 +52,25 @@ GET RESULTS BY SCHOOL
 SCHOOL ADMIN
 ========================================
 */
-
 public function getResultsBySchool(
     $school_id,
     $search = '',
-    $sort = 'id',
+    $sort = 'result_id',
     $direction = 'DESC'
 ) {
 
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
+
     $sortColumns = [
 
-        'id'             => 'r.id',
+        'result_id'      => 'r.id',
         'student'        => 'u.firstname',
         'test'           => 't.title',
-        'school'         => 's.school_name',
+        'class'          => 'st.class',
         'total_marks'    => 'r.total_marks',
         'obtained_marks' => 'r.obtained_marks',
         'percentage'     => 'r.percentage',
@@ -73,9 +78,22 @@ public function getResultsBySchool(
 
     ];
 
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
     $orderBy =
         $sortColumns[$sort] ?? 'r.id';
 
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
 
     $direction =
         strtoupper($direction) === 'ASC'
@@ -83,45 +101,89 @@ public function getResultsBySchool(
         : 'DESC';
 
 
+    /*
+    ========================================
+    QUERY
+    ========================================
+    */
+
     $query = "SELECT
+
                 r.result_id,
                 r.test_id,
                 r.student_id,
                 r.school_id,
+
                 r.total_marks,
                 r.obtained_marks,
                 r.percentage,
                 r.status,
                 r.created_at,
 
+                /* STUDENT */
+
                 u.firstname AS student_firstname,
                 u.lastname AS student_lastname,
+
+                /* CLASS */
 
                 st.class AS class,
                 st.division AS division,
 
+                /* SCHOOL */
+
                 s.school_name,
+
+                /* TEST */
+
                 t.title AS test_title
 
               FROM results r
 
+
+              /* STUDENT */
+
               LEFT JOIN students st
-                    ON r.student_id = st.student_id
+                ON r.student_id = st.student_id
+
+
+              /* USER */
 
               LEFT JOIN users u
-                    ON st.user_id = u.user_id
+                ON st.user_id = u.user_id
+
+
+              /* SCHOOL */
 
               LEFT JOIN schools s
-                    ON r.school_id = s.id
+                ON r.school_id = s.id
+
+
+              /* TEST */
 
               LEFT JOIN tests t
-                    ON r.test_id = t.test_id
+                ON r.test_id = t.test_id
+
+
+              /*
+              ========================================
+              TEACHER SCHOOL RESTRICTION
+              ========================================
+              */
 
               WHERE r.school_id = :school_id";
 
 
+    /*
+    ========================================
+    PARAMETERS
+    ========================================
+    */
+
     $params = [
+
         'school_id' => $school_id
+
     ];
 
 
@@ -145,19 +207,36 @@ public function getResultsBySchool(
 
                 OR t.title LIKE :search3
 
-                OR s.school_name LIKE :search4
+                OR st.class LIKE :search4
 
-                OR r.status LIKE :search5
+                OR st.division LIKE :search5
+
+                OR r.status LIKE :search6
             )
         ";
 
-        $searchValue = '%' . $search . '%';
 
-        $params['search1'] = $searchValue;
-        $params['search2'] = $searchValue;
-        $params['search3'] = $searchValue;
-        $params['search4'] = $searchValue;
-        $params['search5'] = $searchValue;
+        $searchValue =
+            '%' . $search . '%';
+
+
+        $params['search1'] =
+            $searchValue;
+
+        $params['search2'] =
+            $searchValue;
+
+        $params['search3'] =
+            $searchValue;
+
+        $params['search4'] =
+            $searchValue;
+
+        $params['search5'] =
+            $searchValue;
+
+        $params['search6'] =
+            $searchValue;
     }
 
 
@@ -168,9 +247,17 @@ public function getResultsBySchool(
     */
 
     $query .= "
-        ORDER BY {$orderBy} {$direction}
+        ORDER BY
+        {$orderBy}
+        {$direction}
     ";
 
+
+    /*
+    ========================================
+    EXECUTE QUERY
+    ========================================
+    */
 
     return $this->query(
         $query,

@@ -7,111 +7,215 @@ class TeacherResults extends Controller
     RESULTS LIST
     ========================================
     */
+public function index()
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-    public function index()
-    {
-        /*
-        ========================================
-        START SESSION
-        ========================================
-        */
-
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/login"
-            );
-
-            exit;
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK TEACHER
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (
-            ($_SESSION['rank'] ?? '') !== 'teacher'
-        ) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
+        exit;
+    }
 
 
-        /*
-        ========================================
-        CHECK SCHOOL
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK TEACHER
+    ========================================
+    */
 
-        $school_id =
-            $_SESSION['school_id'] ?? null;
+    if (
+        ($_SESSION['rank'] ?? '') !== 'teacher'
+    ) {
 
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
 
-        if (!$school_id) {
-
-            die(
-                "No school is assigned to this teacher."
-            );
-        }
-
-
-        /*
-        ========================================
-        LOAD MODEL
-        ========================================
-        */
-
-        $resultModel =
-            $this->model('TeacherResultsModel');
+        exit;
+    }
 
 
-        /*
-        ========================================
-        GET RESULTS
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK SCHOOL
+    ========================================
+    */
 
-        $results =
-            $resultModel->getResultsBySchool(
-                $school_id
-            );
+    $school_id =
+        $_SESSION['school_id'] ?? null;
 
 
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
+    if (!$school_id) {
 
-        $this->view(
-            'teacher-results',
-            [
-                'results' => $results
-            ]
+        die(
+            "No school is assigned to this teacher."
         );
     }
+
+
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $resultModel =
+        $this->model('TeacherResultsModel');
+
+
+    /*
+    ========================================
+    GET SEARCH
+    ========================================
+    */
+
+    $search =
+        trim(
+            $_GET['search'] ?? ''
+        );
+
+
+    /*
+    ========================================
+    GET SORT
+    ========================================
+    */
+
+    $sort =
+        $_GET['sort'] ?? 'result_id';
+
+
+    /*
+    ========================================
+    GET DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper(
+            $_GET['direction'] ?? 'DESC'
+        );
+
+
+    /*
+    ========================================
+    ALLOWED SORTS
+    ========================================
+    */
+
+    $allowedSorts = [
+
+        'result_id',
+        'student',
+        'test',
+        'class',
+        'total_marks',
+        'obtained_marks',
+        'percentage',
+        'status'
+
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $sort,
+            $allowedSorts,
+            true
+        )
+    ) {
+
+        $sort = 'result_id';
+    }
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    GET RESULTS
+    ========================================
+    */
+
+    $results =
+        $resultModel->getResultsBySchool(
+            $school_id,
+            $search,
+            $sort,
+            $direction
+        );
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'teacher-results',
+        [
+
+            'results' =>
+                $results,
+
+            'search' =>
+                $search,
+
+            'sort' =>
+                $sort,
+
+            'direction' =>
+                $direction
+
+        ]
+    );
+}
 
 
 

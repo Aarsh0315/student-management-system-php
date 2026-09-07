@@ -2,6 +2,14 @@
 
 $results = $data['results'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'result_id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -157,6 +165,224 @@ $results = $data['results'] ?? [];
         ========================================= -->
 
         <?php if (!empty($results)): ?>
+
+            <!-- ========================================
+     SEARCH + SORT TOOLBAR
+======================================== -->
+
+<div class="results-toolbar">
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/teacherresults"
+        class="result-search-form"
+    >
+
+        <div class="result-search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search results..."
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        </div>
+
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars(
+                $sort,
+                ENT_QUOTES,
+                'UTF-8'
+            ) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars(
+                $direction,
+                ENT_QUOTES,
+                'UTF-8'
+            ) ?>"
+        >
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/teacherresults"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/teacherresults"
+        class="result-sort-form"
+    >
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars(
+                $search,
+                ENT_QUOTES,
+                'UTF-8'
+            ) ?>"
+        >
+
+
+        <label for="result-sort">
+            Sort by
+        </label>
+
+
+        <select
+            name="sort"
+            id="result-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="result_id"
+                <?= $sort === 'result_id'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Result ID
+            </option>
+
+
+            <option
+                value="student"
+                <?= $sort === 'student'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Student
+            </option>
+
+
+            <option
+                value="test"
+                <?= $sort === 'test'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Test
+            </option>
+
+
+            <option
+                value="class"
+                <?= $sort === 'class'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Class
+            </option>
+
+
+            <option
+                value="total_marks"
+                <?= $sort === 'total_marks'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Total Marks
+            </option>
+
+
+            <option
+                value="obtained_marks"
+                <?= $sort === 'obtained_marks'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Obtained Marks
+            </option>
+
+
+            <option
+                value="percentage"
+                <?= $sort === 'percentage'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Percentage
+            </option>
+
+
+            <option
+                value="status"
+                <?= $sort === 'status'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Ascending
+            </option>
+
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC'
+                    ? 'selected'
+                    : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
 
             <div class="table-wrapper">
@@ -444,25 +670,43 @@ $results = $data['results'] ?? [];
 
         <?php else: ?>
 
+    <!-- ========================================
+         EMPTY STATE
+    ======================================== -->
 
-            <!-- ========================================
-                 EMPTY STATE
-            ========================================= -->
+    <div class="empty-state">
 
-            <div class="empty-state">
+        <?php if ($search !== ''): ?>
 
-                <h3>
-                    No Results Found
-                </h3>
+            <p>
+                No results match
+                <strong>
+                    "<?= htmlspecialchars(
+                        $search,
+                        ENT_QUOTES,
+                        'UTF-8'
+                    ) ?>"
+                </strong>.
+            </p>
 
-                <p>
-                    There are currently no student results available.
-                </p>
+            <a
+                href="<?= ROOT ?>/teacherresults"
+                class="empty-action-btn"
+            >
+                View All Results
+            </a>
 
-            </div>
+        <?php else: ?>
 
+            <p>
+                There are currently no student results available.
+            </p>
 
         <?php endif; ?>
+
+    </div>
+
+<?php endif; ?>
 
 
     </section>
