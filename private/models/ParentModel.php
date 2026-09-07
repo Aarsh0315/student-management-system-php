@@ -9,40 +9,132 @@ class ParentModel extends Model
     ========================================
     */
 
-    public function getAllParents()
-    {
-        $query = "
-            SELECT
-                u.user_id,
-                u.firstname,
-                u.lastname,
-                u.email,
-                u.gender,
-                u.rank,
-                u.school_id,
-                u.status,
+   /*
+========================================
+GET ALL PARENTS
+SUPER ADMIN
+========================================
+*/
 
-                s.school_name,
+public function getAllParents(
+    $search = '',
+    $sort = 'id',
+    $direction = 'DESC'
+) {
+    $sortColumns = [
+        'id'     => 'u.user_id',
+        'name'   => 'u.firstname',
+        'email'  => 'u.email',
+        'school' => 's.school_name',
+        'status' => 'u.status'
+    ];
 
-                (
-                    SELECT st.parent_phone
-                    FROM students st
-                    WHERE st.parent_id = u.user_id
-                    LIMIT 1
-                ) AS phone
+    $orderBy = $sortColumns[$sort] ?? 'u.user_id';
 
-            FROM users u
+    $direction = strtoupper($direction) === 'ASC'
+        ? 'ASC'
+        : 'DESC';
 
-            LEFT JOIN schools s
-                ON u.school_id = s.id
 
-            WHERE u.rank = 'parent'
+    $query = "
+        SELECT
+            u.user_id,
+            u.firstname,
+            u.lastname,
+            u.email,
+            u.gender,
+            u.rank,
+            u.school_id,
+            u.status,
+            s.school_name,
 
-            ORDER BY u.id DESC
+            GROUP_CONCAT(
+                DISTINCT CONCAT(
+                    su.firstname,
+                    ' ',
+                    su.lastname
+                )
+                ORDER BY su.firstname
+                SEPARATOR ', '
+            ) AS student_names,
+
+            GROUP_CONCAT(
+                DISTINCT st.parent_phone
+                ORDER BY st.parent_phone
+                SEPARATOR ', '
+            ) AS phone
+
+        FROM users u
+
+        LEFT JOIN schools s
+            ON u.school_id = s.id
+
+        LEFT JOIN students st
+            ON st.parent_id = u.user_id
+
+        LEFT JOIN users su
+            ON st.user_id = su.user_id
+
+        WHERE u.rank = 'parent'
+    ";
+
+
+    $params = [];
+
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                CONCAT(
+                    u.firstname,
+                    ' ',
+                    u.lastname
+                ) LIKE :search
+
+                OR u.email LIKE :search
+
+                OR st.parent_phone LIKE :search
+
+                OR s.school_name LIKE :search
+
+                OR CONCAT(
+                    su.firstname,
+                    ' ',
+                    su.lastname
+                ) LIKE :search
+            )
         ";
 
-        return $this->query($query);
+        $params['search'] = '%' . $search . '%';
     }
+
+
+    $query .= "
+        GROUP BY
+            u.user_id,
+            u.firstname,
+            u.lastname,
+            u.email,
+            u.gender,
+            u.rank,
+            u.school_id,
+            u.status,
+            s.school_name
+
+        ORDER BY {$orderBy} {$direction}
+    ";
+
+
+    return $this->query(
+        $query,
+        $params
+    );
+}
 
 
     /*
@@ -51,67 +143,129 @@ class ParentModel extends Model
     ========================================
     */
 
-    public function getParentsBySchool($school_id)
-    {
-        $query = "
-            SELECT
-                u.user_id,
-                u.firstname,
-                u.lastname,
-                u.email,
-                u.gender,
-                u.rank,
-                u.school_id,
-                u.status,
+   public function getParentsBySchool(
+    $school_id,
+    $search = '',
+    $sort = 'id',
+    $direction = 'DESC'
+) {
+    $sortColumns = [
+        'id'     => 'u.user_id',
+        'name'   => 'u.firstname',
+        'email'  => 'u.email',
+        'school' => 's.school_name',
+        'status' => 'u.status'
+    ];
 
-                s.school_name,
+    $orderBy = $sortColumns[$sort] ?? 'u.user_id';
 
-                GROUP_CONCAT(
-                    DISTINCT CONCAT(
-                        su.firstname,
-                        ' ',
-                        su.lastname
-                    )
-                    ORDER BY su.firstname
-                    SEPARATOR ', '
-                ) AS student_names
+    $direction = strtoupper($direction) === 'ASC'
+        ? 'ASC'
+        : 'DESC';
 
-            FROM users u
 
-            LEFT JOIN schools s
-                ON u.school_id = s.id
+    $query = "
+        SELECT
+            u.user_id,
+            u.firstname,
+            u.lastname,
+            u.email,
+            u.gender,
+            u.rank,
+            u.school_id,
+            u.status,
+            s.school_name,
 
-            LEFT JOIN students st
-                ON st.parent_id = u.user_id
+            GROUP_CONCAT(
+                DISTINCT CONCAT(
+                    su.firstname,
+                    ' ',
+                    su.lastname
+                )
+                ORDER BY su.firstname
+                SEPARATOR ', '
+            ) AS student_names,
 
-            LEFT JOIN users su
-                ON st.user_id = su.user_id
+            GROUP_CONCAT(
+                DISTINCT st.parent_phone
+                ORDER BY st.parent_phone
+                SEPARATOR ', '
+            ) AS phone
 
-            WHERE u.rank = 'parent'
+        FROM users u
 
-            AND u.school_id = :school_id
+        LEFT JOIN schools s
+            ON u.school_id = s.id
 
-            GROUP BY
-                u.user_id,
-                u.firstname,
-                u.lastname,
-                u.email,
-                u.gender,
-                u.rank,
-                u.school_id,
-                u.status,
-                s.school_name
+        LEFT JOIN students st
+            ON st.parent_id = u.user_id
 
-            ORDER BY u.user_id DESC
+        LEFT JOIN users su
+            ON st.user_id = su.user_id
+
+        WHERE u.rank = 'parent'
+          AND u.school_id = :school_id
+    ";
+
+
+    $params = [
+        'school_id' => $school_id
+    ];
+
+
+    /* =========================
+       SEARCH
+    ========================= */
+
+    if ($search !== '') {
+
+        $query .= "
+            AND (
+                CONCAT(
+                    u.firstname,
+                    ' ',
+                    u.lastname
+                ) LIKE :search
+
+                OR u.email LIKE :search
+
+                OR st.parent_phone LIKE :search
+
+                OR CONCAT(
+                    su.firstname,
+                    ' ',
+                    su.lastname
+                ) LIKE :search
+
+                OR s.school_name LIKE :search
+            )
         ";
 
-        return $this->query(
-            $query,
-            [
-                'school_id' => $school_id
-            ]
-        );
+        $params['search'] = '%' . $search . '%';
     }
+
+
+    $query .= "
+        GROUP BY
+            u.user_id,
+            u.firstname,
+            u.lastname,
+            u.email,
+            u.gender,
+            u.rank,
+            u.school_id,
+            u.status,
+            s.school_name
+
+        ORDER BY {$orderBy} {$direction}
+    ";
+
+
+    return $this->query(
+        $query,
+        $params
+    );
+}
 
 
     /*

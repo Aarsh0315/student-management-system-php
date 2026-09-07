@@ -8,106 +8,94 @@ class Parents extends Controller
     ========================================
     */
 
-    public function index()
+public function index()
 {
-    /*
-    ========================================
-    START SESSION
-    ========================================
-    */
-
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
 
-
-    /*
-    ========================================
-    CHECK LOGIN
-    ========================================
-    */
-
-    if (!isset($_SESSION['user_id'])) {
-
-        header(
-            "Location: " .
-            ROOT .
-            "/login"
-        );
-
+    if (empty($_SESSION['user_id'])) {
+        header("Location: " . ROOT . "/login");
         exit;
     }
 
-
-    /*
-    ========================================
-    GET RANK
-    ========================================
-    */
-
     $rank = $_SESSION['rank'] ?? '';
 
-
-    /*
-    ========================================
-    LOAD MODEL
-    ========================================
-    */
-
-    $parentModel =
-        $this->model('ParentModel');
+    $parentModel = $this->model('ParentModel');
 
 
-    /*
-    ========================================
-    SUPER ADMIN
-    ========================================
-    */
+    /* =========================
+       SEARCH
+    ========================= */
+
+    $search = trim($_GET['search'] ?? '');
+
+
+    /* =========================
+       SORT
+    ========================= */
+
+    $sort = $_GET['sort'] ?? 'id';
+
+
+    /* =========================
+       DIRECTION
+    ========================= */
+
+    $direction = strtoupper(
+        $_GET['direction'] ?? 'DESC'
+    );
+
+
+    /* =========================
+       ALLOWED VALUES
+    ========================= */
+
+    $allowedSorts = [
+        'id',
+        'name',
+        'email',
+        'school',
+        'status'
+    ];
+
+    if (!in_array($sort, $allowedSorts, true)) {
+        $sort = 'id';
+    }
+
+    if (!in_array($direction, ['ASC', 'DESC'], true)) {
+        $direction = 'DESC';
+    }
+
+
+    /* =========================
+       GET PARENTS
+    ========================= */
 
     if ($rank === 'super_admin') {
 
-        $parents =
-            $parentModel->getAllParents();
+        $parents = $parentModel->getAllParents(
+            $search,
+            $sort,
+            $direction
+        );
 
-    }
+    } elseif ($rank === 'admin') {
 
-
-    /*
-    ========================================
-    SCHOOL ADMIN
-    ========================================
-    */
-
-    elseif ($rank === 'admin') {
-
-        $school_id =
-            $_SESSION['school_id'] ?? null;
-
+        $school_id = $_SESSION['school_id'] ?? null;
 
         if (!$school_id) {
-
-            die(
-                "No school is assigned to this account."
-            );
-
+            die("No school is assigned to this account.");
         }
 
+        $parents = $parentModel->getParentsBySchool(
+            $school_id,
+            $search,
+            $sort,
+            $direction
+        );
 
-        $parents =
-            $parentModel->getParentsBySchool(
-                $school_id
-            );
-
-    }
-
-
-    /*
-    ========================================
-    OTHER USERS
-    ========================================
-    */
-
-    else {
+    } else {
 
         header(
             "Location: " .
@@ -119,20 +107,17 @@ class Parents extends Controller
     }
 
 
-    /*
-    ========================================
-    LOAD VIEW
-    ========================================
-    */
+    /* =========================
+       VIEW
+    ========================= */
 
-    $this->view(
-        'parents',
-        [
-            'parents' => $parents
-        ]
-    );
+    $this->view('parents', [
+        'parents' => $parents,
+        'search' => $search,
+        'sort' => $sort,
+        'direction' => $direction
+    ]);
 }
-
 
     /*
     ========================================

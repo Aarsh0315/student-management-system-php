@@ -2,6 +2,15 @@
 
 $parents = $data['parents'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -151,6 +160,168 @@ if ($rank === 'super_admin') {
 
 
         <?php if (!empty($parents)): ?>
+
+            <!-- =================================================
+     SEARCH + SORT
+================================================== -->
+
+<div class="parents-toolbar">
+
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/parents"
+        class="parent-search-form"
+    >
+
+        <div class="parent-search-box">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search parent by name, email, phone..."
+                value="<?= htmlspecialchars($search) ?>"
+            >
+
+        </div>
+
+
+        <!-- KEEP SORT -->
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars($sort) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars($direction) ?>"
+        >
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/parents"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/parents"
+        class="parent-sort-form"
+    >
+
+
+        <!-- KEEP SEARCH -->
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars($search) ?>"
+        >
+
+
+        <label for="parent-sort">
+            Sort by
+        </label>
+
+
+        <select
+            name="sort"
+            id="parent-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="id"
+                <?= $sort === 'id' ? 'selected' : '' ?>
+            >
+                ID
+            </option>
+
+            <option
+                value="name"
+                <?= $sort === 'name' ? 'selected' : '' ?>
+            >
+                Name
+            </option>
+
+            <option
+                value="email"
+                <?= $sort === 'email' ? 'selected' : '' ?>
+            >
+                Email
+            </option>
+
+            <option
+                value="school"
+                <?= $sort === 'school' ? 'selected' : '' ?>
+            >
+                School
+            </option>
+
+            <option
+                value="status"
+                <?= $sort === 'status' ? 'selected' : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC' ? 'selected' : '' ?>
+            >
+                Ascending
+            </option>
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC' ? 'selected' : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+
+    </form>
+
+</div>
 
 
             <!-- ========================================

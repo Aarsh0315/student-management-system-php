@@ -759,6 +759,33 @@ public function deactivate($user_id = null)
         }
     }
 
+    /* =========================
+   IF USER IS STAFF
+   SYNC STAFF TABLE
+========================= */
+
+if (
+    $currentUser->rank === 'teacher' ||
+    $currentUser->rank === 'staff'
+) {
+
+    $staffQuery = "UPDATE staff
+                   SET status = 'inactive'
+                   WHERE user_id = :user_id
+                   LIMIT 1";
+
+    $staffResult = $user->query(
+        $staffQuery,
+        [
+            'user_id' => $user_id
+        ]
+    );
+
+    if ($staffResult === false) {
+        die("Unable to deactivate staff.");
+    }
+}
+
 
     /* =========================
        REDIRECT
@@ -859,6 +886,34 @@ public function activate($user_id = null)
             die("Unable to activate student.");
         }
     }
+
+
+    /* =========================
+   IF USER IS STAFF
+   SYNC STAFF TABLE
+========================= */
+
+if (
+    $currentUser->rank === 'teacher' ||
+    $currentUser->rank === 'staff'
+) {
+
+    $staffQuery = "UPDATE staff
+                   SET status = 'active'
+                   WHERE user_id = :user_id
+                   LIMIT 1";
+
+    $staffResult = $user->query(
+        $staffQuery,
+        [
+            'user_id' => $user_id
+        ]
+    );
+
+    if ($staffResult === false) {
+        die("Unable to activate staff.");
+    }
+}
 
 
     /* =========================
