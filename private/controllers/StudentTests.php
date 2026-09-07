@@ -9,184 +9,287 @@ class StudentTests extends Controller
     */
 
     public function index()
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-        /*
-        ========================================
-        CHECK LOGIN
-        ========================================
-        */
-
-        if (!isset($_SESSION['user_id'])) {
-
-            header(
-                "Location: " . ROOT . "/login"
-            );
-
-            exit;
-        }
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
 
 
-        /*
-        ========================================
-        CHECK STUDENT
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
 
-        if (
-            ($_SESSION['rank'] ?? '') !== 'student'
-        ) {
+    if (!isset($_SESSION['user_id'])) {
 
-            header(
-                "Location: " . ROOT . "/home"
-            );
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
 
-            exit;
-        }
-
-
-        /*
-        ========================================
-        GET SCHOOL
-        ========================================
-        */
-
-        $school_id =
-            $_SESSION['school_id'] ?? null;
+        exit;
+    }
 
 
-        /*
-        ========================================
-        LOAD MODEL
-        ========================================
-        */
+    /*
+    ========================================
+    CHECK STUDENT
+    ========================================
+    */
 
-        $testModel =
-            $this->model('StudentTestsModel');
+    if (
+        ($_SESSION['rank'] ?? '') !== 'student'
+    ) {
 
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
 
-        /*
-        ========================================
-        GET STUDENT
-        ========================================
-        */
-
-        $studentQuery = "SELECT
-                            student_id,
-                            class,
-                            division
-
-                         FROM students
-
-                         WHERE user_id = :user_id
-
-                         AND school_id = :school_id
-
-                         LIMIT 1";
+        exit;
+    }
 
 
-        $studentResult =
-            $testModel->query(
-                $studentQuery,
-                [
-                    'user_id'   => $_SESSION['user_id'],
-                    'school_id' => $school_id
-                ]
-            );
+    /*
+    ========================================
+    GET SCHOOL
+    ========================================
+    */
+
+    $school_id =
+        $_SESSION['school_id'] ?? null;
 
 
-        $student =
-            $studentResult[0] ?? null;
+    if (!$school_id) {
 
-
-        if (!$student) {
-
-            die("Student record not found.");
-        }
-
-
-        $student_id =
-            $student->student_id;
-
-        $class =
-            $student->class;
-
-        $division =
-            $student->division;
-
-
-
-        /*
-        ========================================
-        CLEAR CAMERA FLOW MARKER
-        ========================================
-        */
-
-        unset($_SESSION['student_test_pending_camera']);
-
-        /*
-        ========================================
-        GET ACTIVE TESTS
-        ========================================
-        */
-
-        $tests =
-            $testModel->getAvailableTests(
-                $school_id,
-                $class,
-                $division
-            );
-
-
-        /*
-        ========================================
-        CHECK TEST STATUS
-        ========================================
-        */
-
-        foreach ($tests as $test) {
-
-            /*
-            Check final result
-            */
-
-            $test->result =
-                $testModel->getStudentResult(
-                    $test->test_id,
-                    $student_id
-                );
-
-
-            /*
-            Check attempt
-            */
-
-            $test->attempt =
-                $testModel->getStudentAttempt(
-                    $test->test_id,
-                    $student_id
-                );
-        }
-
-
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
-
-        $this->view(
-            'student-tests',
-            [
-                'tests'      => $tests,
-                'student_id' => $student_id
-            ]
+        die(
+            "No school is assigned to this student."
         );
     }
 
+
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $testModel =
+        $this->model('StudentTestsModel');
+
+
+    /*
+    ========================================
+    GET STUDENT
+    ========================================
+    */
+
+    $studentQuery = "SELECT
+                        student_id,
+                        class,
+                        division
+
+                     FROM students
+
+                     WHERE user_id = :user_id
+
+                     AND school_id = :school_id
+
+                     LIMIT 1";
+
+
+    $studentResult =
+        $testModel->query(
+            $studentQuery,
+            [
+                'user_id'   => $_SESSION['user_id'],
+                'school_id' => $school_id
+            ]
+        );
+
+
+    $student =
+        $studentResult[0] ?? null;
+
+
+    if (!$student) {
+
+        die(
+            "Student record not found."
+        );
+    }
+
+
+    $student_id =
+        $student->student_id;
+
+    $class =
+        $student->class;
+
+    $division =
+        $student->division;
+
+
+    /*
+    ========================================
+    CLEAR CAMERA FLOW MARKER
+    ========================================
+    */
+
+    unset(
+        $_SESSION['student_test_pending_camera']
+    );
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    $search =
+        trim(
+            $_GET['search'] ?? ''
+        );
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $sort =
+        $_GET['sort'] ?? 'test_id';
+
+
+    $direction =
+        strtoupper(
+            $_GET['direction'] ?? 'DESC'
+        );
+
+
+    /*
+    ========================================
+    ALLOWED SORTS
+    ========================================
+    */
+
+    $allowedSorts = [
+
+        'test_id',
+        'title',
+        'total_marks',
+        'duration',
+        'start_date',
+        'end_date',
+        'status'
+
+    ];
+
+
+    if (
+        !in_array(
+            $sort,
+            $allowedSorts,
+            true
+        )
+    ) {
+
+        $sort = 'test_id';
+    }
+
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    GET ACTIVE TESTS
+    ========================================
+    */
+
+    $tests =
+        $testModel->getAvailableTests(
+            $school_id,
+            $class,
+            $division,
+            $search,
+            $sort,
+            $direction
+        );
+
+
+    /*
+    ========================================
+    CHECK TEST STATUS
+    ========================================
+    */
+
+    foreach ($tests as $test) {
+
+        /*
+        ========================================
+        CHECK FINAL RESULT
+        ========================================
+        */
+
+        $test->result =
+            $testModel->getStudentResult(
+                $test->test_id,
+                $student_id
+            );
+
+
+        /*
+        ========================================
+        CHECK ATTEMPT
+        ========================================
+        */
+
+        $test->attempt =
+            $testModel->getStudentAttempt(
+                $test->test_id,
+                $student_id
+            );
+    }
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'student-tests',
+        [
+            'tests'      => $tests,
+            'student_id' => $student_id,
+            'search'     => $search,
+            'sort'       => $sort,
+            'direction'  => $direction
+        ]
+    );
+}
 
     /*
     ========================================

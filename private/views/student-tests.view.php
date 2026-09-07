@@ -2,6 +2,14 @@
 
 $tests = $data['tests'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'test_id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -155,6 +163,169 @@ $tests = $data['tests'] ?? [];
                 <!-- ========================================
                      TABLE
                 ======================================== -->
+
+                <!-- ========================================
+     SEARCH & SORT TOOLBAR
+======================================== -->
+
+<div class="student-tests-toolbar">
+
+    <!-- SEARCH -->
+    <form
+        method="GET"
+        action="<?= ROOT ?>/studenttests"
+        class="student-test-search-form"
+    >
+
+        <div class="student-test-search-box">
+
+            <span class="search-icon">⌕</span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search tests..."
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        </div>
+
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/studenttests"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+    <!-- SORT -->
+    <form
+        method="GET"
+        action="<?= ROOT ?>/studenttests"
+        class="student-test-sort-form"
+    >
+
+        <?php if ($search !== ''): ?>
+
+            <input
+                type="hidden"
+                name="search"
+                value="<?= htmlspecialchars(
+                    $search,
+                    ENT_QUOTES,
+                    'UTF-8'
+                ) ?>"
+            >
+
+        <?php endif; ?>
+
+
+        <label for="student-test-sort">
+            Sort By
+        </label>
+
+
+        <select
+            id="student-test-sort"
+            name="sort"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="test_id"
+                <?= $sort === 'test_id' ? 'selected' : '' ?>
+            >
+                Test ID
+            </option>
+
+            <option
+                value="title"
+                <?= $sort === 'title' ? 'selected' : '' ?>
+            >
+                Test Name
+            </option>
+
+            <option
+                value="total_marks"
+                <?= $sort === 'total_marks' ? 'selected' : '' ?>
+            >
+                Total Marks
+            </option>
+
+            <option
+                value="duration"
+                <?= $sort === 'duration' ? 'selected' : '' ?>
+            >
+                Duration
+            </option>
+
+            <option
+                value="start_date"
+                <?= $sort === 'start_date' ? 'selected' : '' ?>
+            >
+                Start Date
+            </option>
+
+            <option
+                value="end_date"
+                <?= $sort === 'end_date' ? 'selected' : '' ?>
+            >
+                End Date
+            </option>
+
+            <option
+                value="status"
+                <?= $sort === 'status' ? 'selected' : '' ?>
+            >
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option
+                value="ASC"
+                <?= $direction === 'ASC' ? 'selected' : '' ?>
+            >
+                Ascending
+            </option>
+
+            <option
+                value="DESC"
+                <?= $direction === 'DESC' ? 'selected' : '' ?>
+            >
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
                 <div class="tests-table-wrapper">
 
@@ -352,27 +523,59 @@ $tests = $data['tests'] ?? [];
 
             <?php else: ?>
 
+    <!-- ========================================
+         EMPTY STATE
+    ======================================== -->
 
-                <!-- ========================================
-                     EMPTY STATE
-                ======================================== -->
+    <div class="empty-state">
 
-                <div class="empty-state">
+        <div class="empty-icon">
+            TS
+        </div>
 
-                    <div class="empty-icon">
-                        TS
-                    </div>
 
-                    <h3>
-                        No Tests Available
-                    </h3>
+        <?php if ($search !== ''): ?>
 
-                    <p>
-                        There are currently no tests
-                        assigned to your class.
-                    </p>
+            <h3>
+                No Tests Found
+            </h3>
 
-                </div>
+            <p>
+                No tests match
+                <strong>
+                    "<?= htmlspecialchars(
+                        $search,
+                        ENT_QUOTES,
+                        'UTF-8'
+                    ) ?>"
+                </strong>.
+            </p>
+
+
+            <a
+                href="<?= ROOT ?>/studenttests"
+                class="empty-action-btn"
+            >
+                View All Tests
+            </a>
+
+
+        <?php else: ?>
+
+            <h3>
+                No Tests Available
+            </h3>
+
+            <p>
+                There are currently no tests
+                assigned to your class.
+            </p>
+
+        <?php endif; ?>
+
+    </div>
+
+
 
 
             <?php endif; ?>

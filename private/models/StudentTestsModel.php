@@ -8,47 +8,173 @@ class StudentTestsModel extends Model
     ========================================
     */
 
-    public function getAvailableTests(
-        $school_id,
-        $class,
-        $division
-    ) {
+   public function getAvailableTests(
+    $school_id,
+    $class,
+    $division,
+    $search = '',
+    $sort = 'test_id',
+    $direction = 'DESC'
+) {
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
 
-        $query = "SELECT
-                    test_id,
-                    teacher_id,
-                    title,
-                    description,
-                    class,
-                    division,
-                    total_marks,
-                    duration,
-                    start_date,
-                    end_date,
-                    status
+    $allowedSorts = [
 
-                  FROM tests
+        'test_id'     => 'test_id',
+        'title'       => 'title',
+        'total_marks' => 'total_marks',
+        'duration'    => 'duration',
+        'start_date'  => 'start_date',
+        'end_date'    => 'end_date',
+        'status'      => 'status'
 
-                  WHERE school_id = :school_id
+    ];
 
-                  AND class = :class
 
-                  AND division = :division
+    if (!isset($allowedSorts[$sort])) {
 
-                  AND status = 'active'
-
-                  ORDER BY created_at DESC";
-
-        return $this->query(
-            $query,
-            [
-                'school_id' => $school_id,
-                'class'     => $class,
-                'division'  => $division
-            ]
-        );
+        $sort = 'test_id';
     }
 
+
+    $sortColumn =
+        $allowedSorts[$sort];
+
+
+    /*
+    ========================================
+    DIRECTION
+    ========================================
+    */
+
+    $direction =
+        strtoupper($direction);
+
+
+    if (
+        !in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )
+    ) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    QUERY
+    ========================================
+    */
+
+    $query = "SELECT
+
+                test_id,
+                teacher_id,
+                title,
+                description,
+                class,
+                division,
+                total_marks,
+                duration,
+                start_date,
+                end_date,
+                status,
+                created_at
+
+              FROM tests
+
+              WHERE school_id = :school_id
+
+              AND class = :class
+
+              AND division = :division
+
+              AND status = 'active'";
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    $params = [
+
+        'school_id' => $school_id,
+        'class'     => $class,
+        'division'  => $division
+
+    ];
+
+
+    if ($search !== '') {
+
+        $query .= "
+
+            AND (
+
+                test_id LIKE :search1
+
+                OR title LIKE :search2
+
+                OR class LIKE :search3
+
+                OR division LIKE :search4
+
+            )
+        ";
+
+
+        $searchValue =
+            '%' . $search . '%';
+
+
+        $params['search1'] =
+            $searchValue;
+
+        $params['search2'] =
+            $searchValue;
+
+        $params['search3'] =
+            $searchValue;
+
+        $params['search4'] =
+            $searchValue;
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+
+        ORDER BY
+            {$sortColumn}
+            {$direction}
+    ";
+
+
+    /*
+    ========================================
+    EXECUTE
+    ========================================
+    */
+
+    return $this->query(
+        $query,
+        $params
+    );
+}
 
     /*
     ========================================
