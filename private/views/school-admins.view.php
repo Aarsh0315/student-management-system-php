@@ -2,6 +2,14 @@
 
 $admins = $data['admins'] ?? [];
 
+$search = $data['search'] ?? '';
+
+$sort = $data['sort'] ?? 'id';
+
+$direction = strtoupper(
+    $data['direction'] ?? 'DESC'
+);
+
 ?>
 
 <!DOCTYPE html>
@@ -125,6 +133,135 @@ $admins = $data['admins'] ?? [];
 
 
         <?php if (!empty($admins)): ?>
+
+            <!-- ========================================
+     SEARCH + SORT
+======================================== -->
+
+<div class="admins-toolbar">
+
+
+    <!-- SEARCH -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/schooladmins"
+        class="admin-search-form"
+    >
+
+        <div class="admin-search-box">
+
+            <span class="search-icon">
+                ⌕
+            </span>
+
+            <input
+                type="text"
+                name="search"
+                placeholder="Search admin by name, email, school..."
+                value="<?= htmlspecialchars($search) ?>"
+            >
+
+        </div>
+
+        <input
+            type="hidden"
+            name="sort"
+            value="<?= htmlspecialchars($sort) ?>"
+        >
+
+        <input
+            type="hidden"
+            name="direction"
+            value="<?= htmlspecialchars($direction) ?>"
+        >
+
+        <button
+            type="submit"
+            class="search-btn"
+        >
+            Search
+        </button>
+
+        <?php if ($search !== ''): ?>
+
+            <a
+                href="<?= ROOT ?>/schooladmins"
+                class="clear-search-btn"
+            >
+                Clear
+            </a>
+
+        <?php endif; ?>
+
+    </form>
+
+
+    <!-- SORT -->
+
+    <form
+        method="GET"
+        action="<?= ROOT ?>/schooladmins"
+        class="admin-sort-form"
+    >
+
+        <input
+            type="hidden"
+            name="search"
+            value="<?= htmlspecialchars($search) ?>"
+        >
+
+        <label for="admin-sort">
+            Sort by
+        </label>
+
+        <select
+            name="sort"
+            id="admin-sort"
+            onchange="this.form.submit()"
+        >
+
+            <option value="id" <?= $sort === 'id' ? 'selected' : '' ?>>
+                Admin ID
+            </option>
+
+            <option value="name" <?= $sort === 'name' ? 'selected' : '' ?>>
+                Name
+            </option>
+
+            <option value="email" <?= $sort === 'email' ? 'selected' : '' ?>>
+                Email
+            </option>
+
+            <option value="school" <?= $sort === 'school' ? 'selected' : '' ?>>
+                School
+            </option>
+
+            <option value="status" <?= $sort === 'status' ? 'selected' : '' ?>>
+                Status
+            </option>
+
+        </select>
+
+
+        <select
+            name="direction"
+            onchange="this.form.submit()"
+        >
+
+            <option value="ASC" <?= $direction === 'ASC' ? 'selected' : '' ?>>
+                Ascending
+            </option>
+
+            <option value="DESC" <?= $direction === 'DESC' ? 'selected' : '' ?>>
+                Descending
+            </option>
+
+        </select>
+
+    </form>
+
+</div>
 
 
             <div class="table-wrapper">
@@ -324,6 +461,13 @@ $admins = $data['admins'] ?? [];
                                         View
                                     </a>
 
+                                    <a
+            href="<?= ROOT ?>/schooladmins/edit/<?= urlencode($admin->user_id) ?>"
+            class="edit-btn"
+        >
+            Edit
+        </a>
+
                                 </td>
 
 
@@ -345,16 +489,36 @@ $admins = $data['admins'] ?? [];
 
             <div class="empty-state">
 
-                <h3>
-                    No school admins found
-                </h3>
+    <h3>
+        No School Admins Found
+    </h3>
 
-                <p>
-                    There are currently no school
-                    administrators registered.
-                </p>
+    <?php if ($search !== ''): ?>
 
-            </div>
+        <p>
+            No school admin matches
+            <strong>
+                "<?= htmlspecialchars($search) ?>"
+            </strong>.
+        </p>
+
+        <a
+            href="<?= ROOT ?>/schooladmins"
+            class="view-all-admins-btn"
+        >
+            View All School Admins
+        </a>
+
+    <?php else: ?>
+
+        <p>
+            There are currently no school
+            administrators registered.
+        </p>
+
+    <?php endif; ?>
+
+</div>
 
 
         <?php endif; ?>

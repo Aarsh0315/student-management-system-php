@@ -11,56 +11,161 @@ class SchoolAdmins extends Controller
     ===================================================== */
 
     public function index()
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
+{
+    /*
+    ========================================
+    START SESSION
+    ========================================
+    */
 
-
-        /*
-        ========================================
-        ONLY SUPER ADMIN
-        ========================================
-        */
-
-        if (
-            !isset($_SESSION['rank']) ||
-            $_SESSION['rank'] !== 'super_admin'
-        ) {
-
-            header(
-                "Location: " . ROOT . "/home"
-            );
-
-            exit;
-        }
-
-
-        /*
-        ========================================
-        LOAD ADMINS
-        ========================================
-        */
-
-        $adminModel =
-            new SchoolAdminModel();
-
-        $admins =
-            $adminModel->getAllAdmins();
-
-
-        /*
-        ========================================
-        LOAD VIEW
-        ========================================
-        */
-
-        $this->view('school-admins', [
-
-            'admins' => $admins
-
-        ]);
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
     }
+
+
+    /*
+    ========================================
+    CHECK LOGIN
+    ========================================
+    */
+
+    if (!isset($_SESSION['user_id'])) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/login"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    CHECK SUPER ADMIN
+    ========================================
+    */
+
+    $rank = $_SESSION['rank'] ?? '';
+
+    if ($rank !== 'super_admin') {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    LOAD MODEL
+    ========================================
+    */
+
+    $adminModel =
+        $this->model('SchoolAdminModel');
+
+
+    /*
+    ========================================
+    GET SEARCH + SORT
+    ========================================
+    */
+
+    $search = trim(
+        $_GET['search'] ?? ''
+    );
+
+    $sort =
+        $_GET['sort'] ?? 'id';
+
+    $direction = strtoupper(
+        $_GET['direction'] ?? 'DESC'
+    );
+
+
+    /*
+    ========================================
+    ALLOWED SORT OPTIONS
+    ========================================
+    */
+
+    $allowedSorts = [
+        'id',
+        'name',
+        'school',
+        'email',
+        'status'
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (!in_array(
+        $sort,
+        $allowedSorts,
+        true
+    )) {
+
+        $sort = 'id';
+    }
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    if (!in_array(
+        $direction,
+        ['ASC', 'DESC'],
+        true
+    )) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    GET ADMINS
+    ========================================
+    */
+
+    $admins =
+        $adminModel->getAllSchoolAdmins(
+            $search,
+            $sort,
+            $direction
+        );
+
+
+    /*
+    ========================================
+    LOAD VIEW
+    ========================================
+    */
+
+    $this->view(
+        'school-admins',
+        [
+            'admins'    => $admins,
+            'search'    => $search,
+            'sort'      => $sort,
+            'direction' => $direction
+        ]
+    );
+}
 
 
     /* =====================================================
