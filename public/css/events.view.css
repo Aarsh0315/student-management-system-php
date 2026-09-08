@@ -1,0 +1,979 @@
+/* =====================================================
+   MY SCHOOL - EVENTS
+===================================================== */
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+
+    overflow-y: scroll;
+}
+
+
+/* =====================================================
+   BODY
+===================================================== */
+
+body {
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #f5f5f7;
+
+    color: #29263a;
+
+    line-height: 1.5;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.events-page {
+    width: 100%;
+
+    padding: 34px 30px 60px;
+}
+
+.events-container {
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.events-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 25px;
+}
+
+.events-header-content {
+    min-width: 0;
+}
+
+.events-label {
+    margin: 0 0 7px;
+
+    color: #a32675;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.9px;
+
+    text-transform: uppercase;
+}
+
+.events-header h1 {
+    margin: 0 0 6px;
+
+    color: #29263a;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.7px;
+}
+
+.events-description {
+    margin: 0;
+
+    color: #827a89;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   HEADER ACTIONS
+===================================================== */
+
+.events-header-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding-top: 5px;
+}
+
+.back-dashboard,
+.add-event-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 38px;
+
+    padding: 9px 14px;
+
+    border-radius: 9px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease,
+        transform 0.2s ease;
+}
+
+
+/* =====================================================
+   BACK DASHBOARD
+===================================================== */
+
+.back-dashboard {
+    background: #ffffff;
+
+    color: #665f6b;
+
+    border: 1px solid #e4dfe5;
+}
+
+.back-dashboard:hover {
+    color: #a32675;
+
+    border-color: #e2c7d9;
+
+    background: #fffafd;
+}
+
+
+/* =====================================================
+   ADD EVENT
+===================================================== */
+
+.add-event-button {
+    background: #a32675;
+
+    color: #ffffff;
+
+    border: 1px solid #a32675;
+
+    box-shadow:
+        0 4px 12px
+        rgba(163, 38, 117, 0.12);
+}
+
+.add-event-button:hover {
+    background: #8d205f;
+
+    border-color: #8d205f;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   EVENTS CARD
+===================================================== */
+
+.events-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e1e6;
+
+    border-radius: 13px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 18px
+        rgba(50, 35, 55, 0.035);
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.events-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #eee9ed;
+}
+
+.events-card-header h2 {
+    margin: 0 0 4px;
+
+    color: #29263a;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+.events-card-header p {
+    margin: 0;
+
+    color: #958d99;
+
+    font-size: 10px;
+}
+
+.event-count {
+    padding: 5px 10px;
+
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 15px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   TABLE WRAPPER
+===================================================== */
+
+.events-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.events-table {
+    width: 100%;
+
+    min-width: 1050px;
+
+    border-collapse: collapse;
+
+    table-layout: auto;
+}
+
+.events-table th {
+    padding: 12px 15px;
+
+    background: #fcfbfc;
+
+    color: #817985;
+
+    border-bottom: 1px solid #eee9ed;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+    white-space: nowrap;
+}
+
+.events-table td {
+    padding: 14px 15px;
+
+    color: #655e69;
+
+    border-bottom: 1px solid #f1edf0;
+
+    font-size: 10px;
+
+    vertical-align: middle;
+}
+
+.events-table tbody tr {
+    transition:
+        background 0.15s ease;
+}
+
+.events-table tbody tr:hover {
+    background: #fffafd;
+}
+
+.events-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   EVENT TITLE
+===================================================== */
+
+.event-title-cell {
+    min-width: 210px;
+}
+
+.event-title-cell strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #443e4a;
+
+    font-size: 11px;
+
+    font-weight: 700;
+}
+
+.event-title-cell span {
+    display: block;
+
+    max-width: 250px;
+
+    overflow: hidden;
+
+    color: #99919d;
+
+    font-size: 9px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   SCHOOL
+===================================================== */
+
+.school-name {
+    color: #554e5a;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.date-cell {
+    color: #514a58 !important;
+
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   TIME
+===================================================== */
+
+.time-separator {
+    margin: 0 3px;
+
+    color: #aaa1ad;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.event-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 62px;
+
+    padding: 5px 8px;
+
+    border-radius: 15px;
+
+    font-size: 8px;
+
+    font-weight: 700;
+}
+
+.status-active {
+    background: #eff9f3;
+
+    color: #28784a;
+
+    border: 1px solid #cce8d6;
+}
+
+.status-cancelled {
+    background: #fef2f4;
+
+    color: #b44747;
+
+    border: 1px solid #f3ccd4;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.event-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 5px;
+
+    white-space: nowrap;
+}
+
+.event-actions a,
+.event-actions button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-height: 28px;
+
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    font-family: inherit;
+
+    font-size: 8px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+
+/* =====================================================
+   VIEW
+===================================================== */
+
+.action-view {
+    background: #f6f3f6;
+
+    color: #625a67;
+
+    border: 1px solid #e6e1e6;
+}
+
+.action-view:hover {
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border-color: #efd9e7;
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+.action-edit {
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+}
+
+.action-edit:hover {
+    background: #a32675;
+
+    color: #ffffff;
+
+    border-color: #a32675;
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+.action-delete {
+    background: #fef2f4;
+
+    color: #b44747;
+
+    border: 1px solid #f3ccd4;
+}
+
+.action-delete:hover {
+    background: #b44747;
+
+    color: #ffffff;
+
+    border-color: #b44747;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.events-empty {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    min-height: 330px;
+
+    padding: 40px 25px;
+
+    background: #ffffff;
+
+    border: 1px solid #e5e1e6;
+
+    border-radius: 13px;
+
+    text-align: center;
+
+    box-shadow:
+        0 4px 18px
+        rgba(50, 35, 55, 0.035);
+}
+
+.empty-event-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 13px;
+
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 12px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.events-empty h2 {
+    margin: 0 0 5px;
+
+    color: #4d4653;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+.events-empty p {
+    margin: 0 0 17px;
+
+    color: #99919d;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.back-dashboard:focus-visible,
+.add-event-button:focus-visible,
+.event-actions a:focus-visible,
+.event-actions button:focus-visible {
+    outline:
+        3px solid
+        rgba(163, 38, 117, 0.15);
+
+    outline-offset: 2px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .events-page {
+        padding:
+            30px 20px 50px;
+    }
+
+    .events-header {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .events-header-actions {
+        padding-top: 0;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .events-page {
+        padding:
+            25px 15px 45px;
+    }
+
+    .events-header h1 {
+        font-size: 25px;
+    }
+
+    .events-description {
+        font-size: 12px;
+    }
+
+    .events-header-actions {
+        width: 100%;
+
+        display: grid;
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .back-dashboard,
+    .add-event-button {
+        width: 100%;
+    }
+
+    .events-card-header {
+        padding:
+            15px 16px;
+    }
+
+    .events-table th {
+        padding:
+            11px 12px;
+    }
+
+    .events-table td {
+        padding:
+            12px;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .events-page {
+        padding:
+            22px 12px 35px;
+    }
+
+    .events-header-actions {
+        grid-template-columns:
+            1fr;
+    }
+
+    .events-card-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+}
+
+/* =========================================================
+   CREATE / EDIT EVENT FORM
+   ========================================================= */
+
+.event-form-card {
+    max-width: 1000px;
+}
+
+.event-form-body {
+    padding: 28px 24px 30px;
+}
+
+.event-form-body form {
+    width: 100%;
+}
+
+
+/* FORM GROUP */
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #302d3d;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+
+/* INPUTS */
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #ddd5dc;
+    border-radius: 7px;
+    outline: none;
+    background: #ffffff;
+    color: #302d3d;
+    font-family: inherit;
+    font-size: 13px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-group input,
+.form-group select {
+    height: 43px;
+    padding: 0 13px;
+}
+
+.form-group textarea {
+    min-height: 120px;
+    padding: 12px 13px;
+    resize: vertical;
+    line-height: 1.5;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #aaa2aa;
+}
+
+
+/* INPUT FOCUS */
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.08);
+}
+
+
+/* FORM ROW */
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.form-row .form-group {
+    min-width: 0;
+}
+
+
+/* LOCATION + STATUS ROW */
+
+.form-row:nth-of-type(2) {
+    grid-template-columns: 2fr 1fr;
+}
+
+
+/* FORM ACTIONS */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+    padding-top: 22px;
+    border-top: 1px solid #eee5eb;
+}
+
+
+/* CANCEL */
+
+.form-cancel-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border: 1px solid #eadfe7;
+    border-radius: 7px;
+    background: #ffffff;
+    color: #302d3d;
+    font-size: 13px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.form-cancel-button:hover {
+    background: #faf8fa;
+    border-color: #d8ced6;
+}
+
+
+/* CREATE BUTTON */
+
+.form-submit-button {
+    min-height: 42px;
+    padding: 0 20px;
+    border: 1px solid #a32675;
+    border-radius: 7px;
+    background: #a32675;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.form-submit-button:hover {
+    background: #8d205f;
+    border-color: #8d205f;
+}
+
+
+/* ERROR */
+
+.form-error {
+    margin-bottom: 20px;
+    padding: 13px 16px;
+    border: 1px solid #f3ccd4;
+    border-radius: 8px;
+    background: #fef2f4;
+    color: #b44747;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 1000px) {
+
+    .form-row {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .form-row:nth-of-type(2) {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .event-form-body {
+        padding: 22px 18px 25px;
+    }
+
+    .form-row,
+    .form-row:nth-of-type(2) {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .form-cancel-button,
+    .form-submit-button {
+        width: 100%;
+    }
+
+}

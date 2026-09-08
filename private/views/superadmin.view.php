@@ -154,6 +154,18 @@ require "../private/views/includes/sidebar.view.php";
              WELCOME SECTION
         ================================================== -->
 
+        <!-- =================================================
+            DASHBOARD DATE
+        ================================================== -->
+
+        <section class="dashboard-date">
+
+            <p>
+                <?= date('l, d F Y') ?>
+            </p>
+
+        </section>
+
         <section class="dashboard-welcome">
 
 
@@ -182,6 +194,92 @@ require "../private/views/includes/sidebar.view.php";
 
 
             </div>
+
+
+          <!-- =================================================
+     QUICK ACTIONS
+================================================== -->
+
+<section class="quick-actions">
+
+    <!-- ADD STUDENT -->
+
+    <a
+        href="<?= ROOT ?>/students/create"
+        class="quick-action"
+    >
+
+        <span class="quick-action-icon">
+            +
+        </span>
+
+        <span class="quick-action-content">
+
+            <strong>
+                Add Student
+            </strong>
+
+            <small>
+                Register a new student
+            </small>
+
+        </span>
+
+    </a>
+
+
+    <!-- SEND ANNOUNCEMENT -->
+
+    <a
+        href="<?= ROOT ?>/announcements/create"
+        class="quick-action"
+    >
+
+        <span class="quick-action-icon">
+            +
+        </span>
+
+        <span class="quick-action-content">
+
+            <strong>
+                Send Announcement
+            </strong>
+
+            <small>
+                Send an announcement
+            </small>
+
+        </span>
+
+    </a>
+
+
+    <!-- ADD EVENT -->
+
+    <a
+        href="<?= ROOT ?>/events/create"
+        class="quick-action"
+    >
+
+        <span class="quick-action-icon">
+            +
+        </span>
+
+        <span class="quick-action-content">
+
+            <strong>
+                Add Event
+            </strong>
+
+            <small>
+                Create a new event
+            </small>
+
+        </span>
+
+    </a>
+
+</section>
 
 
 
@@ -247,45 +345,6 @@ require "../private/views/includes/sidebar.view.php";
 
             </a>
 
-
-
-            <!-- =================================================
-                 USERS
-            ================================================== -->
-
-            <a
-                href="<?= ROOT ?>/users"
-                class="kpi-card"
-            >
-
-                <div class="kpi-icon">
-                    US
-                </div>
-
-
-                <div class="kpi-content">
-
-                    <span class="kpi-label">
-                        Users
-                    </span>
-
-
-                    <strong class="kpi-value">
-
-                        <?= number_format(
-                            $userCount
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-                <span class="kpi-arrow">
-                    →
-                </span>
-
-            </a>
 
 
 
@@ -407,87 +466,6 @@ require "../private/views/includes/sidebar.view.php";
 
             </a>
 
-
-
-            <!-- =================================================
-                 TESTS
-            ================================================== -->
-
-            <a
-                href="<?= ROOT ?>/tests"
-                class="kpi-card"
-            >
-
-                <div class="kpi-icon">
-                    TS
-                </div>
-
-
-                <div class="kpi-content">
-
-                    <span class="kpi-label">
-                        Tests
-                    </span>
-
-
-                    <strong class="kpi-value">
-
-                        <?= number_format(
-                            $testCount
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-                <span class="kpi-arrow">
-                    →
-                </span>
-
-            </a>
-
-
-
-            <!-- =================================================
-                 RESULTS
-            ================================================== -->
-
-            <a
-                href="<?= ROOT ?>/results"
-                class="kpi-card"
-            >
-
-                <div class="kpi-icon">
-                    RS
-                </div>
-
-
-                <div class="kpi-content">
-
-                    <span class="kpi-label">
-                        Results
-                    </span>
-
-
-                    <strong class="kpi-value">
-
-                        <?= number_format(
-                            $resultCount
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-                <span class="kpi-arrow">
-                    →
-                </span>
-
-            </a>
-
-
         </section>
 
 
@@ -497,6 +475,172 @@ require "../private/views/includes/sidebar.view.php";
         ================================================== -->
 
         <section class="dashboard-grid">
+
+      <!-- DAILY CALENDAR -->
+
+<?php
+
+$upcomingEvents = $data['upcomingEvents'] ?? [];
+
+?>
+
+<div class="dashboard-card calendar-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>Daily Calendar</h2>
+
+            <p>
+                Upcoming scheduled events and activities.
+            </p>
+        </div>
+
+        <a
+            href="<?= ROOT ?>/events"
+            class="card-action"
+        >
+            View All
+        </a>
+
+    </div>
+
+
+    <div class="dashboard-card-body">
+
+        <?php if (!empty($upcomingEvents)): ?>
+
+            <div class="calendar-event-list">
+
+                <?php foreach ($upcomingEvents as $event): ?>
+
+                    <div class="calendar-event">
+
+                        <div class="calendar-event-date">
+
+                            <strong>
+                                <?= date(
+                                    'd',
+                                    strtotime($event->event_date)
+                                ) ?>
+                            </strong>
+
+                            <span>
+                                <?= date(
+                                    'M',
+                                    strtotime($event->event_date)
+                                ) ?>
+                            </span>
+
+                        </div>
+
+
+                        <div class="calendar-event-info">
+
+                            <h3>
+                                <?= htmlspecialchars(
+                                    $event->title
+                                ) ?>
+                            </h3>
+
+
+                            <p>
+
+                                <?= htmlspecialchars(
+                                    $event->school_name ?? 'School'
+                                ) ?>
+
+                                <?php if (!empty($event->location)): ?>
+
+                                    ·
+                                    <?= htmlspecialchars(
+                                        $event->location
+                                    ) ?>
+
+                                <?php endif; ?>
+
+                            </p>
+
+
+                            <?php if (!empty($event->start_time)): ?>
+
+                                <span class="calendar-event-time">
+
+                                    <?= date(
+                                        'h:i A',
+                                        strtotime($event->start_time)
+                                    ) ?>
+
+                                    <?php if (!empty($event->end_time)): ?>
+
+                                        -
+                                        <?= date(
+                                            'h:i A',
+                                            strtotime($event->end_time)
+                                        ) ?>
+
+                                    <?php endif; ?>
+
+                                </span>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
+
+                <?php endforeach; ?>
+
+            </div>
+
+
+        <?php else: ?>
+
+            <div class="dashboard-empty">
+
+                <h3>No upcoming events</h3>
+
+                <p>
+                    Upcoming school events will appear here.
+                </p>
+
+                <a href="<?= ROOT ?>/events/create">
+                    Add Event
+                </a>
+
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+</div>
+
+
+    <!-- ANNOUNCEMENTS -->
+    <div class="dashboard-card announcements-card">
+
+        <div class="card-header">
+            <div>
+                <h2>Announcements</h2>
+                <p>Latest school announcements.</p>
+            </div>
+
+            <a href="<?= ROOT ?>/announcements" class="card-action">
+                View All
+            </a>
+        </div>
+
+        <div class="dashboard-card-body">
+
+            <div class="dashboard-empty">
+                <h3>No announcements</h3>
+                <p>Latest announcements will appear here.</p>
+            </div>
+
+        </div>
+
+    </div>
 
 
             <!-- =================================================
@@ -661,418 +805,7 @@ require "../private/views/includes/sidebar.view.php";
 
             </div>
 
-
-
-            <!-- =================================================
-                 QUICK MANAGEMENT
-            ================================================== -->
-
-            <div class="management-card">
-
-
-                <!-- CARD HEADER -->
-
-                <div class="card-header">
-
-
-                    <div>
-
-                        <h2>
-                            Quick Management
-                        </h2>
-
-
-                        <p>
-                            Frequently used system areas.
-                        </p>
-
-                    </div>
-
-
-                </div>
-
-
-
-                <!-- MANAGEMENT LIST -->
-
-                <div class="management-list">
-
-
-                    <!-- SCHOOLS -->
-
-                    <a
-                        href="<?= ROOT ?>/schools"
-                        class="management-item"
-                    >
-
-                        <span
-                            class="management-icon"
-                        >
-                            SC
-                        </span>
-
-
-                        <span
-                            class="management-info"
-                        >
-
-                            <strong>
-                                Schools
-                            </strong>
-
-                            <small>
-                                Manage schools
-                            </small>
-
-                        </span>
-
-
-                        <span
-                            class="management-arrow"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- USERS -->
-
-                    <a
-                        href="<?= ROOT ?>/users"
-                        class="management-item"
-                    >
-
-                        <span
-                            class="management-icon"
-                        >
-                            US
-                        </span>
-
-
-                        <span
-                            class="management-info"
-                        >
-
-                            <strong>
-                                Users
-                            </strong>
-
-                            <small>
-                                Manage system users
-                            </small>
-
-                        </span>
-
-
-                        <span
-                            class="management-arrow"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- STUDENTS -->
-
-                    <a
-                        href="<?= ROOT ?>/students"
-                        class="management-item"
-                    >
-
-                        <span
-                            class="management-icon"
-                        >
-                            ST
-                        </span>
-
-
-                        <span
-                            class="management-info"
-                        >
-
-                            <strong>
-                                Students
-                            </strong>
-
-                            <small>
-                                Manage student records
-                            </small>
-
-                        </span>
-
-
-                        <span
-                            class="management-arrow"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- STAFF -->
-
-                    <a
-                        href="<?= ROOT ?>/staff"
-                        class="management-item"
-                    >
-
-                        <span
-                            class="management-icon"
-                        >
-                            SF
-                        </span>
-
-
-                        <span
-                            class="management-info"
-                        >
-
-                            <strong>
-                                Staff
-                            </strong>
-
-                            <small>
-                                Manage staff records
-                            </small>
-
-                        </span>
-
-
-                        <span
-                            class="management-arrow"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- PARENTS -->
-
-                    <a
-                        href="<?= ROOT ?>/parents"
-                        class="management-item"
-                    >
-
-                        <span
-                            class="management-icon"
-                        >
-                            PR
-                        </span>
-
-
-                        <span
-                            class="management-info"
-                        >
-
-                            <strong>
-                                Parents
-                            </strong>
-
-                            <small>
-                                Manage parent records
-                            </small>
-
-                        </span>
-
-
-                        <span
-                            class="management-arrow"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- TESTS -->
-
-                    <a
-                        href="<?= ROOT ?>/tests"
-                        class="management-item"
-                    >
-
-                        <span
-                            class="management-icon"
-                        >
-                            TS
-                        </span>
-
-
-                        <span
-                            class="management-info"
-                        >
-
-                            <strong>
-                                Tests
-                            </strong>
-
-                            <small>
-                                Manage assessments
-                            </small>
-
-                        </span>
-
-
-                        <span
-                            class="management-arrow"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- RESULTS -->
-
-                    <a
-                        href="<?= ROOT ?>/results"
-                        class="management-item"
-                    >
-
-                        <span
-                            class="management-icon"
-                        >
-                            RS
-                        </span>
-
-
-                        <span
-                            class="management-info"
-                        >
-
-                            <strong>
-                                Results
-                            </strong>
-
-                            <small>
-                                Manage academic results
-                            </small>
-
-                        </span>
-
-
-                        <span
-                            class="management-arrow"
-                        >
-                            →
-                        </span>
-
-                    </a>
-
-
-                </div>
-
-
-            </div>
-
-
         </section>
-
-
-
-        <!-- =================================================
-             SYSTEM SUMMARY
-        ================================================== -->
-
-        <section class="system-summary">
-
-
-            <!-- TOTAL USERS -->
-
-            <div class="summary-item">
-
-
-                <span>
-                    Total Users
-                </span>
-
-
-                <strong>
-
-                    <?= number_format(
-                        $userCount
-                    ) ?>
-
-                </strong>
-
-
-            </div>
-
-
-
-            <!-- DIVIDER -->
-
-            <div class="summary-divider"></div>
-
-
-
-            <!-- SCHOOL ADMINS -->
-
-            <div class="summary-item">
-
-
-                <span>
-                    School Admins
-                </span>
-
-
-                <strong>
-
-                    <a
-                        href="<?= ROOT ?>/schooladmins"
-                    >
-                        Manage
-                    </a>
-
-                </strong>
-
-
-            </div>
-
-
-
-            <!-- DIVIDER -->
-
-            <div class="summary-divider"></div>
-
-
-
-            <!-- PROFILE -->
-
-            <div class="summary-item">
-
-
-                <span>
-                    Your Account
-                </span>
-
-
-                <strong>
-
-                    <a
-                        href="<?= ROOT ?>/profile"
-                    >
-                        View Profile →
-                    </a>
-
-                </strong>
-
-
-            </div>
-
-
-        </section>
-
 
     </div>
 

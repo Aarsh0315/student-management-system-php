@@ -51,6 +51,9 @@ class Superadmin extends Controller
         $resultModel =
             $this->model('StudentResultsModel');
 
+        $eventModel = 
+            $this->model('EventModel');
+
 
         /* ========================================
            GET KPI COUNTS
@@ -99,6 +102,63 @@ class Superadmin extends Controller
         /* ========================================
            RECENT SCHOOLS
         ======================================== */
+
+        /*
+=====================================================
+UPCOMING EVENTS
+=====================================================
+*/
+
+$schools = $schoolModel->getAllSchools(
+    '',
+    'school_name',
+    'ASC',
+    'active'
+);
+
+$upcomingEvents = [];
+
+foreach ($schools as $school) {
+
+    $schoolEvents = $eventModel->getUpcomingEvents(
+        $school->id,
+        5
+    );
+
+    if (!empty($schoolEvents)) {
+
+        foreach ($schoolEvents as $event) {
+
+            $event->school_name = $school->school_name;
+
+            $upcomingEvents[] = $event;
+        }
+    }
+}
+
+
+/*
+-----------------------------------------------------
+SORT EVENTS BY DATE AND TIME
+-----------------------------------------------------
+*/
+
+usort($upcomingEvents, function ($a, $b) {
+
+    $dateA = ($a->event_date ?? '') . ' ' . ($a->start_time ?? '');
+    $dateB = ($b->event_date ?? '') . ' ' . ($b->start_time ?? '');
+
+    return strcmp($dateA, $dateB);
+});
+
+
+/*
+-----------------------------------------------------
+LIMIT DASHBOARD EVENTS
+-----------------------------------------------------
+*/
+
+$upcomingEvents = array_slice($upcomingEvents, 0, 5);
 
         foreach ($recentSchools as $school) {
 
@@ -235,34 +295,17 @@ $recentActivities =
         /* ========================================
            DASHBOARD DATA
         ======================================== */
-
-        $data = [
-
-            'schoolCount' =>
-                $schoolCount,
-
-            'userCount' =>
-                $userCount,
-
-            'studentCount' =>
-                $studentCount,
-
-            'staffCount' =>
-                $staffCount,
-
-            'parentCount' =>
-                $parentCount,
-
-            'testCount' =>
-                $testCount,
-
-            'resultCount' =>
-                $resultCount,
-
-            'recentActivities' =>
-                $recentActivities
-
-        ];
+$data = [
+    'schoolCount' => $schoolCount,
+    'userCount' => $userCount,
+    'studentCount' => $studentCount,
+    'staffCount' => $staffCount,
+    'parentCount' => $parentCount,
+    'testCount' => $testCount,
+    'resultCount' => $resultCount,
+    'recentActivities' => $recentActivities,
+    'upcomingEvents' => $upcomingEvents
+];
 
 
         /* ========================================
