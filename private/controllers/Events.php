@@ -4,20 +4,19 @@ class Events extends Controller
 {
     /*
     =====================================================
-    CHECK SUPER ADMIN
+    CHECK AUTHORIZATION
     =====================================================
     */
 
-    private function checkSuperAdmin()
+    private function checkAccess()
     {
         if (session_status() === PHP_SESSION_NONE) {
             session_start();
         }
 
-        if (
-            !isset($_SESSION['rank']) ||
-            $_SESSION['rank'] !== 'super_admin'
-        ) {
+        $rank = $_SESSION['rank'] ?? '';
+
+        if (!in_array($rank, ['super_admin', 'admin'], true)) {
             header("Location: " . ROOT . "/home");
             exit;
         }
@@ -27,6 +26,7 @@ class Events extends Controller
     /*
     =====================================================
     GET ACTIVE SCHOOLS
+    SUPER ADMIN ONLY
     =====================================================
     */
 
@@ -34,14 +34,24 @@ class Events extends Controller
     {
         $schoolModel = $this->model('School');
 
-        $schools = $schoolModel->getAllSchools(
+        return $schoolModel->getAllSchools(
             '',
             'school_name',
             'ASC',
             'active'
         );
+    }
 
-        return $schools;
+
+    /*
+    =====================================================
+    GET SCHOOL ID FOR CURRENT ADMIN
+    =====================================================
+    */
+
+    private function getAdminSchoolId()
+    {
+        return (int) ($_SESSION['school_id'] ?? 0);
     }
 
 
@@ -53,62 +63,114 @@ class Events extends Controller
 
     public function index()
     {
-        $this->checkSuperAdmin();
-
-        /*
-        -------------------------------------------------
-        Get all active schools
-        -------------------------------------------------
-        */
-
-        $schools = $this->getSchools();
-
-        /*
-        -------------------------------------------------
-        Events are currently school-specific.
-        For the list page, show events from all schools.
-        -------------------------------------------------
-        */
+        $this->checkAccess();
 
         $eventModel = $this->model('EventModel');
 
-        $events = [];
+        $rank = $_SESSION['rank'] ?? '';
 
-        foreach ($schools as $school) {
+        /*
+        -------------------------------------------------
+        SUPER ADMIN
+        -------------------------------------------------
+        */
 
-            $schoolEvents = $eventModel->getAllEvents($school->id);
+        if ($rank === 'super_admin') {
 
-            if (!empty($schoolEvents)) {
+            $schools = $this->getSchools();
 
-                foreach ($schoolEvents as $event) {
+            $events = [];
 
-                    $event->school_name = $school->school_name;
+            foreach ($schools as $school) {
 
-                    $events[] = $event;
+                $schoolEvents = $eventModel->getAllEvents(
+                    $school->id
+                );
+
+                if (!empty($schoolEvents)) {
+
+                    foreach ($schoolEvents as $event) {
+
+                        $event->school_name =
+                            $school->school_name;
+
+                        $events[] = $event;
+                    }
                 }
             }
+
+
+            /*
+            -------------------------------------------------
+            SORT ALL EVENTS BY DATE
+            -------------------------------------------------
+            */
+
+            usort($events, function ($a, $b) {
+
+                $dateA =
+                    ($a->event_date ?? '') .
+                    ' ' .
+                    ($a->start_time ?? '');
+
+                $dateB =
+                    ($b->event_date ?? '') .
+                    ' ' .
+                    ($b->start_time ?? '');
+
+                return strcmp($dateA, $dateB);
+            });
+
+
+            $data = [
+                'events' => $events,
+                'schools' => $schools
+            ];
+
+            $this->view('events/index', $data);
+
+            return;
         }
 
 
         /*
         -------------------------------------------------
-        Sort all events by date
+        SCHOOL ADMIN
         -------------------------------------------------
         */
 
-        usort($events, function ($a, $b) {
+        $school_id = $this->getAdminSchoolId();
 
-            $dateA = ($a->event_date ?? '') . ' ' . ($a->start_time ?? '');
-            $dateB = ($b->event_date ?? '') . ' ' . ($b->start_time ?? '');
 
-            return strcmp($dateA, $dateB);
-        });
+        if ($school_id <= 0) {
+
+            $data = [
+                'events' => [],
+                'schools' => [],
+                'error' => 'School information could not be found.'
+            ];
+
+            $this->view('events/index', $data);
+
+            return;
+        }
+
+
+        /*
+        -------------------------------------------------
+        GET ONLY CURRENT SCHOOL EVENTS
+        -------------------------------------------------
+        */
+
+        $events =
+            $eventModel->getAllEvents($school_id);
 
 
         $data = [
             'events' => $events,
-            'schools' => $schools
+            'schools' => []
         ];
+
 
         $this->view('events/index', $data);
     }
@@ -122,114 +184,278 @@ class Events extends Controller
 
     public function create()
     {
-        $this->checkSuperAdmin();
+        $this->checkAccess();
 
-        $schools = $this->getSchools();
+        $rank = $_SESSION['rank'] ?? '';
 
-        $user_id = $_SESSION['user_id'] ?? null;
+        $eventModel = $this->model('EventModel');
+
+        /*
+        -------------------------------------------------
+        SUPER ADMIN
+        -------------------------------------------------
+        */
+
+        if ($rank === 'super_admin') {
+
+            $schools = $this->getSchools();
+
+            $user_id =
+                $_SESSION['user_id'] ?? null;
+
+
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+                if (!CSRF::verify(
+                    $_POST['csrf_token'] ?? ''
+                )) {
+                    die('Invalid CSRF token.');
+                }
+
+
+                $school_id =
+                    (int) ($_POST['school_id'] ?? 0);
+
+                $title =
+                    trim($_POST['title'] ?? '');
+
+                $description =
+                    trim($_POST['description'] ?? '');
+
+                $event_date =
+                    $_POST['event_date'] ?? '';
+
+                $start_time =
+                    $_POST['start_time'] ?? null;
+
+                $end_time =
+                    $_POST['end_time'] ?? null;
+
+                $location =
+                    trim($_POST['location'] ?? '');
+
+                $status =
+                    $_POST['status'] ?? 'active';
+
+
+                /*
+                -------------------------------------------------
+                VALIDATE SCHOOL
+                -------------------------------------------------
+                */
+
+                $validSchool = false;
+
+                foreach ($schools as $school) {
+
+                    if (
+                        (int) $school->id ===
+                        $school_id
+                    ) {
+                        $validSchool = true;
+                        break;
+                    }
+                }
+
+
+                if (!$validSchool) {
+
+                    $data = [
+                        'schools' => $schools,
+                        'error' =>
+                            'Please select a valid school.'
+                    ];
+
+                    $this->view(
+                        'events/create',
+                        $data
+                    );
+
+                    return;
+                }
+
+
+                /*
+                -------------------------------------------------
+                VALIDATE REQUIRED FIELDS
+                -------------------------------------------------
+                */
+
+                if (
+                    $title === '' ||
+                    $event_date === ''
+                ) {
+
+                    $data = [
+                        'schools' => $schools,
+                        'error' =>
+                            'Event title and event date are required.'
+                    ];
+
+                    $this->view(
+                        'events/create',
+                        $data
+                    );
+
+                    return;
+                }
+
+
+                /*
+                -------------------------------------------------
+                VALIDATE STATUS
+                -------------------------------------------------
+                */
+
+                if (
+                    !in_array(
+                        $status,
+                        ['active', 'cancelled'],
+                        true
+                    )
+                ) {
+                    $status = 'active';
+                }
+
+
+                /*
+                -------------------------------------------------
+                CREATE EVENT
+                -------------------------------------------------
+                */
+
+                $eventModel->createEvent([
+                    'school_id'   => $school_id,
+                    'title'       => $title,
+                    'description' => $description,
+                    'event_date'  => $event_date,
+                    'start_time'  => $start_time ?: null,
+                    'end_time'    => $end_time ?: null,
+                    'location'    => $location,
+                    'status'      => $status,
+                    'created_by'  => $user_id
+                ]);
+
+
+                header(
+                    "Location: " .
+                    ROOT .
+                    "/events"
+                );
+
+                exit;
+            }
+
+
+            $data = [
+                'schools' => $schools
+            ];
+
+            $this->view(
+                'events/create',
+                $data
+            );
+
+            return;
+        }
+
+
+        /*
+        -------------------------------------------------
+        SCHOOL ADMIN
+        -------------------------------------------------
+        */
+
+        $school_id =
+            $this->getAdminSchoolId();
+
+
+        if ($school_id <= 0) {
+
+            die(
+                'School information could not be found.'
+            );
+        }
+
+
+        $user_id =
+            $_SESSION['user_id'] ?? null;
 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            /*
-            -------------------------------------------------
-            CSRF
-            -------------------------------------------------
-            */
-
-            if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+            if (!CSRF::verify(
+                $_POST['csrf_token'] ?? ''
+            )) {
                 die('Invalid CSRF token.');
             }
 
 
             /*
             -------------------------------------------------
-            Get form data
+            IMPORTANT:
+            SCHOOL ADMIN CANNOT CHOOSE school_id
             -------------------------------------------------
             */
 
-            $school_id = (int) ($_POST['school_id'] ?? 0);
+            $title =
+                trim($_POST['title'] ?? '');
 
-            $title = trim($_POST['title'] ?? '');
+            $description =
+                trim($_POST['description'] ?? '');
 
-            $description = trim($_POST['description'] ?? '');
+            $event_date =
+                $_POST['event_date'] ?? '';
 
-            $event_date = $_POST['event_date'] ?? '';
+            $start_time =
+                $_POST['start_time'] ?? null;
 
-            $start_time = $_POST['start_time'] ?? null;
+            $end_time =
+                $_POST['end_time'] ?? null;
 
-            $end_time = $_POST['end_time'] ?? null;
+            $location =
+                trim($_POST['location'] ?? '');
 
-            $location = trim($_POST['location'] ?? '');
-
-            $status = $_POST['status'] ?? 'active';
-
-
-            /*
-            -------------------------------------------------
-            Validate school
-            -------------------------------------------------
-            */
-
-            $validSchool = false;
-
-            foreach ($schools as $school) {
-
-                if ((int) $school->id === $school_id) {
-                    $validSchool = true;
-                    break;
-                }
-            }
+            $status =
+                $_POST['status'] ?? 'active';
 
 
-            /*
-            -------------------------------------------------
-            Validate required fields
-            -------------------------------------------------
-            */
-
-            if (!$validSchool) {
+            if (
+                $title === '' ||
+                $event_date === ''
+            ) {
 
                 $data = [
-                    'schools' => $schools,
-                    'error' => 'Please select a valid school.'
+                    'schools' => [],
+                    'error' =>
+                        'Event title and event date are required.'
                 ];
 
-                $this->view('events/create', $data);
+                $this->view(
+                    'events/create',
+                    $data
+                );
+
                 return;
             }
 
 
-            if ($title === '' || $event_date === '') {
-
-                $data = [
-                    'schools' => $schools,
-                    'error' => 'Event title and event date are required.'
-                ];
-
-                $this->view('events/create', $data);
-                return;
-            }
-
-
-            /*
-            -------------------------------------------------
-            Validate status
-            -------------------------------------------------
-            */
-
-            if (!in_array($status, ['active', 'cancelled'], true)) {
+            if (
+                !in_array(
+                    $status,
+                    ['active', 'cancelled'],
+                    true
+                )
+            ) {
                 $status = 'active';
             }
 
 
             /*
             -------------------------------------------------
-            Create event
+            ALWAYS USE ADMIN'S SESSION SCHOOL
             -------------------------------------------------
             */
-
-            $eventModel = $this->model('EventModel');
 
             $eventModel->createEvent([
                 'school_id'   => $school_id,
@@ -244,16 +470,30 @@ class Events extends Controller
             ]);
 
 
-            header("Location: " . ROOT . "/events");
+            header(
+                "Location: " .
+                ROOT .
+                "/events"
+            );
+
             exit;
         }
 
 
+        /*
+        -------------------------------------------------
+        SCHOOL ADMIN CREATE VIEW
+        -------------------------------------------------
+        */
+
         $data = [
-            'schools' => $schools
+            'schools' => []
         ];
 
-        $this->view('events/create', $data);
+        $this->view(
+            'events/create',
+            $data
+        );
     }
 
 
@@ -265,93 +505,224 @@ class Events extends Controller
 
     public function edit($event_id = null)
     {
-        $this->checkSuperAdmin();
+        $this->checkAccess();
 
         if (!$event_id) {
-            header("Location: " . ROOT . "/events");
+
+            header(
+                "Location: " .
+                ROOT .
+                "/events"
+            );
+
             exit;
         }
 
 
-        $eventModel = $this->model('EventModel');
+        $eventModel =
+            $this->model('EventModel');
+
+        $rank =
+            $_SESSION['rank'] ?? '';
+
 
         /*
         -------------------------------------------------
-        Find event without using session school_id
+        SUPER ADMIN
         -------------------------------------------------
         */
 
-        $event = null;
+        if ($rank === 'super_admin') {
 
-        $schools = $this->getSchools();
+            $schools =
+                $this->getSchools();
 
-        foreach ($schools as $school) {
+            $event = null;
 
-            $foundEvent = $eventModel->getEventById(
-                $event_id,
-                $school->id
-            );
 
-            if ($foundEvent) {
+            foreach ($schools as $school) {
 
-                $foundEvent->school_name = $school->school_name;
+                $foundEvent =
+                    $eventModel->getEventById(
+                        $event_id,
+                        $school->id
+                    );
 
-                $event = $foundEvent;
 
-                break;
+                if ($foundEvent) {
+
+                    $foundEvent->school_name =
+                        $school->school_name;
+
+                    $event = $foundEvent;
+
+                    break;
+                }
             }
+
+
+            if (!$event) {
+
+                header(
+                    "Location: " .
+                    ROOT .
+                    "/events"
+                );
+
+                exit;
+            }
+
+
+            return $this->processEventEdit(
+                $event,
+                $schools,
+                $eventModel,
+                true
+            );
         }
 
 
+        /*
+        -------------------------------------------------
+        SCHOOL ADMIN
+        -------------------------------------------------
+        */
+
+        $school_id =
+            $this->getAdminSchoolId();
+
+
+        if ($school_id <= 0) {
+
+            die(
+                'School information could not be found.'
+            );
+        }
+
+
+        /*
+        -------------------------------------------------
+        GET EVENT ONLY FROM ADMIN'S SCHOOL
+        -------------------------------------------------
+        */
+
+        $event =
+            $eventModel->getEventById(
+                $event_id,
+                $school_id
+            );
+
+
         if (!$event) {
-            header("Location: " . ROOT . "/events");
+
+            header(
+                "Location: " .
+                ROOT .
+                "/events"
+            );
+
             exit;
         }
 
 
+        return $this->processEventEdit(
+            $event,
+            [],
+            $eventModel,
+            false
+        );
+    }
+
+
+    /*
+    =====================================================
+    PROCESS EVENT EDIT
+    =====================================================
+    */
+
+    private function processEventEdit(
+        $event,
+        $schools,
+        $eventModel,
+        $isSuperAdmin
+    ) {
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-            if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+            if (!CSRF::verify(
+                $_POST['csrf_token'] ?? ''
+            )) {
                 die('Invalid CSRF token.');
             }
 
 
-            $title = trim($_POST['title'] ?? '');
+            $title =
+                trim($_POST['title'] ?? '');
 
-            $description = trim($_POST['description'] ?? '');
+            $description =
+                trim($_POST['description'] ?? '');
 
-            $event_date = $_POST['event_date'] ?? '';
+            $event_date =
+                $_POST['event_date'] ?? '';
 
-            $start_time = $_POST['start_time'] ?? null;
+            $start_time =
+                $_POST['start_time'] ?? null;
 
-            $end_time = $_POST['end_time'] ?? null;
+            $end_time =
+                $_POST['end_time'] ?? null;
 
-            $location = trim($_POST['location'] ?? '');
+            $location =
+                trim($_POST['location'] ?? '');
 
-            $status = $_POST['status'] ?? 'active';
+            $status =
+                $_POST['status'] ?? 'active';
 
 
-            if ($title === '' || $event_date === '') {
+            if (
+                $title === '' ||
+                $event_date === ''
+            ) {
 
                 $data = [
                     'event' => $event,
                     'schools' => $schools,
-                    'error' => 'Event title and event date are required.'
+                    'error' =>
+                        'Event title and event date are required.'
                 ];
 
-                $this->view('events/edit', $data);
+                $this->view(
+                    'events/edit',
+                    $data
+                );
+
                 return;
             }
 
 
-            if (!in_array($status, ['active', 'cancelled'], true)) {
+            if (
+                !in_array(
+                    $status,
+                    ['active', 'cancelled'],
+                    true
+                )
+            ) {
                 $status = 'active';
             }
 
 
+            /*
+            -------------------------------------------------
+            KEEP ORIGINAL SCHOOL ID
+            -------------------------------------------------
+            */
+
+            $school_id =
+                (int) $event->school_id;
+
+
             $eventModel->updateEvent(
-                $event_id,
-                $event->school_id,
+                $event->event_id,
+                $school_id,
                 [
                     'title'       => $title,
                     'description' => $description,
@@ -364,17 +735,26 @@ class Events extends Controller
             );
 
 
-            header("Location: " . ROOT . "/events");
+            header(
+                "Location: " .
+                ROOT .
+                "/events"
+            );
+
             exit;
         }
 
 
         $data = [
-            'event' => $event,
+            'event'   => $event,
             'schools' => $schools
         ];
 
-        $this->view('events/edit', $data);
+
+        $this->view(
+            'events/edit',
+            $data
+        );
     }
 
 
@@ -386,42 +766,112 @@ class Events extends Controller
 
     public function details($event_id = null)
     {
-        $this->checkSuperAdmin();
+        $this->checkAccess();
 
         if (!$event_id) {
-            header("Location: " . ROOT . "/events");
+
+            header(
+                "Location: " .
+                ROOT .
+                "/events"
+            );
+
             exit;
         }
 
 
-        $eventModel = $this->model('EventModel');
+        $eventModel =
+            $this->model('EventModel');
 
-        $event = null;
+        $rank =
+            $_SESSION['rank'] ?? '';
 
-        $schools = $this->getSchools();
+
+        /*
+        -------------------------------------------------
+        SUPER ADMIN
+        -------------------------------------------------
+        */
+
+        if ($rank === 'super_admin') {
+
+            $schools =
+                $this->getSchools();
+
+            $event = null;
 
 
-        foreach ($schools as $school) {
+            foreach ($schools as $school) {
 
-            $foundEvent = $eventModel->getEventById(
-                $event_id,
-                $school->id
-            );
+                $foundEvent =
+                    $eventModel->getEventById(
+                        $event_id,
+                        $school->id
+                    );
 
-            if ($foundEvent) {
 
-                $foundEvent->school_name = $school->school_name;
+                if ($foundEvent) {
 
-                $event = $foundEvent;
+                    $foundEvent->school_name =
+                        $school->school_name;
 
-                break;
+                    $event = $foundEvent;
+
+                    break;
+                }
+            }
+
+
+            if (!$event) {
+
+                header(
+                    "Location: " .
+                    ROOT .
+                    "/events"
+                );
+
+                exit;
             }
         }
 
 
-        if (!$event) {
-            header("Location: " . ROOT . "/events");
-            exit;
+        /*
+        -------------------------------------------------
+        SCHOOL ADMIN
+        -------------------------------------------------
+        */
+
+        else {
+
+            $school_id =
+                $this->getAdminSchoolId();
+
+
+            if ($school_id <= 0) {
+
+                die(
+                    'School information could not be found.'
+                );
+            }
+
+
+            $event =
+                $eventModel->getEventById(
+                    $event_id,
+                    $school_id
+                );
+
+
+            if (!$event) {
+
+                header(
+                    "Location: " .
+                    ROOT .
+                    "/events"
+                );
+
+                exit;
+            }
         }
 
 
@@ -429,7 +879,11 @@ class Events extends Controller
             'event' => $event
         ];
 
-        $this->view('events/details', $data);
+
+        $this->view(
+            'events/details',
+            $data
+        );
     }
 
 
@@ -441,50 +895,124 @@ class Events extends Controller
 
     public function delete($event_id = null)
     {
-        $this->checkSuperAdmin();
+        $this->checkAccess();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-            header("Location: " . ROOT . "/events");
+
+            header(
+                "Location: " .
+                ROOT .
+                "/events"
+            );
+
             exit;
         }
 
 
-        if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+        if (!CSRF::verify(
+            $_POST['csrf_token'] ?? ''
+        )) {
             die('Invalid CSRF token.');
         }
 
 
         if (!$event_id) {
-            header("Location: " . ROOT . "/events");
+
+            header(
+                "Location: " .
+                ROOT .
+                "/events"
+            );
+
             exit;
         }
 
 
-        $eventModel = $this->model('EventModel');
+        $eventModel =
+            $this->model('EventModel');
 
-        $schools = $this->getSchools();
+        $rank =
+            $_SESSION['rank'] ?? '';
 
 
-        foreach ($schools as $school) {
+        /*
+        -------------------------------------------------
+        SUPER ADMIN
+        -------------------------------------------------
+        */
 
-            $event = $eventModel->getEventById(
-                $event_id,
-                $school->id
-            );
+        if ($rank === 'super_admin') {
 
-            if ($event) {
+            $schools =
+                $this->getSchools();
 
-                $eventModel->deleteEvent(
-                    $event_id,
-                    $school->id
-                );
 
-                break;
+            foreach ($schools as $school) {
+
+                $event =
+                    $eventModel->getEventById(
+                        $event_id,
+                        $school->id
+                    );
+
+
+                if ($event) {
+
+                    $eventModel->deleteEvent(
+                        $event_id,
+                        $school->id
+                    );
+
+                    break;
+                }
             }
         }
 
 
-        header("Location: " . ROOT . "/events");
+        /*
+        -------------------------------------------------
+        SCHOOL ADMIN
+        -------------------------------------------------
+        */
+
+        else {
+
+            $school_id =
+                $this->getAdminSchoolId();
+
+
+            if ($school_id > 0) {
+
+                /*
+                -----------------------------------------
+                Verify event belongs to this school
+                -----------------------------------------
+                */
+
+                $event =
+                    $eventModel->getEventById(
+                        $event_id,
+                        $school_id
+                    );
+
+
+                if ($event) {
+
+                    $eventModel->deleteEvent(
+                        $event_id,
+                        $school_id
+                    );
+                }
+            }
+        }
+
+
+        header(
+            "Location: " .
+            ROOT .
+            "/events"
+        );
+
         exit;
     }
 }

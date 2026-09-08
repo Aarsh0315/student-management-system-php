@@ -270,6 +270,48 @@ public function getRecentSchools($limit = 3)
     return $this->query($query);
 }
 
+/* =====================================================
+   SCHOOL OVERVIEW
+   SUPER ADMIN DASHBOARD
+===================================================== */
+
+public function getSchoolOverview()
+{
+    $query = "SELECT
+                schools.id,
+                schools.school_id,
+                schools.school_name,
+                schools.status,
+
+                (
+                    SELECT COUNT(students.student_id)
+                    FROM students
+                    WHERE students.school_id = schools.id
+                    AND students.status = 'active'
+                ) AS student_count,
+
+                (
+                    SELECT COUNT(*)
+                    FROM staff
+                    WHERE staff.school_id = schools.id
+                    AND staff.status = 'active'
+                ) AS staff_count,
+
+                (
+                    SELECT COUNT(*)
+                    FROM users
+                    WHERE users.school_id = schools.id
+                    AND users.rank = 'admin'
+                    AND users.status = 'active'
+                ) AS admin_count
+
+              FROM schools
+
+              ORDER BY schools.id DESC";
+
+    return $this->query($query);
+}
+
 public function updateSchool($school_id, $data)
 {
     $query = "UPDATE schools

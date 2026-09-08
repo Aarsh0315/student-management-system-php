@@ -1,0 +1,992 @@
+/* =====================================================
+   MY SCHOOL - ANNOUNCEMENTS
+===================================================== */
+
+
+/* =====================================================
+   RESET
+===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+
+    font-family:
+        "Segoe UI",
+        Arial,
+        Helvetica,
+        sans-serif;
+
+    background: #faf9fc;
+
+    color: #29263a;
+
+    line-height: 1.5;
+
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   PAGE
+===================================================== */
+
+.announcements-page {
+    width: 100%;
+
+    padding: 42px 30px 60px;
+}
+
+.announcements-container {
+    width: 100%;
+
+    max-width: 1250px;
+
+    margin: 0 auto;
+}
+
+
+/* =====================================================
+   PAGE HEADER
+===================================================== */
+
+.announcements-header {
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 25px;
+
+    margin-bottom: 28px;
+}
+
+.announcements-header-content {
+    min-width: 0;
+}
+
+.announcements-label {
+    margin: 0 0 8px;
+
+    color: #8c2765;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    letter-spacing: 0.9px;
+
+    text-transform: uppercase;
+}
+
+.announcements-header-content h1 {
+    margin: 0 0 7px;
+
+    color: #29263a;
+
+    font-size: 30px;
+
+    font-weight: 700;
+
+    line-height: 1.25;
+
+    letter-spacing: -0.7px;
+}
+
+.announcements-description {
+    margin: 0;
+
+    color: #827a89;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   HEADER ACTIONS
+===================================================== */
+
+.announcements-header-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-shrink: 0;
+}
+
+.back-dashboard {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 8px 12px;
+
+    color: #756d79;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.back-dashboard:hover {
+    color: #a32675;
+
+    background: #fffafd;
+
+    border-color: #e5cddd;
+}
+
+
+/* =====================================================
+   ADD ANNOUNCEMENT BUTTON
+===================================================== */
+
+.add-announcement-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 9px 14px;
+
+    background: #a32675;
+
+    color: #ffffff;
+
+    border: 1px solid #a32675;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    white-space: nowrap;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.add-announcement-button:hover {
+    background: #8d205f;
+
+    border-color: #8d205f;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   ANNOUNCEMENTS CARD
+===================================================== */
+
+.announcements-card {
+    width: 100%;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 13px;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+}
+
+
+/* =====================================================
+   CARD HEADER
+===================================================== */
+
+.announcements-card-header {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 18px 20px;
+
+    border-bottom: 1px solid #f0e9ef;
+}
+
+.announcements-card-header h2 {
+    margin: 0 0 4px;
+
+    color: #29263a;
+
+    font-size: 15px;
+
+    font-weight: 700;
+}
+
+.announcements-card-header p {
+    margin: 0;
+
+    color: #958d99;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   ANNOUNCEMENT COUNT
+===================================================== */
+
+.announcement-count {
+    padding: 5px 9px;
+
+    background: #fff1f7;
+
+    color: #a32675;
+
+    border: 1px solid #efd9e7;
+
+    border-radius: 15px;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   TABLE WRAPPER
+===================================================== */
+
+.announcements-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.announcements-table {
+    width: 100%;
+
+    min-width: 850px;
+
+    border-collapse: collapse;
+
+    table-layout: auto;
+}
+
+.announcements-table th {
+    padding: 11px 16px;
+
+    background: #fffafd;
+
+    color: #8f8795;
+
+    border-bottom: 1px solid #eee6ed;
+
+    font-size: 9px;
+
+    font-weight: 700;
+
+    text-align: left;
+
+    text-transform: uppercase;
+
+    letter-spacing: 0.4px;
+
+    white-space: nowrap;
+}
+
+.announcements-table td {
+    padding: 13px 16px;
+
+    color: #5b5461;
+
+    border-bottom: 1px solid #f2edf1;
+
+    font-size: 10px;
+
+    vertical-align: middle;
+}
+
+.announcements-table tbody tr {
+    transition:
+        background 0.15s ease;
+}
+
+.announcements-table tbody tr:hover {
+    background: #fffafd;
+}
+
+.announcements-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   ANNOUNCEMENT TITLE
+===================================================== */
+
+.announcement-title-cell {
+    max-width: 330px;
+}
+
+.announcement-title-cell strong {
+    display: block;
+
+    overflow: hidden;
+
+    color: #514a58;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+.announcement-title-cell span {
+    display: block;
+
+    max-width: 300px;
+
+    margin-top: 3px;
+
+    overflow: hidden;
+
+    color: #9b939f;
+
+    font-size: 9px;
+
+    text-overflow: ellipsis;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   SCHOOL NAME
+===================================================== */
+
+.school-name {
+    color: #514a58;
+
+    font-size: 10px;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   DATE
+===================================================== */
+
+.date-cell {
+    color: #756d79 !important;
+
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.announcement-status {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 4px 8px;
+
+    border-radius: 12px;
+
+    font-size: 8px;
+
+    font-weight: 700;
+
+    line-height: 1;
+}
+
+.status-active {
+    background: #eff9f3;
+
+    color: #28784a;
+
+    border: 1px solid #cce8d6;
+}
+
+.status-inactive {
+    background: #fef2f4;
+
+    color: #b44747;
+
+    border: 1px solid #f3ccd4;
+}
+
+
+/* =====================================================
+   ACTIONS
+===================================================== */
+
+.announcement-actions {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    white-space: nowrap;
+}
+
+.announcement-actions a,
+.announcement-actions button {
+    padding: 5px 8px;
+
+    border-radius: 6px;
+
+    font-family: inherit;
+
+    font-size: 9px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        color 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.announcement-actions form {
+    margin: 0;
+}
+
+
+/* VIEW */
+
+.action-view {
+    color: #a32675;
+
+    background: #fff5fa;
+
+    border: 1px solid #efd9e7;
+}
+
+.action-view:hover {
+    color: #ffffff;
+
+    background: #a32675;
+
+    border-color: #a32675;
+}
+
+
+/* EDIT */
+
+.action-edit {
+    color: #756d79;
+
+    background: #ffffff;
+
+    border: 1px solid #e5dfe5;
+}
+
+.action-edit:hover {
+    color: #a32675;
+
+    background: #fffafd;
+
+    border-color: #e5cddd;
+}
+
+
+/* DELETE */
+
+.action-delete {
+    color: #b44747;
+
+    background: #fef2f4;
+
+    border: 1px solid #f3ccd4;
+}
+
+.action-delete:hover {
+    color: #ffffff;
+
+    background: #b44747;
+
+    border-color: #b44747;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.announcements-empty {
+    padding: 55px 25px;
+
+    text-align: center;
+
+    background: #ffffff;
+
+    border: 1px solid #eadfe8;
+
+    border-radius: 13px;
+
+    box-shadow:
+        0 4px 18px
+        rgba(70, 30, 70, 0.025);
+}
+
+.empty-announcement-icon {
+    width: 42px;
+
+    height: 42px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    margin: 0 auto 12px;
+
+    background:
+        linear-gradient(
+            135deg,
+            #fff0f6,
+            #f8ecf8
+        );
+
+    color: #a32675;
+
+    border: 1px solid #efd8e6;
+
+    border-radius: 50%;
+
+    font-size: 10px;
+
+    font-weight: 700;
+}
+
+.announcements-empty h2 {
+    margin: 0 0 5px;
+
+    color: #4d4653;
+
+    font-size: 14px;
+
+    font-weight: 700;
+}
+
+.announcements-empty p {
+    max-width: 400px;
+
+    margin: 0 auto 16px;
+
+    color: #99919d;
+
+    font-size: 10px;
+}
+
+
+/* =====================================================
+   FORM ERROR
+===================================================== */
+
+.form-error {
+    margin-bottom: 18px;
+
+    padding: 11px 14px;
+
+    background: #fef2f4;
+
+    color: #b44747;
+
+    border: 1px solid #f3ccd4;
+
+    border-radius: 8px;
+
+    font-size: 11px;
+
+    font-weight: 500;
+}
+
+
+/* =====================================================
+   FORM CARD
+===================================================== */
+
+.announcement-form-card {
+    overflow: hidden;
+}
+
+.announcement-form-body {
+    padding: 22px 20px;
+}
+
+
+/* =====================================================
+   FORM GROUP
+===================================================== */
+
+.form-group {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    color: #514a58;
+
+    font-size: 10px;
+
+    font-weight: 600;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+
+    padding: 10px 11px;
+
+    background: #ffffff;
+
+    color: #514a58;
+
+    border: 1px solid #e3dce3;
+
+    border-radius: 7px;
+
+    outline: none;
+
+    font-family: inherit;
+
+    font-size: 11px;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder {
+    color: #b1a8b2;
+}
+
+.form-group input:hover,
+.form-group select:hover,
+.form-group textarea:hover {
+    border-color: #d7cbd6;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    background: #fffafd;
+
+    border-color: #c98ab1;
+
+    box-shadow:
+        0 0 0 3px
+        rgba(163, 38, 117, 0.08);
+}
+
+.form-group textarea {
+    min-height: 135px;
+
+    resize: vertical;
+
+    line-height: 1.6;
+}
+
+
+/* =====================================================
+   FORM ROW
+===================================================== */
+
+.form-row {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 16px;
+}
+
+
+/* =====================================================
+   FORM ACTIONS
+===================================================== */
+
+.form-actions {
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 8px;
+
+    padding-top: 18px;
+
+    border-top: 1px solid #f0e9ef;
+}
+
+.form-cancel-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 9px 14px;
+
+    background: #ffffff;
+
+    color: #756d79;
+
+    border: 1px solid #e3dce3;
+
+    border-radius: 7px;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.form-cancel-button:hover {
+    color: #a32675;
+
+    background: #fffafd;
+
+    border-color: #e5cddd;
+}
+
+.form-submit-button {
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 9px 15px;
+
+    background: #a32675;
+
+    color: #ffffff;
+
+    border: 1px solid #a32675;
+
+    border-radius: 7px;
+
+    font-family: inherit;
+
+    font-size: 10px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition:
+        background 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.2s ease;
+}
+
+.form-submit-button:hover {
+    background: #8d205f;
+
+    border-color: #8d205f;
+
+    transform: translateY(-1px);
+}
+
+
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.add-announcement-button:focus-visible,
+.back-dashboard:focus-visible,
+.announcement-actions a:focus-visible,
+.announcement-actions button:focus-visible,
+.form-cancel-button:focus-visible,
+.form-submit-button:focus-visible {
+    outline:
+        3px solid
+        rgba(163, 38, 117, 0.15);
+
+    outline-offset: 3px;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 950px) {
+
+    .announcements-page {
+        padding: 35px 20px 50px;
+    }
+
+    .announcements-header {
+        flex-direction: column;
+
+        gap: 15px;
+    }
+
+    .announcements-header-actions {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .announcements-page {
+        padding: 28px 15px 45px;
+    }
+
+    .announcements-header-content h1 {
+        font-size: 25px;
+    }
+
+    .announcements-description {
+        font-size: 12px;
+    }
+
+    .announcements-header-actions {
+        flex-wrap: wrap;
+    }
+
+    .back-dashboard,
+    .add-announcement-button {
+        padding: 8px 11px;
+    }
+
+    .announcements-card-header {
+        padding: 16px;
+    }
+
+    .announcement-form-body {
+        padding: 18px 16px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .form-actions {
+        justify-content: stretch;
+    }
+
+    .form-cancel-button,
+    .form-submit-button {
+        flex: 1;
+    }
+
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+
+    .announcements-page {
+        padding: 22px 12px 35px;
+    }
+
+    .announcements-header-content h1 {
+        font-size: 22px;
+    }
+
+    .announcements-header-actions {
+        flex-direction: column;
+
+        align-items: stretch;
+    }
+
+    .back-dashboard,
+    .add-announcement-button {
+        width: 100%;
+    }
+
+    .announcements-card-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+    }
+
+}

@@ -39,61 +39,55 @@ class Superadmin extends Controller
         $studentModel =
             $this->model('StudentModel');
 
-        $staffModel =
-            $this->model('StaffModel');
-
         $parentModel =
             $this->model('ParentModel');
 
-        $testModel =
-            $this->model('StudentTestsModel');
-
-        $resultModel =
-            $this->model('StudentResultsModel');
-
-        $eventModel = 
-            $this->model('EventModel');
-
 
         /* ========================================
-           GET KPI COUNTS
+           SYSTEM COUNTS
         ======================================== */
 
         $schoolCount =
             $schoolModel->getTotalSchoolCount();
 
-        $userCount =
-            $userModel->getTotalUserCount();
-
         $studentCount =
             $studentModel->getTotalStudentCount();
 
-        $staffCount =
-            $staffModel->getTotalStaffCount();
+        $adminCount =
+            $userModel->getTotalAdminCount();
 
         $parentCount =
             $parentModel->getTotalParentCount();
 
-        $testCount =
-            $testModel->getTotalTestCount();
-
-        $resultCount =
-            $resultModel->getTotalResultCount();
+        
 
 
         /* ========================================
-           RECENT ACTIVITY
+           SCHOOL OVERVIEW
+        ======================================== */
+
+        $schoolOverview =
+            $schoolModel->getSchoolOverview();
+
+
+        /* ========================================
+           RECENT SCHOOLS
         ======================================== */
 
         $recentSchools =
             $schoolModel->getRecentSchools(3);
+
+
+        /* ========================================
+           RECENT USERS
+        ======================================== */
 
         $recentUsers =
             $userModel->getRecentUsers(3);
 
 
         /* ========================================
-           BUILD ACTIVITY LIST
+           BUILD RECENT ACTIVITY
         ======================================== */
 
         $recentActivities = [];
@@ -102,63 +96,6 @@ class Superadmin extends Controller
         /* ========================================
            RECENT SCHOOLS
         ======================================== */
-
-        /*
-=====================================================
-UPCOMING EVENTS
-=====================================================
-*/
-
-$schools = $schoolModel->getAllSchools(
-    '',
-    'school_name',
-    'ASC',
-    'active'
-);
-
-$upcomingEvents = [];
-
-foreach ($schools as $school) {
-
-    $schoolEvents = $eventModel->getUpcomingEvents(
-        $school->id,
-        5
-    );
-
-    if (!empty($schoolEvents)) {
-
-        foreach ($schoolEvents as $event) {
-
-            $event->school_name = $school->school_name;
-
-            $upcomingEvents[] = $event;
-        }
-    }
-}
-
-
-/*
------------------------------------------------------
-SORT EVENTS BY DATE AND TIME
------------------------------------------------------
-*/
-
-usort($upcomingEvents, function ($a, $b) {
-
-    $dateA = ($a->event_date ?? '') . ' ' . ($a->start_time ?? '');
-    $dateB = ($b->event_date ?? '') . ' ' . ($b->start_time ?? '');
-
-    return strcmp($dateA, $dateB);
-});
-
-
-/*
------------------------------------------------------
-LIMIT DASHBOARD EVENTS
------------------------------------------------------
-*/
-
-$upcomingEvents = array_slice($upcomingEvents, 0, 5);
 
         foreach ($recentSchools as $school) {
 
@@ -178,134 +115,101 @@ $upcomingEvents = array_slice($upcomingEvents, 0, 5);
                     . ' was added to the system.',
 
                 'time' =>
-    ''
+                    'Recently'
 
             ];
+
         }
 
 
         /* ========================================
-   RECENT ACTIVITY
-======================================== */
+           RECENT USERS
+        ======================================== */
 
-$recentSchools =
-    $schoolModel->getRecentSchools(3);
+        foreach ($recentUsers as $user) {
 
-$recentUsers =
-    $userModel->getRecentUsers(3);
-
-
-/* ========================================
-   BUILD ACTIVITY LIST
-======================================== */
-
-$recentActivities = [];
+            $name =
+                trim(
+                    ($user->firstname ?? '')
+                    . ' '
+                    . ($user->lastname ?? '')
+                );
 
 
-/* ========================================
-   RECENT SCHOOLS
-======================================== */
+            $recentActivities[] = [
 
-foreach ($recentSchools as $school) {
+                'type' =>
+                    'user',
 
-    $recentActivities[] = [
+                'initials' =>
+                    strtoupper(
+                        substr(
+                            $name ?: 'US',
+                            0,
+                            2
+                        )
+                    ),
 
-        'type' =>
-            'school',
+                'title' =>
+                    'New user registered',
 
-        'initials' =>
-            'SC',
+                'description' =>
+                    ($name ?: 'A user')
+                    . ' joined as '
+                    . ucfirst(
+                        str_replace(
+                            '_',
+                            ' ',
+                            $user->rank ?? 'user'
+                        )
+                    )
+                    . '.',
 
-        'title' =>
-            'New school registered',
+                'time' =>
+                    'Recently'
 
-        'description' =>
-            ($school->school_name ?? 'School')
-            . ' was added to the system.',
+            ];
 
-        'time' =>
-            'Recently'
-
-    ];
-}
-
-
-/* ========================================
-   RECENT USERS
-======================================== */
-
-foreach ($recentUsers as $user) {
-
-    $name =
-        trim(
-            ($user->firstname ?? '')
-            . ' '
-            . ($user->lastname ?? '')
-        );
+        }
 
 
-    $recentActivities[] = [
+        /* ========================================
+           SHOW LATEST 6
+        ======================================== */
 
-        'type' =>
-            'user',
-
-        'initials' =>
-            strtoupper(
-                substr(
-                    $name ?: 'US',
-                    0,
-                    2
-                )
-            ),
-
-        'title' =>
-            'New user registered',
-
-        'description' =>
-            ($name ?: 'A user')
-            . ' joined as '
-            . ucfirst(
-                str_replace(
-                    '_',
-                    ' ',
-                    $user->rank ?? 'user'
-                )
-            )
-            . '.',
-
-        'time' =>
-            'Recently'
-
-    ];
-}
-
-
-/* ========================================
-   SHOW LATEST 6
-======================================== */
-
-$recentActivities =
-    array_slice(
-        $recentActivities,
-        0,
-        6
-    );
+        $recentActivities =
+            array_slice(
+                $recentActivities,
+                0,
+                6
+            );
 
 
         /* ========================================
            DASHBOARD DATA
         ======================================== */
-$data = [
-    'schoolCount' => $schoolCount,
-    'userCount' => $userCount,
-    'studentCount' => $studentCount,
-    'staffCount' => $staffCount,
-    'parentCount' => $parentCount,
-    'testCount' => $testCount,
-    'resultCount' => $resultCount,
-    'recentActivities' => $recentActivities,
-    'upcomingEvents' => $upcomingEvents
-];
+
+        $data = [
+
+            'schoolCount' =>
+                $schoolCount,
+
+            'studentCount' =>
+                $studentCount,
+
+            'adminCount' =>
+                $adminCount,
+
+            'parentCount' =>
+                $parentCount,
+
+            'schoolOverview' =>
+                $schoolOverview,
+
+            'recentActivities' =>
+                $recentActivities
+
+        ];
 
 
         /* ========================================

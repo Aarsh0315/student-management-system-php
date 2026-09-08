@@ -6,10 +6,11 @@ if (session_status() === PHP_SESSION_NONE) {
 
 $events = $data['events'] ?? [];
 
+$rank = $_SESSION['rank'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
-
 <html lang="en">
 
 <head>
@@ -26,7 +27,7 @@ $events = $data['events'] ?? [];
     </title>
 
 
-    <!-- NAVBAR CSS -->
+    <!-- NAV -->
 
     <link
         rel="stylesheet"
@@ -34,27 +35,35 @@ $events = $data['events'] ?? [];
     >
 
 
-    <!-- SIDEBAR CSS -->
+    <!-- DASHBOARD -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/sidebar.view.css?v=1"
+        href="<?= ROOT ?>/css/home.view.css"
     >
 
 
-    <!-- FOOTER CSS -->
+    <!-- EVENTS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/footer.view.css?v=3"
+        href="<?= ROOT ?>/css/events.view.css?v=3"
     >
 
 
-    <!-- EVENTS CSS -->
+    <!-- FOOTER -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/events.view.css?v=1"
+        href="<?= ROOT ?>/css/footer.view.css"
+    >
+
+
+    <!-- SIDEBAR -->
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css"
     >
 
 </head>
@@ -63,61 +72,41 @@ $events = $data['events'] ?? [];
 <body>
 
 
-<!-- =====================================================
-     NAVBAR
-===================================================== -->
-
-<?php
-
-require "../private/views/includes/nav.view.php";
-
-?>
+<?php require "../private/views/includes/nav.view.php"; ?>
 
 
-<!-- =====================================================
-     SIDEBAR
-===================================================== -->
-
-<?php
-
-require "../private/views/includes/sidebar.view.php";
-
-?>
+<?php require "../private/views/includes/sidebar.view.php"; ?>
 
 
-<!-- =====================================================
-     MAIN CONTENT
-===================================================== -->
-
-<main class="events-page">
-
-    <div class="events-container">
+<main class="dashboard">
 
 
-        <!-- =================================================
-             PAGE HEADER
-        ================================================== -->
+    <!-- =====================================================
+         PAGE HEADER
+    ====================================================== -->
 
-        <section class="events-header">
+    <section class="welcome">
 
-            <div class="events-header-content">
+        <div>
 
-                <p class="events-label">
-                    SCHOOL MANAGEMENT
-                </p>
+            <p class="welcome-small">
+                SCHOOL MANAGEMENT
+            </p>
 
-                <h1>
-                    Events
-                </h1>
+            <h1>
+                Events
+            </h1>
 
-                <p class="events-description">
-                    Manage upcoming and past school events.
-                </p>
+            <p class="welcome-text">
+                Manage upcoming and past school events.
+            </p>
 
-            </div>
+        </div>
 
 
-            <div class="events-header-actions">
+        <div class="welcome-actions">
+
+            <?php if ($rank === 'super_admin'): ?>
 
                 <a
                     href="<?= ROOT ?>/superadmin"
@@ -126,16 +115,67 @@ require "../private/views/includes/sidebar.view.php";
                     ← Back to Dashboard
                 </a>
 
+            <?php else: ?>
+
                 <a
-                    href="<?= ROOT ?>/events/create"
-                    class="add-event-button"
+                    href="<?= ROOT ?>/home"
+                    class="back-dashboard"
                 >
-                    + Add Event
+                    ← Back to Dashboard
                 </a>
+
+            <?php endif; ?>
+
+
+            <a
+                href="<?= ROOT ?>/events/create"
+                class="add-event-button"
+            >
+                + Add Event
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =====================================================
+         EVENTS CARD
+    ====================================================== -->
+
+    <section class="events-card">
+
+
+        <!-- CARD HEADER -->
+
+        <div class="events-card-header">
+
+            <div>
+
+                <h2>
+                    All Events
+                </h2>
+
+                <p>
+
+                    <?= count($events) ?>
+
+                    event(s) found
+
+                </p>
 
             </div>
 
-        </section>
+
+            <span class="event-count">
+
+                <?= count($events) ?>
+
+                Event<?= count($events) !== 1 ? 's' : '' ?>
+
+            </span>
+
+        </div>
 
 
         <!-- =================================================
@@ -144,122 +184,144 @@ require "../private/views/includes/sidebar.view.php";
 
         <?php if (!empty($events)): ?>
 
-            <section class="events-card">
 
-                <div class="events-card-header">
+            <div class="events-table-wrapper">
 
-                    <div>
-
-                        <h2>
-                            All Events
-                        </h2>
-
-                        <p>
-                            View and manage school events.
-                        </p>
-
-                    </div>
+                <table class="events-table">
 
 
-                    <span class="event-count">
+                    <thead>
 
-                        <?= count($events) ?>
+                        <tr>
 
-                        <?= count($events) === 1
-                            ? 'Event'
-                            : 'Events'
-                        ?>
+                            <th>
+                                Event
+                            </th>
 
-                    </span>
+                            <?php if ($rank === 'super_admin'): ?>
 
-                </div>
+                                <th>
+                                    School
+                                </th>
 
+                            <?php endif; ?>
 
-                <div class="events-table-wrapper">
+                            <th>
+                                Date
+                            </th>
 
-                    <table class="events-table">
+                            <th>
+                                Time
+                            </th>
 
-                        <thead>
+                            <th>
+                                Location
+                            </th>
 
-                            <tr>
+                            <th>
+                                Status
+                            </th>
 
-                                <th>Event</th>
+                            <th>
+                                Created By
+                            </th>
 
-                                <th>School</th>
+                            <th>
+                                Action
+                            </th>
 
-                                <th>Date</th>
+                        </tr>
 
-                                <th>Time</th>
-
-                                <th>Location</th>
-
-                                <th>Status</th>
-
-                                <th>Created By</th>
-
-                                <th>Action</th>
-
-                            </tr>
-
-                        </thead>
-
-
-                        <tbody>
-
-                            <?php foreach ($events as $event): ?>
-
-                                <tr>
+                    </thead>
 
 
-                                    <!-- EVENT -->
+                    <tbody>
 
-                                    <td class="event-title-cell">
 
-                                        <strong>
+                    <?php foreach ($events as $event): ?>
+
+
+                        <tr>
+
+
+                            <!-- =================================
+                                 EVENT
+                            ================================== -->
+
+                            <td>
+
+                                <div class="event-title-cell">
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            $event->title ?? '—'
+                                        ) ?>
+
+                                    </strong>
+
+
+                                    <?php if (!empty($event->description)): ?>
+
+                                        <span>
+
                                             <?= htmlspecialchars(
-                                                $event->title
+                                                $event->description
                                             ) ?>
-                                        </strong>
-
-
-                                        <?php if (
-                                            !empty($event->description)
-                                        ): ?>
-
-                                            <span>
-                                                <?= htmlspecialchars(
-                                                    $event->description
-                                                ) ?>
-                                            </span>
-
-                                        <?php endif; ?>
-
-                                    </td>
-
-
-                                    <!-- SCHOOL -->
-
-                                    <td>
-
-                                        <span class="school-name">
-
-                                            <?= !empty(
-                                                $event->school_name
-                                            )
-                                                ? htmlspecialchars(
-                                                    $event->school_name
-                                                )
-                                                : '—'
-                                            ?>
 
                                         </span>
 
-                                    </td>
+                                    <?php else: ?>
+
+                                        <span>
+                                            No description
+                                        </span>
+
+                                    <?php endif; ?>
+
+                                </div>
+
+                            </td>
 
 
-                                    <!-- DATE -->
+                            <!-- =================================
+                                 SCHOOL
+                            ================================== -->
 
-                                    <td class="date-cell">
+                            <?php if ($rank === 'super_admin'): ?>
+
+                                <td>
+
+                                    <?php if (!empty($event->school_name)): ?>
+
+                                        <span class="school-name">
+
+                                            <?= htmlspecialchars(
+                                                $event->school_name
+                                            ) ?>
+
+                                        </span>
+
+                                    <?php else: ?>
+
+                                        —
+
+                                    <?php endif; ?>
+
+                                </td>
+
+                            <?php endif; ?>
+
+
+                            <!-- =================================
+                                 DATE
+                            ================================== -->
+
+                            <td>
+
+                                <span class="date-cell">
+
+                                    <?php if (!empty($event->event_date)): ?>
 
                                         <?= date(
                                             'd M Y',
@@ -268,172 +330,203 @@ require "../private/views/includes/sidebar.view.php";
                                             )
                                         ) ?>
 
-                                    </td>
+                                    <?php else: ?>
+
+                                        —
+
+                                    <?php endif; ?>
+
+                                </span>
+
+                            </td>
 
 
-                                    <!-- TIME -->
+                            <!-- =================================
+                                 TIME
+                            ================================== -->
 
-                                    <td>
+                            <td>
 
-                                        <?php if (
-                                            !empty($event->start_time)
-                                        ): ?>
-
-                                            <?= date(
-                                                'h:i A',
-                                                strtotime(
-                                                    $event->start_time
-                                                )
-                                            ) ?>
+                                <?php if (!empty($event->start_time)): ?>
 
 
-                                            <?php if (
-                                                !empty($event->end_time)
-                                            ): ?>
-
-                                                <span class="time-separator">
-                                                    -
-                                                </span>
-
-                                                <?= date(
-                                                    'h:i A',
-                                                    strtotime(
-                                                        $event->end_time
-                                                    )
-                                                ) ?>
-
-                                            <?php endif; ?>
-
-
-                                        <?php else: ?>
-
-                                            —
-
-                                        <?php endif; ?>
-
-                                    </td>
-
-
-                                    <!-- LOCATION -->
-
-                                    <td>
-
-                                        <?= !empty(
-                                            $event->location
+                                    <?= date(
+                                        'h:i A',
+                                        strtotime(
+                                            $event->start_time
                                         )
-                                            ? htmlspecialchars(
-                                                $event->location
-                                            )
-                                            : '—'
-                                        ?>
-
-                                    </td>
+                                    ) ?>
 
 
-                                    <!-- STATUS -->
+                                    <?php if (!empty($event->end_time)): ?>
 
-                                    <td>
-
-                                        <?php
-
-                                        $statusClass =
-                                            $event->status === 'active'
-                                                ? 'status-active'
-                                                : 'status-cancelled';
-
-                                        ?>
-
-                                        <span
-                                            class="event-status <?= $statusClass ?>"
-                                        >
-
-                                            <?= htmlspecialchars(
-                                                ucfirst(
-                                                    $event->status
-                                                )
-                                            ) ?>
-
+                                        <span class="time-separator">
+                                            -
                                         </span>
 
-                                    </td>
-
-
-                                    <!-- CREATED BY -->
-
-                                    <td>
-
-                                        <?php
-
-                                        $createdBy = trim(
-                                            ($event->firstname ?? '') .
-                                            ' ' .
-                                            ($event->lastname ?? '')
-                                        );
-
-                                        ?>
-
-                                        <?= htmlspecialchars(
-                                            $createdBy ?: '—'
+                                        <?= date(
+                                            'h:i A',
+                                            strtotime(
+                                                $event->end_time
+                                            )
                                         ) ?>
 
-                                    </td>
+                                    <?php endif; ?>
 
 
-                                    <!-- ACTION -->
+                                <?php else: ?>
 
-                                    <td>
+                                    —
 
-                                        <div class="event-actions">
+                                <?php endif; ?>
 
-
-                                            <a
-                                                href="<?= ROOT ?>/events/details/<?= $event->event_id ?>"
-                                                class="action-view"
-                                            >
-                                                View
-                                            </a>
+                            </td>
 
 
-                                            <a
-                                                href="<?= ROOT ?>/events/edit/<?= $event->event_id ?>"
-                                                class="action-edit"
-                                            >
-                                                Edit
-                                            </a>
+                            <!-- =================================
+                                 LOCATION
+                            ================================== -->
+
+                            <td>
+
+                                <?php if (!empty($event->location)): ?>
+
+                                    <?= htmlspecialchars(
+                                        $event->location
+                                    ) ?>
+
+                                <?php else: ?>
+
+                                    —
+
+                                <?php endif; ?>
+
+                            </td>
 
 
-                                            <form
-                                                method="POST"
-                                                action="<?= ROOT ?>/events/delete/<?= $event->event_id ?>"
-                                                onsubmit="return confirm('Are you sure you want to delete this event?');"
-                                            >
+                            <!-- =================================
+                                 STATUS
+                            ================================== -->
 
-                                                <?= CSRF::field() ?>
+                            <td>
 
-                                                <button
-                                                    type="submit"
-                                                    class="action-delete"
-                                                >
-                                                    Delete
-                                                </button>
+                                <?php if (
+                                    ($event->status ?? '') === 'active'
+                                ): ?>
 
-                                            </form>
+                                    <span class="event-status status-active">
 
-                                        </div>
+                                        Active
 
-                                    </td>
+                                    </span>
 
-                                </tr>
+                                <?php else: ?>
 
-                            <?php endforeach; ?>
+                                    <span class="event-status status-cancelled">
 
-                        </tbody>
+                                        <?= htmlspecialchars(
+                                            ucfirst(
+                                                $event->status ?? 'Cancelled'
+                                            )
+                                        ) ?>
 
-                    </table>
+                                    </span>
 
-                </div>
+                                <?php endif; ?>
 
-            </section>
+                            </td>
+
+
+                            <!-- =================================
+                                 CREATED BY
+                            ================================== -->
+
+                            <td>
+
+                                <?php
+
+                                $createdBy = trim(
+                                    ($event->firstname ?? '') .
+                                    ' ' .
+                                    ($event->lastname ?? '')
+                                );
+
+                                ?>
+
+                                <?= htmlspecialchars(
+                                    $createdBy ?: '—'
+                                ) ?>
+
+                            </td>
+
+
+                            <!-- =================================
+                                 ACTION
+                            ================================== -->
+
+                            <td>
+
+                                <div class="event-actions">
+
+
+                                    <!-- VIEW -->
+
+                                    <a
+                                        href="<?= ROOT ?>/events/details/<?= urlencode($event->event_id) ?>"
+                                        class="action-view"
+                                    >
+                                        View
+                                    </a>
+
+
+                                    <!-- EDIT -->
+
+                                    <a
+                                        href="<?= ROOT ?>/events/edit/<?= urlencode($event->event_id) ?>"
+                                        class="action-edit"
+                                    >
+                                        Edit
+                                    </a>
+
+
+                                    <!-- DELETE -->
+
+                                    <form
+                                        method="POST"
+                                        action="<?= ROOT ?>/events/delete/<?= urlencode($event->event_id) ?>"
+                                        onsubmit="return confirm('Are you sure you want to delete this event?');"
+                                    >
+
+                                        <?= CSRF::field() ?>
+
+
+                                        <button
+                                            type="submit"
+                                            class="action-delete"
+                                        >
+                                            Delete
+                                        </button>
+
+                                    </form>
+
+
+                                </div>
+
+                            </td>
+
+
+                        </tr>
+
+
+                    <?php endforeach; ?>
+
+
+                    </tbody>
+
+
+                </table>
+
+            </div>
 
 
         <?php else: ?>
@@ -443,51 +536,50 @@ require "../private/views/includes/sidebar.view.php";
                  EMPTY STATE
             ================================================== -->
 
-            <section class="events-empty">
+            <div class="events-empty">
+
 
                 <div class="empty-event-icon">
                     EV
                 </div>
 
+
                 <h2>
                     No Events Found
                 </h2>
 
+
                 <p>
-                    There are currently no events available.
+                    There are currently no events registered.
                 </p>
+
 
                 <a
                     href="<?= ROOT ?>/events/create"
                     class="add-event-button"
                 >
-                    + Create Your First Event
+                    + Create Event
                 </a>
 
-            </section>
+
+            </div>
+
 
         <?php endif; ?>
 
 
-    </div>
+    </section>
+
 
 </main>
 
 
 <!-- =====================================================
      FOOTER
-===================================================== -->
+====================================================== -->
 
-<?php
+<?php require "../private/views/includes/footer.view.php"; ?>
 
-require "../private/views/includes/footer.view.php";
-
-?>
-
-
-<!-- =====================================================
-     JAVASCRIPT
-===================================================== -->
 
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
 

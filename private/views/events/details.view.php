@@ -1,80 +1,237 @@
 <?php
 
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
 $event = $data['event'] ?? null;
 
 ?>
 
-<div class="page-content">
+<!DOCTYPE html>
+<html lang="en">
 
-    <div class="page-header">
+<head>
 
-        <div>
-            <p class="page-label">SCHOOL MANAGEMENT</p>
+    <meta charset="UTF-8">
 
-            <h1>Event Details</h1>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-            <p>
-                View the details of this school event.
-            </p>
-        </div>
+    <title>Event Details</title>
 
-        <div>
-            <a href="<?= ROOT ?>/events">
-                Back to Events
-            </a>
-        </div>
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/nav.view.css?v=6"
+    >
 
-    </div>
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=1"
+    >
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/footer.view.css?v=3"
+    >
+
+    <link
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/events.view.css?v=3"
+    >
+
+</head>
+
+<body>
+
+
+<?php require "../private/views/includes/nav.view.php"; ?>
+
+<?php require "../private/views/includes/sidebar.view.php"; ?>
+
+
+<main class="dashboard">
+
+
+    <!-- PAGE HEADER -->
+
+    <section class="welcome">
+
+        <p class="welcome-small">
+            SCHOOL MANAGEMENT
+        </p>
+
+        <h1>
+            Event Details
+        </h1>
+
+        <p class="welcome-text">
+            View the details of this school event.
+        </p>
+
+    </section>
 
 
     <?php if ($event): ?>
 
-        <div class="details-card">
 
-            <div class="details-header">
+        <!-- EVENT PROFILE CARD -->
+
+        <section class="event-profile-card">
+
+
+            <div class="event-profile-left">
+
+
+                <div class="event-profile-icon">
+                    EV
+                </div>
+
 
                 <div>
-                    <p class="details-label">EVENT</p>
+
+                    <p class="event-profile-label">
+                        EVENT
+                    </p>
 
                     <h2>
                         <?= htmlspecialchars($event->title) ?>
                     </h2>
+
+
+                    <?php if (!empty($event->school_name)): ?>
+
+                        <p class="event-profile-school">
+
+                            <?= htmlspecialchars(
+                                $event->school_name
+                            ) ?>
+
+                        </p>
+
+                    <?php endif; ?>
+
                 </div>
 
-                <span>
-                    <?= htmlspecialchars(ucfirst($event->status)) ?>
-                </span>
 
             </div>
 
 
-            <div class="details-grid">
+            <span
+                class="event-profile-status
+                <?= ($event->status ?? '') === 'active'
+                    ? 'active'
+                    : 'cancelled'
+                ?>"
+            >
 
-                <div class="detail-item">
+                <?= htmlspecialchars(
+                    ucfirst($event->status ?? '')
+                ) ?>
 
-                    <label>Date</label>
+            </span>
 
-                    <p>
-                        <?= date('d F Y', strtotime($event->event_date)) ?>
-                    </p>
+
+        </section>
+
+
+        <!-- EVENT DETAILS CARD -->
+
+        <section class="event-details-card">
+
+
+            <!-- DETAILS HEADER -->
+
+            <div class="event-details-header">
+
+                <h2>
+                    Event Information
+                </h2>
+
+                <p>
+                    Complete information about this event.
+                </p>
+
+            </div>
+
+
+            <!-- DETAILS GRID -->
+
+            <div class="event-details-grid">
+
+
+                <!-- EVENT ID -->
+
+                <div class="event-details-item">
+
+                    <span>
+                        Event ID
+                    </span>
+
+                    <strong>
+                        #<?= (int) $event->event_id ?>
+                    </strong>
 
                 </div>
 
 
-                <div class="detail-item">
+                <!-- DATE -->
 
-                    <label>Time</label>
+                <div class="event-details-item">
 
-                    <p>
+                    <span>
+                        Date
+                    </span>
+
+                    <strong>
+
+                        <?php if (!empty($event->event_date)): ?>
+
+                            <?= date(
+                                'd F Y',
+                                strtotime($event->event_date)
+                            ) ?>
+
+                        <?php else: ?>
+
+                            —
+
+                        <?php endif; ?>
+
+                    </strong>
+
+                </div>
+
+
+                <!-- TIME -->
+
+                <div class="event-details-item">
+
+                    <span>
+                        Time
+                    </span>
+
+                    <strong>
 
                         <?php if (!empty($event->start_time)): ?>
 
-                            <?= date('h:i A', strtotime($event->start_time)) ?>
+                            <?= date(
+                                'h:i A',
+                                strtotime($event->start_time)
+                            ) ?>
 
                             <?php if (!empty($event->end_time)): ?>
 
-                                -
-                                <?= date('h:i A', strtotime($event->end_time)) ?>
+                                <span class="event-time-separator">
+                                    -
+                                </span>
+
+                                <?= date(
+                                    'h:i A',
+                                    strtotime($event->end_time)
+                                ) ?>
 
                             <?php endif; ?>
 
@@ -84,30 +241,40 @@ $event = $data['event'] ?? null;
 
                         <?php endif; ?>
 
-                    </p>
+                    </strong>
 
                 </div>
 
 
-                <div class="detail-item">
+                <!-- LOCATION -->
 
-                    <label>Location</label>
+                <div class="event-details-item">
 
-                    <p>
+                    <span>
+                        Location
+                    </span>
+
+                    <strong>
+
                         <?= !empty($event->location)
                             ? htmlspecialchars($event->location)
                             : '—'
                         ?>
-                    </p>
+
+                    </strong>
 
                 </div>
 
 
-                <div class="detail-item">
+                <!-- CREATED BY -->
 
-                    <label>Created By</label>
+                <div class="event-details-item">
 
-                    <p>
+                    <span>
+                        Created By
+                    </span>
+
+                    <strong>
 
                         <?php
 
@@ -118,59 +285,163 @@ $event = $data['event'] ?? null;
 
                         ?>
 
-                        <?= htmlspecialchars($createdBy ?: '—') ?>
+                        <?= htmlspecialchars(
+                            $createdBy ?: '—'
+                        ) ?>
 
-                    </p>
+                    </strong>
+
+                </div>
+
+
+                <!-- STATUS -->
+
+                <div class="event-details-item">
+
+                    <span>
+                        Status
+                    </span>
+
+                    <strong>
+
+                        <?= htmlspecialchars(
+                            ucfirst($event->status ?? '')
+                        ) ?>
+
+                    </strong>
+
+                </div>
+
+
+                <!-- CREATED DATE -->
+
+                <div class="event-details-item">
+
+                    <span>
+                        Created At
+                    </span>
+
+                    <strong>
+
+                        <?php if (!empty($event->created_at)): ?>
+
+                            <?= date(
+                                'd M Y, h:i A',
+                                strtotime($event->created_at)
+                            ) ?>
+
+                        <?php else: ?>
+
+                            —
+
+                        <?php endif; ?>
+
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            <!-- DESCRIPTION -->
+
+            <div class="event-description-section">
+
+                <div class="event-description-header">
+
+                    <span>
+                        Description
+                    </span>
+
+                </div>
+
+
+                <div class="event-description-content">
+
+                    <?php if (!empty($event->description)): ?>
+
+                        <?= nl2br(
+                            htmlspecialchars(
+                                $event->description
+                            )
+                        ) ?>
+
+                    <?php else: ?>
+
+                        No description provided.
+
+                    <?php endif; ?>
 
                 </div>
 
             </div>
 
 
-            <div class="details-description">
-
-                <label>Description</label>
-
-                <p>
-                    <?= !empty($event->description)
-                        ? nl2br(htmlspecialchars($event->description))
-                        : 'No description provided.'
-                    ?>
-                </p>
-
-            </div>
+        </section>
 
 
-            <div class="details-actions">
+        <!-- ACTIONS -->
 
-                <a href="<?= ROOT ?>/events/edit/<?= $event->event_id ?>">
-                    Edit Event
-                </a>
+        <div class="event-actions-bottom">
 
-                <a href="<?= ROOT ?>/events">
-                    Back to Events
-                </a>
-
-            </div>
-
-        </div>
-
-    <?php else: ?>
-
-        <div class="empty-state">
-
-            <h2>Event Not Found</h2>
-
-            <p>
-                The requested event could not be found.
-            </p>
-
-            <a href="<?= ROOT ?>/events">
-                Back to Events
+            <a
+                href="<?= ROOT ?>/events"
+                class="event-back-btn"
+            >
+                ← Back to Events
             </a>
 
         </div>
 
+
+    <?php else: ?>
+
+
+        <!-- NOT FOUND -->
+
+        <section class="event-details-card">
+
+            <div class="event-empty-state">
+
+                <div class="event-empty-icon">
+                    EV
+                </div>
+
+                <h2>
+                    Event Not Found
+                </h2>
+
+                <p>
+                    The requested event could not be found.
+                </p>
+
+                <a
+                    href="<?= ROOT ?>/events"
+                    class="event-back-btn"
+                >
+                    ← Back to Events
+                </a>
+
+            </div>
+
+        </section>
+
+
     <?php endif; ?>
 
-</div>
+
+</main>
+
+
+<?php require "../private/views/includes/footer.view.php"; ?>
+
+
+<script src="<?= ROOT ?>/js/nav.js?v=1"></script>
+
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
+
+
+</body>
+
+</html>

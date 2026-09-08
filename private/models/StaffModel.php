@@ -245,6 +245,24 @@ u.profile_image,
 
 
     /* =====================================================
+   INACTIVE STAFF COUNT BY SCHOOL
+===================================================== */
+
+public function getInactiveStaffCountBySchool($school_id)
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM staff
+              WHERE school_id = :school_id
+              AND status = 'inactive'";
+
+    $result = $this->query($query, [
+        'school_id' => $school_id
+    ]);
+
+    return $result[0]->total ?? 0;
+}
+
+    /* =====================================================
        GET STAFF BY SCHOOL
     ===================================================== */
 

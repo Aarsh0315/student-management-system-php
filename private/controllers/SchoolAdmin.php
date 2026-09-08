@@ -72,6 +72,10 @@ class SchoolAdmin extends Controller
         $studentModel =
             $this->model('StudentModel');
 
+        $eventModel =
+            $this->model('EventModel');
+        
+
 
         $staffModel =
             $this->model('StaffModel');
@@ -105,7 +109,11 @@ class SchoolAdmin extends Controller
                 ->getStudentCountBySchool(
                     $school_id
                 );
-
+        $data['inactive_student_count'] =
+        $studentModel
+        ->getInactiveStudentCountBySchool(
+            $school_id
+        );
 
         /*
         ========================================
@@ -118,6 +126,11 @@ class SchoolAdmin extends Controller
                 ->getStaffCountBySchool(
                     $school_id
                 );
+
+                $data['inactive_staff_count'] =
+    $staffModel->getInactiveStaffCountBySchool(
+        $school_id
+    );
 
 
         /*
@@ -161,6 +174,21 @@ class SchoolAdmin extends Controller
         */
 
         $data['result_count'] = 0;
+
+        $announcementModel =
+    $this->model('AnnouncementModel');
+
+        /*
+========================================
+UPCOMING EVENTS
+========================================
+*/
+
+$data['upcomingEvents'] =
+    $eventModel->getUpcomingEvents(
+        $school_id,
+        5
+    );
 
 
         /*

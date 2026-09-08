@@ -7,6 +7,8 @@ if (session_status() === PHP_SESSION_NONE) {
 $error = $data['error'] ?? '';
 $schools = $data['schools'] ?? [];
 
+$rank = $_SESSION['rank'] ?? '';
+
 ?>
 
 <!DOCTYPE html>
@@ -129,41 +131,45 @@ $schools = $data['schools'] ?? [];
 
                     <!-- SCHOOL -->
 
-                    <div class="form-group">
+<?php if ($rank === 'super_admin'): ?>
 
-                        <label for="school_id">
-                            School
-                        </label>
+    <div class="form-group">
 
-                        <select
-                            id="school_id"
-                            name="school_id"
-                            required
-                        >
+        <label for="school_id">
+            School
+        </label>
 
-                            <option value="">
-                                Select School
-                            </option>
+        <select
+            id="school_id"
+            name="school_id"
+            required
+        >
 
-                            <?php foreach ($schools as $school): ?>
+            <option value="">
+                Select School
+            </option>
 
-                                <option
-                                    value="<?= (int) $school->id ?>"
-                                    <?= (!empty($_POST['school_id']) &&
-                                        (int) $_POST['school_id'] === (int) $school->id)
-                                        ? 'selected'
-                                        : '' ?>
-                                >
+            <?php foreach ($schools as $school): ?>
 
-                                    <?= htmlspecialchars($school->school_name) ?>
+                <option
+                    value="<?= (int) $school->id ?>"
+                    <?= (
+                        !empty($_POST['school_id']) &&
+                        (int) $_POST['school_id'] === (int) $school->id
+                    ) ? 'selected' : '' ?>
+                >
 
-                                </option>
+                    <?= htmlspecialchars($school->school_name) ?>
 
-                            <?php endforeach; ?>
+                </option>
 
-                        </select>
+            <?php endforeach; ?>
 
-                    </div>
+        </select>
+
+    </div>
+
+<?php endif; ?>
 
 
                     <!-- EVENT TITLE -->

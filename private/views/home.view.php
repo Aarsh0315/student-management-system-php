@@ -16,7 +16,6 @@ if (session_status() === PHP_SESSION_NONE) {
 $firstname =
     $_SESSION['firstname'] ?? 'School Admin';
 
-
 $initial =
     strtoupper(
         substr($firstname, 0, 1)
@@ -30,40 +29,38 @@ $initial =
 $studentCount =
     $data['student_count'] ?? 0;
 
+$inactiveStudentCount = $data['inactive_student_count'] ?? 0;
 
 $staffCount =
     $data['staff_count'] ?? 0;
 
+$inactiveStaffCount =
+    $data['inactive_staff_count'] ?? 0;
 
 $parentCount =
     $data['parent_count'] ?? 0;
-
 
 $classCount =
     $data['class_count'] ?? 0;
 
 
-$testCount =
-    $data['test_count'] ?? 0;
+/* =====================================================
+   UPCOMING EVENTS
+===================================================== */
 
-
-$resultCount =
-    $data['result_count'] ?? 0;
+$upcomingEvents =
+    $data['upcomingEvents'] ?? [];
 
 
 /* =====================================================
    RECENT ACTIVITY
 ===================================================== */
 
-$recentActivities =
-    $data['recentActivities'] ?? [];
-
-/* ========================================
-   RECENT ACTIVITIES
-======================================== */
-
 $recent_activities =
     $data['recent_activities'] ?? [];
+
+$recentAnnouncements =
+    $data['recentAnnouncements'] ?? [];
 
 ?>
 
@@ -168,49 +165,23 @@ require "../private/views/includes/sidebar.view.php";
 
         <section class="dashboard-welcome">
 
-
             <div class="welcome-content">
-
 
                 <p class="welcome-label">
                     SCHOOL OVERVIEW
                 </p>
 
-
                 <h1>
-
                     Welcome back,
-                    <?= htmlspecialchars($firstname) ?>
-                    Admin
-
+                    <?= htmlspecialchars($firstname) ?> Admin
                 </h1>
 
-
                 <p class="welcome-description">
-
                     Here's an overview of your school
                     management system and recent activity.
-
                 </p>
 
-
             </div>
-
-
-            <!-- =================================================
-                 SYSTEM STATUS
-            ================================================== -->
-
-            <div class="dashboard-status">
-
-                <span class="status-dot"></span>
-
-                <span>
-                    System Active
-                </span>
-
-            </div>
-
 
         </section>
 
@@ -236,13 +207,11 @@ require "../private/views/includes/sidebar.view.php";
                     ST
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Students
                     </span>
-
 
                     <strong class="kpi-value">
 
@@ -253,7 +222,6 @@ require "../private/views/includes/sidebar.view.php";
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -276,13 +244,11 @@ require "../private/views/includes/sidebar.view.php";
                     SF
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Staff
                     </span>
-
 
                     <strong class="kpi-value">
 
@@ -293,7 +259,6 @@ require "../private/views/includes/sidebar.view.php";
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -316,13 +281,11 @@ require "../private/views/includes/sidebar.view.php";
                     PR
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Parents
                     </span>
-
 
                     <strong class="kpi-value">
 
@@ -333,7 +296,6 @@ require "../private/views/includes/sidebar.view.php";
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -356,13 +318,11 @@ require "../private/views/includes/sidebar.view.php";
                     CL
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Classes
                     </span>
-
 
                     <strong class="kpi-value">
 
@@ -373,87 +333,6 @@ require "../private/views/includes/sidebar.view.php";
                     </strong>
 
                 </div>
-
-
-                <span class="kpi-arrow">
-                    →
-                </span>
-
-            </a>
-
-
-
-            <!-- =================================================
-                 TESTS
-            ================================================== -->
-
-            <a
-                href="<?= ROOT ?>/tests"
-                class="kpi-card"
-            >
-
-                <div class="kpi-icon">
-                    TS
-                </div>
-
-
-                <div class="kpi-content">
-
-                    <span class="kpi-label">
-                        Tests
-                    </span>
-
-
-                    <strong class="kpi-value">
-
-                        <?= number_format(
-                            $testCount
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
-
-                <span class="kpi-arrow">
-                    →
-                </span>
-
-            </a>
-
-
-
-            <!-- =================================================
-                 RESULTS
-            ================================================== -->
-
-            <a
-                href="<?= ROOT ?>/results"
-                class="kpi-card"
-            >
-
-                <div class="kpi-icon">
-                    RS
-                </div>
-
-
-                <div class="kpi-content">
-
-                    <span class="kpi-label">
-                        Results
-                    </span>
-
-
-                    <strong class="kpi-value">
-
-                        <?= number_format(
-                            $resultCount
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -466,16 +345,274 @@ require "../private/views/includes/sidebar.view.php";
 
 
 
-        <!-- ========================================
-     MAIN DASHBOARD GRID
-======================================== -->
+        <!-- =================================================
+             MAIN DASHBOARD GRID
+        ================================================== -->
 
-<section class="dashboard-grid">
+        <section class="dashboard-grid">
 
 
-    <!-- ========================================
-         RECENT ACTIVITY
-    ======================================== -->
+            <!-- =================================================
+                 UPCOMING EVENTS
+            ================================================== -->
+
+            <div class="events-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Upcoming Events
+                        </h2>
+
+                        <p>
+                            Events scheduled for your school
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="<?= ROOT ?>/events"
+                        class="card-link"
+                    >
+                        View All →
+                    </a>
+
+                </div>
+
+
+                <div class="events-list">
+
+                    <?php if (!empty($upcomingEvents)): ?>
+
+                        <?php foreach (
+                            $upcomingEvents
+                            as $event
+                        ): ?>
+
+                            <div class="event-item">
+
+
+                                <!-- EVENT DATE -->
+
+                                <div class="event-date">
+
+                                    <strong>
+                                        <?= date(
+                                            'd',
+                                            strtotime(
+                                                $event->event_date
+                                            )
+                                        ) ?>
+                                    </strong>
+
+                                    <span>
+                                        <?= date(
+                                            'M',
+                                            strtotime(
+                                                $event->event_date
+                                            )
+                                        ) ?>
+                                    </span>
+
+                                </div>
+
+
+
+                                <!-- EVENT INFORMATION -->
+
+                                <div class="event-info">
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            $event->title
+                                        ) ?>
+
+                                    </strong>
+
+
+                                    <span>
+
+                                        <?php
+                                        if (
+                                            !empty(
+                                                $event->start_time
+                                            )
+                                        ):
+                                        ?>
+
+                                            <?= date(
+                                                'h:i A',
+                                                strtotime(
+                                                    $event->start_time
+                                                )
+                                            ) ?>
+
+                                        <?php endif; ?>
+
+
+                                        <?php
+                                        if (
+                                            !empty(
+                                                $event->location
+                                            )
+                                        ):
+                                        ?>
+
+                                            ·
+
+                                            <?= htmlspecialchars(
+                                                $event->location
+                                            ) ?>
+
+                                        <?php endif; ?>
+
+                                    </span>
+
+                                </div>
+
+
+
+                                <!-- EVENT LINK -->
+
+                                <a
+                                    href="<?= ROOT ?>/events/details/<?= $event->event_id ?>"
+                                    class="event-arrow"
+                                >
+                                    →
+                                </a>
+
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+
+                        <!-- EMPTY EVENT STATE -->
+
+                        <div class="events-empty">
+
+                            <div class="empty-icon">
+                                EV
+                            </div>
+
+                            <h3>
+                                No Upcoming Events
+                            </h3>
+
+                            <p>
+                                There are no upcoming events
+                                scheduled.
+                            </p>
+
+                            <a
+                                href="<?= ROOT ?>/events/create"
+                                class="empty-action"
+                            >
+                                Create Event
+                            </a>
+
+                        </div>
+
+
+                    <?php endif; ?>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 NEEDS ATTENTION
+            ================================================== -->
+
+            <div class="attention-card">
+
+    <div class="card-header">
+        <div>
+            <h2>Needs Attention</h2>
+            <p>Items that may require your attention</p>
+        </div>
+    </div>
+
+    <div class="attention-list">
+
+        <?php if ($inactiveStudentCount > 0): ?>
+
+            <a href="<?= ROOT ?>/students?status=inactive"
+               class="attention-item">
+
+                <div class="attention-icon">ST</div>
+
+                <div class="attention-info">
+                    <strong>Inactive Students</strong>
+
+                    <span>
+                        <?= number_format($inactiveStudentCount) ?>
+                        student(s) currently inactive
+                    </span>
+                </div>
+
+                <span class="attention-arrow">→</span>
+
+            </a>
+
+        <?php endif; ?>
+
+
+        <?php if ($inactiveStaffCount > 0): ?>
+
+            <a href="<?= ROOT ?>/staff?status=inactive"
+               class="attention-item">
+
+                <div class="attention-icon">SF</div>
+
+                <div class="attention-info">
+                    <strong>Inactive Staff</strong>
+
+                    <span>
+                        <?= number_format($inactiveStaffCount) ?>
+                        staff member(s) currently inactive
+                    </span>
+                </div>
+
+                <span class="attention-arrow">→</span>
+
+            </a>
+
+        <?php endif; ?>
+
+
+        <?php if (
+            $inactiveStudentCount <= 0 &&
+            $inactiveStaffCount <= 0
+        ): ?>
+
+            <div class="attention-empty">
+
+                <div class="attention-empty-icon">✓</div>
+
+                <h3>Everything Looks Good</h3>
+
+                <p>
+                    There are no items requiring attention.
+                </p>
+
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 RECENT ACTIVITY
+    ================================================== -->
 
     <div class="activity-card">
 
@@ -488,37 +625,29 @@ require "../private/views/includes/sidebar.view.php";
                 </h2>
 
                 <p>
-                    Recent activity from your school
+                    Recent activity in your school
                 </p>
 
             </div>
 
-            <span class="activity-count">
-                <?= count($recent_activities) ?>
-            </span>
-
         </div>
 
 
-        <div class="activity-list">
+        <?php if (!empty($recent_activities)): ?>
 
-
-            <?php if (!empty($recent_activities)): ?>
-
+            <div class="activity-list">
 
                 <?php foreach (
                     $recent_activities
                     as $activity
                 ): ?>
 
-
                     <div class="activity-item">
-
 
                         <div class="activity-icon">
 
                             <?= htmlspecialchars(
-                                $activity['icon']
+                                $activity['icon'] ?? 'AC'
                             ) ?>
 
                         </div>
@@ -527,269 +656,521 @@ require "../private/views/includes/sidebar.view.php";
                         <div class="activity-info">
 
                             <strong>
-
                                 <?= htmlspecialchars(
-                                    $activity['title']
+                                    $activity['title'] ?? ''
                                 ) ?>
-
                             </strong>
 
-
                             <span>
-
                                 <?= htmlspecialchars(
-                                    $activity['description']
+                                    $activity['description'] ?? ''
                                 ) ?>
-
                             </span>
 
                         </div>
 
 
                         <time>
-
                             <?= htmlspecialchars(
-                                $activity['time']
+                                $activity['time'] ?? ''
                             ) ?>
-
                         </time>
 
-
                     </div>
-
 
                 <?php endforeach; ?>
 
+            </div>
 
-            <?php else: ?>
 
+        <?php else: ?>
 
-                <div class="activity-empty">
+            <div class="activity-empty">
 
-                    <div class="empty-icon">
-                        ✓
-                    </div>
-
-                    <h3>
-                        No Recent Activity
-                    </h3>
-
-                    <p>
-                        There is no recent activity
-                        to display.
-                    </p>
-
+                <div class="empty-icon">
+                    AC
                 </div>
 
+                <h3>
+                    No Recent Activity
+                </h3>
 
-            <?php endif; ?>
+                <p>
+                    There is no recent activity to display.
+                </p>
 
+            </div>
 
-        </div>
+        <?php endif; ?>
 
     </div>
 
 
+    <!-- =================================================
+         ANNOUNCEMENTS
+    ================================================== -->
 
-    <!-- ========================================
-         SCHOOL MANAGEMENT
-    ======================================== -->
-
-    <div class="management-card">
+    <div class="announcements-dashboard-card">
 
         <div class="card-header">
 
             <div>
 
                 <h2>
-                    School Management
+                    Announcements
                 </h2>
 
                 <p>
-                    Manage your school
+                    Latest school announcements
                 </p>
 
             </div>
 
+
+            <a
+                href="<?= ROOT ?>/announcements"
+                class="card-link"
+            >
+                View All →
+            </a>
+
         </div>
 
 
-        <div class="management-list">
+        <?php if (!empty($recentAnnouncements)): ?>
+
+            <div class="dashboard-announcement-list">
+
+                <?php foreach (
+                    $recentAnnouncements
+                    as $announcement
+                ): ?>
+
+                    <a
+                        href="<?= ROOT ?>/announcements/details/<?= (int) $announcement->announcement_id ?>"
+                        class="dashboard-announcement-item"
+                    >
+
+                        <div class="dashboard-announcement-date">
+
+                            <strong>
+                                <?= date(
+                                    'd',
+                                    strtotime(
+                                        $announcement->announcement_date
+                                    )
+                                ) ?>
+                            </strong>
+
+                            <span>
+                                <?= date(
+                                    'M',
+                                    strtotime(
+                                        $announcement->announcement_date
+                                    )
+                                ) ?>
+                            </span>
+
+                        </div>
 
 
-            <a
-                href="<?= ROOT ?>/students"
-                class="management-item"
-            >
+                        <div class="dashboard-announcement-info">
 
-                <div class="management-icon">
-                    ST
+                            <strong>
+                                <?= htmlspecialchars(
+                                    $announcement->title
+                                ) ?>
+                            </strong>
+
+                            <span>
+                                <?= htmlspecialchars(
+                                    $announcement->description
+                                ) ?>
+                            </span>
+
+                        </div>
+
+
+                        <span class="dashboard-announcement-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+                <?php endforeach; ?>
+
+            </div>
+
+
+        <?php else: ?>
+
+            <div class="announcement-dashboard-empty">
+
+                <div class="empty-icon">
+                    AN
                 </div>
 
-                <div class="management-info">
+                <h3>
+                    No Announcements
+                </h3>
 
-                    <strong>
-                        Students
-                    </strong>
+                <p>
+                    There are currently no active announcements.
+                </p>
 
-                    <small>
-                        Manage school students
-                    </small>
+                <a
+                    href="<?= ROOT ?>/announcements/create"
+                    class="empty-action"
+                >
+                    Create Announcement
+                </a>
 
-                </div>
+            </div>
 
-                <span class="management-arrow">
-                    →
-                </span>
+        <?php endif; ?>
 
-            </a>
-
-
-            <a
-                href="<?= ROOT ?>/teachers"
-                class="management-item"
-            >
-
-                <div class="management-icon">
-                    TC
-                </div>
-
-                <div class="management-info">
-
-                    <strong>
-                        Teachers
-                    </strong>
-
-                    <small>
-                        Manage teachers and staff
-                    </small>
-
-                </div>
-
-                <span class="management-arrow">
-                    →
-                </span>
-
-            </a>
+    </div>
 
 
-            <a
-                href="<?= ROOT ?>/parents"
-                class="management-item"
-            >
 
-                <div class="management-icon">
-                    PR
-                </div>
+</section>
 
-                <div class="management-info">
+<!-- =================================================
+     QUICK ACTIONS
+================================================== -->
 
-                    <strong>
-                        Parents
-                    </strong>
+<section class="quick-actions-section">
 
-                    <small>
-                        Manage student parents
-                    </small>
-
-                </div>
-
-                <span class="management-arrow">
-                    →
-                </span>
-
-            </a>
-
-
-            <a
-                href="<?= ROOT ?>/classes"
-                class="management-item"
-            >
-
-                <div class="management-icon">
-                    CL
-                </div>
-
-                <div class="management-info">
-
-                    <strong>
-                        Classes
-                    </strong>
-
-                    <small>
-                        View classes and divisions
-                    </small>
-
-                </div>
-
-                <span class="management-arrow">
-                    →
-                </span>
-
-            </a>
-
-
-            <a
-                href="<?= ROOT ?>/tests"
-                class="management-item"
-            >
-
-                <div class="management-icon">
-                    TS
-                </div>
-
-                <div class="management-info">
-
-                    <strong>
-                        Tests
-                    </strong>
-
-                    <small>
-                        View school tests
-                    </small>
-
-                </div>
-
-                <span class="management-arrow">
-                    →
-                </span>
-
-            </a>
-
-
-            <a
-                href="<?= ROOT ?>/results"
-                class="management-item"
-            >
-
-                <div class="management-icon">
-                    RS
-                </div>
-
-                <div class="management-info">
-
-                    <strong>
-                        Results
-                    </strong>
-
-                    <small>
-                        View student results
-                    </small>
-
-                </div>
-
-                <span class="management-arrow">
-                    →
-                </span>
-
-            </a>
-
-
+    <div class="section-heading">
+        <div>
+            <h2>Quick Actions</h2>
+            <p>Frequently used school management actions</p>
         </div>
+    </div>
+
+
+    <div class="quick-actions-grid">
+
+        <a href="<?= ROOT ?>/students/create"
+           class="quick-action-card">
+
+            <div class="quick-action-icon">
+                ST
+            </div>
+
+            <div class="quick-action-info">
+                <strong>Add Student</strong>
+                <span>Register a new student</span>
+            </div>
+
+            <span class="quick-action-arrow">→</span>
+
+        </a>
+
+
+        <a href="<?= ROOT ?>/staff/create"
+           class="quick-action-card">
+
+            <div class="quick-action-icon">
+                TC
+            </div>
+
+            <div class="quick-action-info">
+                <strong>Add Staff</strong>
+                <span>Add a teacher or staff member</span>
+            </div>
+
+            <span class="quick-action-arrow">→</span>
+
+        </a>
+
+
+        <a href="<?= ROOT ?>/parents/create"
+           class="quick-action-card">
+
+            <div class="quick-action-icon">
+                PR
+            </div>
+
+            <div class="quick-action-info">
+                <strong>Add Parent</strong>
+                <span>Register a parent account</span>
+            </div>
+
+            <span class="quick-action-arrow">→</span>
+
+        </a>
+
+
+        <a href="<?= ROOT ?>/events/create"
+           class="quick-action-card">
+
+            <div class="quick-action-icon">
+                EV
+            </div>
+
+            <div class="quick-action-info">
+                <strong>Create Event</strong>
+                <span>Add a school event</span>
+            </div>
+
+            <span class="quick-action-arrow">→</span>
+
+        </a>
 
     </div>
 
 </section>
+
+        <!-- =================================================
+             SCHOOL MANAGEMENT
+        ================================================== -->
+
+        <section class="management-section">
+
+            <div class="management-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            School Management
+                        </h2>
+
+                        <p>
+                            Manage your school
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="management-list">
+
+
+                    <!-- STUDENTS -->
+
+                    <a
+                        href="<?= ROOT ?>/students"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            ST
+                        </div>
+
+                        <div class="management-info">
+
+                            <strong>
+                                Students
+                            </strong>
+
+                            <small>
+                                Manage school students
+                            </small>
+
+                        </div>
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- TEACHERS -->
+
+                    <a
+                        href="<?= ROOT ?>/teachers"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            TC
+                        </div>
+
+                        <div class="management-info">
+
+                            <strong>
+                                Teachers
+                            </strong>
+
+                            <small>
+                                Manage teachers and staff
+                            </small>
+
+                        </div>
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- PARENTS -->
+
+                    <a
+                        href="<?= ROOT ?>/parents"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            PR
+                        </div>
+
+                        <div class="management-info">
+
+                            <strong>
+                                Parents
+                            </strong>
+
+                            <small>
+                                Manage student parents
+                            </small>
+
+                        </div>
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- CLASSES -->
+
+                    <a
+                        href="<?= ROOT ?>/classes"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            CL
+                        </div>
+
+                        <div class="management-info">
+
+                            <strong>
+                                Classes
+                            </strong>
+
+                            <small>
+                                View classes and divisions
+                            </small>
+
+                        </div>
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- TESTS -->
+
+                    <a
+                        href="<?= ROOT ?>/tests"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            TS
+                        </div>
+
+                        <div class="management-info">
+
+                            <strong>
+                                Tests
+                            </strong>
+
+                            <small>
+                                View school tests
+                            </small>
+
+                        </div>
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- RESULTS -->
+
+                    <a
+                        href="<?= ROOT ?>/results"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            RS
+                        </div>
+
+                        <div class="management-info">
+
+                            <strong>
+                                Results
+                            </strong>
+
+                            <small>
+                                View student results
+                            </small>
+
+                        </div>
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+
+                    <!-- EVENTS -->
+
+                    <a
+                        href="<?= ROOT ?>/events"
+                        class="management-item"
+                    >
+
+                        <div class="management-icon">
+                            EV
+                        </div>
+
+                        <div class="management-info">
+
+                            <strong>
+                                Events
+                            </strong>
+
+                            <small>
+                                Manage school events
+                            </small>
+
+                        </div>
+
+                        <span class="management-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+
+                </div>
+
+            </div>
+
+        </section>
 
 
 
@@ -807,7 +1188,6 @@ require "../private/views/includes/sidebar.view.php";
                 <span>
                     Total Students
                 </span>
-
 
                 <strong>
 
@@ -835,7 +1215,6 @@ require "../private/views/includes/sidebar.view.php";
                     Total Staff
                 </span>
 
-
                 <strong>
 
                     <?= number_format(
@@ -861,7 +1240,6 @@ require "../private/views/includes/sidebar.view.php";
                 <span>
                     Your Account
                 </span>
-
 
                 <strong>
 

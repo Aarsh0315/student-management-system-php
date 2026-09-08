@@ -461,6 +461,23 @@ public function getTotalUserCount()
     return $result[0]->total ?? 0;
 }
 
+/* =====================================================
+   TOTAL SCHOOL ADMIN COUNT
+   SUPER ADMIN DASHBOARD
+===================================================== */
+
+public function getTotalAdminCount()
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM users
+              WHERE rank = 'admin'
+              AND status = 'active'";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
+
 /*
 =====================================================
 GET RECENT USERS
