@@ -880,55 +880,76 @@ $currentPage = explode(
 
 
         <!-- =================================
-             ACCOUNT
-        ================================== -->
+     ACCOUNT
+================================== -->
 
-        <div class="sidebar-section">
+<div class="sidebar-section">
 
-            <p class="sidebar-section-title">
-                ACCOUNT
-            </p>
-
-
-            <!-- PROFILE -->
-
-            <a
-                href="<?= ROOT ?>/profile"
-                class="sidebar-link
-                <?= $currentPage === 'profile'
-                    ? 'active'
-                    : '' ?>"
-            >
-
-                <span class="sidebar-icon">
-                    PF
-                </span>
-
-                <span>
-                    My Profile
-                </span>
-
-            </a>
+    <p class="sidebar-section-title">
+        ACCOUNT
+    </p>
 
 
-            <!-- LOGOUT -->
+    <!-- PROFILE -->
 
-            <a
-                href="<?= ROOT ?>/logout"
-                class="sidebar-link sidebar-logout"
-            >
+    <a
+        href="<?= ROOT ?>/profile"
+        class="sidebar-link
+        <?= $currentPage === 'profile'
+            ? 'active'
+            : '' ?>"
+    >
 
-                <span class="sidebar-icon">
-                    LO
-                </span>
+        <span class="sidebar-icon">
+            PF
+        </span>
 
-                <span>
-                    Logout
-                </span>
+        <span>
+            My Profile
+        </span>
 
-            </a>
+    </a>
 
-        </div>
+
+    <!-- SETTINGS -->
+
+    <a
+        href="<?= ROOT ?>/settings"
+        class="sidebar-link
+        <?= $currentPage === 'settings'
+            ? 'active'
+            : '' ?>"
+    >
+
+        <span class="sidebar-icon">
+            ST
+        </span>
+
+        <span>
+            Settings
+        </span>
+
+    </a>
+
+
+    <!-- LOGOUT -->
+
+    <a
+        href="<?= ROOT ?>/logout"
+        class="sidebar-link sidebar-logout"
+    >
+
+        <span class="sidebar-icon">
+            LO
+        </span>
+
+        <span>
+            Logout
+        </span>
+
+    </a>
+
+</div>
 
 
     </div>

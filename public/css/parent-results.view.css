@@ -681,3 +681,233 @@ body {
 
     white-space: nowrap;
 }
+
+
+/* =========================================
+   PARENT RESULTS - SEARCH + SORT
+========================================= */
+
+.parent-results-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin: 0 0 22px;
+    min-height: 42px;
+}
+
+.parent-result-search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex: 1;
+}
+
+.parent-result-search-box {
+    position: relative;
+    width: 100%;
+    max-width: 360px;
+}
+
+.parent-result-search-box input {
+    width: 100%;
+    height: 42px;
+    padding: 0 14px 0 40px;
+    border: 1px solid #eadfe7;
+    border-radius: 8px;
+    background: #fff;
+    color: #302d3d;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.parent-result-search-box input:focus {
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.08);
+}
+
+.parent-result-search-box input::placeholder {
+    color: #9b939d;
+}
+
+.parent-result-search-box .search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #756d79;
+    font-size: 18px;
+    pointer-events: none;
+}
+
+.parent-result-search-form .search-btn {
+    height: 42px;
+    padding: 0 18px;
+    border: 1px solid #a32675;
+    border-radius: 8px;
+    background: #a32675;
+    color: #fff;
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.parent-result-search-form .search-btn:hover {
+    background: #8d205f;
+    border-color: #8d205f;
+}
+
+.parent-result-search-form .clear-search-btn {
+    height: 42px;
+    padding: 0 14px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #eadfe7;
+    border-radius: 8px;
+    background: #fff;
+    color: #756d79;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    box-sizing: border-box;
+}
+
+.parent-result-search-form .clear-search-btn:hover {
+    border-color: #a32675;
+    color: #a32675;
+}
+
+.parent-result-sort-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.parent-result-sort-form select {
+    height: 42px;
+    padding: 0 34px 0 12px;
+    border: 1px solid #eadfe7;
+    border-radius: 8px;
+    background: #fff;
+    color: #302d3d;
+    font-family: inherit;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+.parent-result-sort-form select:focus {
+    border-color: #a32675;
+}
+
+
+/* =========================================
+   EMPTY STATE
+========================================= */
+
+.empty-state {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 30px 20px;
+    box-sizing: border-box;
+}
+
+.empty-state h3 {
+    margin: 0 0 8px;
+    color: #302d3d;
+    font-size: 20px;
+}
+
+.empty-state p {
+    margin: 0 0 18px;
+    color: #756d79;
+    font-size: 14px;
+}
+
+.empty-state p strong {
+    color: #302d3d;
+}
+
+.empty-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 40px;
+    padding: 0 16px;
+    border: 1px solid #a32675;
+    border-radius: 8px;
+    background: #fff;
+    color: #a32675;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.empty-action-btn:hover {
+    background: #a32675;
+    color: #fff;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+    .parent-results-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .parent-result-search-form {
+        width: 100%;
+    }
+
+    .parent-result-search-box {
+        max-width: none;
+    }
+
+    .parent-result-sort-form {
+        width: 100%;
+    }
+
+    .parent-result-sort-form select {
+        flex: 1;
+    }
+
+}
+
+
+@media (max-width: 520px) {
+
+    .parent-result-search-form {
+        flex-wrap: wrap;
+    }
+
+    .parent-result-search-box {
+        width: 100%;
+    }
+
+    .parent-result-search-form .search-btn,
+    .parent-result-search-form .clear-search-btn {
+        flex: 1;
+    }
+
+    .parent-result-sort-form {
+        flex-direction: column;
+    }
+
+    .parent-result-sort-form select {
+        width: 100%;
+    }
+
+}

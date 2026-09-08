@@ -218,10 +218,89 @@ public function getStudentResultCount($student_id)
 GET PARENT CHILDREN RESULTS
 ========================================
 */
+/*
+========================================
+GET PARENT CHILDREN RESULTS
+========================================
+*/
 
-public function getParentChildrenResults($parent_id, $school_id)
-{
+public function getParentChildrenResults(
+    $parent_id,
+    $school_id,
+    $search = '',
+    $sort = 'result_id',
+    $direction = 'DESC'
+) {
+
+    /*
+    ========================================
+    ALLOWED SORT COLUMNS
+    ========================================
+    */
+
+    $allowedSorts = [
+
+        'result_id'      => 'r.result_id',
+
+        'test'           => 't.title',
+
+        'child'          => 'u.firstname',
+
+        'class'          => 's.class',
+
+        'division'       => 's.division',
+
+        'total_marks'    => 'r.total_marks',
+
+        'obtained_marks' => 'r.obtained_marks',
+
+        'percentage'     => 'r.percentage',
+
+        'status'         => 'r.status',
+
+        'created_at'     => 'r.created_at'
+
+    ];
+
+
+    /*
+    ========================================
+    VALIDATE SORT
+    ========================================
+    */
+
+    if (!isset($allowedSorts[$sort])) {
+
+        $sort = 'result_id';
+    }
+
+
+    $sortColumn = $allowedSorts[$sort];
+
+
+    /*
+    ========================================
+    VALIDATE DIRECTION
+    ========================================
+    */
+
+    $direction = strtoupper($direction);
+
+
+    if (!in_array($direction, ['ASC', 'DESC'], true)) {
+
+        $direction = 'DESC';
+    }
+
+
+    /*
+    ========================================
+    BASE QUERY
+    ========================================
+    */
+
     $query = "SELECT
+
                 r.result_id,
                 r.test_id,
                 r.student_id,
@@ -256,20 +335,94 @@ public function getParentChildrenResults($parent_id, $school_id)
 
               WHERE s.parent_id = :parent_id
 
-              AND s.school_id = :school_id
+              AND s.school_id = :school_id";
 
-              ORDER BY r.created_at DESC";
 
+    $params = [
+
+        'parent_id' => $parent_id,
+
+        'school_id' => $school_id
+
+    ];
+
+
+    /*
+    ========================================
+    SEARCH
+    ========================================
+    */
+
+    if ($search !== '') {
+
+        $query .= " AND (
+
+            r.result_id LIKE :search1
+
+            OR r.test_id LIKE :search2
+
+            OR t.title LIKE :search3
+
+            OR u.firstname LIKE :search4
+
+            OR u.lastname LIKE :search5
+
+            OR CONCAT(u.firstname, ' ', u.lastname) LIKE :search6
+
+            OR s.class LIKE :search7
+
+            OR s.division LIKE :search8
+
+            OR r.status LIKE :search9
+
+        )";
+
+
+        $searchValue = '%' . $search . '%';
+
+
+        $params['search1'] = $searchValue;
+
+        $params['search2'] = $searchValue;
+
+        $params['search3'] = $searchValue;
+
+        $params['search4'] = $searchValue;
+
+        $params['search5'] = $searchValue;
+
+        $params['search6'] = $searchValue;
+
+        $params['search7'] = $searchValue;
+
+        $params['search8'] = $searchValue;
+
+        $params['search9'] = $searchValue;
+    }
+
+
+    /*
+    ========================================
+    SORT
+    ========================================
+    */
+
+    $query .= "
+        ORDER BY {$sortColumn} {$direction}
+    ";
+
+
+    /*
+    ========================================
+    EXECUTE QUERY
+    ========================================
+    */
 
     return $this->query(
         $query,
-        [
-            'parent_id' => $parent_id,
-            'school_id' => $school_id
-        ]
+        $params
     );
 }
-
 
 /*
 ========================================
