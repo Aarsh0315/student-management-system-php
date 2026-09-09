@@ -18,7 +18,7 @@ class Events extends Controller
 
         if (!in_array(
     $rank,
-    ['super_admin', 'admin', 'teacher', 'student'],
+    ['super_admin', 'admin', 'teacher', 'student', 'parent'],
     true
 )) {
     header("Location: " . ROOT . "/home");

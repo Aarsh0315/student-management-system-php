@@ -120,7 +120,7 @@ $rank = $_SESSION['rank'] ?? '';
                          Students cannot see this button.
                     -->
 
-                    <?php if ($rank !== 'student'): ?>
+                    <?php if (!in_array($rank, ['student', 'parent'], true)): ?>
 
                         <a
                             href="<?= ROOT ?>/announcements/edit/<?= urlencode($announcement->announcement_id) ?>"
@@ -389,7 +389,7 @@ $rank = $_SESSION['rank'] ?? '';
                          Students cannot see this button.
                     -->
 
-                    <?php if ($rank !== 'student'): ?>
+                    <?php if (!in_array($rank, ['student', 'parent'], true)): ?>
 
                         <a
                             href="<?= ROOT ?>/announcements/edit/<?= urlencode($announcement->announcement_id) ?>"

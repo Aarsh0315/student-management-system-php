@@ -125,7 +125,7 @@ require "../private/views/includes/sidebar.view.php";
 
             <div class="announcements-header-actions">
 
-                <?php if ($rank !== 'student'): ?>
+                <?php if (!in_array($rank, ['student', 'parent'], true)): ?>
 
                     <a
                         href="<?= ROOT ?>/announcements/create"
@@ -511,7 +511,7 @@ require "../private/views/includes/sidebar.view.php";
                 </p>
 
 
-                <?php if ($rank !== 'student'): ?>
+                <?php if (!in_array($rank, ['student', 'parent'], true)): ?>
 
                     <a
                         href="<?= ROOT ?>/announcements/create"

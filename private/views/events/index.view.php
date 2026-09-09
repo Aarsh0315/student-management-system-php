@@ -107,7 +107,7 @@ $user_id = $_SESSION['user_id'] ?? null;
 
         <div class="welcome-actions">
 
-            <?php if ($rank !== 'student'): ?>
+            <?php if (!in_array($rank, ['student', 'parent'], true)): ?>
 
                 <a
                     href="<?= ROOT ?>/events/create"
@@ -243,17 +243,11 @@ $user_id = $_SESSION['user_id'] ?? null;
                          */
 
                         $canManageEvent =
-                            in_array(
-                                $rank,
-                                ['super_admin', 'admin'],
-                                true
-                            )
-                            ||
-                            (
-                                $rank === 'teacher'
-                                &&
-                                (int) $event->created_by === (int) $user_id
-                            );
+    in_array($rank, ['super_admin', 'admin'], true) ||
+    (
+        $rank === 'teacher' &&
+        (int) $event->created_by === (int) $user_id
+    );
 
                         ?>
 
@@ -578,7 +572,7 @@ $user_id = $_SESSION['user_id'] ?? null;
                 </p>
 
 
-                <?php if ($rank !== 'student'): ?>
+                <?php if (!in_array($rank, ['student', 'parent'], true)): ?>
 
                     <a
                         href="<?= ROOT ?>/events/create"

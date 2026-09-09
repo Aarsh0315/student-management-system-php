@@ -21,7 +21,7 @@ class Announcements extends Controller
 
         if (!in_array(
             $rank,
-            ['super_admin', 'admin', 'teacher', 'student'],
+            ['super_admin', 'admin', 'teacher', 'student','parent'],
             true
         )) {
             header("Location: " . ROOT . "/home");
@@ -34,15 +34,15 @@ class Announcements extends Controller
        BLOCK STUDENTS FROM WRITE ACTIONS
     ===================================================== */
 
-    private function checkWriteAccess()
-    {
-        $rank = $_SESSION['rank'] ?? '';
+   private function checkWriteAccess()
+{
+    $rank = $_SESSION['rank'] ?? '';
 
-        if ($rank === 'student') {
-            header("Location: " . ROOT . "/announcements");
-            exit;
-        }
+    if (in_array($rank, ['student', 'parent'], true)) {
+        header("Location: " . ROOT . "/announcements");
+        exit;
     }
+}
 
 
     /* =====================================================
