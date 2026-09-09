@@ -178,6 +178,12 @@ class SchoolAdmin extends Controller
         $announcementModel =
     $this->model('AnnouncementModel');
 
+    $data['recentAnnouncements'] =
+    $announcementModel->getRecentAnnouncements(
+        $school_id,
+        5
+    );
+
         /*
 ========================================
 UPCOMING EVENTS

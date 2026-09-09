@@ -89,7 +89,7 @@ class Announcements extends Controller
         $rank = $_SESSION['rank'] ?? '';
 
         $schoolModel =
-            $this->model('SchoolModel');
+            $this->model('School');
 
         $schools = [];
 
@@ -335,7 +335,7 @@ class Announcements extends Controller
                 );
 
             $schoolModel =
-                $this->model('SchoolModel');
+                $this->model('School');
 
             $schools =
                 $schoolModel->getAllSchools();

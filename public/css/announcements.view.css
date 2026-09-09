@@ -990,3 +990,483 @@ body {
     }
 
 }
+
+/* =====================================================
+   ANNOUNCEMENT DETAILS
+===================================================== */
+
+.announcement-details-card {
+    background: #ffffff;
+    border: 1px solid #eadfe8;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 4px 18px rgba(70, 30, 70, 0.025);
+}
+
+
+/* =====================================================
+   DETAILS HEADER
+===================================================== */
+
+.announcement-details-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 25px 28px;
+
+    border-bottom: 1px solid #f0e9ef;
+}
+
+.announcement-details-label {
+    margin: 0 0 7px;
+
+    color: #a32675;
+
+    font-size: 9px;
+    font-weight: 700;
+
+    letter-spacing: 0.08em;
+}
+
+.announcement-details-header h2 {
+    margin: 0;
+
+    color: #302d3d;
+
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.announcement-status {
+    display: inline-flex;
+    align-items: center;
+
+    padding: 5px 10px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    white-space: nowrap;
+}
+
+.status-active {
+    background: #eff9f3;
+    border: 1px solid #cce8d6;
+    color: #28784a;
+}
+
+.status-inactive {
+    background: #fef2f4;
+    border: 1px solid #f3ccd4;
+    color: #b44747;
+}
+
+
+/* =====================================================
+   INFORMATION GRID
+===================================================== */
+
+.announcement-details-info {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, minmax(0, 1fr));
+
+    border-bottom: 1px solid #f0e9ef;
+}
+
+.announcement-detail-item {
+    padding: 20px 24px;
+
+    border-right: 1px solid #f0e9ef;
+}
+
+.announcement-detail-item:nth-child(3n) {
+    border-right: none;
+}
+
+.announcement-detail-item:nth-child(n + 4) {
+    border-top: 1px solid #f0e9ef;
+}
+
+.detail-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: #968e9b;
+
+    font-size: 9px;
+    font-weight: 600;
+
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.announcement-detail-item strong {
+    display: block;
+
+    color: #4a4451;
+
+    font-size: 11px;
+    font-weight: 600;
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.announcement-description-section {
+    padding: 25px 28px;
+}
+
+.announcement-description {
+    color: #625b68;
+
+    font-size: 12px;
+    line-height: 1.8;
+
+    white-space: normal;
+}
+
+
+/* =====================================================
+   DETAILS ACTIONS
+===================================================== */
+
+.announcement-details-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 18px 28px;
+
+    border-top: 1px solid #f0e9ef;
+
+    background: #fffafd;
+}
+
+
+/* =====================================================
+   HEADER BUTTONS
+===================================================== */
+
+.back-announcement-button,
+.edit-announcement-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 34px;
+
+    padding: 0 13px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: all 0.2s ease;
+}
+
+.back-announcement-button {
+    color: #756d79;
+
+    background: #ffffff;
+
+    border: 1px solid #e6dce5;
+}
+
+.back-announcement-button:hover {
+    color: #a32675;
+    border-color: #d9b7cd;
+}
+
+.edit-announcement-button {
+    color: #ffffff;
+
+    background: #a32675;
+
+    border: 1px solid #a32675;
+}
+
+.edit-announcement-button:hover {
+    background: #8d205f;
+    border-color: #8d205f;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 800px) {
+
+    .announcement-details-info {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .announcement-detail-item:nth-child(3n) {
+        border-right: 1px solid #f0e9ef;
+    }
+
+    .announcement-detail-item:nth-child(2n) {
+        border-right: none;
+    }
+
+    .announcement-detail-item:nth-child(n + 3) {
+        border-top: 1px solid #f0e9ef;
+    }
+
+}
+
+
+@media (max-width: 600px) {
+
+    .announcement-details-header {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .announcement-details-header h2 {
+        font-size: 18px;
+    }
+
+    .announcement-details-info {
+        grid-template-columns: 1fr;
+    }
+
+    .announcement-detail-item,
+    .announcement-detail-item:nth-child(3n),
+    .announcement-detail-item:nth-child(2n) {
+        border-right: none;
+        border-top: 1px solid #f0e9ef;
+    }
+
+    .announcement-detail-item:first-child {
+        border-top: none;
+    }
+
+    .announcement-description-section {
+        padding: 20px;
+    }
+
+    .announcement-details-actions {
+        padding: 15px 20px;
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .back-announcement-button,
+    .edit-announcement-button {
+        width: 100%;
+    }
+
+}
+
+/* =====================================================
+   EDIT ANNOUNCEMENT
+===================================================== */
+
+.announcement-form-card {
+    overflow: hidden;
+}
+
+.announcement-form-body {
+    padding: 26px 28px;
+}
+
+.announcement-form-body form {
+    width: 100%;
+}
+
+.announcement-form-body .form-group {
+    margin-bottom: 20px;
+}
+
+.announcement-form-body label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: #4d4653;
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.announcement-form-body input,
+.announcement-form-body textarea,
+.announcement-form-body select {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 10px 12px;
+
+    background: #ffffff;
+
+    border: 1px solid #dfd5df;
+    border-radius: 8px;
+
+    color: #4b4552;
+
+    font-family: inherit;
+    font-size: 11px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.announcement-form-body input,
+.announcement-form-body select {
+    height: 38px;
+}
+
+.announcement-form-body textarea {
+    min-height: 150px;
+    resize: vertical;
+    line-height: 1.6;
+}
+
+.announcement-form-body input::placeholder,
+.announcement-form-body textarea::placeholder {
+    color: #aaa2ad;
+}
+
+.announcement-form-body input:focus,
+.announcement-form-body textarea:focus,
+.announcement-form-body select:focus {
+    border-color: #c98ab2;
+
+    box-shadow:
+        0 0 0 3px rgba(163, 38, 117, 0.08);
+}
+
+.announcement-form-body .form-row {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.announcement-form-body .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    gap: 10px;
+
+    padding-top: 8px;
+}
+
+.announcement-form-body .form-cancel-button,
+.announcement-form-body .form-submit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 35px;
+
+    padding: 0 15px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+    font-weight: 600;
+
+    text-decoration: none;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.announcement-form-body .form-cancel-button {
+    color: #756d79;
+
+    background: #ffffff;
+
+    border: 1px solid #e2d9e2;
+}
+
+.announcement-form-body .form-cancel-button:hover {
+    color: #a32675;
+    border-color: #d5b5cb;
+}
+
+.announcement-form-body .form-submit-button {
+    color: #ffffff;
+
+    background: #a32675;
+
+    border: 1px solid #a32675;
+}
+
+.announcement-form-body .form-submit-button:hover {
+    background: #8d205f;
+    border-color: #8d205f;
+}
+
+
+/* =====================================================
+   SECONDARY HEADER BUTTON
+===================================================== */
+
+.edit-announcement-button.secondary {
+    color: #756d79;
+
+    background: #ffffff;
+
+    border-color: #e2d9e2;
+}
+
+.edit-announcement-button.secondary:hover {
+    color: #a32675;
+
+    background: #fffafd;
+
+    border-color: #d5b5cb;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .announcement-form-body {
+        padding: 20px;
+    }
+
+    .announcement-form-body .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .announcement-form-body .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .announcement-form-body .form-cancel-button,
+    .announcement-form-body .form-submit-button {
+        width: 100%;
+    }
+
+}

@@ -140,10 +140,16 @@ protected function requireLogin()
     ========================================
     */
 
-    public function model($name)
-    {
-        require_once "../private/models/" . $name . ".php";
+   public function model($name)
+{
+    $modelPath = dirname(__DIR__) . "/models/" . $name . ".php";
 
-        return new $name();
+    if (!file_exists($modelPath)) {
+        die("Model file not found: " . $modelPath);
     }
+
+    require_once $modelPath;
+
+    return new $name();
+}
 }

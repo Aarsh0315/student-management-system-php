@@ -124,22 +124,6 @@ require "../private/views/includes/sidebar.view.php";
 
                 <?php if ($rank === 'admin'): ?>
 
-                    <a
-                        href="<?= ROOT ?>/home"
-                        class="back-dashboard"
-                    >
-                        ← Back to Dashboard
-                    </a>
-
-                <?php else: ?>
-
-                    <a
-                        href="<?= ROOT ?>/superadmin"
-                        class="back-dashboard"
-                    >
-                        ← Back to Dashboard
-                    </a>
-
                 <?php endif; ?>
 
 
