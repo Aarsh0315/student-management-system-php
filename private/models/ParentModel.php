@@ -586,4 +586,70 @@ public function getChildrenCount($parent_id)
 
     return (int) ($result[0]->total ?? 0);
 }
+
+/*
+========================================
+GET CHILD TEST COUNT
+PARENT DASHBOARD
+========================================
+*/
+
+public function getChildrenTestCount($parent_id)
+{
+    $query = "
+        SELECT COUNT(DISTINCT t.test_id) AS total
+        FROM tests t
+
+        INNER JOIN students st
+            ON t.school_id = st.school_id
+            AND t.class = st.class
+            AND t.division = st.division
+
+        INNER JOIN parent_student ps
+            ON ps.student_id = st.student_id
+
+        WHERE ps.parent_id = :parent_id
+        AND t.status = 'active'
+    ";
+
+    $result = $this->query(
+        $query,
+        [
+            'parent_id' => $parent_id
+        ]
+    );
+
+    return (int) ($result[0]->total ?? 0);
+}
+
+
+/*
+========================================
+GET CHILD RESULT COUNT
+PARENT DASHBOARD
+========================================
+*/
+
+public function getChildrenResultCount($parent_id)
+{
+    $query = "
+        SELECT COUNT(*) AS total
+
+        FROM results r
+
+        INNER JOIN parent_student ps
+            ON ps.student_id = r.student_id
+
+        WHERE ps.parent_id = :parent_id
+    ";
+
+    $result = $this->query(
+        $query,
+        [
+            'parent_id' => $parent_id
+        ]
+    );
+
+    return (int) ($result[0]->total ?? 0);
+}
 }

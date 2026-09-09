@@ -143,22 +143,117 @@ class ParentDashboard extends Controller
             );
 
 
-        /*
-        ========================================
-        TEST COUNT
-        ========================================
-        */
-
         $testCount = 0;
+$resultCount = 0;
+
+// Calculate test and result counts from parent's children
+if (!empty($children)) {
+
+    $studentTestsModel = $this->model('StudentTestsModel');
+
+    foreach ($children as $child) {
+
+        if (!empty($child->class) && !empty($child->division)) {
+
+            $childTestCount = $studentTestsModel->getStudentTestCount(
+                $school_id,
+                $child->class,
+                $child->division
+            );
+
+            $testCount += (int) $childTestCount;
+        }
+
+        if (!empty($child->student_id)) {
+
+            $childResultCount = $studentTestsModel->getStudentResultCount(
+                $child->student_id
+            );
+
+            $resultCount += (int) $childResultCount;
+        }
+    }
+}
 
 
         /*
         ========================================
-        RESULT COUNT
+        LOAD EVENT MODEL
         ========================================
         */
 
-        $resultCount = 0;
+        $eventModel =
+            $this->model('EventModel');
+
+
+        /*
+        ========================================
+        UPCOMING EVENTS
+        ========================================
+        
+        Parent can view events belonging
+        to their own school.
+
+        Events created by both:
+        - School Admin
+        - Teacher
+
+        will be visible because we are filtering
+        by school_id, not created_by.
+        */
+
+        $upcomingEvents =
+            $eventModel->getUpcomingEvents(
+                $school_id,
+                5
+            );
+
+
+        /*
+        ========================================
+        LOAD ANNOUNCEMENT MODEL
+        ========================================
+        */
+
+        $announcementModel =
+            $this->model('AnnouncementModel');
+
+
+        /*
+        ========================================
+        RECENT ANNOUNCEMENTS
+        ========================================
+        
+        Parent can view announcements belonging
+        to their own school.
+
+        Announcements created by both:
+        - School Admin
+        - Teacher
+
+        will be visible.
+        */
+
+        $recentAnnouncements =
+            $announcementModel->getRecentAnnouncements(
+                $school_id,
+                5
+            );
+
+
+        /*
+        ========================================
+        RECENT ACTIVITY
+        ========================================
+        
+        Keep this empty for now.
+
+        The dashboard view has a fallback that
+        displays the parent's children here
+        when no activity data is available.
+        */
+
+        $recentActivity = [];
 
 
         /*
@@ -170,11 +265,70 @@ class ParentDashboard extends Controller
         $this->view(
             'parent-dashboard',
             [
-                'parent'      => $parent,
-                'children'    => $children,
-                'childCount'  => $childCount,
-                'testCount'   => $testCount,
-                'resultCount' => $resultCount
+
+                /*
+                Parent information
+                */
+
+                'parent' =>
+                    $parent,
+
+
+                /*
+                Children
+                */
+
+                'children' =>
+                    $children,
+
+
+                /*
+                Children count
+                */
+
+                'childCount' =>
+                    $childCount,
+
+
+                /*
+                Tests
+                */
+
+                'testCount' =>
+                    $testCount,
+
+
+                /*
+                Results
+                */
+
+                'resultCount' =>
+                    $resultCount,
+
+
+                /*
+                Upcoming events
+                */
+
+                'upcomingEvents' =>
+                    $upcomingEvents,
+
+
+                /*
+                Recent announcements
+                */
+
+                'recentAnnouncements' =>
+                    $recentAnnouncements,
+
+
+                /*
+                Recent activity
+                */
+
+                'recentActivity' =>
+                    $recentActivity
+
             ]
         );
     }
