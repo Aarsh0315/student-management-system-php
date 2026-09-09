@@ -550,7 +550,23 @@ $initial = strtoupper(
 
             </div>
 
+                <!-- SCHOOL NAME -->
 
+<div class="details-item">
+
+    <span>
+        School Name
+    </span>
+
+    <strong>
+
+        <?= htmlspecialchars(
+            $student->school_name ?? '-'
+        ) ?>
+
+    </strong>
+
+</div>
 
             <!-- SCHOOL ID -->
 
