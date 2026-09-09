@@ -170,6 +170,10 @@ class StudentDashboard extends Controller
 
         $recentTests = [];
 
+        $upcomingEvents = [];
+
+        $recentAnnouncements = [];
+
 
         /*
         ========================================
@@ -219,6 +223,58 @@ class StudentDashboard extends Controller
 
         /*
         ========================================
+        LOAD EVENTS MODEL
+        ========================================
+        */
+
+        if ($school_id) {
+
+            $eventModel =
+                $this->model('EventModel');
+
+
+            /*
+            ----------------------------------------
+            UPCOMING EVENTS
+            ----------------------------------------
+            */
+
+            $upcomingEvents =
+                $eventModel->getUpcomingEvents(
+                    $school_id,
+                    5
+                );
+        }
+
+
+        /*
+        ========================================
+        LOAD ANNOUNCEMENTS MODEL
+        ========================================
+        */
+
+        if ($school_id) {
+
+            $announcementModel =
+                $this->model('AnnouncementModel');
+
+
+            /*
+            ----------------------------------------
+            RECENT ANNOUNCEMENTS
+            ----------------------------------------
+            */
+
+            $recentAnnouncements =
+                $announcementModel->getRecentAnnouncements(
+                    $school_id,
+                    5
+                );
+        }
+
+
+        /*
+        ========================================
         LOAD STUDENT RESULTS MODEL
         ========================================
         */
@@ -248,10 +304,12 @@ class StudentDashboard extends Controller
         $this->view(
             'student-dashboard',
             [
-                'student'     => $student,
-                'testCount'   => $testCount,
-                'resultCount' => $resultCount,
-                'recentTests' => $recentTests
+                'student'             => $student,
+                'testCount'           => $testCount,
+                'resultCount'         => $resultCount,
+                'recentTests'         => $recentTests,
+                'upcomingEvents'      => $upcomingEvents,
+                'recentAnnouncements' => $recentAnnouncements
             ]
         );
     }

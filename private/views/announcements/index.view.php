@@ -7,6 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 $announcements = $data['announcements'] ?? [];
 
 $rank = $_SESSION['rank'] ?? '';
+$user_id = $_SESSION['user_id'] ?? null;
 
 ?>
 
@@ -113,8 +114,10 @@ require "../private/views/includes/sidebar.view.php";
                 </h1>
 
                 <p class="announcements-description">
-                    Manage important announcements and
+
+                    View important announcements and
                     information for your school.
+
                 </p>
 
             </div>
@@ -122,17 +125,16 @@ require "../private/views/includes/sidebar.view.php";
 
             <div class="announcements-header-actions">
 
-                <?php if ($rank === 'admin'): ?>
+                <?php if ($rank !== 'student'): ?>
+
+                    <a
+                        href="<?= ROOT ?>/announcements/create"
+                        class="add-announcement-button"
+                    >
+                        + Add Announcement
+                    </a>
 
                 <?php endif; ?>
-
-
-                <a
-                    href="<?= ROOT ?>/announcements/create"
-                    class="add-announcement-button"
-                >
-                    + Add Announcement
-                </a>
 
             </div>
 
@@ -156,7 +158,7 @@ require "../private/views/includes/sidebar.view.php";
                         </h2>
 
                         <p>
-                            View and manage school announcements.
+                            View important school announcements.
                         </p>
 
                     </div>
@@ -176,6 +178,10 @@ require "../private/views/includes/sidebar.view.php";
                 </div>
 
 
+                <!-- =================================================
+                     ANNOUNCEMENTS TABLE
+                ================================================== -->
+
                 <div class="announcements-table-wrapper">
 
                     <table class="announcements-table">
@@ -188,21 +194,30 @@ require "../private/views/includes/sidebar.view.php";
                                     Announcement
                                 </th>
 
-                                <th>
-                                    School
-                                </th>
+
+                                <?php if ($rank === 'super_admin'): ?>
+
+                                    <th>
+                                        School
+                                    </th>
+
+                                <?php endif; ?>
+
 
                                 <th>
                                     Date
                                 </th>
 
+
                                 <th>
                                     Status
                                 </th>
 
+
                                 <th>
                                     Created By
                                 </th>
+
 
                                 <th>
                                     Action
@@ -215,47 +230,84 @@ require "../private/views/includes/sidebar.view.php";
 
                         <tbody>
 
-                            <?php foreach (
-                                $announcements
-                                as $announcement
-                            ): ?>
 
-                                <tr>
+                        <?php foreach (
+                            $announcements
+                            as $announcement
+                        ): ?>
 
 
-                                    <!-- ANNOUNCEMENT -->
+                            <?php
 
-                                    <td class="announcement-title-cell">
+                            /*
+                             * ANNOUNCEMENT MANAGEMENT PERMISSION
+                             *
+                             * Super Admin -> Can manage
+                             * Admin       -> Can manage
+                             * Teacher     -> Can manage own announcements
+                             * Student     -> View only
+                             */
 
-                                        <strong>
+                            $canManageAnnouncement =
+                                in_array(
+                                    $rank,
+                                    ['super_admin', 'admin'],
+                                    true
+                                )
+                                ||
+                                (
+                                    $rank === 'teacher'
+                                    &&
+                                    (int)($announcement->created_by ?? 0)
+                                    ===
+                                    (int)$user_id
+                                );
+
+                            ?>
+
+
+                            <tr>
+
+
+                                <!-- =================================
+                                     ANNOUNCEMENT
+                                ================================== -->
+
+                                <td class="announcement-title-cell">
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            $announcement->title ?? '—'
+                                        ) ?>
+
+                                    </strong>
+
+
+                                    <?php if (
+                                        !empty(
+                                            $announcement->description
+                                        )
+                                    ): ?>
+
+                                        <span>
 
                                             <?= htmlspecialchars(
-                                                $announcement->title
+                                                $announcement->description
                                             ) ?>
 
-                                        </strong>
+                                        </span>
+
+                                    <?php endif; ?>
+
+                                </td>
 
 
-                                        <?php if (
-                                            !empty(
-                                                $announcement->description
-                                            )
-                                        ): ?>
+                                <!-- =================================
+                                     SCHOOL
+                                ================================== -->
 
-                                            <span>
-
-                                                <?= htmlspecialchars(
-                                                    $announcement->description
-                                                ) ?>
-
-                                            </span>
-
-                                        <?php endif; ?>
-
-                                    </td>
-
-
-                                    <!-- SCHOOL -->
+                                <?php if ($rank === 'super_admin'): ?>
 
                                     <td>
 
@@ -264,11 +316,9 @@ require "../private/views/includes/sidebar.view.php";
                                             <?= !empty(
                                                 $announcement->school_name
                                             )
-
                                                 ? htmlspecialchars(
                                                     $announcement->school_name
                                                 )
-
                                                 : '—'
                                             ?>
 
@@ -276,10 +326,20 @@ require "../private/views/includes/sidebar.view.php";
 
                                     </td>
 
+                                <?php endif; ?>
 
-                                    <!-- DATE -->
 
-                                    <td class="date-cell">
+                                <!-- =================================
+                                     DATE
+                                ================================== -->
+
+                                <td class="date-cell">
+
+                                    <?php if (
+                                        !empty(
+                                            $announcement->announcement_date
+                                        )
+                                    ): ?>
 
                                         <?= date(
                                             'd M Y',
@@ -288,85 +348,106 @@ require "../private/views/includes/sidebar.view.php";
                                             )
                                         ) ?>
 
-                                    </td>
+                                    <?php else: ?>
+
+                                        —
+
+                                    <?php endif; ?>
+
+                                </td>
 
 
-                                    <!-- STATUS -->
+                                <!-- =================================
+                                     STATUS
+                                ================================== -->
 
-                                    <td>
+                                <td>
 
-                                        <?php
+                                    <?php
 
-                                        $statusClass =
-                                            $announcement->status === 'active'
-                                                ? 'status-active'
-                                                : 'status-inactive';
+                                    $statusClass =
+                                        ($announcement->status ?? '') === 'active'
+                                            ? 'status-active'
+                                            : 'status-inactive';
 
-                                        ?>
+                                    ?>
 
-                                        <span
-                                            class="announcement-status
-                                            <?= $statusClass ?>"
-                                        >
-
-                                            <?= htmlspecialchars(
-                                                ucfirst(
-                                                    $announcement->status
-                                                )
-                                            ) ?>
-
-                                        </span>
-
-                                    </td>
-
-
-                                    <!-- CREATED BY -->
-
-                                    <td>
-
-                                        <?php
-
-                                        $createdBy = trim(
-                                            ($announcement->firstname ?? '')
-                                            . ' ' .
-                                            ($announcement->lastname ?? '')
-                                        );
-
-                                        ?>
+                                    <span
+                                        class="announcement-status <?= $statusClass ?>"
+                                    >
 
                                         <?= htmlspecialchars(
-                                            $createdBy ?: '—'
+                                            ucfirst(
+                                                $announcement->status
+                                                ?? 'Inactive'
+                                            )
                                         ) ?>
 
-                                    </td>
+                                    </span>
+
+                                </td>
 
 
-                                    <!-- ACTION -->
+                                <!-- =================================
+                                     CREATED BY
+                                ================================== -->
 
-                                    <td>
+                                <td>
 
-                                        <div class="announcement-actions">
+                                    <?php
 
+                                    $createdBy = trim(
+                                        ($announcement->firstname ?? '')
+                                        . ' ' .
+                                        ($announcement->lastname ?? '')
+                                    );
+
+                                    ?>
+
+                                    <?= htmlspecialchars(
+                                        $createdBy ?: '—'
+                                    ) ?>
+
+                                </td>
+
+
+                                <!-- =================================
+                                     ACTION
+                                ================================== -->
+
+                                <td>
+
+                                    <div class="announcement-actions">
+
+
+                                        <!-- VIEW -->
+
+                                        <a
+                                            href="<?= ROOT ?>/announcements/details/<?= urlencode($announcement->announcement_id) ?>"
+                                            class="action-view"
+                                        >
+                                            View
+                                        </a>
+
+
+                                        <?php if ($canManageAnnouncement): ?>
+
+
+                                            <!-- EDIT -->
 
                                             <a
-                                                href="<?= ROOT ?>/announcements/details/<?= $announcement->announcement_id ?>"
-                                                class="action-view"
-                                            >
-                                                View
-                                            </a>
-
-
-                                            <a
-                                                href="<?= ROOT ?>/announcements/edit/<?= $announcement->announcement_id ?>"
+                                                href="<?= ROOT ?>/announcements/edit/<?= urlencode($announcement->announcement_id) ?>"
                                                 class="action-edit"
                                             >
                                                 Edit
                                             </a>
 
 
+                                            <!-- DELETE -->
+
                                             <form
                                                 method="POST"
-                                                action="<?= ROOT ?>/announcements/delete/<?= $announcement->announcement_id ?>"
+                                                action="<?= ROOT ?>/announcements/delete/<?= urlencode($announcement->announcement_id) ?>"
                                                 onsubmit="return confirm('Are you sure you want to delete this announcement?');"
                                             >
 
@@ -382,20 +463,26 @@ require "../private/views/includes/sidebar.view.php";
                                             </form>
 
 
-                                        </div>
-
-                                    </td>
+                                        <?php endif; ?>
 
 
-                                </tr>
+                                    </div>
 
-                            <?php endforeach; ?>
+                                </td>
+
+
+                            </tr>
+
+
+                        <?php endforeach; ?>
+
 
                         </tbody>
 
                     </table>
 
                 </div>
+
 
             </section>
 
@@ -413,20 +500,28 @@ require "../private/views/includes/sidebar.view.php";
                     AN
                 </div>
 
+
                 <h2>
                     No Announcements Found
                 </h2>
+
 
                 <p>
                     There are currently no announcements available.
                 </p>
 
-                <a
-                    href="<?= ROOT ?>/announcements/create"
-                    class="add-announcement-button"
-                >
-                    + Create Your First Announcement
-                </a>
+
+                <?php if ($rank !== 'student'): ?>
+
+                    <a
+                        href="<?= ROOT ?>/announcements/create"
+                        class="add-announcement-button"
+                    >
+                        + Create Your First Announcement
+                    </a>
+
+                <?php endif; ?>
+
 
             </section>
 

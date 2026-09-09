@@ -1,5 +1,11 @@
 <?php
 
+/*
+=====================================================
+STUDENT DASHBOARD
+=====================================================
+*/
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
@@ -11,12 +17,16 @@ STUDENT INFORMATION
 =====================================================
 */
 
-$firstname = $_SESSION['firstname'] ?? 'Student';
-$lastname  = $_SESSION['lastname'] ?? '';
+$firstname =
+    $_SESSION['firstname'] ?? 'Student';
 
-$initial = strtoupper(
-    substr($firstname, 0, 1)
-);
+$lastname =
+    $_SESSION['lastname'] ?? '';
+
+$initial =
+    strtoupper(
+        substr($firstname, 0, 1)
+    );
 
 
 /*
@@ -25,13 +35,30 @@ DASHBOARD DATA
 =====================================================
 */
 
-$student = $data['student'] ?? null;
+$student =
+    $data['student'] ?? null;
 
-$testCount = $data['testCount'] ?? 0;
+$testCount =
+    $data['testCount'] ?? 0;
 
-$resultCount = $data['resultCount'] ?? 0;
+$resultCount =
+    $data['resultCount'] ?? 0;
 
-$recentTests = $data['recentTests'] ?? [];
+$recentTests =
+    $data['recentTests'] ?? [];
+
+
+/*
+=====================================================
+EVENTS & ANNOUNCEMENTS
+=====================================================
+*/
+
+$upcomingEvents =
+    $data['upcomingEvents'] ?? [];
+
+$recentAnnouncements =
+    $data['recentAnnouncements'] ?? [];
 
 
 /*
@@ -40,9 +67,11 @@ STUDENT CLASS INFORMATION
 =====================================================
 */
 
-$class = $student->class ?? '-';
+$class =
+    $student->class ?? '-';
 
-$division = $student->division ?? '-';
+$division =
+    $student->division ?? '-';
 
 ?>
 
@@ -83,7 +112,7 @@ $division = $student->division ?? '-';
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-dashboard.view.css?v=3"
+        href="<?= ROOT ?>/css/student-dashboard.view.css?v=4"
     >
 
 
@@ -100,10 +129,14 @@ $division = $student->division ?? '-';
 <body>
 
 
-<?php require "../private/views/includes/nav.view.php"; ?>
+<?php
+require "../private/views/includes/nav.view.php";
+?>
 
 
-<?php require "../private/views/includes/sidebar.view.php"; ?>
+<?php
+require "../private/views/includes/sidebar.view.php";
+?>
 
 
 <!-- =====================================================
@@ -127,20 +160,14 @@ $division = $student->division ?? '-';
                     STUDENT OVERVIEW
                 </p>
 
-
                 <h1>
-
                     Welcome back,
                     <?= htmlspecialchars($firstname) ?>
-
                 </h1>
 
-
                 <p class="welcome-description">
-
                     View your class, tests, results
                     and academic activities.
-
                 </p>
 
             </div>
@@ -182,13 +209,11 @@ $division = $student->division ?? '-';
                     CL
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         My Class
                     </span>
-
 
                     <strong class="kpi-value">
 
@@ -204,7 +229,6 @@ $division = $student->division ?? '-';
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -227,24 +251,17 @@ $division = $student->division ?? '-';
                     TS
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Tests
                     </span>
 
-
                     <strong class="kpi-value">
-
-                        <?= number_format(
-                            $testCount
-                        ) ?>
-
+                        <?= number_format($testCount) ?>
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -267,30 +284,49 @@ $division = $student->division ?? '-';
                     RS
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Results
                     </span>
 
-
                     <strong class="kpi-value">
-
-                        <?= number_format(
-                            $resultCount
-                        ) ?>
-
+                        <?= number_format($resultCount) ?>
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
                 </span>
 
             </a>
+
+
+
+            <!-- =================================================
+                 ACADEMIC STATUS
+            ================================================== -->
+
+            <div class="kpi-card">
+
+                <div class="kpi-icon">
+                    AC
+                </div>
+
+                <div class="kpi-content">
+
+                    <span class="kpi-label">
+                        Academic Status
+                    </span>
+
+                    <strong class="kpi-value">
+                        Active
+                    </strong>
+
+                </div>
+
+            </div>
 
 
         </section>
@@ -305,36 +341,266 @@ $division = $student->division ?? '-';
 
 
             <!-- =================================================
-                 RECENT TESTS
+                 UPCOMING EVENTS
             ================================================== -->
 
-            <div class="activity-card">
-
+            <section class="dashboard-card">
 
                 <div class="card-header">
 
                     <div>
 
                         <h2>
-                            Recent Tests
+                            Upcoming Events
                         </h2>
 
                         <p>
-                            Your latest tests and assessments.
+                            Events happening in your school.
                         </p>
 
                     </div>
 
-
                     <a
-                        href="<?= ROOT ?>/studenttests"
-                        class="activity-count"
+                        href="<?= ROOT ?>/events"
+                        class="card-link"
                     >
-                        View All
+                        View All →
                     </a>
 
                 </div>
 
+
+                <div class="event-list">
+
+                    <?php if (!empty($upcomingEvents)): ?>
+
+                        <?php foreach ($upcomingEvents as $event): ?>
+
+                            <a
+                                href="<?= ROOT ?>/events/details/<?= (int)$event->event_id ?>"
+                                class="event-item"
+                            >
+
+                                <div class="event-date">
+
+                                    <strong>
+                                        <?= date(
+                                            'd',
+                                            strtotime($event->event_date)
+                                        ) ?>
+                                    </strong>
+
+                                    <span>
+                                        <?= date(
+                                            'M',
+                                            strtotime($event->event_date)
+                                        ) ?>
+                                    </span>
+
+                                </div>
+
+
+                                <div class="event-info">
+
+                                    <strong>
+                                        <?= htmlspecialchars(
+                                            $event->title
+                                        ) ?>
+                                    </strong>
+
+                                    <span>
+
+                                        <?= htmlspecialchars(
+                                            $event->start_time ?? ''
+                                        ) ?>
+
+                                        <?php if (!empty($event->location)): ?>
+
+                                            ·
+
+                                            <?= htmlspecialchars(
+                                                $event->location
+                                            ) ?>
+
+                                        <?php endif; ?>
+
+                                    </span>
+
+                                </div>
+
+
+                                <span class="event-arrow">
+                                    →
+                                </span>
+
+                            </a>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <div class="empty-state">
+
+                            <strong>
+                                No upcoming events
+                            </strong>
+
+                            <span>
+                                There are no upcoming school events.
+                            </span>
+
+                        </div>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 ANNOUNCEMENTS
+            ================================================== -->
+
+            <section class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Announcements
+                        </h2>
+
+                        <p>
+                            Recent announcements from your school.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="<?= ROOT ?>/announcements"
+                        class="card-link"
+                    >
+                        View All →
+                    </a>
+
+                </div>
+
+
+                <div class="announcement-list">
+
+                    <?php if (!empty($recentAnnouncements)): ?>
+
+                        <?php foreach (
+                            $recentAnnouncements
+                            as $announcement
+                        ): ?>
+
+                            <a
+                                href="<?= ROOT ?>/announcements/details/<?= (int)$announcement->announcement_id ?>"
+                                class="announcement-item"
+                            >
+
+                                <div class="announcement-date">
+
+                                    <strong>
+                                        <?= date(
+                                            'd',
+                                            strtotime(
+                                                $announcement->announcement_date
+                                            )
+                                        ) ?>
+                                    </strong>
+
+                                    <span>
+                                        <?= date(
+                                            'M',
+                                            strtotime(
+                                                $announcement->announcement_date
+                                            )
+                                        ) ?>
+                                    </span>
+
+                                </div>
+
+
+                                <div class="announcement-info">
+
+                                    <strong>
+                                        <?= htmlspecialchars(
+                                            $announcement->title
+                                        ) ?>
+                                    </strong>
+
+                                    <span>
+                                        <?= htmlspecialchars(
+                                            $announcement->description
+                                        ) ?>
+                                    </span>
+
+                                </div>
+
+
+                                <span class="announcement-arrow">
+                                    →
+                                </span>
+
+                            </a>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <div class="empty-state">
+
+                            <strong>
+                                No announcements
+                            </strong>
+
+                            <span>
+                                There are no recent announcements.
+                            </span>
+
+                        </div>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 RECENT ACTIVITY
+            ================================================== -->
+
+            <section class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Recent Activity
+                        </h2>
+
+                        <p>
+                            Your latest academic activities.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="<?= ROOT ?>/studenttests"
+                        class="card-link"
+                    >
+                        View All →
+                    </a>
+
+                </div>
 
 
                 <div class="activity-list">
@@ -345,12 +611,10 @@ $division = $student->division ?? '-';
 
                         <?php foreach ($recentTests as $test): ?>
 
-
                             <a
                                 href="<?= ROOT ?>/studenttests"
                                 class="activity-item"
                             >
-
 
                                 <div class="activity-icon">
                                     TS
@@ -374,18 +638,16 @@ $division = $student->division ?? '-';
                                         <?php
 
                                         $testClass =
-                                            $test->class
-                                            ?? null;
+                                            $test->class ?? null;
 
                                         $testDivision =
-                                            $test->division
-                                            ?? null;
+                                            $test->division ?? null;
 
                                         $testSubject =
-                                            $test->subject
-                                            ?? null;
+                                            $test->subject ?? null;
 
                                         ?>
+
 
                                         <?php if ($testClass): ?>
 
@@ -403,11 +665,13 @@ $division = $student->division ?? '-';
 
                                             <?php endif; ?>
 
+
                                         <?php elseif ($testSubject): ?>
 
                                             <?= htmlspecialchars(
                                                 $testSubject
                                             ) ?>
+
 
                                         <?php else: ?>
 
@@ -438,9 +702,7 @@ $division = $student->division ?? '-';
 
                                 </time>
 
-
                             </a>
-
 
                         <?php endforeach; ?>
 
@@ -448,23 +710,16 @@ $division = $student->division ?? '-';
                     <?php else: ?>
 
 
-                        <div class="activity-empty">
-
-
-                            <div class="empty-icon">
-                                TS
-                            </div>
-
+                        <div class="empty-state">
 
                             <strong>
-                                No recent tests
+                                No recent activity
                             </strong>
 
-
                             <span>
-                                Your recent tests will appear here.
+                                Your recent academic activity
+                                will appear here.
                             </span>
-
 
                         </div>
 
@@ -474,224 +729,7 @@ $division = $student->division ?? '-';
 
                 </div>
 
-
-            </div>
-
-
-
-            <!-- =================================================
-                 QUICK ACCESS
-            ================================================== -->
-
-            <div class="management-card">
-
-
-                <div class="card-header">
-
-                    <div>
-
-                        <h2>
-                            Quick Access
-                        </h2>
-
-                        <p>
-                            Access your main academic areas.
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-
-                <div class="management-list">
-
-
-                    <!-- =================================================
-                         TESTS
-                    ================================================== -->
-
-                    <a
-                        href="<?= ROOT ?>/studenttests"
-                        class="management-item"
-                    >
-
-                        <div class="management-icon">
-                            TS
-                        </div>
-
-
-                        <div class="management-info">
-
-                            <strong>
-                                Tests
-                            </strong>
-
-                            <small>
-                                View available tests
-                            </small>
-
-                        </div>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- =================================================
-                         MY CLASS
-                    ================================================== -->
-
-                    <a
-                        href="<?= ROOT ?>/studentclasses"
-                        class="management-item"
-                    >
-
-                        <div class="management-icon">
-                            CL
-                        </div>
-
-
-                        <div class="management-info">
-
-                            <strong>
-                                My Class
-                            </strong>
-
-                            <small>
-                                View your class and division
-                            </small>
-
-                        </div>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- =================================================
-                         RESULTS
-                    ================================================== -->
-
-                    <a
-                        href="<?= ROOT ?>/studentresults"
-                        class="management-item"
-                    >
-
-                        <div class="management-icon">
-                            RS
-                        </div>
-
-
-                        <div class="management-info">
-
-                            <strong>
-                                Results
-                            </strong>
-
-                            <small>
-                                View your academic results
-                            </small>
-
-                        </div>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-                </div>
-
-
-            </div>
-
-
-        </section>
-
-
-
-        <!-- =================================================
-             STUDENT SUMMARY
-        ================================================== -->
-
-        <section class="system-summary">
-
-
-            <!-- CLASS -->
-
-            <div class="summary-item">
-
-                <span class="summary-label">
-                    Class
-                </span>
-
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $class
-                    ) ?>
-
-                </strong>
-
-            </div>
-
-
-
-            <div class="summary-divider"></div>
-
-
-
-            <!-- DIVISION -->
-
-            <div class="summary-item">
-
-                <span class="summary-label">
-                    Division
-                </span>
-
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $division
-                    ) ?>
-
-                </strong>
-
-            </div>
-
-
-
-            <div class="summary-divider"></div>
-
-
-
-            <!-- ACCOUNT -->
-
-            <div class="summary-item">
-
-                <span class="summary-label">
-                    Your Account
-                </span>
-
-
-                <strong>
-                    Student
-                </strong>
-
-            </div>
+            </section>
 
 
         </section>
@@ -703,7 +741,9 @@ $division = $student->division ?? '-';
 
 
 
-<?php require "../private/views/includes/footer.view.php"; ?>
+<?php
+require "../private/views/includes/footer.view.php";
+?>
 
 
 <script src="<?= ROOT ?>/js/nav.js"></script>

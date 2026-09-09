@@ -99,7 +99,7 @@ $user_id = $_SESSION['user_id'] ?? null;
             </h1>
 
             <p class="welcome-text">
-                Manage upcoming and past school events.
+                View upcoming and past school events.
             </p>
 
         </div>
@@ -107,12 +107,16 @@ $user_id = $_SESSION['user_id'] ?? null;
 
         <div class="welcome-actions">
 
-            <a
-                href="<?= ROOT ?>/events/create"
-                class="add-event-button"
-            >
-                + Add Event
-            </a>
+            <?php if ($rank !== 'student'): ?>
+
+                <a
+                    href="<?= ROOT ?>/events/create"
+                    class="add-event-button"
+                >
+                    + Add Event
+                </a>
+
+            <?php endif; ?>
 
         </div>
 
@@ -178,6 +182,7 @@ $user_id = $_SESSION['user_id'] ?? null;
                                 Event
                             </th>
 
+
                             <?php if ($rank === 'super_admin'): ?>
 
                                 <th>
@@ -186,25 +191,31 @@ $user_id = $_SESSION['user_id'] ?? null;
 
                             <?php endif; ?>
 
+
                             <th>
                                 Date
                             </th>
+
 
                             <th>
                                 Time
                             </th>
 
+
                             <th>
                                 Location
                             </th>
+
 
                             <th>
                                 Status
                             </th>
 
+
                             <th>
                                 Created By
                             </th>
+
 
                             <th>
                                 Action
@@ -221,13 +232,30 @@ $user_id = $_SESSION['user_id'] ?? null;
                     <?php foreach ($events as $event): ?>
 
                         <?php
-                            $canManageEvent =
-                                in_array($rank, ['super_admin', 'admin'], true) ||
-                                (
-                                    $rank === 'teacher' &&
-                                    (int)$event->created_by === (int)$user_id
-                                );
-                            ?>
+
+                        /*
+                         * EVENT MANAGEMENT PERMISSION
+                         *
+                         * Super Admin  -> Can manage
+                         * Admin        -> Can manage
+                         * Teacher      -> Can manage own events only
+                         * Student      -> View only
+                         */
+
+                        $canManageEvent =
+                            in_array(
+                                $rank,
+                                ['super_admin', 'admin'],
+                                true
+                            )
+                            ||
+                            (
+                                $rank === 'teacher'
+                                &&
+                                (int) $event->created_by === (int) $user_id
+                            );
+
+                        ?>
 
 
                         <tr>
@@ -448,58 +476,63 @@ $user_id = $_SESSION['user_id'] ?? null;
 
                             </td>
 
+
                             <!-- =================================
                                  ACTION
                             ================================== -->
 
                             <td>
 
-                               <div class="event-actions">
-
-    <!-- VIEW -->
-
-    <a
-        href="<?= ROOT ?>/events/details/<?= urlencode($event->event_id) ?>"
-        class="action-view"
-    >
-        View
-    </a>
+                                <div class="event-actions">
 
 
-    <?php if ($canManageEvent): ?>
+                                    <!-- VIEW -->
 
-        <!-- EDIT -->
-
-        <a
-            href="<?= ROOT ?>/events/edit/<?= urlencode($event->event_id) ?>"
-            class="action-edit"
-        >
-            Edit
-        </a>
+                                    <a
+                                        href="<?= ROOT ?>/events/details/<?= urlencode($event->event_id) ?>"
+                                        class="action-view"
+                                    >
+                                        View
+                                    </a>
 
 
-        <!-- DELETE -->
+                                    <?php if ($canManageEvent): ?>
 
-        <form
-            method="POST"
-            action="<?= ROOT ?>/events/delete/<?= urlencode($event->event_id) ?>"
-            onsubmit="return confirm('Are you sure you want to delete this event?');"
-        >
 
-            <?= CSRF::field() ?>
+                                        <!-- EDIT -->
 
-            <button
-                type="submit"
-                class="action-delete"
-            >
-                Delete
-            </button>
+                                        <a
+                                            href="<?= ROOT ?>/events/edit/<?= urlencode($event->event_id) ?>"
+                                            class="action-edit"
+                                        >
+                                            Edit
+                                        </a>
 
-        </form>
 
-    <?php endif; ?>
+                                        <!-- DELETE -->
 
-</div>
+                                        <form
+                                            method="POST"
+                                            action="<?= ROOT ?>/events/delete/<?= urlencode($event->event_id) ?>"
+                                            onsubmit="return confirm('Are you sure you want to delete this event?');"
+                                        >
+
+                                            <?= CSRF::field() ?>
+
+                                            <button
+                                                type="submit"
+                                                class="action-delete"
+                                            >
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+
+                                    <?php endif; ?>
+
+
+                                </div>
 
                             </td>
 
@@ -539,16 +572,22 @@ $user_id = $_SESSION['user_id'] ?? null;
 
 
                 <p>
+
                     There are currently no events registered.
+
                 </p>
 
 
-                <a
-                    href="<?= ROOT ?>/events/create"
-                    class="add-event-button"
-                >
-                    + Create Event
-                </a>
+                <?php if ($rank !== 'student'): ?>
+
+                    <a
+                        href="<?= ROOT ?>/events/create"
+                        class="add-event-button"
+                    >
+                        + Create Event
+                    </a>
+
+                <?php endif; ?>
 
 
             </div>
@@ -565,7 +604,7 @@ $user_id = $_SESSION['user_id'] ?? null;
 
 <!-- =====================================================
      FOOTER
-====================================================== -->
+===================================================== -->
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 

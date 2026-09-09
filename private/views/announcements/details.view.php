@@ -116,19 +116,20 @@ $rank = $_SESSION['rank'] ?? '';
 
                 <div class="announcements-header-actions">
 
-                    <a
-                        href="<?= ROOT ?>/announcements"
-                        class="back-announcement-button"
-                    >
-                        ← Back to Announcements
-                    </a>
+                    <!-- EDIT
+                         Students cannot see this button.
+                    -->
 
-                    <a
-                        href="<?= ROOT ?>/announcements/edit/<?= $announcement->announcement_id ?>"
-                        class="edit-announcement-button"
-                    >
-                        Edit Announcement
-                    </a>
+                    <?php if ($rank !== 'student'): ?>
+
+                        <a
+                            href="<?= ROOT ?>/announcements/edit/<?= urlencode($announcement->announcement_id) ?>"
+                            class="edit-announcement-button"
+                        >
+                            Edit Announcement
+                        </a>
+
+                    <?php endif; ?>
 
                 </div>
 
@@ -153,9 +154,11 @@ $rank = $_SESSION['rank'] ?? '';
                         </p>
 
                         <h2>
+
                             <?= htmlspecialchars(
-                                $announcement->title
+                                $announcement->title ?? '—'
                             ) ?>
+
                         </h2>
 
                     </div>
@@ -164,7 +167,7 @@ $rank = $_SESSION['rank'] ?? '';
                     <?php
 
                     $statusClass =
-                        $announcement->status === 'active'
+                        ($announcement->status ?? '') === 'active'
                             ? 'status-active'
                             : 'status-inactive';
 
@@ -173,11 +176,13 @@ $rank = $_SESSION['rank'] ?? '';
                     <span
                         class="announcement-status <?= $statusClass ?>"
                     >
+
                         <?= htmlspecialchars(
                             ucfirst(
-                                $announcement->status
+                                $announcement->status ?? 'Inactive'
                             )
                         ) ?>
+
                     </span>
 
                 </div>
@@ -187,6 +192,8 @@ $rank = $_SESSION['rank'] ?? '';
 
                 <div class="announcement-details-info">
 
+
+                    <!-- ANNOUNCEMENT ID -->
 
                     <div class="announcement-detail-item">
 
@@ -201,6 +208,8 @@ $rank = $_SESSION['rank'] ?? '';
                     </div>
 
 
+                    <!-- SCHOOL -->
+
                     <div class="announcement-detail-item">
 
                         <span class="detail-label">
@@ -208,13 +217,17 @@ $rank = $_SESSION['rank'] ?? '';
                         </span>
 
                         <strong>
+
                             <?= htmlspecialchars(
                                 $announcement->school_name ?? '—'
                             ) ?>
+
                         </strong>
 
                     </div>
 
+
+                    <!-- ANNOUNCEMENT DATE -->
 
                     <div class="announcement-detail-item">
 
@@ -223,16 +236,32 @@ $rank = $_SESSION['rank'] ?? '';
                         </span>
 
                         <strong>
-                            <?= date(
-                                'd M Y',
-                                strtotime(
+
+                            <?php if (
+                                !empty(
                                     $announcement->announcement_date
                                 )
-                            ) ?>
+                            ): ?>
+
+                                <?= date(
+                                    'd M Y',
+                                    strtotime(
+                                        $announcement->announcement_date
+                                    )
+                                ) ?>
+
+                            <?php else: ?>
+
+                                —
+
+                            <?php endif; ?>
+
                         </strong>
 
                     </div>
 
+
+                    <!-- CREATED BY -->
 
                     <div class="announcement-detail-item">
 
@@ -247,7 +276,8 @@ $rank = $_SESSION['rank'] ?? '';
                             $createdBy = trim(
                                 ($announcement->firstname ?? '')
                                 . ' '
-                                . ($announcement->lastname ?? '')
+                                .
+                                ($announcement->lastname ?? '')
                             );
 
                             ?>
@@ -261,6 +291,8 @@ $rank = $_SESSION['rank'] ?? '';
                     </div>
 
 
+                    <!-- CREATED AT -->
+
                     <div class="announcement-detail-item">
 
                         <span class="detail-label">
@@ -268,7 +300,10 @@ $rank = $_SESSION['rank'] ?? '';
                         </span>
 
                         <strong>
-                            <?= !empty($announcement->created_at)
+
+                            <?= !empty(
+                                $announcement->created_at
+                            )
                                 ? date(
                                     'd M Y, h:i A',
                                     strtotime(
@@ -277,10 +312,13 @@ $rank = $_SESSION['rank'] ?? '';
                                 )
                                 : '—'
                             ?>
+
                         </strong>
 
                     </div>
 
+
+                    <!-- LAST UPDATED -->
 
                     <div class="announcement-detail-item">
 
@@ -289,7 +327,10 @@ $rank = $_SESSION['rank'] ?? '';
                         </span>
 
                         <strong>
-                            <?= !empty($announcement->updated_at)
+
+                            <?= !empty(
+                                $announcement->updated_at
+                            )
                                 ? date(
                                     'd M Y, h:i A',
                                     strtotime(
@@ -298,6 +339,7 @@ $rank = $_SESSION['rank'] ?? '';
                                 )
                                 : '—'
                             ?>
+
                         </strong>
 
                     </div>
@@ -314,11 +356,12 @@ $rank = $_SESSION['rank'] ?? '';
                         Announcement
                     </span>
 
+
                     <div class="announcement-description">
 
                         <?= nl2br(
                             htmlspecialchars(
-                                $announcement->description
+                                $announcement->description ?? ''
                             )
                         ) ?>
 
@@ -331,6 +374,9 @@ $rank = $_SESSION['rank'] ?? '';
 
                 <div class="announcement-details-actions">
 
+
+                    <!-- BACK -->
+
                     <a
                         href="<?= ROOT ?>/announcements"
                         class="form-cancel-button"
@@ -338,12 +384,22 @@ $rank = $_SESSION['rank'] ?? '';
                         Back
                     </a>
 
-                    <a
-                        href="<?= ROOT ?>/announcements/edit/<?= $announcement->announcement_id ?>"
-                        class="form-submit-button"
-                    >
-                        Edit Announcement
-                    </a>
+
+                    <!-- EDIT
+                         Students cannot see this button.
+                    -->
+
+                    <?php if ($rank !== 'student'): ?>
+
+                        <a
+                            href="<?= ROOT ?>/announcements/edit/<?= urlencode($announcement->announcement_id) ?>"
+                            class="form-submit-button"
+                        >
+                            Edit Announcement
+                        </a>
+
+                    <?php endif; ?>
+
 
                 </div>
 
@@ -364,14 +420,19 @@ $rank = $_SESSION['rank'] ?? '';
                     AN
                 </div>
 
+
                 <h2>
                     Announcement Not Found
                 </h2>
 
+
                 <p>
+
                     The announcement you are looking for
                     could not be found.
+
                 </p>
+
 
                 <a
                     href="<?= ROOT ?>/announcements"

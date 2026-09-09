@@ -16,7 +16,11 @@ class Events extends Controller
 
         $rank = $_SESSION['rank'] ?? '';
 
-        if (!in_array($rank, ['super_admin', 'admin', 'teacher'], true)) {
+        if (!in_array(
+    $rank,
+    ['super_admin', 'admin', 'teacher', 'student'],
+    true
+)) {
     header("Location: " . ROOT . "/home");
     exit;
 }
@@ -185,6 +189,12 @@ class Events extends Controller
     public function create()
     {
         $this->checkAccess();
+        $rank = $_SESSION['rank'] ?? '';
+
+        if ($rank === 'student') {
+            header("Location: " . ROOT . "/events");
+            exit;
+}
 
         $rank = $_SESSION['rank'] ?? '';
 
@@ -506,6 +516,13 @@ class Events extends Controller
     public function edit($event_id = null)
     {
         $this->checkAccess();
+
+        $rank = $_SESSION['rank'] ?? '';
+
+        if ($rank === 'student') {
+            header("Location: " . ROOT . "/events");
+            exit;
+}
 
         if (!$event_id) {
 
@@ -905,6 +922,13 @@ class Events extends Controller
     $this->checkAccess();
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+
+    $rank = $_SESSION['rank'] ?? '';
+
+    if ($rank === 'student') {
+        header("Location: " . ROOT . "/events");
+        exit;
+    }
 
         header(
             "Location: " .
