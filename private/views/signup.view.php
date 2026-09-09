@@ -16,13 +16,11 @@ $error = $data['error'] ?? '';
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>
-        My School - Sign Up
-    </title>
+    <title>My School - Sign Up</title>
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/signup.view.css?v=4"
+        href="<?= ROOT ?>/css/signup.view.css?v=5"
     >
 
 </head>
@@ -34,89 +32,76 @@ $error = $data['error'] ?? '';
 <div class="signup-page">
 
 
-    <!-- ========================================
-         MAIN CONTAINER
-    ======================================== -->
+    <!-- BACKGROUND -->
+
+    <div class="background-shape shape-one"></div>
+
+    <div class="background-shape shape-two"></div>
+
+    <div class="background-dots"></div>
+
+
+    <!-- MAIN CONTAINER -->
 
     <div class="signup-container">
 
 
-        <!-- ========================================
-             LEFT PANEL
-        ======================================== -->
+        <!-- =====================================
+             LEFT BRAND PANEL
+        ====================================== -->
 
         <section class="signup-visual">
 
 
-            <!-- DECORATION -->
-
-            <div class="visual-circle circle-one"></div>
-
-            <div class="visual-circle circle-two"></div>
-
-            <div class="visual-dots"></div>
-
-
-            <!-- ========================================
-                 BRAND
-            ======================================== -->
-
-            <div class="brand">
-
-                <div class="brand-logo">
-                    🎓
-                </div>
-
-                <div>
-
-                    <strong>
-                        My School
-                    </strong>
-
-                    <small>
-                        School Management System
-                    </small>
-
-                </div>
-
-            </div>
-
-
-            <!-- ========================================
-                 CONTENT
-            ======================================== -->
-
             <div class="visual-content">
 
 
-                <p class="visual-label">
-                    GET STARTED
-                </p>
+                <!-- BRAND -->
+
+                <div class="brand">
+
+                    <div class="brand-logo">
+                        <span>MS</span>
+                    </div>
+
+                    <div class="brand-name">
+
+                        <strong>
+                            My School
+                        </strong>
+
+                        <small>
+                            Management System
+                        </small>
+
+                    </div>
+
+                </div>
 
 
-                <h1>
+                <!-- HERO -->
 
-                    Create your
+                <div class="visual-hero">
 
-                    <span>
-                        account.
+                    <span class="visual-label">
+                        GET STARTED
                     </span>
 
-                </h1>
+                    <h1>
+                        Build a better
+                        <span>school experience.</span>
+                    </h1>
+
+                    <p>
+                        Create your account and connect with
+                        a simple, secure platform built to bring
+                        your school community together.
+                    </p>
+
+                </div>
 
 
-                <p class="visual-description">
-
-                    Join My School and get access to a
-                    simple, secure platform designed to
-                    manage your school efficiently.
-
-                </p>
-
-
-                <!-- ========================================
-                     FEATURES
-                ======================================== -->
+                <!-- FEATURES -->
 
                 <div class="feature-list">
 
@@ -134,8 +119,7 @@ $error = $data['error'] ?? '';
                             </strong>
 
                             <p>
-                                Everything your school needs
-                                in one place.
+                                Manage everything from one place.
                             </p>
 
                         </div>
@@ -156,8 +140,7 @@ $error = $data['error'] ?? '';
                             </strong>
 
                             <p>
-                                Access designed for students,
-                                teachers and staff.
+                                Personalized access for every user.
                             </p>
 
                         </div>
@@ -178,8 +161,7 @@ $error = $data['error'] ?? '';
                             </strong>
 
                             <p>
-                                Keep your school information
-                                safe and organized.
+                                Your school information stays protected.
                             </p>
 
                         </div>
@@ -193,19 +175,16 @@ $error = $data['error'] ?? '';
             </div>
 
 
-            <!-- ========================================
-                 FOOTER
-            ======================================== -->
+            <!-- FOOTER -->
 
             <div class="visual-footer">
 
-                <span class="footer-shield">
-                    ✓
+                <span>
+                    © <?= date('Y') ?> My School
                 </span>
 
                 <span>
-                    © <?= date('Y') ?> My School.
-                    All rights reserved.
+                    Secure • Simple • Smart
                 </span>
 
             </div>
@@ -215,9 +194,9 @@ $error = $data['error'] ?? '';
 
 
 
-        <!-- ========================================
+        <!-- =====================================
              RIGHT FORM
-        ======================================== -->
+        ====================================== -->
 
         <section class="signup-form-section">
 
@@ -225,41 +204,71 @@ $error = $data['error'] ?? '';
             <div class="signup-card">
 
 
-                <!-- ========================================
-                     HEADER
-                ======================================== -->
+                <!-- MOBILE BRAND -->
+
+                <div class="mobile-brand">
+
+                    <div class="brand-logo">
+                        <span>MS</span>
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            My School
+                        </strong>
+
+                        <small>
+                            Management System
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <!-- HEADER -->
 
                 <div class="signup-header">
 
-                    <p class="signup-small">
-                        Account Setup
-                    </p>
+                    <span class="signup-small">
+                        ACCOUNT SETUP
+                    </span>
 
                     <h2>
-                        Create an account
+                        Create your account
                     </h2>
 
                     <p>
-                        Enter your information below.
+                        Fill in your details to get started.
                     </p>
 
                 </div>
 
 
-                <!-- ========================================
-                     ERROR
-                ======================================== -->
+                <!-- ERROR -->
 
                 <?php if (!empty($error)): ?>
 
-                    <div class="signup-error">
+                    <div
+                        class="signup-error"
+                        role="alert"
+                    >
 
-                        <span>
+                        <div class="error-icon">
                             !
-                        </span>
+                        </div>
 
                         <div>
-                            <?= htmlspecialchars($error) ?>
+
+                            <strong>
+                                Registration failed
+                            </strong>
+
+                            <span>
+                                <?= htmlspecialchars($error) ?>
+                            </span>
+
                         </div>
 
                     </div>
@@ -267,9 +276,7 @@ $error = $data['error'] ?? '';
                 <?php endif; ?>
 
 
-                <!-- ========================================
-                     FORM
-                ======================================== -->
+                <!-- FORM -->
 
                 <form
                     method="POST"
@@ -278,7 +285,7 @@ $error = $data['error'] ?? '';
                 >
 
 
-                    <!-- FIRST + LAST NAME -->
+                    <!-- NAME -->
 
                     <div class="form-row">
 
@@ -333,7 +340,21 @@ $error = $data['error'] ?? '';
                         <div class="input-wrapper">
 
                             <span class="input-icon">
-                                ✉
+
+                                <svg viewBox="0 0 24 24">
+
+                                    <rect
+                                        x="3"
+                                        y="5"
+                                        width="18"
+                                        height="14"
+                                        rx="2"
+                                    />
+
+                                    <path d="m4 7 8 6 8-6" />
+
+                                </svg>
+
                             </span>
 
                             <input
@@ -361,29 +382,33 @@ $error = $data['error'] ?? '';
                                 Gender
                             </label>
 
-                            <select
-                                id="gender"
-                                name="gender"
-                                required
-                            >
+                            <div class="select-wrapper">
 
-                                <option value="">
-                                    Select gender
-                                </option>
+                                <select
+                                    id="gender"
+                                    name="gender"
+                                    required
+                                >
 
-                                <option value="male">
-                                    Male
-                                </option>
+                                    <option value="">
+                                        Select gender
+                                    </option>
 
-                                <option value="female">
-                                    Female
-                                </option>
+                                    <option value="male">
+                                        Male
+                                    </option>
 
-                                <option value="other">
-                                    Other
-                                </option>
+                                    <option value="female">
+                                        Female
+                                    </option>
 
-                            </select>
+                                    <option value="other">
+                                        Other
+                                    </option>
+
+                                </select>
+
+                            </div>
 
                         </div>
 
@@ -394,29 +419,33 @@ $error = $data['error'] ?? '';
                                 User Type
                             </label>
 
-                            <select
-                                id="rank"
-                                name="rank"
-                                required
-                            >
+                            <div class="select-wrapper">
 
-                                <option value="">
-                                    Select user type
-                                </option>
+                                <select
+                                    id="rank"
+                                    name="rank"
+                                    required
+                                >
 
-                                <option value="student">
-                                    Student
-                                </option>
+                                    <option value="">
+                                        Select user type
+                                    </option>
 
-                                <option value="teacher">
-                                    Teacher
-                                </option>
+                                    <option value="student">
+                                        Student
+                                    </option>
 
-                                <option value="parent">
-                                    Parent
-                                </option>
+                                    <option value="teacher">
+                                        Teacher
+                                    </option>
 
-                            </select>
+                                    <option value="parent">
+                                        Parent
+                                    </option>
+
+                                </select>
+
+                            </div>
 
                         </div>
 
@@ -424,7 +453,7 @@ $error = $data['error'] ?? '';
                     </div>
 
 
-                    <!-- PASSWORDS -->
+                    <!-- PASSWORD -->
 
                     <div class="form-row">
 
@@ -438,7 +467,23 @@ $error = $data['error'] ?? '';
                             <div class="input-wrapper">
 
                                 <span class="input-icon">
-                                    🔒
+
+                                    <svg viewBox="0 0 24 24">
+
+                                        <rect
+                                            x="4"
+                                            y="10"
+                                            width="16"
+                                            height="11"
+                                            rx="2"
+                                        />
+
+                                        <path
+                                            d="M8 10V7a4 4 0 0 1 8 0v3"
+                                        />
+
+                                    </svg>
+
                                 </span>
 
                                 <input
@@ -464,7 +509,23 @@ $error = $data['error'] ?? '';
                             <div class="input-wrapper">
 
                                 <span class="input-icon">
-                                    🔒
+
+                                    <svg viewBox="0 0 24 24">
+
+                                        <rect
+                                            x="4"
+                                            y="10"
+                                            width="16"
+                                            height="11"
+                                            rx="2"
+                                        />
+
+                                        <path
+                                            d="M8 10V7a4 4 0 0 1 8 0v3"
+                                        />
+
+                                    </svg>
+
                                 </span>
 
                                 <input
@@ -494,8 +555,13 @@ $error = $data['error'] ?? '';
                             required
                         >
 
+                        <span class="custom-checkbox"></span>
+
                         <span>
-                            I agree to the terms and conditions.
+                            I agree to the
+                            <a href="#">
+                                terms and conditions
+                            </a>.
                         </span>
 
                     </label>
@@ -522,9 +588,7 @@ $error = $data['error'] ?? '';
                 </form>
 
 
-                <!-- ========================================
-                     LOGIN
-                ======================================== -->
+                <!-- LOGIN -->
 
                 <div class="login-divider">
 
@@ -541,10 +605,31 @@ $error = $data['error'] ?? '';
 
                 <a
                     href="<?= ROOT ?>/login"
-                    class="login-btn"
+                    class="login-link"
                 >
                     Sign in to your account
                 </a>
+
+
+                <!-- SECURITY -->
+
+                <div class="security-note">
+
+                    <svg viewBox="0 0 24 24">
+
+                        <path
+                            d="M12 3 4 6v5c0 5.2 3.4 9.8 8 11 4.6-1.2 8-5.8 8-11V6l-8-3z"
+                        />
+
+                        <path d="m9 12 2 2 4-4" />
+
+                    </svg>
+
+                    <span>
+                        Your information is securely protected
+                    </span>
+
+                </div>
 
 
             </div>
