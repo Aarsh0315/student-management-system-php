@@ -145,15 +145,20 @@ class SchoolAdmin extends Controller
                     $school_id
                 );
 
-
         /*
-        ========================================
-        CLASSES
-        TEMPORARY
-        ========================================
-        */
+========================================
+CLASSES
+========================================
+*/
 
-        $data['class_count'] = 0;
+$schoolClasses =
+    $studentModel->getClassesBySchool(
+        $school_id
+    );
+
+$data['class_count'] =
+    count($schoolClasses);
+
 
 
         /*

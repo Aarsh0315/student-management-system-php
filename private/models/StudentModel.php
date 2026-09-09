@@ -913,6 +913,29 @@ public function createStudent($userData, $studentData)
         ]
     );
 }
+
+/* =====================================================
+   GET CLASS COUNT BY SCHOOL
+===================================================== */
+
+public function getClassCountBySchool($school_id)
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM (
+                  SELECT class, division
+                  FROM students
+                  WHERE school_id = :school_id
+                  AND status = 'active'
+                  GROUP BY class, division
+              ) AS classes";
+
+    $result = $this->query($query, [
+        'school_id' => $school_id
+    ]);
+
+    return $result[0]->total ?? 0;
+}
+
 public function getClassesBySchool(
     $school_id,
     $search = '',
