@@ -28,14 +28,12 @@ $events = $data['events'] ?? [];
         Result Details - My School
     </title>
 
-
     <!-- NAV -->
 
     <link
         rel="stylesheet"
         href="<?= ROOT ?>/css/nav.view.css?v=2"
     >
-
 
     <!-- HOME -->
 
@@ -44,14 +42,12 @@ $events = $data['events'] ?? [];
         href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
-
     <!-- TEACHER RESULT DETAILS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-result-details.view.css?v=2"
+        href="<?= ROOT ?>/css/teacher-result-details.view.css?v=3"
     >
-
 
     <!-- FOOTER -->
 
@@ -59,7 +55,6 @@ $events = $data['events'] ?? [];
         rel="stylesheet"
         href="<?= ROOT ?>/css/footer.view.css?v=2"
     >
-
 
     <!-- SIDEBAR -->
 
@@ -70,17 +65,13 @@ $events = $data['events'] ?? [];
 
 </head>
 
-
 <body>
-
 
 <?php require "../private/views/includes/nav.view.php"; ?>
 
 <?php require "../private/views/includes/sidebar.view.php"; ?>
 
-
 <main class="dashboard">
-
 
     <!-- ========================================
          PAGE HEADER
@@ -102,16 +93,13 @@ $events = $data['events'] ?? [];
 
     </section>
 
-
     <?php if ($result): ?>
-
 
         <!-- ========================================
              RESULT SUMMARY
         ========================================= -->
 
         <section class="result-summary-card">
-
 
             <div class="result-summary-header">
 
@@ -133,7 +121,6 @@ $events = $data['events'] ?? [];
 
                 </div>
 
-
                 <?php
 
                 $status = strtolower(
@@ -141,7 +128,6 @@ $events = $data['events'] ?? [];
                 );
 
                 ?>
-
 
                 <?php if (
                     $status === 'pass' ||
@@ -152,7 +138,6 @@ $events = $data['events'] ?? [];
                         Passed
                     </span>
 
-
                 <?php elseif (
                     $status === 'fail' ||
                     $status === 'failed'
@@ -162,7 +147,6 @@ $events = $data['events'] ?? [];
                         Failed
                     </span>
 
-
                 <?php elseif (
                     $status === 'pending'
                 ): ?>
@@ -170,7 +154,6 @@ $events = $data['events'] ?? [];
                     <span class="result-status pending">
                         Pending
                     </span>
-
 
                 <?php else: ?>
 
@@ -187,9 +170,7 @@ $events = $data['events'] ?? [];
 
                 <?php endif; ?>
 
-
             </div>
-
 
             <!-- ========================================
                  RESULT INFORMATION
@@ -197,23 +178,15 @@ $events = $data['events'] ?? [];
 
             <div class="result-summary-grid">
 
-
                 <div class="result-summary-item">
 
                     <span>
                         Result ID
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->result_id ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->result_id ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-summary-item">
 
@@ -221,20 +194,13 @@ $events = $data['events'] ?? [];
                         Student
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            trim(
+                    <strong><?= htmlspecialchars(trim(
                                 ($result->firstname ?? '')
                                 . ' '
                                 . ($result->lastname ?? '')
-                            ) ?: '-'
-                        ) ?>
-
-                    </strong>
+                            ) ?: '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-summary-item">
 
@@ -242,16 +208,9 @@ $events = $data['events'] ?? [];
                         Student ID
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->student_id ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->student_id ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-summary-item">
 
@@ -259,18 +218,11 @@ $events = $data['events'] ?? [];
                         Test
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->test_title
+                    <strong><?= htmlspecialchars($result->test_title
                             ?? $result->title
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
+                            ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-summary-item">
 
@@ -278,16 +230,9 @@ $events = $data['events'] ?? [];
                         Class
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->class ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->class ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-summary-item">
 
@@ -295,16 +240,9 @@ $events = $data['events'] ?? [];
                         Division
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->division ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->division ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-summary-item">
 
@@ -312,16 +250,9 @@ $events = $data['events'] ?? [];
                         Total Marks
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->total_marks ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->total_marks ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-summary-item">
 
@@ -339,7 +270,6 @@ $events = $data['events'] ?? [];
 
                 </div>
 
-
                 <div class="result-summary-item">
 
                     <span>
@@ -356,20 +286,15 @@ $events = $data['events'] ?? [];
 
                 </div>
 
-
             </div>
 
-
         </section>
-
-
 
         <!-- ========================================
              STUDENT INFORMATION
         ========================================= -->
 
         <section class="result-info-card">
-
 
             <div class="result-section-header">
 
@@ -383,9 +308,7 @@ $events = $data['events'] ?? [];
 
             </div>
 
-
             <div class="result-information-grid">
-
 
                 <div class="result-information-item">
 
@@ -393,20 +316,13 @@ $events = $data['events'] ?? [];
                         Student Name
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            trim(
+                    <strong><?= htmlspecialchars(trim(
                                 ($result->firstname ?? '')
                                 . ' '
                                 . ($result->lastname ?? '')
-                            ) ?: '-'
-                        ) ?>
-
-                    </strong>
+                            ) ?: '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -414,16 +330,9 @@ $events = $data['events'] ?? [];
                         Email
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->email ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->email ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -431,16 +340,9 @@ $events = $data['events'] ?? [];
                         Admission Number
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->admission_number ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->admission_number ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -448,16 +350,9 @@ $events = $data['events'] ?? [];
                         Class
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->class ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->class ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -465,16 +360,9 @@ $events = $data['events'] ?? [];
                         Division
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->division ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->division ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -482,30 +370,19 @@ $events = $data['events'] ?? [];
                         Roll Number
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->roll_number ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->roll_number ?? '-') ?></strong>
 
                 </div>
 
-
             </div>
 
-
         </section>
-
-
 
         <!-- ========================================
              TEST INFORMATION
         ========================================= -->
 
         <section class="result-info-card">
-
 
             <div class="result-section-header">
 
@@ -519,9 +396,7 @@ $events = $data['events'] ?? [];
 
             </div>
 
-
             <div class="result-information-grid">
-
 
                 <div class="result-information-item">
 
@@ -529,16 +404,9 @@ $events = $data['events'] ?? [];
                         Test ID
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->test_id ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->test_id ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -546,18 +414,11 @@ $events = $data['events'] ?? [];
                         Test Title
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->test_title
+                    <strong><?= htmlspecialchars($result->test_title
                             ?? $result->title
-                            ?? '-'
-                        ) ?>
-
-                    </strong>
+                            ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -565,10 +426,7 @@ $events = $data['events'] ?? [];
                         Duration
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->duration ?? '-'
+                    <strong><?= htmlspecialchars($result->duration ?? '-'
                         ) ?>
 
                         <?php if (
@@ -583,7 +441,6 @@ $events = $data['events'] ?? [];
 
                 </div>
 
-
                 <div class="result-information-item">
 
                     <span>
@@ -593,13 +450,9 @@ $events = $data['events'] ?? [];
                     <strong>
 
                         <?= htmlspecialchars(
-                            $result->total_marks ?? '-'
-                        ) ?>
-
-                    </strong>
+                            $result->total_marks ?? '-') ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -607,18 +460,11 @@ $events = $data['events'] ?? [];
                         Result Status
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            ucfirst(
+                    <strong><?= htmlspecialchars(ucfirst(
                                 $result->status ?? '-'
-                            )
-                        ) ?>
-
-                    </strong>
+                            )) ?></strong>
 
                 </div>
-
 
                 <div class="result-information-item">
 
@@ -626,30 +472,19 @@ $events = $data['events'] ?? [];
                         Result Date
                     </span>
 
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $result->created_at ?? '-'
-                        ) ?>
-
-                    </strong>
+                    <strong><?= htmlspecialchars($result->created_at ?? '-') ?></strong>
 
                 </div>
 
-
             </div>
 
-
         </section>
-
-
 
         <!-- ========================================
              EXAM INTEGRITY
         ========================================= -->
 
         <section class="result-info-card exam-integrity-card">
-
 
             <div class="result-section-header">
 
@@ -663,14 +498,38 @@ $events = $data['events'] ?? [];
 
             </div>
 
-
             <?php
 
             $riskClass =
                 strtolower($riskLevel);
 
-            ?>
+            /*
+            -----------------------------------------
+            INTEGRITY SUMMARY VALUES
+            -----------------------------------------
+            */
 
+            $totalIntegrityEvents = (int) (
+                $integrity->total_events ?? 0
+            );
+
+            $examStarted = (int) (
+                $integrity->exam_started ?? 0
+            );
+
+            $cameraConnected = (int) (
+                $integrity->camera_connected ?? 0
+            );
+
+            $fullscreenEnters = (int) (
+                $integrity->fullscreen_enters ?? 0
+            );
+
+            $examSubmitted = (int) (
+                $integrity->exam_submitted ?? 0
+            );
+
+            ?>
 
             <!-- ========================================
                  INTEGRITY STATUS
@@ -690,7 +549,6 @@ $events = $data['events'] ?? [];
 
                 </div>
 
-
                 <span
                     class="integrity-risk <?= htmlspecialchars(
                         $riskClass
@@ -707,126 +565,63 @@ $events = $data['events'] ?? [];
 
             </div>
 
-
-
             <!-- ========================================
                  INTEGRITY COUNTS
             ========================================= -->
 
             <div class="integrity-grid">
 
-
                 <div class="integrity-item">
-
-                    <span>
-                        Tab Switches
-                    </span>
-
-                    <strong>
-
-                        <?= (int) (
-                            $integrity->tab_switches
-                            ?? 0
-                        ) ?>
-
-                    </strong>
-
+                    <span>Total Events</span>
+                    <strong><?= $totalIntegrityEvents ?></strong>
                 </div>
 
-
                 <div class="integrity-item">
-
-                    <span>
-                        Fullscreen Exits
-                    </span>
-
-                    <strong>
-
-                        <?= (int) (
-                            $integrity->fullscreen_exits
-                            ?? 0
-                        ) ?>
-
-                    </strong>
-
+                    <span>Exam Started</span>
+                    <strong><?= $examStarted ?></strong>
                 </div>
 
-
                 <div class="integrity-item">
-
-                    <span>
-                        Copy Attempts
-                    </span>
-
-                    <strong>
-
-                        <?= (int) (
-                            $integrity->copy_attempts
-                            ?? 0
-                        ) ?>
-
-                    </strong>
-
+                    <span>Camera Connected</span>
+                    <strong><?= $cameraConnected ?></strong>
                 </div>
 
-
                 <div class="integrity-item">
-
-                    <span>
-                        Paste Attempts
-                    </span>
-
-                    <strong>
-
-                        <?= (int) (
-                            $integrity->paste_attempts
-                            ?? 0
-                        ) ?>
-
-                    </strong>
-
+                    <span>Tab Switches</span>
+                    <strong><?= (int) ($integrity->tab_switches ?? 0) ?></strong>
                 </div>
 
-
                 <div class="integrity-item">
-
-                    <span>
-                        Right Click Attempts
-                    </span>
-
-                    <strong>
-
-                        <?= (int) (
-                            $integrity->right_click_attempts
-                            ?? 0
-                        ) ?>
-
-                    </strong>
-
+                    <span>Fullscreen Exits</span>
+                    <strong><?= (int) ($integrity->fullscreen_exits ?? 0) ?></strong>
                 </div>
 
-
                 <div class="integrity-item">
-
-                    <span>
-                        Camera Disconnects
-                    </span>
-
-                    <strong>
-
-                        <?= (int) (
-                            $integrity->camera_disconnects
-                            ?? 0
-                        ) ?>
-
-                    </strong>
-
+                    <span>Copy Attempts</span>
+                    <strong><?= (int) ($integrity->copy_attempts ?? 0) ?></strong>
                 </div>
 
+                <div class="integrity-item">
+                    <span>Paste Attempts</span>
+                    <strong><?= (int) ($integrity->paste_attempts ?? 0) ?></strong>
+                </div>
+
+                <div class="integrity-item">
+                    <span>Right Click Attempts</span>
+                    <strong><?= (int) ($integrity->right_click_attempts ?? 0) ?></strong>
+                </div>
+
+                <div class="integrity-item">
+                    <span>Camera Disconnects</span>
+                    <strong><?= (int) ($integrity->camera_disconnects ?? 0) ?></strong>
+                </div>
+
+                <div class="integrity-item">
+                    <span>Exam Submitted</span>
+                    <strong><?= $examSubmitted ?></strong>
+                </div>
 
             </div>
-
-
 
             <!-- ========================================
                  ACTIVITY TIMELINE
@@ -838,17 +633,13 @@ $events = $data['events'] ?? [];
                     Activity Timeline
                 </h3>
 
-
                 <?php if (!empty($events)): ?>
 
-
                     <div class="integrity-timeline">
-
 
                         <?php foreach (
                             $events as $event
                         ): ?>
-
 
                             <?php
 
@@ -865,11 +656,18 @@ $events = $data['events'] ?? [];
                                     $eventName
                                 );
 
+                            $eventClass =
+                                strtolower(
+                                    preg_replace(
+                                        '/[^a-z0-9]+/',
+                                        '-',
+                                        $event->event_type ?? 'event'
+                                    )
+                                );
+
                             ?>
 
-
-                            <div class="integrity-event">
-
+                            <div class="integrity-event <?= htmlspecialchars($eventClass) ?>">
 
                                 <div class="integrity-event-time">
 
@@ -880,17 +678,9 @@ $events = $data['events'] ?? [];
 
                                 </div>
 
-
                                 <div class="integrity-event-content">
 
-                                    <strong>
-
-                                        <?= htmlspecialchars(
-                                            $eventName
-                                        ) ?>
-
-                                    </strong>
-
+                                    <strong><?= htmlspecialchars($eventName) ?></strong>
 
                                     <?php if (
                                         !empty(
@@ -908,21 +698,15 @@ $events = $data['events'] ?? [];
 
                                     <?php endif; ?>
 
-
                                 </div>
-
 
                             </div>
 
-
                         <?php endforeach; ?>
-
 
                     </div>
 
-
                 <?php else: ?>
-
 
                     <div class="integrity-empty">
 
@@ -934,15 +718,15 @@ $events = $data['events'] ?? [];
                             No examination activity has been recorded for this attempt.
                         </p>
 
-                    </div>
+                        <small>
+                            This means no supported integrity events were logged by the exam interface.
+                        </small>
 
+                    </div>
 
                 <?php endif; ?>
 
-
             </div>
-
-
 
             <!-- ========================================
                  INTEGRITY NOTE
@@ -961,10 +745,7 @@ $events = $data['events'] ?? [];
 
             </div>
 
-
         </section>
-
-
 
         <!-- ========================================
              ACTION
@@ -981,9 +762,7 @@ $events = $data['events'] ?? [];
 
         </div>
 
-
     <?php else: ?>
-
 
         <!-- ========================================
              RESULT NOT FOUND
@@ -1016,20 +795,15 @@ $events = $data['events'] ?? [];
 
         </section>
 
-
     <?php endif; ?>
-
 
 </main>
 
-
 <?php require "../private/views/includes/footer.view.php"; ?>
-
 
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
 
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
-
 
 </body>
 

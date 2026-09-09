@@ -17,7 +17,9 @@ $questions = $data['questions'] ?? [];
         content="width=device-width, initial-scale=1.0"
     >
 
-    <title>Test Details - My School</title>
+    <title>
+        Test Details - My School
+    </title>
 
 
     <!-- COMMON CSS -->
@@ -42,7 +44,7 @@ $questions = $data['questions'] ?? [];
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-test-details.view.css?v=2"
+        href="<?= ROOT ?>/css/teacher-test-details.view.css?v=3"
     >
 
 
@@ -84,7 +86,7 @@ $questions = $data['questions'] ?? [];
             </h1>
 
             <p class="welcome-text">
-                View complete test information, questions and correct answers.
+                View complete test information, settings and questions.
             </p>
 
         </div>
@@ -94,6 +96,74 @@ $questions = $data['questions'] ?? [];
 
 
     <?php if ($test): ?>
+
+
+        <?php
+
+        /*
+        ========================================
+        TEST STATUS
+        ========================================
+        */
+
+        $status =
+            strtolower(
+                $test->status ?? 'draft'
+            );
+
+
+        /*
+        ========================================
+        TEST TYPE
+        ========================================
+        */
+
+        $testType =
+            strtolower(
+                $test->test_type ?? 'quiz'
+            );
+
+
+        $testTypeLabel =
+            ucfirst(
+                str_replace(
+                    '_',
+                    ' ',
+                    $testType
+                )
+            );
+
+
+        /*
+        ========================================
+        NEGATIVE MARKING
+        ========================================
+        */
+
+        $negativeMarking =
+            !empty(
+                $test->negative_marking
+            );
+
+
+        /*
+        ========================================
+        SHUFFLE SETTINGS
+        ========================================
+        */
+
+        $shuffleQuestions =
+            !empty(
+                $test->shuffle_questions
+            );
+
+
+        $shuffleOptions =
+            !empty(
+                $test->shuffle_options
+            );
+
+        ?>
 
 
         <!-- ========================================
@@ -112,58 +182,173 @@ $questions = $data['questions'] ?? [];
 
                 <div class="test-profile-info">
 
-                    <h2>
-                        <?= htmlspecialchars(
-                            $test->title ?? '-'
-                        ) ?>
-                    </h2>
+                    <div class="test-title-row">
+
+                        <div>
+
+                            <h2>
+                                <?= htmlspecialchars(
+                                    $test->title ?? '-'
+                                ) ?>
+                            </h2>
+
+                            <p>
+
+                                Test ID:
+
+                                <strong>
+                                    <?= htmlspecialchars(
+                                        $test->test_id ?? '-'
+                                    ) ?>
+                                </strong>
+
+                            </p>
+
+                        </div>
 
 
-                    <p>
+                        <div class="test-status-area">
 
-                        Test ID:
+                            <?php if ($status === 'active'): ?>
 
-                        <strong>
-                            <?= htmlspecialchars(
-                                $test->test_id ?? '-'
-                            ) ?>
-                        </strong>
+                                <span class="status active">
+                                    Active
+                                </span>
 
-                    </p>
+                            <?php elseif ($status === 'published'): ?>
+
+                                <span class="status active">
+                                    Published
+                                </span>
+
+                            <?php elseif ($status === 'closed'): ?>
+
+                                <span class="status closed">
+                                    Closed
+                                </span>
+
+                            <?php else: ?>
+
+                                <span class="status draft">
+                                    Draft
+                                </span>
+
+                            <?php endif; ?>
+
+                        </div>
+
+                    </div>
 
 
-                    <?php
+                    <?php if (!empty($test->subject)): ?>
 
-                    $status = strtolower(
-                        $test->status ?? 'draft'
-                    );
+                        <div class="test-subject">
 
-                    ?>
+                            Subject:
 
+                            <strong>
+                                <?= htmlspecialchars(
+                                    $test->subject
+                                ) ?>
+                            </strong>
 
-                    <?php if ($status === 'active'): ?>
-
-                        <span class="status active">
-                            Active
-                        </span>
-
-                    <?php elseif ($status === 'closed'): ?>
-
-                        <span class="status closed">
-                            Closed
-                        </span>
-
-                    <?php else: ?>
-
-                        <span class="status draft">
-                            Draft
-                        </span>
+                        </div>
 
                     <?php endif; ?>
 
 
                 </div>
 
+
+            </div>
+
+        </section>
+
+
+
+        <!-- ========================================
+             TEST OVERVIEW
+        ========================================= -->
+
+        <section class="test-overview-grid">
+
+
+            <!-- TOTAL MARKS -->
+
+            <div class="overview-card">
+
+                <span class="overview-label">
+                    Total Marks
+                </span>
+
+                <strong class="overview-value">
+
+                    <?= htmlspecialchars(
+                        $test->total_marks ?? '0'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+            <!-- PASSING MARKS -->
+
+            <div class="overview-card">
+
+                <span class="overview-label">
+                    Passing Marks
+                </span>
+
+                <strong class="overview-value">
+
+                    <?= htmlspecialchars(
+                        $test->passing_marks ?? '0'
+                    ) ?>
+
+                </strong>
+
+            </div>
+
+
+            <!-- DURATION -->
+
+            <div class="overview-card">
+
+                <span class="overview-label">
+                    Duration
+                </span>
+
+                <strong class="overview-value">
+
+                    <?= htmlspecialchars(
+                        $test->duration ?? '0'
+                    ) ?>
+
+                    <small>
+                        min
+                    </small>
+
+                </strong>
+
+            </div>
+
+
+            <!-- TEST TYPE -->
+
+            <div class="overview-card">
+
+                <span class="overview-label">
+                    Test Type
+                </span>
+
+                <strong class="overview-value overview-type">
+
+                    <?= htmlspecialchars(
+                        $testTypeLabel
+                    ) ?>
+
+                </strong>
 
             </div>
 
@@ -181,19 +366,25 @@ $questions = $data['questions'] ?? [];
 
             <div class="details-header">
 
-                <h2>
-                    Test Information
-                </h2>
+                <div>
 
-                <p>
-                    Basic information about this test.
-                </p>
+                    <h2>
+                        Test Information
+                    </h2>
+
+                    <p>
+                        Basic information about this test.
+                    </p>
+
+                </div>
 
             </div>
 
 
             <div class="details-grid">
 
+
+                <!-- SCHOOL -->
 
                 <div class="details-item">
 
@@ -210,6 +401,8 @@ $questions = $data['questions'] ?? [];
                 </div>
 
 
+                <!-- TEACHER -->
+
                 <div class="details-item">
 
                     <span>
@@ -224,6 +417,42 @@ $questions = $data['questions'] ?? [];
 
                 </div>
 
+
+                <!-- SUBJECT -->
+
+                <div class="details-item">
+
+                    <span>
+                        Subject
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->subject ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <!-- TEST TYPE -->
+
+                <div class="details-item">
+
+                    <span>
+                        Test Type
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $testTypeLabel
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <!-- CLASS -->
 
                 <div class="details-item">
 
@@ -240,6 +469,8 @@ $questions = $data['questions'] ?? [];
                 </div>
 
 
+                <!-- DIVISION -->
+
                 <div class="details-item">
 
                     <span>
@@ -255,6 +486,8 @@ $questions = $data['questions'] ?? [];
                 </div>
 
 
+                <!-- TOTAL MARKS -->
+
                 <div class="details-item">
 
                     <span>
@@ -269,6 +502,25 @@ $questions = $data['questions'] ?? [];
 
                 </div>
 
+
+                <!-- PASSING MARKS -->
+
+                <div class="details-item">
+
+                    <span>
+                        Passing Marks
+                    </span>
+
+                    <strong>
+                        <?= htmlspecialchars(
+                            $test->passing_marks ?? '-'
+                        ) ?>
+                    </strong>
+
+                </div>
+
+
+                <!-- DURATION -->
 
                 <div class="details-item">
 
@@ -289,6 +541,8 @@ $questions = $data['questions'] ?? [];
                 </div>
 
 
+                <!-- START DATE -->
+
                 <div class="details-item">
 
                     <span>
@@ -303,6 +557,8 @@ $questions = $data['questions'] ?? [];
 
                 </div>
 
+
+                <!-- END DATE -->
 
                 <div class="details-item">
 
@@ -319,8 +575,149 @@ $questions = $data['questions'] ?? [];
                 </div>
 
 
+                <!-- NEGATIVE MARKING -->
+
+                <div class="details-item">
+
+                    <span>
+                        Negative Marking
+                    </span>
+
+                    <strong>
+
+                        <?php if ($negativeMarking): ?>
+
+                            <span class="setting-enabled">
+                                Enabled
+                            </span>
+
+                        <?php else: ?>
+
+                            <span class="setting-disabled">
+                                Disabled
+                            </span>
+
+                        <?php endif; ?>
+
+                    </strong>
+
+                </div>
+
+
+                <!-- NEGATIVE MARKS -->
+
+                <?php if ($negativeMarking): ?>
+
+                    <div class="details-item">
+
+                        <span>
+                            Negative Marks
+                        </span>
+
+                        <strong>
+                            <?= htmlspecialchars(
+                                $test->negative_marks ?? '0'
+                            ) ?>
+                        </strong>
+
+                    </div>
+
+                <?php endif; ?>
+
+
+                <!-- SHUFFLE QUESTIONS -->
+
+                <div class="details-item">
+
+                    <span>
+                        Shuffle Questions
+                    </span>
+
+                    <strong>
+
+                        <?php if ($shuffleQuestions): ?>
+
+                            <span class="setting-enabled">
+                                Enabled
+                            </span>
+
+                        <?php else: ?>
+
+                            <span class="setting-disabled">
+                                Disabled
+                            </span>
+
+                        <?php endif; ?>
+
+                    </strong>
+
+                </div>
+
+
+                <!-- SHUFFLE OPTIONS -->
+
+                <div class="details-item">
+
+                    <span>
+                        Shuffle Options
+                    </span>
+
+                    <strong>
+
+                        <?php if ($shuffleOptions): ?>
+
+                            <span class="setting-enabled">
+                                Enabled
+                            </span>
+
+                        <?php else: ?>
+
+                            <span class="setting-disabled">
+                                Disabled
+                            </span>
+
+                        <?php endif; ?>
+
+                    </strong>
+
+                </div>
+
+
             </div>
 
+
+
+            <!-- ========================================
+                 INSTRUCTIONS
+            ========================================= -->
+
+            <?php if (!empty($test->instructions)): ?>
+
+                <div class="description-box">
+
+                    <span>
+                        Instructions
+                    </span>
+
+                    <p>
+
+                        <?= nl2br(
+                            htmlspecialchars(
+                                $test->instructions
+                            )
+                        ) ?>
+
+                    </p>
+
+                </div>
+
+            <?php endif; ?>
+
+
+
+            <!-- ========================================
+                 DESCRIPTION
+            ========================================= -->
 
             <?php if (!empty($test->description)): ?>
 
@@ -361,7 +758,7 @@ $questions = $data['questions'] ?? [];
                 <div>
 
                     <h2>
-                        Questions & Answers
+                        Questions
                     </h2>
 
                     <p>
@@ -405,7 +802,54 @@ $questions = $data['questions'] ?? [];
 
                     $questionNumber = 1;
 
-                    foreach ($questions as $question):
+                    foreach (
+                        $questions
+                        as $question
+                    ):
+
+                        $questionType =
+                            strtolower(
+                                $question->question_type ?? 'mcq'
+                            );
+
+
+                        $difficulty =
+                            strtolower(
+                                $question->difficulty ?? 'medium'
+                            );
+
+
+                        $questionTypeLabel =
+                            match ($questionType) {
+
+                                'mcq' =>
+                                    'MCQ',
+
+                                'msq' =>
+                                    'MSQ',
+
+                                'true_false' =>
+                                    'True / False',
+
+                                'fill_blank' =>
+                                    'Fill in the Blank',
+
+                                'short_answer' =>
+                                    'Short Answer',
+
+                                'long_answer' =>
+                                    'Descriptive',
+
+                                default =>
+                                    ucfirst(
+                                        str_replace(
+                                            '_',
+                                            ' ',
+                                            $questionType
+                                        )
+                                    )
+
+                            };
 
                     ?>
 
@@ -419,12 +863,37 @@ $questions = $data['questions'] ?? [];
 
                             <div class="question-top">
 
-                                <span class="question-number">
 
-                                    Question
-                                    <?= $questionNumber ?>
+                                <div class="question-heading">
 
-                                </span>
+                                    <span class="question-number">
+
+                                        Question
+                                        <?= $questionNumber ?>
+
+                                    </span>
+
+
+                                    <span class="question-type-badge">
+
+                                        <?= htmlspecialchars(
+                                            $questionTypeLabel
+                                        ) ?>
+
+                                    </span>
+
+
+                                    <span
+                                        class="difficulty-badge difficulty-<?= htmlspecialchars($difficulty) ?>"
+                                    >
+
+                                        <?= htmlspecialchars(
+                                            ucfirst($difficulty)
+                                        ) ?>
+
+                                    </span>
+
+                                </div>
 
 
                                 <span class="question-marks">
@@ -437,18 +906,55 @@ $questions = $data['questions'] ?? [];
 
                                 </span>
 
+
                             </div>
 
 
-                            <!-- QUESTION -->
 
-                            <h3>
+                            <!-- ====================================
+                                 QUESTION IMAGE
+                            ===================================== -->
 
-                                <?= htmlspecialchars(
-                                    $question->question ?? '-'
-                                ) ?>
+                            <?php if (
+                                !empty(
+                                    $question->question_image
+                                )
+                            ): ?>
 
-                            </h3>
+                                <div class="question-image">
+
+                                    <img
+                                        src="<?= ROOT ?>/<?= htmlspecialchars($question->question_image) ?>"
+                                        alt="Question Image"
+                                    >
+
+                                </div>
+
+                            <?php endif; ?>
+
+
+
+                            <!-- ====================================
+                                 QUESTION TEXT
+                            ===================================== -->
+
+                            <?php if (
+                                !empty(
+                                    $question->question
+                                )
+                            ): ?>
+
+                                <h3>
+
+                                    <?= nl2br(
+                                        htmlspecialchars(
+                                            $question->question
+                                        )
+                                    ) ?>
+
+                                </h3>
+
+                            <?php endif; ?>
 
 
 
@@ -457,177 +963,279 @@ $questions = $data['questions'] ?? [];
                             ===================================== -->
 
                             <?php if (
-                                strtolower(
-                                    $question->question_type ?? ''
-                                ) === 'mcq'
+                                $questionType === 'mcq'
                             ): ?>
 
 
                                 <div class="options">
 
 
-                                    <div
-                                        class="option
-                                        <?= strtoupper(
+                                    <?php
+
+                                    $options = [
+
+                                        'A' =>
+                                            $question->option_a ?? '',
+
+                                        'B' =>
+                                            $question->option_b ?? '',
+
+                                        'C' =>
+                                            $question->option_c ?? '',
+
+                                        'D' =>
+                                            $question->option_d ?? ''
+
+                                    ];
+
+
+                                    $correctAnswer =
+                                        strtoupper(
                                             $question->correct_answer ?? ''
-                                        ) === 'A'
-                                            ? 'correct-option'
-                                            : ''
-                                        ?>"
-                                    >
-
-                                        <strong>
-                                            A
-                                        </strong>
-
-                                        <span>
-
-                                            <?= htmlspecialchars(
-                                                $question->option_a ?? '-'
-                                            ) ?>
-
-                                        </span>
+                                        );
 
 
-                                        <?php if (
-                                            strtoupper(
-                                                $question->correct_answer ?? ''
-                                            ) === 'A'
-                                        ): ?>
+                                    foreach (
+                                        $options
+                                        as $letter => $option
+                                    ):
 
-                                            <span class="answer-badge">
-                                                Correct
+                                        $isCorrect =
+                                            $correctAnswer ===
+                                            $letter;
+
+                                    ?>
+
+
+                                        <div
+                                            class="option <?= $isCorrect ? 'correct-option' : '' ?>"
+                                        >
+
+                                            <strong>
+                                                <?= $letter ?>
+                                            </strong>
+
+                                            <span>
+
+                                                <?= htmlspecialchars(
+                                                    $option ?: '-'
+                                                ) ?>
+
                                             </span>
 
-                                        <?php endif; ?>
 
-                                    </div>
+                                            <?php if ($isCorrect): ?>
 
+                                                <span class="answer-badge">
+                                                    Correct
+                                                </span>
 
+                                            <?php endif; ?>
 
-                                    <div
-                                        class="option
-                                        <?= strtoupper(
-                                            $question->correct_answer ?? ''
-                                        ) === 'B'
-                                            ? 'correct-option'
-                                            : ''
-                                        ?>"
-                                    >
-
-                                        <strong>
-                                            B
-                                        </strong>
-
-                                        <span>
-
-                                            <?= htmlspecialchars(
-                                                $question->option_b ?? '-'
-                                            ) ?>
-
-                                        </span>
+                                        </div>
 
 
-                                        <?php if (
-                                            strtoupper(
-                                                $question->correct_answer ?? ''
-                                            ) === 'B'
-                                        ): ?>
-
-                                            <span class="answer-badge">
-                                                Correct
-                                            </span>
-
-                                        <?php endif; ?>
-
-                                    </div>
-
-
-
-                                    <div
-                                        class="option
-                                        <?= strtoupper(
-                                            $question->correct_answer ?? ''
-                                        ) === 'C'
-                                            ? 'correct-option'
-                                            : ''
-                                        ?>"
-                                    >
-
-                                        <strong>
-                                            C
-                                        </strong>
-
-                                        <span>
-
-                                            <?= htmlspecialchars(
-                                                $question->option_c ?? '-'
-                                            ) ?>
-
-                                        </span>
-
-
-                                        <?php if (
-                                            strtoupper(
-                                                $question->correct_answer ?? ''
-                                            ) === 'C'
-                                        ): ?>
-
-                                            <span class="answer-badge">
-                                                Correct
-                                            </span>
-
-                                        <?php endif; ?>
-
-                                    </div>
-
-
-
-                                    <div
-                                        class="option
-                                        <?= strtoupper(
-                                            $question->correct_answer ?? ''
-                                        ) === 'D'
-                                            ? 'correct-option'
-                                            : ''
-                                        ?>"
-                                    >
-
-                                        <strong>
-                                            D
-                                        </strong>
-
-                                        <span>
-
-                                            <?= htmlspecialchars(
-                                                $question->option_d ?? '-'
-                                            ) ?>
-
-                                        </span>
-
-
-                                        <?php if (
-                                            strtoupper(
-                                                $question->correct_answer ?? ''
-                                            ) === 'D'
-                                        ): ?>
-
-                                            <span class="answer-badge">
-                                                Correct
-                                            </span>
-
-                                        <?php endif; ?>
-
-                                    </div>
+                                    <?php endforeach; ?>
 
 
                                 </div>
 
 
+                            <?php endif; ?>
 
-                                <!-- ====================================
-                                     CORRECT ANSWER
-                                ===================================== -->
+
+
+                            <!-- ====================================
+                                 MSQ OPTIONS
+                            ===================================== -->
+
+                            <?php if (
+                                $questionType === 'msq'
+                            ): ?>
+
+
+                                <?php
+
+                                $correctAnswers = [];
+
+                                if (
+                                    isset(
+                                        $question->correct_answers
+                                    )
+                                ) {
+
+                                    if (
+                                        is_array(
+                                            $question->correct_answers
+                                        )
+                                    ) {
+
+                                        $correctAnswers =
+                                            $question->correct_answers;
+
+                                    } else {
+
+                                        $decoded =
+                                            json_decode(
+                                                $question->correct_answers,
+                                                true
+                                            );
+
+                                        if (
+                                            is_array($decoded)
+                                        ) {
+
+                                            $correctAnswers =
+                                                $decoded;
+                                        }
+                                    }
+                                }
+
+
+                                $correctAnswers =
+                                    array_map(
+                                        'strtoupper',
+                                        $correctAnswers
+                                    );
+
+
+                                $options = [
+
+                                    'A' =>
+                                        $question->option_a ?? '',
+
+                                    'B' =>
+                                        $question->option_b ?? '',
+
+                                    'C' =>
+                                        $question->option_c ?? '',
+
+                                    'D' =>
+                                        $question->option_d ?? ''
+
+                                ];
+
+                                ?>
+
+
+                                <div class="options">
+
+
+                                    <?php foreach (
+                                        $options
+                                        as $letter => $option
+                                    ):
+
+                                        $isCorrect =
+                                            in_array(
+                                                $letter,
+                                                $correctAnswers,
+                                                true
+                                            );
+
+                                    ?>
+
+
+                                        <div
+                                            class="option <?= $isCorrect ? 'correct-option' : '' ?>"
+                                        >
+
+                                            <strong>
+                                                <?= $letter ?>
+                                            </strong>
+
+                                            <span>
+
+                                                <?= htmlspecialchars(
+                                                    $option ?: '-'
+                                                ) ?>
+
+                                            </span>
+
+
+                                            <?php if ($isCorrect): ?>
+
+                                                <span class="answer-badge">
+                                                    Correct
+                                                </span>
+
+                                            <?php endif; ?>
+
+                                        </div>
+
+
+                                    <?php endforeach; ?>
+
+
+                                </div>
+
+
+                                <div class="correct-answer">
+
+                                    <span class="answer-label">
+                                        Correct Answers
+                                    </span>
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            implode(
+                                                ', ',
+                                                $correctAnswers
+                                            )
+                                        ) ?>
+
+                                    </strong>
+
+                                </div>
+
+
+                            <?php endif; ?>
+
+
+
+                            <!-- ====================================
+                                 TRUE / FALSE
+                            ===================================== -->
+
+                            <?php if (
+                                $questionType === 'true_false'
+                            ): ?>
+
+
+                                <div class="true-false-answer">
+
+                                    <span class="answer-label">
+                                        Correct Answer
+                                    </span>
+
+                                    <strong>
+
+                                        <?= htmlspecialchars(
+                                            ucfirst(
+                                                strtolower(
+                                                    $question->correct_answer ?? '-'
+                                                )
+                                            )
+                                        ) ?>
+
+                                    </strong>
+
+                                </div>
+
+
+                            <?php endif; ?>
+
+
+
+                            <!-- ====================================
+                                 FILL IN BLANK
+                            ===================================== -->
+
+                            <?php if (
+                                $questionType === 'fill_blank'
+                            ): ?>
+
 
                                 <div class="correct-answer">
 
@@ -638,12 +1246,98 @@ $questions = $data['questions'] ?? [];
                                     <strong>
 
                                         <?= htmlspecialchars(
-                                            strtoupper(
-                                                $question->correct_answer ?? '-'
-                                            )
+                                            $question->correct_answer ?? '-'
                                         ) ?>
 
                                     </strong>
+
+                                </div>
+
+
+                            <?php endif; ?>
+
+
+
+                            <!-- ====================================
+                                 SHORT / LONG ANSWER
+                            ===================================== -->
+
+                            <?php if (
+                                $questionType === 'short_answer' ||
+                                $questionType === 'long_answer'
+                            ): ?>
+
+
+                                <div class="manual-grading-note">
+
+                                    <strong>
+                                        Manual Evaluation
+                                    </strong>
+
+                                    <span>
+                                        This question requires teacher evaluation.
+                                    </span>
+
+                                </div>
+
+
+                                <?php if (
+                                    !empty(
+                                        $question->correct_answer
+                                    )
+                                ): ?>
+
+                                    <div class="correct-answer">
+
+                                        <span class="answer-label">
+                                            Reference Answer
+                                        </span>
+
+                                        <strong>
+
+                                            <?= nl2br(
+                                                htmlspecialchars(
+                                                    $question->correct_answer
+                                                )
+                                            ) ?>
+
+                                        </strong>
+
+                                    </div>
+
+                                <?php endif; ?>
+
+
+                            <?php endif; ?>
+
+
+
+                            <!-- ====================================
+                                 EXPLANATION
+                            ===================================== -->
+
+                            <?php if (
+                                !empty(
+                                    $question->explanation
+                                )
+                            ): ?>
+
+
+                                <div class="question-explanation">
+
+                                    <span>
+                                        Explanation
+                                    </span>
+
+                                    <p>
+
+                                        <?= nl2br(
+                                            htmlspecialchars(
+                                                $question->explanation
+                                            )
+                                        ) ?>
+
+                                    </p>
 
                                 </div>
 
@@ -656,7 +1350,7 @@ $questions = $data['questions'] ?? [];
 
                     <?php
 
-                    $questionNumber++;
+                        $questionNumber++;
 
                     endforeach;
 
@@ -704,7 +1398,10 @@ $questions = $data['questions'] ?? [];
         <div class="test-actions">
 
 
-            <?php if ($status === 'draft' && !empty($questions)): ?>
+            <?php if (
+                $status === 'draft' &&
+                !empty($questions)
+            ): ?>
 
                 <form
                     method="POST"
@@ -714,6 +1411,7 @@ $questions = $data['questions'] ?? [];
                 >
 
                     <?= CSRF::field() ?>
+
 
                     <button
                         type="submit"

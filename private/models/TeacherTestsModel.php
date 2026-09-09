@@ -10,16 +10,49 @@ class TeacherTestsModel extends Model
 
     public function createTest($testData)
     {
+        $testData['subject'] =
+            $testData['subject'] ?? null;
+
+        $testData['test_type'] =
+            $testData['test_type'] ?? 'quiz';
+
+        $testData['instructions'] =
+            $testData['instructions'] ?? null;
+
+        $testData['passing_marks'] =
+            $testData['passing_marks'] ?? 0;
+
+        $testData['negative_marking'] =
+            $testData['negative_marking'] ?? 0;
+
+        $testData['negative_marks'] =
+            $testData['negative_marks'] ?? 0;
+
+        $testData['shuffle_questions'] =
+            $testData['shuffle_questions'] ?? 0;
+
+        $testData['shuffle_options'] =
+            $testData['shuffle_options'] ?? 0;
+
+
         $query = "INSERT INTO tests
                     (
                         test_id,
                         teacher_id,
                         school_id,
                         title,
+                        subject,
+                        test_type,
                         description,
+                        instructions,
                         class,
                         division,
                         total_marks,
+                        passing_marks,
+                        negative_marking,
+                        negative_marks,
+                        shuffle_questions,
+                        shuffle_options,
                         duration,
                         start_date,
                         end_date,
@@ -31,10 +64,18 @@ class TeacherTestsModel extends Model
                         :teacher_id,
                         :school_id,
                         :title,
+                        :subject,
+                        :test_type,
                         :description,
+                        :instructions,
                         :class,
                         :division,
                         :total_marks,
+                        :passing_marks,
+                        :negative_marking,
+                        :negative_marks,
+                        :shuffle_questions,
+                        :shuffle_options,
                         :duration,
                         :start_date,
                         :end_date,
@@ -54,324 +95,347 @@ class TeacherTestsModel extends Model
     ========================================
     */
 
-    /*
-========================================
-GET TESTS BY SCHOOL
-========================================
-*/
-public function getTestsBySchool(
-    $school_id,
-    $search = '',
-    $sort = 'test_id',
-    $direction = 'DESC'
-) {
+    public function getTestsBySchool(
+        $school_id,
+        $search = '',
+        $sort = 'test_id',
+        $direction = 'DESC'
+    ) {
 
-    /*
-    ========================================
-    ALLOWED SORT COLUMNS
-    ========================================
-    */
+        $allowedSorts = [
 
-    $allowedSorts = [
+            'test_id'     => 't.test_id',
+            'title'       => 't.title',
+            'subject'     => 't.subject',
+            'test_type'   => 't.test_type',
+            'class'       => 't.class',
+            'division'    => 't.division',
+            'total_marks' => 't.total_marks',
+            'duration'    => 't.duration',
+            'status'      => 't.status'
 
-        'test_id'     => 't.test_id',
-        'title'       => 't.title',
-        'class'       => 't.class',
-        'division'    => 't.division',
-        'total_marks' => 't.total_marks',
-        'duration'    => 't.duration',
-        'status'      => 't.status'
-
-    ];
+        ];
 
 
-    if (!isset($allowedSorts[$sort])) {
-        $sort = 'test_id';
-    }
+        if (!isset($allowedSorts[$sort])) {
+            $sort = 'test_id';
+        }
 
 
-    $sortColumn = $allowedSorts[$sort];
+        $sortColumn =
+            $allowedSorts[$sort];
 
 
-    /*
-    ========================================
-    DIRECTION
-    ========================================
-    */
-
-    $direction = strtoupper($direction);
-
-    if (!in_array(
-        $direction,
-        ['ASC', 'DESC'],
-        true
-    )) {
-        $direction = 'DESC';
-    }
+        $direction =
+            strtoupper($direction);
 
 
-    /*
-    ========================================
-    QUERY
-    ========================================
-    */
-
-    $query = "SELECT
-
-                t.test_id,
-                t.teacher_id,
-                t.school_id,
-                t.title,
-                t.description,
-                t.class,
-                t.division,
-                t.total_marks,
-                t.duration,
-                t.start_date,
-                t.end_date,
-                t.status,
-                t.created_at
-
-              FROM tests t
-
-              WHERE t.school_id = :school_id";
+        if (!in_array(
+            $direction,
+            ['ASC', 'DESC'],
+            true
+        )) {
+            $direction = 'DESC';
+        }
 
 
-    $params = [
-        'school_id' => $school_id
-    ];
+        $query = "SELECT
+
+                    t.test_id,
+                    t.teacher_id,
+                    t.school_id,
+                    t.title,
+                    t.subject,
+                    t.test_type,
+                    t.description,
+                    t.instructions,
+                    t.class,
+                    t.division,
+                    t.total_marks,
+                    t.passing_marks,
+                    t.negative_marking,
+                    t.negative_marks,
+                    t.shuffle_questions,
+                    t.shuffle_options,
+                    t.duration,
+                    t.start_date,
+                    t.end_date,
+                    t.status,
+                    t.created_at
+
+                  FROM tests t
+
+                  WHERE t.school_id = :school_id";
 
 
-    /*
-    ========================================
-    SEARCH
-    ========================================
-    */
-
-    if ($search !== '') {
-
-        $query .= "
-            AND (
-                t.test_id LIKE :search
-                OR t.title LIKE :search
-                OR t.class LIKE :search
-                OR t.division LIKE :search
-                OR t.status LIKE :search
-            )
-        ";
-
-        $params['search'] =
-            '%' . $search . '%';
-    }
-
-
-    /*
-    ========================================
-    SORT
-    ========================================
-    */
-
-    $query .= "
-        ORDER BY
-        {$sortColumn}
-        {$direction}
-    ";
-
-
-    return $this->query(
-        $query,
-        $params
-    );
-}
-    /*
-========================================
-GET ALL TESTS
-========================================
-*/
-/*
-========================================
-GET ALL TESTS
-========================================
-*/
-
-public function getAllTests(
-    $search = '',
-    $sort = 'id',
-    $direction = 'DESC'
-) {
-
-    $sortColumns = [
-
-        'id'       => 'id',
-        'name'     => 'title',
-        'class'    => 'class',
-        'division' => 'division',
-        'marks'    => 'total_marks',
-        'duration' => 'duration',
-        'status'   => 'status'
-
-    ];
-
-    $orderBy =
-        $sortColumns[$sort] ?? 'id';
-
-
-    $direction =
-        strtoupper($direction) === 'ASC'
-        ? 'ASC'
-        : 'DESC';
-
-
-    $query = "SELECT
-                test_id,
-                teacher_id,
-                school_id,
-                title,
-                description,
-                class,
-                division,
-                total_marks,
-                duration,
-                start_date,
-                end_date,
-                status,
-                created_at
-
-              FROM tests
-
-              WHERE 1";
-
-
-    $params = [];
-
-
-    /*
-    ========================================
-    SEARCH
-    ========================================
-    */
-
-    if ($search !== '') {
-
-        $query .= "
-            AND (
-                test_id LIKE :search1
-                OR title LIKE :search2
-                OR class LIKE :search3
-                OR division LIKE :search4
-                OR status LIKE :search5
-            )
-        ";
-
-        $searchValue = '%' . $search . '%';
-
-        $params['search1'] = $searchValue;
-        $params['search2'] = $searchValue;
-        $params['search3'] = $searchValue;
-        $params['search4'] = $searchValue;
-        $params['search5'] = $searchValue;
-    }
-
-
-    /*
-    ========================================
-    SORT
-    ========================================
-    */
-
-    $query .= "
-        ORDER BY {$orderBy} {$direction}
-    ";
-
-
-    return $this->query(
-        $query,
-        $params
-    );
-}
-
-    /*
-========================================
-GET TEST BY ID
-========================================
-*/
-
-public function getTestById(
-    $test_id,
-    $school_id
-) {
-    $query = "SELECT
-                test_id,
-                teacher_id,
-                school_id,
-                title,
-                description,
-                class,
-                division,
-                total_marks,
-                duration,
-                start_date,
-                end_date,
-                status,
-                created_at
-
-              FROM tests
-
-              WHERE test_id = :test_id
-
-              AND school_id = :school_id
-
-              LIMIT 1";
-
-    $result = $this->query(
-        $query,
-        [
-            'test_id'   => $test_id,
+        $params = [
             'school_id' => $school_id
-        ]
-    );
+        ];
 
-    return $result[0] ?? false;
-}
 
-/*
-========================================
-GET TEST BY ID - SUPER ADMIN
-========================================
-*/
+        if ($search !== '') {
 
-public function getTestByIdAdmin($test_id)
-{
-    $query = "SELECT
-                test_id,
-                teacher_id,
-                school_id,
-                title,
-                description,
-                class,
-                division,
-                total_marks,
-                duration,
-                start_date,
-                end_date,
-                status,
-                created_at
+            $query .= "
+                AND (
+                    t.test_id LIKE :search
+                    OR t.title LIKE :search
+                    OR t.subject LIKE :search
+                    OR t.test_type LIKE :search
+                    OR t.class LIKE :search
+                    OR t.division LIKE :search
+                    OR t.status LIKE :search
+                )
+            ";
 
-              FROM tests
+            $params['search'] =
+                '%' . $search . '%';
+        }
 
-              WHERE test_id = :test_id
 
-              LIMIT 1";
+        $query .= "
+            ORDER BY
+            {$sortColumn}
+            {$direction}
+        ";
 
-    $result = $this->query(
-        $query,
-        [
-            'test_id' => $test_id
-        ]
-    );
 
-    return $result[0] ?? false;
-}
+        return $this->query(
+            $query,
+            $params
+        );
+    }
+
+
+    /*
+    ========================================
+    GET ALL TESTS
+    ========================================
+    */
+
+    public function getAllTests(
+        $search = '',
+        $sort = 'id',
+        $direction = 'DESC'
+    ) {
+
+        $sortColumns = [
+
+            'id'       => 'id',
+            'name'     => 'title',
+            'subject'  => 'subject',
+            'type'     => 'test_type',
+            'class'    => 'class',
+            'division' => 'division',
+            'marks'    => 'total_marks',
+            'duration' => 'duration',
+            'status'   => 'status'
+
+        ];
+
+
+        $orderBy =
+            $sortColumns[$sort] ?? 'id';
+
+
+        $direction =
+            strtoupper($direction) === 'ASC'
+            ? 'ASC'
+            : 'DESC';
+
+
+        $query = "SELECT
+
+                    test_id,
+                    teacher_id,
+                    school_id,
+                    title,
+                    subject,
+                    test_type,
+                    description,
+                    instructions,
+                    class,
+                    division,
+                    total_marks,
+                    passing_marks,
+                    negative_marking,
+                    negative_marks,
+                    shuffle_questions,
+                    shuffle_options,
+                    duration,
+                    start_date,
+                    end_date,
+                    status,
+                    created_at
+
+                  FROM tests
+
+                  WHERE 1";
+
+
+        $params = [];
+
+
+        if ($search !== '') {
+
+            $query .= "
+                AND (
+                    test_id LIKE :search1
+                    OR title LIKE :search2
+                    OR subject LIKE :search3
+                    OR test_type LIKE :search4
+                    OR class LIKE :search5
+                    OR division LIKE :search6
+                    OR status LIKE :search7
+                )
+            ";
+
+
+            $searchValue =
+                '%' . $search . '%';
+
+
+            $params['search1'] =
+                $searchValue;
+
+            $params['search2'] =
+                $searchValue;
+
+            $params['search3'] =
+                $searchValue;
+
+            $params['search4'] =
+                $searchValue;
+
+            $params['search5'] =
+                $searchValue;
+
+            $params['search6'] =
+                $searchValue;
+
+            $params['search7'] =
+                $searchValue;
+        }
+
+
+        $query .= "
+            ORDER BY {$orderBy} {$direction}
+        ";
+
+
+        return $this->query(
+            $query,
+            $params
+        );
+    }
+
+
+    /*
+    ========================================
+    GET TEST BY ID
+    ========================================
+    */
+
+    public function getTestById(
+        $test_id,
+        $school_id
+    ) {
+
+        $query = "SELECT
+
+                    test_id,
+                    teacher_id,
+                    school_id,
+                    title,
+                    subject,
+                    test_type,
+                    description,
+                    instructions,
+                    class,
+                    division,
+                    total_marks,
+                    passing_marks,
+                    negative_marking,
+                    negative_marks,
+                    shuffle_questions,
+                    shuffle_options,
+                    duration,
+                    start_date,
+                    end_date,
+                    status,
+                    created_at
+
+                  FROM tests
+
+                  WHERE test_id = :test_id
+
+                  AND school_id = :school_id
+
+                  LIMIT 1";
+
+
+        $result = $this->query(
+            $query,
+            [
+                'test_id'   => $test_id,
+                'school_id' => $school_id
+            ]
+        );
+
+
+        return $result[0] ?? false;
+    }
+
+
+    /*
+    ========================================
+    GET TEST BY ID - SUPER ADMIN
+    ========================================
+    */
+
+    public function getTestByIdAdmin($test_id)
+    {
+        $query = "SELECT
+
+                    test_id,
+                    teacher_id,
+                    school_id,
+                    title,
+                    subject,
+                    test_type,
+                    description,
+                    instructions,
+                    class,
+                    division,
+                    total_marks,
+                    passing_marks,
+                    negative_marking,
+                    negative_marks,
+                    shuffle_questions,
+                    shuffle_options,
+                    duration,
+                    start_date,
+                    end_date,
+                    status,
+                    created_at
+
+                  FROM tests
+
+                  WHERE test_id = :test_id
+
+                  LIMIT 1";
+
+
+        $result = $this->query(
+            $query,
+            [
+                'test_id' => $test_id
+            ]
+        );
+
+
+        return $result[0] ?? false;
+    }
+
 /*
 ========================================
 GET QUESTIONS BY TEST
@@ -381,6 +445,7 @@ GET QUESTIONS BY TEST
 public function getQuestionsByTest($test_id)
 {
     $query = "SELECT
+
                 question_id,
                 test_id,
                 question,
@@ -390,6 +455,11 @@ public function getQuestionsByTest($test_id)
                 option_c,
                 option_d,
                 correct_answer,
+                correct_answers,
+                explanation,
+                difficulty,
+                question_image,
+                question_order,
                 marks,
                 created_at
 
@@ -397,25 +467,125 @@ public function getQuestionsByTest($test_id)
 
               WHERE test_id = :test_id
 
-              ORDER BY id ASC";
+              ORDER BY question_order ASC, id ASC";
 
-    return $this->query(
+
+    $questions = $this->query(
         $query,
         [
             'test_id' => $test_id
         ]
     );
+
+
+    /*
+    ========================================
+    DECODE MSQ ANSWERS
+    ========================================
+    */
+
+    foreach ($questions as $question) {
+
+        if (
+            isset($question->correct_answers) &&
+            $question->correct_answers !== null &&
+            $question->correct_answers !== ''
+        ) {
+
+            $decoded =
+                json_decode(
+                    $question->correct_answers,
+                    true
+                );
+
+
+            $question->correct_answers =
+                is_array($decoded)
+                ? $decoded
+                : [];
+
+        } else {
+
+            $question->correct_answers = [];
+        }
+    }
+
+
+    return $questions;
 }
+    /*
+    ========================================
+    CREATE QUESTION
+    ========================================
+    */
 
-/*
-========================================
-CREATE QUESTION
-========================================
-*/
+    public function createQuestion($questionData)
+    {
+        /*
+        ========================================
+        DEFAULT VALUES
+        ========================================
+        */
 
-public function createQuestion($questionData)
-{
-    $query = "INSERT INTO test_questions
+        $questionData['option_a'] =
+            $questionData['option_a'] ?? null;
+
+        $questionData['option_b'] =
+            $questionData['option_b'] ?? null;
+
+        $questionData['option_c'] =
+            $questionData['option_c'] ?? null;
+
+        $questionData['option_d'] =
+            $questionData['option_d'] ?? null;
+
+        $questionData['correct_answer'] =
+            $questionData['correct_answer'] ?? null;
+
+        $questionData['correct_answers'] =
+            $questionData['correct_answers'] ?? null;
+
+        $questionData['explanation'] =
+            $questionData['explanation'] ?? null;
+
+        $questionData['difficulty'] =
+            $questionData['difficulty'] ?? 'medium';
+
+        $questionData['question_image'] =
+            $questionData['question_image'] ?? null;
+
+        $questionData['question_order'] =
+            $questionData['question_order'] ?? 0;
+
+
+        /*
+        ========================================
+        ENCODE MSQ ANSWERS
+        ========================================
+        */
+
+        if (
+            is_array(
+                $questionData['correct_answers']
+            )
+        ) {
+
+            $questionData['correct_answers'] =
+                json_encode(
+                    array_values(
+                        $questionData['correct_answers']
+                    )
+                );
+        }
+
+
+        /*
+        ========================================
+        INSERT QUESTION
+        ========================================
+        */
+
+        $query = "INSERT INTO test_questions
                 (
                     question_id,
                     test_id,
@@ -426,9 +596,14 @@ public function createQuestion($questionData)
                     option_c,
                     option_d,
                     correct_answer,
+                    correct_answers,
+                    explanation,
+                    difficulty,
+                    question_image,
+                    question_order,
                     marks
                 )
-              VALUES
+                VALUES
                 (
                     :question_id,
                     :test_id,
@@ -439,90 +614,110 @@ public function createQuestion($questionData)
                     :option_c,
                     :option_d,
                     :correct_answer,
+                    :correct_answers,
+                    :explanation,
+                    :difficulty,
+                    :question_image,
+                    :question_order,
                     :marks
                 )";
 
-    return $this->query(
-        $query,
-        $questionData
-    );
-}
 
-/*
-========================================
-PUBLISH TEST
-========================================
-*/
+        return $this->query(
+            $query,
+            $questionData
+        );
+    }
 
-public function publishTest(
-    $test_id,
-    $school_id
-) {
 
-    $query = "UPDATE tests
+    /*
+    ========================================
+    PUBLISH TEST
+    ========================================
+    */
 
-              SET status = 'active'
+    public function publishTest(
+        $test_id,
+        $school_id
+    ) {
 
-              WHERE test_id = :test_id
+        $query = "UPDATE tests
 
-              AND school_id = :school_id
+                  SET status = 'active'
 
-              AND status = 'draft'";
+                  WHERE test_id = :test_id
 
-    return $this->query(
-        $query,
-        [
-            'test_id'   => $test_id,
-            'school_id' => $school_id
-        ]
-    );
-}
+                  AND school_id = :school_id
 
-/*
-========================================
-GET ACTIVE TESTS BY CLASS & DIVISION
-========================================
-*/
+                  AND status = 'draft'";
 
-public function getTestsByClassDivision(
-    $school_id,
-    $class,
-    $division
-) {
-    $query = "SELECT
-                test_id,
-                teacher_id,
-                school_id,
-                title,
-                description,
-                class,
-                division,
-                total_marks,
-                duration,
-                start_date,
-                end_date,
-                status,
-                created_at
 
-              FROM tests
+        return $this->query(
+            $query,
+            [
+                'test_id'   => $test_id,
+                'school_id' => $school_id
+            ]
+        );
+    }
 
-              WHERE school_id = :school_id
 
-              AND class = :class
+    /*
+    ========================================
+    GET ACTIVE TESTS BY CLASS & DIVISION
+    ========================================
+    */
 
-              AND division = :division
+    public function getTestsByClassDivision(
+        $school_id,
+        $class,
+        $division
+    ) {
 
-              AND status = 'active'
+        $query = "SELECT
 
-              ORDER BY id DESC";
+                    test_id,
+                    teacher_id,
+                    school_id,
+                    title,
+                    subject,
+                    test_type,
+                    description,
+                    instructions,
+                    class,
+                    division,
+                    total_marks,
+                    passing_marks,
+                    negative_marking,
+                    negative_marks,
+                    shuffle_questions,
+                    shuffle_options,
+                    duration,
+                    start_date,
+                    end_date,
+                    status,
+                    created_at
 
-    return $this->query(
-        $query,
-        [
-            'school_id' => $school_id,
-            'class'     => $class,
-            'division'  => $division
-        ]
-    );
-}
+                  FROM tests
+
+                  WHERE school_id = :school_id
+
+                  AND class = :class
+
+                  AND division = :division
+
+                  AND status = 'active'
+
+                  ORDER BY id DESC";
+
+
+        return $this->query(
+            $query,
+            [
+                'school_id' => $school_id,
+                'class'     => $class,
+                'division'  => $division
+            ]
+        );
+    }
 }

@@ -1,104 +1,74 @@
+
 /* =========================================================
    TEACHER ADD QUESTION
    My School - Super Admin Theme
+   Matched to teacher-test-addquestion.view.php
 ========================================================= */
-
 
 /* =========================================================
    GLOBAL
 ========================================================= */
+
+.dashboard {
+    width: 100%;
+    max-width: 1380px;
+    margin: 0 auto;
+    padding: 50px 30px 60px;
+    box-sizing: border-box;
+}
+
+.dashboard *,
+.dashboard *::before,
+.dashboard *::after {
+    box-sizing: border-box;
+}
+
+
+/* =========================================================
+   PAGE HEADER
+========================================================= */
+
+.welcome {
+    width: 100%;
+    margin-bottom: 32px;
+}
+
+.welcome-small {
+    margin: 0 0 10px;
+    color: #a32675;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+}
+
+.welcome h1 {
+    margin: 0 0 10px;
+    color: #302d3d;
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 1.2;
+}
+
+.welcome-text {
+    margin: 0;
+    color: #756d79;
+    font-size: 13px;
+    line-height: 1.5;
+}
 
 
 /* =========================================================
    FORM CARD
 ========================================================= */
 
-
-.dashboard {
-
-    width: 100%;
-
-    max-width: 1380px;
-
-    margin: 0 auto;
-
-    padding: 50px 30px 60px;
-
-    box-sizing: border-box;
-
-}
-
-
-/* =====================================================
-   PAGE HEADER
-===================================================== */
-
-.welcome {
-
-    width: 100%;
-
-    margin-bottom: 32px;
-
-}
-
-
-.welcome-small {
-
-    margin: 0 0 10px;
-
-    color: #a32675;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.8px;
-
-    text-transform: uppercase;
-
-}
-
-
-.welcome h1 {
-
-    margin: 0 0 10px;
-
-    color: #302d3d;
-
-    font-size: 30px;
-
-    font-weight: 700;
-
-    line-height: 1.2;
-
-}
-
-
-.welcome-text {
-
-    margin: 0;
-
-    color: #756d79;
-
-    font-size: 13px;
-
-    line-height: 1.5;
-
-}
-
 .test-form-card {
     width: 100%;
-
     padding: 30px;
-
     background: #ffffff;
-
     border: 1px solid #eadfe7;
-
     border-radius: 16px;
-
-    box-shadow:
-        0 8px 24px rgba(48, 45, 61, 0.05);
+    box-shadow: 0 8px 24px rgba(48, 45, 61, 0.05);
 }
 
 
@@ -108,54 +78,185 @@
 
 .test-form-header {
     margin-bottom: 28px;
-
     padding-bottom: 18px;
-
     border-bottom: 1px solid #eee5eb;
+}
+
+.builder-label {
+    display: block;
+    margin-bottom: 7px;
+    color: #a32675;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
 }
 
 .test-form-header h2 {
     position: relative;
-
     display: inline-block;
-
     margin: 0;
-
     padding-bottom: 11px;
-
     color: #302d3d;
-
     font-size: 19px;
-
     font-weight: 700;
 }
 
 .test-form-header h2::after {
     content: "";
-
     position: absolute;
-
     left: 0;
-
     bottom: 0;
-
     width: 38px;
-
     height: 3px;
-
     background: #a32675;
-
     border-radius: 3px;
 }
 
 .test-form-header p {
     margin: 9px 0 0;
-
     color: #918b99;
-
     font-size: 12px;
-
     line-height: 1.5;
+}
+
+
+/* =========================================================
+   BUILDER SECTION
+========================================================= */
+
+.builder-section {
+    margin-bottom: 30px;
+    padding-bottom: 28px;
+    border-bottom: 1px solid #eee5eb;
+}
+
+.builder-section:last-of-type {
+    border-bottom: 0;
+}
+
+.section-heading {
+    margin-bottom: 18px;
+}
+
+.section-heading > div {
+    display: flex;
+    align-items: flex-start;
+    gap: 11px;
+}
+
+.section-number {
+    width: 27px;
+    height: 27px;
+    min-width: 27px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #a32675;
+    background: #f7eaf1;
+    border: 1px solid #ecd8e3;
+    border-radius: 7px;
+    font-size: 9px;
+    font-weight: 700;
+}
+
+.section-heading h3 {
+    margin: 1px 0 4px;
+    color: #302d3d;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.section-heading p {
+    margin: 0;
+    color: #918b99;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   QUESTION TYPE CARDS
+========================================================= */
+
+.question-type-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.type-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-height: 70px;
+    padding: 12px 13px;
+    background: #fdf9fb;
+    border: 1px solid #eadfe7;
+    border-radius: 10px;
+    cursor: pointer;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease,
+        transform 0.2s ease;
+}
+
+.type-card:hover {
+    background: #ffffff;
+    border-color: #d9c6d3;
+    transform: translateY(-1px);
+}
+
+.type-card.active,
+.type-card:has(input:checked) {
+    background: #fff7fb;
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.07);
+}
+
+.type-card input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.type-icon {
+    width: 34px;
+    height: 34px;
+    min-width: 34px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #a32675;
+    background: #f3e7ef;
+    border-radius: 8px;
+    font-size: 9px;
+    font-weight: 800;
+}
+
+.type-card:has(input:checked) .type-icon {
+    color: #ffffff;
+    background: #a32675;
+}
+
+.type-content {
+    min-width: 0;
+}
+
+.type-content strong {
+    display: block;
+    margin-bottom: 3px;
+    color: #302d3d;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.type-content small {
+    display: block;
+    color: #918b99;
+    font-size: 9px;
+    line-height: 1.4;
 }
 
 
@@ -167,16 +268,20 @@
     margin-bottom: 22px;
 }
 
-.form-group label {
+.form-group:last-child {
+    margin-bottom: 0;
+}
+
+.form-group > label {
     display: block;
-
     margin-bottom: 8px;
-
     color: #625b67;
-
     font-size: 11px;
-
     font-weight: 700;
+}
+
+.form-group > label span {
+    color: #a32675;
 }
 
 
@@ -188,23 +293,14 @@
 .form-group textarea,
 .form-group select {
     width: 100%;
-
     padding: 11px 13px;
-
     color: #302d3d;
-
     background: #ffffff;
-
     border: 1px solid #ded6df;
-
     border-radius: 8px;
-
     outline: none;
-
     font-family: inherit;
-
     font-size: 12px;
-
     transition:
         border-color 0.2s ease,
         box-shadow 0.2s ease,
@@ -217,9 +313,7 @@
 
 .form-group textarea {
     min-height: 105px;
-
     resize: vertical;
-
     line-height: 1.6;
 }
 
@@ -232,69 +326,280 @@
 .form-group textarea:focus,
 .form-group select:focus {
     border-color: #a32675;
-
     background: #ffffff;
-
-    box-shadow:
-        0 0 0 3px rgba(163, 38, 117, 0.08);
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.08);
 }
 
 
 /* =========================================================
-   OPTIONS SECTION
+   QUESTION TEXT
 ========================================================= */
 
-.options-section {
-    margin-top: 5px;
-
-    margin-bottom: 4px;
-
-    padding: 20px;
-
-    background: #fdf9fb;
-
-    border: 1px solid #eee5eb;
-
-    border-radius: 12px;
+#question {
+    min-height: 125px;
 }
 
-.section-label {
-    margin-bottom: 18px;
 
-    color: #302d3d;
+/* =========================================================
+   ANSWER OPTIONS
+========================================================= */
 
-    font-size: 12px;
+.options-builder {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+}
 
+.answer-option {
+    display: grid;
+    grid-template-columns: 34px minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background: #fdfbfc;
+    border: 1px solid #eee5eb;
+    border-radius: 9px;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease;
+}
+
+.answer-option:hover {
+    background: #ffffff;
+    border-color: #ddcfda;
+}
+
+.answer-marker {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a32675;
+    background: #f3e7ef;
+    border-radius: 7px;
+    font-size: 11px;
     font-weight: 700;
 }
 
-.options-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
-
-    column-gap: 20px;
-
-    row-gap: 0;
+.answer-option > input[type="text"] {
+    width: 100%;
+    height: 40px;
+    min-width: 0;
+    padding: 10px 12px;
+    color: #302d3d;
+    background: #ffffff;
+    border: 1px solid #ded6df;
+    border-radius: 7px;
+    outline: none;
+    font-family: inherit;
+    font-size: 12px;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
 }
 
-.options-grid .form-group {
-    margin-bottom: 18px;
+.answer-option > input[type="text"]:focus {
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.07);
 }
 
 
 /* =========================================================
-   FORM ROW
+   CORRECT CONTROLS
 ========================================================= */
 
-.form-row {
+.correct-control,
+.msq-control {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 75px;
+    height: 32px;
+    padding: 0 9px;
+    color: #756d79;
+    background: #ffffff;
+    border: 1px solid #ded6df;
+    border-radius: 7px;
+    cursor: pointer;
+    font-size: 9px;
+    font-weight: 700;
+    transition:
+        color 0.2s ease,
+        background 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.correct-control:hover,
+.msq-control:hover {
+    color: #a32675;
+    background: #fff7fb;
+    border-color: #dfc3d3;
+}
+
+.correct-control input,
+.msq-control input {
+    width: 14px !important;
+    height: 14px !important;
+    margin: 0;
+    padding: 0 !important;
+    accent-color: #a32675;
+    cursor: pointer;
+}
+
+.correct-answer-hint {
+    margin-top: 9px;
+    color: #918b99;
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   TRUE / FALSE
+========================================================= */
+
+.true-false-options {
     display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
 
-    grid-template-columns:
-        repeat(2, minmax(0, 1fr));
+.tf-card {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 0 14px;
+    color: #625b67;
+    background: #ffffff;
+    border: 1px solid #ded6df;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 11px;
+    font-weight: 600;
+    transition:
+        border-color 0.2s ease,
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
 
+.tf-card:hover {
+    background: #fff7fb;
+    border-color: #d9bfd0;
+}
+
+.tf-card:has(input:checked) {
+    color: #a32675;
+    background: #fff7fb;
+    border-color: #a32675;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.06);
+}
+
+.tf-card input {
+    width: 15px !important;
+    height: 15px !important;
+    margin: 0;
+    padding: 0 !important;
+    accent-color: #a32675;
+}
+
+
+/* =========================================================
+   FILL BLANK
+========================================================= */
+
+.hidden-section {
+    display: none;
+}
+
+#fillBlankSection .form-group {
+    margin-bottom: 0;
+}
+
+#fill_answer {
+    width: 100%;
+}
+
+
+/* =========================================================
+   WRITTEN ANSWER
+========================================================= */
+
+.written-answer-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 15px;
+    background: #fdf9fb;
+    border: 1px solid #eee5eb;
+    border-radius: 10px;
+}
+
+.info-icon {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a32675;
+    background: #f3e7ef;
+    border-radius: 50%;
+    font-size: 11px;
+    font-weight: 800;
+}
+
+.written-answer-info strong {
+    display: block;
+    margin: 2px 0 5px;
+    color: #302d3d;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.written-answer-info p {
+    margin: 0;
+    color: #918b99;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+
+/* =========================================================
+   SETTINGS
+========================================================= */
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 20px;
+}
+
+.settings-grid .form-group {
+    margin-bottom: 0;
+}
+
+#marks,
+#question_order {
+    appearance: textfield;
+}
+
+#marks::-webkit-inner-spin-button,
+#marks::-webkit-outer-spin-button,
+#question_order::-webkit-inner-spin-button,
+#question_order::-webkit-outer-spin-button {
+    margin: 0;
+}
+
+
+/* =========================================================
+   EXPLANATION
+========================================================= */
+
+#explanation {
+    min-height: 100px;
 }
 
 
@@ -304,17 +609,11 @@
 
 .form-actions {
     display: flex;
-
     align-items: center;
-
     justify-content: flex-end;
-
     gap: 12px;
-
     margin-top: 8px;
-
     padding-top: 22px;
-
     border-top: 1px solid #eee5eb;
 }
 
@@ -325,29 +624,17 @@
 
 .cancel-btn {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     min-height: 40px;
-
     padding: 10px 18px;
-
     color: #625b67;
-
     background: #ffffff;
-
     border: 1px solid #ded6df;
-
     border-radius: 8px;
-
     font-size: 11px;
-
     font-weight: 600;
-
     text-decoration: none;
-
     transition:
         color 0.2s ease,
         border-color 0.2s ease,
@@ -356,44 +643,29 @@
 
 .cancel-btn:hover {
     color: #a32675;
-
     background: #fff7fb;
-
     border-color: #ead1e1;
 }
 
 
 /* =========================================================
-   ADD QUESTION BUTTON
+   SAVE QUESTION BUTTON
 ========================================================= */
 
 .create-test-btn {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
     min-height: 40px;
-
     padding: 10px 20px;
-
     color: #ffffff;
-
     background: #a32675;
-
     border: 1px solid #a32675;
-
     border-radius: 8px;
-
     cursor: pointer;
-
     font-family: inherit;
-
     font-size: 11px;
-
     font-weight: 700;
-
     transition:
         background 0.2s ease,
         border-color 0.2s ease,
@@ -402,10 +674,35 @@
 
 .create-test-btn:hover {
     background: #8d205f;
-
     border-color: #8d205f;
-
     transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.alert-error,
+.form-error {
+    margin-bottom: 20px;
+    padding: 11px 13px;
+    color: #a33a32;
+    background: #fff7f6;
+    border: 1px solid #efd5d1;
+    border-radius: 8px;
+    font-size: 11px;
+    line-height: 1.5;
+}
+
+.alert-success {
+    margin-bottom: 20px;
+    padding: 11px 13px;
+    color: #34704d;
+    background: #f4fbf6;
+    border: 1px solid #d2e9d9;
+    border-radius: 8px;
+    font-size: 11px;
 }
 
 
@@ -423,6 +720,13 @@
         padding: 25px;
     }
 
+    .question-type-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .settings-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 
@@ -446,27 +750,36 @@
 
     .test-form-card {
         padding: 20px;
-
         border-radius: 13px;
     }
 
-    .options-section {
-        padding: 16px;
-    }
-
-    .options-grid {
+    .question-type-grid {
         grid-template-columns: 1fr;
     }
 
-    .form-row {
-        grid-template-columns: 1fr;
+    .answer-option {
+        grid-template-columns: 32px minmax(0, 1fr);
+    }
 
+    .correct-control,
+    .msq-control {
+        grid-column: 2;
+        justify-content: flex-start;
+        width: fit-content;
+        min-width: 82px;
+    }
+
+    .true-false-options {
+        grid-template-columns: 1fr;
+    }
+
+    .settings-grid {
+        grid-template-columns: 1fr;
         gap: 0;
     }
 
     .form-actions {
         align-items: stretch;
-
         flex-direction: column-reverse;
     }
 
@@ -474,7 +787,6 @@
     .create-test-btn {
         width: 100%;
     }
-
 }
 
 
@@ -504,6 +816,15 @@
         font-size: 17px;
     }
 
+    .builder-section {
+        margin-bottom: 24px;
+        padding-bottom: 23px;
+    }
+
+    .section-heading h3 {
+        font-size: 13px;
+    }
+
     .form-group {
         margin-bottom: 18px;
     }
@@ -518,4 +839,24 @@
         padding: 14px;
     }
 
+    .type-card {
+        min-height: 64px;
+        padding: 10px;
+    }
+
+    .type-icon {
+        width: 31px;
+        height: 31px;
+        min-width: 31px;
+    }
+
+    .answer-option {
+        grid-template-columns: 30px minmax(0, 1fr);
+        padding: 8px;
+    }
+
+    .answer-marker {
+        width: 29px;
+        height: 29px;
+    }
 }

@@ -87,6 +87,34 @@ class ExamIntegrityModel extends Model
 
     /*
     =====================================================
+    DELETE EVENTS
+    =====================================================
+    */
+
+    public function deleteEvents(
+        $test_id,
+        $student_id
+    ) {
+
+        $query = "DELETE FROM exam_events
+                  WHERE test_id = :test_id
+                  AND student_id = :student_id";
+
+        return $this->query(
+            $query,
+            [
+                'test_id' =>
+                    $test_id,
+
+                'student_id' =>
+                    $student_id
+            ]
+        );
+    }
+
+
+    /*
+    =====================================================
     COUNT EVENT
     =====================================================
     */
@@ -139,29 +167,75 @@ class ExamIntegrityModel extends Model
 
                     COUNT(*) AS total_events,
 
-                    SUM(
-                        event_type = 'tab_switch'
+                    COALESCE(
+                        SUM(
+                            event_type = 'exam_started'
+                        ),
+                        0
+                    ) AS exam_started,
+
+                    COALESCE(
+                        SUM(
+                            event_type = 'camera_connected'
+                        ),
+                        0
+                    ) AS camera_connected,
+
+                    COALESCE(
+                        SUM(
+                            event_type = 'tab_switch'
+                        ),
+                        0
                     ) AS tab_switches,
 
-                    SUM(
-                        event_type = 'fullscreen_exited'
+                    COALESCE(
+                        SUM(
+                            event_type = 'fullscreen_entered'
+                        ),
+                        0
+                    ) AS fullscreen_enters,
+
+                    COALESCE(
+                        SUM(
+                            event_type = 'fullscreen_exited'
+                        ),
+                        0
                     ) AS fullscreen_exits,
 
-                    SUM(
-                        event_type = 'copy_attempt'
+                    COALESCE(
+                        SUM(
+                            event_type = 'copy_attempt'
+                        ),
+                        0
                     ) AS copy_attempts,
 
-                    SUM(
-                        event_type = 'paste_attempt'
+                    COALESCE(
+                        SUM(
+                            event_type = 'paste_attempt'
+                        ),
+                        0
                     ) AS paste_attempts,
 
-                    SUM(
-                        event_type = 'right_click_attempt'
+                    COALESCE(
+                        SUM(
+                            event_type = 'right_click_attempt'
+                        ),
+                        0
                     ) AS right_click_attempts,
 
-                    SUM(
-                        event_type = 'camera_disconnected'
-                    ) AS camera_disconnects
+                    COALESCE(
+                        SUM(
+                            event_type = 'camera_disconnected'
+                        ),
+                        0
+                    ) AS camera_disconnects,
+
+                    COALESCE(
+                        SUM(
+                            event_type = 'exam_submitted'
+                        ),
+                        0
+                    ) AS exam_submitted
 
                   FROM exam_events
 
@@ -264,7 +338,7 @@ class ExamIntegrityModel extends Model
 
         /*
         -----------------------------------------
-        CAMERA
+        CAMERA DISCONNECT
         -----------------------------------------
         */
 

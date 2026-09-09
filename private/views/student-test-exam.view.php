@@ -37,7 +37,7 @@ $questions =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-test-exam.view.css?v=4"
+        href="<?= ROOT ?>/css/student-test-exam.view.css?v=5"
     >
 
 </head>
@@ -73,6 +73,38 @@ $questions =
 
 </div>
 
+<div
+    id="integrityWarning"
+    class="integrity-warning"
+    aria-live="polite"
+    aria-hidden="true"
+>
+    <strong>Exam activity recorded</strong>
+    <span>Your activity has been recorded for review.</span>
+</div>
+
+<!-- ========================================
+     RETURN TO TEST OVERLAY
+========================================= -->
+
+<div
+    id="returnToTestOverlay"
+    class="return-to-test-overlay"
+    aria-hidden="true"
+>
+    <div class="return-to-test-card">
+        <div class="return-to-test-icon">!</div>
+        <h2>Return to Test</h2>
+        <p>
+            You have left the examination window.
+            Your activity has been recorded.
+            Return to the test to continue.
+        </p>
+        <button type="button" id="returnToTestButton">
+            Go to Test
+        </button>
+    </div>
+</div>
 
 
 <!-- ========================================
@@ -109,7 +141,6 @@ $questions =
 </div>
 
 
-
         <!-- ========================================
              TIMER
         ========================================= -->
@@ -129,7 +160,6 @@ $questions =
 
 
     </header>
-
 
 
     <!-- ========================================
@@ -180,7 +210,6 @@ $questions =
 
 
         </aside>
-
 
 
         <!-- ========================================
@@ -238,7 +267,6 @@ $questions =
                     </div>
 
 
-
                     <!-- ========================================
                          QUESTION
                     ========================================= -->
@@ -251,7 +279,6 @@ $questions =
                         ) ?>
 
                     </h2>
-
 
 
                     <!-- ========================================
@@ -360,7 +387,6 @@ $questions =
                 </button>
 
 
-
                 <button
                     type="button"
                     id="nextBtn"
@@ -370,7 +396,6 @@ $questions =
                     Next →
 
                 </button>
-
 
 
                 <button
@@ -394,7 +419,6 @@ $questions =
 
 
 </main>
-
 
 
 <!-- ========================================
@@ -424,6 +448,96 @@ $questions =
     background: #0f172a;
 }
 
+
+.return-to-test-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+    box-sizing: border-box;
+    background: rgba(15, 23, 42, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.return-to-test-overlay.active {
+    display: flex;
+}
+
+.return-to-test-card {
+    width: min(100%, 430px);
+    padding: 34px;
+    box-sizing: border-box;
+    background: #ffffff;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.30);
+}
+
+.return-to-test-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #fff4e5;
+    color: #b45309;
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.return-to-test-card h2 {
+    margin: 0 0 10px;
+    color: #172033;
+    font-size: 24px;
+}
+
+.return-to-test-card p {
+    margin: 0 0 22px;
+    color: #64748b;
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+#returnToTestButton {
+    min-width: 150px;
+    padding: 12px 22px;
+    border: 1px solid #303641;
+    border-radius: 9px;
+    background: #303641;
+    color: #ffffff;
+    font: inherit;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#returnToTestButton:hover {
+    background: #20252d;
+}
+
+/* Keep the camera stream active, but do not show it while the exam is running. */
+.exam-page.exam-blurred {
+    filter: blur(9px);
+    pointer-events: none;
+    user-select: none;
+}
+
+.exam-camera-box.exam-camera-hidden {
+    position: fixed;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    left: -9999px;
+    top: -9999px;
+}
 
 .secure-exam-dialog {
 
@@ -508,7 +622,6 @@ $questions =
 }
 
 </style>
-
 
 
 <!-- ========================================
@@ -614,7 +727,6 @@ const testsUrl =
     "<?= ROOT ?>/studenttests";
 
 
-
 /* =========================================================
    QUESTION NAVIGATION
 ========================================================= */
@@ -633,7 +745,6 @@ const questionButtons =
 
 
 let currentQuestion = 0;
-
 
 
 function showQuestion(index) {
@@ -690,7 +801,6 @@ function showQuestion(index) {
 }
 
 
-
 /* =========================================================
    QUESTION NUMBER CLICK
 ========================================================= */
@@ -714,7 +824,6 @@ questionButtons.forEach(
 
     }
 );
-
 
 
 /* =========================================================
@@ -743,7 +852,6 @@ document
     );
 
 
-
 /* =========================================================
    PREVIOUS
 ========================================================= */
@@ -769,7 +877,6 @@ document
     );
 
 
-
 /* =========================================================
    TIMER
 ========================================================= */
@@ -787,7 +894,6 @@ const timerElement =
     document.getElementById(
         'timer'
     );
-
 
 
 function updateTimer() {
@@ -845,7 +951,6 @@ function updateTimer() {
 }
 
 
-
 updateTimer();
 
 
@@ -856,7 +961,6 @@ timerInterval =
     );
 
 
-
 /* =========================================================
    SUBMISSION
 ========================================================= */
@@ -864,7 +968,6 @@ timerInterval =
 
 let testSubmitting =
     false;
-
 
 
 /*
@@ -895,7 +998,6 @@ function collectAnswers(
         );
 
 }
-
 
 
 /*
@@ -1033,7 +1135,6 @@ document.addEventListener(
 
     }
 );
-
 
 
 /*
@@ -1184,7 +1285,6 @@ function submitTest() {
 }
 
 
-
 /*
 ========================================
 AUTOMATIC SUBMIT
@@ -1313,7 +1413,6 @@ function autoSubmitExam() {
 }
 
 
-
 /* =========================================================
    CAMERA
 ========================================================= */
@@ -1333,7 +1432,6 @@ const examCameraStatus =
 
 let examCameraStream =
     null;
-
 
 
 async function startExamCamera() {
@@ -1382,6 +1480,27 @@ async function startExamCamera() {
         examCamera.srcObject =
             examCameraStream;
 
+        /*
+         * Detect when the camera is disconnected or
+         * permission/device access is lost during the exam.
+         */
+        examCameraStream.getVideoTracks().forEach(
+            function(track) {
+                track.addEventListener(
+                    'ended',
+                    function() {
+                        if (examLocked && !testSubmitting) {
+                            examCameraStatus.classList.remove('ready');
+                            examCameraStatus.classList.add('error');
+                            examCameraStatus.innerHTML =
+                                '<span></span> Camera Disconnected';
+
+                            logExamEvent('camera_disconnected');
+                        }
+                    }
+                );
+            }
+        );
 
         examCameraStatus
             .classList
@@ -1430,7 +1549,6 @@ async function startExamCamera() {
 }
 
 
-
 /*
 ========================================
 STOP CAMERA
@@ -1465,7 +1583,6 @@ function stopExamCamera() {
 }
 
 
-
 /* =========================================================
    SECURE EXAM
 ========================================================= */
@@ -1473,7 +1590,6 @@ function stopExamCamera() {
 
 let examLocked =
     false;
-
 
 
 /*
@@ -1493,7 +1609,6 @@ secureOverlay.id =
     'secureExamOverlay';
 
 
-
 secureOverlay.innerHTML = `
 
     <div class="secure-exam-dialog">
@@ -1504,16 +1619,15 @@ secureOverlay.innerHTML = `
 
         <p>
 
-            Your examination will open
-            in fullscreen mode.
+            Camera access is required before the test starts.
 
-            Do not leave the
-            examination window.
+            The test will open in fullscreen mode so the
+            examination area is the only visible test interface.
 
-            Leaving fullscreen or
-            switching to another tab
-            will submit your test
-            automatically.
+            If you leave the test window or fullscreen mode,
+            the question paper will be protected and you will
+            be asked to return to the test. Your activity may
+            be recorded for teacher review.
 
         </p>
 
@@ -1531,18 +1645,15 @@ secureOverlay.innerHTML = `
 `;
 
 
-
 document.body.appendChild(
     secureOverlay
 );
-
 
 
 const beginSecureExam =
     document.getElementById(
         'beginSecureExam'
     );
-
 
 
 /* =========================================================
@@ -1604,7 +1715,6 @@ async function enterFullscreen() {
 }
 
 
-
 /* =========================================================
    START SECURE EXAM
 ========================================================= */
@@ -1633,48 +1743,12 @@ beginSecureExam
                 'Starting...';
 
 
-
             /*
-            Fullscreen
-            */
-
-            const fullscreenStarted =
-                await enterFullscreen();
-
-
-
-            if (
-                !fullscreenStarted
-            ) {
-
-
-                beginSecureExam.disabled =
-                    false;
-
-
-                beginSecureExam.textContent =
-                    'Start Secure Exam';
-
-
-                alert(
-                    'Fullscreen could not be started. ' +
-                    'Please click Start Secure Exam again.'
-                );
-
-
-                return;
-
-            }
-
-
-
-            /*
-            Camera
+            Camera must be connected before the test starts.
             */
 
             const cameraStarted =
                 await startExamCamera();
-
 
 
             if (
@@ -1713,6 +1787,31 @@ beginSecureExam
             }
 
 
+            /*
+            Fullscreen starts only after camera access succeeds.
+            */
+
+            const fullscreenStarted =
+                await enterFullscreen();
+
+            if (!fullscreenStarted) {
+
+                stopExamCamera();
+
+                beginSecureExam.disabled =
+                    false;
+
+                beginSecureExam.textContent =
+                    'Start Secure Exam';
+
+                alert(
+                    'Fullscreen could not be started. ' +
+                    'Please allow fullscreen and try again.'
+                );
+
+                return;
+            }
+
 
             /*
             Exam is now locked
@@ -1721,13 +1820,24 @@ beginSecureExam
             examLocked =
                 true;
 
+            /*
+            Keep the camera stream active but hide its preview.
+            The student should see only the test interface.
+            */
+
+            const cameraBox =
+                document.querySelector('.exam-camera-box');
+
+            if (cameraBox) {
+                cameraBox.classList.add('exam-camera-hidden');
+            }
+
             logExamEvent('exam_started');
 
             secureOverlay.remove();
 
         }
     );
-
 
 
 /* =========================================================
@@ -1747,12 +1857,12 @@ document.addEventListener(
             event.preventDefault();
 
             logExamEvent('right_click_attempt');
+            showIntegrityWarning();
 
         }
 
     }
 );
-
 
 
 /* =========================================================
@@ -1788,6 +1898,11 @@ document.addEventListener(
                         logExamEvent('paste_attempt');
                     }
 
+                    if (eventName === 'cut') {
+                        logExamEvent('copy_attempt');
+                    }
+
+                    showIntegrityWarning();
                 }
 
             }
@@ -1795,7 +1910,6 @@ document.addEventListener(
 
     }
 );
-
 
 
 /* =========================================================
@@ -1821,7 +1935,6 @@ document.addEventListener(
             event.key.toLowerCase();
 
 
-
         /*
         F12 / F11
         */
@@ -1844,52 +1957,44 @@ document.addEventListener(
         }
 
 
-
         /*
         CTRL shortcuts
         */
 
         if (
-
             event.ctrlKey
-
             &&
-
             (
-
                 key === 'c'
-
                 ||
-
                 key === 'v'
-
                 ||
-
                 key === 'x'
-
                 ||
-
                 key === 'u'
-
                 ||
-
                 key === 's'
-
                 ||
-
                 key === 'p'
-
             )
-
         ) {
-
-
             event.preventDefault();
 
+            if (key === 'c') {
+                logExamEvent('copy_attempt');
+            }
+
+            if (key === 'v') {
+                logExamEvent('paste_attempt');
+            }
+
+            if (key === 'x') {
+                logExamEvent('copy_attempt');
+            }
+
+            showIntegrityWarning();
             return;
-
         }
-
 
 
         /*
@@ -1930,7 +2035,6 @@ document.addEventListener(
         }
 
 
-
         /*
         Browser back / forward
         */
@@ -1964,7 +2068,6 @@ document.addEventListener(
 );
 
 
-
 /* =========================================================
    BACK BUTTON
 ========================================================= */
@@ -1975,7 +2078,6 @@ history.pushState(
     '',
     location.href
 );
-
 
 
 window.addEventListener(
@@ -2000,6 +2102,91 @@ window.addEventListener(
 );
 
 
+/* =========================================================
+   RETURN TO TEST PROTECTION
+========================================================= */
+
+const returnToTestOverlay =
+    document.getElementById('returnToTestOverlay');
+
+const returnToTestButton =
+    document.getElementById('returnToTestButton');
+
+
+function showReturnToTestOverlay(reason) {
+
+    if (!returnToTestOverlay) {
+        return;
+    }
+
+    if (reason === 'fullscreen_exited') {
+        returnToTestOverlay.querySelector('p').textContent =
+            'Fullscreen mode was exited. Your activity has been recorded. Return to the test to continue.';
+    } else {
+        returnToTestOverlay.querySelector('p').textContent =
+            'You have left the examination window. Your activity has been recorded. Return to the test to continue.';
+    }
+
+    const examPage =
+        document.querySelector('.exam-page');
+
+    if (examPage) {
+        examPage.classList.add('exam-blurred');
+    }
+
+    returnToTestOverlay.classList.add('active');
+    returnToTestOverlay.setAttribute('aria-hidden', 'false');
+}
+
+
+function hideReturnToTestOverlay() {
+
+    if (!returnToTestOverlay) {
+        return;
+    }
+
+    const examPage =
+        document.querySelector('.exam-page');
+
+    if (examPage) {
+        examPage.classList.remove('exam-blurred');
+    }
+
+    returnToTestOverlay.classList.remove('active');
+    returnToTestOverlay.setAttribute('aria-hidden', 'true');
+}
+
+
+if (returnToTestButton) {
+
+    returnToTestButton.addEventListener(
+        'click',
+        async function() {
+
+            if (testSubmitting || !examLocked) {
+                return;
+            }
+
+            returnToTestButton.disabled = true;
+            returnToTestButton.textContent = 'Returning...';
+
+            const fullscreenStarted =
+                await enterFullscreen();
+
+            if (fullscreenStarted) {
+                hideReturnToTestOverlay();
+            } else {
+                alert(
+                    'Please click Go to Test again and allow fullscreen mode.'
+                );
+            }
+
+            returnToTestButton.disabled = false;
+            returnToTestButton.textContent = 'Go to Test';
+        }
+    );
+}
+
 
 /* =========================================================
    TAB CHANGE
@@ -2020,30 +2207,28 @@ document.addEventListener(
     'visibilitychange',
     function() {
 
+        if (
+            document.hidden
+            &&
+            examLocked
+            &&
+            !testSubmitting
+        ) {
+            logExamEvent('tab_switch');
+        }
 
         if (
-
-            document.hidden
-
+            !document.hidden
             &&
-
             examLocked
-
             &&
-
             !testSubmitting
-
         ) {
-
-            logExamEvent('tab_switch');
-
-            autoSubmitExam();
-
+            showReturnToTestOverlay('tab_switch');
         }
 
     }
 );
-
 
 
 /* =========================================================
@@ -2067,28 +2252,19 @@ document.addEventListener(
 
 
         if (
-
             !document.fullscreenElement
-
             &&
-
             examLocked
-
             &&
-
             !testSubmitting
-
         ) {
-
             logExamEvent('fullscreen_exited');
-
-            autoSubmitExam();
-
+            showIntegrityWarning();
+            showReturnToTestOverlay('fullscreen_exited');
         }
 
     }
 );
-
 
 
 /* =========================================================
@@ -2099,28 +2275,16 @@ document.addEventListener(
 window.addEventListener(
     'pagehide',
     function() {
-
-
-        if (
-
-            !examLocked
-
-            ||
-
-            testSubmitting
-
-        ) {
-
+        /*
+         * Do not submit automatically here.
+         * Browser close/refresh can be triggered by normal
+         * navigation and should not destroy the student's attempt.
+         */
+        if (!examLocked || testSubmitting) {
             return;
-
         }
-
-
-        autoSubmitExam();
-
     }
 );
-
 
 
 /* =========================================================
