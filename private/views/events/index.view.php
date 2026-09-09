@@ -107,27 +107,6 @@ $user_id = $_SESSION['user_id'] ?? null;
 
         <div class="welcome-actions">
 
-            <?php if ($rank === 'super_admin'): ?>
-
-                <a
-                    href="<?= ROOT ?>/superadmin"
-                    class="back-dashboard"
-                >
-                    ← Back to Dashboard
-                </a>
-
-            <?php else: ?>
-
-                <a
-                    href="<?= ROOT ?>/home"
-                    class="back-dashboard"
-                >
-                    ← Back to Dashboard
-                </a>
-
-            <?php endif; ?>
-
-
             <a
                 href="<?= ROOT ?>/events/create"
                 class="add-event-button"
