@@ -45,7 +45,7 @@ $classmates =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-class.view.css?v=2"
+        href="<?= ROOT ?>/css/student-class.view.css?v=3"
     >
 
 

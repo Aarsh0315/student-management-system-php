@@ -1,7 +1,8 @@
-/* ========================================
+/* =====================================================
    STUDENT TESTS PAGE
-   MY SCHOOL
-======================================== */
+   My School — Professional Student UI
+   Matches Teacher pages styling
+   ===================================================== */
 
 * {
     margin: 0;
@@ -9,297 +10,510 @@
     box-sizing: border-box;
 }
 
-body {
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        sans-serif;
-
-    background: #faf9fc;
-
-    color: #302d3d;
+html {
+    overflow-y: scroll;
 }
 
+body {
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        Roboto, Helvetica, Arial, sans-serif;
+    background: #f4f6f8;
+    color: #292d36;
+}
 
-/* ========================================
-   MAIN PAGE
-======================================== */
+/* =====================================================
+   PAGE
+   ===================================================== */
 
 .student-tests-page {
     width: 100%;
-
-    padding: 42px 30px 60px;
+    min-height: calc(100vh - 70px);
+    background: #f4f6f8;
+    padding: 34px 0 60px;
 }
 
 .student-tests-container {
     width: 100%;
-
-    max-width: 1250px;
-
+    max-width: 1440px;
     margin: 0 auto;
+    padding: 0 34px;
 }
 
-
-/* ========================================
+/* =====================================================
    PAGE HEADER
-======================================== */
+   ===================================================== */
 
 .tests-welcome {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 25px;
-
+    position: relative;
+    width: 100%;
+    min-height: 150px;
     margin-bottom: 28px;
+    padding: 28px 30px;
+    overflow: hidden;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    border: 1px solid #e2e5ea;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(31, 38, 48, .055);
+}
+
+.tests-welcome::after {
+    content: "";
+    position: absolute;
+    right: -45px;
+    top: -70px;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: #f0f2f5;
+    pointer-events: none;
 }
 
 .tests-welcome-content {
+    position: relative;
+    z-index: 1;
     min-width: 0;
 }
 
 .tests-welcome-label {
-    margin-bottom: 8px;
-
-    color: #a32675;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    letter-spacing: 1.4px;
-
+    margin: 0 0 8px;
+    color: #7a818d;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
 }
 
 .tests-welcome h1 {
-    margin-bottom: 7px;
-
-    color: #29263a;
-
-    font-size: 30px;
-
-    font-weight: 700;
-
+    margin: 0 0 8px;
+    color: #242832;
+    font-size: 29px;
+    font-weight: 750;
     line-height: 1.2;
+    letter-spacing: -.45px;
 }
 
 .tests-welcome-description {
-    color: #777181;
-
-    font-size: 14px;
-
+    margin: 0;
+    max-width: 720px;
+    color: #747b86;
+    font-size: 13px;
     line-height: 1.6;
 }
 
-
-/* ========================================
-   STATUS
-======================================== */
+/* =====================================================
+   PAGE STATUS
+   ===================================================== */
 
 .tests-status {
+    position: relative;
+    z-index: 2;
+
     display: inline-flex;
-
     align-items: center;
+    gap: 7px;
 
-    gap: 8px;
+    flex-shrink: 0;
+    padding: 7px 12px;
 
-    padding: 8px 13px;
-
-    border: 1px solid #cce8d6;
-
+    border: 1px solid #cfe7d8;
     border-radius: 20px;
 
-    background: #eff9f3;
+    background: #eff8f2;
+    color: #31764b;
 
-    color: #28784a;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
+    font-size: 10px;
+    font-weight: 700;
     white-space: nowrap;
 }
 
 .status-dot {
-    width: 7px;
-    height: 7px;
-
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
     border-radius: 50%;
-
-    background: #39a866;
+    background: #3ba567;
 }
 
-
-/* ========================================
+/* =====================================================
    TESTS CARD
-======================================== */
+   ===================================================== */
 
 .tests-card {
     width: 100%;
+    margin-bottom: 30px;
+    padding: 27px;
+    overflow: hidden;
 
-    padding: 23px 24px;
-
+    border: 1px solid #e1e4e9;
+    border-radius: 18px;
     background: #ffffff;
-
-    border: 1px solid #eadfe7;
-
-    border-radius: 16px;
-
-    box-shadow:
-        0 4px 14px rgba(48, 45, 61, 0.035);
+    box-shadow: 0 9px 28px rgba(31, 38, 48, .065);
 }
 
-
-/* ========================================
-   TESTS HEADER
-======================================== */
+/* =====================================================
+   CARD HEADER
+   ===================================================== */
 
 .tests-header {
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
 
-    gap: 15px;
+    gap: 20px;
+    width: 100%;
 
-    margin-bottom: 20px;
+    margin-bottom: 24px;
+    padding-bottom: 18px;
+
+    border-bottom: 1px solid #e7eaee;
+}
+
+.tests-header > div {
+    min-width: 0;
 }
 
 .tests-header h2 {
-    margin-bottom: 5px;
+    position: relative;
+    margin: 0 0 5px;
 
-    color: #302d3d;
+    color: #292d36;
+    font-size: 19px;
+    font-weight: 750;
+    line-height: 1.3;
+}
 
-    font-size: 17px;
-
-    font-weight: 700;
+.tests-header h2::after {
+    content: "";
+    display: block;
+    width: 34px;
+    margin-top: 8px;
+    border-radius: 5px;
 }
 
 .tests-header p {
-    color: #918b99;
-
+    margin: 0;
+    color: #7b828d;
     font-size: 12px;
-
     line-height: 1.5;
 }
 
 .tests-header-icon {
     width: 42px;
     height: 42px;
+    flex-shrink: 0;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
-    flex-shrink: 0;
-
+    border: 1px solid #eadfe7;
     border-radius: 11px;
 
-    background: #f9eaf4;
-
+    background: #f8edf4;
     color: #a32675;
 
     font-size: 11px;
-
     font-weight: 800;
-
-    letter-spacing: 0.4px;
+    letter-spacing: .4px;
 }
 
+/* =====================================================
+   TOOLBAR
+   ===================================================== */
 
-/* ========================================
+.student-tests-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 18px;
+    min-height: 42px;
+    margin-bottom: 18px;
+
+    flex-wrap: wrap;
+}
+
+/* =====================================================
+   SEARCH FORM
+   ===================================================== */
+
+.student-test-search-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    flex: 1;
+    max-width: 650px;
+}
+
+.student-test-search-box {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+}
+
+.student-test-search-box .search-icon {
+    position: absolute;
+    left: 13px;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #8d949e;
+    font-size: 16px;
+    line-height: 1;
+
+    pointer-events: none;
+}
+
+.student-test-search-box input {
+    width: 100%;
+    height: 42px;
+
+    padding: 0 14px 0 39px;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 9px;
+    outline: none;
+
+    background: #f9fafb;
+    color: #30353e;
+
+    font-family: inherit;
+    font-size: 12px;
+
+    transition: .2s ease;
+}
+
+.student-test-search-box input::placeholder {
+    color: #9ba1aa;
+}
+
+.student-test-search-box input:focus {
+    border-color: #929aa6;
+    background: #ffffff;
+    box-shadow: 0 0 0 3px rgba(80, 90, 104, .08);
+}
+
+/* =====================================================
+   SEARCH BUTTON
+   ===================================================== */
+
+.student-test-search-form .search-btn {
+    height: 42px;
+    min-height: 42px;
+
+    padding: 0 17px;
+
+    border: 1px solid #303641;
+    border-radius: 9px;
+
+    background: #303641;
+    color: #ffffff;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 700;
+
+    cursor: pointer;
+    white-space: nowrap;
+
+    transition: .2s ease;
+}
+
+.student-test-search-form .search-btn:hover {
+    border-color: #242a33;
+    background: #242a33;
+    transform: translateY(-1px);
+}
+
+/* =====================================================
+   CLEAR BUTTON
+   ===================================================== */
+
+.student-test-search-form .clear-search-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 40px;
+    padding: 0 13px;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #707781;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 650;
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition: .2s ease;
+}
+
+.student-test-search-form .clear-search-btn:hover {
+    border-color: #c9ced5;
+    background: #f7f8fa;
+    color: #303641;
+}
+
+/* =====================================================
+   SORT
+   ===================================================== */
+
+.student-test-sort-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    min-height: 40px;
+    flex-shrink: 0;
+}
+
+.student-test-sort-form label {
+    color: #707781;
+    font-size: 11px;
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.student-test-sort-form select {
+    height: 40px;
+
+    padding: 0 30px 0 11px;
+
+    border: 1px solid #dfe3e8;
+    border-radius: 9px;
+    outline: none;
+
+    background: #ffffff;
+    color: #363b44;
+
+    font-family: inherit;
+    font-size: 11px;
+    font-weight: 550;
+
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.student-test-sort-form select:focus {
+    border-color: #929aa6;
+    box-shadow: 0 0 0 3px rgba(80, 90, 104, .08);
+}
+
+/* =====================================================
    TABLE WRAPPER
-======================================== */
+   ===================================================== */
 
 .tests-table-wrapper {
     width: 100%;
+    min-height: 96px;
 
     overflow-x: auto;
 
-    border: 1px solid #ebe6ee;
+    border: 1px solid #e4e7eb;
+    border-radius: 13px;
+    background: #ffffff;
 
-    border-radius: 11px;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
 }
 
+.tests-table-wrapper::-webkit-scrollbar {
+    height: 6px;
+}
 
-/* ========================================
+.tests-table-wrapper::-webkit-scrollbar-track {
+    background: #f7f8fa;
+}
+
+.tests-table-wrapper::-webkit-scrollbar-thumb {
+    background: #cfd4da;
+    border-radius: 10px;
+}
+
+/* =====================================================
    TABLE
-======================================== */
+   ===================================================== */
 
 .tests-table {
     width: 100%;
-
     min-width: 900px;
-
     border-collapse: collapse;
+    background: #ffffff;
 }
 
+/* =====================================================
+   TABLE HEADER
+   ===================================================== */
+
 .tests-table thead {
-    background: #fff5fa;
+    background: #f7f8fa;
 }
 
 .tests-table th {
-    padding: 13px 16px;
+    padding: 13px 15px;
 
-    border-bottom: 1px solid #eadfe7;
+    border-bottom: 1px solid #e1e4e8;
 
-    color: #756d79;
-
+    color: #737a84;
     font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.6px;
+    font-weight: 800;
 
     text-align: left;
-
     text-transform: uppercase;
+    letter-spacing: .55px;
 
     white-space: nowrap;
 }
 
+/* =====================================================
+   TABLE BODY
+   ===================================================== */
+
+.tests-table tbody tr {
+    background: #ffffff;
+    transition: background .16s ease;
+}
+
+.tests-table tbody tr:hover {
+    background: #f8fafb;
+}
+
 .tests-table td {
-    padding: 14px 16px;
+    padding: 15px;
 
-    border-bottom: 1px solid #f0ebf0;
+    border-bottom: 1px solid #edf0f2;
 
-    color: #393443;
-
+    color: #5f6670;
     font-size: 12px;
 
     vertical-align: middle;
+    white-space: nowrap;
 }
 
 .tests-table tbody tr:last-child td {
     border-bottom: none;
 }
 
-.tests-table tbody tr {
-    transition:
-        background 0.15s ease;
-}
-
-.tests-table tbody tr:hover {
-    background: #fffafd;
-}
-
-
-/* ========================================
+/* =====================================================
    TEST NAME
-======================================== */
+   ===================================================== */
 
 .test-name-cell {
     display: flex;
-
     align-items: center;
-
     gap: 11px;
 
     min-width: 230px;
@@ -308,25 +522,21 @@ body {
 .test-icon {
     width: 34px;
     height: 34px;
+    flex-shrink: 0;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
-    flex-shrink: 0;
-
+    border: 1px solid #eadfe7;
     border-radius: 9px;
 
-    background: #f9eaf4;
-
+    background: #f8edf4;
     color: #a32675;
 
     font-size: 9px;
-
     font-weight: 800;
-
-    letter-spacing: 0.3px;
+    letter-spacing: .3px;
 }
 
 .test-name-cell > div:last-child {
@@ -335,15 +545,11 @@ body {
 
 .test-name {
     display: block;
-
     margin-bottom: 3px;
 
-    color: #393443;
-
-    font-size: 12px;
-
+    color: #30353e;
+    font-size: 13px;
     font-weight: 700;
-
     line-height: 1.4;
 }
 
@@ -351,113 +557,87 @@ body {
     display: block;
 
     max-width: 260px;
-
     overflow: hidden;
 
-    color: #a8a2b2;
-
+    color: #9299a3;
     font-size: 10px;
-
     line-height: 1.4;
 
     text-overflow: ellipsis;
-
     white-space: nowrap;
 }
 
-
-/* ========================================
+/* =====================================================
    CLASS
-======================================== */
+   ===================================================== */
 
 .test-class {
     display: inline-flex;
-
     align-items: center;
 
     padding: 5px 9px;
 
-    border: 1px solid #eadfe7;
-
+    border: 1px solid #d9dee4;
     border-radius: 7px;
 
-    background: #fcf8fb;
-
-    color: #393443;
+    background: #f6f7f9;
+    color: #59616c;
 
     font-size: 11px;
-
-    font-weight: 600;
+    font-weight: 650;
 }
 
-
-/* ========================================
+/* =====================================================
    DIVISION
-======================================== */
+   ===================================================== */
 
 .test-division {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
 
     min-width: 28px;
-
     padding: 5px 8px;
 
-    border: 1px solid #eadfe7;
-
+    border: 1px solid #d9dee4;
     border-radius: 7px;
 
-    background: #f9eaf4;
-
-    color: #a32675;
+    background: #f6f7f9;
+    color: #59616c;
 
     font-size: 11px;
-
-    font-weight: 700;
+    font-weight: 650;
 }
 
-
-/* ========================================
+/* =====================================================
    DURATION
-======================================== */
+   ===================================================== */
 
 .test-duration {
-    color: #756d79;
-
+    color: #5f6670;
     font-size: 11px;
-
-    font-weight: 600;
-
+    font-weight: 650;
     white-space: nowrap;
 }
 
-
-/* ========================================
+/* =====================================================
    SUBMITTED STATUS
-======================================== */
+   ===================================================== */
 
 .status.submitted {
     display: inline-flex;
-
     align-items: center;
+    gap: 6px;
 
-    gap: 7px;
+    padding: 5px 10px;
 
-    padding: 7px 10px;
+    border: 1px solid #cfe7d8;
+    border-radius: 20px;
 
-    border: 1px solid #cce8d6;
-
-    border-radius: 18px;
-
-    background: #eff9f3;
-
-    color: #28784a;
+    background: #eff8f2;
+    color: #31764b;
 
     font-size: 10px;
-
     font-weight: 700;
 
     white-space: nowrap;
@@ -466,443 +646,78 @@ body {
 .submitted-dot {
     width: 6px;
     height: 6px;
+    flex-shrink: 0;
 
     border-radius: 50%;
-
-    background: #39a866;
+    background: #3ba567;
 }
 
-
-/* ========================================
+/* =====================================================
    START TEST BUTTON
-======================================== */
+   ===================================================== */
 
 .start-test-btn {
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
+    gap: 7px;
 
-    gap: 8px;
+    min-height: 32px;
+    padding: 0 12px;
 
-    padding: 8px 12px;
-
-    border: 1px solid #a32675;
-
+    border: 1px solid #303641;
     border-radius: 8px;
 
-    background: #a32675;
-
+    background: #303641;
     color: #ffffff;
 
+    font-family: inherit;
     font-size: 10px;
-
     font-weight: 700;
 
     text-decoration: none;
-
     white-space: nowrap;
 
-    transition:
-        background 0.18s ease,
-        border-color 0.18s ease,
-        transform 0.18s ease;
+    cursor: pointer;
+
+    transition: .2s ease;
 }
 
 .start-test-btn:hover {
-    background: #8d205f;
-
-    border-color: #8d205f;
-
+    border-color: #242a33;
+    background: #242a33;
     transform: translateY(-1px);
 }
 
 .start-test-btn span {
     font-size: 13px;
-
     line-height: 1;
 }
 
-
-/* ========================================
+/* =====================================================
    EMPTY STATE
-======================================== */
+   ===================================================== */
 
 .empty-state {
+    width: 100%;
+    min-height: 220px;
+
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
 
-    padding: 55px 20px;
+    padding: 35px 25px;
 
-    border: 1px dashed #eadfe7;
-
+    border: 1px dashed #d9dee4;
     border-radius: 11px;
 
-    background: #fffafd;
+    background: #fafbfc;
 
     text-align: center;
 }
 
 .empty-icon {
-    width: 44px;
-    height: 44px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    margin-bottom: 13px;
-
-    border-radius: 11px;
-
-    background: #f9eaf4;
-
-    color: #a32675;
-
-    font-size: 11px;
-
-    font-weight: 800;
-
-    letter-spacing: 0.4px;
-}
-
-.empty-state h3 {
-    margin-bottom: 5px;
-
-    color: #393443;
-
-    font-size: 14px;
-
-    font-weight: 700;
-}
-
-.empty-state p {
-    max-width: 360px;
-
-    color: #918b99;
-
-    font-size: 12px;
-
-    line-height: 1.6;
-}
-
-
-/* ========================================
-   RESPONSIVE
-======================================== */
-
-@media (max-width: 950px) {
-
-    .student-tests-page {
-        padding: 35px 22px 50px;
-    }
-
-}
-
-
-@media (max-width: 700px) {
-
-    .student-tests-page {
-        padding: 28px 16px 45px;
-    }
-
-    .tests-welcome {
-        align-items: flex-start;
-
-        flex-direction: column;
-
-        margin-bottom: 22px;
-    }
-
-    .tests-welcome h1 {
-        font-size: 26px;
-    }
-
-    .tests-card {
-        padding: 19px 17px;
-    }
-
-    .tests-header {
-        align-items: flex-start;
-    }
-
-}
-
-
-@media (max-width: 450px) {
-
-    .student-tests-page {
-        padding: 24px 12px 40px;
-    }
-
-    .tests-welcome h1 {
-        font-size: 24px;
-    }
-
-    .tests-welcome-description {
-        font-size: 13px;
-    }
-
-    .tests-card {
-        padding: 17px 13px;
-    }
-
-    .tests-header-icon {
-        width: 38px;
-        height: 38px;
-    }
-
-}
-
-/* =====================================================
-   STUDENT TESTS - SEARCH & SORT TOOLBAR
-===================================================== */
-
-.student-tests-toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 16px;
-    margin-bottom: 20px;
-    flex-wrap: wrap;
-}
-
-
-/* =====================================================
-   SEARCH
-===================================================== */
-
-.student-test-search-form {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    flex: 1;
-    min-width: 280px;
-}
-
-
-.student-test-search-box {
-    position: relative;
-    flex: 1;
-    max-width: 420px;
-}
-
-
-.student-test-search-box input {
-    width: 100%;
-    height: 42px;
-
-    padding: 0 14px 0 40px;
-
-    border: 1px solid #eadfe7;
-    border-radius: 8px;
-
-    background: #ffffff;
-    color: #302d3d;
-
-    font-family: inherit;
-    font-size: 14px;
-
-    outline: none;
-    box-sizing: border-box;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-
-.student-test-search-box input::placeholder {
-    color: #9a929c;
-}
-
-
-.student-test-search-box input:focus {
-    border-color: #a32675;
-
-    box-shadow:
-        0 0 0 3px rgba(163, 38, 117, 0.08);
-}
-
-
-.student-test-search-box .search-icon {
-    position: absolute;
-
-    left: 14px;
-    top: 50%;
-
-    transform: translateY(-50%);
-
-    color: #756d79;
-
-    font-size: 17px;
-
-    pointer-events: none;
-}
-
-
-/* =====================================================
-   SEARCH BUTTON
-===================================================== */
-
-.student-test-search-form .search-btn {
-    height: 42px;
-
-    padding: 0 20px;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #a32675;
-    color: #ffffff;
-
-    font-family: inherit;
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-.student-test-search-form .search-btn:hover {
-    background: #8d205f;
-}
-
-
-.student-test-search-form .search-btn:active {
-    transform: translateY(1px);
-}
-
-
-/* =====================================================
-   CLEAR BUTTON
-===================================================== */
-
-.student-test-search-form .clear-search-btn {
-    height: 42px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 0 15px;
-
-    border: 1px solid #eadfe7;
-    border-radius: 8px;
-
-    background: #ffffff;
-    color: #756d79;
-
-    font-size: 14px;
-    font-weight: 500;
-
-    text-decoration: none;
-
-    box-sizing: border-box;
-
-    transition:
-        border-color 0.2s ease,
-        color 0.2s ease,
-        background 0.2s ease;
-}
-
-
-.student-test-search-form .clear-search-btn:hover {
-    border-color: #a32675;
-    color: #a32675;
-    background: #fff5fa;
-}
-
-
-/* =====================================================
-   SORT
-===================================================== */
-
-.student-test-sort-form {
-    display: flex;
-    align-items: center;
-    gap: 9px;
-}
-
-
-.student-test-sort-form label {
-    color: #756d79;
-
-    font-size: 13px;
-    font-weight: 500;
-
-    white-space: nowrap;
-}
-
-
-.student-test-sort-form select {
-    height: 42px;
-
-    padding: 0 32px 0 12px;
-
-    border: 1px solid #eadfe7;
-    border-radius: 8px;
-
-    background: #ffffff;
-    color: #302d3d;
-
-    font-family: inherit;
-    font-size: 13px;
-
-    outline: none;
-    cursor: pointer;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-
-.student-test-sort-form select:focus {
-    border-color: #a32675;
-
-    box-shadow:
-        0 0 0 3px rgba(163, 38, 117, 0.08);
-}
-
-
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-.empty-state {
-    min-height: 240px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    padding: 40px 20px;
-
-    text-align: center;
-
-    border: 1px dashed #eadfe7;
-    border-radius: 10px;
-
-    background: #fff5fa;
-
-    box-sizing: border-box;
-}
-
-
-.empty-state .empty-icon {
     width: 48px;
     height: 48px;
 
@@ -912,148 +727,268 @@ body {
 
     margin-bottom: 14px;
 
-    border-radius: 10px;
+    border: 1px solid #e1e4e8;
+    border-radius: 11px;
 
-    background: #f8e4ef;
-    color: #a32675;
+    background: #f7f8fa;
+    color: #8a929d;
 
-    font-size: 13px;
-    font-weight: 700;
+    font-size: 11px;
+    font-weight: 800;
 }
-
 
 .empty-state h3 {
     margin: 0 0 8px;
 
-    color: #302d3d;
-
-    font-size: 18px;
-    font-weight: 600;
+    color: #30353e;
+    font-size: 17px;
+    font-weight: 750;
 }
-
 
 .empty-state p {
+    max-width: 380px;
     margin: 0;
 
-    color: #756d79;
-
-    font-size: 14px;
-    line-height: 1.6;
+    color: #7d848e;
+    font-size: 12px;
+    line-height: 1.5;
 }
-
 
 .empty-state strong {
-    color: #302d3d;
-    font-weight: 600;
+    color: #4f5661;
+    font-weight: 700;
 }
-
-
-/* =====================================================
-   EMPTY STATE ACTION
-===================================================== */
 
 .empty-action-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    min-height: 40px;
-
+    min-height: 32px;
     margin-top: 18px;
-    padding: 0 18px;
+    padding: 0 13px;
 
+    border: 1px solid #d9dee4;
     border-radius: 8px;
 
-    background: #a32675;
-    color: #ffffff;
+    background: #ffffff;
+    color: #4d5662;
 
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 10px;
+    font-weight: 700;
 
     text-decoration: none;
 
-    transition: background 0.2s ease;
+    transition: .2s ease;
 }
-
 
 .empty-action-btn:hover {
-    background: #8d205f;
+    border-color: #9ca5b0;
+    background: #f5f7f9;
+    color: #252b34;
 }
 
+/* =====================================================
+   FOCUS
+   ===================================================== */
+
+.search-btn:focus-visible,
+.clear-search-btn:focus-visible,
+.start-test-btn:focus-visible,
+.empty-action-btn:focus-visible,
+.student-test-search-box input:focus-visible,
+.student-test-sort-form select:focus-visible {
+    outline: 3px solid rgba(74, 84, 98, .15);
+    outline-offset: 3px;
+}
 
 /* =====================================================
-   RESPONSIVE
-===================================================== */
+   TABLET
+   ===================================================== */
 
-@media (max-width: 768px) {
+@media (max-width: 1100px) {
+
+    .student-tests-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .student-test-search-form {
+        width: 100%;
+        max-width: none;
+    }
+
+    .student-test-sort-form {
+        width: 100%;
+        justify-content: flex-start;
+    }
+}
+
+/* =====================================================
+   MEDIUM TABLET
+   ===================================================== */
+
+@media (max-width: 950px) {
+
+    .student-tests-container {
+        padding: 0 24px;
+    }
+
+    .student-tests-page {
+        padding: 28px 0 50px;
+    }
+
+    .tests-card {
+        padding: 23px;
+    }
+
+    .tests-welcome {
+        padding: 26px 25px;
+    }
+
+    .tests-header {
+        margin-bottom: 20px;
+    }
+
+    .tests-table {
+        min-width: 900px;
+    }
+}
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 700px) {
+
+    .student-tests-page {
+        padding: 20px 0 40px;
+    }
+
+    .student-tests-container {
+        padding: 0 15px;
+    }
+
+    .tests-welcome {
+        align-items: flex-start;
+        flex-direction: column;
+
+        margin-bottom: 22px;
+        padding: 23px 20px;
+
+        border-radius: 15px;
+    }
+
+    .tests-welcome h1 {
+        font-size: 24px;
+    }
+
+    .tests-welcome-description {
+        font-size: 12px;
+    }
+
+    .tests-status {
+        align-self: flex-start;
+    }
+
+    .tests-card {
+        padding: 18px;
+        border-radius: 15px;
+    }
+
+    .tests-header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 14px;
+    }
+
+    .tests-header-icon {
+        width: 40px;
+        height: 40px;
+    }
 
     .student-tests-toolbar {
         flex-direction: column;
         align-items: stretch;
+        gap: 14px;
     }
 
-
-    .student-test-search-form {
-        width: 100%;
-        min-width: 0;
-    }
-
-
-    .student-test-search-box {
-        max-width: none;
-    }
-
-
+    .student-test-search-form,
     .student-test-sort-form {
         width: 100%;
         flex-wrap: wrap;
     }
 
+    .student-test-search-box {
+        width: auto;
+        min-width: 0;
+        flex: 1;
+    }
 
     .student-test-sort-form select {
         flex: 1;
+        min-width: 120px;
     }
 
+    .tests-table-wrapper {
+        border-radius: 9px;
+    }
 }
 
+/* =====================================================
+   SMALL MOBILE
+   ===================================================== */
 
-@media (max-width: 500px) {
+@media (max-width: 400px) {
 
-    .student-test-search-form {
-        flex-wrap: wrap;
+    .student-tests-container {
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
+    .tests-welcome {
+        padding: 21px 17px;
+    }
+
+    .tests-welcome h1 {
+        font-size: 22px;
+    }
+
+    .tests-card {
+        padding: 15px;
+    }
+
+    .tests-header h2 {
+        font-size: 18px;
+    }
+
+    .student-test-search-form {
+        align-items: stretch;
+    }
 
     .student-test-search-box {
         width: 100%;
-        flex-basis: 100%;
+        flex: 1 1 100%;
     }
 
-
-    .student-test-search-form .search-btn,
-    .student-test-search-form .clear-search-btn {
+    .student-test-search-form .search-btn {
         flex: 1;
     }
 
+    .student-test-search-form .clear-search-btn {
+        flex: 0 0 auto;
+    }
 
     .student-test-sort-form {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
 
-
     .student-test-sort-form label {
         grid-column: 1 / -1;
     }
 
-
     .student-test-sort-form select {
         width: 100%;
     }
-
-}
-
-.student-tests-toolbar {
-    min-height: 42px;
-    margin-bottom: 20px;
 }
