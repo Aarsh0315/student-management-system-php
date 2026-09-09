@@ -54,7 +54,7 @@ $direction = strtoupper(
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/classes.view.css?v=1"
+        href="<?= ROOT ?>/css/classes.view.css?v=3"
     >
 
 

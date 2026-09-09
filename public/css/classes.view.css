@@ -1,8 +1,8 @@
 /* =====================================================
    CLASSES PAGE
    My School - School Admin Theme
+   Designed to match the Tests management page
 ===================================================== */
-
 
 /* =====================================================
    GLOBAL
@@ -12,810 +12,124 @@
     box-sizing: border-box;
 }
 
+body {
+    margin: 0;
+    background: #f4f6f8;
+    color: #292d36;
+    font-family: Inter, "Segoe UI", Arial, sans-serif;
+}
 
 /* =====================================================
    DASHBOARD
 ===================================================== */
 
-
-
-
-/* =====================================================
-   CLASSES CARD
-===================================================== */
-
 .dashboard {
-
     width: 100%;
-
-    max-width: 1380px;
-
+    max-width: 1440px;
     margin: 0 auto;
-
-    padding: 50px 30px 60px;
-
-    box-sizing: border-box;
-
+    padding: 34px 34px 60px;
 }
-
 
 /* =====================================================
    PAGE HEADER
 ===================================================== */
 
 .welcome {
-
-    width: 100%;
-
-    margin-bottom: 32px;
-
+    position: relative;
+    margin-bottom: 28px;
+    padding: 28px 30px;
+    overflow: hidden;
+    border: 1px solid #e2e5ea;
+    border-radius: 18px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(31, 38, 48, .055);
 }
 
+.welcome::after {
+    content: "";
+    position: absolute;
+    right: -45px;
+    top: -70px;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: #f0f2f5;
+    pointer-events: none;
+}
 
 .welcome-small {
-
-    margin: 0 0 10px;
-
-    color: #a32675;
-
+    position: relative;
+    z-index: 1;
+    margin: 0 0 8px;
+    color: #7a818d;
     font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 0.8px;
-
+    font-weight: 750;
+    letter-spacing: 1.1px;
     text-transform: uppercase;
-
 }
-
 
 .welcome h1 {
-
-    margin: 0 0 10px;
-
-    color: #302d3d;
-
-    font-size: 30px;
-
-    font-weight: 700;
-
+    position: relative;
+    z-index: 1;
+    margin: 0 0 8px;
+    color: #242832;
+    font-size: 29px;
+    font-weight: 750;
     line-height: 1.2;
-
+    letter-spacing: -.45px;
 }
-
 
 .welcome-text {
-
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
     margin: 0;
-
-    color: #756d79;
-
+    color: #747b86;
     font-size: 13px;
-
-    line-height: 1.5;
-
+    line-height: 1.6;
 }
+
+/* =====================================================
+   CLASSES CARD
+===================================================== */
 
 .classes-card {
-
     width: 100%;
-
+    padding: 27px;
+    margin-bottom: 30px;
     background: #ffffff;
-
-    border: 1px solid #eadfe7;
-
-    border-radius: 16px;
-
-    padding: 35px;
-
-    margin-bottom: 40px;
-
-    box-shadow:
-        0 5px 20px rgba(48, 45, 61, 0.04);
-
-    overflow: hidden;
-
+    border: 1px solid #e1e4e9;
+    border-radius: 18px;
+    box-shadow: 0 9px 28px rgba(41, 45, 54, .055);
 }
-
 
 /* =====================================================
    CLASSES HEADER
 ===================================================== */
 
 .classes-header {
-
     display: flex;
-
-    align-items: flex-start;
-
+    align-items: center;
     justify-content: space-between;
-
-    gap: 20px;
-
-    margin-bottom: 32px;
-
+    gap: 18px;
+    margin-bottom: 18px;
+    padding-bottom: 18px;
+    border-bottom: 1px solid #e4e7eb;
 }
-
 
 .classes-header h2 {
-
-    margin: 0 0 7px;
-
-    color: #302d3d;
-
-    font-size: 24px;
-
+    margin: 0 0 5px;
+    color: #292d36;
+    font-size: 20px;
     font-weight: 700;
-
     line-height: 1.3;
-
 }
-
 
 .classes-header p {
-
     margin: 0;
-
-    color: #756d79;
-
-    font-size: 14px;
-
-    line-height: 1.5;
-
-}
-
-
-/* =====================================================
-   TABLE WRAPPER
-===================================================== */
-
-.classes-table-wrapper {
-
-    width: 100%;
-
-    overflow-x: auto;
-
-    border: 1px solid #eadfe7;
-
-    border-radius: 10px;
-
-    background: #ffffff;
-
-    scrollbar-width: thin;
-
-    -webkit-overflow-scrolling: touch;
-
-}
-
-
-/* =====================================================
-   TABLE
-===================================================== */
-
-.classes-table {
-
-    width: 100%;
-
-    min-width: 700px;
-
-    border-collapse: collapse;
-
-    background: #ffffff;
-
-}
-
-
-/* =====================================================
-   TABLE HEADER
-===================================================== */
-
-.classes-table thead {
-
-    background: #fdf7fa;
-
-}
-
-
-.classes-table th {
-
-    padding: 15px 16px;
-
-    color: #756d79;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    text-align: left;
-
-    text-transform: uppercase;
-
-    letter-spacing: 0.4px;
-
-    white-space: nowrap;
-
-    border-bottom: 1px solid #eadfe7;
-
-}
-
-
-/* =====================================================
-   TABLE BODY
-===================================================== */
-
-.classes-table td {
-
-    padding: 17px 16px;
-
-    color: #625b67;
-
-    font-size: 13px;
-
-    vertical-align: middle;
-
-    white-space: nowrap;
-
-    border-bottom: 1px solid #f0ebef;
-
-}
-
-
-/* =====================================================
-   LAST ROW
-===================================================== */
-
-.classes-table tbody tr:last-child td {
-
-    border-bottom: none;
-
-}
-
-
-/* =====================================================
-   TABLE ROW
-===================================================== */
-
-.classes-table tbody tr {
-
-    transition:
-        background 0.15s ease;
-
-}
-
-
-/* =====================================================
-   ROW HOVER
-===================================================== */
-
-.classes-table tbody tr:hover {
-
-    background: #fdf9fc;
-
-}
-
-
-/* =====================================================
-   CLASS NAME
-===================================================== */
-
-.class-name {
-
-    color: #302d3d;
-
-    font-size: 14px;
-
-    font-weight: 600;
-
-    transition:
-        color 0.15s ease;
-
-}
-
-
-.classes-table tbody tr:hover .class-name {
-
-    color: #a32675;
-
-}
-
-
-/* =====================================================
-   CLASS DIVISION
-===================================================== */
-
-.class-division {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-width: 30px;
-
-    height: 30px;
-
-    padding: 0 10px;
-
-    background: #f9eaf4;
-
-    color: #a32675;
-
-    border: 1px solid #efd1e1;
-
-    border-radius: 7px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-}
-
-
-/* =====================================================
-   STUDENT COUNT
-===================================================== */
-
-.student-count {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-width: 32px;
-
-    height: 30px;
-
-    padding: 0 10px;
-
-    background: #f8f1f6;
-
-    color: #756b74;
-
-    border: 1px solid #e7dce3;
-
-    border-radius: 7px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-.status {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    gap: 7px;
-
-    padding: 6px 11px;
-
-    border-radius: 20px;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-}
-
-
-.status::before {
-
-    content: "";
-
-    width: 7px;
-
-    height: 7px;
-
-    flex-shrink: 0;
-
-    border-radius: 50%;
-
-}
-
-
-/* =====================================================
-   ACTIVE STATUS
-===================================================== */
-
-.status.active {
-
-    background: #eff9f3;
-
-    color: #28784a;
-
-    border: 1px solid #cce8d6;
-
-}
-
-
-.status.active::before {
-
-    background: #35a563;
-
-}
-
-
-/* =====================================================
-   INACTIVE STATUS
-===================================================== */
-
-.status.inactive {
-
-    background: #fff4f4;
-
-    color: #b44747;
-
-    border: 1px solid #f1cccc;
-
-}
-
-
-.status.inactive::before {
-
-    background: #d95353;
-
-}
-
-
-/* =====================================================
-   VIEW BUTTON
-===================================================== */
-
-.view-btn {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    min-width: 60px;
-
-    min-height: 36px;
-
-    padding: 0 14px;
-
-    background: #ffffff;
-
-    color: #a32675;
-
-    border: 1px solid #e3c7d8;
-
-    border-radius: 8px;
-
-    text-decoration: none;
-
+    color: #66707c;
     font-size: 12px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-
-}
-
-
-.view-btn:hover {
-
-    background: #a32675;
-
-    border-color: #a32675;
-
-    color: #ffffff;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 4px 10px rgba(163, 38, 117, 0.18);
-
-}
-
-
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-.empty-state {
-
-    padding: 60px 25px;
-
-    text-align: center;
-
-    border: 1px dashed #ddcfd9;
-
-    border-radius: 10px;
-
-    background: #fcfafc;
-
-}
-
-
-.empty-state h3 {
-
-    margin: 0 0 8px;
-
-    color: #302d3d;
-
-    font-size: 19px;
-
-    font-weight: 700;
-
-}
-
-
-.empty-state p {
-
-    margin: 0;
-
-    color: #756d79;
-
-    font-size: 13px;
-
     line-height: 1.5;
-
-}
-
-
-/* =====================================================
-   FOCUS
-===================================================== */
-
-.view-btn:focus-visible {
-
-    outline: 3px solid rgba(163, 38, 117, 0.16);
-
-    outline-offset: 3px;
-
-}
-
-
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 950px) {
-
-    .dashboard {
-
-        max-width: calc(100% - 50px);
-
-        padding-top: 45px;
-
-    }
-
-
-    .classes-card {
-
-        padding: 27px;
-
-    }
-
-
-    .classes-header {
-
-        margin-bottom: 25px;
-
-    }
-
-
-    .classes-header h2 {
-
-        font-size: 22px;
-
-    }
-
-
-    .welcome h1 {
-
-        font-size: 32px;
-
-    }
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 650px) {
-
-    .dashboard {
-
-        max-width: calc(100% - 24px);
-
-        padding: 25px 0 40px;
-
-    }
-
-
-    .welcome {
-
-        margin-bottom: 25px;
-
-    }
-
-
-    .welcome-small {
-
-        font-size: 12px;
-
-    }
-
-
-    .welcome h1 {
-
-        font-size: 28px;
-
-        margin-bottom: 8px;
-
-    }
-
-
-    .welcome-text {
-
-        font-size: 14px;
-
-    }
-
-
-    .classes-card {
-
-        padding: 20px;
-
-        border-radius: 14px;
-
-    }
-
-
-    .classes-header {
-
-        flex-direction: column;
-
-        align-items: flex-start;
-
-        gap: 15px;
-
-        margin-bottom: 22px;
-
-    }
-
-
-    .classes-header h2 {
-
-        font-size: 20px;
-
-    }
-
-
-    .classes-header p {
-
-        font-size: 12px;
-
-    }
-
-
-    .classes-table-wrapper {
-
-        border-radius: 8px;
-
-    }
-
-
-    .classes-table {
-
-        min-width: 700px;
-
-    }
-
-
-    .classes-table th {
-
-        padding: 13px;
-
-        font-size: 10px;
-
-    }
-
-
-    .classes-table td {
-
-        padding: 14px 13px;
-
-        font-size: 12px;
-
-    }
-
-
-    .class-name {
-
-        font-size: 13px;
-
-    }
-
-
-    .view-btn {
-
-        min-width: 55px;
-
-        min-height: 34px;
-
-        font-size: 11px;
-
-    }
-
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media (max-width: 400px) {
-
-    .dashboard {
-
-        max-width: calc(100% - 18px);
-
-    }
-
-
-    .welcome h1 {
-
-        font-size: 25px;
-
-    }
-
-
-    .classes-card {
-
-        padding: 17px;
-
-    }
-
-
-    .classes-header h2 {
-
-        font-size: 18px;
-
-    }
-
-
-    .classes-header p {
-
-        font-size: 11px;
-
-    }
-
-
-    .empty-state {
-
-        padding: 45px 18px;
-
-    }
-
 }
 
 /* =====================================================
@@ -826,16 +140,10 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    gap: 20px;
-
-    padding: 18px 0 20px;
-
-    border-bottom: 1px solid #eee5eb;
-
-    margin-bottom: 20px;
+    gap: 18px;
+    min-height: 42px;
+    margin-bottom: 18px;
 }
-
 
 /* =====================================================
    SEARCH FORM
@@ -844,10 +152,8 @@
 .class-search-form {
     display: flex;
     align-items: center;
-
     gap: 8px;
 }
-
 
 /* =====================================================
    SEARCH BOX
@@ -855,67 +161,43 @@
 
 .class-search-box {
     position: relative;
-
     width: 280px;
 }
 
-
 .class-search-box .search-icon {
     position: absolute;
-
-    left: 11px;
     top: 50%;
-
-    transform: translateY(-50%);
-
-    color: #918b99;
-
+    left: 12px;
+    z-index: 1;
+    color: #8a929c;
     font-size: 17px;
-
+    line-height: 1;
     pointer-events: none;
+    transform: translateY(-50%);
 }
-
 
 .class-search-box input {
     width: 100%;
     height: 38px;
-
     padding: 0 12px 0 34px;
-
-    border: 1px solid #eadfe7;
-
-    border-radius: 7px;
-
     background: #ffffff;
-
-    color: #302d3d;
-
-    font-family: inherit;
-
-    font-size: 11px;
-
+    color: #292d36;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
     outline: none;
-
-    box-sizing: border-box;
-
-    transition:
-        border-color .2s ease,
-        box-shadow .2s ease;
+    font-family: inherit;
+    font-size: 12px;
+    transition: border-color .2s ease, box-shadow .2s ease;
 }
 
+.class-search-box input::placeholder {
+    color: #8a929c;
+}
 
 .class-search-box input:focus {
     border-color: #a32675;
-
-    box-shadow:
-        0 0 0 3px rgba(163, 38, 117, .08);
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, .08);
 }
-
-
-.class-search-box input::placeholder {
-    color: #918b99;
-}
-
 
 /* =====================================================
    SEARCH BUTTON
@@ -923,37 +205,24 @@
 
 .search-btn {
     height: 38px;
-
-    padding: 0 15px;
-
-    border: 1px solid #a32675;
-
-    border-radius: 7px;
-
-    background: #a32675;
-
+    padding: 0 16px;
+    background: #303641;
     color: #ffffff;
-
+    border: 1px solid #303641;
+    border-radius: 8px;
     font-family: inherit;
-
-    font-size: 11px;
-
+    font-size: 12px;
     font-weight: 600;
-
     cursor: pointer;
-
-    transition:
-        background .2s ease,
-        border-color .2s ease;
+    transition: background .2s ease, border-color .2s ease,
+                transform .2s ease;
 }
-
 
 .search-btn:hover {
-    background: #8d205f;
-
-    border-color: #8d205f;
+    background: #242a32;
+    border-color: #242a32;
+    transform: translateY(-1px);
 }
-
 
 /* =====================================================
    CLEAR SEARCH
@@ -961,40 +230,27 @@
 
 .clear-search-btn {
     display: inline-flex;
-
     align-items: center;
     justify-content: center;
-
     height: 38px;
-
-    padding: 0 12px;
-
-    border: 1px solid #eadfe7;
-
-    border-radius: 7px;
-
+    padding: 0 14px;
     background: #ffffff;
-
-    color: #756d79;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
+    color: #59636f;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
     text-decoration: none;
-
-    transition:
-        color .2s ease,
-        border-color .2s ease;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .2s ease, border-color .2s ease, color .2s ease;
 }
-
 
 .clear-search-btn:hover {
+    background: #f7f8fa;
+    border-color: #cfd5dc;
     color: #a32675;
-
-    border-color: #dcb9cf;
 }
-
 
 /* =====================================================
    SORT FORM
@@ -1003,156 +259,418 @@
 .class-sort-form {
     display: flex;
     align-items: center;
-
     gap: 8px;
 }
 
-
 .class-sort-form label {
-    color: #756d79;
-
+    color: #66707c;
     font-size: 10px;
-
     font-weight: 700;
-
+    letter-spacing: .45px;
     text-transform: uppercase;
-
-    letter-spacing: .35px;
-
     white-space: nowrap;
 }
 
-
 .class-sort-form select {
     height: 38px;
-
-    padding: 0 28px 0 10px;
-
-    border: 1px solid #eadfe7;
-
-    border-radius: 7px;
-
+    padding: 0 30px 0 11px;
     background: #ffffff;
-
-    color: #393443;
-
-    font-family: inherit;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
+    color: #39414b;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
     outline: none;
-
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 600;
     cursor: pointer;
-
-    transition:
-        border-color .2s ease,
-        box-shadow .2s ease;
+    transition: border-color .2s ease, box-shadow .2s ease;
 }
-
 
 .class-sort-form select:focus {
     border-color: #a32675;
-
-    box-shadow:
-        0 0 0 3px rgba(163, 38, 117, .08);
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, .08);
 }
-
 
 /* =====================================================
-   RESPONSIVE
+   TABLE WRAPPER
 ===================================================== */
 
-@media (max-width: 1100px) {
-
-    .classes-toolbar {
-        flex-wrap: wrap;
-    }
-
-    .class-sort-form {
-        flex-wrap: wrap;
-    }
-
+.classes-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    background: #ffffff;
+    border: 1px solid #e4e7eb;
+    border-radius: 13px;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
 }
 
+/* =====================================================
+   TABLE
+===================================================== */
 
-@media (max-width: 700px) {
-
-    .classes-toolbar {
-        flex-direction: column;
-
-        align-items: stretch;
-    }
-
-
-    .class-search-form,
-    .class-sort-form {
-        width: 100%;
-
-        flex-wrap: wrap;
-    }
-
-
-    .class-search-box {
-        flex: 1;
-
-        width: auto;
-    }
-
-
-    .class-sort-form select {
-        flex: 1;
-    }
-
+.classes-table {
+    width: 100%;
+    min-width: 700px;
+    border-collapse: collapse;
+    background: #ffffff;
 }
 
+.classes-table thead {
+    background: #f7f8fa;
+}
 
-/* ========================================
+.classes-table th {
+    padding: 14px 16px;
+    color: #66707c;
+    border-bottom: 1px solid #e4e7eb;
+    text-align: left;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .45px;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.classes-table td {
+    padding: 16px;
+    color: #59636f;
+    border-bottom: 1px solid #eef0f2;
+    text-align: left;
+    font-size: 13px;
+    vertical-align: middle;
+    white-space: nowrap;
+}
+
+.classes-table tbody tr {
+    transition: background .15s ease;
+}
+
+.classes-table tbody tr:hover {
+    background: #fafbfc;
+}
+
+.classes-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* =====================================================
+   CLASS NAME
+===================================================== */
+
+.class-name {
+    color: #292d36;
+    font-size: 14px;
+    font-weight: 600;
+    transition: color .15s ease;
+}
+
+.classes-table tbody tr:hover .class-name {
+    color: #a32675;
+}
+
+/* =====================================================
+   CLASS DIVISION
+===================================================== */
+
+.class-division {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 30px;
+    height: 30px;
+    padding: 0 10px;
+    background: #f6eef3;
+    color: #a32675;
+    border: 1px solid #e5d3df;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* =====================================================
+   STUDENT COUNT
+===================================================== */
+
+.student-count {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 32px;
+    height: 30px;
+    padding: 0 10px;
+    background: #f4f6f8;
+    color: #59636f;
+    border: 1px solid #e1e4e9;
+    border-radius: 8px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 6px 11px;
+    border-radius: 20px;
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.status::before {
+    content: "";
+    width: 7px;
+    height: 7px;
+    flex: 0 0 7px;
+    border-radius: 50%;
+}
+
+.status.active {
+    background: #eff9f3;
+    color: #28784a;
+    border: 1px solid #cce8d6;
+}
+
+.status.active::before {
+    background: #35a563;
+}
+
+.status.inactive {
+    background: #fff4f4;
+    color: #b44747;
+    border: 1px solid #f1cccc;
+}
+
+.status.inactive::before {
+    background: #d95353;
+}
+
+/* =====================================================
+   VIEW BUTTON
+===================================================== */
+
+.view-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 62px;
+    min-height: 36px;
+    padding: 0 14px;
+    background: #ffffff;
+    color: #303641;
+    border: 1px solid #d9dde2;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: background .2s ease, border-color .2s ease,
+                color .2s ease, transform .2s ease, box-shadow .2s ease;
+}
+
+.view-btn:hover {
+    background: #303641;
+    border-color: #303641;
+    color: #ffffff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 10px rgba(41, 45, 54, .14);
+}
+
+/* =====================================================
    EMPTY STATE
-======================================== */
+===================================================== */
 
 .empty-state {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    text-align: center;
-    padding: 55px 20px;
     min-height: 180px;
+    padding: 55px 20px;
+    text-align: center;
+    background: #fafbfc;
+    border: 1px dashed #d8dde3;
+    border-radius: 12px;
 }
 
 .empty-state p {
     margin: 0 0 18px;
-    color: #756d79;
-    font-size: 12px;
+    color: #66707c;
+    font-size: 13px;
     line-height: 1.6;
 }
 
 .empty-state p strong {
-    color: #302d3d;
+    color: #292d36;
     font-weight: 700;
 }
 
 .empty-state .clear-search-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    height: 36px;
-    padding: 0 16px;
-    border: 1px solid #eadfe7;
-    border-radius: 7px;
-    background: #fff;
-    color: #a32675;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s ease;
+    color: #303641;
 }
 
-.empty-state .clear-search-btn:hover {
-    background: #fff5fa;
-    border-color: #dcb9cf;
-    color: #8d205f;
+/* =====================================================
+   FOCUS
+===================================================== */
+
+.search-btn:focus-visible,
+.clear-search-btn:focus-visible,
+.view-btn:focus-visible,
+.class-search-box input:focus-visible,
+.class-sort-form select:focus-visible {
+    outline: 3px solid rgba(163, 38, 117, .14);
+    outline-offset: 2px;
+}
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+    .classes-toolbar {
+        flex-wrap: wrap;
+    }
+
+    .class-sort-form {
+        flex-wrap: wrap;
+    }
+}
+
+@media (max-width: 950px) {
+    .dashboard {
+        max-width: calc(100% - 50px);
+        padding-top: 30px;
+    }
+
+    .classes-card {
+        padding: 24px;
+    }
+}
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 700px) {
+    .dashboard {
+        max-width: calc(100% - 24px);
+        padding: 25px 0 40px;
+    }
+
+    .welcome {
+        margin-bottom: 24px;
+    }
+
+    .welcome h1 {
+        font-size: 27px;
+    }
+
+    .classes-card {
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .classes-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+        margin-bottom: 18px;
+    }
+
+    .classes-header h2 {
+        font-size: 19px;
+    }
+
+    .classes-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .class-search-form,
+    .class-sort-form {
+        width: 100%;
+        flex-wrap: wrap;
+    }
+
+    .class-search-box {
+        flex: 1 1 180px;
+        width: auto;
+    }
+
+    .class-sort-form select {
+        flex: 1 1 140px;
+    }
+
+    .classes-table-wrapper {
+        border-radius: 10px;
+    }
+
+    .classes-table th {
+        padding: 13px;
+        font-size: 9px;
+    }
+
+    .classes-table td {
+        padding: 14px 13px;
+        font-size: 12px;
+    }
+
+    .class-name {
+        font-size: 13px;
+    }
+}
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 400px) {
+    .dashboard {
+        max-width: calc(100% - 18px);
+    }
+
+    .welcome h1 {
+        font-size: 24px;
+    }
+
+    .classes-card {
+        padding: 17px;
+    }
+
+    .classes-header h2 {
+        font-size: 18px;
+    }
+
+    .classes-header p {
+        font-size: 11px;
+    }
+
+    .class-search-box {
+        flex-basis: 100%;
+    }
+
+    .search-btn,
+    .clear-search-btn {
+        flex: 1;
+    }
+
+    .class-sort-form label {
+        width: 100%;
+    }
+
+    .class-sort-form select {
+        min-width: 0;
+    }
+
+    .empty-state {
+        padding: 45px 18px;
+    }
 }
