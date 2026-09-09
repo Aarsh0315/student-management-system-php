@@ -99,7 +99,7 @@ $recentAnnouncements =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/home.view.css?v=1"
+        href="<?= ROOT ?>/css/home.view.css?v=2"
     >
 
 

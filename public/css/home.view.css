@@ -1,2001 +1,1815 @@
-/* =====================================================
-   MY SCHOOL - SCHOOL ADMIN DASHBOARD
-   ===================================================== */
+/* =========================================================
+   SCHOOL ADMIN DASHBOARD
+   Professional SaaS UI — Light Theme
+   ========================================================= */
 
-
-/* =====================================================
-   RESET
-===================================================== */
-
-* {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
 }
 
+:root {
+    --sa-bg: #f4f6f8;
+    --sa-card: #ffffff;
+    --sa-text: #292f38;
+    --sa-heading: #202631;
+    --sa-muted: #747d89;
+    --sa-border: #e6e9ed;
+    --sa-border-soft: #eef0f3;
+
+    --sa-primary: #303641;
+    --sa-primary-hover: #202630;
+
+    --sa-accent: #a32675;
+
+    --sa-blue: #3b82f6;
+    --sa-purple: #7c3aed;
+    --sa-green: #16a34a;
+    --sa-amber: #d97706;
+    --sa-red: #dc2626;
+
+    --sa-shadow: 0 8px 28px rgba(31, 38, 48, 0.06);
+    --sa-shadow-hover: 0 14px 34px rgba(31, 38, 48, 0.10);
+}
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
 
 html {
     scroll-behavior: smooth;
 }
 
-
 body {
     margin: 0;
-
     font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
         "Segoe UI",
+        Roboto,
         Arial,
-        Helvetica,
         sans-serif;
-
-    background: #faf9fc;
-
-    color: #29263a;
-
-    line-height: 1.5;
-
-    overflow-x: hidden;
+    color: var(--sa-text);
+    background: var(--sa-bg);
+    -webkit-font-smoothing: antialiased;
 }
 
+a {
+    color: inherit;
+    text-decoration: none;
+}
 
-/* =====================================================
-   PAGE
-===================================================== */
+/* =========================================================
+   MAIN PAGE
+   ========================================================= */
 
 .schooladmin-page {
-    width: 100%;
+    min-height: calc(100vh - 70px);
+    padding: 28px 34px 55px;
 
-    padding: 42px 30px 60px;
+    background:
+        radial-gradient(
+            circle at 8% 0%,
+            rgba(163, 38, 117, 0.035),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 94% 10%,
+            rgba(59, 130, 246, 0.035),
+            transparent 25%
+        ),
+        var(--sa-bg);
 }
-
 
 .schooladmin-container {
     width: 100%;
-
-    max-width: 1250px;
-
+    max-width: 1440px;
     margin: 0 auto;
 }
 
-
-/* =====================================================
-   WELCOME
-===================================================== */
+/* =========================================================
+   WELCOME HERO
+   ========================================================= */
 
 .dashboard-welcome {
+    position: relative;
+
+    min-height: 185px;
+
     display: flex;
+    align-items: center;
 
-    align-items: flex-start;
+    overflow: hidden;
 
-    justify-content: space-between;
+    margin-bottom: 24px;
+    padding: 34px 38px;
 
-    gap: 25px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 22px;
 
-    margin-bottom: 28px;
+    background:
+        linear-gradient(
+            135deg,
+            #202531 0%,
+            #394252 100%
+        );
+
+    box-shadow:
+        0 14px 34px rgba(31, 37, 47, 0.14);
 }
 
+.dashboard-welcome::before {
+    content: "";
+
+    position: absolute;
+
+    width: 260px;
+    height: 260px;
+
+    right: -70px;
+    top: -125px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 50%;
+}
+
+.dashboard-welcome::after {
+    content: "";
+
+    position: absolute;
+
+    width: 190px;
+    height: 190px;
+
+    right: 105px;
+    bottom: -130px;
+
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 50%;
+}
+
+.welcome-content {
+    position: relative;
+    z-index: 1;
+
+    max-width: 760px;
+}
 
 .welcome-label {
-    margin: 0 0 8px;
+    display: inline-flex;
+    align-items: center;
 
-    color: #8c2765;
+    min-height: 28px;
 
-    font-size: 10px;
+    margin: 0 0 11px;
+    padding: 5px 11px;
 
-    font-weight: 700;
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 999px;
 
-    letter-spacing: 0.9px;
+    color: rgba(255, 255, 255, 0.74);
+    background: rgba(255, 255, 255, 0.07);
 
-    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
 }
 
-
-.welcome-content h1 {
-    margin: 0 0 7px;
-
-    color: #29263a;
-
-    font-size: 30px;
-
-    font-weight: 700;
-
-    line-height: 1.25;
-
-    letter-spacing: -0.7px;
-}
-
-
-.welcome-description {
+.dashboard-welcome h1 {
     margin: 0;
 
-    color: #827a89;
+    color: #ffffff;
 
-    font-size: 13px;
+    font-size: 31px;
+    line-height: 1.2;
+    font-weight: 750;
+
+    letter-spacing: -0.035em;
 }
 
+.welcome-description {
+    max-width: 650px;
 
-/* =====================================================
+    margin: 11px 0 0;
+
+    color: rgba(255, 255, 255, 0.67);
+
+    font-size: 14px;
+    line-height: 1.65;
+}
+
+/* =========================================================
    KPI GRID
-===================================================== */
+   ========================================================= */
 
 .kpi-grid {
     display: grid;
 
     grid-template-columns:
-        repeat(4, 1fr);
+        repeat(4, minmax(0, 1fr));
 
     gap: 16px;
 
-    margin-bottom: 30px;
+    margin-bottom: 24px;
 }
 
-
-/* =====================================================
-   KPI CARD
-===================================================== */
-
 .kpi-card {
-    min-height: 105px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 14px;
-
     position: relative;
 
-    padding: 18px;
+    min-height: 135px;
 
-    background: #ffffff;
+    display: flex;
+    align-items: center;
 
-    border: 1px solid #eadfe8;
+    gap: 15px;
 
-    border-radius: 13px;
+    overflow: hidden;
 
-    text-decoration: none;
+    padding: 22px 20px;
 
-    box-shadow:
-        0 4px 18px
-        rgba(70, 30, 70, 0.025);
+    border: 1px solid var(--sa-border);
+    border-radius: 18px;
+
+    background: var(--sa-card);
+
+    box-shadow: var(--sa-shadow);
 
     transition:
         transform 0.2s ease,
-        border-color 0.2s ease,
         box-shadow 0.2s ease,
-        background 0.2s ease;
+        border-color 0.2s ease;
 }
 
+.kpi-card::before {
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+    top: 0;
+    bottom: 0;
+
+    width: 4px;
+
+    background: var(--sa-blue);
+}
+
+.kpi-card:nth-child(2)::before {
+    background: var(--sa-purple);
+}
+
+.kpi-card:nth-child(3)::before {
+    background: var(--sa-green);
+}
+
+.kpi-card:nth-child(4)::before {
+    background: var(--sa-amber);
+}
+
+.kpi-card::after {
+    content: "";
+
+    position: absolute;
+
+    width: 105px;
+    height: 105px;
+
+    right: -48px;
+    top: -48px;
+
+    border: 1px solid rgba(48, 54, 65, 0.045);
+    border-radius: 50%;
+}
 
 .kpi-card:hover {
     transform: translateY(-3px);
 
-    background: #fffafd;
+    border-color: #d9dde2;
 
-    border-color: #e5cddd;
-
-    box-shadow:
-        0 10px 25px
-        rgba(70, 30, 70, 0.07);
+    box-shadow: var(--sa-shadow-hover);
 }
-
-
-/* =====================================================
-   KPI ICON
-===================================================== */
 
 .kpi-icon {
-    width: 46px;
+    position: relative;
+    z-index: 1;
 
-    height: 46px;
+    flex: 0 0 48px;
 
-    min-width: 46px;
+    width: 48px;
+    height: 48px;
 
     display: flex;
-
     align-items: center;
-
     justify-content: center;
 
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f6,
-            #f8ecf8
-        );
+    border-radius: 13px;
 
-    color: #a32675;
+    color: var(--sa-blue);
+    background: #eef4ff;
 
-    border: 1px solid #efd8e6;
-
-    border-radius: 11px;
-
-    font-size: 10px;
-
-    font-weight: 700;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.04em;
 }
 
+.kpi-card:nth-child(2) .kpi-icon {
+    color: var(--sa-purple);
+    background: #f3efff;
+}
 
-/* =====================================================
-   KPI CONTENT
-===================================================== */
+.kpi-card:nth-child(3) .kpi-icon {
+    color: var(--sa-green);
+    background: #edf9f1;
+}
+
+.kpi-card:nth-child(4) .kpi-icon {
+    color: var(--sa-amber);
+    background: #fff6e8;
+}
 
 .kpi-content {
-    display: flex;
+    position: relative;
+    z-index: 1;
 
+    min-width: 0;
+
+    display: flex;
     flex-direction: column;
 
-    gap: 2px;
+    gap: 5px;
 }
-
 
 .kpi-label {
-    color: #8f8795;
+    color: var(--sa-muted);
 
-    font-size: 10px;
-
-    font-weight: 500;
+    font-size: 12px;
+    font-weight: 650;
 }
-
 
 .kpi-value {
-    color: #29263a;
+    color: var(--sa-heading);
 
-    font-size: 22px;
+    font-size: 25px;
+    line-height: 1;
 
-    font-weight: 700;
+    font-weight: 750;
 
-    line-height: 1.2;
+    letter-spacing: -0.025em;
 }
-
-
-/* =====================================================
-   KPI ARROW
-===================================================== */
 
 .kpi-arrow {
-    position: absolute;
+    position: relative;
+    z-index: 1;
 
-    right: 16px;
+    margin-left: auto;
 
-    bottom: 14px;
+    color: #9aa2ad;
 
-    color: #c1b7c0;
-
-    font-size: 14px;
+    font-size: 19px;
 
     transition:
-        color 0.2s ease,
-        transform 0.2s ease;
+        transform 0.2s ease,
+        color 0.2s ease;
 }
 
-
 .kpi-card:hover .kpi-arrow {
-    color: #a32675;
-
+    color: var(--sa-primary);
     transform: translateX(3px);
 }
 
-
-/* =====================================================
-   MAIN GRID
-===================================================== */
+/* =========================================================
+   MAIN DASHBOARD GRID
+   ========================================================= */
 
 .dashboard-grid {
     display: grid;
 
     grid-template-columns:
-    minmax(0, 1fr)
-    minmax(0, 1fr);
+        minmax(0, 1.25fr)
+        minmax(320px, 0.75fr);
 
     gap: 18px;
 
-    margin-bottom: 20px;
+    align-items: start;
 }
-
-
-/* =====================================================
-   COMMON CARD
-===================================================== */
 
 .events-card,
+.attention-card,
 .activity-card,
+.announcements-dashboard-card,
 .management-card {
-    background: #ffffff;
+    min-width: 0;
 
-    border: 1px solid #eadfe8;
+    border: 1px solid var(--sa-border);
+    border-radius: 19px;
 
-    border-radius: 13px;
+    background: var(--sa-card);
 
-    overflow: hidden;
-
-    box-shadow:
-        0 4px 18px
-        rgba(70, 30, 70, 0.025);
+    box-shadow: var(--sa-shadow);
 }
 
+.activity-card,
+.announcements-dashboard-card {
+    grid-column: 1 / -1;
+}
 
-/* =====================================================
+/* =========================================================
    CARD HEADER
-===================================================== */
+   ========================================================= */
 
 .card-header {
     display: flex;
-
-    align-items: center;
-
+    align-items: flex-start;
     justify-content: space-between;
 
-    gap: 15px;
+    gap: 20px;
 
-    padding: 18px 20px;
+    padding: 22px 24px 18px;
 
-    border-bottom: 1px solid #f0e9ef;
+    border-bottom: 1px solid var(--sa-border-soft);
 }
 
+.card-header > div {
+    min-width: 0;
+}
 
 .card-header h2 {
-    margin: 0 0 4px;
-
-    color: #29263a;
-
-    font-size: 15px;
-
-    font-weight: 700;
-}
-
-
-.card-header p {
     margin: 0;
 
-    color: #958d99;
+    color: var(--sa-heading);
 
-    font-size: 10px;
+    font-size: 17px;
+    line-height: 1.3;
+
+    font-weight: 750;
+
+    letter-spacing: -0.015em;
 }
 
+.card-header p {
+    margin: 5px 0 0;
 
-/* =====================================================
-   CARD LINK
-===================================================== */
+    color: var(--sa-muted);
+
+    font-size: 12.5px;
+    line-height: 1.5;
+}
 
 .card-link {
-    color: #a32675;
+    flex: 0 0 auto;
 
-    font-size: 10px;
+    padding-top: 2px;
 
-    font-weight: 600;
+    color: #5e6671;
 
-    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
 
-    white-space: nowrap;
-
-    transition:
-        color 0.2s ease;
+    transition: color 0.2s ease;
 }
-
 
 .card-link:hover {
-    color: #6f1760;
+    color: var(--sa-accent);
 }
 
-
-/* =====================================================
-   UPCOMING EVENTS
-===================================================== */
+/* =========================================================
+   EVENTS
+   ========================================================= */
 
 .events-list {
-    width: 100%;
+    padding: 6px 24px 18px;
 }
-
-
-/* =====================================================
-   EVENT ITEM
-===================================================== */
 
 .event-item {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
     min-height: 76px;
 
-    display: flex;
+    padding: 13px 0;
 
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 12px 20px;
-
-    border-bottom: 1px solid #f2edf1;
-
-    transition:
-        background 0.15s ease;
+    border-bottom: 1px solid var(--sa-border-soft);
 }
-
 
 .event-item:last-child {
-    border-bottom: none;
+    border-bottom: 0;
 }
-
-
-.event-item:hover {
-    background: #fffafd;
-}
-
-
-/* =====================================================
-   EVENT DATE
-===================================================== */
 
 .event-date {
-    width: 43px;
+    flex: 0 0 52px;
 
-    min-width: 43px;
-
-    height: 49px;
+    width: 52px;
+    height: 55px;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
 
-    background: #fff1f7;
+    border: 1px solid #e1e5e9;
+    border-radius: 12px;
 
-    border: 1px solid #efd9e7;
-
-    border-radius: 9px;
-
-    line-height: 1;
+    background: #f8f9fa;
 }
-
 
 .event-date strong {
-    color: #a32675;
+    color: var(--sa-heading);
 
-    font-size: 16px;
-
-    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.05;
+    font-weight: 800;
 }
-
 
 .event-date span {
     margin-top: 4px;
 
-    color: #9b718b;
+    color: var(--sa-muted);
 
-    font-size: 8px;
-
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 800;
 
     text-transform: uppercase;
+
+    letter-spacing: 0.08em;
 }
 
-
-/* =====================================================
-   EVENT INFO
-===================================================== */
-
 .event-info {
-    flex: 1;
-
     min-width: 0;
 
     display: flex;
+    flex: 1;
+    flex-direction: column;
 
+    gap: 5px;
+}
+
+.event-info strong {
+    overflow: hidden;
+
+    color: var(--sa-heading);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.event-info span {
+    overflow: hidden;
+
+    color: var(--sa-muted);
+
+    font-size: 11.5px;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.event-arrow {
+    flex: 0 0 auto;
+
+    color: #929aa5;
+
+    font-size: 18px;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.event-item:hover .event-arrow {
+    color: var(--sa-primary);
+    transform: translateX(3px);
+}
+
+/* =========================================================
+   NEEDS ATTENTION
+   ========================================================= */
+
+.attention-list {
+    padding: 8px 24px 20px;
+}
+
+.attention-item {
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    min-height: 72px;
+
+    padding: 12px 0;
+
+    border-bottom: 1px solid var(--sa-border-soft);
+}
+
+.attention-item:last-child {
+    border-bottom: 0;
+}
+
+.attention-icon {
+    flex: 0 0 43px;
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #fde7c4;
+    border-radius: 11px;
+
+    color: var(--sa-amber);
+    background: #fff8ed;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.attention-info {
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
     flex-direction: column;
 
     gap: 4px;
 }
 
-
-.event-info strong {
-    overflow: hidden;
-
-    color: #514a58;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
-
-.event-info span {
-    overflow: hidden;
-
-    color: #99919d;
-
-    font-size: 9px;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   EVENT ARROW
-===================================================== */
-
-.event-arrow {
-    color: #b5acb7;
-
-    font-size: 14px;
-
-    text-decoration: none;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-.event-arrow:hover {
-    color: #a32675;
-
-    transform: translateX(3px);
-}
-
-
-/* =====================================================
-   EMPTY EVENTS
-===================================================== */
-
-.events-empty {
-    padding: 38px 20px;
-
-    text-align: center;
-}
-
-
-.events-empty .empty-icon {
-    width: 38px;
-
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin: 0 auto 10px;
-
-    background: #fff1f7;
-
-    color: #a32675;
-
-    border: 1px solid #efd9e7;
-
-    border-radius: 50%;
-
-    font-size: 10px;
-
-    font-weight: 700;
-}
-
-
-.events-empty h3 {
-    margin: 0 0 4px;
-
-    color: #4d4653;
-
-    font-size: 12px;
-}
-
-
-.events-empty p {
-    margin: 0 0 14px;
-
-    color: #99919d;
-
-    font-size: 10px;
-}
-
-
-.empty-action {
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 7px 12px;
-
-    background: #a32675;
-
-    color: #ffffff;
-
-    border: 1px solid #a32675;
-
-    border-radius: 7px;
-
-    font-size: 9px;
-
-    font-weight: 600;
-
-    text-decoration: none;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease;
-}
-
-
-.empty-action:hover {
-    background: #8d205f;
-
-    border-color: #8d205f;
-}
-
-
-/* =====================================================
-   ACTIVITY COUNT
-===================================================== */
-
-.activity-count {
-    padding: 5px 9px;
-
-    background: #fff1f7;
-
-    color: #a32675;
-
-    border: 1px solid #efd9e7;
-
-    border-radius: 15px;
-
-    font-size: 9px;
-
-    font-weight: 600;
-}
-
-
-/* =====================================================
-   ACTIVITY LIST
-===================================================== */
-
-.activity-list {
-    width: 100%;
-}
-
-
-/* =====================================================
-   ACTIVITY ITEM
-===================================================== */
-
-.activity-item {
-    min-height: 76px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 12px 20px;
-
-    border-bottom: 1px solid #f2edf1;
-
-    transition:
-        background 0.15s ease;
-}
-
-
-.activity-item:last-child {
-    border-bottom: none;
-}
-
-
-.activity-item:hover {
-    background: #fffafd;
-}
-
-
-/* =====================================================
-   ACTIVITY ICON
-===================================================== */
-
-.activity-icon {
-    width: 36px;
-
-    height: 36px;
-
-    min-width: 36px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f6,
-            #f7edf8
-        );
-
-    color: #a32675;
-
-    border: 1px solid #efd9e7;
-
-    font-size: 9px;
-
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   ACTIVITY INFO
-===================================================== */
-
-.activity-info {
-    flex: 1;
-
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 2px;
-}
-
-
-.activity-info strong {
-    color: #4b4552;
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
-
-.activity-info span {
-    color: #9a929f;
-
-    font-size: 9px;
-}
-
-
-/* =====================================================
-   ACTIVITY TIME
-===================================================== */
-
-.activity-item time {
-    color: #aaa1ad;
-
-    font-size: 9px;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   EMPTY ACTIVITY
-===================================================== */
-
-.activity-empty {
-    padding: 38px 20px;
-
-    text-align: center;
-}
-
-
-.activity-empty .empty-icon {
-    width: 38px;
-
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin: 0 auto 10px;
-
-    background: #f1faf5;
-
-    color: #2e9c5d;
-
-    border: 1px solid #d3eadc;
-
-    border-radius: 50%;
-
-    font-size: 14px;
-
-    font-weight: 700;
-}
-
-
-.activity-empty h3 {
-    margin: 0 0 4px;
-
-    color: #4d4653;
-
-    font-size: 12px;
-}
-
-
-.activity-empty p {
-    margin: 0;
-
-    color: #99919d;
-
-    font-size: 10px;
-}
-
-
-/* =====================================================
-   SCHOOL MANAGEMENT SECTION
-===================================================== */
-
-.management-section {
-    width: 100%;
-
-    margin-bottom: 20px;
-}
-
-
-/* =====================================================
-   MANAGEMENT LIST
-===================================================== */
-
-.management-list {
-    display: grid;
-
-    grid-template-columns:
-        repeat(2, 1fr);
-
-    padding: 4px 0;
-}
-
-
-/* =====================================================
-   MANAGEMENT ITEM
-===================================================== */
-
-.management-item {
-    min-height: 61px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 10px 18px;
-
-    text-decoration: none;
-
-    border-bottom: 1px solid #f2edf1;
-
-    transition:
-        background 0.15s ease;
-}
-
-
-.management-item:nth-child(odd) {
-    border-right: 1px solid #f2edf1;
-}
-
-
-.management-item:hover {
-    background: #fffafd;
-}
-
-
-/* =====================================================
-   MANAGEMENT ICON
-===================================================== */
-
-.management-icon {
-    width: 33px;
-
-    height: 33px;
-
-    min-width: 33px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background: #fff1f7;
-
-    color: #a32675;
-
-    border: 1px solid #efd9e7;
-
-    border-radius: 9px;
-
-    font-size: 8px;
-
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   MANAGEMENT INFO
-===================================================== */
-
-.management-info {
-    flex: 1;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 1px;
-}
-
-
-.management-info strong {
-    color: #514a58;
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
-
-.management-info small {
-    color: #9b939f;
-
-    font-size: 9px;
-}
-
-
-/* =====================================================
-   MANAGEMENT ARROW
-===================================================== */
-
-.management-arrow {
-    color: #b5acb7;
+.attention-info strong {
+    color: var(--sa-heading);
 
     font-size: 13px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-.management-item:hover .management-arrow {
-    color: #a32675;
-
-    transform: translateX(3px);
-}
-
-
-/* =====================================================
-   SCHOOL SUMMARY
-===================================================== */
-
-.system-summary {
-    min-height: 76px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-around;
-
-    gap: 20px;
-
-    padding: 14px 20px;
-
-    background: #ffffff;
-
-    border: 1px solid #eadfe8;
-
-    border-radius: 13px;
-
-    box-shadow:
-        0 4px 18px
-        rgba(70, 30, 70, 0.025);
-}
-
-
-/* =====================================================
-   SUMMARY ITEM
-===================================================== */
-
-.summary-item {
-    flex: 1;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    gap: 3px;
-
-    text-align: center;
-}
-
-
-.summary-item span {
-    color: #958d99;
-
-    font-size: 9px;
-
-    font-weight: 500;
-}
-
-
-.summary-item strong {
-    color: #514a58;
-
-    font-size: 12px;
-
     font-weight: 700;
 }
-
-
-.summary-item a {
-    color: #a32675;
-
-    text-decoration: none;
-
-    transition:
-        color 0.2s ease;
-}
-
-
-.summary-item a:hover {
-    color: #6f1760;
-}
-
-
-/* =====================================================
-   SUMMARY DIVIDER
-===================================================== */
-
-.summary-divider {
-    width: 1px;
-
-    height: 30px;
-
-    background: #eee6ed;
-}
-
-
-/* =====================================================
-   FOCUS
-===================================================== */
-
-.kpi-card:focus-visible,
-.management-item:focus-visible,
-.event-arrow:focus-visible,
-.card-link:focus-visible,
-.empty-action:focus-visible,
-.summary-item a:focus-visible,
-.attention-item:focus-visible {
-
-    outline:
-        3px solid
-        rgba(163, 38, 117, 0.15);
-
-    outline-offset: 3px;
-}
-/* =====================================================
-   NEEDS ATTENTION
-===================================================== */
-
-.attention-card {
-    background: #ffffff;
-
-    border: 1px solid #eadfe8;
-
-    border-radius: 13px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 4px 18px
-        rgba(70, 30, 70, 0.025);
-}
-
-
-/* =====================================================
-   ATTENTION HEADER
-===================================================== */
-
-.attention-card .card-header {
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 15px;
-
-    padding: 18px 20px;
-
-    margin: 0;
-
-    border-bottom: 1px solid #f0e9ef;
-}
-
-
-.attention-card .card-header h2 {
-    margin: 0 0 4px;
-
-    color: #29263a;
-
-    font-size: 15px;
-
-    font-weight: 700;
-}
-
-
-.attention-card .card-header p {
-    margin: 0;
-
-    color: #958d99;
-
-    font-size: 10px;
-}
-
-
-/* =====================================================
-   ATTENTION LIST
-===================================================== */
-
-.attention-list {
-    width: 100%;
-
-    display: flex;
-
-    flex-direction: column;
-}
-
-
-/* =====================================================
-   ATTENTION ITEM
-===================================================== */
-
-.attention-item {
-    min-height: 76px;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    padding: 12px 20px;
-
-    background: #ffffff;
-
-    border-bottom: 1px solid #f2edf1;
-
-    text-decoration: none;
-
-    transition:
-        background 0.15s ease;
-}
-
-
-.attention-item:last-child {
-    border-bottom: none;
-}
-
-
-.attention-item:hover {
-    background: #fffafd;
-}
-
-
-/* =====================================================
-   ATTENTION ICON
-===================================================== */
-
-.attention-icon {
-    width: 36px;
-
-    height: 36px;
-
-    min-width: 36px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f6,
-            #f7edf8
-        );
-
-    color: #a32675;
-
-    border: 1px solid #efd9e7;
-
-    font-size: 9px;
-
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   ATTENTION INFO
-===================================================== */
-
-.attention-info {
-    flex: 1;
-
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 2px;
-}
-
-
-.attention-info strong {
-    color: #4b4552;
-
-    font-size: 11px;
-
-    font-weight: 600;
-}
-
 
 .attention-info span {
-    color: #9a929f;
+    color: var(--sa-muted);
 
-    font-size: 9px;
+    font-size: 11.5px;
+    line-height: 1.45;
 }
-
-
-/* =====================================================
-   ATTENTION ARROW
-===================================================== */
 
 .attention-arrow {
-    color: #b5acb7;
+    color: #969da7;
 
-    font-size: 14px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-.attention-item:hover .attention-arrow {
-    color: #a32675;
-
-    transform: translateX(3px);
-}
-
-
-/* =====================================================
-   ATTENTION EMPTY
-===================================================== */
-
-.attention-empty {
-    padding: 38px 20px;
-
-    text-align: center;
-}
-
-
-.attention-empty-icon {
-    width: 38px;
-
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin: 0 auto 10px;
-
-    background: #f1faf5;
-
-    color: #2e9c5d;
-
-    border: 1px solid #d3eadc;
-
-    border-radius: 50%;
-
-    font-size: 14px;
-
-    font-weight: 700;
-}
-
-
-.attention-empty h3 {
-    margin: 0 0 4px;
-
-    color: #4d4653;
-
-    font-size: 12px;
-}
-
-
-.attention-empty p {
-    margin: 0;
-
-    color: #99919d;
-
-    font-size: 10px;
-}
-
-
-/* =====================================================
-   QUICK ACTIONS
-===================================================== */
-
-.quick-actions-section {
-    width: 100%;
-    margin-bottom: 20px;
-}
-
-
-/* =====================================================
-   SECTION HEADING
-===================================================== */
-
-.section-heading {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    margin-bottom: 12px;
-}
-
-.section-heading h2 {
-    margin: 0 0 4px;
-
-    color: #29263a;
-
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.section-heading p {
-    margin: 0;
-
-    color: #958d99;
-
-    font-size: 10px;
-}
-
-
-/* =====================================================
-   QUICK ACTION GRID
-===================================================== */
-
-.quick-actions-grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(4, 1fr);
-
-    gap: 12px;
-}
-
-
-/* =====================================================
-   QUICK ACTION CARD
-===================================================== */
-
-.quick-action-card {
-    min-height: 82px;
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    padding: 14px;
-
-    background: #ffffff;
-
-    border: 1px solid #eadfe8;
-
-    border-radius: 13px;
-
-    text-decoration: none;
-
-    box-shadow:
-        0 4px 18px
-        rgba(70, 30, 70, 0.025);
+    font-size: 18px;
 
     transition:
         transform 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        background 0.2s ease;
+        color 0.2s ease;
 }
 
-
-.quick-action-card:hover {
-    transform: translateY(-3px);
-
-    background: #fffafd;
-
-    border-color: #e5cddd;
-
-    box-shadow:
-        0 10px 25px
-        rgba(70, 30, 70, 0.07);
-}
-
-
-/* =====================================================
-   QUICK ACTION ICON
-===================================================== */
-
-.quick-action-icon {
-    width: 40px;
-
-    height: 40px;
-
-    min-width: 40px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f6,
-            #f8ecf8
-        );
-
-    color: #a32675;
-
-    border: 1px solid #efd8e6;
-
-    border-radius: 10px;
-
-    font-size: 9px;
-
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   QUICK ACTION INFO
-===================================================== */
-
-.quick-action-info {
-    flex: 1;
-
-    min-width: 0;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 2px;
-}
-
-
-.quick-action-info strong {
-    overflow: hidden;
-
-    color: #514a58;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
-
-.quick-action-info span {
-    overflow: hidden;
-
-    color: #9b939f;
-
-    font-size: 9px;
-
-    text-overflow: ellipsis;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   QUICK ACTION ARROW
-===================================================== */
-
-.quick-action-arrow {
-    color: #b5acb7;
-
-    font-size: 14px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-
-.quick-action-card:hover .quick-action-arrow {
-    color: #a32675;
-
+.attention-item:hover .attention-arrow {
+    color: var(--sa-primary);
     transform: translateX(3px);
 }
 
-/* =====================================================
-   TABLET
-===================================================== */
-
-@media (max-width: 950px) {
-
-    .quick-actions-grid {
-    grid-template-columns: repeat(2, 1fr);
-}
-
-    .schooladmin-page {
-        padding:
-            35px 20px 50px;
-    }
-
-
-    .kpi-grid {
-        grid-template-columns:
-            repeat(2, 1fr);
-    }
-
-
-    .dashboard-grid {
-        grid-template-columns:
-            1fr;
-    }
-
-}
-
-
-/* =====================================================
-   MOBILE
-===================================================== */
-
-@media (max-width: 650px) {
-
-    .quick-actions-grid {
-    grid-template-columns: 1fr;
-    gap: 10px;
-}
-
-.quick-action-card {
-    min-height: 76px;
-}
-
-    .schooladmin-page {
-        padding:
-            28px 15px 45px;
-    }
-
-
-    .dashboard-welcome {
-        flex-direction: column;
-
-        gap: 15px;
-
-        margin-bottom: 23px;
-    }
-
-
-    .welcome-content h1 {
-        font-size: 25px;
-    }
-
-
-    .welcome-description {
-        font-size: 12px;
-    }
-
-
-    .kpi-grid {
-        grid-template-columns:
-            1fr;
-
-        gap: 11px;
-
-        margin-bottom: 22px;
-    }
-
-
-    .kpi-card {
-        min-height: 90px;
-    }
-
-
-    .dashboard-grid {
-        gap: 14px;
-
-        margin-bottom: 14px;
-    }
-
-
-    .card-header {
-        padding:
-            16px;
-    }
-
-
-    .event-item {
-        padding:
-            12px 16px;
-    }
-
-
-    .activity-item {
-        padding:
-            12px 16px;
-    }
-
-
-    .management-list {
-        grid-template-columns:
-            1fr;
-    }
-
-
-    .management-item:nth-child(odd) {
-        border-right: none;
-    }
-
-
-    .management-item {
-        padding:
-            10px 16px;
-    }
-
-
-    .system-summary {
-        flex-direction: column;
-
-        padding:
-            18px;
-
-        gap: 14px;
-    }
-
-
-    .summary-divider {
-        width: 70%;
-
-        height: 1px;
-    }
-
-    .dashboard-announcement-item {
-    padding: 12px 16px;
-}
-
-.dashboard-announcement-date {
-    width: 40px;
-    min-width: 40px;
-    height: 46px;
-}
-
-.dashboard-announcement-date strong {
-    font-size: 14px;
-}
-
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media (max-width: 400px) {
-
-    .schooladmin-page {
-        padding:
-            22px 12px 35px;
-    }
-
-
-    .welcome-content h1 {
-        font-size: 22px;
-    }
-
-
-    .kpi-card {
-        padding: 15px;
-    }
-
-
-    .kpi-icon {
-        width: 42px;
-
-        height: 42px;
-
-        min-width: 42px;
-    }
-
-
-    .kpi-value {
-        font-size: 20px;
-    }
-
-
-    .event-date {
-        width: 40px;
-
-        min-width: 40px;
-
-        height: 46px;
-    }
-
-
-    .event-date strong {
-        font-size: 14px;
-    }
-
-
-    .activity-item {
-        gap: 10px;
-    }
-
-
-    .activity-item time {
-        display: none;
-    }
-
-
-    .card-header h2 {
-        font-size: 14px;
-    }
-
-}
-
-/* =====================================================
-   DASHBOARD ANNOUNCEMENTS
-===================================================== */
-
-.announcements-dashboard-card {
-    background: #ffffff;
-
-    border: 1px solid #eadfe8;
-
-    border-radius: 13px;
-
-    overflow: hidden;
-
-    box-shadow:
-        0 4px 18px
-        rgba(70, 30, 70, 0.025);
-}
-
-
-/* =====================================================
-   ANNOUNCEMENT LIST
-===================================================== */
-
-.dashboard-announcement-list {
-    width: 100%;
-}
-
-
-/* =====================================================
-   ANNOUNCEMENT ITEM
-===================================================== */
-
-.dashboard-announcement-item {
-    min-height: 76px;
+.attention-empty {
+    min-height: 175px;
 
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
+    padding: 25px 15px;
+
+    text-align: center;
+}
+
+.attention-empty-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 10px;
+
+    border: 1px solid #cdebd6;
+    border-radius: 50%;
+
+    color: var(--sa-green);
+    background: #f0faf3;
+
+    font-size: 18px;
+    font-weight: 800;
+}
+
+/* =========================================================
+   EMPTY STATES
+   ========================================================= */
+
+.attention-empty h3,
+.events-empty h3,
+.activity-empty h3,
+.announcement-dashboard-empty h3 {
+    margin: 0;
+
+    color: var(--sa-heading);
+
+    font-size: 14px;
+    font-weight: 750;
+}
+
+.attention-empty p,
+.events-empty p,
+.activity-empty p,
+.announcement-dashboard-empty p {
+    max-width: 360px;
+
+    margin: 6px 0 0;
+
+    color: var(--sa-muted);
+
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+.empty-icon {
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 11px;
+
+    border: 1px solid #e1e5e9;
+    border-radius: 12px;
+
+    color: #69727d;
+    background: #f7f8f9;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.04em;
+}
+
+.events-empty,
+.activity-empty,
+.announcement-dashboard-empty {
+    min-height: 180px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    padding: 30px 20px;
+
+    text-align: center;
+}
+
+/* =========================================================
+   EMPTY ACTION BUTTON
+   ========================================================= */
+
+.empty-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 38px;
+
+    margin-top: 15px;
+    padding: 0 15px;
+
+    border-radius: 9px;
+
+    color: #ffffff;
+    background: var(--sa-primary);
+
+    font-size: 11.5px;
+    font-weight: 700;
+
+    transition:
+        background 0.2s ease,
+        transform 0.2s ease;
+}
+
+.empty-action:hover {
+    background: var(--sa-primary-hover);
+    transform: translateY(-1px);
+}
+
+/* =========================================================
+   RECENT ACTIVITY
+   ========================================================= */
+
+.activity-list {
+    padding: 6px 24px 18px;
+}
+
+.activity-item {
+    display: flex;
     align-items: center;
 
     gap: 13px;
 
-    padding: 12px 20px;
+    min-height: 68px;
 
-    border-bottom: 1px solid #f2edf1;
+    padding: 12px 0;
 
-    text-decoration: none;
+    border-bottom: 1px solid var(--sa-border-soft);
+}
 
-    transition:
-        background 0.15s ease;
+.activity-item:last-child {
+    border-bottom: 0;
+}
+
+.activity-icon {
+    flex: 0 0 42px;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #e3e7eb;
+    border-radius: 11px;
+
+    color: #59626e;
+    background: #f7f8f9;
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.03em;
+}
+
+.activity-info {
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.activity-info strong {
+    overflow: hidden;
+
+    color: var(--sa-heading);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.activity-info span {
+    overflow: hidden;
+
+    color: var(--sa-muted);
+
+    font-size: 11.5px;
+    line-height: 1.45;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.activity-item time {
+    flex: 0 0 auto;
+
+    color: #9aa1aa;
+
+    font-size: 11px;
+
+    white-space: nowrap;
+}
+
+/* =========================================================
+   ANNOUNCEMENTS
+   ========================================================= */
+
+.dashboard-announcement-list {
+    padding: 6px 24px 18px;
+}
+
+.dashboard-announcement-item {
+    display: flex;
+    align-items: center;
+
+    gap: 14px;
+
+    min-height: 76px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid var(--sa-border-soft);
 }
 
 .dashboard-announcement-item:last-child {
-    border-bottom: none;
+    border-bottom: 0;
 }
-
-.dashboard-announcement-item:hover {
-    background: #fffafd;
-}
-
-
-/* =====================================================
-   ANNOUNCEMENT DATE
-===================================================== */
 
 .dashboard-announcement-date {
-    width: 43px;
+    flex: 0 0 52px;
 
-    min-width: 43px;
-
-    height: 49px;
+    width: 52px;
+    height: 55px;
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
-
     justify-content: center;
 
-    background: #fff1f7;
+    border: 1px solid #e1e5e9;
+    border-radius: 12px;
 
-    border: 1px solid #efd9e7;
-
-    border-radius: 9px;
-
-    line-height: 1;
+    background: #f8f9fa;
 }
 
 .dashboard-announcement-date strong {
-    color: #a32675;
+    color: var(--sa-heading);
 
-    font-size: 16px;
-
-    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.05;
+    font-weight: 800;
 }
 
 .dashboard-announcement-date span {
     margin-top: 4px;
 
-    color: #9b718b;
+    color: var(--sa-muted);
 
-    font-size: 8px;
-
-    font-weight: 700;
+    font-size: 10px;
+    font-weight: 800;
 
     text-transform: uppercase;
+
+    letter-spacing: 0.08em;
 }
 
-
-/* =====================================================
-   ANNOUNCEMENT INFO
-===================================================== */
-
 .dashboard-announcement-info {
-    flex: 1;
-
     min-width: 0;
 
-    display: flex;
+    flex: 1;
 
+    display: flex;
     flex-direction: column;
 
-    gap: 4px;
+    gap: 5px;
 }
 
 .dashboard-announcement-info strong {
     overflow: hidden;
 
-    color: #514a58;
+    color: var(--sa-heading);
 
-    font-size: 11px;
-
-    font-weight: 600;
+    font-size: 13px;
+    font-weight: 700;
 
     text-overflow: ellipsis;
-
     white-space: nowrap;
 }
 
 .dashboard-announcement-info span {
     overflow: hidden;
 
-    color: #99919d;
+    color: var(--sa-muted);
 
-    font-size: 9px;
+    font-size: 11.5px;
+    line-height: 1.45;
 
     text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dashboard-announcement-arrow {
+    flex: 0 0 auto;
+
+    color: #929aa5;
+
+    font-size: 18px;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.dashboard-announcement-item:hover .dashboard-announcement-arrow {
+    color: var(--sa-primary);
+    transform: translateX(3px);
+}
+
+/* =========================================================
+   QUICK ACTIONS
+   ========================================================= */
+
+.quick-actions-section {
+    margin-top: 28px;
+}
+
+.section-heading {
+    margin-bottom: 14px;
+}
+
+.section-heading h2 {
+    margin: 0;
+
+    color: var(--sa-heading);
+
+    font-size: 19px;
+    font-weight: 750;
+
+    letter-spacing: -0.02em;
+}
+
+.section-heading p {
+    margin: 5px 0 0;
+
+    color: var(--sa-muted);
+
+    font-size: 12.5px;
+}
+
+.quick-actions-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 15px;
+}
+
+.quick-action-card {
+    position: relative;
+
+    min-height: 92px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 13px;
+
+    padding: 18px;
+
+    overflow: hidden;
+
+    border: 1px solid var(--sa-border);
+    border-radius: 17px;
+
+    background: var(--sa-card);
+
+    box-shadow: var(--sa-shadow);
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.quick-action-card:hover {
+    transform: translateY(-3px);
+
+    border-color: #d9dde2;
+
+    box-shadow: var(--sa-shadow-hover);
+}
+
+.quick-action-icon {
+    flex: 0 0 43px;
+
+    width: 43px;
+    height: 43px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 11px;
+
+    color: var(--sa-blue);
+    background: #eef4ff;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.quick-action-card:nth-child(2) .quick-action-icon {
+    color: var(--sa-purple);
+    background: #f3efff;
+}
+
+.quick-action-card:nth-child(3) .quick-action-icon {
+    color: var(--sa-green);
+    background: #edf9f1;
+}
+
+.quick-action-card:nth-child(4) .quick-action-icon {
+    color: var(--sa-amber);
+    background: #fff6e8;
+}
+
+.quick-action-info {
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.quick-action-info strong {
+    overflow: hidden;
+
+    color: var(--sa-heading);
+
+    font-size: 12.5px;
+    font-weight: 750;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.quick-action-info span {
+    overflow: hidden;
+
+    color: var(--sa-muted);
+
+    font-size: 10.5px;
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.quick-action-arrow {
+    color: #9aa1aa;
+
+    font-size: 17px;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.quick-action-card:hover .quick-action-arrow {
+    color: var(--sa-primary);
+    transform: translateX(3px);
+}
+
+/* =========================================================
+   SCHOOL MANAGEMENT
+   ========================================================= */
+
+.management-section {
+    margin-top: 28px;
+}
+
+.management-card {
+    overflow: hidden;
+}
+
+.management-list {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 0;
+
+    padding: 7px 24px 18px;
+}
+
+.management-item {
+    display: flex;
+    align-items: center;
+
+    min-width: 0;
+
+    gap: 13px;
+
+    min-height: 74px;
+
+    padding: 12px 8px;
+
+    border-bottom: 1px solid var(--sa-border-soft);
+
+    transition: background 0.2s ease;
+}
+
+.management-item:nth-last-child(-n + 2) {
+    border-bottom: 0;
+}
+
+.management-item:hover {
+    background: #fafbfc;
+}
+
+.management-icon {
+    flex: 0 0 42px;
+
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid #e2e6ea;
+    border-radius: 11px;
+
+    color: #59626e;
+    background: #f7f8f9;
+
+    font-size: 10px;
+    font-weight: 800;
+}
+
+.management-item:nth-child(2) .management-icon {
+    color: var(--sa-purple);
+    background: #f6f2ff;
+    border-color: #e8e0ff;
+}
+
+.management-item:nth-child(3) .management-icon {
+    color: var(--sa-green);
+    background: #f0faf3;
+    border-color: #d9efdf;
+}
+
+.management-item:nth-child(4) .management-icon {
+    color: var(--sa-blue);
+    background: #eff5ff;
+    border-color: #dce9ff;
+}
+
+.management-item:nth-child(5) .management-icon {
+    color: var(--sa-amber);
+    background: #fff7ec;
+    border-color: #f8e8ce;
+}
+
+.management-item:nth-child(6) .management-icon {
+    color: #59626e;
+}
+
+.management-item:nth-child(7) .management-icon {
+    color: var(--sa-accent);
+    background: #fff3fa;
+    border-color: #f2dce9;
+}
+
+.management-info {
+    min-width: 0;
+
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 4px;
+}
+
+.management-info strong {
+    overflow: hidden;
+
+    color: var(--sa-heading);
+
+    font-size: 13px;
+    font-weight: 700;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.management-info small {
+    overflow: hidden;
+
+    color: var(--sa-muted);
+
+    font-size: 11px;
+    line-height: 1.4;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.management-arrow {
+    flex: 0 0 auto;
+
+    color: #9aa1aa;
+
+    font-size: 18px;
+
+    transition:
+        transform 0.2s ease,
+        color 0.2s ease;
+}
+
+.management-item:hover .management-arrow {
+    color: var(--sa-primary);
+    transform: translateX(3px);
+}
+
+/* =========================================================
+   SCHOOL SUMMARY
+   ========================================================= */
+
+.system-summary {
+    display: grid;
+
+    grid-template-columns:
+        1fr auto 1fr auto 1fr;
+
+    align-items: center;
+
+    gap: 22px;
+
+    margin-top: 18px;
+
+    padding: 20px 24px;
+
+    border: 1px solid var(--sa-border);
+    border-radius: 17px;
+
+    background: var(--sa-card);
+
+    box-shadow: var(--sa-shadow);
+}
+
+.summary-item {
+    min-width: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 16px;
+}
+
+.summary-item > span {
+    color: var(--sa-muted);
+
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.summary-item > strong {
+    color: var(--sa-heading);
+
+    font-size: 17px;
+    font-weight: 750;
 
     white-space: nowrap;
 }
 
-
-/* =====================================================
-   ANNOUNCEMENT ARROW
-===================================================== */
-
-.dashboard-announcement-arrow {
-    color: #b5acb7;
-
-    font-size: 14px;
-
-    transition:
-        color 0.2s ease,
-        transform 0.2s ease;
-}
-
-.dashboard-announcement-item:hover
-.dashboard-announcement-arrow {
-
-    color: #a32675;
-
-    transform: translateX(3px);
-}
-
-
-/* =====================================================
-   EMPTY ANNOUNCEMENTS
-===================================================== */
-
-.announcement-dashboard-empty {
-    padding: 38px 20px;
-
-    text-align: center;
-}
-
-.announcement-dashboard-empty .empty-icon {
-    width: 38px;
-
-    height: 38px;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    margin: 0 auto 10px;
-
-    background: #fff1f7;
-
-    color: #a32675;
-
-    border: 1px solid #efd9e7;
-
-    border-radius: 50%;
-
-    font-size: 10px;
-
-    font-weight: 700;
-}
-
-.announcement-dashboard-empty h3 {
-    margin: 0 0 4px;
-
-    color: #4d4653;
+.summary-item strong a {
+    color: var(--sa-primary);
 
     font-size: 12px;
+    font-weight: 750;
+
+    transition: color 0.2s ease;
 }
 
-.announcement-dashboard-empty p {
-    margin: 0 0 14px;
+.summary-item strong a:hover {
+    color: var(--sa-accent);
+}
 
-    color: #99919d;
+.summary-divider {
+    width: 1px;
+    height: 34px;
 
-    font-size: 10px;
+    background: var(--sa-border);
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+a:focus-visible {
+    outline: 3px solid rgba(163, 38, 117, 0.22);
+    outline-offset: 3px;
+    border-radius: 6px;
+}
+
+/* =========================================================
+   SMALL LAPTOP
+   ========================================================= */
+
+@media (max-width: 1150px) {
+
+    .schooladmin-page {
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .kpi-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .quick-actions-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .activity-card,
+    .announcements-dashboard-card {
+        grid-column: auto;
+    }
+
+    .system-summary {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+    .summary-divider {
+        display: none;
+    }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    .schooladmin-page {
+        padding: 22px 18px 45px;
+    }
+
+    .dashboard-welcome {
+        min-height: 165px;
+
+        padding: 29px 28px;
+
+        border-radius: 19px;
+    }
+
+    .dashboard-welcome h1 {
+        font-size: 27px;
+    }
+
+    .kpi-card {
+        min-height: 125px;
+    }
+
+    .management-list {
+        grid-template-columns: 1fr;
+    }
+
+    .management-item:nth-last-child(-n + 2) {
+        border-bottom: 1px solid var(--sa-border-soft);
+    }
+
+    .management-item:last-child {
+        border-bottom: 0;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+
+@media (max-width: 650px) {
+
+    .schooladmin-page {
+        padding: 16px 13px 35px;
+    }
+
+    .dashboard-welcome {
+        min-height: auto;
+
+        padding: 25px 21px;
+
+        margin-bottom: 17px;
+
+        border-radius: 17px;
+    }
+
+    .welcome-label {
+        margin-bottom: 9px;
+        font-size: 9px;
+    }
+
+    .dashboard-welcome h1 {
+        font-size: 23px;
+        line-height: 1.28;
+    }
+
+    .welcome-description {
+        margin-top: 9px;
+        font-size: 12px;
+    }
+
+    .kpi-grid {
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 11px;
+
+        margin-bottom: 17px;
+    }
+
+    .kpi-card {
+        min-height: 112px;
+
+        gap: 10px;
+
+        padding: 16px 14px;
+
+        border-radius: 15px;
+    }
+
+    .kpi-icon {
+        flex-basis: 40px;
+
+        width: 40px;
+        height: 40px;
+
+        border-radius: 10px;
+
+        font-size: 9px;
+    }
+
+    .kpi-label {
+        font-size: 10px;
+    }
+
+    .kpi-value {
+        font-size: 20px;
+    }
+
+    .kpi-arrow {
+        display: none;
+    }
+
+    .events-card,
+    .attention-card,
+    .activity-card,
+    .announcements-dashboard-card,
+    .management-card {
+        border-radius: 16px;
+    }
+
+    .card-header {
+        padding: 18px 17px 15px;
+        gap: 10px;
+    }
+
+    .card-header h2 {
+        font-size: 15px;
+    }
+
+    .card-header p {
+        font-size: 11px;
+    }
+
+    .card-link {
+        font-size: 10.5px;
+    }
+
+    .events-list,
+    .attention-list,
+    .activity-list,
+    .dashboard-announcement-list {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+
+    .event-item,
+    .dashboard-announcement-item {
+        gap: 11px;
+    }
+
+    .event-date,
+    .dashboard-announcement-date {
+        flex-basis: 46px;
+
+        width: 46px;
+        height: 50px;
+    }
+
+    .event-date strong,
+    .dashboard-announcement-date strong {
+        font-size: 15px;
+    }
+
+    .event-info strong,
+    .dashboard-announcement-info strong {
+        font-size: 12px;
+    }
+
+    .event-info span,
+    .dashboard-announcement-info span {
+        font-size: 10.5px;
+    }
+
+    .attention-item {
+        gap: 10px;
+    }
+
+    .attention-icon,
+    .activity-icon {
+        flex-basis: 39px;
+
+        width: 39px;
+        height: 39px;
+    }
+
+    .attention-info strong,
+    .activity-info strong {
+        font-size: 12px;
+    }
+
+    .attention-info span,
+    .activity-info span,
+    .activity-item time {
+        font-size: 10.5px;
+    }
+
+    .quick-actions-section,
+    .management-section {
+        margin-top: 21px;
+    }
+
+    .section-heading h2 {
+        font-size: 17px;
+    }
+
+    .section-heading p {
+        font-size: 11px;
+    }
+
+    .quick-actions-grid {
+        grid-template-columns:
+            1fr 1fr;
+
+        gap: 10px;
+    }
+
+    .quick-action-card {
+        min-height: 83px;
+
+        gap: 9px;
+
+        padding: 14px;
+
+        border-radius: 14px;
+    }
+
+    .quick-action-icon {
+        flex-basis: 37px;
+
+        width: 37px;
+        height: 37px;
+
+        border-radius: 9px;
+
+        font-size: 9px;
+    }
+
+    .quick-action-info strong {
+        font-size: 11px;
+    }
+
+    .quick-action-info span {
+        font-size: 9px;
+    }
+
+    .quick-action-arrow {
+        display: none;
+    }
+
+    .management-list {
+        padding: 4px 17px 12px;
+    }
+
+    .management-item {
+        min-height: 67px;
+
+        padding: 10px 5px;
+    }
+
+    .management-icon {
+        flex-basis: 38px;
+
+        width: 38px;
+        height: 38px;
+    }
+
+    .management-info strong {
+        font-size: 12px;
+    }
+
+    .management-info small {
+        font-size: 10px;
+    }
+
+    .system-summary {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+
+        margin-top: 13px;
+
+        padding: 5px 17px;
+
+        border-radius: 15px;
+    }
+
+    .summary-item {
+        min-height: 57px;
+
+        padding: 7px 0;
+
+        border-bottom: 1px solid var(--sa-border-soft);
+    }
+
+    .summary-item:last-child {
+        border-bottom: 0;
+    }
+
+    .summary-item > span {
+        font-size: 11px;
+    }
+
+    .summary-item > strong {
+        font-size: 15px;
+    }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 420px) {
+
+    .schooladmin-page {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .dashboard-welcome {
+        padding: 22px 18px;
+    }
+
+    .dashboard-welcome h1 {
+        font-size: 21px;
+    }
+
+    .kpi-grid {
+        gap: 8px;
+    }
+
+    .kpi-card {
+        min-height: 103px;
+
+        padding: 13px 11px;
+    }
+
+    .kpi-icon {
+        flex-basis: 35px;
+
+        width: 35px;
+        height: 35px;
+    }
+
+    .kpi-value {
+        font-size: 18px;
+    }
+
+    .quick-actions-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .quick-action-card {
+        min-height: 70px;
+    }
+
+    .quick-action-arrow {
+        display: block;
+    }
+
+    .activity-item time {
+        display: none;
+    }
 }

@@ -25,9 +25,9 @@ body {
         Helvetica,
         sans-serif;
 
-    background: #faf9fc;
+    background: #f4f6f8;
 
-    color: #29263a;
+    color: #292f38;
 
     line-height: 1.5;
 
@@ -42,13 +42,13 @@ body {
 .student-page {
     width: 100%;
 
-    padding: 38px 30px 55px;
+    padding: 28px 34px 55px;
 }
 
 .student-container {
     width: 100%;
 
-    max-width: 1250px;
+    max-width: 1440px;
 
     margin: 0 auto;
 }
@@ -59,16 +59,21 @@ body {
    ========================================================= */
 
 .dashboard-welcome {
+    position: relative;
+    min-height: 175px;
     display: flex;
-
-    align-items: flex-start;
-
+    align-items: center;
     justify-content: space-between;
-
     gap: 25px;
-
-    margin-bottom: 25px;
+    margin-bottom: 22px;
+    padding: 28px 30px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #202531 0%, #394252 100%);
+    border: 1px solid #303844;
+    border-radius: 22px;
+    box-shadow: 0 14px 34px rgba(31, 41, 55, 0.14);
 }
+
 
 .welcome-content {
     width: 100%;
@@ -77,9 +82,9 @@ body {
 .welcome-label {
     margin: 0 0 7px;
 
-    color: #9c2868;
+    color: #59636f;
 
-    font-size: 9px;
+    font-size: 10px;
 
     font-weight: 700;
 
@@ -91,9 +96,9 @@ body {
 .welcome-content h1 {
     margin: 0 0 6px;
 
-    color: #29263a;
+    color: #292f38;
 
-    font-size: 29px;
+    font-size: 31px;
 
     font-weight: 700;
 
@@ -105,7 +110,7 @@ body {
 .welcome-description {
     margin: 0;
 
-    color: #827a89;
+    color: #6f7882;
 
     font-size: 12px;
 }
@@ -134,7 +139,7 @@ body {
 
     border-radius: 20px;
 
-    font-size: 9px;
+    font-size: 10px;
 
     font-weight: 600;
 
@@ -186,15 +191,15 @@ body {
 
     background: #ffffff;
 
-    border: 1px solid #eadfe8;
+    border: 1px solid #e3e7eb;
 
-    border-radius: 11px;
+    border-radius: 18px;
 
     text-decoration: none;
 
     box-shadow:
         0 3px 15px
-        rgba(70, 30, 70, 0.025);
+        rgba(31, 41, 55, 0.045);
 
     transition:
         transform 0.2s ease,
@@ -206,13 +211,13 @@ body {
 .kpi-card:hover {
     transform: translateY(-2px);
 
-    background: #fffafd;
+    background: #fafbfc;
 
-    border-color: #e5cddd;
+    border-color: #d8dee5;
 
     box-shadow:
         0 8px 22px
-        rgba(70, 30, 70, 0.07);
+        rgba(31, 41, 55, 0.09);
 }
 
 
@@ -238,13 +243,13 @@ body {
             #f8ecf8
         );
 
-    color: #a32675;
+    color: #303641;
 
     border: 1px solid #efd8e6;
 
     border-radius: 9px;
 
-    font-size: 9px;
+    font-size: 10px;
 
     font-weight: 700;
 }
@@ -267,7 +272,7 @@ body {
 .kpi-label {
     color: #8f8795;
 
-    font-size: 9px;
+    font-size: 10px;
 
     font-weight: 500;
 }
@@ -275,7 +280,7 @@ body {
 .kpi-value {
     max-width: 150px;
 
-    color: #29263a;
+    color: #292f38;
 
     font-size: 20px;
 
@@ -302,7 +307,7 @@ body {
 
     bottom: 11px;
 
-    color: #c1b7c0;
+    color: #a2aab2;
 
     font-size: 12px;
 
@@ -312,7 +317,7 @@ body {
 }
 
 .kpi-card:hover .kpi-arrow {
-    color: #a32675;
+    color: #303641;
 
     transform: translateX(3px);
 }
@@ -349,15 +354,15 @@ body {
 .dashboard-card {
     background: #ffffff;
 
-    border: 1px solid #eadfe8;
+    border: 1px solid #e3e7eb;
 
-    border-radius: 11px;
+    border-radius: 18px;
 
     overflow: hidden;
 
     box-shadow:
         0 3px 15px
-        rgba(70, 30, 70, 0.025);
+        rgba(31, 41, 55, 0.045);
 }
 
 
@@ -378,13 +383,13 @@ body {
 
     padding: 12px 16px;
 
-    border-bottom: 1px solid #f0e9ef;
+    border-bottom: 1px solid #e9edf0;
 }
 
 .card-header h2 {
     margin: 0 0 2px;
 
-    color: #29263a;
+    color: #292f38;
 
     font-size: 12px;
 
@@ -394,7 +399,7 @@ body {
 .card-header p {
     margin: 0;
 
-    color: #958d99;
+    color: #78818b;
 
     font-size: 8px;
 }
@@ -405,7 +410,7 @@ body {
    ========================================================= */
 
 .card-link {
-    color: #a32675;
+    color: #303641;
 
     font-size: 8px;
 
@@ -448,7 +453,7 @@ body {
 
     text-decoration: none;
 
-    border-bottom: 1px solid #f2edf1;
+    border-bottom: 1px solid #edf0f2;
 
     transition:
         background 0.15s ease;
@@ -459,7 +464,7 @@ body {
 }
 
 .event-item:hover {
-    background: #fffafd;
+    background: #fafbfc;
 }
 
 
@@ -479,9 +484,9 @@ body {
 
     justify-content: center;
 
-    background: #fff1f7;
+    background: #f3f5f7;
 
-    border: 1px solid #efd9e7;
+    border: 1px solid #dfe4e9;
 
     border-radius: 8px;
 
@@ -489,7 +494,7 @@ body {
 }
 
 .event-date strong {
-    color: #a32675;
+    color: #303641;
 
     font-size: 12px;
 
@@ -499,7 +504,7 @@ body {
 .event-date span {
     margin-top: 2px;
 
-    color: #958d99;
+    color: #78818b;
 
     font-size: 7px;
 
@@ -524,9 +529,9 @@ body {
 }
 
 .event-info strong {
-    color: #4b4552;
+    color: #3f4750;
 
-    font-size: 9px;
+    font-size: 10px;
 
     font-weight: 600;
 
@@ -538,7 +543,7 @@ body {
 }
 
 .event-info span {
-    color: #9a929f;
+    color: #7b848e;
 
     font-size: 7px;
 
@@ -553,7 +558,7 @@ body {
 /* Event arrow */
 
 .event-arrow {
-    color: #b5acb7;
+    color: #9aa3ac;
 
     font-size: 11px;
 
@@ -563,7 +568,7 @@ body {
 }
 
 .event-item:hover .event-arrow {
-    color: #a32675;
+    color: #303641;
 
     transform: translateX(3px);
 }
@@ -590,7 +595,7 @@ body {
 
     text-decoration: none;
 
-    border-bottom: 1px solid #f2edf1;
+    border-bottom: 1px solid #edf0f2;
 
     transition:
         background 0.15s ease;
@@ -601,7 +606,7 @@ body {
 }
 
 .announcement-item:hover {
-    background: #fffafd;
+    background: #fafbfc;
 }
 
 
@@ -621,9 +626,9 @@ body {
 
     justify-content: center;
 
-    background: #fff1f7;
+    background: #f3f5f7;
 
-    border: 1px solid #efd9e7;
+    border: 1px solid #dfe4e9;
 
     border-radius: 8px;
 
@@ -631,7 +636,7 @@ body {
 }
 
 .announcement-date strong {
-    color: #a32675;
+    color: #303641;
 
     font-size: 12px;
 
@@ -641,7 +646,7 @@ body {
 .announcement-date span {
     margin-top: 2px;
 
-    color: #958d99;
+    color: #78818b;
 
     font-size: 7px;
 
@@ -666,9 +671,9 @@ body {
 }
 
 .announcement-info strong {
-    color: #4b4552;
+    color: #3f4750;
 
-    font-size: 9px;
+    font-size: 10px;
 
     font-weight: 600;
 
@@ -680,7 +685,7 @@ body {
 }
 
 .announcement-info span {
-    color: #9a929f;
+    color: #7b848e;
 
     font-size: 7px;
 
@@ -695,7 +700,7 @@ body {
 /* Announcement arrow */
 
 .announcement-arrow {
-    color: #b5acb7;
+    color: #9aa3ac;
 
     font-size: 11px;
 
@@ -705,7 +710,7 @@ body {
 }
 
 .announcement-item:hover .announcement-arrow {
-    color: #a32675;
+    color: #303641;
 
     transform: translateX(3px);
 }
@@ -732,7 +737,7 @@ body {
 
     text-decoration: none;
 
-    border-bottom: 1px solid #f2edf1;
+    border-bottom: 1px solid #edf0f2;
 
     transition:
         background 0.15s ease;
@@ -743,7 +748,7 @@ body {
 }
 
 .activity-item:hover {
-    background: #fffafd;
+    background: #fafbfc;
 }
 
 
@@ -767,9 +772,9 @@ body {
             #f7edf8
         );
 
-    color: #a32675;
+    color: #303641;
 
-    border: 1px solid #efd9e7;
+    border: 1px solid #dfe4e9;
 
     border-radius: 50%;
 
@@ -794,9 +799,9 @@ body {
 }
 
 .activity-info strong {
-    color: #4b4552;
+    color: #3f4750;
 
-    font-size: 9px;
+    font-size: 10px;
 
     font-weight: 600;
 
@@ -808,7 +813,7 @@ body {
 }
 
 .activity-info span {
-    color: #9a929f;
+    color: #7b848e;
 
     font-size: 7px;
 
@@ -823,7 +828,7 @@ body {
 /* Activity date */
 
 .activity-item time {
-    color: #aaa1ad;
+    color: #8d969f;
 
     font-size: 7px;
 
@@ -854,15 +859,15 @@ body {
 }
 
 .empty-state strong {
-    color: #4d4653;
+    color: #3f4750;
 
-    font-size: 9px;
+    font-size: 10px;
 
     font-weight: 600;
 }
 
 .empty-state span {
-    color: #99919d;
+    color: #858e97;
 
     font-size: 7px;
 }
@@ -879,7 +884,7 @@ body {
 
     outline:
         3px solid
-        rgba(163, 38, 117, 0.15);
+        rgba(48, 54, 65, 0.16);
 
     outline-offset: 2px;
 }
@@ -1058,4 +1063,267 @@ body {
         grid-column: auto;
     }
 
+}
+
+/* =========================================================
+   MODERN STUDENT DASHBOARD OVERRIDES
+   ========================================================= */
+
+.dashboard-welcome::after {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    right: -65px;
+    top: -95px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.055);
+    pointer-events: none;
+}
+
+.dashboard-welcome .welcome-content,
+.dashboard-welcome .dashboard-status {
+    position: relative;
+    z-index: 1;
+}
+
+.dashboard-welcome .welcome-label {
+    color: #cbd3dc;
+    font-size: 10px;
+    letter-spacing: 1.4px;
+}
+
+.dashboard-welcome .welcome-content h1 {
+    color: #ffffff;
+    font-size: 31px;
+    letter-spacing: -0.8px;
+}
+
+.dashboard-welcome .welcome-description {
+    color: #b8c1cb;
+    font-size: 12px;
+}
+
+.kpi-grid {
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.kpi-card {
+    min-height: 125px;
+    padding: 20px;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(31, 41, 55, 0.045);
+}
+
+.kpi-card:nth-child(1) { border-left: 4px solid #4f7cac; }
+.kpi-card:nth-child(2) { border-left: 4px solid #7b6fb0; }
+.kpi-card:nth-child(3) { border-left: 4px solid #4f9b73; }
+.kpi-card:nth-child(4) { border-left: 4px solid #c58b43; }
+
+.kpi-icon {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    border-radius: 12px;
+    background: #f3f5f7;
+    border: 1px solid #e0e5ea;
+    color: #303641;
+    font-size: 10px;
+}
+
+.kpi-card:nth-child(1) .kpi-icon { background: #eef5fb; color: #35678f; border-color: #d8e7f3; }
+.kpi-card:nth-child(2) .kpi-icon { background: #f2eff9; color: #62588f; border-color: #e1dcf0; }
+.kpi-card:nth-child(3) .kpi-icon { background: #eef8f3; color: #377557; border-color: #d7ebdf; }
+.kpi-card:nth-child(4) .kpi-icon { background: #fbf5eb; color: #95682d; border-color: #eedfc8; }
+
+.kpi-label {
+    font-size: 10px;
+    color: #737d87;
+}
+
+.kpi-value {
+    font-size: 22px;
+    color: #292f38;
+}
+
+.kpi-arrow {
+    right: 16px;
+    bottom: 14px;
+    color: #9ca5ad;
+}
+
+.kpi-card:hover {
+    background: #ffffff;
+    border-color: #d8dee5;
+    box-shadow: 0 10px 28px rgba(31, 41, 55, 0.09);
+}
+
+.dashboard-grid {
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.dashboard-card {
+    border-radius: 19px;
+    box-shadow: 0 5px 20px rgba(31, 41, 55, 0.045);
+}
+
+.card-header {
+    min-height: 64px;
+    padding: 14px 20px;
+}
+
+.card-header h2 {
+    font-size: 13px;
+    color: #292f38;
+}
+
+.card-header p {
+    font-size: 9px;
+    color: #7b848e;
+}
+
+.card-link {
+    color: #59636f;
+    font-size: 9px;
+}
+
+.card-link:hover {
+    color: #303641;
+}
+
+.event-item,
+.announcement-item,
+.activity-item {
+    min-height: 68px;
+    padding: 11px 20px;
+}
+
+.event-date,
+.announcement-date {
+    width: 42px;
+    min-width: 42px;
+    height: 43px;
+    border-radius: 11px;
+    background: #f3f5f7;
+    border-color: #dfe4e9;
+}
+
+.event-date strong,
+.announcement-date strong {
+    color: #303641;
+    font-size: 13px;
+}
+
+.event-date span,
+.announcement-date span {
+    font-size: 8px;
+    color: #78818b;
+}
+
+.event-info strong,
+.announcement-info strong,
+.activity-info strong {
+    color: #3f4750;
+    font-size: 10px;
+}
+
+.event-info span,
+.announcement-info span,
+.activity-info span {
+    color: #7b848e;
+    font-size: 8px;
+}
+
+.event-arrow,
+.announcement-arrow {
+    color: #9aa3ac;
+}
+
+.event-item:hover .event-arrow,
+.announcement-item:hover .announcement-arrow {
+    color: #303641;
+}
+
+.activity-icon {
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
+    background: #f3f5f7;
+    color: #59636f;
+    border: 1px solid #dfe4e9;
+}
+
+.activity-item time {
+    color: #8d969f;
+    font-size: 8px;
+}
+
+.empty-state {
+    min-height: 105px;
+    padding: 20px;
+}
+
+.empty-state strong {
+    color: #3f4750;
+    font-size: 10px;
+}
+
+.empty-state span {
+    color: #858e97;
+    font-size: 8px;
+}
+
+/* Status remains intentionally green for positive account state. */
+.dashboard-status {
+    background: rgba(55, 117, 87, 0.16);
+    color: #b9e3ca;
+    border-color: rgba(140, 207, 164, 0.28);
+}
+
+.dashboard-status .status-dot {
+    background: #6fca91;
+}
+
+@media (max-width: 1050px) {
+    .student-page {
+        padding: 28px 22px 50px;
+    }
+}
+
+@media (max-width: 800px) {
+    .dashboard-welcome {
+        min-height: 160px;
+        padding: 25px;
+    }
+}
+
+@media (max-width: 600px) {
+    .student-page {
+        padding: 22px 14px 40px;
+    }
+
+    .dashboard-welcome {
+        padding: 22px 20px;
+        border-radius: 18px;
+    }
+
+    .dashboard-welcome .welcome-content h1 {
+        font-size: 24px;
+    }
+
+    .kpi-card {
+        min-height: 92px;
+    }
+}
+
+@media (max-width: 400px) {
+    .student-page {
+        padding: 20px 11px 35px;
+    }
+
+    .dashboard-welcome .welcome-content h1 {
+        font-size: 21px;
+    }
 }
