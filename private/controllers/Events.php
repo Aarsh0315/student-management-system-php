@@ -16,10 +16,10 @@ class Events extends Controller
 
         $rank = $_SESSION['rank'] ?? '';
 
-        if (!in_array($rank, ['super_admin', 'admin'], true)) {
-            header("Location: " . ROOT . "/home");
-            exit;
-        }
+        if (!in_array($rank, ['super_admin', 'admin', 'teacher'], true)) {
+    header("Location: " . ROOT . "/home");
+    exit;
+}
     }
 
 
@@ -624,6 +624,13 @@ class Events extends Controller
             exit;
         }
 
+        if (
+    $rank === 'teacher' &&
+    (int)$event->created_by !== (int)$_SESSION['user_id']
+) {
+    die("You are not allowed to edit this event.");
+}
+
 
         return $this->processEventEdit(
             $event,
@@ -894,118 +901,10 @@ class Events extends Controller
     */
 
     public function delete($event_id = null)
-    {
-        $this->checkAccess();
+{
+    $this->checkAccess();
 
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/events"
-            );
-
-            exit;
-        }
-
-
-        if (!CSRF::verify(
-            $_POST['csrf_token'] ?? ''
-        )) {
-            die('Invalid CSRF token.');
-        }
-
-
-        if (!$event_id) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/events"
-            );
-
-            exit;
-        }
-
-
-        $eventModel =
-            $this->model('EventModel');
-
-        $rank =
-            $_SESSION['rank'] ?? '';
-
-
-        /*
-        -------------------------------------------------
-        SUPER ADMIN
-        -------------------------------------------------
-        */
-
-        if ($rank === 'super_admin') {
-
-            $schools =
-                $this->getSchools();
-
-
-            foreach ($schools as $school) {
-
-                $event =
-                    $eventModel->getEventById(
-                        $event_id,
-                        $school->id
-                    );
-
-
-                if ($event) {
-
-                    $eventModel->deleteEvent(
-                        $event_id,
-                        $school->id
-                    );
-
-                    break;
-                }
-            }
-        }
-
-
-        /*
-        -------------------------------------------------
-        SCHOOL ADMIN
-        -------------------------------------------------
-        */
-
-        else {
-
-            $school_id =
-                $this->getAdminSchoolId();
-
-
-            if ($school_id > 0) {
-
-                /*
-                -----------------------------------------
-                Verify event belongs to this school
-                -----------------------------------------
-                */
-
-                $event =
-                    $eventModel->getEventById(
-                        $event_id,
-                        $school_id
-                    );
-
-
-                if ($event) {
-
-                    $eventModel->deleteEvent(
-                        $event_id,
-                        $school_id
-                    );
-                }
-            }
-        }
-
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
         header(
             "Location: " .
@@ -1015,4 +914,126 @@ class Events extends Controller
 
         exit;
     }
+
+
+    if (!CSRF::verify(
+        $_POST['csrf_token'] ?? ''
+    )) {
+        die('Invalid CSRF token.');
+    }
+
+
+    if (!$event_id) {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/events"
+        );
+
+        exit;
+    }
+
+
+    $eventModel =
+        $this->model('EventModel');
+
+    $rank =
+        $_SESSION['rank'] ?? '';
+
+
+    /*
+    -------------------------------------------------
+    SUPER ADMIN
+    -------------------------------------------------
+    */
+
+    if ($rank === 'super_admin') {
+
+        $schools =
+            $this->getSchools();
+
+
+        foreach ($schools as $school) {
+
+            $event =
+                $eventModel->getEventById(
+                    $event_id,
+                    $school->id
+                );
+
+
+            if ($event) {
+
+                $eventModel->deleteEvent(
+                    $event_id,
+                    $school->id
+                );
+
+                break;
+            }
+        }
+    }
+
+
+    /*
+    -------------------------------------------------
+    SCHOOL ADMIN / TEACHER
+    -------------------------------------------------
+    */
+
+    else {
+
+        $school_id =
+            $this->getAdminSchoolId();
+
+
+        if ($school_id > 0) {
+
+            /*
+            -----------------------------------------
+            Verify event belongs to this school
+            -----------------------------------------
+            */
+
+            $event =
+                $eventModel->getEventById(
+                    $event_id,
+                    $school_id
+                );
+
+
+            if ($event) {
+
+                /*
+                -----------------------------------------
+                TEACHER CAN DELETE ONLY OWN EVENT
+                -----------------------------------------
+                */
+
+                if (
+                    $rank === 'teacher' &&
+                    (int)$event->created_by !== (int)$_SESSION['user_id']
+                ) {
+                    die("You are not allowed to delete this event.");
+                }
+
+
+                $eventModel->deleteEvent(
+                    $event_id,
+                    $school_id
+                );
+            }
+        }
+    }
+
+
+    header(
+        "Location: " .
+        ROOT .
+        "/events"
+    );
+
+    exit;
+}
 }

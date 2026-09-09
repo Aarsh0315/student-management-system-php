@@ -211,14 +211,15 @@ class AnnouncementModel extends Model
 
         $query = "
             SELECT
-                announcement_id,
-                title,
-                description,
-                announcement_date,
-                status,
-                created_at
-
-            FROM announcements
+            announcement_id,
+            title,
+            description,
+            announcement_date,
+            status,
+            created_by,
+            created_at
+            
+        FROM announcements
 
             WHERE school_id = :school_id
             AND status = 'active'

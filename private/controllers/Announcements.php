@@ -19,9 +19,9 @@ class Announcements extends Controller
 
         $rank = $_SESSION['rank'] ?? '';
 
-        if (!in_array($rank, ['super_admin', 'admin'], true)) {
-            die("Access Denied");
-        }
+       if (!in_array($rank, ['super_admin', 'admin', 'teacher'], true)) {
+    die("Access Denied");
+    }
     }
 
 
@@ -47,28 +47,30 @@ class Announcements extends Controller
 
         $rank = $_SESSION['rank'] ?? '';
 
-        if ($rank === 'admin') {
+        if ($rank === 'super_admin') {
 
-            $school_id = $this->getAdminSchoolId();
+    // Super Admin can see announcements
+    // from all schools.
 
-            if (!$school_id) {
-                die("No school is assigned to this account.");
-            }
+    $announcements =
+        $announcementModel
+            ->getAllAnnouncements();
 
-            $announcements =
-                $announcementModel
-                    ->getAllAnnouncements($school_id);
+} else {
 
-        } else {
+    // School Admin and Teacher can only
+    // see announcements from their own school.
 
-            // Super Admin can see announcements
-            // from all schools.
+    $school_id = $_SESSION['school_id'] ?? null;
 
-            $announcements =
-                $announcementModel
-                    ->getAllAnnouncements();
+    if (!$school_id) {
+        die("No school is assigned to this account.");
+    }
 
-        }
+    $announcements =
+        $announcementModel
+            ->getAllAnnouncements($school_id);
+}
 
         $data = [
             'announcements' => $announcements
@@ -142,29 +144,29 @@ class Announcements extends Controller
          * to the logged-in account.
          */
 
-        if ($rank === 'admin') {
+       if ($rank === 'admin' || $rank === 'teacher') {
 
-            $school_id =
-                $this->getAdminSchoolId();
+    $school_id =
+        $_SESSION['school_id'] ?? null;
 
-            if (!$school_id) {
-                die("No school is assigned to this account.");
-            }
+    if (!$school_id) {
+        die("No school is assigned to this account.");
+    }
 
-        } else {
+} else {
 
-            /*
-             * Super Admin:
-             * School comes from the form.
-             */
+    /*
+     * Super Admin:
+     * School comes from the form.
+     */
 
-            $school_id =
-                (int) ($_POST['school_id'] ?? 0);
+    $school_id =
+        (int) ($_POST['school_id'] ?? 0);
 
-            if ($school_id <= 0) {
-                die("Please select a school.");
-            }
-        }
+    if ($school_id <= 0) {
+        die("Please select a school.");
+    }
+}
 
 
         $title =
@@ -254,28 +256,33 @@ class Announcements extends Controller
         $rank =
             $_SESSION['rank'] ?? '';
 
-        if ($rank === 'admin') {
+        if ($rank === 'super_admin') {
 
-            $school_id =
-                $this->getAdminSchoolId();
+    // Super Admin can view announcements
+    // from any school.
 
-            if (!$school_id) {
-                die("No school is assigned to this account.");
-            }
+    $announcement =
+        $announcementModel->getAnnouncementById(
+            $announcement_id
+        );
 
-            $announcement =
-                $announcementModel->getAnnouncementById(
-                    $announcement_id,
-                    $school_id
-                );
+} else {
 
-        } else {
+    // School Admin and Teacher can only
+    // view announcements from their own school.
 
-            $announcement =
-                $announcementModel->getAnnouncementById(
-                    $announcement_id
-                );
-        }
+    $school_id = $_SESSION['school_id'] ?? null;
+
+    if (!$school_id) {
+        die("No school is assigned to this account.");
+    }
+
+    $announcement =
+        $announcementModel->getAnnouncementById(
+            $announcement_id,
+            $school_id
+        );
+}
 
 
         if (!$announcement) {
@@ -312,39 +319,56 @@ class Announcements extends Controller
         $schools = [];
 
 
-        if ($rank === 'admin') {
+        if ($rank === 'super_admin') {
 
-            $school_id =
-                $this->getAdminSchoolId();
+    // Super Admin can edit announcements
+    // from any school.
 
-            if (!$school_id) {
-                die("No school is assigned to this account.");
-            }
+    $announcement =
+        $announcementModel->getAnnouncementById(
+            $announcement_id
+        );
 
-            $announcement =
-                $announcementModel->getAnnouncementById(
-                    $announcement_id,
-                    $school_id
-                );
+    $schoolModel =
+        $this->model('School');
 
-        } else {
+    $schools =
+        $schoolModel->getAllSchools();
 
-            $announcement =
-                $announcementModel->getAnnouncementById(
-                    $announcement_id
-                );
+} else {
 
-            $schoolModel =
-                $this->model('School');
+    // School Admin and Teacher can only
+    // access announcements from their own school.
 
-            $schools =
-                $schoolModel->getAllSchools();
-        }
+    $school_id = $_SESSION['school_id'] ?? null;
 
+    if (!$school_id) {
+        die("No school is assigned to this account.");
+    }
+
+    $announcement =
+        $announcementModel->getAnnouncementById(
+            $announcement_id,
+            $school_id
+        );
+
+    /*
+     * Teacher can edit ONLY their own announcement.
+     */
+    
+}
 
         if (!$announcement) {
             die("Announcement not found.");
         }
+
+        if (
+    $rank === 'teacher' &&
+    (int) $announcement->created_by !==
+    (int) $_SESSION['user_id']
+) {
+    die("You are not allowed to edit this announcement.");
+}
 
 
         $data = [
@@ -394,37 +418,66 @@ class Announcements extends Controller
          * their own school.
          */
 
-        if ($rank === 'admin') {
+        if ($rank === 'super_admin') {
 
-            $school_id =
-                $this->getAdminSchoolId();
+    /*
+     * Super Admin can update announcements
+     * across schools.
+     */
 
-            if (!$school_id) {
-                die("No school is assigned to this account.");
-            }
+    $announcementModel =
+        $this->model('AnnouncementModel');
 
-        } else {
+    $existing =
+        $announcementModel->getAnnouncementById(
+            $announcement_id
+        );
 
-            /*
-             * Super Admin can update announcements
-             * across schools.
-             */
+    if (!$existing) {
+        die("Announcement not found.");
+    }
 
-            $announcementModel =
-                $this->model('AnnouncementModel');
+    $school_id =
+        (int) $existing->school_id;
 
-            $existing =
-                $announcementModel->getAnnouncementById(
-                    $announcement_id
-                );
+} else {
 
-            if (!$existing) {
-                die("Announcement not found.");
-            }
+    /*
+     * School Admin and Teacher can only
+     * update announcements from their own school.
+     */
 
-            $school_id =
-                (int) $existing->school_id;
-        }
+    $school_id =
+        $_SESSION['school_id'] ?? null;
+
+    if (!$school_id) {
+        die("No school is assigned to this account.");
+    }
+
+    $announcementModel =
+        $this->model('AnnouncementModel');
+
+    $existing =
+        $announcementModel->getAnnouncementById(
+            $announcement_id,
+            $school_id
+        );
+
+    if (!$existing) {
+        die("Announcement not found.");
+    }
+
+    /*
+     * Teacher can update ONLY their own announcement.
+     */
+    if (
+        $rank === 'teacher' &&
+        (int) $existing->created_by !==
+        (int) $_SESSION['user_id']
+    ) {
+        die("You are not allowed to update this announcement.");
+    }
+}
 
 
         $title =
@@ -520,38 +573,66 @@ class Announcements extends Controller
             $_SESSION['rank'] ?? '';
 
 
-        if ($rank === 'admin') {
+        if ($rank === 'super_admin') {
 
-            $school_id =
-                $this->getAdminSchoolId();
+    /*
+     * Super Admin can delete announcements
+     * across schools.
+     */
 
-            if (!$school_id) {
-                die("No school is assigned to this account.");
-            }
+    $announcementModel =
+        $this->model('AnnouncementModel');
 
-        } else {
+    $announcement =
+        $announcementModel->getAnnouncementById(
+            $announcement_id
+        );
 
-            /*
-             * Super Admin:
-             * Find the announcement's school
-             * before deleting it.
-             */
+    if (!$announcement) {
+        die("Announcement not found.");
+    }
 
-            $announcementModel =
-                $this->model('AnnouncementModel');
+    $school_id =
+        (int) $announcement->school_id;
 
-            $announcement =
-                $announcementModel->getAnnouncementById(
-                    $announcement_id
-                );
+} else {
 
-            if (!$announcement) {
-                die("Announcement not found.");
-            }
+    /*
+     * School Admin and Teacher can only
+     * delete announcements from their own school.
+     */
 
-            $school_id =
-                (int) $announcement->school_id;
-        }
+    $school_id =
+        $_SESSION['school_id'] ?? null;
+
+    if (!$school_id) {
+        die("No school is assigned to this account.");
+    }
+
+    $announcementModel =
+        $this->model('AnnouncementModel');
+
+    $announcement =
+        $announcementModel->getAnnouncementById(
+            $announcement_id,
+            $school_id
+        );
+
+    if (!$announcement) {
+        die("Announcement not found.");
+    }
+
+    /*
+     * Teacher can delete ONLY their own announcement.
+     */
+    if (
+        $rank === 'teacher' &&
+        (int) $announcement->created_by !==
+        (int) $_SESSION['user_id']
+    ) {
+        die("You are not allowed to delete this announcement.");
+    }
+}
 
 
         $announcementModel =

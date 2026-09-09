@@ -155,15 +155,17 @@ class EventModel extends Model
 
         $query = "
             SELECT
-                event_id,
-                title,
-                description,
-                event_date,
-                start_time,
-                end_time,
-                location,
-                status
-            FROM events
+            event_id,
+            title,
+            description,
+            event_date,
+            start_time,
+            end_time,
+            location,
+            status,
+            created_by
+            
+        FROM events
             WHERE school_id = :school_id
               AND status = 'active'
               AND event_date >= CURDATE()

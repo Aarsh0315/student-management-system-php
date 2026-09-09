@@ -90,6 +90,19 @@ class TeacherDashboard extends Controller
         $studentModel =
             $this->model('StudentModel');
 
+        $inactiveStudentCount =
+    $studentModel->getInactiveStudentCountBySchool($school_id);
+
+        $eventModel = $this->model('EventModel');
+        $announcementModel = $this->model('AnnouncementModel');
+        $staffModel = $this->model('StaffModel');
+
+        $recentAnnouncements =
+    $announcementModel->getRecentAnnouncements($school_id, 5);
+
+    $upcomingEvents =
+    $eventModel->getUpcomingEvents($school_id, 5);
+
 
         /*
         ========================================
@@ -224,26 +237,16 @@ class TeacherDashboard extends Controller
         ========================================
         */
 
-        $this->view(
-            'teacher-dashboard',
-            [
+        $this->view('teacher-dashboard', [
+    'studentCount' => (int)$studentCount,
+    'classCount' => $classCount,
+    'testCount' => $testCount,
+    'resultCount' => $resultCount,
+    'parentCount' => $parentCount,
 
-                'studentCount' =>
-                    (int) $studentCount,
-
-                'classCount' =>
-                    $classCount,
-
-                'testCount' =>
-                    $testCount,
-
-                'resultCount' =>
-                    $resultCount,
-
-                'parentCount' =>
-                    $parentCount
-
-            ]
-        );
+    'inactiveStudentCount' => (int)$inactiveStudentCount,
+    'recentAnnouncements' => $recentAnnouncements,
+    'upcomingEvents' => $upcomingEvents
+]);
     }
 }

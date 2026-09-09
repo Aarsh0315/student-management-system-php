@@ -50,6 +50,15 @@ $resultCount =
 $parentCount =
     $data['parentCount'] ?? 0;
 
+$inactiveStudentCount =
+    $data['inactiveStudentCount'] ?? 0;
+
+$recentAnnouncements =
+    $data['recentAnnouncements'] ?? [];
+
+$upcomingEvents =
+    $data['upcomingEvents'] ?? [];
+
 ?>
 
 <!DOCTYPE html>
@@ -133,46 +142,31 @@ require "../private/views/includes/sidebar.view.php";
              WELCOME
         ================================================== -->
 
-        <section class="dashboard-welcome">
+        <!-- =================================================
+     WELCOME SECTION
+================================================== -->
 
-            <div class="welcome-content">
+<section class="dashboard-welcome">
 
-                <p class="welcome-label">
-                    TEACHER OVERVIEW
-                </p>
+    <div class="welcome-content">
 
+        <p class="welcome-label">
+            TEACHER OVERVIEW
+        </p>
 
-                <h1>
+        <h1>
+            Welcome back,
+            <?= htmlspecialchars($firstname) ?>
+        </h1>
 
-                    Welcome back,
-                    <?= htmlspecialchars($firstname) ?>
+        <p class="welcome-description">
+            Here's an overview of your classes, students,
+            tests, results and academic activities.
+        </p>
 
-                </h1>
+    </div>
 
-
-                <p class="welcome-description">
-
-                    Manage your students, classes,
-                    tests, results and academic activities.
-
-                </p>
-
-            </div>
-
-
-            <!-- STATUS -->
-
-            <div class="dashboard-status">
-
-                <span class="status-dot"></span>
-
-                <span>
-                    Active
-                </span>
-
-            </div>
-
-        </section>
+</section>
 
 
 
@@ -751,12 +745,299 @@ require "../private/views/includes/sidebar.view.php";
         </section>
 
 
+<!-- =================================================
+     UPCOMING EVENTS
+================================================== -->
 
-        <!-- =================================================
-             SYSTEM SUMMARY
-        ================================================== -->
+<section class="dashboard-card">
 
-        <section class="system-summary">
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Upcoming Events
+            </h2>
+
+            <p>
+                Events happening in your school.
+            </p>
+        </div>
+
+        <a
+            href="<?= ROOT ?>/events"
+            class="card-link"
+        >
+            View All →
+        </a>
+
+    </div>
+
+
+    <div class="event-list">
+
+        <?php if (!empty($upcomingEvents)): ?>
+
+            <?php foreach ($upcomingEvents as $event): ?>
+
+                <a
+                    href="<?= ROOT ?>/events/details/<?= (int)$event->event_id ?>"
+                    class="event-item"
+                >
+
+                    <div class="event-date">
+
+                        <strong>
+                            <?= date(
+                                'd',
+                                strtotime($event->event_date)
+                            ) ?>
+                        </strong>
+
+                        <span>
+                            <?= date(
+                                'M',
+                                strtotime($event->event_date)
+                            ) ?>
+                        </span>
+
+                    </div>
+
+
+                    <div class="event-info">
+
+                        <strong>
+                            <?= htmlspecialchars($event->title) ?>
+                        </strong>
+
+                        <span>
+                            <?= htmlspecialchars(
+                                $event->start_time ?? ''
+                            ) ?>
+
+                            <?php if (!empty($event->location)): ?>
+
+                                ·
+                                <?= htmlspecialchars(
+                                    $event->location
+                                ) ?>
+
+                            <?php endif; ?>
+
+                        </span>
+
+                    </div>
+
+
+                    <span class="event-arrow">
+                        →
+                    </span>
+
+                </a>
+
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <div class="empty-state">
+
+                <strong>
+                    No upcoming events
+                </strong>
+
+                <span>
+                    There are no upcoming school events.
+                </span>
+
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+</section>
+
+
+<!-- =================================================
+     RECENT ANNOUNCEMENTS
+================================================== -->
+
+<section class="dashboard-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Announcements
+            </h2>
+
+            <p>
+                Recent announcements from your school.
+            </p>
+        </div>
+
+        <a
+            href="<?= ROOT ?>/announcements"
+            class="card-link"
+        >
+            View All →
+        </a>
+
+    </div>
+
+
+    <div class="announcement-list">
+
+        <?php if (!empty($recentAnnouncements)): ?>
+
+            <?php foreach ($recentAnnouncements as $announcement): ?>
+
+                <a
+                    href="<?= ROOT ?>/announcements/details/<?= (int)$announcement->announcement_id ?>"
+                    class="announcement-item"
+                >
+
+                    <div class="announcement-date">
+
+                        <strong>
+                            <?= date(
+                                'd',
+                                strtotime($announcement->announcement_date)
+                            ) ?>
+                        </strong>
+
+                        <span>
+                            <?= date(
+                                'M',
+                                strtotime($announcement->announcement_date)
+                            ) ?>
+                        </span>
+
+                    </div>
+
+
+                    <div class="announcement-info">
+
+                        <strong>
+                            <?= htmlspecialchars(
+                                $announcement->title
+                            ) ?>
+                        </strong>
+
+                        <span>
+                            <?= htmlspecialchars(
+                                $announcement->description
+                            ) ?>
+                        </span>
+
+                    </div>
+
+
+                    <span class="announcement-arrow">
+                        →
+                    </span>
+
+                </a>
+
+            <?php endforeach; ?>
+
+        <?php else: ?>
+
+            <div class="empty-state">
+
+                <strong>
+                    No announcements
+                </strong>
+
+                <span>
+                    There are no recent school announcements.
+                </span>
+
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+</section>
+
+<!-- =================================================
+     NEEDS ATTENTION
+================================================== -->
+
+<section class="dashboard-card">
+
+    <div class="card-header">
+
+        <div>
+            <h2>
+                Needs Attention
+            </h2>
+
+            <p>
+                Items that may require your attention.
+            </p>
+        </div>
+
+    </div>
+
+
+    <div class="attention-list">
+
+        <?php if ($inactiveStudentCount > 0): ?>
+
+            <a
+                href="<?= ROOT ?>/teacherstudents?status=inactive"
+                class="attention-item"
+            >
+
+                <div class="attention-icon">
+                    ST
+                </div>
+
+                <div class="attention-info">
+
+                    <strong>
+                        Inactive Students
+                    </strong>
+
+                    <span>
+                        <?= number_format($inactiveStudentCount) ?>
+                        student(s) are currently inactive.
+                    </span>
+
+                </div>
+
+                <span class="attention-arrow">
+                    →
+                </span>
+
+            </a>
+
+        <?php else: ?>
+
+            <div class="empty-state">
+
+                <strong>
+                    Everything looks good
+                </strong>
+
+                <span>
+                    No inactive students require attention.
+                </span>
+
+            </div>
+
+        <?php endif; ?>
+
+    </div>
+
+</section>
+
+<!-- =================================================
+     SYSTEM SUMMARY
+================================================== -->
+
+<section class="system-summary">
 
 
             <!-- STUDENTS -->

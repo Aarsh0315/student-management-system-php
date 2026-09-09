@@ -7,6 +7,7 @@ if (session_status() === PHP_SESSION_NONE) {
 $events = $data['events'] ?? [];
 
 $rank = $_SESSION['rank'] ?? '';
+$user_id = $_SESSION['user_id'] ?? null;
 
 ?>
 
@@ -240,6 +241,15 @@ $rank = $_SESSION['rank'] ?? '';
 
                     <?php foreach ($events as $event): ?>
 
+                        <?php
+                            $canManageEvent =
+                                in_array($rank, ['super_admin', 'admin'], true) ||
+                                (
+                                    $rank === 'teacher' &&
+                                    (int)$event->created_by === (int)$user_id
+                                );
+                            ?>
+
 
                         <tr>
 
@@ -459,58 +469,58 @@ $rank = $_SESSION['rank'] ?? '';
 
                             </td>
 
-
                             <!-- =================================
                                  ACTION
                             ================================== -->
 
                             <td>
 
-                                <div class="event-actions">
+                               <div class="event-actions">
+
+    <!-- VIEW -->
+
+    <a
+        href="<?= ROOT ?>/events/details/<?= urlencode($event->event_id) ?>"
+        class="action-view"
+    >
+        View
+    </a>
 
 
-                                    <!-- VIEW -->
+    <?php if ($canManageEvent): ?>
 
-                                    <a
-                                        href="<?= ROOT ?>/events/details/<?= urlencode($event->event_id) ?>"
-                                        class="action-view"
-                                    >
-                                        View
-                                    </a>
+        <!-- EDIT -->
 
-
-                                    <!-- EDIT -->
-
-                                    <a
-                                        href="<?= ROOT ?>/events/edit/<?= urlencode($event->event_id) ?>"
-                                        class="action-edit"
-                                    >
-                                        Edit
-                                    </a>
+        <a
+            href="<?= ROOT ?>/events/edit/<?= urlencode($event->event_id) ?>"
+            class="action-edit"
+        >
+            Edit
+        </a>
 
 
-                                    <!-- DELETE -->
+        <!-- DELETE -->
 
-                                    <form
-                                        method="POST"
-                                        action="<?= ROOT ?>/events/delete/<?= urlencode($event->event_id) ?>"
-                                        onsubmit="return confirm('Are you sure you want to delete this event?');"
-                                    >
+        <form
+            method="POST"
+            action="<?= ROOT ?>/events/delete/<?= urlencode($event->event_id) ?>"
+            onsubmit="return confirm('Are you sure you want to delete this event?');"
+        >
 
-                                        <?= CSRF::field() ?>
+            <?= CSRF::field() ?>
 
+            <button
+                type="submit"
+                class="action-delete"
+            >
+                Delete
+            </button>
 
-                                        <button
-                                            type="submit"
-                                            class="action-delete"
-                                        >
-                                            Delete
-                                        </button>
+        </form>
 
-                                    </form>
+    <?php endif; ?>
 
-
-                                </div>
+</div>
 
                             </td>
 
