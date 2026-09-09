@@ -160,11 +160,6 @@ require "../private/views/includes/sidebar.view.php";
 
             <div class="welcome-content">
 
-                <p class="welcome-label">
-                    SCHOOL OVERVIEW
-                </p>
-
-
                 <h1>
 
                     Welcome back,

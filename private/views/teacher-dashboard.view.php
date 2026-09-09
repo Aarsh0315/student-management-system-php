@@ -98,7 +98,7 @@ $upcomingEvents =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/teacher-dashboard.view.css?v=1"
+        href="<?= ROOT ?>/css/teacher-dashboard.view.css?v=2"
     >
 
 
@@ -142,31 +142,27 @@ require "../private/views/includes/sidebar.view.php";
              WELCOME
         ================================================== -->
 
-        <!-- =================================================
-     WELCOME SECTION
-================================================== -->
+        <section class="dashboard-welcome">
 
-<section class="dashboard-welcome">
+            <div class="welcome-content">
 
-    <div class="welcome-content">
+                <p class="welcome-label">
+                    TEACHER OVERVIEW
+                </p>
 
-        <p class="welcome-label">
-            TEACHER OVERVIEW
-        </p>
+                <h1>
+                    Welcome back,
+                    <?= htmlspecialchars($firstname) ?>
+                </h1>
 
-        <h1>
-            Welcome back,
-            <?= htmlspecialchars($firstname) ?>
-        </h1>
+                <p class="welcome-description">
+                    Here's an overview of your classes, students,
+                    tests, results and academic activities.
+                </p>
 
-        <p class="welcome-description">
-            Here's an overview of your classes, students,
-            tests, results and academic activities.
-        </p>
+            </div>
 
-    </div>
-
-</section>
+        </section>
 
 
 
@@ -188,24 +184,17 @@ require "../private/views/includes/sidebar.view.php";
                     ST
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Students
                     </span>
 
-
                     <strong class="kpi-value">
-
-                        <?= number_format(
-                            $studentCount
-                        ) ?>
-
+                        <?= number_format($studentCount) ?>
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -226,24 +215,17 @@ require "../private/views/includes/sidebar.view.php";
                     CL
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Classes
                     </span>
 
-
                     <strong class="kpi-value">
-
-                        <?= number_format(
-                            $classCount
-                        ) ?>
-
+                        <?= number_format($classCount) ?>
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -264,24 +246,17 @@ require "../private/views/includes/sidebar.view.php";
                     TS
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Tests
                     </span>
 
-
                     <strong class="kpi-value">
-
-                        <?= number_format(
-                            $testCount
-                        ) ?>
-
+                        <?= number_format($testCount) ?>
                     </strong>
 
                 </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -302,62 +277,17 @@ require "../private/views/includes/sidebar.view.php";
                     RS
                 </div>
 
-
                 <div class="kpi-content">
 
                     <span class="kpi-label">
                         Results
                     </span>
 
-
                     <strong class="kpi-value">
-
-                        <?= number_format(
-                            $resultCount
-                        ) ?>
-
+                        <?= number_format($resultCount) ?>
                     </strong>
 
                 </div>
-
-
-                <span class="kpi-arrow">
-                    →
-                </span>
-
-            </a>
-
-
-
-            <!-- PARENTS -->
-
-            <a
-                href="<?= ROOT ?>/teacherparents"
-                class="kpi-card"
-            >
-
-                <div class="kpi-icon">
-                    PR
-                </div>
-
-
-                <div class="kpi-content">
-
-                    <span class="kpi-label">
-                        Parents
-                    </span>
-
-
-                    <strong class="kpi-value">
-
-                        <?= number_format(
-                            $parentCount
-                        ) ?>
-
-                    </strong>
-
-                </div>
-
 
                 <span class="kpi-arrow">
                     →
@@ -378,11 +308,209 @@ require "../private/views/includes/sidebar.view.php";
 
 
             <!-- =================================================
+                 UPCOMING EVENTS
+            ================================================== -->
+
+            <section class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Upcoming Events
+                        </h2>
+
+                        <p>
+                            Events happening in your school.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="<?= ROOT ?>/events"
+                        class="card-link"
+                    >
+                        View All →
+                    </a>
+
+                </div>
+
+
+                <div class="event-list">
+
+                    <?php if (!empty($upcomingEvents)): ?>
+
+                        <?php foreach ($upcomingEvents as $event): ?>
+
+                            <a
+                                href="<?= ROOT ?>/events/details/<?= (int)$event->event_id ?>"
+                                class="event-item"
+                            >
+
+                                <div class="event-date">
+
+                                    <strong>
+                                        <?= date(
+                                            'd',
+                                            strtotime($event->event_date)
+                                        ) ?>
+                                    </strong>
+
+                                    <span>
+                                        <?= date(
+                                            'M',
+                                            strtotime($event->event_date)
+                                        ) ?>
+                                    </span>
+
+                                </div>
+
+
+                                <div class="event-info">
+
+                                    <strong>
+                                        <?= htmlspecialchars($event->title) ?>
+                                    </strong>
+
+                                    <span>
+
+                                        <?= htmlspecialchars(
+                                            $event->start_time ?? ''
+                                        ) ?>
+
+                                        <?php if (!empty($event->location)): ?>
+
+                                            ·
+
+                                            <?= htmlspecialchars(
+                                                $event->location
+                                            ) ?>
+
+                                        <?php endif; ?>
+
+                                    </span>
+
+                                </div>
+
+
+                                <span class="event-arrow">
+                                    →
+                                </span>
+
+                            </a>
+
+                        <?php endforeach; ?>
+
+                    <?php else: ?>
+
+                        <div class="empty-state">
+
+                            <strong>
+                                No upcoming events
+                            </strong>
+
+                            <span>
+                                There are no upcoming school events.
+                            </span>
+
+                        </div>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
+                 NEEDS ATTENTION
+                 VIEW ONLY
+            ================================================== -->
+
+            <section class="dashboard-card">
+
+                <div class="card-header">
+
+                    <div>
+
+                        <h2>
+                            Needs Attention
+                        </h2>
+
+                        <p>
+                            Items that may require your attention.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="attention-list">
+
+                    <?php if ($inactiveStudentCount > 0): ?>
+
+                        <!-- VIEW ONLY -->
+
+                        <a
+                            href="<?= ROOT ?>/teacherstudents?status=inactive"
+                            class="attention-item"
+                        >
+
+                            <div class="attention-icon">
+                                ST
+                            </div>
+
+
+                            <div class="attention-info">
+
+                                <strong>
+                                    Inactive Students
+                                </strong>
+
+                                <span>
+                                    <?= number_format($inactiveStudentCount) ?>
+                                    student(s) are currently inactive.
+                                </span>
+
+                            </div>
+
+
+                            <span class="attention-arrow">
+                                →
+                            </span>
+
+                        </a>
+
+                    <?php else: ?>
+
+                        <div class="empty-state">
+
+                            <strong>
+                                Everything looks good
+                            </strong>
+
+                            <span>
+                                No inactive students require attention.
+                            </span>
+
+                        </div>
+
+                    <?php endif; ?>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- =================================================
                  RECENT ACTIVITY
             ================================================== -->
 
-            <div class="activity-card">
-
+            <section class="dashboard-card">
 
                 <div class="card-header">
 
@@ -398,11 +526,6 @@ require "../private/views/includes/sidebar.view.php";
 
                     </div>
 
-
-                    <span class="activity-count">
-                        Teacher
-                    </span>
-
                 </div>
 
 
@@ -417,7 +540,6 @@ require "../private/views/includes/sidebar.view.php";
                             ST
                         </div>
 
-
                         <div class="activity-info">
 
                             <strong>
@@ -431,11 +553,8 @@ require "../private/views/includes/sidebar.view.php";
 
                         </div>
 
-
                         <time>
-                            <?= number_format(
-                                $studentCount
-                            ) ?>
+                            <?= number_format($studentCount) ?>
                         </time>
 
                     </div>
@@ -450,7 +569,6 @@ require "../private/views/includes/sidebar.view.php";
                             CL
                         </div>
 
-
                         <div class="activity-info">
 
                             <strong>
@@ -458,17 +576,13 @@ require "../private/views/includes/sidebar.view.php";
                             </strong>
 
                             <span>
-                                View your classes and
-                                divisions.
+                                View your classes and divisions.
                             </span>
 
                         </div>
 
-
                         <time>
-                            <?= number_format(
-                                $classCount
-                            ) ?>
+                            <?= number_format($classCount) ?>
                         </time>
 
                     </div>
@@ -483,7 +597,6 @@ require "../private/views/includes/sidebar.view.php";
                             TS
                         </div>
 
-
                         <div class="activity-info">
 
                             <strong>
@@ -491,17 +604,13 @@ require "../private/views/includes/sidebar.view.php";
                             </strong>
 
                             <span>
-                                Create and manage
-                                academic tests.
+                                Create and manage academic tests.
                             </span>
 
                         </div>
 
-
                         <time>
-                            <?= number_format(
-                                $testCount
-                            ) ?>
+                            <?= number_format($testCount) ?>
                         </time>
 
                     </div>
@@ -516,7 +625,6 @@ require "../private/views/includes/sidebar.view.php";
                             RS
                         </div>
 
-
                         <div class="activity-info">
 
                             <strong>
@@ -524,17 +632,13 @@ require "../private/views/includes/sidebar.view.php";
                             </strong>
 
                             <span>
-                                View student academic
-                                results.
+                                View student academic results.
                             </span>
 
                         </div>
 
-
                         <time>
-                            <?= number_format(
-                                $resultCount
-                            ) ?>
+                            <?= number_format($resultCount) ?>
                         </time>
 
                     </div>
@@ -542,502 +646,501 @@ require "../private/views/includes/sidebar.view.php";
 
                 </div>
 
-            </div>
+            </section>
 
 
 
             <!-- =================================================
-                 QUICK MANAGEMENT
+                 ANNOUNCEMENTS
             ================================================== -->
 
-            <div class="management-card">
-
+            <section class="dashboard-card">
 
                 <div class="card-header">
 
                     <div>
 
                         <h2>
-                            Quick Management
+                            Announcements
                         </h2>
 
                         <p>
-                            Access your main teaching areas.
+                            Recent announcements from your school.
                         </p>
 
                     </div>
 
+                    <a
+                        href="<?= ROOT ?>/announcements"
+                        class="card-link"
+                    >
+                        View All →
+                    </a>
+
                 </div>
 
 
-                <div class="management-list">
+                <div class="announcement-list">
+
+                    <?php if (!empty($recentAnnouncements)): ?>
+
+                        <?php foreach ($recentAnnouncements as $announcement): ?>
+
+                            <a
+                                href="<?= ROOT ?>/announcements/details/<?= (int)$announcement->announcement_id ?>"
+                                class="announcement-item"
+                            >
+
+                                <div class="announcement-date">
+
+                                    <strong>
+                                        <?= date(
+                                            'd',
+                                            strtotime(
+                                                $announcement->announcement_date
+                                            )
+                                        ) ?>
+                                    </strong>
+
+                                    <span>
+                                        <?= date(
+                                            'M',
+                                            strtotime(
+                                                $announcement->announcement_date
+                                            )
+                                        ) ?>
+                                    </span>
+
+                                </div>
 
 
-                    <!-- STUDENTS -->
+                                <div class="announcement-info">
 
-                    <a
-                        href="<?= ROOT ?>/teacherstudents"
-                        class="management-item"
-                    >
+                                    <strong>
+                                        <?= htmlspecialchars(
+                                            $announcement->title
+                                        ) ?>
+                                    </strong>
 
-                        <div class="management-icon">
-                            ST
-                        </div>
+                                    <span>
+                                        <?= htmlspecialchars(
+                                            $announcement->description
+                                        ) ?>
+                                    </span>
 
-
-                        <div class="management-info">
-
-                            <strong>
-                                Students
-                            </strong>
-
-                            <small>
-                                View assigned students
-                            </small>
-
-                        </div>
+                                </div>
 
 
-                        <span class="management-arrow">
-                            →
-                        </span>
+                                <span class="announcement-arrow">
+                                    →
+                                </span>
 
-                    </a>
+                            </a>
 
+                        <?php endforeach; ?>
 
+                    <?php else: ?>
 
-                    <!-- CLASSES -->
-
-                    <a
-                        href="<?= ROOT ?>/teacherclasses"
-                        class="management-item"
-                    >
-
-                        <div class="management-icon">
-                            CL
-                        </div>
-
-
-                        <div class="management-info">
-
-                            <strong>
-                                Classes
-                            </strong>
-
-                            <small>
-                                View classes and divisions
-                            </small>
-
-                        </div>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- TESTS -->
-
-                    <a
-                        href="<?= ROOT ?>/teachertests"
-                        class="management-item"
-                    >
-
-                        <div class="management-icon">
-                            TS
-                        </div>
-
-
-                        <div class="management-info">
+                        <div class="empty-state">
 
                             <strong>
-                                Tests
+                                No announcements
                             </strong>
 
-                            <small>
-                                Create and manage tests
-                            </small>
+                            <span>
+                                There are no recent school announcements.
+                            </span>
 
                         </div>
 
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- RESULTS -->
-
-                    <a
-                        href="<?= ROOT ?>/teacherresults"
-                        class="management-item"
-                    >
-
-                        <div class="management-icon">
-                            RS
-                        </div>
-
-
-                        <div class="management-info">
-
-                            <strong>
-                                Results
-                            </strong>
-
-                            <small>
-                                View student results
-                            </small>
-
-                        </div>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
-
-
-                    <!-- PARENTS -->
-
-                    <a
-                        href="<?= ROOT ?>/teacherparents"
-                        class="management-item"
-                    >
-
-                        <div class="management-icon">
-                            PR
-                        </div>
-
-
-                        <div class="management-info">
-
-                            <strong>
-                                Parents
-                            </strong>
-
-                            <small>
-                                View student parents
-                            </small>
-
-                        </div>
-
-
-                        <span class="management-arrow">
-                            →
-                        </span>
-
-                    </a>
-
+                    <?php endif; ?>
 
                 </div>
 
-            </div>
+            </section>
 
 
         </section>
 
 
-<!-- =================================================
-     UPCOMING EVENTS
-================================================== -->
 
-<section class="dashboard-card">
+        <!-- =================================================
+             QUICK ACTIONS
+        ================================================== -->
 
-    <div class="card-header">
+        <section class="dashboard-section">
 
-        <div>
-            <h2>
-                Upcoming Events
-            </h2>
+            <div class="section-heading">
 
-            <p>
-                Events happening in your school.
-            </p>
-        </div>
+                <div>
 
-        <a
-            href="<?= ROOT ?>/events"
-            class="card-link"
-        >
-            View All →
-        </a>
+                    <h2>
+                        Quick Actions
+                    </h2>
 
-    </div>
+                    <p>
+                        Frequently used teaching actions.
+                    </p>
+
+                </div>
+
+            </div>
 
 
-    <div class="event-list">
+            <div class="quick-actions-grid">
 
-        <?php if (!empty($upcomingEvents)): ?>
 
-            <?php foreach ($upcomingEvents as $event): ?>
+                <!-- STUDENTS -->
 
                 <a
-                    href="<?= ROOT ?>/events/details/<?= (int)$event->event_id ?>"
-                    class="event-item"
+                    href="<?= ROOT ?>/teacherstudents"
+                    class="quick-action-card"
                 >
 
-                    <div class="event-date">
+                    <div class="quick-action-icon">
+                        ST
+                    </div>
+
+                    <div>
 
                         <strong>
-                            <?= date(
-                                'd',
-                                strtotime($event->event_date)
-                            ) ?>
+                            Students
                         </strong>
 
                         <span>
-                            <?= date(
-                                'M',
-                                strtotime($event->event_date)
-                            ) ?>
+                            View assigned students
                         </span>
 
                     </div>
 
-
-                    <div class="event-info">
-
-                        <strong>
-                            <?= htmlspecialchars($event->title) ?>
-                        </strong>
-
-                        <span>
-                            <?= htmlspecialchars(
-                                $event->start_time ?? ''
-                            ) ?>
-
-                            <?php if (!empty($event->location)): ?>
-
-                                ·
-                                <?= htmlspecialchars(
-                                    $event->location
-                                ) ?>
-
-                            <?php endif; ?>
-
-                        </span>
-
-                    </div>
-
-
-                    <span class="event-arrow">
+                    <span class="quick-action-arrow">
                         →
                     </span>
 
                 </a>
 
-            <?php endforeach; ?>
-
-        <?php else: ?>
-
-            <div class="empty-state">
-
-                <strong>
-                    No upcoming events
-                </strong>
-
-                <span>
-                    There are no upcoming school events.
-                </span>
-
-            </div>
-
-        <?php endif; ?>
-
-    </div>
-
-</section>
 
 
-<!-- =================================================
-     RECENT ANNOUNCEMENTS
-================================================== -->
-
-<section class="dashboard-card">
-
-    <div class="card-header">
-
-        <div>
-            <h2>
-                Announcements
-            </h2>
-
-            <p>
-                Recent announcements from your school.
-            </p>
-        </div>
-
-        <a
-            href="<?= ROOT ?>/announcements"
-            class="card-link"
-        >
-            View All →
-        </a>
-
-    </div>
-
-
-    <div class="announcement-list">
-
-        <?php if (!empty($recentAnnouncements)): ?>
-
-            <?php foreach ($recentAnnouncements as $announcement): ?>
+                <!-- CLASSES -->
 
                 <a
-                    href="<?= ROOT ?>/announcements/details/<?= (int)$announcement->announcement_id ?>"
-                    class="announcement-item"
+                    href="<?= ROOT ?>/teacherclasses"
+                    class="quick-action-card"
                 >
 
-                    <div class="announcement-date">
+                    <div class="quick-action-icon">
+                        CL
+                    </div>
+
+                    <div>
 
                         <strong>
-                            <?= date(
-                                'd',
-                                strtotime($announcement->announcement_date)
-                            ) ?>
+                            Classes
                         </strong>
 
                         <span>
-                            <?= date(
-                                'M',
-                                strtotime($announcement->announcement_date)
-                            ) ?>
+                            View classes and divisions
                         </span>
 
                     </div>
 
-
-                    <div class="announcement-info">
-
-                        <strong>
-                            <?= htmlspecialchars(
-                                $announcement->title
-                            ) ?>
-                        </strong>
-
-                        <span>
-                            <?= htmlspecialchars(
-                                $announcement->description
-                            ) ?>
-                        </span>
-
-                    </div>
-
-
-                    <span class="announcement-arrow">
+                    <span class="quick-action-arrow">
                         →
                     </span>
 
                 </a>
 
-            <?php endforeach; ?>
-
-        <?php else: ?>
-
-            <div class="empty-state">
-
-                <strong>
-                    No announcements
-                </strong>
-
-                <span>
-                    There are no recent school announcements.
-                </span>
-
-            </div>
-
-        <?php endif; ?>
-
-    </div>
-
-</section>
-
-<!-- =================================================
-     NEEDS ATTENTION
-================================================== -->
-
-<section class="dashboard-card">
-
-    <div class="card-header">
-
-        <div>
-            <h2>
-                Needs Attention
-            </h2>
-
-            <p>
-                Items that may require your attention.
-            </p>
-        </div>
-
-    </div>
 
 
-    <div class="attention-list">
+                <!-- TESTS -->
 
-        <?php if ($inactiveStudentCount > 0): ?>
+                <a
+                    href="<?= ROOT ?>/teachertests"
+                    class="quick-action-card"
+                >
 
-            <a
-                href="<?= ROOT ?>/teacherstudents?status=inactive"
-                class="attention-item"
-            >
+                    <div class="quick-action-icon">
+                        TS
+                    </div>
 
-                <div class="attention-icon">
-                    ST
-                </div>
+                    <div>
 
-                <div class="attention-info">
+                        <strong>
+                            Tests
+                        </strong>
 
-                    <strong>
-                        Inactive Students
-                    </strong>
+                        <span>
+                            Create and manage tests
+                        </span>
 
-                    <span>
-                        <?= number_format($inactiveStudentCount) ?>
-                        student(s) are currently inactive.
+                    </div>
+
+                    <span class="quick-action-arrow">
+                        →
                     </span>
 
-                </div>
+                </a>
 
-                <span class="attention-arrow">
-                    →
-                </span>
 
-            </a>
 
-        <?php else: ?>
+                <!-- RESULTS -->
 
-            <div class="empty-state">
+                <a
+                    href="<?= ROOT ?>/teacherresults"
+                    class="quick-action-card"
+                >
 
-                <strong>
-                    Everything looks good
-                </strong>
+                    <div class="quick-action-icon">
+                        RS
+                    </div>
 
-                <span>
-                    No inactive students require attention.
-                </span>
+                    <div>
+
+                        <strong>
+                            Results
+                        </strong>
+
+                        <span>
+                            View student results
+                        </span>
+
+                    </div>
+
+                    <span class="quick-action-arrow">
+                        →
+                    </span>
+
+                </a>
+
 
             </div>
 
-        <?php endif; ?>
+        </section>
 
-    </div>
 
-</section>
 
-<!-- =================================================
-     SYSTEM SUMMARY
-================================================== -->
+        <!-- =================================================
+             SCHOOL MANAGEMENT
+        ================================================== -->
 
-<section class="system-summary">
+        <section class="dashboard-card school-management">
+
+            <div class="card-header">
+
+                <div>
+
+                    <h2>
+                        School Management
+                    </h2>
+
+                    <p>
+                        Manage your teaching areas.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="school-management-grid">
+
+
+                <!-- STUDENTS -->
+
+                <a
+                    href="<?= ROOT ?>/teacherstudents"
+                    class="management-item"
+                >
+
+                    <div class="management-icon">
+                        ST
+                    </div>
+
+                    <div class="management-info">
+
+                        <strong>
+                            Students
+                        </strong>
+
+                        <small>
+                            Manage assigned students
+                        </small>
+
+                    </div>
+
+                    <span class="management-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- CLASSES -->
+
+                <a
+                    href="<?= ROOT ?>/teacherclasses"
+                    class="management-item"
+                >
+
+                    <div class="management-icon">
+                        CL
+                    </div>
+
+                    <div class="management-info">
+
+                        <strong>
+                            Classes
+                        </strong>
+
+                        <small>
+                            View classes and divisions
+                        </small>
+
+                    </div>
+
+                    <span class="management-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- TESTS -->
+
+                <a
+                    href="<?= ROOT ?>/teachertests"
+                    class="management-item"
+                >
+
+                    <div class="management-icon">
+                        TS
+                    </div>
+
+                    <div class="management-info">
+
+                        <strong>
+                            Tests
+                        </strong>
+
+                        <small>
+                            Create and manage tests
+                        </small>
+
+                    </div>
+
+                    <span class="management-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- RESULTS -->
+
+                <a
+                    href="<?= ROOT ?>/teacherresults"
+                    class="management-item"
+                >
+
+                    <div class="management-icon">
+                        RS
+                    </div>
+
+                    <div class="management-info">
+
+                        <strong>
+                            Results
+                        </strong>
+
+                        <small>
+                            View student results
+                        </small>
+
+                    </div>
+
+                    <span class="management-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- PARENTS -->
+
+                <a
+                    href="<?= ROOT ?>/teacherparents"
+                    class="management-item"
+                >
+
+                    <div class="management-icon">
+                        PR
+                    </div>
+
+                    <div class="management-info">
+
+                        <strong>
+                            Parents
+                        </strong>
+
+                        <small>
+                            View student parents
+                        </small>
+
+                    </div>
+
+                    <span class="management-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- EVENTS -->
+
+                <a
+                    href="<?= ROOT ?>/events"
+                    class="management-item"
+                >
+
+                    <div class="management-icon">
+                        EV
+                    </div>
+
+                    <div class="management-info">
+
+                        <strong>
+                            Events
+                        </strong>
+
+                        <small>
+                            View school events
+                        </small>
+
+                    </div>
+
+                    <span class="management-arrow">
+                        →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =================================================
+             SYSTEM SUMMARY
+        ================================================== -->
+
+        <section class="system-summary">
 
 
             <!-- STUDENTS -->
@@ -1049,17 +1152,13 @@ require "../private/views/includes/sidebar.view.php";
                 </span>
 
                 <strong>
-                    <?= number_format(
-                        $studentCount
-                    ) ?>
+                    <?= number_format($studentCount) ?>
                 </strong>
 
             </div>
 
 
-
             <div class="summary-divider"></div>
-
 
 
             <!-- CLASSES -->
@@ -1071,17 +1170,31 @@ require "../private/views/includes/sidebar.view.php";
                 </span>
 
                 <strong>
-                    <?= number_format(
-                        $classCount
-                    ) ?>
+                    <?= number_format($classCount) ?>
                 </strong>
 
             </div>
 
 
-
             <div class="summary-divider"></div>
 
+
+            <!-- PARENTS -->
+
+            <div class="summary-item">
+
+                <span class="summary-label">
+                    Total Parents
+                </span>
+
+                <strong>
+                    <?= number_format($parentCount) ?>
+                </strong>
+
+            </div>
+
+
+            <div class="summary-divider"></div>
 
 
             <!-- ACCOUNT -->
