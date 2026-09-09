@@ -1,17 +1,10 @@
-/* =====================================================
-   MY SCHOOL
-   TOP NAVBAR
-   PROFESSIONAL MAGENTA / LAVENDER THEME
-===================================================== */
-
-
-/* =====================================================
-   RESET
-===================================================== */
+/* =========================================================
+   MY SCHOOL — PROFESSIONAL TOP NAVBAR
+   White + Soft Magenta Theme
+   Works with existing navbar.php classes
+   ========================================================= */
 
 * {
-    margin: 0;
-    padding: 0;
     box-sizing: border-box;
 }
 
@@ -20,10 +13,9 @@
     box-sizing: border-box;
 }
 
-
-/* =====================================================
+/* =========================================================
    NAVBAR
-===================================================== */
+   ========================================================= */
 
 .top-navbar {
     position: sticky;
@@ -31,16 +23,14 @@
     z-index: 1000;
 
     width: 100%;
-    height: 74px;
+    height: 68px;
 
-    background: #e8e8e8;
+    background: rgba(255, 255, 255, 0.96);
+    border-bottom: 1px solid #eee5ed;
 
-    border-bottom: 1px solid #ddd1df;
+    box-shadow: 0 3px 16px rgba(43, 35, 48, 0.06);
 
-    box-shadow:
-        0 4px 18px rgba(48, 45, 61, 0.08);
-
-    backdrop-filter: blur(16px);
+    backdrop-filter: blur(14px);
 
     font-family:
         Inter,
@@ -50,107 +40,78 @@
         sans-serif;
 }
 
-
-/* =====================================================
-   CONTAINER
-===================================================== */
-
 .top-navbar-container {
     width: 100%;
     max-width: 1600px;
     height: 100%;
-
     margin: 0 auto;
-    padding: 0 28px;
+    padding: 0 24px;
 
     display: flex;
     align-items: center;
-
-    gap: 22px;
+    gap: 18px;
 }
 
-
-/* =====================================================
-   LEFT SIDE
-===================================================== */
+/* =========================================================
+   LEFT
+   ========================================================= */
 
 .navbar-left {
     display: flex;
     align-items: center;
-
-    gap: 14px;
-
+    gap: 12px;
     flex-shrink: 0;
 }
 
-
-/* =====================================================
+/* =========================================================
    SIDEBAR TOGGLE
-===================================================== */
+   ========================================================= */
 
 .sidebar-toggle {
-    width: 43px;
-    height: 43px;
+    width: 40px;
+    height: 40px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 4px;
 
-    gap: 5px;
+    padding: 0;
 
-    background: #ffffff;
-
-    border: 1px solid #ded3df;
-    border-radius: 12px;
+    background: #fff;
+    border: 1px solid #e8dfe7;
+    border-radius: 10px;
 
     cursor: pointer;
 
-    box-shadow:
-        0 2px 8px rgba(48, 45, 61, 0.05);
-
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease,
+        transform .2s ease;
 }
 
 .sidebar-toggle:hover {
     background: #fff7fb;
-
-    border-color: #cfa7c1;
-
-    box-shadow:
-        0 5px 14px rgba(163, 38, 117, 0.10);
-
+    border-color: #d9b6cc;
+    box-shadow: 0 4px 12px rgba(163, 38, 117, .08);
     transform: translateY(-1px);
 }
 
 .sidebar-toggle span {
     display: block;
-
-    width: 18px;
+    width: 17px;
     height: 2px;
 
+    background: #5e5661;
     border-radius: 3px;
 
-    background: #7a1b61;
-
-    transition:
-        transform 0.25s ease,
-        opacity 0.25s ease;
+    transition: transform .25s ease, opacity .25s ease;
 }
 
-
-/* =====================================================
-   SIDEBAR OPEN
-===================================================== */
-
 .sidebar-toggle.active span:nth-child(1) {
-    transform:
-        translateY(7px)
-        rotate(45deg);
+    transform: translateY(6px) rotate(45deg);
 }
 
 .sidebar-toggle.active span:nth-child(2) {
@@ -158,1220 +119,217 @@
 }
 
 .sidebar-toggle.active span:nth-child(3) {
-    transform:
-        translateY(-7px)
-        rotate(-45deg);
+    transform: translateY(-6px) rotate(-45deg);
 }
 
-
-/* =====================================================
+/* =========================================================
    BRAND
-===================================================== */
+   ========================================================= */
 
 .navbar-brand {
+    position: relative;
+
     display: flex;
     align-items: center;
 
-    color: #29263a;
-
+    color: #292431;
     text-decoration: none;
 
-    font-size: 24px;
+    font-size: 21px;
     font-weight: 750;
-
-    letter-spacing: -0.7px;
-
+    letter-spacing: -.55px;
     white-space: nowrap;
 
-    transition:
-        color 0.2s ease;
+    transition: color .2s ease;
 }
 
 .navbar-brand::before {
     content: "";
 
-    width: 5px;
-    height: 27px;
+    width: 4px;
+    height: 24px;
 
-    margin-right: 10px;
+    margin-right: 9px;
 
-    border-radius: 8px;
+    border-radius: 6px;
 
-    background:
-        linear-gradient(
-            180deg,
-            #d89167 0%,
-            #c75d86 35%,
-            #a32675 70%,
-            #7a1b61 100%
-        );
-
-    box-shadow:
-        0 2px 7px rgba(163, 38, 117, 0.15);
+    background: linear-gradient(
+        180deg,
+        #d9829f 0%,
+        #b53a7e 55%,
+        #8c1d62 100%
+    );
 }
 
 .navbar-brand:hover {
     color: #a32675;
 }
 
-
-/* =====================================================
+/* =========================================================
    SEARCH
-===================================================== */
+   ========================================================= */
 
 .navbar-search {
     position: relative;
 
-    width: 100%;
-    max-width: 500px;
-
-    margin-left: 28px;
+    width: min(100%, 470px);
+    margin-left: 22px;
 }
-
-
-/* =====================================================
-   SEARCH INPUT
-===================================================== */
 
 .navbar-search input {
     width: 100%;
-    height: 44px;
+    height: 42px;
 
-    padding:
-        0 45px
-        0 42px;
+    padding: 0 42px;
 
-    background: #ffffff;
-
-    border: 1px solid #ddd5df;
-    border-radius: 12px;
+    background: #faf9fa;
+    border: 1px solid #e8e2e8;
+    border-radius: 10px;
 
     outline: none;
 
-    color: #302d3d;
+    color: #302b35;
 
     font-family: inherit;
     font-size: 13px;
     font-weight: 450;
 
-    box-shadow:
-        0 2px 6px rgba(48, 45, 61, 0.035);
-
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
+        background .2s ease,
+        border-color .2s ease,
+        box-shadow .2s ease;
 }
 
 .navbar-search input:hover {
-    border-color: #d0c2d0;
+    background: #fff;
+    border-color: #d9ced8;
 }
 
 .navbar-search input:focus {
-    background: #ffffff;
-
-    border-color: #bd7fa5;
-
-    box-shadow:
-        0 0 0 3px rgba(163, 38, 117, 0.07),
-        0 4px 12px rgba(48, 45, 61, 0.05);
+    background: #fff;
+    border-color: #c783a9;
+    box-shadow: 0 0 0 3px rgba(163, 38, 117, .07);
 }
 
 .navbar-search input::placeholder {
-    color: #99929e;
+    color: #99929d;
 }
-
-
-/* =====================================================
-   SEARCH ICON
-===================================================== */
 
 .search-icon {
     position: absolute;
-
-    left: 15px;
+    left: 14px;
     top: 50%;
 
     transform: translateY(-50%);
 
-    color: #817987;
-
-    font-size: 16px;
+    color: #817884;
+    font-size: 15px;
 
     pointer-events: none;
-
     z-index: 2;
 }
 
-
-/* =====================================================
-   SEARCH SHORTCUT
-===================================================== */
-
 .search-shortcut {
     position: absolute;
-
-    right: 10px;
+    right: 9px;
     top: 50%;
 
     transform: translateY(-50%);
 
-    width: 26px;
-    height: 23px;
+    width: 25px;
+    height: 22px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #f8f4f8;
+    background: #f3eff3;
+    border: 1px solid #e3dbe3;
+    border-radius: 5px;
 
-    border: 1px solid #e1d8e1;
-    border-radius: 6px;
-
-    color: #8e8793;
+    color: #8e8792;
 
     font-size: 10px;
     font-weight: 650;
 }
 
-
-/* =====================================================
+/* =========================================================
    RIGHT SIDE
-===================================================== */
+   ========================================================= */
 
 .navbar-right {
     margin-left: auto;
 
     display: flex;
     align-items: center;
-
-    gap: 7px;
+    gap: 4px;
 
     flex-shrink: 0;
 }
 
+/* =========================================================
+   QUICK ADD
+   ========================================================= */
 
-/* =====================================================
-   THEME BUTTON
-===================================================== */
-
-.theme-toggle {
-    height: 40px;
-    min-width: 88px;
-
-    padding: 0 13px;
-
+.quick-add-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    gap: 7px;
+    width: 38px;
+    height: 38px;
 
-    background: #fff7fb;
-
-    border: 1px solid #e3d3df;
-    border-radius: 11px;
-
-    color: #49434f;
-
-    font-family: inherit;
-    font-size: 12px;
-    font-weight: 650;
-
-    cursor: pointer;
-
-    transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        box-shadow 0.2s ease,
-        transform 0.2s ease;
-}
-
-.theme-toggle:hover {
-    background: #fff0f7;
-
-    border-color: #cf9fbc;
-
-    color: #a32675;
-
-    box-shadow:
-        0 5px 14px rgba(163, 38, 117, 0.08);
-
-    transform: translateY(-1px);
-}
-
-.theme-toggle:active {
-    transform: scale(0.97);
-}
-
-.theme-icon {
-    width: 18px;
-    height: 18px;
-
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 16px;
-}
-
-.theme-text {
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   NOTIFICATION
-===================================================== */
-
-.navbar-icon-btn {
-    position: relative;
-
-    width: 42px;
-    height: 42px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    padding: 0;
 
     background: transparent;
-
     border: 1px solid transparent;
-    border-radius: 11px;
+    border-radius: 9px;
 
-    color: #625b68;
-
+    color: #4f4853;
     text-decoration: none;
 
     cursor: pointer;
 
     transition:
-        background 0.2s ease,
-        border-color 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease;
+        background .2s ease,
+        border-color .2s ease,
+        color .2s ease;
 }
 
-.navbar-icon-btn:hover {
-    background: #fff7fb;
-
-    border-color: #e2d2df;
-
+.quick-add-btn:hover {
+    background: #fff5fa;
+    border-color: #ead8e4;
     color: #a32675;
-
-    transform: translateY(-1px);
 }
 
-.navbar-icon {
-    width: 30px;
-    height: 30px;
+.quick-add-icon {
+    width: 26px;
+    height: 26px;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    color: inherit;
+    background: #8d1f63;
+    border-radius: 7px;
 
-    font-size: 9px;
-    font-weight: 750;
-    letter-spacing: 0.3px;
+    color: #fff;
+
+    font-size: 19px;
+    font-weight: 400;
+    line-height: 1;
+
+    transition: transform .2s ease, background .2s ease;
 }
 
-
-/* =====================================================
-   NOTIFICATION BADGE
-===================================================== */
-
-.notification-badge {
-    position: absolute;
-
-    top: 2px;
-    right: 1px;
-
-    min-width: 17px;
-    height: 17px;
-
-    padding: 0 4px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+.quick-add-btn:hover .quick-add-icon {
     background: #a32675;
-
-    color: #ffffff;
-
-    border: 2px solid #f0e9f1;
-
-    border-radius: 20px;
-
-    font-size: 8px;
-    font-weight: 750;
-
-    box-shadow:
-        0 2px 5px rgba(48, 45, 61, 0.12);
-}
-
-
-/* =====================================================
-   PROFILE
-===================================================== */
-
-.navbar-profile {
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
-    margin-left: 8px;
-    padding-left: 15px;
-
-    border-left: 1px solid #d8cbd8;
-
-    text-decoration: none;
-
-    flex-shrink: 0;
-
-    transition:
-        border-color 0.2s ease;
-}
-
-.navbar-profile:hover {
-    border-left-color: #c5a5bc;
-}
-
-
-/* =====================================================
-   AVATAR
-===================================================== */
-
-.navbar-avatar {
-    width: 41px;
-    height: 41px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 50%;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f6,
-            #f5ebf7
-        );
-
-    color: #9b286f;
-
-    border: 1px solid #e1cbdc;
-
-    font-size: 13px;
-    font-weight: 750;
-
-    box-shadow:
-        0 3px 10px rgba(163, 38, 117, 0.08);
-
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.navbar-profile:hover .navbar-avatar {
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 6px 16px rgba(163, 38, 117, 0.13);
-}
-
-
-/* =====================================================
-   USER INFORMATION
-===================================================== */
-
-.navbar-user-info {
-    display: flex;
-    flex-direction: column;
-
-    gap: 3px;
-}
-
-.navbar-user-info strong {
-    max-width: 120px;
-
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    color: #302d3d;
-
-    font-size: 12px;
-    font-weight: 700;
-}
-
-.navbar-user-info span {
-    color: #89818e;
-
-    font-size: 10px;
-    font-weight: 500;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   LOGOUT
-===================================================== */
-
-.navbar-logout {
-    min-height: 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 7px;
-
-    padding: 0 15px;
-
-    background: #ffffff;
-
-    border: 1px solid #ddd3df;
-    border-radius: 10px;
-
-    color: #665f6b;
-
-    text-decoration: none;
-
-    font-size: 12px;
-    font-weight: 650;
-
-    white-space: nowrap;
-
-    box-shadow:
-        0 2px 7px rgba(48, 45, 61, 0.035);
-
-    transition:
-        color 0.2s ease,
-        background 0.2s ease,
-        border-color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.navbar-logout:hover {
-    background: #fff5f8;
-
-    border-color: #d4b2c7;
-
-    color: #a32675;
-
-    transform: translateY(-1px);
-
-    box-shadow:
-        0 5px 14px rgba(163, 38, 117, 0.08);
-}
-
-.logout-icon {
-    font-size: 15px;
-}
-
-
-/* =====================================================
-   SEARCH DROPDOWN
-===================================================== */
-
-.search-dropdown {
-    position: absolute;
-
-    top: calc(100% + 11px);
-    left: 0;
-
-    width: 410px;
-    max-height: 520px;
-
-    overflow-y: auto;
-
-    padding: 9px;
-
-    background: #ffffff;
-
-    border: 1px solid #e4dce5;
-    border-radius: 14px;
-
-    box-shadow:
-        0 18px 45px rgba(48, 45, 61, 0.13),
-        0 5px 15px rgba(163, 38, 117, 0.04);
-
-    opacity: 0;
-    visibility: hidden;
-
-    transform: translateY(-7px);
-
-    transition:
-        opacity 0.18s ease,
-        transform 0.18s ease,
-        visibility 0.18s ease;
-
-    z-index: 2000;
-}
-
-.navbar-search.search-open .search-dropdown {
-    opacity: 1;
-    visibility: visible;
-
-    transform: translateY(0);
-}
-
-
-/* =====================================================
-   SEARCH SECTION
-===================================================== */
-
-.search-section {
-    padding: 5px 0 8px;
-}
-
-.search-section + .search-section {
-    border-top: 1px solid #f0ebf1;
-
-    margin-top: 5px;
-
-    padding-top: 10px;
-}
-
-.search-section-title {
-    padding: 7px 12px 6px;
-
-    color: #9a929f;
-
-    font-size: 9px;
-    font-weight: 750;
-
-    letter-spacing: 1px;
-}
-
-
-/* =====================================================
-   SEARCH ITEM
-===================================================== */
-
-.search-item {
-    display: flex;
-    align-items: center;
-
-    gap: 12px;
-
-    width: 100%;
-    min-height: 53px;
-
-    padding: 8px 10px;
-
-    border-radius: 10px;
-
-    text-decoration: none;
-
-    transition:
-        background 0.18s ease,
-        transform 0.18s ease;
-}
-
-.search-item:hover {
-    background:
-        linear-gradient(
-            135deg,
-            #fff5fa,
-            #faf5ff
-        );
-
-    transform: translateX(2px);
-}
-
-
-/* =====================================================
-   SEARCH ITEM ICON
-===================================================== */
-
-.search-item-icon {
-    width: 36px;
-    height: 36px;
-
-    flex-shrink: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    background:
-        linear-gradient(
-            135deg,
-            #fff0f6,
-            #f5edfa
-        );
-
-    border: 1px solid #ead7e5;
-    border-radius: 10px;
-
-    color: #a32675;
-
-    font-size: 9px;
-    font-weight: 750;
-
-    letter-spacing: 0.2px;
-}
-
-
-/* =====================================================
-   SEARCH ITEM CONTENT
-===================================================== */
-
-.search-item-content {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-
-    gap: 3px;
-}
-
-.search-item-content strong {
-    color: #34303d;
-
-    font-size: 13px;
-    font-weight: 650;
-
-    line-height: 1.2;
-}
-
-.search-item-content small {
-    color: #96909d;
-
-    font-size: 10px;
-
-    line-height: 1.3;
-}
-
-.search-item:hover .search-item-content strong {
-    color: #a32675;
-}
-
-
-/* =====================================================
-   NO RESULTS
-===================================================== */
-
-.search-no-results {
-    display: none;
-
-    padding: 28px 15px;
-
-    text-align: center;
-
-    color: #96909d;
-
-    font-size: 11px;
-}
-
-
-/* =====================================================
-   SCROLLBAR
-===================================================== */
-
-.search-dropdown::-webkit-scrollbar {
-    width: 5px;
-}
-
-.search-dropdown::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-.search-dropdown::-webkit-scrollbar-thumb {
-    background: #d9c1d3;
-
-    border-radius: 10px;
-}
-
-.search-dropdown::-webkit-scrollbar-thumb:hover {
-    background: #a32675;
-}
-
-
-/* =====================================================
-   FOCUS
-===================================================== */
-
-.sidebar-toggle:focus-visible,
-.theme-toggle:focus-visible,
-.navbar-icon-btn:focus-visible,
-.navbar-profile:focus-visible,
-.navbar-logout:focus-visible {
-    outline: 3px solid rgba(163, 38, 117, 0.14);
-
-    outline-offset: 2px;
-}
-
-
-/* =====================================================
-   DARK MODE
-===================================================== */
-
-html[data-theme="dark"] .top-navbar {
-    background:
-        linear-gradient(
-            180deg,
-            #25212a,
-            #211e26
-        );
-
-    border-bottom-color: #3d3541;
-
-    box-shadow:
-        0 5px 22px rgba(0, 0, 0, 0.24);
-}
-
-
-/* Toggle */
-
-html[data-theme="dark"] .sidebar-toggle {
-    background: #2b2630;
-
-    border-color: #443b48;
-}
-
-html[data-theme="dark"] .sidebar-toggle:hover {
-    background: #352c37;
-
-    border-color: #a32675;
-}
-
-html[data-theme="dark"] .sidebar-toggle span {
-    background: #dc91b8;
-}
-
-
-/* Brand */
-
-html[data-theme="dark"] .navbar-brand {
-    color: #f2edf3;
-}
-
-html[data-theme="dark"] .navbar-brand:hover {
-    color: #e0a0c3;
-}
-
-
-/* Search */
-
-html[data-theme="dark"] .navbar-search input {
-    background: #2b2730;
-
-    border-color: #433b47;
-
-    color: #eee8ef;
-}
-
-html[data-theme="dark"] .navbar-search input:hover {
-    border-color: #574b59;
-}
-
-html[data-theme="dark"] .navbar-search input:focus {
-    background: #302b35;
-
-    border-color: #a32675;
-}
-
-html[data-theme="dark"] .navbar-search input::placeholder {
-    color: #968e9c;
-}
-
-html[data-theme="dark"] .search-icon {
-    color: #aaa1ad;
-}
-
-html[data-theme="dark"] .search-shortcut {
-    background: #39323d;
-
-    border-color: #4a424f;
-
-    color: #aaa1ad;
-}
-
-
-/* Theme */
-
-html[data-theme="dark"] .theme-toggle {
-    background: #302a35;
-
-    border-color: #493f4c;
-
-    color: #eee8ef;
-}
-
-html[data-theme="dark"] .theme-toggle:hover {
-    background: #3a303a;
-
-    border-color: #a32675;
-
-    color: #e1a0c4;
-}
-
-
-/* Notification */
-
-html[data-theme="dark"] .navbar-icon-btn {
-    color: #b5acb9;
-}
-
-html[data-theme="dark"] .navbar-icon-btn:hover {
-    background: #332b36;
-
-    border-color: #493d48;
-
-    color: #e2a0c5;
-}
-
-html[data-theme="dark"] .notification-badge {
-    border-color: #25212a;
-}
-
-
-/* Profile */
-
-html[data-theme="dark"] .navbar-profile {
-    border-left-color: #423a46;
-}
-
-html[data-theme="dark"] .navbar-avatar {
-    background:
-        linear-gradient(
-            135deg,
-            #392633,
-            #30283a
-        );
-
-    border-color: #503a4a;
-
-    color: #e0a0c3;
-}
-
-html[data-theme="dark"] .navbar-user-info strong {
-    color: #eee8ef;
-}
-
-html[data-theme="dark"] .navbar-user-info span {
-    color: #9e96a4;
-}
-
-
-/* Logout */
-
-html[data-theme="dark"] .navbar-logout {
-    background: #2b2730;
-
-    border-color: #463e4a;
-
-    color: #d2cad5;
-}
-
-html[data-theme="dark"] .navbar-logout:hover {
-    background: #392a34;
-
-    border-color: #a32675;
-
-    color: #edafd0;
-}
-
-
-/* Search dropdown */
-
-html[data-theme="dark"] .search-dropdown {
-    background: #29252e;
-
-    border-color: #403943;
-
-    box-shadow:
-        0 18px 45px rgba(0, 0, 0, 0.35);
-}
-
-html[data-theme="dark"] .search-section + .search-section {
-    border-top-color: #3a333e;
-}
-
-html[data-theme="dark"] .search-section-title {
-    color: #9c94a2;
+    transform: scale(1.04);
 }
-
-html[data-theme="dark"] .search-item:hover {
-    background:
-        linear-gradient(
-            135deg,
-            #352b35,
-            #332e3a
-        );
-}
-
-html[data-theme="dark"] .search-item-icon {
-    background:
-        linear-gradient(
-            135deg,
-            #3b2937,
-            #342d3c
-        );
-
-    border-color: #4b3b49;
-
-    color: #df91ba;
-}
-
-html[data-theme="dark"] .search-item-content strong {
-    color: #eee8ef;
-}
-
-html[data-theme="dark"] .search-item-content small {
-    color: #9d95a2;
-}
-
-html[data-theme="dark"] .search-item:hover .search-item-content strong {
-    color: #e3a0c5;
-}
-
-
-/* =====================================================
-   RESPONSIVE — 1100px
-===================================================== */
-
-@media (max-width: 1100px) {
-
-    .top-navbar-container {
-        padding: 0 20px;
-
-        gap: 14px;
-    }
-
-    .navbar-search {
-        max-width: 350px;
-
-        margin-left: 12px;
-    }
-
-    .navbar-user-info {
-        display: none;
-    }
-
-    .navbar-profile {
-        padding-left: 10px;
-
-        margin-left: 4px;
-    }
-}
-
-
-/* =====================================================
-   RESPONSIVE — 850px
-===================================================== */
-
-@media (max-width: 850px) {
-
-    .top-navbar {
-        height: 68px;
-    }
-
-    .top-navbar-container {
-        padding: 0 17px;
-    }
-
-    .navbar-brand {
-        font-size: 21px;
-    }
-
-    .navbar-brand::before {
-        height: 23px;
-    }
-
-    .navbar-search {
-        max-width: 280px;
-    }
-
-    .theme-toggle {
-        min-width: 40px;
-
-        padding: 0 10px;
-    }
-
-    .theme-text {
-        display: none;
-    }
-}
-
-
-/* =====================================================
-   RESPONSIVE — 650px
-===================================================== */
-
-@media (max-width: 650px) {
-
-    .top-navbar {
-        height: 64px;
-    }
-
-    .top-navbar-container {
-        padding: 0 13px;
-
-        gap: 8px;
-    }
-
-    .navbar-left {
-        gap: 9px;
-    }
-
-    .sidebar-toggle {
-        width: 37px;
-        height: 37px;
-    }
-
-    .navbar-brand {
-        font-size: 20px;
-    }
-
-    .navbar-brand::before {
-        width: 4px;
-        height: 20px;
-
-        margin-right: 7px;
-    }
-
-    .navbar-search {
-        display: none;
-    }
-
-    .navbar-right {
-        gap: 3px;
-    }
-
-    .theme-toggle {
-        width: 37px;
-        min-width: 37px;
-        height: 37px;
-
-        padding: 0;
-    }
-
-    .navbar-icon-btn {
-        width: 37px;
-        height: 37px;
-    }
-
-    .navbar-profile {
-        margin-left: 2px;
-        padding-left: 6px;
-    }
-
-    .navbar-avatar {
-        width: 35px;
-        height: 35px;
-    }
-
-    .navbar-logout {
-        width: 36px;
-        min-height: 36px;
-
-        padding: 0;
-    }
-
-    .logout-text {
-        display: none;
-    }
-}
-
-
-/* =====================================================
-   SEARCH — MOBILE
-===================================================== */
-
-@media (max-width: 700px) {
-
-    .search-dropdown {
-        position: fixed;
-
-        top: 70px;
-
-        left: 15px;
-        right: 15px;
-
-        width: auto;
-
-        max-height:
-            calc(100vh - 90px);
-
-        border-radius: 14px;
-    }
-}
-
-
-/* =====================================================
-   SMALL MOBILE
-===================================================== */
-
-@media (max-width: 400px) {
-
-    .top-navbar-container {
-        padding: 0 9px;
-    }
-
-    .navbar-left {
-        gap: 7px;
-    }
-
-    .navbar-brand {
-        font-size: 18px;
-    }
-
-    .navbar-brand::before {
-        height: 18px;
-    }
-
-    .sidebar-toggle {
-        width: 35px;
-        height: 35px;
-    }
-
-    .theme-toggle {
-        width: 34px;
-        min-width: 34px;
-        height: 34px;
-    }
-
-    .navbar-icon-btn {
-        width: 34px;
-        height: 34px;
-    }
-
-    .navbar-avatar {
-        width: 33px;
-        height: 33px;
-    }
-}
-
-/* =====================================================
-   NAVBAR RIGHT SIDE
-===================================================== */
-
-.navbar-right {
-    margin-left: auto;
-
-    display: flex;
-    align-items: center;
-
-    gap: 5px;
-
-    flex-shrink: 0;
-}
-
 
-/* =====================================================
-   ICON BUTTON
-===================================================== */
+/* =========================================================
+   ICON BUTTONS
+   ========================================================= */
 
 .navbar-icon-btn {
     position: relative;
@@ -1386,71 +344,46 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
     padding: 0;
 
     background: transparent;
-
     border: 1px solid transparent;
-    border-radius: 7px;
+    border-radius: 9px;
 
-    color: #4f5662;
-
+    color: #57505b;
     text-decoration: none;
 
     cursor: pointer;
 
     transition:
         background .2s ease,
-        color .2s ease,
-        border-color .2s ease;
+        border-color .2s ease,
+        color .2s ease;
 }
 
-
 .navbar-icon-btn:hover {
-    background: #f7f4f7;
-
-    border-color: #e7dfe7;
-
+    background: #fff5fa;
+    border-color: #ead8e4;
     color: #a32675;
 }
 
-
-/* =====================================================
-   QUICK ADD
-===================================================== */
-
-.quick-add-icon {
-    width: 27px;
-    height: 27px;
-
+.navbar-icon {
     display: flex;
     align-items: center;
     justify-content: center;
 
-    background: #4b005f;
-
-    border-radius: 6px;
-
-    color: #ffffff;
-
-    font-size: 20px;
-    font-weight: 400;
-
-    line-height: 1;
+    color: inherit;
 }
 
-
-/* =====================================================
-   NOTIFICATION
-===================================================== */
-
-.notification-icon {
+.notification-icon,
+.settings-icon {
     font-size: 17px;
-
     line-height: 1;
 }
 
+/* =========================================================
+   NOTIFICATION BADGE
+   ========================================================= */
 
 .notification-badge {
     position: absolute;
-
     top: 1px;
     right: 0;
 
@@ -1463,50 +396,31 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
     align-items: center;
     justify-content: center;
 
-    background: #d93636;
+    background: #d9365b;
+    color: #fff;
 
-    color: #ffffff;
-
-    border: 2px solid #ffffff;
-
+    border: 2px solid #fff;
     border-radius: 20px;
 
     font-size: 8px;
-    font-weight: 700;
-
+    font-weight: 750;
     line-height: 1;
+
+    box-shadow: 0 2px 5px rgba(48, 45, 61, .12);
 }
 
-
-/* =====================================================
-   SETTINGS
-===================================================== */
-
-.settings-icon {
-    font-size: 17px;
-
-    line-height: 1;
-}
-
-
-/* =====================================================
+/* =========================================================
    PROFILE MENU
-===================================================== */
+   ========================================================= */
 
 .profile-menu {
     position: relative;
 
-    margin-left: 5px;
+    margin-left: 7px;
+    padding-left: 10px;
 
-    padding-left: 9px;
-
-    border-left: 1px solid #e1dfe3;
+    border-left: 1px solid #e7e0e6;
 }
-
-
-/* =====================================================
-   PROFILE BUTTON
-===================================================== */
 
 .navbar-profile {
     width: 40px;
@@ -1519,22 +433,15 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
     justify-content: center;
 
     background: transparent;
-
     border: 0;
-
     border-radius: 50%;
 
     cursor: pointer;
 }
 
-
-/* =====================================================
-   PROFILE AVATAR
-===================================================== */
-
 .navbar-avatar {
-    width: 38px;
-    height: 38px;
+    width: 36px;
+    height: 36px;
 
     display: flex;
     align-items: center;
@@ -1542,14 +449,13 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
 
     border-radius: 50%;
 
-    background: #f1eff2;
+    background: linear-gradient(135deg, #fff1f7, #f5eafa);
+    border: 1px solid #dfcddd;
 
-    border: 1px solid #d8d5da;
-
-    color: #302d3d;
+    color: #952269;
 
     font-size: 12px;
-    font-weight: 700;
+    font-weight: 750;
 
     transition:
         transform .2s ease,
@@ -1557,45 +463,36 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
         border-color .2s ease;
 }
 
-
 .navbar-profile:hover .navbar-avatar {
     transform: translateY(-1px);
-
-    border-color: #c5a5bc;
-
-    box-shadow:
-        0 4px 12px rgba(163, 38, 117, .13);
+    border-color: #c995b5;
+    box-shadow: 0 5px 13px rgba(163, 38, 117, .12);
 }
 
-
-/* =====================================================
+/* =========================================================
    PROFILE DROPDOWN
-===================================================== */
+   ========================================================= */
 
 .profile-dropdown {
     position: absolute;
 
     top: calc(100% + 10px);
-
     right: 0;
 
-    width: 210px;
+    width: 220px;
 
     padding: 8px;
 
-    background: #ffffff;
-
-    border: 1px solid #e3dfe4;
-
-    border-radius: 10px;
+    background: #fff;
+    border: 1px solid #e5dfe5;
+    border-radius: 12px;
 
     box-shadow:
-        0 12px 30px rgba(48, 45, 61, .14);
+        0 16px 35px rgba(42, 35, 45, .13),
+        0 4px 12px rgba(163, 38, 117, .04);
 
     opacity: 0;
-
     visibility: hidden;
-
     transform: translateY(-6px);
 
     transition:
@@ -1606,31 +503,21 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
     z-index: 3000;
 }
 
-
-/* OPEN */
-
 .profile-menu.open .profile-dropdown {
     opacity: 1;
-
     visibility: visible;
-
     transform: translateY(0);
 }
 
-
-/* =====================================================
-   DROPDOWN HEADER
-===================================================== */
+/* Header */
 
 .profile-dropdown-header {
     display: flex;
     align-items: center;
-
     gap: 10px;
 
-    padding: 8px;
+    padding: 9px;
 }
-
 
 .profile-dropdown-avatar {
     width: 36px;
@@ -1644,82 +531,64 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
 
     border-radius: 50%;
 
-    background: #f3f1f4;
+    background: #f7eef5;
+    border: 1px solid #e3d3df;
 
-    border: 1px solid #ddd8df;
-
-    color: #302d3d;
+    color: #942568;
 
     font-size: 11px;
-    font-weight: 700;
+    font-weight: 750;
 }
-
 
 .profile-dropdown-info {
     min-width: 0;
 
     display: flex;
     flex-direction: column;
-
     gap: 3px;
 }
 
-
 .profile-dropdown-info strong {
-    color: #302d3d;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #302b35;
 
     font-size: 12px;
     font-weight: 700;
-
-    white-space: nowrap;
-
-    overflow: hidden;
-
-    text-overflow: ellipsis;
 }
-
 
 .profile-dropdown-info span {
-    color: #8a838e;
-
+    color: #8c8490;
     font-size: 10px;
-
     white-space: nowrap;
 }
 
-
-/* =====================================================
-   DIVIDER
-===================================================== */
+/* Divider */
 
 .profile-dropdown-divider {
     height: 1px;
-
     margin: 5px 4px;
 
     background: #eee8ee;
 }
 
-
-/* =====================================================
-   DROPDOWN ITEMS
-===================================================== */
+/* Items */
 
 .profile-dropdown-item {
-    display: flex;
-    align-items: center;
-
-    gap: 10px;
-
     width: 100%;
     min-height: 38px;
 
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
     padding: 0 10px;
 
-    border-radius: 6px;
+    border-radius: 7px;
 
-    color: #4e4853;
-
+    color: #4d4651;
     text-decoration: none;
 
     font-size: 11px;
@@ -1730,94 +599,332 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
         color .18s ease;
 }
 
-
 .profile-dropdown-item:hover {
     background: #fff5fa;
-
     color: #a32675;
 }
-
 
 .dropdown-item-icon {
     width: 20px;
 
     text-align: center;
 
-    color: #817987;
-
+    color: #817985;
     font-size: 13px;
 }
 
-
-.profile-dropdown-item:hover
-.dropdown-item-icon {
+.profile-dropdown-item:hover .dropdown-item-icon {
     color: #a32675;
 }
 
-
-/* =====================================================
-   LOGOUT
-===================================================== */
+/* Logout */
 
 .logout-item {
     color: #b44747;
 }
 
-
 .logout-item .dropdown-item-icon {
     color: #b44747;
 }
 
-
 .logout-item:hover {
     background: #fef2f4;
-
     color: #b44747;
 }
 
+/* =========================================================
+   SEARCH DROPDOWN
+   ========================================================= */
 
-/* =====================================================
-   RESPONSIVE
-===================================================== */
+.search-dropdown {
+    position: absolute;
 
-@media (max-width: 850px) {
+    top: calc(100% + 10px);
+    left: 0;
 
-    .navbar-right {
-        gap: 3px;
-    }
+    width: 410px;
+    max-height: 520px;
 
+    overflow-y: auto;
+
+    padding: 8px;
+
+    background: #fff;
+    border: 1px solid #e5dfe5;
+    border-radius: 13px;
+
+    box-shadow:
+        0 18px 42px rgba(43, 35, 48, .13),
+        0 5px 15px rgba(163, 38, 117, .04);
+
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+
+    transition:
+        opacity .18s ease,
+        transform .18s ease,
+        visibility .18s ease;
+
+    z-index: 2000;
 }
 
+.navbar-search.search-open .search-dropdown {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+/* Search sections */
+
+.search-section {
+    padding: 5px 0 8px;
+}
+
+.search-section + .search-section {
+    margin-top: 5px;
+    padding-top: 9px;
+    border-top: 1px solid #f0ebf0;
+}
+
+.search-section-title {
+    padding: 6px 11px;
+
+    color: #968e9b;
+
+    font-size: 9px;
+    font-weight: 750;
+
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+/* Search items */
+
+.search-item {
+    width: 100%;
+    min-height: 51px;
+
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 7px 9px;
+
+    border-radius: 9px;
+
+    text-decoration: none;
+
+    transition:
+        background .18s ease,
+        transform .18s ease;
+}
+
+.search-item:hover {
+    background: linear-gradient(
+        135deg,
+        #fff5fa,
+        #faf5ff
+    );
+
+    transform: translateX(2px);
+}
+
+.search-item-icon {
+    width: 35px;
+    height: 35px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        135deg,
+        #fff0f6,
+        #f6effa
+    );
+
+    border: 1px solid #ead8e5;
+    border-radius: 9px;
+
+    color: #a32675;
+
+    font-size: 9px;
+    font-weight: 750;
+}
+
+.search-item-content {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.search-item-content strong {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #34303a;
+
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.2;
+}
+
+.search-item-content small {
+    color: #96909b;
+
+    font-size: 10px;
+    line-height: 1.3;
+}
+
+.search-item:hover .search-item-content strong {
+    color: #a32675;
+}
+
+.search-no-results {
+    display: none;
+
+    padding: 28px 15px;
+
+    text-align: center;
+
+    color: #96909d;
+    font-size: 11px;
+}
+
+/* =========================================================
+   SCROLLBAR
+   ========================================================= */
+
+.search-dropdown::-webkit-scrollbar {
+    width: 5px;
+}
+
+.search-dropdown::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.search-dropdown::-webkit-scrollbar-thumb {
+    background: #dbc4d4;
+    border-radius: 10px;
+}
+
+.search-dropdown::-webkit-scrollbar-thumb:hover {
+    background: #a32675;
+}
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+.sidebar-toggle:focus-visible,
+.quick-add-btn:focus-visible,
+.navbar-icon-btn:focus-visible,
+.navbar-profile:focus-visible,
+.profile-dropdown-item:focus-visible,
+.search-item:focus-visible {
+    outline: 3px solid rgba(163, 38, 117, .14);
+    outline-offset: 2px;
+}
+
+/* =========================================================
+   RESPONSIVE — 1100px
+   ========================================================= */
+
+@media (max-width: 1100px) {
+    .top-navbar-container {
+        padding: 0 18px;
+        gap: 12px;
+    }
+
+    .navbar-search {
+        max-width: 360px;
+        margin-left: 10px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — 850px
+   ========================================================= */
+
+@media (max-width: 850px) {
+    .top-navbar {
+        height: 64px;
+    }
+
+    .top-navbar-container {
+        padding: 0 15px;
+    }
+
+    .navbar-brand {
+        font-size: 20px;
+    }
+
+    .navbar-search {
+        max-width: 280px;
+    }
+}
+
+/* =========================================================
+   RESPONSIVE — 650px
+   ========================================================= */
 
 @media (max-width: 650px) {
+    .top-navbar {
+        height: 62px;
+    }
+
+    .top-navbar-container {
+        padding: 0 11px;
+        gap: 7px;
+    }
+
+    .navbar-left {
+        gap: 8px;
+    }
+
+    .sidebar-toggle {
+        width: 37px;
+        height: 37px;
+    }
+
+    .navbar-brand {
+        font-size: 19px;
+    }
+
+    .navbar-brand::before {
+        width: 3px;
+        height: 20px;
+        margin-right: 7px;
+    }
 
     .navbar-search {
         display: none;
     }
 
     .navbar-right {
-        gap: 2px;
+        gap: 1px;
+    }
+
+    .quick-add-btn,
+    .navbar-icon-btn {
+        width: 36px;
+        height: 36px;
     }
 
     .profile-menu {
         margin-left: 2px;
-
-        padding-left: 6px;
-    }
-
-}
-
-
-@media (max-width: 400px) {
-
-    .navbar-icon-btn {
-        width: 34px;
-        height: 34px;
+        padding-left: 5px;
     }
 
     .navbar-profile {
-        width: 36px;
-        height: 36px;
+        width: 37px;
+        height: 37px;
     }
 
     .navbar-avatar {
@@ -1825,4 +932,75 @@ html[data-theme="dark"] .search-item:hover .search-item-content strong {
         height: 34px;
     }
 
+    .profile-dropdown {
+        right: -3px;
+    }
+}
+
+/* =========================================================
+   SEARCH — MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+    .search-dropdown {
+        position: fixed;
+
+        top: 70px;
+        left: 12px;
+        right: 12px;
+
+        width: auto;
+        max-height: calc(100vh - 85px);
+
+        border-radius: 13px;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE — 400px
+   ========================================================= */
+
+@media (max-width: 400px) {
+    .top-navbar-container {
+        padding: 0 7px;
+    }
+
+    .navbar-left {
+        gap: 6px;
+    }
+
+    .navbar-brand {
+        font-size: 17px;
+    }
+
+    .navbar-brand::before {
+        height: 18px;
+    }
+
+    .sidebar-toggle,
+    .quick-add-btn,
+    .navbar-icon-btn {
+        width: 34px;
+        height: 34px;
+    }
+
+    .quick-add-icon {
+        width: 24px;
+        height: 24px;
+        font-size: 17px;
+    }
+
+    .navbar-profile {
+        width: 34px;
+        height: 34px;
+    }
+
+    .navbar-avatar {
+        width: 32px;
+        height: 32px;
+    }
+
+    .profile-dropdown {
+        width: 205px;
+    }
 }
