@@ -632,6 +632,126 @@ public function getQuestionsByTest($test_id)
 
     /*
     ========================================
+    DELETE TEST
+    ========================================
+    */
+
+    public function deleteTest(
+        $test_id,
+        $school_id
+    ) {
+
+        /*
+        ----------------------------------------
+        VERIFY TEST BELONGS TO SCHOOL
+        ----------------------------------------
+        */
+
+        $testQuery = "SELECT
+                        test_id
+                      FROM tests
+                      WHERE test_id = :test_id
+                      AND school_id = :school_id
+                      LIMIT 1";
+
+        $test = $this->query(
+            $testQuery,
+            [
+                'test_id'   => $test_id,
+                'school_id' => $school_id
+            ]
+        );
+
+        if (empty($test)) {
+            return false;
+        }
+
+
+        /*
+        ----------------------------------------
+        DELETE RELATED INTEGRITY EVENTS
+        ----------------------------------------
+        */
+
+        $this->query(
+            "DELETE FROM exam_events
+             WHERE test_id = :test_id",
+            [
+                'test_id' => $test_id
+            ]
+        );
+
+
+        /*
+        ----------------------------------------
+        DELETE TEST QUESTIONS
+        ----------------------------------------
+        */
+
+        $this->query(
+            "DELETE FROM test_questions
+             WHERE test_id = :test_id",
+            [
+                'test_id' => $test_id
+            ]
+        );
+
+
+        /*
+        ----------------------------------------
+        DELETE TEST RESULTS
+        ----------------------------------------
+        */
+
+        $this->query(
+            "DELETE FROM results
+             WHERE test_id = :test_id",
+            [
+                'test_id' => $test_id
+            ]
+        );
+
+
+        /*
+        ----------------------------------------
+        DELETE STUDENT ATTEMPTS
+        ----------------------------------------
+        */
+
+        $this->query(
+            "DELETE FROM student_test_attempts
+             WHERE test_id = :test_id",
+            [
+                'test_id' => $test_id
+            ]
+        );
+
+
+        /*
+        ----------------------------------------
+        DELETE TEST
+        ----------------------------------------
+        */
+
+        $deleted = $this->query(
+            "DELETE FROM tests
+             WHERE test_id = :test_id
+             AND school_id = :school_id
+             LIMIT 1",
+            [
+                'test_id'   => $test_id,
+                'school_id' => $school_id
+            ]
+        );
+
+
+        return $deleted;
+    }
+
+
+
+    /*
+    ========================================
     PUBLISH TEST
     ========================================
     */

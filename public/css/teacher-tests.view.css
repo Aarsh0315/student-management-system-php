@@ -462,7 +462,65 @@ tbody td {
     color: #252b34;
 }
 
+/* ACTIONS */
+.test-actions {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    flex-wrap: nowrap;
+}
+
+.delete-test-form {
+    display: inline-flex;
+    margin: 0;
+}
+
+.delete-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 58px;
+    min-height: 32px;
+    padding: 0 11px;
+    border: 1px solid #e3caca;
+    border-radius: 8px;
+    background: #fff7f7;
+    color: #b24d4d;
+    font-family: inherit;
+    font-size: 10px;
+    font-weight: 700;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: .2s ease;
+}
+
+.delete-btn:hover {
+    transform: translateY(-1px);
+    border-color: #d79b9b;
+    background: #fceeee;
+    color: #9f3838;
+    box-shadow: 0 4px 10px rgba(178, 77, 77, .10);
+}
+
+.delete-btn:active {
+    transform: translateY(0);
+}
+
+.delete-btn:focus-visible {
+    outline: 3px solid rgba(178, 77, 77, .15);
+    outline-offset: 3px;
+}
+
+.delete-btn:disabled {
+    opacity: .6;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
 /* EMPTY */
+
 .empty-state,
 .tests-card .empty-state {
     width: 100%;

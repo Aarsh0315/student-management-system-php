@@ -593,14 +593,48 @@ $direction = strtoupper($data['direction'] ?? 'DESC');
 
                                 <td>
 
-                                    <a
-                                        href="<?= ROOT ?>/teachertests/details/<?= urlencode(
-                                            $test->test_id ?? ''
-                                        ) ?>"
-                                        class="view-btn"
-                                    >
-                                        View
-                                    </a>
+                                    <div class="test-actions">
+
+                                        <a
+                                            href="<?= ROOT ?>/teachertests/details/<?= urlencode(
+                                                $test->test_id ?? ''
+                                            ) ?>"
+                                            class="view-btn"
+                                        >
+                                            View
+                                        </a>
+
+                                        <form
+                                            method="POST"
+                                            action="<?= ROOT ?>/teachertests/delete/<?= urlencode(
+                                                $test->test_id ?? ''
+                                            ) ?>"
+                                            class="delete-test-form"
+                                            onsubmit="return confirm(
+                                                'Delete this test? This will permanently remove the test and its related questions, results, attempts and exam activity.'
+                                            );"
+                                        >
+
+                                            <input
+                                                type="hidden"
+                                                name="csrf_token"
+                                                value="<?= htmlspecialchars(
+                                                    CSRF::token(),
+                                                    ENT_QUOTES,
+                                                    'UTF-8'
+                                                ) ?>"
+                                            >
+
+                                            <button
+                                                type="submit"
+                                                class="delete-btn"
+                                            >
+                                                Delete
+                                            </button>
+
+                                        </form>
+
+                                    </div>
 
                                 </td>
 

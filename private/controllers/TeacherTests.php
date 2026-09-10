@@ -1858,6 +1858,67 @@ class TeacherTests extends Controller
 
     /*
     ========================================
+    DELETE TEST
+    ========================================
+    */
+
+    public function delete($test_id = null)
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['user_id'])) {
+            header("Location: " . ROOT . "/login");
+            exit;
+        }
+
+        if (($_SESSION['rank'] ?? '') !== 'teacher') {
+            header("Location: " . ROOT . "/home");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: " . ROOT . "/teachertests");
+            exit;
+        }
+
+        if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+            die("Invalid security token. Please refresh the page and try again.");
+        }
+
+        if (!$test_id) {
+            header("Location: " . ROOT . "/teachertests");
+            exit;
+        }
+
+        $school_id = $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+            die("No school is assigned to this teacher.");
+        }
+
+        $testModel = $this->model('TeacherTestsModel');
+
+        $test = $testModel->getTestById($test_id, $school_id);
+
+        if (!$test) {
+            die("Test not found.");
+        }
+
+        $deleted = $testModel->deleteTest($test_id, $school_id);
+
+        if (!$deleted) {
+            die("Failed to delete test.");
+        }
+
+        header("Location: " . ROOT . "/teachertests");
+        exit;
+    }
+
+
+    /*
+    ========================================
     PUBLISH TEST
     ========================================
     */
