@@ -13,262 +13,168 @@ class StudentResults extends Controller
     ========================================
     */
 
-   public function index()
-{
-    /*
-    ========================================
-    START SESSION
-    ========================================
-    */
+    public function index()
+    {
+        /*
+        ========================================
+        START SESSION
+        ========================================
+        */
 
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-
-    /*
-    ========================================
-    CHECK LOGIN
-    ========================================
-    */
-
-    if (!isset($_SESSION['user_id'])) {
-
-        header(
-            "Location: " .
-            ROOT .
-            "/login"
-        );
-
-        exit;
-    }
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
 
 
-    /*
-    ========================================
-    CHECK STUDENT
-    ========================================
-    */
+        /*
+        ========================================
+        CHECK LOGIN
+        ========================================
+        */
 
-    if (
-        ($_SESSION['rank'] ?? '') !== 'student'
-    ) {
+        if (!isset($_SESSION['user_id'])) {
 
-        header(
-            "Location: " .
-            ROOT .
-            "/home"
-        );
+            header(
+                "Location: " .
+                ROOT .
+                "/login"
+            );
 
-        exit;
-    }
+            exit;
+        }
 
 
-    /*
-    ========================================
-    GET SCHOOL ID
-    ========================================
-    */
+        /*
+        ========================================
+        CHECK STUDENT
+        ========================================
+        */
 
-    $school_id =
-        $_SESSION['school_id'] ?? null;
+        if (
+            ($_SESSION['rank'] ?? '') !== 'student'
+        ) {
 
+            header(
+                "Location: " .
+                ROOT .
+                "/home"
+            );
 
-    if (!$school_id) {
-
-        die(
-            "No school is assigned to this student."
-        );
-    }
-
-
-    /*
-    ========================================
-    LOAD MODEL
-    ========================================
-    */
-
-    $resultModel =
-        $this->model(
-            'StudentResultsModel'
-        );
+            exit;
+        }
 
 
-    /*
-    ========================================
-    FIND ACTUAL STUDENT RECORD
-    ========================================
-    */
+        /*
+        ========================================
+        GET SCHOOL ID
+        ========================================
+        */
 
-    $studentQuery = "SELECT
-                        student_id
-
-                     FROM students
-
-                     WHERE user_id = :user_id
-
-                     AND school_id = :school_id
-
-                     LIMIT 1";
+        $school_id =
+            $_SESSION['school_id'] ?? null;
 
 
-    $studentResult =
-        $resultModel->query(
-            $studentQuery,
+        if (!$school_id) {
+
+            die(
+                "No school is assigned to this student."
+            );
+        }
+
+
+        /*
+        ========================================
+        LOAD MODEL
+        ========================================
+        */
+
+        $resultModel =
+            $this->model(
+                'StudentResultsModel'
+            );
+
+
+        /*
+        ========================================
+        FIND ACTUAL STUDENT RECORD
+        ========================================
+        */
+
+        $studentQuery = "SELECT
+                            student_id
+
+                         FROM students
+
+                         WHERE user_id = :user_id
+
+                         AND school_id = :school_id
+
+                         LIMIT 1";
+
+
+        $studentResult =
+            $resultModel->query(
+                $studentQuery,
+                [
+                    'user_id'   => $_SESSION['user_id'],
+                    'school_id' => $school_id
+                ]
+            );
+
+
+        $student =
+            $studentResult[0] ?? null;
+
+
+        /*
+        ========================================
+        STUDENT NOT FOUND
+        ========================================
+        */
+
+        if (!$student) {
+
+            die(
+                "Student record not found."
+            );
+        }
+
+
+        /*
+        ========================================
+        ACTUAL STUDENT ID
+        ========================================
+        */
+
+        $student_id =
+            $student->student_id;
+
+
+        /*
+        ========================================
+        GET RESULTS
+        ========================================
+        */
+
+        $results =
+            $resultModel->getStudentResults(
+                $student_id
+            );
+
+
+        /*
+        ========================================
+        LOAD VIEW
+        ========================================
+        */
+
+        $this->view(
+            'student-results',
             [
-                'user_id'   => $_SESSION['user_id'],
-                'school_id' => $school_id
+                'results' => $results
             ]
         );
-
-
-    $student =
-        $studentResult[0] ?? null;
-
-
-    /*
-    ========================================
-    STUDENT NOT FOUND
-    ========================================
-    */
-
-    if (!$student) {
-
-        die(
-            "Student record not found."
-        );
     }
-
-
-    /*
-    ========================================
-    ACTUAL STUDENT ID
-    ========================================
-    */
-
-    $student_id =
-        $student->student_id;
-
-
-    /*
-    ========================================
-    GET SEARCH
-    ========================================
-    */
-
-    $search =
-        trim(
-            $_GET['search'] ?? ''
-        );
-
-
-    /*
-    ========================================
-    GET SORT
-    ========================================
-    */
-
-    $sort =
-        $_GET['sort'] ?? 'result_id';
-
-
-    /*
-    ========================================
-    GET SORT DIRECTION
-    ========================================
-    */
-
-    $direction =
-        strtoupper(
-            $_GET['direction'] ?? 'DESC'
-        );
-
-
-    /*
-    ========================================
-    ALLOWED SORT COLUMNS
-    ========================================
-    */
-
-    $allowedSorts = [
-        'result_id',
-        'test',
-        'class',
-        'total_marks',
-        'obtained_marks',
-        'percentage',
-        'status',
-        'created_at'
-    ];
-
-
-    /*
-    ========================================
-    VALIDATE SORT
-    ========================================
-    */
-
-    if (
-        !in_array(
-            $sort,
-            $allowedSorts,
-            true
-        )
-    ) {
-
-        $sort = 'result_id';
-    }
-
-
-    /*
-    ========================================
-    VALIDATE DIRECTION
-    ========================================
-    */
-
-    if (
-        !in_array(
-            $direction,
-            ['ASC', 'DESC'],
-            true
-        )
-    ) {
-
-        $direction = 'DESC';
-    }
-
-
-    /*
-    ========================================
-    GET STUDENT RESULTS
-    ========================================
-    */
-
-    $results =
-        $resultModel->getStudentResults(
-            $student_id,
-            $search,
-            $sort,
-            $direction
-        );
-
-
-    /*
-    ========================================
-    LOAD VIEW
-    ========================================
-    */
-
-    $this->view(
-        'student-results',
-        [
-            'results'   => $results,
-            'search'    => $search,
-            'sort'      => $sort,
-            'direction' => $direction
-        ]
-    );
-}
 
     /*
 ========================================
@@ -519,7 +425,7 @@ DOWNLOAD RESULT PDF
 ========================================
 */
 
-public function download($test_id = null)
+public function download($result_id = null)
 {
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
@@ -560,7 +466,7 @@ public function download($test_id = null)
     ========================================
     */
 
-    if (!$test_id) {
+    if (!$result_id) {
 
         header(
             "Location: " .
@@ -660,7 +566,7 @@ public function download($test_id = null)
                     INNER JOIN tests t
                     ON r.test_id = t.test_id
 
-                    WHERE r.test_id = :test_id
+                    WHERE r.result_id = :result_id
 
                     AND r.student_id = :student_id
 
@@ -671,7 +577,7 @@ public function download($test_id = null)
         $resultModel->query(
             $resultQuery,
             [
-                'test_id'    => $test_id,
+                'result_id'  => $result_id,
                 'student_id' => $student_id
             ]
         );
@@ -699,10 +605,46 @@ public function download($test_id = null)
     ========================================
     */
 
+    /*
+    ========================================
+    GET QUESTIONS WITH UPLOADED IMAGES
+    ========================================
+    */
+
+    $questionQuery = "SELECT
+                        tq.question_id,
+                        tq.question,
+                        tq.question_type,
+                        tq.option_a,
+                        tq.option_b,
+                        tq.option_c,
+                        tq.option_d,
+                        tq.correct_answer,
+                        tq.correct_answers,
+                        tq.question_image,
+                        tq.marks,
+                        sa.answer AS student_answer
+
+                      FROM test_questions tq
+
+                      LEFT JOIN student_answers sa
+                        ON sa.question_id = tq.question_id
+                        AND sa.test_id = tq.test_id
+                        AND sa.student_id = :student_id
+
+                      WHERE tq.test_id = :test_id
+
+                      ORDER BY
+                        tq.question_order ASC,
+                        tq.question_id ASC";
+
     $questions =
-        $resultModel->getResultDetails(
-            $test_id,
-            $student_id
+        $resultModel->query(
+            $questionQuery,
+            [
+                'test_id'    => $result->test_id,
+                'student_id' => $student_id
+            ]
         );
 
 
@@ -774,6 +716,18 @@ public function download($test_id = null)
                 font-weight: bold;
                 font-size: 13px;
                 margin-bottom: 10px;
+            }
+
+            .question-image {
+                margin: 10px 0 12px;
+                text-align: left;
+            }
+
+            .question-image img {
+                max-width: 460px;
+                max-height: 280px;
+                width: auto;
+                height: auto;
             }
 
             .option {
@@ -957,20 +911,50 @@ public function download($test_id = null)
 
                 <?php
 
-                $studentAnswer =
-                    strtoupper(
-                        trim(
-                            $question->student_answer ?? ''
-                        )
-                    );
+                $rawStudentAnswer = $question->student_answer ?? '';
 
+                if (is_array($rawStudentAnswer)) {
+                    $studentParts = [];
+                    foreach ($rawStudentAnswer as $answerPart) {
+                        if (is_scalar($answerPart)) {
+                            $answerPart = strtoupper(trim((string) $answerPart));
+                            if ($answerPart !== '') {
+                                $studentParts[] = $answerPart;
+                            }
+                        }
+                    }
+                    $studentParts = array_values(array_unique($studentParts));
+                    sort($studentParts);
+                    $studentAnswer = implode(', ', $studentParts);
+                } else {
+                    $studentAnswer = strtoupper(trim((string) $rawStudentAnswer));
+                }
 
-                $correctAnswer =
-                    strtoupper(
-                        trim(
-                            $question->correct_answer ?? ''
-                        )
-                    );
+                $rawCorrectAnswers = $question->correct_answers ?? null;
+
+                if (is_string($rawCorrectAnswers) && $rawCorrectAnswers !== '') {
+                    $decodedCorrect = json_decode($rawCorrectAnswers, true);
+                    if (is_array($decodedCorrect)) {
+                        $rawCorrectAnswers = $decodedCorrect;
+                    }
+                }
+
+                if (is_array($rawCorrectAnswers) && !empty($rawCorrectAnswers)) {
+                    $correctParts = [];
+                    foreach ($rawCorrectAnswers as $answerPart) {
+                        if (is_scalar($answerPart)) {
+                            $answerPart = strtoupper(trim((string) $answerPart));
+                            if ($answerPart !== '') {
+                                $correctParts[] = $answerPart;
+                            }
+                        }
+                    }
+                    $correctParts = array_values(array_unique($correctParts));
+                    sort($correctParts);
+                    $correctAnswer = implode(', ', $correctParts);
+                } else {
+                    $correctAnswer = strtoupper(trim((string) ($question->correct_answer ?? '')));
+                }
 
 
                 if ($studentAnswer === '') {
@@ -1006,6 +990,89 @@ public function download($test_id = null)
                         ) ?>
 
                     </div>
+
+
+                    <?php if (!empty($question->question_image)): ?>
+
+                        <?php
+                        /*
+                        ========================================
+                        QUESTION IMAGE
+                        ========================================
+                        */
+
+                        $questionImage =
+                            ltrim(
+                                (string) $question->question_image,
+                                '/\\'
+                            );
+
+                        /*
+                         * Images uploaded by the teacher are stored
+                         * inside public/uploads/questions/.
+                         *
+                         * Use a local file URI for Dompdf so the image
+                         * is embedded in the generated PDF reliably.
+                         */
+                        $questionImageFile =
+                            dirname(__DIR__, 2) .
+                            '/public/' .
+                            $questionImage;
+
+                        if (
+                            file_exists($questionImageFile) &&
+                            is_file($questionImageFile)
+                        ):
+                        ?>
+
+                            <?php
+                            $imageMime =
+                                function_exists('mime_content_type')
+                                    ? mime_content_type($questionImageFile)
+                                    : '';
+
+                            $allowedImageMimes = [
+                                'image/jpeg',
+                                'image/png',
+                                'image/webp'
+                            ];
+
+                            if (
+                                !in_array(
+                                    $imageMime,
+                                    $allowedImageMimes,
+                                    true
+                                )
+                            ) {
+                                $imageMime = 'image/jpeg';
+                            }
+
+                            $imageData =
+                                base64_encode(
+                                    file_get_contents(
+                                        $questionImageFile
+                                    )
+                                );
+
+                            $imageSrc =
+                                'data:' .
+                                $imageMime .
+                                ';base64,' .
+                                $imageData;
+                            ?>
+
+                            <div class="question-image">
+
+                                <img
+                                    src="<?= $imageSrc ?>"
+                                    alt="Question Image"
+                                >
+
+                            </div>
+
+                        <?php endif; ?>
+
+                    <?php endif; ?>
 
 
                     <div class="option">

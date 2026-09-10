@@ -561,7 +561,7 @@ class Login extends Controller
             $user->incrementOtpAttempts($otpRecord->id);
 
             $attemptsUsed = (int) $otpRecord->attempts + 1;
-            $attemptsLeft = max(0, 10 - $attemptsUsed);
+            $attemptsLeft = max(0,  - $attemptsUsed);
 
             $data['error'] = $attemptsLeft > 0
                 ? "Invalid verification code. {$attemptsLeft} attempt(s) remaining."

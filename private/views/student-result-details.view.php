@@ -768,6 +768,13 @@ $result = $data['result'] ?? null;
                 ← Back to Results
             </a>
 
+            <a
+                href="<?= ROOT ?>/studentresults/download/<?= urlencode($result->result_id ?? '') ?>"
+                class="download-result-btn"
+            >
+                Download Result
+            </a>
+
         </div>
 
 
