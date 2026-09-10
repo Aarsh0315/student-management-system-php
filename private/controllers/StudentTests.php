@@ -1,5 +1,7 @@
 <?php
 
+require_once "../private/core/MailService.php";
+
 class StudentTests extends Controller
 {
     /*
@@ -1423,20 +1425,110 @@ CHECK ATTEMPT
                 (string) $question->question_id;
 
 
-            $student_answer =
-                strtoupper(
-                    trim(
-                        $answers[$question_id] ?? ''
-                    )
-                );
+            /*
+            ========================================
+            NORMALIZE STUDENT ANSWER
+            ========================================
+            */
 
+            $rawStudentAnswer =
+                $answers[$question_id] ?? '';
 
-            $correct_answer =
-                strtoupper(
-                    trim(
-                        $question->correct_answer ?? ''
+            /*
+            MSQ answers arrive as an array because
+            the exam form uses answers[id][].
+            */
+            if (is_array($rawStudentAnswer)) {
+                $studentAnswerParts = [];
+
+                foreach ($rawStudentAnswer as $answerPart) {
+                    if (is_scalar($answerPart)) {
+                        $studentAnswerParts[] =
+                            strtoupper(
+                                trim((string) $answerPart)
+                            );
+                    }
+                }
+
+                $studentAnswerParts =
+                    array_values(
+                        array_unique(
+                            array_filter(
+                                $studentAnswerParts,
+                                static fn($value) => $value !== ''
+                            )
+                        )
+                    );
+
+                sort($studentAnswerParts);
+
+                $student_answer =
+                    implode(',', $studentAnswerParts);
+            } else {
+                $student_answer =
+                    strtoupper(
+                        trim((string) $rawStudentAnswer)
+                    );
+            }
+
+            /*
+            ========================================
+            NORMALIZE CORRECT ANSWER
+            ========================================
+            */
+
+            $correctAnswers = [];
+
+            if (
+                isset($question->correct_answers) &&
+                $question->correct_answers !== null &&
+                $question->correct_answers !== ''
+            ) {
+                $decodedCorrectAnswers =
+                    is_string($question->correct_answers)
+                    ? json_decode(
+                        $question->correct_answers,
+                        true
                     )
-                );
+                    : $question->correct_answers;
+
+                if (is_array($decodedCorrectAnswers)) {
+                    foreach ($decodedCorrectAnswers as $answerPart) {
+                        if (is_scalar($answerPart)) {
+                            $correctAnswers[] =
+                                strtoupper(
+                                    trim((string) $answerPart)
+                                );
+                        }
+                    }
+                }
+            }
+
+            if (!empty($correctAnswers)) {
+                $correctAnswers =
+                    array_values(
+                        array_unique(
+                            array_filter(
+                                $correctAnswers,
+                                static fn($value) => $value !== ''
+                            )
+                        )
+                    );
+
+                sort($correctAnswers);
+
+                $correct_answer =
+                    implode(',', $correctAnswers);
+            } else {
+                $correct_answer =
+                    strtoupper(
+                        trim(
+                            (string) (
+                                $question->correct_answer ?? ''
+                            )
+                        )
+                    );
+            }
 
 
             /*
@@ -1612,6 +1704,84 @@ CHECK ATTEMPT
             $test_id,
             $student_id
         );
+
+
+        /*
+        ========================================
+        SEND SUBMISSION CONFIRMATION EMAIL
+        ========================================
+        */
+
+        $studentUserQuery = "SELECT
+                                email
+                             FROM users
+                             WHERE user_id = :user_id
+                             LIMIT 1";
+
+        $studentUserResult =
+            $testModel->query(
+                $studentUserQuery,
+                [
+                    'user_id' => $_SESSION['user_id']
+                ]
+            );
+
+        $studentEmail =
+            trim(
+                $studentUserResult[0]->email ?? ''
+            );
+
+        if (
+            $studentEmail !== '' &&
+            filter_var(
+                $studentEmail,
+                FILTER_VALIDATE_EMAIL
+            )
+        ) {
+            $testTitle =
+                trim(
+                    $test->title ?? 'Test'
+                );
+
+            $submittedAt =
+                date('d M Y, h:i A');
+
+            $subject =
+                'Test Submitted Successfully - ' .
+                $testTitle;
+
+            $message =
+                "Hello Student,\n\n" .
+                "Your test has been successfully submitted.\n\n" .
+                "Test: " . $testTitle . "\n" .
+                "Submitted: " . $submittedAt . "\n" .
+                "Status: Successfully Submitted\n\n" .
+                "Your result will be available once it has been evaluated.\n\n" .
+                "Regards,\n" .
+                "My School Management System";
+
+            $mailSent =
+                MailService::send(
+                    $studentEmail,
+                    $subject,
+                    $message
+                );
+
+            if (!$mailSent) {
+                error_log(
+                    'Student test submission email failed for user: ' .
+                    ($_SESSION['user_id'] ?? 'unknown') .
+                    ', test: ' .
+                    $test_id
+                );
+            }
+        } else {
+            error_log(
+                'Student test submission email skipped: invalid/missing email for user: ' .
+                ($_SESSION['user_id'] ?? 'unknown')
+            );
+        }
+
 
 
         /*
