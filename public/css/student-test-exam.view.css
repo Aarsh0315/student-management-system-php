@@ -1121,3 +1121,152 @@ body {
         width: 100%;
     }
 }
+
+
+/* ========================================
+   QUESTION IMAGE
+======================================== */
+
+.question-image {
+    width: 100%;
+    margin: 20px 0 24px;
+    text-align: center;
+}
+
+.question-image img {
+    display: block;
+    max-width: 100%;
+    max-height: 420px;
+    width: auto;
+    height: auto;
+    margin: 0 auto;
+    object-fit: contain;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    background: #f8fafc;
+}
+
+
+/* ========================================
+   MSQ OPTIONS
+======================================== */
+
+.msq-options .option {
+    cursor: pointer;
+}
+
+.msq-options .option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* ========================================
+   WRITTEN ANSWERS
+======================================== */
+
+.written-answer {
+    width: 100%;
+    margin-top: 22px;
+}
+
+.written-answer label {
+    display: block;
+    margin: 0 0 9px;
+    color: #334155;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.text-answer-input,
+.text-answer-textarea {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    background: #ffffff;
+    color: #172033;
+    border: 1px solid #dbe2ea;
+    border-radius: 9px;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+    line-height: 1.55;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+.text-answer-input {
+    min-height: 48px;
+}
+
+.text-answer-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.text-answer-textarea.short-answer {
+    min-height: 125px;
+}
+
+.text-answer-textarea.long-answer {
+    min-height: 210px;
+}
+
+.text-answer-input::placeholder,
+.text-answer-textarea::placeholder {
+    color: #94a3b8;
+}
+
+.text-answer-input:focus,
+.text-answer-textarea:focus {
+    background: #ffffff;
+    border-color: #93c5fd;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.08);
+}
+
+
+/* ========================================
+   TRUE / FALSE
+======================================== */
+
+.true-false-options {
+    max-width: 620px;
+}
+
+.true-false-options .option {
+    min-height: 56px;
+}
+
+
+/* ========================================
+   RESPONSIVE QUESTION IMAGE / ANSWERS
+======================================== */
+
+@media (max-width: 650px) {
+
+    .question-image {
+        margin: 16px 0 20px;
+    }
+
+    .question-image img {
+        max-height: 300px;
+        border-radius: 9px;
+    }
+
+    .written-answer {
+        margin-top: 18px;
+    }
+
+    .text-answer-input,
+    .text-answer-textarea {
+        font-size: 12px;
+    }
+
+    .text-answer-textarea.long-answer {
+        min-height: 180px;
+    }
+}

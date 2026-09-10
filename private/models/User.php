@@ -637,4 +637,64 @@ public function updateUser($user_id, $data)
 
     return true;
 }
+
+    /* =====================================================
+       LOGIN OTP
+    ===================================================== */
+
+    public function deleteLoginOtps($user_id)
+    {
+        $query = "DELETE FROM user_login_otps
+                  WHERE user_id = :user_id";
+        return $this->query($query, [
+            'user_id' => $user_id
+        ]);
+    }
+
+    public function createLoginOtp($user_id, $otp_hash, $expires_at)
+    {
+        $query = "INSERT INTO user_login_otps
+                  (user_id, otp_hash, expires_at)
+                  VALUES (:user_id, :otp_hash, :expires_at)";
+        return $this->query($query, [
+            'user_id' => $user_id,
+            'otp_hash' => $otp_hash,
+            'expires_at' => $expires_at
+        ]);
+    }
+
+    public function getLatestLoginOtp($user_id)
+    {
+        $query = "SELECT *
+                  FROM user_login_otps
+                  WHERE user_id = :user_id
+                  ORDER BY id DESC
+                  LIMIT 1";
+        $result = $this->query($query, [
+            'user_id' => $user_id
+        ]);
+        return $result[0] ?? false;
+    }
+
+    public function incrementOtpAttempts($id)
+    {
+        $query = "UPDATE user_login_otps
+                  SET attempts = attempts + 1
+                  WHERE id = :id
+                  LIMIT 1";
+        return $this->query($query, [
+            'id' => $id
+        ]);
+    }
+
+    public function deleteLoginOtp($id)
+    {
+        $query = "DELETE FROM user_login_otps
+                  WHERE id = :id
+                  LIMIT 1";
+        return $this->query($query, [
+            'id' => $id
+        ]);
+    }
+
 }

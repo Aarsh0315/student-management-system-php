@@ -37,7 +37,7 @@ $questions =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/student-test-exam.view.css?v=5"
+        href="<?= ROOT ?>/css/student-test-exam.view.css?v=6"
     >
 
 </head>
@@ -73,38 +73,6 @@ $questions =
 
 </div>
 
-<div
-    id="integrityWarning"
-    class="integrity-warning"
-    aria-live="polite"
-    aria-hidden="true"
->
-    <strong>Exam activity recorded</strong>
-    <span>Your activity has been recorded for review.</span>
-</div>
-
-<!-- ========================================
-     RETURN TO TEST OVERLAY
-========================================= -->
-
-<div
-    id="returnToTestOverlay"
-    class="return-to-test-overlay"
-    aria-hidden="true"
->
-    <div class="return-to-test-card">
-        <div class="return-to-test-icon">!</div>
-        <h2>Return to Test</h2>
-        <p>
-            You have left the examination window.
-            Your activity has been recorded.
-            Return to the test to continue.
-        </p>
-        <button type="button" id="returnToTestButton">
-            Go to Test
-        </button>
-    </div>
-</div>
 
 
 <!-- ========================================
@@ -121,24 +89,27 @@ $questions =
     <header class="exam-header">
 
 
-        <div class="exam-test-info">
+        <div>
 
-    <h1>
-        <?= htmlspecialchars($test->title ?? 'Test') ?>
-    </h1>
+            <h1>
 
-    <p>
-        Test ID:
-        <strong>
-            <?= htmlspecialchars($test->test_id ?? '-') ?>
-        </strong>
-    </p>
+                <?= htmlspecialchars(
+                    $test->title ?? 'Test'
+                ) ?>
 
-    <span>
-        <?= count($questions) ?> Questions
-    </span>
+            </h1>
 
-</div>
+
+            <p>
+
+                <?= count($questions) ?>
+
+                Questions
+
+            </p>
+
+        </div>
+
 
 
         <!-- ========================================
@@ -160,6 +131,7 @@ $questions =
 
 
     </header>
+
 
 
     <!-- ========================================
@@ -210,6 +182,7 @@ $questions =
 
 
         </aside>
+
 
 
         <!-- ========================================
@@ -267,6 +240,7 @@ $questions =
                     </div>
 
 
+
                     <!-- ========================================
                          QUESTION
                     ========================================= -->
@@ -281,83 +255,203 @@ $questions =
                     </h2>
 
 
+
                     <!-- ========================================
-                         MCQ OPTIONS
+                         QUESTION IMAGE
                     ========================================= -->
 
-                    <?php if (
-                        ($question->question_type ?? 'mcq')
-                        === 'mcq'
-                    ): ?>
+                    <?php if (!empty($question->question_image)): ?>
 
+                        <div class="question-image">
+                            <img
+                                src="<?= ROOT ?>/<?= htmlspecialchars(ltrim((string) $question->question_image, '/\\'), ENT_QUOTES, 'UTF-8') ?>"
+                                alt="Question image"
+                            >
+                        </div>
+
+                    <?php endif; ?>
+
+
+                    <!-- ========================================
+                         ANSWER AREA
+                    ========================================= -->
+
+                    <?php
+                        $questionType = $question->question_type ?? 'mcq';
+
+                        $options = [
+                            'A' => $question->option_a ?? '',
+                            'B' => $question->option_b ?? '',
+                            'C' => $question->option_c ?? '',
+                            'D' => $question->option_d ?? ''
+                        ];
+                    ?>
+
+
+                    <?php if ($questionType === 'mcq'): ?>
 
                         <div class="options">
 
+                            <?php foreach ($options as $letter => $option): ?>
 
-                            <?php
+                                <?php if (trim((string) $option) !== ''): ?>
 
-                            $options = [
+                                    <label class="option">
 
-                                'A' =>
-                                    $question->option_a
-                                    ?? '',
+                                        <input
+                                            type="radio"
+                                            name="answers[<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>]"
+                                            value="<?= $letter ?>"
+                                        >
 
-                                'B' =>
-                                    $question->option_b
-                                    ?? '',
+                                        <span class="option-letter">
+                                            <?= $letter ?>
+                                        </span>
 
-                                'C' =>
-                                    $question->option_c
-                                    ?? '',
+                                        <span class="option-text">
+                                            <?= htmlspecialchars($option) ?>
+                                        </span>
 
-                                'D' =>
-                                    $question->option_d
-                                    ?? ''
+                                    </label>
 
-                            ];
-
-                            ?>
-
-
-                            <?php foreach (
-                                $options as $letter => $option
-                            ): ?>
-
-
-                                <label class="option">
-
-
-                                    <input
-                                        type="radio"
-                                        name="answers[<?= $question->question_id ?>]"
-                                        value="<?= $letter ?>"
-                                    >
-
-
-                                    <span class="option-letter">
-
-                                        <?= $letter ?>
-
-                                    </span>
-
-
-                                    <span class="option-text">
-
-                                        <?= htmlspecialchars(
-                                            $option
-                                        ) ?>
-
-                                    </span>
-
-
-                                </label>
-
+                                <?php endif; ?>
 
                             <?php endforeach; ?>
 
+                        </div>
+
+
+                    <?php elseif ($questionType === 'msq'): ?>
+
+                        <div class="options msq-options">
+
+                            <?php foreach ($options as $letter => $option): ?>
+
+                                <?php if (trim((string) $option) !== ''): ?>
+
+                                    <label class="option">
+
+                                        <input
+                                            type="checkbox"
+                                            name="answers[<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>][]"
+                                            value="<?= $letter ?>"
+                                        >
+
+                                        <span class="option-letter">
+                                            <?= $letter ?>
+                                        </span>
+
+                                        <span class="option-text">
+                                            <?= htmlspecialchars($option) ?>
+                                        </span>
+
+                                    </label>
+
+                                <?php endif; ?>
+
+                            <?php endforeach; ?>
 
                         </div>
 
+
+                    <?php elseif ($questionType === 'true_false'): ?>
+
+                        <div class="options true-false-options">
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="answers[<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>]"
+                                    value="TRUE"
+                                >
+
+                                <span class="option-letter">T</span>
+
+                                <span class="option-text">True</span>
+
+                            </label>
+
+
+                            <label class="option">
+
+                                <input
+                                    type="radio"
+                                    name="answers[<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>]"
+                                    value="FALSE"
+                                >
+
+                                <span class="option-letter">F</span>
+
+                                <span class="option-text">False</span>
+
+                            </label>
+
+                        </div>
+
+
+                    <?php elseif ($questionType === 'fill_blank'): ?>
+
+                        <div class="written-answer">
+
+                            <label
+                                for="answer_<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>"
+                            >
+                                Your Answer
+                            </label>
+
+                            <input
+                                type="text"
+                                id="answer_<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>"
+                                name="answers[<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>]"
+                                class="text-answer-input"
+                                placeholder="Type your answer here..."
+                                autocomplete="off"
+                            >
+
+                        </div>
+
+
+                    <?php elseif ($questionType === 'short_answer'): ?>
+
+                        <div class="written-answer">
+
+                            <label
+                                for="answer_<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>"
+                            >
+                                Your Answer
+                            </label>
+
+                            <textarea
+                                id="answer_<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>"
+                                name="answers[<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>]"
+                                class="text-answer-textarea short-answer"
+                                rows="5"
+                                placeholder="Write your answer here..."
+                            ></textarea>
+
+                        </div>
+
+
+                    <?php elseif ($questionType === 'long_answer'): ?>
+
+                        <div class="written-answer">
+
+                            <label
+                                for="answer_<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>"
+                            >
+                                Your Answer
+                            </label>
+
+                            <textarea
+                                id="answer_<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>"
+                                name="answers[<?= htmlspecialchars($question->question_id, ENT_QUOTES, 'UTF-8') ?>]"
+                                class="text-answer-textarea long-answer"
+                                rows="10"
+                                placeholder="Write your detailed answer here..."
+                            ></textarea>
+
+                        </div>
 
                     <?php endif; ?>
 
@@ -387,6 +481,7 @@ $questions =
                 </button>
 
 
+
                 <button
                     type="button"
                     id="nextBtn"
@@ -396,6 +491,7 @@ $questions =
                     Next →
 
                 </button>
+
 
 
                 <button
@@ -419,6 +515,7 @@ $questions =
 
 
 </main>
+
 
 
 <!-- ========================================
@@ -448,96 +545,6 @@ $questions =
     background: #0f172a;
 }
 
-
-.return-to-test-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 99999;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 24px;
-    box-sizing: border-box;
-    background: rgba(15, 23, 42, 0.97);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-}
-
-.return-to-test-overlay.active {
-    display: flex;
-}
-
-.return-to-test-card {
-    width: min(100%, 430px);
-    padding: 34px;
-    box-sizing: border-box;
-    background: #ffffff;
-    border-radius: 18px;
-    text-align: center;
-    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.30);
-}
-
-.return-to-test-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #fff4e5;
-    color: #b45309;
-    font-size: 22px;
-    font-weight: 800;
-}
-
-.return-to-test-card h2 {
-    margin: 0 0 10px;
-    color: #172033;
-    font-size: 24px;
-}
-
-.return-to-test-card p {
-    margin: 0 0 22px;
-    color: #64748b;
-    font-size: 14px;
-    line-height: 1.65;
-}
-
-#returnToTestButton {
-    min-width: 150px;
-    padding: 12px 22px;
-    border: 1px solid #303641;
-    border-radius: 9px;
-    background: #303641;
-    color: #ffffff;
-    font: inherit;
-    font-size: 13px;
-    font-weight: 700;
-    cursor: pointer;
-}
-
-#returnToTestButton:hover {
-    background: #20252d;
-}
-
-/* Keep the camera stream active, but do not show it while the exam is running. */
-.exam-page.exam-blurred {
-    filter: blur(9px);
-    pointer-events: none;
-    user-select: none;
-}
-
-.exam-camera-box.exam-camera-hidden {
-    position: fixed;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    opacity: 0;
-    pointer-events: none;
-    left: -9999px;
-    top: -9999px;
-}
 
 .secure-exam-dialog {
 
@@ -624,6 +631,7 @@ $questions =
 </style>
 
 
+
 <!-- ========================================
      SUBMIT CONFIRMATION MODAL
 ======================================== -->
@@ -675,6 +683,236 @@ $questions =
 </div>
 
 
+<style>
+
+.submit-confirm-overlay {
+
+    position: fixed;
+    inset: 0;
+    z-index: 1000000;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+    box-sizing: border-box;
+
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(3px);
+}
+
+
+.submit-confirm-overlay.show {
+    display: flex;
+}
+
+
+.submit-confirm-dialog {
+
+    width: 100%;
+    max-width: 420px;
+
+    padding: 28px;
+
+    box-sizing: border-box;
+
+    background: #ffffff;
+
+    border-radius: 16px;
+
+    text-align: center;
+
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+
+.submit-confirm-dialog h2 {
+
+    margin: 0 0 10px;
+
+    color: #172033;
+
+    font-size: 21px;
+
+    font-weight: 700;
+}
+
+
+.submit-confirm-dialog p {
+
+    margin: 0;
+
+    color: #64748b;
+
+    font-size: 13px;
+
+    line-height: 1.6;
+}
+
+
+.submit-confirm-actions {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    margin-top: 24px;
+}
+
+
+.cancel-submit-btn,
+.confirm-submit-btn {
+
+    min-height: 40px;
+
+    padding: 0 18px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+
+    font-size: 12px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    transition: 0.2s ease;
+}
+
+
+.cancel-submit-btn {
+
+    background: #ffffff;
+
+    color: #374151;
+
+    border: 1px solid #dbe2ea;
+}
+
+
+.cancel-submit-btn:hover {
+
+    background: #f8fafc;
+
+    border-color: #cbd5e1;
+}
+
+
+.confirm-submit-btn {
+
+    background: #2563eb;
+
+    color: #ffffff;
+
+    border: 1px solid #2563eb;
+
+    box-shadow:
+        0 3px 8px rgba(37, 99, 235, 0.18);
+}
+
+
+.confirm-submit-btn:hover {
+
+    background: #1d4ed8;
+
+    border-color: #1d4ed8;
+}
+
+
+.confirm-submit-btn:disabled {
+
+    background: #94a3b8;
+
+    border-color: #94a3b8;
+
+    cursor: wait;
+
+    box-shadow: none;
+}
+
+
+@media (max-width: 500px) {
+
+    .submit-confirm-actions {
+        flex-direction: column-reverse;
+    }
+
+    .cancel-submit-btn,
+    .confirm-submit-btn {
+        width: 100%;
+    }
+
+}
+
+</style>
+
+
+
+<style>
+.question-image {
+    margin: 20px 0 24px;
+    text-align: center;
+}
+
+.question-image img {
+    display: block;
+    max-width: 100%;
+    max-height: 420px;
+    margin: 0 auto;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    object-fit: contain;
+}
+
+.written-answer {
+    margin-top: 22px;
+}
+
+.written-answer label {
+    display: block;
+    margin-bottom: 8px;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.text-answer-input,
+.text-answer-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 13px 14px;
+    border: 1px solid #d7dee8;
+    border-radius: 10px;
+    background: #fff;
+    color: #172033;
+    font: inherit;
+    font-size: 14px;
+    outline: none;
+    resize: vertical;
+}
+
+.text-answer-input:focus,
+.text-answer-textarea:focus {
+    border-color: #94a3b8;
+    box-shadow: 0 0 0 3px rgba(148, 163, 184, 0.16);
+}
+
+.text-answer-textarea.long-answer {
+    min-height: 190px;
+}
+
+.msq-options input[type="checkbox"] {
+    accent-color: #303641;
+}
+</style>
+
+
 <script>
 
 /* =========================================================
@@ -695,36 +933,10 @@ const submitUrl =
         $test->test_id
     ) ?>";
 
-const csrfToken = "<?= htmlspecialchars(CSRF::token(), ENT_QUOTES, 'UTF-8') ?>";
-
-const integrityEventUrl = "<?= ROOT ?>/studenttests/event";
-
-
-function logExamEvent(eventType) {
-
-    fetch(integrityEventUrl, {
-
-        method: "POST",
-
-        keepalive: true,
-
-        headers: {
-            "Content-Type": "application/x-www-form-urlencoded"
-        },
-
-        body:
-            "csrf_token=" + encodeURIComponent(csrfToken) +
-            "&test_id=" + encodeURIComponent("<?= $test->test_id ?>") +
-            "&event_type=" + encodeURIComponent(eventType)
-
-    }).catch(() => {
-        // Do not interrupt the exam if event logging fails
-    });
-
-}
 
 const testsUrl =
     "<?= ROOT ?>/studenttests";
+
 
 
 /* =========================================================
@@ -745,6 +957,7 @@ const questionButtons =
 
 
 let currentQuestion = 0;
+
 
 
 function showQuestion(index) {
@@ -801,6 +1014,7 @@ function showQuestion(index) {
 }
 
 
+
 /* =========================================================
    QUESTION NUMBER CLICK
 ========================================================= */
@@ -824,6 +1038,7 @@ questionButtons.forEach(
 
     }
 );
+
 
 
 /* =========================================================
@@ -852,6 +1067,7 @@ document
     );
 
 
+
 /* =========================================================
    PREVIOUS
 ========================================================= */
@@ -877,6 +1093,7 @@ document
     );
 
 
+
 /* =========================================================
    TIMER
 ========================================================= */
@@ -894,6 +1111,7 @@ const timerElement =
     document.getElementById(
         'timer'
     );
+
 
 
 function updateTimer() {
@@ -951,6 +1169,7 @@ function updateTimer() {
 }
 
 
+
 updateTimer();
 
 
@@ -961,6 +1180,7 @@ timerInterval =
     );
 
 
+
 /* =========================================================
    SUBMISSION
 ========================================================= */
@@ -968,6 +1188,7 @@ timerInterval =
 
 let testSubmitting =
     false;
+
 
 
 /*
@@ -984,7 +1205,7 @@ function collectAnswers(
 
     document
         .querySelectorAll(
-            'input[name^="answers["]:checked'
+            'input[name^="answers["]:checked, input[type="text"][name^="answers["], textarea[name^="answers["]'
         )
         .forEach(
             function(input) {
@@ -998,6 +1219,7 @@ function collectAnswers(
         );
 
 }
+
 
 
 /*
@@ -1137,6 +1359,7 @@ document.addEventListener(
 );
 
 
+
 /*
 ========================================
 SUBMIT TEST
@@ -1200,9 +1423,6 @@ function submitTest() {
     }
 
 
-    logExamEvent('exam_submitted');
-
-
     /*
     Create form
     */
@@ -1220,22 +1440,6 @@ function submitTest() {
     form.action =
         submitUrl;
 
-    const csrfInput =
-    document.createElement('input');
-
-    csrfInput.type =
-        'hidden';
-
-    csrfInput.name =
-        'csrf_token';
-
-    csrfInput.value =
-        csrfToken;
-
-    form.appendChild(
-        csrfInput
-    );
-
 
     /*
     Add answers
@@ -1243,7 +1447,7 @@ function submitTest() {
 
     document
         .querySelectorAll(
-            'input[name^="answers["]:checked'
+            'input[name^="answers["]:checked, input[type="text"][name^="answers["], textarea[name^="answers["]'
         )
         .forEach(
             function(input) {
@@ -1283,6 +1487,7 @@ function submitTest() {
     form.submit();
 
 }
+
 
 
 /*
@@ -1328,20 +1533,12 @@ function autoSubmitExam() {
     }
 
 
-    logExamEvent('exam_submitted');
-
-
     /*
     Collect answers
     */
 
     const formData =
         new FormData();
-
-    formData.append(
-    'csrf_token',
-    csrfToken
-);    
 
 
     collectAnswers(
@@ -1413,6 +1610,7 @@ function autoSubmitExam() {
 }
 
 
+
 /* =========================================================
    CAMERA
 ========================================================= */
@@ -1434,6 +1632,7 @@ let examCameraStream =
     null;
 
 
+
 async function startExamCamera() {
 
 
@@ -1452,8 +1651,6 @@ async function startExamCamera() {
 
         examCameraStatus.innerHTML =
             '<span></span> Camera unavailable';
-
-        logExamEvent('camera_disconnected');
 
 
         return false;
@@ -1480,27 +1677,6 @@ async function startExamCamera() {
         examCamera.srcObject =
             examCameraStream;
 
-        /*
-         * Detect when the camera is disconnected or
-         * permission/device access is lost during the exam.
-         */
-        examCameraStream.getVideoTracks().forEach(
-            function(track) {
-                track.addEventListener(
-                    'ended',
-                    function() {
-                        if (examLocked && !testSubmitting) {
-                            examCameraStatus.classList.remove('ready');
-                            examCameraStatus.classList.add('error');
-                            examCameraStatus.innerHTML =
-                                '<span></span> Camera Disconnected';
-
-                            logExamEvent('camera_disconnected');
-                        }
-                    }
-                );
-            }
-        );
 
         examCameraStatus
             .classList
@@ -1510,8 +1686,6 @@ async function startExamCamera() {
         examCameraStatus.innerHTML =
 
             '<span></span> Camera Active';
-
-        logExamEvent('camera_connected');
 
 
         return true;
@@ -1539,14 +1713,13 @@ async function startExamCamera() {
 
             '<span></span> Camera Required';
 
-        logExamEvent('camera_disconnected');
-
 
         return false;
 
     }
 
 }
+
 
 
 /*
@@ -1583,6 +1756,7 @@ function stopExamCamera() {
 }
 
 
+
 /* =========================================================
    SECURE EXAM
 ========================================================= */
@@ -1590,6 +1764,7 @@ function stopExamCamera() {
 
 let examLocked =
     false;
+
 
 
 /*
@@ -1609,6 +1784,7 @@ secureOverlay.id =
     'secureExamOverlay';
 
 
+
 secureOverlay.innerHTML = `
 
     <div class="secure-exam-dialog">
@@ -1619,15 +1795,16 @@ secureOverlay.innerHTML = `
 
         <p>
 
-            Camera access is required before the test starts.
+            Your examination will open
+            in fullscreen mode.
 
-            The test will open in fullscreen mode so the
-            examination area is the only visible test interface.
+            Do not leave the
+            examination window.
 
-            If you leave the test window or fullscreen mode,
-            the question paper will be protected and you will
-            be asked to return to the test. Your activity may
-            be recorded for teacher review.
+            Leaving fullscreen or
+            switching to another tab
+            will submit your test
+            automatically.
 
         </p>
 
@@ -1645,15 +1822,18 @@ secureOverlay.innerHTML = `
 `;
 
 
+
 document.body.appendChild(
     secureOverlay
 );
+
 
 
 const beginSecureExam =
     document.getElementById(
         'beginSecureExam'
     );
+
 
 
 /* =========================================================
@@ -1715,6 +1895,7 @@ async function enterFullscreen() {
 }
 
 
+
 /* =========================================================
    START SECURE EXAM
 ========================================================= */
@@ -1743,12 +1924,48 @@ beginSecureExam
                 'Starting...';
 
 
+
             /*
-            Camera must be connected before the test starts.
+            Fullscreen
+            */
+
+            const fullscreenStarted =
+                await enterFullscreen();
+
+
+
+            if (
+                !fullscreenStarted
+            ) {
+
+
+                beginSecureExam.disabled =
+                    false;
+
+
+                beginSecureExam.textContent =
+                    'Start Secure Exam';
+
+
+                alert(
+                    'Fullscreen could not be started. ' +
+                    'Please click Start Secure Exam again.'
+                );
+
+
+                return;
+
+            }
+
+
+
+            /*
+            Camera
             */
 
             const cameraStarted =
                 await startExamCamera();
+
 
 
             if (
@@ -1787,31 +2004,6 @@ beginSecureExam
             }
 
 
-            /*
-            Fullscreen starts only after camera access succeeds.
-            */
-
-            const fullscreenStarted =
-                await enterFullscreen();
-
-            if (!fullscreenStarted) {
-
-                stopExamCamera();
-
-                beginSecureExam.disabled =
-                    false;
-
-                beginSecureExam.textContent =
-                    'Start Secure Exam';
-
-                alert(
-                    'Fullscreen could not be started. ' +
-                    'Please allow fullscreen and try again.'
-                );
-
-                return;
-            }
-
 
             /*
             Exam is now locked
@@ -1820,24 +2012,12 @@ beginSecureExam
             examLocked =
                 true;
 
-            /*
-            Keep the camera stream active but hide its preview.
-            The student should see only the test interface.
-            */
-
-            const cameraBox =
-                document.querySelector('.exam-camera-box');
-
-            if (cameraBox) {
-                cameraBox.classList.add('exam-camera-hidden');
-            }
-
-            logExamEvent('exam_started');
 
             secureOverlay.remove();
 
         }
     );
+
 
 
 /* =========================================================
@@ -1856,13 +2036,11 @@ document.addEventListener(
 
             event.preventDefault();
 
-            logExamEvent('right_click_attempt');
-            showIntegrityWarning();
-
         }
 
     }
 );
+
 
 
 /* =========================================================
@@ -1890,19 +2068,6 @@ document.addEventListener(
 
                     event.preventDefault();
 
-                    if (eventName === 'copy') {
-                        logExamEvent('copy_attempt');
-                    }
-
-                    if (eventName === 'paste') {
-                        logExamEvent('paste_attempt');
-                    }
-
-                    if (eventName === 'cut') {
-                        logExamEvent('copy_attempt');
-                    }
-
-                    showIntegrityWarning();
                 }
 
             }
@@ -1910,6 +2075,7 @@ document.addEventListener(
 
     }
 );
+
 
 
 /* =========================================================
@@ -1935,6 +2101,7 @@ document.addEventListener(
             event.key.toLowerCase();
 
 
+
         /*
         F12 / F11
         */
@@ -1957,44 +2124,52 @@ document.addEventListener(
         }
 
 
+
         /*
         CTRL shortcuts
         */
 
         if (
+
             event.ctrlKey
+
             &&
+
             (
+
                 key === 'c'
+
                 ||
+
                 key === 'v'
+
                 ||
+
                 key === 'x'
+
                 ||
+
                 key === 'u'
+
                 ||
+
                 key === 's'
+
                 ||
+
                 key === 'p'
+
             )
+
         ) {
+
+
             event.preventDefault();
 
-            if (key === 'c') {
-                logExamEvent('copy_attempt');
-            }
-
-            if (key === 'v') {
-                logExamEvent('paste_attempt');
-            }
-
-            if (key === 'x') {
-                logExamEvent('copy_attempt');
-            }
-
-            showIntegrityWarning();
             return;
+
         }
+
 
 
         /*
@@ -2035,6 +2210,7 @@ document.addEventListener(
         }
 
 
+
         /*
         Browser back / forward
         */
@@ -2068,6 +2244,7 @@ document.addEventListener(
 );
 
 
+
 /* =========================================================
    BACK BUTTON
 ========================================================= */
@@ -2078,6 +2255,7 @@ history.pushState(
     '',
     location.href
 );
+
 
 
 window.addEventListener(
@@ -2102,91 +2280,6 @@ window.addEventListener(
 );
 
 
-/* =========================================================
-   RETURN TO TEST PROTECTION
-========================================================= */
-
-const returnToTestOverlay =
-    document.getElementById('returnToTestOverlay');
-
-const returnToTestButton =
-    document.getElementById('returnToTestButton');
-
-
-function showReturnToTestOverlay(reason) {
-
-    if (!returnToTestOverlay) {
-        return;
-    }
-
-    if (reason === 'fullscreen_exited') {
-        returnToTestOverlay.querySelector('p').textContent =
-            'Fullscreen mode was exited. Your activity has been recorded. Return to the test to continue.';
-    } else {
-        returnToTestOverlay.querySelector('p').textContent =
-            'You have left the examination window. Your activity has been recorded. Return to the test to continue.';
-    }
-
-    const examPage =
-        document.querySelector('.exam-page');
-
-    if (examPage) {
-        examPage.classList.add('exam-blurred');
-    }
-
-    returnToTestOverlay.classList.add('active');
-    returnToTestOverlay.setAttribute('aria-hidden', 'false');
-}
-
-
-function hideReturnToTestOverlay() {
-
-    if (!returnToTestOverlay) {
-        return;
-    }
-
-    const examPage =
-        document.querySelector('.exam-page');
-
-    if (examPage) {
-        examPage.classList.remove('exam-blurred');
-    }
-
-    returnToTestOverlay.classList.remove('active');
-    returnToTestOverlay.setAttribute('aria-hidden', 'true');
-}
-
-
-if (returnToTestButton) {
-
-    returnToTestButton.addEventListener(
-        'click',
-        async function() {
-
-            if (testSubmitting || !examLocked) {
-                return;
-            }
-
-            returnToTestButton.disabled = true;
-            returnToTestButton.textContent = 'Returning...';
-
-            const fullscreenStarted =
-                await enterFullscreen();
-
-            if (fullscreenStarted) {
-                hideReturnToTestOverlay();
-            } else {
-                alert(
-                    'Please click Go to Test again and allow fullscreen mode.'
-                );
-            }
-
-            returnToTestButton.disabled = false;
-            returnToTestButton.textContent = 'Go to Test';
-        }
-    );
-}
-
 
 /* =========================================================
    TAB CHANGE
@@ -2207,28 +2300,29 @@ document.addEventListener(
     'visibilitychange',
     function() {
 
-        if (
-            document.hidden
-            &&
-            examLocked
-            &&
-            !testSubmitting
-        ) {
-            logExamEvent('tab_switch');
-        }
 
         if (
-            !document.hidden
+
+            document.hidden
+
             &&
+
             examLocked
+
             &&
+
             !testSubmitting
+
         ) {
-            showReturnToTestOverlay('tab_switch');
+
+
+            autoSubmitExam();
+
         }
 
     }
 );
+
 
 
 /* =========================================================
@@ -2240,31 +2334,29 @@ document.addEventListener(
     'fullscreenchange',
     function() {
 
-        if (
-            document.fullscreenElement
-            &&
-            examLocked
-        ) {
-
-            logExamEvent('fullscreen_entered');
-
-        }
-
 
         if (
+
             !document.fullscreenElement
+
             &&
+
             examLocked
+
             &&
+
             !testSubmitting
+
         ) {
-            logExamEvent('fullscreen_exited');
-            showIntegrityWarning();
-            showReturnToTestOverlay('fullscreen_exited');
+
+
+            autoSubmitExam();
+
         }
 
     }
 );
+
 
 
 /* =========================================================
@@ -2275,16 +2367,28 @@ document.addEventListener(
 window.addEventListener(
     'pagehide',
     function() {
-        /*
-         * Do not submit automatically here.
-         * Browser close/refresh can be triggered by normal
-         * navigation and should not destroy the student's attempt.
-         */
-        if (!examLocked || testSubmitting) {
+
+
+        if (
+
+            !examLocked
+
+            ||
+
+            testSubmitting
+
+        ) {
+
             return;
+
         }
+
+
+        autoSubmitExam();
+
     }
 );
+
 
 
 /* =========================================================

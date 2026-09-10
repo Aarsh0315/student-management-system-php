@@ -1,5 +1,7 @@
 <?php
 
+require_once "../private/core/MailService.php";
+
 class Login extends Controller
 {
     public function index()
@@ -324,69 +326,125 @@ class Login extends Controller
 
                                 /*
                                 ========================================
-                                SUPER ADMIN LOGIN
+                                SUPER ADMIN 2FA
                                 ========================================
                                 */
 
-                                session_regenerate_id(true);
+                                if ($result->rank === 'super_admin') {
 
+                                    $otp = (string) random_int(100000, 999999);
 
-                                $_SESSION['user_id'] =
-                                    $result->user_id;
+                                    $otpHash = password_hash(
+                                        $otp,
+                                        PASSWORD_DEFAULT
+                                    );
 
-                                $_SESSION['firstname'] =
-                                    $result->firstname;
+                                    $expiresAt = date(
+                                        'Y-m-d H:i:s',
+                                        time() + (5 * 60)
+                                    );
 
-                                $_SESSION['lastname'] =
-                                    $result->lastname;
+                                    $user->deleteLoginOtps(
+                                        $result->user_id
+                                    );
 
-                                $_SESSION['email'] =
-                                    $result->email;
+                                    $user->createLoginOtp(
+                                        $result->user_id,
+                                        $otpHash,
+                                        $expiresAt
+                                    );
 
-                                $_SESSION['gender'] =
-                                    $result->gender;
+                                    $subject =
+                                        "Your My School Management System Login OTP";
 
-                                $_SESSION['rank'] =
-                                    $result->rank;
+                                    $message =
+                                        "Hello {$result->firstname},\n\n" .
+                                        "Your Super Admin login verification code is: {$otp}\n\n" .
+                                        "This OTP will expire in 5 minutes.\n" .
+                                        "If you did not attempt to log in, please secure your account.\n\n" .
+                                        "Regards,\n" .
+                                        "My School Management System";
 
-                                $_SESSION['school_id'] =
-                                    $result->school_id;
+                                    $mailSent = MailService::send(
+                                        $result->email,
+                                        $subject,
+                                        $message
+                                    );
 
+                                    if (!$mailSent) {
 
-                                $_SESSION['login_time'] =
-                                    time();
+                                        $user->deleteLoginOtps(
+                                            $result->user_id
+                                        );
 
-                                $_SESSION['last_activity'] =
-                                    time();
+                                        $data['error'] =
+                                            "Unable to send the verification code. Please try again.";
 
+                                    } else {
 
-                                /*
-                                ========================================
-                                SUPER ADMIN REDIRECT
-                                ========================================
-                                */
+                                        session_regenerate_id(true);
 
-                                if (
-                                    $result->rank === 'super_admin'
-                                ) {
+                                        $_SESSION['2fa_pending'] = true;
+                                        $_SESSION['2fa_user_id'] =
+                                            $result->user_id;
+                                        $_SESSION['2fa_email'] =
+                                            $result->email;
+                                        $_SESSION['2fa_expires'] =
+                                            strtotime($expiresAt);
+
+                                        $data['otp_required'] = true;
+                                        $data['otp_email'] =
+                                            $result->email;
+
+                                        $data['message'] =
+                                            "A verification code has been sent to your email.";
+                                    }
+
+                                } else {
+
+                                    /*
+                                    ========================================
+                                    LOGIN SUCCESS
+                                    ========================================
+                                    */
+
+                                    session_regenerate_id(true);
+
+                                    $_SESSION['user_id'] =
+                                        $result->user_id;
+
+                                    $_SESSION['firstname'] =
+                                        $result->firstname;
+
+                                    $_SESSION['lastname'] =
+                                        $result->lastname;
+
+                                    $_SESSION['email'] =
+                                        $result->email;
+
+                                    $_SESSION['gender'] =
+                                        $result->gender;
+
+                                    $_SESSION['rank'] =
+                                        $result->rank;
+
+                                    $_SESSION['school_id'] =
+                                        $result->school_id;
+
+                                    $_SESSION['login_time'] =
+                                        time();
+
+                                    $_SESSION['last_activity'] =
+                                        time();
 
                                     header(
                                         "Location: "
                                         . ROOT
-                                        . "/superadmin"
+                                        . "/home"
                                     );
 
                                     exit;
                                 }
-
-
-                                header(
-                                    "Location: "
-                                    . ROOT
-                                    . "/home"
-                                );
-
-                                exit;
                             }
                         }
                     }
@@ -406,4 +464,174 @@ class Login extends Controller
             $data
         );
     }
+
+    public function verify()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        $data = [];
+
+        if (
+            empty($_SESSION['2fa_pending']) ||
+            empty($_SESSION['2fa_user_id']) ||
+            empty($_SESSION['2fa_email']) ||
+            empty($_SESSION['2fa_expires'])
+        ) {
+            header("Location: " . ROOT . "/login");
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            header("Location: " . ROOT . "/login");
+            exit;
+        }
+
+        if (!CSRF::verify($_POST['csrf_token'] ?? '')) {
+            $data['error'] = "Invalid security request. Please try again.";
+            $data['otp_required'] = true;
+            $data['otp_email'] = $_SESSION['2fa_email'];
+            $this->view('login', $data);
+            return;
+        }
+
+        $otp = trim($_POST['otp'] ?? '');
+
+        if (!preg_match('/^\d{6}$/', $otp)) {
+            $data['error'] = "Please enter the 6-digit verification code.";
+            $data['otp_required'] = true;
+            $data['otp_email'] = $_SESSION['2fa_email'];
+            $this->view('login', $data);
+            return;
+        }
+
+        if (time() > (int) $_SESSION['2fa_expires']) {
+            $user = $this->model("User");
+            $user->deleteLoginOtps($_SESSION['2fa_user_id']);
+
+            unset(
+                $_SESSION['2fa_pending'],
+                $_SESSION['2fa_user_id'],
+                $_SESSION['2fa_email'],
+                $_SESSION['2fa_expires']
+            );
+
+            $data['error'] = "This verification code has expired. Please log in again.";
+            $this->view('login', $data);
+            return;
+        }
+
+        $user = $this->model("User");
+        $userId = $_SESSION['2fa_user_id'];
+        $otpRecord = $user->getLatestLoginOtp($userId);
+
+        if (!$otpRecord) {
+            unset(
+                $_SESSION['2fa_pending'],
+                $_SESSION['2fa_user_id'],
+                $_SESSION['2fa_email'],
+                $_SESSION['2fa_expires']
+            );
+
+            $data['error'] = "Verification code not found. Please log in again.";
+            $this->view('login', $data);
+            return;
+        }
+
+        if ((int) $otpRecord->attempts >= 5) {
+            $user->deleteLoginOtp($otpRecord->id);
+
+            unset(
+                $_SESSION['2fa_pending'],
+                $_SESSION['2fa_user_id'],
+                $_SESSION['2fa_email'],
+                $_SESSION['2fa_expires']
+            );
+
+            $data['error'] = "Too many incorrect attempts. Please log in again.";
+            $this->view('login', $data);
+            return;
+        }
+
+        if (
+            strtotime($otpRecord->expires_at) < time() ||
+            !password_verify($otp, $otpRecord->otp_hash)
+        ) {
+            $user->incrementOtpAttempts($otpRecord->id);
+
+            $attemptsUsed = (int) $otpRecord->attempts + 1;
+            $attemptsLeft = max(0, 10 - $attemptsUsed);
+
+            $data['error'] = $attemptsLeft > 0
+                ? "Invalid verification code. {$attemptsLeft} attempt(s) remaining."
+                : "Too many incorrect attempts. Please log in again.";
+
+            if ($attemptsLeft === 0) {
+                $user->deleteLoginOtp($otpRecord->id);
+
+                unset(
+                    $_SESSION['2fa_pending'],
+                    $_SESSION['2fa_user_id'],
+                    $_SESSION['2fa_email'],
+                    $_SESSION['2fa_expires']
+                );
+
+                $this->view('login', $data);
+                return;
+            }
+
+            $data['otp_required'] = true;
+            $data['otp_email'] = $_SESSION['2fa_email'];
+            $this->view('login', $data);
+            return;
+        }
+
+        $result = $user->findByEmail($_SESSION['2fa_email']);
+
+        if (
+            !$result ||
+            $result->user_id !== $userId ||
+            $result->rank !== 'super_admin' ||
+            (isset($result->status) && $result->status !== 'active')
+        ) {
+            $user->deleteLoginOtp($otpRecord->id);
+
+            unset(
+                $_SESSION['2fa_pending'],
+                $_SESSION['2fa_user_id'],
+                $_SESSION['2fa_email'],
+                $_SESSION['2fa_expires']
+            );
+
+            $data['error'] = "Unable to complete login. Please try again.";
+            $this->view('login', $data);
+            return;
+        }
+
+        $user->deleteLoginOtp($otpRecord->id);
+
+        session_regenerate_id(true);
+
+        $_SESSION['user_id'] = $result->user_id;
+        $_SESSION['firstname'] = $result->firstname;
+        $_SESSION['lastname'] = $result->lastname;
+        $_SESSION['email'] = $result->email;
+        $_SESSION['gender'] = $result->gender;
+        $_SESSION['rank'] = $result->rank;
+        $_SESSION['school_id'] = $result->school_id;
+        $_SESSION['login_time'] = time();
+        $_SESSION['last_activity'] = time();
+
+        unset(
+            $_SESSION['2fa_pending'],
+            $_SESSION['2fa_user_id'],
+            $_SESSION['2fa_email'],
+            $_SESSION['2fa_expires']
+        );
+
+        header("Location: " . ROOT . "/superadmin");
+        exit;
+    }
+
 }

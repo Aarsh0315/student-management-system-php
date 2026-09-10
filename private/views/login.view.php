@@ -1,6 +1,8 @@
 <?php
 
 $error = $data['error'] ?? '';
+$otpRequired = !empty($data['otp_required']);
+$otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
 
 ?>
 
@@ -22,6 +24,64 @@ $error = $data['error'] ?? '';
         rel="stylesheet"
         href="<?= ROOT ?>/css/login.view.css?v=6"
     >
+
+<style>
+.otp-info {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 22px;
+    padding: 13px 14px;
+    border: 1px solid #e5e9ee;
+    border-radius: 12px;
+    background: #f8fafb;
+}
+.otp-icon {
+    width: 30px;
+    height: 30px;
+    flex: 0 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: #eaf7ef;
+    color: #2f8f57;
+    font-weight: 800;
+}
+.otp-info strong,
+.otp-info span {
+    display: block;
+}
+.otp-info strong {
+    margin-bottom: 3px;
+    color: #292333;
+    font-size: 13px;
+}
+.otp-info span {
+    color: #707783;
+    font-size: 11px;
+    line-height: 1.5;
+}
+.otp-form #otp {
+    text-align: center;
+    letter-spacing: 6px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.otp-back-link {
+    margin-top: 15px;
+    text-align: center;
+}
+.otp-back-link a {
+    color: #707783;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+.otp-back-link a:hover {
+    color: #a32675;
+}
+</style>
 
 </head>
 
@@ -224,18 +284,44 @@ $error = $data['error'] ?? '';
 
                 <div class="login-heading">
 
-                    <span class="welcome-label">
-                        WELCOME BACK
-                    </span>
+                    <?php if ($otpRequired): ?>
 
-                    <h2>
-                        Sign in to your account
-                    </h2>
+                        <span class="welcome-label">
+                            SECURITY VERIFICATION
+                        </span>
 
-                    <p>
-                        Enter your credentials to continue
-                        to your dashboard.
-                    </p>
+                        <h2>
+                            Verify your identity
+                        </h2>
+
+                        <p>
+                            Enter the 6-digit verification code
+                            sent to
+                            <strong>
+                                <?= htmlspecialchars(
+                                    $otpEmail,
+                                    ENT_QUOTES,
+                                    'UTF-8'
+                                ) ?>
+                            </strong>.
+                        </p>
+
+                    <?php else: ?>
+
+                        <span class="welcome-label">
+                            WELCOME BACK
+                        </span>
+
+                        <h2>
+                            Sign in to your account
+                        </h2>
+
+                        <p>
+                            Enter your credentials to continue
+                            to your dashboard.
+                        </p>
+
+                    <?php endif; ?>
 
                 </div>
 
@@ -274,182 +360,286 @@ $error = $data['error'] ?? '';
                      FORM
                 ====================================== -->
 
-                <form
-                    method="POST"
-                    action="<?= ROOT ?>/login"
-                    class="login-form"
-                >
+                <?php if ($otpRequired): ?>
 
-                    <?= CSRF::field() ?>
-
-
-                    <!-- EMAIL -->
-
-                    <div class="form-group">
-
-                        <label for="email">
-                            Email address
-                        </label>
-
-                        <div class="input-wrapper">
-
-                            <span class="input-icon">
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    aria-hidden="true"
-                                >
-                                    <path
-                                        d="M4 5h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2z"
-                                    />
-
-                                    <path
-                                        d="m4 7 8 6 8-6"
-                                    />
-                                </svg>
-                            </span>
-
-                            <input
-                                type="email"
-                                name="email"
-                                id="email"
-                                placeholder="Enter your email address"
-                                autocomplete="email"
-                                required
-                            >
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- PASSWORD -->
-
-                    <div class="form-group">
-
-                        <label for="password">
-                            Password
-                        </label>
-
-                        <div class="input-wrapper">
-
-                            <span class="input-icon">
-
-                                <svg
-                                    viewBox="0 0 24 24"
-                                    aria-hidden="true"
-                                >
-
-                                    <rect
-                                        x="4"
-                                        y="10"
-                                        width="16"
-                                        height="11"
-                                        rx="2"
-                                    />
-
-                                    <path
-                                        d="M8 10V7a4 4 0 0 1 8 0v3"
-                                    />
-
-                                </svg>
-
-                            </span>
-
-
-                            <input
-                                type="password"
-                                name="password"
-                                id="password"
-                                placeholder="Enter your password"
-                                autocomplete="current-password"
-                                required
-                            >
-
-
-                            <button
-                                type="button"
-                                class="password-toggle"
-                                onclick="togglePassword()"
-                                aria-label="Show password"
-                            >
-
-                                <svg
-                                    id="eyeIcon"
-                                    viewBox="0 0 24 24"
-                                    aria-hidden="true"
-                                >
-
-                                    <path
-                                        d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"
-                                    />
-
-                                    <circle
-                                        cx="12"
-                                        cy="12"
-                                        r="2.5"
-                                    />
-
-                                </svg>
-
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- OPTIONS -->
-
-                    <div class="login-options">
-
-
-                        <label class="remember">
-
-                            <input
-                                type="checkbox"
-                                name="remember"
-                            >
-
-                            <span class="custom-checkbox"></span>
-
-                            <span class="remember-text">
-                                Remember me
-                            </span>
-
-                        </label>
-
-
-                        <a
-                            href="<?= ROOT ?>/forgotpassword"
-                            class="forgot-password"
-                        >
-                            Forgot password?
-                        </a>
-
-
-                    </div>
-
-
-                    <!-- LOGIN BUTTON -->
-
-                    <button
-                        type="submit"
-                        class="login-btn"
+                    <form
+                        method="POST"
+                        action="<?= ROOT ?>/login/verify"
+                        class="login-form otp-form"
                     >
 
-                        <span>
-                            Sign in
-                        </span>
+                        <?= CSRF::field() ?>
 
-                        <span class="button-arrow">
-                            →
-                        </span>
+                        <div class="otp-info">
+                            <div class="otp-icon">✓</div>
 
-                    </button>
+                            <div>
+                                <strong>
+                                    Verification code sent
+                                </strong>
+
+                                <span>
+                                    Check your email and enter the
+                                    code below. The code is valid for
+                                    5 minutes.
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="otp">
+                                Verification code
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                    >
+                                        <rect
+                                            x="4"
+                                            y="4"
+                                            width="16"
+                                            height="16"
+                                            rx="3"
+                                        />
+
+                                        <path d="M8 8h.01" />
+                                        <path d="M12 8h.01" />
+                                        <path d="M16 8h.01" />
+                                        <path d="M8 12h.01" />
+                                        <path d="M12 12h.01" />
+                                        <path d="M16 12h.01" />
+                                        <path d="M8 16h.01" />
+                                        <path d="M12 16h.01" />
+                                        <path d="M16 16h.01" />
+                                    </svg>
+                                </span>
+
+                                <input
+                                    type="text"
+                                    name="otp"
+                                    id="otp"
+                                    inputmode="numeric"
+                                    pattern="[0-9]{6}"
+                                    maxlength="6"
+                                    autocomplete="one-time-code"
+                                    placeholder="Enter 6-digit code"
+                                    required
+                                    autofocus
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="login-btn"
+                        >
+
+                            <span>
+                                Verify & Continue
+                            </span>
+
+                            <span class="button-arrow">
+                                →
+                            </span>
+
+                        </button>
+
+                        <div class="otp-back-link">
+
+                            <a href="<?= ROOT ?>/login">
+                                ← Back to login
+                            </a>
+
+                        </div>
+
+                    </form>
+
+                <?php else: ?>
+
+                    <form
+                        method="POST"
+                        action="<?= ROOT ?>/login"
+                        class="login-form"
+                    >
+
+                        <?= CSRF::field() ?>
 
 
-                </form>
+                        <!-- EMAIL -->
 
+                        <div class="form-group">
+
+                            <label for="email">
+                                Email address
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M4 5h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2z"
+                                        />
+
+                                        <path
+                                            d="m4 7 8 6 8-6"
+                                        />
+                                    </svg>
+                                </span>
+
+                                <input
+                                    type="email"
+                                    name="email"
+                                    id="email"
+                                    placeholder="Enter your email address"
+                                    autocomplete="email"
+                                    required
+                                >
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- PASSWORD -->
+
+                        <div class="form-group">
+
+                            <label for="password">
+                                Password
+                            </label>
+
+                            <div class="input-wrapper">
+
+                                <span class="input-icon">
+
+                                    <svg
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                    >
+
+                                        <rect
+                                            x="4"
+                                            y="10"
+                                            width="16"
+                                            height="11"
+                                            rx="2"
+                                        />
+
+                                        <path
+                                            d="M8 10V7a4 4 0 0 1 8 0v3"
+                                        />
+
+                                    </svg>
+
+                                </span>
+
+
+                                <input
+                                    type="password"
+                                    name="password"
+                                    id="password"
+                                    placeholder="Enter your password"
+                                    autocomplete="current-password"
+                                    required
+                                >
+
+
+                                <button
+                                    type="button"
+                                    class="password-toggle"
+                                    onclick="togglePassword()"
+                                    aria-label="Show password"
+                                >
+
+                                    <svg
+                                        id="eyeIcon"
+                                        viewBox="0 0 24 24"
+                                        aria-hidden="true"
+                                    >
+
+                                        <path
+                                            d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"
+                                        />
+
+                                        <circle
+                                            cx="12"
+                                            cy="12"
+                                            r="2.5"
+                                        />
+
+                                    </svg>
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- OPTIONS -->
+
+                        <div class="login-options">
+
+                            <label class="remember">
+
+                                <input
+                                    type="checkbox"
+                                    name="remember"
+                                >
+
+                                <span class="custom-checkbox"></span>
+
+                                <span class="remember-text">
+                                    Remember me
+                                </span>
+
+                            </label>
+
+
+                            <a
+                                href="<?= ROOT ?>/forgotpassword"
+                                class="forgot-password"
+                            >
+                                Forgot password?
+                            </a>
+
+                        </div>
+
+
+                        <!-- LOGIN BUTTON -->
+
+                        <button
+                            type="submit"
+                            class="login-btn"
+                        >
+
+                            <span>
+                                Sign in
+                            </span>
+
+                            <span class="button-arrow">
+                                →
+                            </span>
+
+                        </button>
+
+                    </form>
+
+                <?php endif; ?>
+
+
+                <?php if (!$otpRequired): ?>
 
                 <!-- SIGNUP -->
 
@@ -464,6 +654,8 @@ $error = $data['error'] ?? '';
                     </a>
 
                 </div>
+
+                <?php endif; ?>
 
 
                 <!-- SECURITY NOTE -->
