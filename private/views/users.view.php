@@ -139,14 +139,6 @@ require "../private/views/includes/sidebar.view.php";
 
     </div>
 
-
-    <a
-        href="<?= ROOT ?>/users/add"
-        class="add-user-btn"
-    >
-        + Add User
-    </a>
-
 </div>
 
 

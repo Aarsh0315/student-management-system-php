@@ -43,7 +43,10 @@ class App
                     'StudentDashboard',
 
                 'teacherDashboard' =>
-                    'TeacherDashboard'
+                    'TeacherDashboard',
+
+                'classsubjects' =>
+                    'ClassSubjects'
 
             ];
 

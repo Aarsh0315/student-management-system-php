@@ -530,7 +530,7 @@ require "../private/views/includes/sidebar.view.php";
         </a>
 
         <a href="<?= ROOT ?>/schools/edit/<?= urlencode($school->school_id) ?>"
-           class="edit-btn">
+        class="edit-btn">
             Edit
         </a>
 

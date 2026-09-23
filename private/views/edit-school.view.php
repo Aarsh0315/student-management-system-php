@@ -1,17 +1,11 @@
 <?php
 
-$user = $data['user'] ?? null;
-$schools = $data['schools'] ?? [];
+$school = $data['school'] ?? null;
 $error = $data['error'] ?? '';
 
-if (!$user) {
-    die("User not found.");
+if (!$school) {
+    die("School not found.");
 }
-
-$fullName = trim(
-    ($user->firstname ?? '') . ' ' .
-    ($user->lastname ?? '')
-);
 
 ?>
 
@@ -28,7 +22,7 @@ $fullName = trim(
     >
 
     <title>
-        Edit <?= htmlspecialchars($fullName) ?>
+        Edit <?= htmlspecialchars($school->school_name ?? 'School') ?>
         - My School
     </title>
 
@@ -57,14 +51,6 @@ $fullName = trim(
     >
 
 
-    <!-- USERS -->
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/users.view.css?v=5"
-    >
-
-
     <!-- SIDEBAR -->
 
     <link
@@ -73,12 +59,17 @@ $fullName = trim(
     >
 
 
-    <!-- EDIT USER -->
+    <!-- SCHOOLS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/edit-user.view.css?v=1"
+        href="<?= ROOT ?>/css/schools.view.css?v=5"
     >
+
+    <link
+    rel="stylesheet"
+    href="<?= ROOT ?>/css/edit-school.view.css?v=1"
+>
 
 </head>
 
@@ -101,91 +92,61 @@ $fullName = trim(
 
     <section class="welcome">
 
-        <p class="welcome-small">
-            Super Admin / Users
-        </p>
+        <div>
 
-        <h1>
-            Edit User
-        </h1>
+            <p class="welcome-small">
+                Super Admin / Schools
+            </p>
 
-        <p class="welcome-text">
-            Update user information, account access and profile details.
-        </p>
+            <h1>
+                Edit School
+            </h1>
+
+            <p class="welcome-text">
+                Update school information and settings.
+            </p>
+
+        </div>
 
     </section>
 
 
 
     <!-- =========================
-         EDIT USER CARD
+         EDIT SCHOOL CARD
     ========================== -->
 
-    <section class="user-details-card">
+    <section class="schools-card">
 
 
-        <!-- =========================
-             USER HEADER
-        ========================== -->
+        <!-- SCHOOL HEADER -->
 
-        <div class="user-details-header">
+        <div class="schools-header">
 
-
-            <div class="user-avatar">
-
-                <?php
-
-                $firstInitial = !empty($user->firstname)
-                    ? substr($user->firstname, 0, 1)
-                    : '';
-
-                $lastInitial = !empty($user->lastname)
-                    ? substr($user->lastname, 0, 1)
-                    : '';
-
-                echo htmlspecialchars(
-                    strtoupper($firstInitial . $lastInitial)
-                );
-
-                ?>
-
-            </div>
-
-
-            <div class="user-header-info">
+            <div>
 
                 <h2>
-                    <?= htmlspecialchars($fullName) ?>
+                    <?= htmlspecialchars(
+                        $school->school_name ?? 'School'
+                    ) ?>
                 </h2>
 
                 <p>
-                    <?= htmlspecialchars($user->user_id ?? '') ?>
+                    School ID:
+                    <strong>
+                        <?= htmlspecialchars(
+                            $school->school_id ?? ''
+                        ) ?>
+                    </strong>
                 </p>
 
             </div>
-
-
-            <span
-                class="status
-                <?= ($user->status ?? '') === 'active'
-                    ? 'active'
-                    : 'inactive' ?>"
-            >
-
-                <?= htmlspecialchars(
-                    ucfirst($user->status ?? 'inactive')
-                ) ?>
-
-            </span>
-
 
         </div>
 
 
 
-        <!-- =========================
-             ERROR MESSAGE
-        ========================== -->
+        <!-- ERROR -->
 
         <?php if (!empty($error)): ?>
 
@@ -205,42 +166,43 @@ $fullName = trim(
 
         <form
             method="POST"
-            action="<?= ROOT ?>/users/update/<?= urlencode($user->user_id) ?>"
-            enctype="multipart/form-data"
-            class="user-edit-form"
+            action="<?= ROOT ?>/schools/update/<?= urlencode(
+                $school->school_id
+            ) ?>"
         >
 
             <?= CSRF::field() ?>
 
 
-
             <!-- =========================
-                 PERSONAL INFORMATION
+                 BASIC INFORMATION
             ========================== -->
 
             <div class="details-section">
 
                 <h3>
-                    Personal Information
+                    Basic Information
                 </h3>
 
 
                 <div class="information-grid">
 
 
-                    <!-- FIRST NAME -->
+                    <!-- SCHOOL NAME -->
 
                     <div class="form-group">
 
-                        <label for="firstname">
-                            First Name
+                        <label for="school_name">
+                            School Name
                         </label>
 
                         <input
                             type="text"
-                            id="firstname"
-                            name="firstname"
-                            value="<?= htmlspecialchars($user->firstname ?? '') ?>"
+                            id="school_name"
+                            name="school_name"
+                            value="<?= htmlspecialchars(
+                                $school->school_name ?? ''
+                            ) ?>"
                             required
                         >
 
@@ -248,20 +210,46 @@ $fullName = trim(
 
 
 
-                    <!-- LAST NAME -->
+                    <!-- SCHOOL ID -->
 
                     <div class="form-group">
 
-                        <label for="lastname">
-                            Last Name
+                        <label for="school_id">
+                            School ID
                         </label>
 
                         <input
                             type="text"
-                            id="lastname"
-                            name="lastname"
-                            value="<?= htmlspecialchars($user->lastname ?? '') ?>"
-                            required
+                            id="school_id"
+                            value="<?= htmlspecialchars(
+                                $school->school_id ?? ''
+                            ) ?>"
+                            readonly
+                        >
+
+                        <small>
+                            School ID cannot be changed.
+                        </small>
+
+                    </div>
+
+
+
+                    <!-- SCHOOL CODE -->
+
+                    <div class="form-group">
+
+                        <label for="school_code">
+                            School Code
+                        </label>
+
+                        <input
+                            type="text"
+                            id="school_code"
+                            name="school_code"
+                            value="<?= htmlspecialchars(
+                                $school->school_code ?? ''
+                            ) ?>"
                         >
 
                     </div>
@@ -280,293 +268,52 @@ $fullName = trim(
                             type="email"
                             id="email"
                             name="email"
-                            value="<?= htmlspecialchars($user->email ?? '') ?>"
-                            required
+                            value="<?= htmlspecialchars(
+                                $school->email ?? ''
+                            ) ?>"
                         >
 
                     </div>
 
 
 
-                    <!-- GENDER -->
+                    <!-- PHONE -->
 
                     <div class="form-group">
 
-                        <label for="gender">
-                            Gender
-                        </label>
-
-                        <select
-                            id="gender"
-                            name="gender"
-                            required
-                        >
-
-                            <option value="">
-                                Select Gender
-                            </option>
-
-                            <option
-                                value="Male"
-                                <?= ($user->gender ?? '') === 'Male'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Male
-                            </option>
-
-                            <option
-                                value="Female"
-                                <?= ($user->gender ?? '') === 'Female'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Female
-                            </option>
-
-                            <option
-                                value="Other"
-                                <?= ($user->gender ?? '') === 'Other'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Other
-                            </option>
-
-                        </select>
-
-                    </div>
-
-
-                </div>
-
-            </div>
-
-
-
-            <!-- =========================
-                 ACCOUNT INFORMATION
-            ========================== -->
-
-            <div class="details-section">
-
-                <h3>
-                    Account Information
-                </h3>
-
-
-                <div class="information-grid">
-
-
-                    <!-- USER ID -->
-
-                    <div class="form-group">
-
-                        <label for="user_id">
-                            User ID
+                        <label for="phone">
+                            Phone
                         </label>
 
                         <input
                             type="text"
-                            id="user_id"
-                            value="<?= htmlspecialchars($user->user_id ?? '') ?>"
-                            readonly
+                            id="phone"
+                            name="phone"
+                            value="<?= htmlspecialchars(
+                                $school->phone ?? ''
+                            ) ?>"
                         >
-
-                        <small>
-                            User ID cannot be changed.
-                        </small>
 
                     </div>
 
 
 
-                    <!-- SCHOOL -->
+                    <!-- EMERGENCY CONTACT -->
 
                     <div class="form-group">
 
-                        <label for="school_id">
-                            School
+                        <label for="emergency_contact">
+                            Emergency Contact
                         </label>
 
-                        <select
-                            id="school_id"
-                            name="school_id"
-                            required
+                        <input
+                            type="text"
+                            id="emergency_contact"
+                            name="emergency_contact"
+                            value="<?= htmlspecialchars(
+                                $school->emergency_contact ?? ''
+                            ) ?>"
                         >
-
-                            <option value="">
-                                Select School
-                            </option>
-
-
-                            <?php foreach ($schools as $school): ?>
-
-                                <option
-                                    value="<?= htmlspecialchars($school->id) ?>"
-                                    <?= (string)($user->school_id ?? '') ===
-                                       (string)$school->id
-                                        ? 'selected'
-                                        : '' ?>
-                                >
-
-                                    <?= htmlspecialchars(
-                                        $school->school_name
-                                    ) ?>
-
-                                    (<?= htmlspecialchars(
-                                        $school->school_id
-                                    ) ?>)
-
-                                </option>
-
-                            <?php endforeach; ?>
-
-
-                        </select>
-
-                    </div>
-
-
-
-                    <!-- ROLE -->
-
-                    <div class="form-group">
-
-                        <label for="rank">
-                            Role
-                        </label>
-
-                        <select
-                            id="rank"
-                            name="rank"
-                            required
-                        >
-
-                            <option value="">
-                                Select Role
-                            </option>
-
-
-                            <option
-                                value="super_admin"
-                                <?= ($user->rank ?? '') === 'super_admin'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Super Admin
-                            </option>
-
-
-                            <option
-                                value="admin"
-                                <?= ($user->rank ?? '') === 'admin'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                School Admin
-                            </option>
-
-
-                            <option
-                                value="principal"
-                                <?= ($user->rank ?? '') === 'principal'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Principal
-                            </option>
-
-
-                            <option
-                                value="vice_principal"
-                                <?= ($user->rank ?? '') === 'vice_principal'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Vice Principal
-                            </option>
-
-
-                            <option
-                                value="teacher"
-                                <?= ($user->rank ?? '') === 'teacher'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Teacher
-                            </option>
-
-
-                            <option
-                                value="student"
-                                <?= ($user->rank ?? '') === 'student'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Student
-                            </option>
-
-
-                            <option
-                                value="parent"
-                                <?= ($user->rank ?? '') === 'parent'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Parent
-                            </option>
-
-
-                            <option
-                                value="staff"
-                                <?= ($user->rank ?? '') === 'staff'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Staff
-                            </option>
-
-
-                        </select>
-
-                    </div>
-
-
-
-                    <!-- STATUS -->
-
-                    <div class="form-group">
-
-                        <label for="status">
-                            Status
-                        </label>
-
-                        <select
-                            id="status"
-                            name="status"
-                            required
-                        >
-
-                            <option
-                                value="active"
-                                <?= ($user->status ?? '') === 'active'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Active
-                            </option>
-
-                            <option
-                                value="inactive"
-                                <?= ($user->status ?? '') === 'inactive'
-                                    ? 'selected'
-                                    : '' ?>
-                            >
-                                Inactive
-                            </option>
-
-                        </select>
 
                     </div>
 
@@ -578,59 +325,146 @@ $fullName = trim(
 
 
             <!-- =========================
-                 PASSWORD
+                 SCHOOL DETAILS
             ========================== -->
 
             <div class="details-section">
 
                 <h3>
-                    Change Password
+                    School Details
                 </h3>
-
-
-                <p class="section-description">
-                    Leave both fields empty if you do not want to change
-                    the user's password.
-                </p>
 
 
                 <div class="information-grid">
 
 
-                    <!-- NEW PASSWORD -->
+                    <!-- BOARD -->
 
                     <div class="form-group">
 
-                        <label for="password">
-                            New Password
+                        <label for="board">
+                            Board
                         </label>
 
                         <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            autocomplete="new-password"
-                            placeholder="Enter new password"
+                            type="text"
+                            id="board"
+                            name="board"
+                            value="<?= htmlspecialchars(
+                                $school->board ?? ''
+                            ) ?>"
+                            placeholder="e.g. CBSE, ICSE, State Board"
                         >
 
                     </div>
 
 
 
-                    <!-- CONFIRM PASSWORD -->
+                    <!-- MEDIUM -->
 
                     <div class="form-group">
 
-                        <label for="password2">
-                            Confirm Password
+                        <label for="medium">
+                            Medium
                         </label>
 
                         <input
-                            type="password"
-                            id="password2"
-                            name="password2"
-                            autocomplete="new-password"
-                            placeholder="Confirm new password"
+                            type="text"
+                            id="medium"
+                            name="medium"
+                            value="<?= htmlspecialchars(
+                                $school->medium ?? ''
+                            ) ?>"
+                            placeholder="e.g. English, Hindi, Marathi"
+                        >
+
+                    </div>
+
+
+
+                    <!-- SCHOOL TYPE -->
+
+                    <div class="form-group">
+
+                        <label for="school_type">
+                            School Type
+                        </label>
+
+                        <input
+                            type="text"
+                            id="school_type"
+                            name="school_type"
+                            value="<?= htmlspecialchars(
+                                $school->school_type ?? ''
+                            ) ?>"
+                            placeholder="e.g. Private, Public"
+                        >
+
+                    </div>
+
+
+
+                    <!-- ACADEMIC YEAR -->
+
+                    <div class="form-group">
+
+                        <label for="academic_year">
+                            Academic Year
+                        </label>
+
+                        <input
+                            type="text"
+                            id="academic_year"
+                            name="academic_year"
+                            value="<?= htmlspecialchars(
+                                $school->academic_year ?? ''
+                            ) ?>"
+                            placeholder="e.g. 2026-27"
+                        >
+
+                    </div>
+
+
+
+                    <!-- ESTABLISHED YEAR -->
+
+                    <div class="form-group">
+
+                        <label for="established_year">
+                            Established Year
+                        </label>
+
+                        <input
+                            type="number"
+                            id="established_year"
+                            name="established_year"
+                            value="<?= htmlspecialchars(
+                                $school->established_year ?? ''
+                            ) ?>"
+                            min="1800"
+                            max="<?= date('Y') ?>"
+                        >
+
+                    </div>
+
+
+
+                    <!-- WEBSITE -->
+
+                    <div class="form-group">
+
+                        <label for="website">
+                            Website
+                        </label>
+
+                        <input
+                            type="url"
+                            id="website"
+                            name="website"
+                            value="<?= htmlspecialchars(
+                                $school->website ?? ''
+                            ) ?>"
+                            placeholder="https://example.com"
                         >
 
                     </div>
@@ -643,71 +477,79 @@ $fullName = trim(
 
 
             <!-- =========================
-                 PROFILE IMAGE
+                 ADDRESS
             ========================== -->
 
             <div class="details-section">
 
                 <h3>
-                    Profile Image
+                    Address
                 </h3>
 
 
-                <div class="profile-image-section">
+                <div class="form-group">
+
+                    <label for="address">
+                        School Address
+                    </label>
+
+                    <textarea
+                        id="address"
+                        name="address"
+                        rows="4"
+                        placeholder="Enter complete school address"
+                    ><?= htmlspecialchars(
+                        $school->address ?? ''
+                    ) ?></textarea>
+
+                </div>
+
+            </div>
 
 
-                    <?php if (!empty($user->profile_image)): ?>
 
-                        <div class="current-profile-image">
+            <!-- =========================
+                 STATUS
+            ========================== -->
 
-                            <img
-                                src="<?= ROOT ?>/<?= htmlspecialchars(
-                                    $user->profile_image
-                                ) ?>"
-                                alt="User Profile"
-                            >
+            <div class="details-section">
 
-                        </div>
-
-                    <?php else: ?>
-
-                        <div class="profile-placeholder">
-
-                            <?= htmlspecialchars(
-                                strtoupper(
-                                    $firstInitial .
-                                    $lastInitial
-                                )
-                            ) ?>
-
-                        </div>
-
-                    <?php endif; ?>
+                <h3>
+                    School Status
+                </h3>
 
 
-                    <div class="profile-upload">
+                <div class="form-group">
 
-                        <div class="form-group">
+                    <label for="status">
+                        Status
+                    </label>
 
-                            <label for="profile_image">
-                                Choose New Image
-                            </label>
+                    <select
+                        id="status"
+                        name="status"
+                        required
+                    >
 
-                            <input
-                                type="file"
-                                id="profile_image"
-                                name="profile_image"
-                                accept=".jpg,.jpeg,.png,.webp"
-                            >
+                        <option
+                            value="active"
+                            <?= ($school->status ?? '') === 'active'
+                                ? 'selected'
+                                : '' ?>
+                        >
+                            Active
+                        </option>
 
-                            <small>
-                                JPG, PNG or WEBP. Maximum file size 2MB.
-                            </small>
+                        <option
+                            value="inactive"
+                            <?= ($school->status ?? '') === 'inactive'
+                                ? 'selected'
+                                : '' ?>
+                        >
+                            Inactive
+                        </option>
 
-                        </div>
-
-                    </div>
-
+                    </select>
 
                 </div>
 
@@ -721,9 +563,10 @@ $fullName = trim(
 
             <div class="user-actions">
 
-
                 <a
-                    href="<?= ROOT ?>/users/details/<?= urlencode($user->user_id) ?>"
+                    href="<?= ROOT ?>/schools/details/<?= urlencode(
+                        $school->school_id
+                    ) ?>"
                     class="back-btn"
                 >
                     Cancel
@@ -734,9 +577,8 @@ $fullName = trim(
                     type="submit"
                     class="save-user-btn"
                 >
-                    Update User
+                    Update School
                 </button>
-
 
             </div>
 
@@ -748,7 +590,6 @@ $fullName = trim(
 
 
 </main>
-
 
 
 <?php require "../private/views/includes/footer.view.php"; ?>
