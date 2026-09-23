@@ -405,181 +405,397 @@ $initial = strtoupper(
 
 
 
-                <!-- =================================================
-                     SCHOOL ADMIN
-                ================================================== -->
+               <!-- =================================================
+     SCHOOL ADMIN
+================================================== -->
 
-                <?php if ($rank === 'admin'): ?>
-
-
-                    <div class="search-section">
-
-                        <div class="search-section-title">
-                            PEOPLE
-                        </div>
+<?php if ($rank === 'admin'): ?>
 
 
-                        <a
-                            href="<?= ROOT ?>/students"
-                            class="search-item"
-                            data-search="students student people"
-                        >
+    <!-- PEOPLE -->
 
-                            <span class="search-item-icon">
-                                ST
-                            </span>
+    <div class="search-section">
 
-                            <span class="search-item-content">
-
-                                <strong>
-                                    Students
-                                </strong>
-
-                                <small>
-                                    Manage student records
-                                </small>
-
-                            </span>
-
-                        </a>
+        <div class="search-section-title">
+            PEOPLE
+        </div>
 
 
-                        <a
-                            href="<?= ROOT ?>/staff"
-                            class="search-item"
-                            data-search="staff teacher teachers people"
-                        >
+        <!-- STUDENTS -->
 
-                            <span class="search-item-icon">
-                                SF
-                            </span>
+        <a
+            href="<?= ROOT ?>/students"
+            class="search-item"
+            data-search="students student people"
+        >
 
-                            <span class="search-item-content">
+            <span class="search-item-icon">
+                ST
+            </span>
 
-                                <strong>
-                                    Staff
-                                </strong>
+            <span class="search-item-content">
 
-                                <small>
-                                    Manage staff members
-                                </small>
+                <strong>
+                    Students
+                </strong>
 
-                            </span>
+                <small>
+                    Manage student records
+                </small>
 
-                        </a>
+            </span>
 
-
-                        <a
-                            href="<?= ROOT ?>/parents"
-                            class="search-item"
-                            data-search="parents parent people"
-                        >
-
-                            <span class="search-item-icon">
-                                PR
-                            </span>
-
-                            <span class="search-item-content">
-
-                                <strong>
-                                    Parents
-                                </strong>
-
-                                <small>
-                                    Manage parents
-                                </small>
-
-                            </span>
-
-                        </a>
-
-                    </div>
+        </a>
 
 
+        <!-- TEACHERS -->
 
-                    <div class="search-section">
+        <a
+            href="<?= ROOT ?>/teachers"
+            class="search-item"
+            data-search="teachers teacher staff faculty people"
+        >
 
-                        <div class="search-section-title">
-                            ACADEMICS
-                        </div>
+            <span class="search-item-icon">
+                SF
+            </span>
 
+            <span class="search-item-content">
 
-                        <a
-                            href="<?= ROOT ?>/classes"
-                            class="search-item"
-                            data-search="classes class division academics"
-                        >
+                <strong>
+                    Teachers
+                </strong>
 
-                            <span class="search-item-icon">
-                                CL
-                            </span>
+                <small>
+                    Manage teachers and faculty
+                </small>
 
-                            <span class="search-item-content">
+            </span>
 
-                                <strong>
-                                    Classes
-                                </strong>
-
-                                <small>
-                                    Manage classes and divisions
-                                </small>
-
-                            </span>
-
-                        </a>
+        </a>
 
 
-                        <a
-                            href="<?= ROOT ?>/tests"
-                            class="search-item"
-                            data-search="tests test exam assessment academics"
-                        >
+        <!-- PARENTS -->
 
-                            <span class="search-item-icon">
-                                TS
-                            </span>
+        <a
+            href="<?= ROOT ?>/parents"
+            class="search-item"
+            data-search="parents parent guardians people"
+        >
 
-                            <span class="search-item-content">
+            <span class="search-item-icon">
+                PR
+            </span>
 
-                                <strong>
-                                    Tests
-                                </strong>
+            <span class="search-item-content">
 
-                                <small>
-                                    Manage assessments
-                                </small>
+                <strong>
+                    Parents
+                </strong>
 
-                            </span>
+                <small>
+                    Manage parent records
+                </small>
 
-                        </a>
+            </span>
 
+        </a>
 
-                        <a
-                            href="<?= ROOT ?>/results"
-                            class="search-item"
-                            data-search="results result marks academics"
-                        >
-
-                            <span class="search-item-icon">
-                                RS
-                            </span>
-
-                            <span class="search-item-content">
-
-                                <strong>
-                                    Results
-                                </strong>
-
-                                <small>
-                                    View academic results
-                                </small>
-
-                            </span>
-                        </a>
-                    </div>
+    </div>
 
 
-                <?php endif; ?>
+
+    <!-- ACADEMICS -->
+
+    <div class="search-section">
+
+        <div class="search-section-title">
+            ACADEMICS
+        </div>
+
+
+        <!-- CLASSES -->
+
+        <a
+            href="<?= ROOT ?>/classes"
+            class="search-item"
+            data-search="classes class divisions division academics"
+        >
+
+            <span class="search-item-icon">
+                CL
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    Classes
+                </strong>
+
+                <small>
+                    Manage classes and divisions
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <!-- SUBJECTS -->
+
+        <a
+            href="<?= ROOT ?>/subjects"
+            class="search-item"
+            data-search="subjects subject academics curriculum"
+        >
+
+            <span class="search-item-icon">
+                SB
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    Subjects
+                </strong>
+
+                <small>
+                    Manage school subjects
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <!-- TEACHING ASSIGNMENTS -->
+
+        <a
+            href="<?= ROOT ?>/classsubjects"
+            class="search-item"
+            data-search="teaching assignments assignment class subject teacher faculty academics"
+        >
+
+            <span class="search-item-icon">
+                TA
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    Teaching Assignments
+                </strong>
+
+                <small>
+                    Assign subjects and teachers to classes
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <!-- TESTS -->
+
+        <a
+            href="<?= ROOT ?>/tests"
+            class="search-item"
+            data-search="tests test exams exam assessment assessments academics"
+        >
+
+            <span class="search-item-icon">
+                TS
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    Tests
+                </strong>
+
+                <small>
+                    Manage tests and assessments
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <!-- RESULTS -->
+
+        <a
+            href="<?= ROOT ?>/results"
+            class="search-item"
+            data-search="results result marks grades grade academics performance"
+        >
+
+            <span class="search-item-icon">
+                RS
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    Results
+                </strong>
+
+                <small>
+                    Manage student results and marks
+                </small>
+
+            </span>
+
+        </a>
+
+
+        <!-- TIMETABLE -->
+
+        <a
+            href="<?= ROOT ?>/timetable"
+            class="search-item"
+            data-search="timetable time table schedule class teacher subject academics"
+        >
+
+            <span class="search-item-icon">
+                TT
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    Timetable
+                </strong>
+
+                <small>
+                    Manage class schedules and periods
+                </small>
+
+            </span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- ATTENDANCE -->
+
+    <div class="search-section">
+
+        <div class="search-section-title">
+            ATTENDANCE
+        </div>
+
+
+        <!-- ATTENDANCE -->
+
+        <a
+            href="<?= ROOT ?>/attendance"
+            class="search-item"
+            data-search="attendance present absent late leave students teachers"
+        >
+
+            <span class="search-item-icon">
+                AT
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    Attendance
+                </strong>
+
+                <small>
+                    Manage student attendance
+                </small>
+
+            </span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- FINANCE -->
+
+    <div class="search-section">
+
+        <div class="search-section-title">
+            FINANCE
+        </div>
+
+
+        <!-- FEES -->
+
+        <a
+            href="<?= ROOT ?>/fees"
+            class="search-item"
+            data-search="fees fee payments payment finance student fees"
+        >
+
+            <span class="search-item-icon">
+                FE
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    Fees
+                </strong>
+
+                <small>
+                    Manage student fees and payments
+                </small>
+
+            </span>
+
+        </a>
+
+    </div>
+
+
+
+    <!-- SCHOOL -->
+
+    <div class="search-section">
+
+        <div class="search-section-title">
+            SCHOOL
+        </div>
+
+
+        <!-- SCHOOL PROFILE -->
+
+        <a
+            href="<?= ROOT ?>/school-profile"
+            class="search-item"
+            data-search="school profile school information details institution"
+        >
+
+            <span class="search-item-icon">
+                SP
+            </span>
+
+            <span class="search-item-content">
+
+                <strong>
+                    School Profile
+                </strong>
+
+                <small>
+                    Manage school information
+                </small>
+
+            </span>
+
+        </a>
+
+    </div>
+
+
+<?php endif; ?>
 
 
 
