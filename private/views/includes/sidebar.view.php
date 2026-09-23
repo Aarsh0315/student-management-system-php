@@ -97,545 +97,540 @@ $currentPage = explode(
     <div class="sidebar-content">
 
 
-        <!-- =================================
-             SUPER ADMIN
-        ================================== -->
+       <!-- =================================
+     SUPER ADMIN
+================================== -->
 
-        <?php if ($rank === 'super_admin'): ?>
+<?php if ($rank === 'super_admin'): ?>
 
 
-            <!-- MAIN -->
+    <!-- MAIN -->
 
-            <div class="sidebar-section">
+    <div class="sidebar-section">
 
-                <p class="sidebar-section-title">
-                    MAIN
-                </p>
+        <p class="sidebar-section-title">
+            MAIN
+        </p>
 
 
-                <!-- DASHBOARD -->
+        <!-- DASHBOARD -->
 
-                <a
-                    href="<?= ROOT ?>/superadmin"
-                    class="sidebar-link
-                    <?= $currentPage === 'superadmin'
-                        ? 'active'
-                        : '' ?>"
-                >
+        <a
+            href="<?= ROOT ?>/superadmin"
+            class="sidebar-link
+            <?= $currentPage === 'superadmin'
+                ? 'active'
+                : '' ?>"
+        >
 
-                    <span class="sidebar-icon">
-                        DB
-                    </span>
+            <span class="sidebar-icon">
+                DB
+            </span>
 
-                    <span>
-                        Dashboard
-                    </span>
+            <span>
+                Dashboard
+            </span>
 
-                </a>
+        </a>
 
-            </div>
+    </div>
 
 
 
-            <!-- PLATFORM -->
+    <!-- PLATFORM -->
 
-            <div class="sidebar-section">
+    <div class="sidebar-section">
 
-                <p class="sidebar-section-title">
-                    PLATFORM
-                </p>
+        <p class="sidebar-section-title">
+            PLATFORM
+        </p>
 
 
-                <!-- SCHOOLS -->
+        <!-- SCHOOLS -->
 
-                <a
-                    href="<?= ROOT ?>/schools"
-                    class="sidebar-link
-                    <?= $currentPage === 'schools'
-                        ? 'active'
-                        : '' ?>"
-                >
+        <a
+            href="<?= ROOT ?>/schools"
+            class="sidebar-link
+            <?= $currentPage === 'schools'
+                ? 'active'
+                : '' ?>"
+        >
 
-                    <span class="sidebar-icon">
-                        SC
-                    </span>
+            <span class="sidebar-icon">
+                SC
+            </span>
 
-                    <span>
-                        Schools
-                    </span>
+            <span>
+                Schools
+            </span>
 
-                </a>
+        </a>
 
 
-                <!-- SCHOOL ADMINS -->
+        <!-- SCHOOL ADMINS -->
 
-                <a
-                    href="<?= ROOT ?>/schooladmins"
-                    class="sidebar-link
-                    <?= $currentPage === 'schooladmins'
-                        ? 'active'
-                        : '' ?>"
-                >
+        <a
+            href="<?= ROOT ?>/schooladmins"
+            class="sidebar-link
+            <?= $currentPage === 'schooladmins'
+                ? 'active'
+                : '' ?>"
+        >
 
-                    <span class="sidebar-icon">
-                        SA
-                    </span>
+            <span class="sidebar-icon">
+                SA
+            </span>
 
-                    <span>
-                        School Admins
-                    </span>
+            <span>
+                School Admins
+            </span>
 
-                </a>
+        </a>
 
 
-                <!-- USERS -->
+        <!-- USERS -->
 
-                <a
-                    href="<?= ROOT ?>/users"
-                    class="sidebar-link
-                    <?= $currentPage === 'users'
-                        ? 'active'
-                        : '' ?>"
-                >
+        <a
+            href="<?= ROOT ?>/users"
+            class="sidebar-link
+            <?= $currentPage === 'users'
+                ? 'active'
+                : '' ?>"
+        >
 
-                    <span class="sidebar-icon">
-                        US
-                    </span>
+            <span class="sidebar-icon">
+                US
+            </span>
 
-                    <span>
-                        Users
-                    </span>
+            <span>
+                Users
+            </span>
 
-                </a>
+        </a>
 
-            </div>
+    </div>
 
 
 
-            <!-- MONITORING -->
+    <!-- MONITORING -->
 
-            <div class="sidebar-section">
+    <div class="sidebar-section">
 
-                <p class="sidebar-section-title">
-                    MONITORING
-                </p>
+        <p class="sidebar-section-title">
+            MONITORING
+        </p>
 
 
-                <!-- REPORTS -->
+        <!-- REPORTS -->
 
-                <a
-                    href="<?= ROOT ?>/reports"
-                    class="sidebar-link
-                    <?= $currentPage === 'reports'
-                        ? 'active'
-                        : '' ?>"
-                >
+        <a
+            href="<?= ROOT ?>/reports"
+            class="sidebar-link
+            <?= $currentPage === 'reports'
+                ? 'active'
+                : '' ?>"
+        >
 
-                    <span class="sidebar-icon">
-                        RP
-                    </span>
+            <span class="sidebar-icon">
+                RP
+            </span>
 
-                    <span>
-                        Reports
-                    </span>
+            <span>
+                Reports
+            </span>
 
-                </a>
+        </a>
 
 
-                <!-- AUDIT LOGS -->
+        <!-- AUDIT LOGS -->
 
-                <a
-                    href="<?= ROOT ?>/auditlogs"
-                    class="sidebar-link
-                    <?= $currentPage === 'auditlogs'
-                        ? 'active'
-                        : '' ?>"
-                >
+        <a
+            href="<?= ROOT ?>/auditlogs"
+            class="sidebar-link
+            <?= $currentPage === 'auditlogs'
+                ? 'active'
+                : '' ?>"
+        >
 
-                    <span class="sidebar-icon">
-                        AL
-                    </span>
+            <span class="sidebar-icon">
+                AL
+            </span>
 
-                    <span>
-                        Audit Logs
-                    </span>
+            <span>
+                Audit Logs
+            </span>
 
-                </a>
+        </a>
 
 
-                <!-- SECURITY -->
+        <!-- SECURITY -->
 
-                <a
-                    href="<?= ROOT ?>/security"
-                    class="sidebar-link
-                    <?= $currentPage === 'security'
-                        ? 'active'
-                        : '' ?>"
-                >
+        <a
+            href="<?= ROOT ?>/security"
+            class="sidebar-link
+            <?= $currentPage === 'security'
+                ? 'active'
+                : '' ?>"
+        >
 
-                    <span class="sidebar-icon">
-                        SE
-                    </span>
+            <span class="sidebar-icon">
+                SE
+            </span>
 
-                    <span>
-                        Security
-                    </span>
+            <span>
+                Security
+            </span>
 
-                </a>
+        </a>
 
-            </div>
+    </div>
+<?php elseif ($rank === 'admin'): ?>
 
+    <!-- =================================
+         SCHOOL ADMIN
+    ================================== -->
 
 
-        <!-- =================================
-             SCHOOL ADMIN
-        ================================== -->
+    <!-- MAIN -->
 
-        <?php elseif ($rank === 'admin'): ?>
+    <div class="sidebar-section">
 
+        <p class="sidebar-section-title">
+            MAIN
+        </p>
 
-            <!-- MAIN -->
 
-            <div class="sidebar-section">
+        <!-- DASHBOARD -->
 
-                <p class="sidebar-section-title">
-                    MAIN
-                </p>
+        <a
+            href="<?= ROOT ?>/school-admin"
+            class="sidebar-link
+            <?= $currentPage === 'school-admin'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                DB
+            </span>
 
-                <!-- DASHBOARD -->
+            <span>
+                Dashboard
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/school-admin"
-                    class="sidebar-link
-                    <?= $currentPage === 'school-admin'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        DB
-                    </span>
+    </div>
 
-                    <span>
-                        Dashboard
-                    </span>
 
-                </a>
 
-            </div>
+    <!-- PEOPLE -->
 
+    <div class="sidebar-section">
 
+        <p class="sidebar-section-title">
+            PEOPLE
+        </p>
 
-            <!-- PEOPLE -->
 
-            <div class="sidebar-section">
+        <!-- STUDENTS -->
 
-                <p class="sidebar-section-title">
-                    PEOPLE
-                </p>
+        <a
+            href="<?= ROOT ?>/students"
+            class="sidebar-link
+            <?= $currentPage === 'students'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                ST
+            </span>
 
-                <!-- STUDENTS -->
+            <span>
+                Students
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/students"
-                    class="sidebar-link
-                    <?= $currentPage === 'students'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        ST
-                    </span>
 
-                    <span>
-                        Students
-                    </span>
+        <!-- TEACHERS -->
 
-                </a>
+        <a
+            href="<?= ROOT ?>/teachers"
+            class="sidebar-link
+            <?= $currentPage === 'teachers'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                TC
+            </span>
 
-                <!-- TEACHERS -->
+            <span>
+                Teachers
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/teachers"
-                    class="sidebar-link
-                    <?= $currentPage === 'teachers'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        SF
-                    </span>
 
-                    <span>
-                        Teachers
-                    </span>
+        <!-- PARENTS -->
 
-                </a>
+        <a
+            href="<?= ROOT ?>/parents"
+            class="sidebar-link
+            <?= $currentPage === 'parents'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                PR
+            </span>
 
-                <!-- PARENTS -->
+            <span>
+                Parents
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/parents"
-                    class="sidebar-link
-                    <?= $currentPage === 'parents'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        PR
-                    </span>
+    </div>
 
-                    <span>
-                        Parents
-                    </span>
 
-                </a>
 
-            </div>
+    <!-- ACADEMICS -->
 
+    <div class="sidebar-section">
 
+        <p class="sidebar-section-title">
+            ACADEMICS
+        </p>
 
-            <!-- ACADEMICS -->
 
-            <div class="sidebar-section">
+        <!-- CLASSES -->
 
-                <p class="sidebar-section-title">
-                    ACADEMICS
-                </p>
+        <a
+            href="<?= ROOT ?>/classes"
+            class="sidebar-link
+            <?= $currentPage === 'classes'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                CL
+            </span>
 
-                <!-- CLASSES -->
+            <span>
+                Classes
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/classes"
-                    class="sidebar-link
-                    <?= $currentPage === 'classes'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        CL
-                    </span>
 
-                    <span>
-                        Classes
-                    </span>
+        <!-- SUBJECTS -->
 
-                </a>
+        <a
+            href="<?= ROOT ?>/subjects"
+            class="sidebar-link
+            <?= $currentPage === 'subjects'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                SB
+            </span>
 
-                <!-- SUBJECTS -->
+            <span>
+                Subjects
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/subjects"
-                    class="sidebar-link
-                    <?= $currentPage === 'subjects'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        SB
-                    </span>
 
-                    <span>
-                        Subjects
-                    </span>
+        <!-- TEACHING ASSIGNMENTS -->
 
-                </a>
+        <a
+            href="<?= ROOT ?>/classsubjects"
+            class="sidebar-link
+            <?= $currentPage === 'classsubjects'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                TA
+            </span>
 
-                <!-- TEACHING ASSIGNMENTS -->
+            <span>
+                Teaching Assignments
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/classsubjects"
-                    class="sidebar-link
-                    <?= $currentPage === 'classsubjects'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        TA
-                    </span>
 
-                    <span>
-                        Teaching Assignments
-                    </span>
+        <!-- TESTS -->
 
-                </a>
+        <a
+            href="<?= ROOT ?>/tests"
+            class="sidebar-link
+            <?= $currentPage === 'tests'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                TS
+            </span>
 
-                <!-- TESTS -->
+            <span>
+                Tests
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/tests"
-                    class="sidebar-link
-                    <?= $currentPage === 'tests'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        TS
-                    </span>
 
-                    <span>
-                        Tests
-                    </span>
+        <!-- RESULTS -->
 
-                </a>
+        <a
+            href="<?= ROOT ?>/results"
+            class="sidebar-link
+            <?= $currentPage === 'results'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                RS
+            </span>
 
-                <!-- RESULTS -->
+            <span>
+                Results
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/results"
-                    class="sidebar-link
-                    <?= $currentPage === 'results'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        RS
-                    </span>
 
-                    <span>
-                        Results
-                    </span>
+        <!-- TIMETABLE -->
 
-                </a>
+        <a
+            href="<?= ROOT ?>/timetable"
+            class="sidebar-link
+            <?= $currentPage === 'timetable'
+                ? 'active'
+                : '' ?>"
+        >
 
+            <span class="sidebar-icon">
+                TT
+            </span>
 
-                <!-- TIMETABLE -->
+            <span>
+                Timetable
+            </span>
 
-                <a
-                    href="<?= ROOT ?>/timetable"
-                    class="sidebar-link
-                    <?= $currentPage === 'timetable'
-                        ? 'active'
-                        : '' ?>"
-                >
+        </a>
 
-                    <span class="sidebar-icon">
-                        TT
-                    </span>
+    </div>
 
-                    <span>
-                        Timetable
-                    </span>
 
-                </a>
 
-            </div>
+    <!-- ATTENDANCE -->
 
+    <div class="sidebar-section">
 
+        <p class="sidebar-section-title">
+            ATTENDANCE
+        </p>
 
-            <!-- ATTENDANCE -->
 
-            <div class="sidebar-section">
+        <a
+            href="<?= ROOT ?>/attendance"
+            class="sidebar-link
+            <?= $currentPage === 'attendance'
+                ? 'active'
+                : '' ?>"
+        >
 
-                <p class="sidebar-section-title">
-                    ATTENDANCE
-                </p>
+            <span class="sidebar-icon">
+                AT
+            </span>
 
+            <span>
+                Attendance
+            </span>
 
-                <!-- ATTENDANCE -->
+        </a>
 
-                <a
-                    href="<?= ROOT ?>/attendance"
-                    class="sidebar-link
-                    <?= $currentPage === 'attendance'
-                        ? 'active'
-                        : '' ?>"
-                >
+    </div>
 
-                    <span class="sidebar-icon">
-                        AT
-                    </span>
 
-                    <span>
-                        Attendance
-                    </span>
 
-                </a>
+    <!-- FINANCE -->
 
-            </div>
+    <div class="sidebar-section">
 
+        <p class="sidebar-section-title">
+            FINANCE
+        </p>
 
 
-            <!-- FINANCE -->
+        <!-- FEES -->
 
-            <div class="sidebar-section">
+        <a
+            href="<?= ROOT ?>/fees"
+            class="sidebar-link
+            <?= $currentPage === 'fees'
+                ? 'active'
+                : '' ?>"
+        >
 
-                <p class="sidebar-section-title">
-                    FINANCE
-                </p>
+            <span class="sidebar-icon">
+                FE
+            </span>
 
+            <span>
+                Fees
+            </span>
 
-                <!-- FEES -->
+        </a>
 
-                <a
-                    href="<?= ROOT ?>/fees"
-                    class="sidebar-link
-                    <?= $currentPage === 'fees'
-                        ? 'active'
-                        : '' ?>"
-                >
+    </div>
 
-                    <span class="sidebar-icon">
-                        FE
-                    </span>
 
-                    <span>
-                        Fees
-                    </span>
 
-                </a>
+    <!-- SCHOOL -->
 
-            </div>
+    <div class="sidebar-section">
 
+        <p class="sidebar-section-title">
+            SCHOOL
+        </p>
 
 
-            <!-- SCHOOL -->
+        <!-- SCHOOL PROFILE -->
 
-            <div class="sidebar-section">
+        <a
+            href="<?= ROOT ?>/school-profile"
+            class="sidebar-link
+            <?= $currentPage === 'school-profile'
+                ? 'active'
+                : '' ?>"
+        >
 
-                <p class="sidebar-section-title">
-                    SCHOOL
-                </p>
+            <span class="sidebar-icon">
+                SP
+            </span>
 
+            <span>
+                School Profile
+            </span>
 
-                <!-- SCHOOL PROFILE -->
+        </a>
 
-                <a
-                    href="<?= ROOT ?>/school-profile"
-                    class="sidebar-link
-                    <?= $currentPage === 'school-profile'
-                        ? 'active'
-                        : '' ?>"
-                >
-
-                    <span class="sidebar-icon">
-                        SP
-                    </span>
-
-                    <span>
-                        School Profile
-                    </span>
-
-                </a>
-
-            </div>
+    </div>
 
 
 
@@ -954,10 +949,6 @@ $currentPage = explode(
 
                 </a>
 
-            </div>
-
-
-
             <!-- ACADEMICS -->
 
             <div class="sidebar-section">
@@ -1016,81 +1007,76 @@ $currentPage = explode(
 
 
         <!-- =================================
-             ACCOUNT
-        ================================== -->
+     ACCOUNT
+================================== -->
 
-        <div class="sidebar-section">
+<div class="sidebar-section">
 
-            <p class="sidebar-section-title">
-                ACCOUNT
-            </p>
-
-
-            <!-- PROFILE -->
-
-            <a
-                href="<?= ROOT ?>/profile"
-                class="sidebar-link
-                <?= $currentPage === 'profile'
-                    ? 'active'
-                    : '' ?>"
-            >
-
-                <span class="sidebar-icon">
-                    PF
-                </span>
-
-                <span>
-                    My Profile
-                </span>
-
-            </a>
+    <p class="sidebar-section-title">
+        ACCOUNT
+    </p>
 
 
-            <!-- SETTINGS
-                 SUPER ADMIN ONLY -->
+    <!-- PROFILE -->
 
-            <?php if ($rank === 'super_admin'): ?>
+    <a
+        href="<?= ROOT ?>/profile"
+        class="sidebar-link
+        <?= $currentPage === 'profile'
+            ? 'active'
+            : '' ?>"
+    >
 
-                <a
-                    href="<?= ROOT ?>/settings"
-                    class="sidebar-link
-                    <?= $currentPage === 'settings'
-                        ? 'active'
-                        : '' ?>"
-                >
+        <span class="sidebar-icon">
+            PF
+        </span>
 
-                    <span class="sidebar-icon">
-                        ST
-                    </span>
+        <span>
+            My Profile
+        </span>
 
-                    <span>
-                        Settings
-                    </span>
-
-                </a>
-
-            <?php endif; ?>
+    </a>
 
 
-            <!-- LOGOUT -->
+    <!-- SETTINGS -->
 
-            <a
-                href="<?= ROOT ?>/logout"
-                class="sidebar-link sidebar-logout"
-            >
+    <a
+        href="<?= ROOT ?>/settings"
+        class="sidebar-link
+        <?= $currentPage === 'settings'
+            ? 'active'
+            : '' ?>"
+    >
 
-                <span class="sidebar-icon">
-                    LO
-                </span>
+        <span class="sidebar-icon">
+            ST
+        </span>
 
-                <span>
-                    Logout
-                </span>
+        <span>
+            Settings
+        </span>
 
-            </a>
+    </a>
 
-        </div>
+
+    <!-- LOGOUT -->
+
+    <a
+        href="<?= ROOT ?>/logout"
+        class="sidebar-link sidebar-logout"
+    >
+
+        <span class="sidebar-icon">
+            LO
+        </span>
+
+        <span>
+            Logout
+        </span>
+
+    </a>
+
+</div>
 
 
     </div>

@@ -123,114 +123,142 @@ public function index()
 }
 
 
-    /* =====================================================
-       STAFF DETAILS
-    ===================================================== */
-
     public function details($staff_id = null)
-    {
-        if (session_status() === PHP_SESSION_NONE) {
-            session_start();
-        }
-
-
-        if (!isset($_SESSION['rank'])) {
-
-            header("Location: " . ROOT . "/login");
-            exit;
-        }
-
-
-        if (
-            $staff_id === null ||
-            $staff_id === ''
-        ) {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/staff"
-            );
-
-            exit;
-        }
-
-
-        $staffModel =
-            new StaffModel();
-
-
-        $rank = $_SESSION['rank'];
-
-
-        /*
-        ========================================
-        SUPER ADMIN
-        ========================================
-        */
-
-        if ($rank === 'super_admin') {
-
-            $staffData =
-                $staffModel->getStaffDetails(
-                    $staff_id
-                );
-        }
-
-
-        /*
-        ========================================
-        SCHOOL ADMIN
-        ========================================
-        */
-
-        elseif ($rank === 'admin') {
-
-            $school_id =
-                $_SESSION['school_id'] ?? null;
-
-
-            if (!$school_id) {
-
-                die(
-                    "No school is assigned to this account."
-                );
-            }
-
-
-            $staffData =
-                $staffModel->getStaffDetailsBySchool(
-                    $staff_id,
-                    $school_id
-                );
-        }
-
-
-        else {
-
-            header(
-                "Location: " .
-                ROOT .
-                "/home"
-            );
-
-            exit;
-        }
-
-
-        if (!$staffData) {
-
-            die(
-                "Staff not found or you do not have permission to view this staff member."
-            );
-        }
-
-
-        $this->view('staff-details', [
-            'staff' => $staffData
-        ]);
+{
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
     }
 
+    if (!isset($_SESSION['rank'])) {
+        header("Location: " . ROOT . "/login");
+        exit;
+    }
+
+    if (
+        $staff_id === null ||
+        $staff_id === ''
+    ) {
+        header(
+            "Location: " .
+            ROOT .
+            "/staff"
+        );
+        exit;
+    }
+
+    $staffModel = new StaffModel();
+
+    $rank = $_SESSION['rank'];
+
+    /*
+    ========================================
+    SUPER ADMIN
+    ========================================
+    */
+
+    if ($rank === 'super_admin') {
+
+        $teacher =
+            $staffModel->getStaffDetails(
+                $staff_id
+            );
+
+    }
+
+
+    /*
+    ========================================
+    SCHOOL ADMIN
+    ========================================
+    */
+
+    elseif ($rank === 'admin') {
+
+        $school_id =
+            $_SESSION['school_id'] ?? null;
+
+        if (!$school_id) {
+            die(
+                "No school is assigned to this account."
+            );
+        }
+
+        $teacher =
+            $staffModel->getStaffDetailsBySchool(
+                $staff_id,
+                $school_id
+            );
+
+    }
+
+
+    /*
+    ========================================
+    OTHER USERS
+    ========================================
+    */
+
+    else {
+
+        header(
+            "Location: " .
+            ROOT .
+            "/home"
+        );
+
+        exit;
+    }
+
+
+    /*
+    ========================================
+    TEACHER NOT FOUND
+    ========================================
+    */
+
+    if (!$teacher) {
+
+        die(
+            "Teacher not found or you do not have permission to view this teacher."
+        );
+    }
+
+
+    /*
+    ========================================
+    TEACHER SUBJECTS
+    ========================================
+    */
+
+    $teacherSubjects = [];
+
+    $teacherSchoolId =
+        $teacher->school_id ?? null;
+
+    if ($teacherSchoolId) {
+
+        $teacherSubjects =
+            $staffModel->getTeacherSubjects(
+                $staff_id,
+                $teacherSchoolId
+            );
+    }
+
+
+    /*
+    ========================================
+    TEACHER DETAILS VIEW
+    ========================================
+    */
+
+    $this->view('teacher-details', [
+        'teacher' =>
+            $teacher,
+
+        'teacherSubjects' =>
+            $teacherSubjects
+    ]);
+}
 
     /* =====================================================
        ADD STAFF
@@ -765,8 +793,8 @@ if (
         );
     }
 
-    /* =====================================================
-   EDIT STAFF
+ /* =====================================================
+   EDIT TEACHER
 ===================================================== */
 
 public function edit($staff_id = null)
@@ -794,15 +822,17 @@ public function edit($staff_id = null)
 
     $staffModel = new StaffModel();
 
-    /*
-    ========================================
-    GET STAFF
-    ========================================
-    */
+    $teacherSubjects = [];
 
     if ($rank === 'super_admin') {
 
-        $staff = $staffModel->getStaffDetails($staff_id);
+        $teacher = $staffModel->getStaffDetails($staff_id);
+
+        if (!$teacher) {
+            die("Teacher not found.");
+        }
+
+        $school_id = $teacher->school_id ?? null;
 
         $schoolModel = new School();
         $schools = $schoolModel->getAllSchools();
@@ -815,22 +845,31 @@ public function edit($staff_id = null)
             die("No school is assigned to this account.");
         }
 
-        $staff = $staffModel->getStaffDetailsBySchool(
+        $teacher = $staffModel->getStaffDetailsBySchool(
             $staff_id,
             $school_id
         );
 
         $schools = [];
+
+        if (!$teacher) {
+            die("Teacher not found or you do not have permission to edit this teacher.");
+        }
     }
 
-    if (!$staff) {
-        die("Staff not found or you do not have permission to edit this staff member.");
+    if ($school_id) {
+        $teacherSubjects =
+            $staffModel->getTeacherSubjects(
+                $staff_id,
+                $school_id
+            );
     }
 
-    $this->view('staff-edit', [
-        'staff'   => $staff,
+    $this->view('teacher-edit', [
+        'staff' => $teacher,
         'schools' => $schools,
-        'error'   => ''
+        'teacherSubjects' => $teacherSubjects,
+        'error' => ''
     ]);
 }
 

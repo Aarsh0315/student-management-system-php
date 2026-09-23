@@ -740,3 +740,52 @@
     }
 
 }
+
+/* ========================================
+   TEACHER ACTION BUTTONS
+======================================== */
+
+.teacher-actions-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.teacher-action-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 64px;
+    padding: 8px 13px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid transparent;
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
+}
+
+.teacher-action-btn.view {
+    background: #f3f4f6;
+    color: #374151;
+    border-color: #e5e7eb;
+}
+
+.teacher-action-btn.view:hover {
+    background: #e5e7eb;
+}
+
+.teacher-action-btn.edit {
+    background: #303641;
+    color: #ffffff;
+    border-color: #303641;
+}
+
+.teacher-action-btn.edit:hover {
+    background: #232832;
+    border-color: #232832;
+}

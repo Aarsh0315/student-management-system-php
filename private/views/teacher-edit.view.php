@@ -1,16 +1,19 @@
 <?php
 
-$staff   = $data['staff'] ?? null;
+$staff = $data['staff'] ?? null;
 $schools = $data['schools'] ?? [];
-$error   = $data['error'] ?? '';
+$error = $data['error'] ?? '';
+
+$teacherSubjects =
+    $data['teacherSubjects'] ?? [];
 
 if (!$staff) {
-    die("Staff not found.");
+    die("Teacher not found.");
 }
 
 
 /* =====================================================
-   STAFF NAME
+   TEACHER NAME
 ===================================================== */
 
 $fullName = trim(
@@ -50,8 +53,7 @@ $initials = strtoupper(
     >
 
     <title>
-        Edit <?= htmlspecialchars($fullName) ?>
-        - My School
+        Edit <?= htmlspecialchars($fullName) ?> - My School
     </title>
 
 
@@ -79,11 +81,11 @@ $initials = strtoupper(
     >
 
 
-    <!-- STAFF -->
+    <!-- TEACHERS -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/staff.view.css?v=4"
+        href="<?= ROOT ?>/css/teachers.view.css?v=1"
     >
 
 
@@ -95,11 +97,11 @@ $initials = strtoupper(
     >
 
 
-    <!-- EDIT STAFF -->
+    <!-- TEACHER EDIT -->
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/edit-staff.view.css?v=1"
+        href="<?= ROOT ?>/css/edit-teacher.view.css?v=1"
     >
 
 </head>
@@ -124,16 +126,16 @@ $initials = strtoupper(
     <section class="welcome">
 
         <p class="welcome-small">
-            Super Admin / Staff
+            Teachers / Edit Teacher
         </p>
 
         <h1>
-            Edit Staff
+            Edit Teacher
         </h1>
 
         <p class="welcome-text">
-            Update staff information, professional details
-            and account information.
+            Update teacher information, professional details,
+            account information and assigned subjects.
         </p>
 
     </section>
@@ -141,14 +143,14 @@ $initials = strtoupper(
 
 
     <!-- ==================================================
-         EDIT STAFF CARD
+         EDIT TEACHER CARD
     =================================================== -->
 
     <section class="staff-details-card">
 
 
         <!-- ==================================================
-             STAFF HEADER
+             TEACHER HEADER
         =================================================== -->
 
         <div class="staff-details-header">
@@ -168,6 +170,7 @@ $initials = strtoupper(
                 </h2>
 
                 <p>
+                    Teacher ID:
                     <?= htmlspecialchars(
                         $staff->staff_id ?? ''
                     ) ?>
@@ -218,7 +221,9 @@ $initials = strtoupper(
 
         <form
             method="POST"
-            action="<?= ROOT ?>/staff/update/<?= urlencode($staff->staff_id) ?>"
+            action="<?= ROOT ?>/staff/update/<?= urlencode(
+                $staff->staff_id
+            ) ?>"
             enctype="multipart/form-data"
             class="staff-edit-form"
         >
@@ -367,25 +372,25 @@ $initials = strtoupper(
 
 
             <!-- ==================================================
-                 STAFF INFORMATION
+                 TEACHER INFORMATION
             =================================================== -->
 
             <div class="details-section">
 
                 <h3>
-                    Staff Information
+                    Teacher Information
                 </h3>
 
 
                 <div class="information-grid">
 
 
-                    <!-- STAFF ID -->
+                    <!-- TEACHER ID -->
 
                     <div class="form-group">
 
                         <label for="staff_id">
-                            Staff ID
+                            Teacher ID
                         </label>
 
                         <input
@@ -398,7 +403,7 @@ $initials = strtoupper(
                         >
 
                         <small>
-                            Staff ID cannot be changed.
+                            Teacher ID cannot be changed.
                         </small>
 
                     </div>
@@ -640,6 +645,98 @@ $initials = strtoupper(
 
 
             <!-- ==================================================
+                 ASSIGNED SUBJECTS
+            =================================================== -->
+
+            <div class="details-section teacher-subject-section">
+
+                <h3>
+                    Assigned Subjects
+                </h3>
+
+                <p class="section-description">
+                    Subjects currently assigned to this teacher
+                    by class and division.
+                </p>
+
+
+                <?php if (!empty($teacherSubjects)): ?>
+
+                    <div class="teacher-subject-list">
+
+                        <?php foreach ($teacherSubjects as $subject): ?>
+
+                            <div class="teacher-subject-item">
+
+                                <div class="teacher-subject-main">
+
+                                    <strong>
+                                        <?= htmlspecialchars(
+                                            $subject->subject_name
+                                            ?? '-'
+                                        ) ?>
+                                    </strong>
+
+                                    <?php if (!empty(
+                                        $subject->subject_code
+                                    )): ?>
+
+                                        <span>
+                                            <?= htmlspecialchars(
+                                                $subject->subject_code
+                                            ) ?>
+                                        </span>
+
+                                    <?php endif; ?>
+
+                                </div>
+
+
+                                <div class="teacher-subject-class">
+
+                                    Class
+                                    <?= htmlspecialchars(
+                                        $subject->class ?? '-'
+                                    ) ?>
+
+                                    -
+
+                                    Division
+                                    <?= htmlspecialchars(
+                                        $subject->division ?? '-'
+                                    ) ?>
+
+                                </div>
+
+                            </div>
+
+                        <?php endforeach; ?>
+
+                    </div>
+
+                <?php else: ?>
+
+                    <div class="no-subjects-message">
+
+                        <strong>
+                            No subjects assigned
+                        </strong>
+
+                        <p>
+                            This teacher currently has no
+                            subject assignments.
+                        </p>
+
+                    </div>
+
+                <?php endif; ?>
+
+
+            </div>
+
+
+
+            <!-- ==================================================
                  ADDRESS
             =================================================== -->
 
@@ -662,7 +759,7 @@ $initials = strtoupper(
                             id="address"
                             name="address"
                             rows="4"
-                            placeholder="Enter staff address"
+                            placeholder="Enter teacher address"
                         ><?= htmlspecialchars(
                             $staff->address ?? ''
                         ) ?></textarea>
@@ -751,7 +848,7 @@ $initials = strtoupper(
                                 src="<?= ROOT ?>/<?= htmlspecialchars(
                                     $staff->profile_image
                                 ) ?>"
-                                alt="Staff Profile"
+                                alt="Teacher Profile"
                             >
 
                         </div>
@@ -819,7 +916,7 @@ $initials = strtoupper(
                     type="submit"
                     class="save-staff-btn"
                 >
-                    Update Staff
+                    Update Teacher
                 </button>
 
 

@@ -37,9 +37,9 @@ $teachers = $data['teachers'] ?? [];
     >
 
     <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/home.view.css?v=2"
->
+        rel="stylesheet"
+        href="<?= ROOT ?>/css/home.view.css?v=2"
+    >
 
 
     <!-- FOOTER CSS -->
@@ -200,6 +200,10 @@ $teachers = $data['teachers'] ?? [];
                             </th>
 
                             <th>
+                                Subject(s)
+                            </th>
+
+                            <th>
                                 Designation
                             </th>
 
@@ -294,6 +298,43 @@ $teachers = $data['teachers'] ?? [];
                                 </td>
 
 
+                                <!-- SUBJECTS -->
+
+                                <td>
+
+                                    <?php
+
+                                    $subjects =
+                                        trim(
+                                            $teacher->subjects
+                                            ?? ''
+                                        );
+
+                                    ?>
+
+                                    <?php if ($subjects !== ''): ?>
+
+                                        <span class="teacher-subject">
+
+                                            <?= htmlspecialchars(
+                                                $subjects
+                                            ) ?>
+
+                                        </span>
+
+                                    <?php else: ?>
+
+                                        <span class="teacher-subject empty">
+
+                                            Not Assigned
+
+                                        </span>
+
+                                    <?php endif; ?>
+
+                                </td>
+
+
                                 <!-- DESIGNATION -->
 
                                 <td>
@@ -367,6 +408,13 @@ $teachers = $data['teachers'] ?? [];
                                             class="view-btn"
                                         >
                                             View
+                                        </a>
+
+                                         <a
+                                            href="<?= ROOT ?>/staff/edit/<?= urlencode($teacher->staff_id) ?>"
+                                            class="teacher-action-btn edit"
+                                        >
+                                            Edit
                                         </a>
 
                                     </div>

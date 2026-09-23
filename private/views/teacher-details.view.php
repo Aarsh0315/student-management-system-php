@@ -2,11 +2,8 @@
 
 $teacher = $data['teacher'] ?? null;
 
-
 if (!$teacher) {
-
     die("Teacher not found.");
-
 }
 
 
@@ -29,18 +26,21 @@ INITIAL
 */
 
 $initial = strtoupper(
-
     substr(
-
         $teacher->firstname ?? 'T',
-
         0,
-
         1
-
     )
-
 );
+
+
+/*
+========================================
+SUBJECTS
+========================================
+*/
+
+$subjects = trim($teacher->subjects ?? '');
 
 ?>
 
@@ -51,12 +51,10 @@ $initial = strtoupper(
 
     <meta charset="UTF-8">
 
-
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0"
     >
-
 
     <title>
         Teacher Details - My School
@@ -126,11 +124,9 @@ $initial = strtoupper(
                 School Admin
             </p>
 
-
             <h1>
                 Teacher Details
             </h1>
-
 
             <p class="welcome-text">
                 View complete information about this teacher.
@@ -420,14 +416,10 @@ $initial = strtoupper(
                 <strong>
 
                     <?= htmlspecialchars(
-
                         ucfirst(
-
                             $teacher->status
                             ?? 'active'
-
                         )
-
                     ) ?>
 
                 </strong>
@@ -481,6 +473,32 @@ $initial = strtoupper(
                         $teacher->department
                         ?? '-'
                     ) ?>
+
+                </strong>
+
+            </div>
+
+
+
+            <!-- SUBJECT(S) -->
+
+            <div class="details-item">
+
+                <span>
+                    Subject(s)
+                </span>
+
+                <strong>
+
+                    <?php if ($subjects !== ''): ?>
+
+                        <?= htmlspecialchars($subjects) ?>
+
+                    <?php else: ?>
+
+                        Not Assigned
+
+                    <?php endif; ?>
 
                 </strong>
 
