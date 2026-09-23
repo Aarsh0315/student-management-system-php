@@ -288,6 +288,11 @@ class Schools extends Controller
                     $status
             ]);
 
+            $this->audit(
+    'SCHOOL_CREATED',
+    "School '{$school_name}' was created."
+);
+
 
             /*
             ============================================
@@ -476,6 +481,10 @@ public function update($school_id)
         ]
     );
 
+    $this->audit(
+    'SCHOOL_UPDATED',
+    "School '{$school_name}' ({$school_id}) was updated."
+);
 
     /*
     =================================================
@@ -546,6 +555,11 @@ public function delete($school_id)
     $school = new School();
 
     $school->deactivateSchool($school_id);
+
+    $this->audit(
+    'SCHOOL_DEACTIVATED',
+    "School '{$school_id}' was deactivated."
+);
 
 
     /*
@@ -629,6 +643,10 @@ public function activate($school_id)
         die("Unable to activate school.");
     }
 
+    $this->audit(
+    'SCHOOL_ACTIVATED',
+    "School '{$school_id}' was activated."
+);
 
     /*
     ========================================

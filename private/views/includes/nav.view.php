@@ -4,6 +4,20 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+/*
+|--------------------------------------------------------------------------
+| SYSTEM SETTINGS
+|--------------------------------------------------------------------------
+*/
+
+require_once __DIR__ . '/../../models/SettingsModel.php';
+
+$settingsModel = new SettingsModel();
+
+$systemName =
+    $settingsModel->get('system_name')
+    ?: 'My School';
+
 
 /*
 =====================================================
@@ -107,11 +121,11 @@ $initial = strtoupper(
             <!-- BRAND -->
 
             <a
-                href="<?= $dashboardUrl ?>"
-                class="navbar-brand"
-            >
-                My School
-            </a>
+    href="<?= $dashboardUrl ?>"
+    class="navbar-brand"
+>
+    <?= htmlspecialchars($systemName) ?>
+</a>
 
         </div>
 
@@ -156,265 +170,238 @@ $initial = strtoupper(
             >
 
 
-                <!-- =================================================
-                     SUPER ADMIN
-                ================================================== -->
+               <!-- =================================================
+     SUPER ADMIN
+================================================== -->
 
-                <?php if ($rank === 'super_admin'): ?>
+<?php if ($rank === 'super_admin'): ?>
 
 
-                    <!-- MANAGEMENT -->
+    <!-- PLATFORM -->
 
-                    <div class="search-section">
+    <div class="search-section">
 
-                        <div class="search-section-title">
-                            MANAGEMENT
-                        </div>
+        <div class="search-section-title">
+            PLATFORM
+        </div>
 
 
-                        <!-- SCHOOLS -->
+        <!-- SCHOOLS -->
 
-                        <a
-                            href="<?= ROOT ?>/schools"
-                            class="search-item"
-                            data-search="schools school management"
-                        >
+        <a
+            href="<?= ROOT ?>/schools"
+            class="search-item"
+            data-search="schools school platform management"
+        >
 
-                            <span class="search-item-icon">
-                                SC
-                            </span>
+            <span class="search-item-icon">
+                SC
+            </span>
 
-                            <span class="search-item-content">
+            <span class="search-item-content">
 
-                                <strong>
-                                    Schools
-                                </strong>
+                <strong>
+                    Schools
+                </strong>
 
-                                <small>
-                                    Manage schools
-                                </small>
+                <small>
+                    Manage schools
+                </small>
 
-                            </span>
+            </span>
 
-                        </a>
+        </a>
 
 
-                        <!-- USERS -->
+        <!-- SCHOOL ADMINS -->
 
-                        <a
-                            href="<?= ROOT ?>/users"
-                            class="search-item"
-                            data-search="users user management"
-                        >
+        <a
+            href="<?= ROOT ?>/schooladmins"
+            class="search-item"
+            data-search="school admins school administrators platform"
+        >
 
-                            <span class="search-item-icon">
-                                US
-                            </span>
+            <span class="search-item-icon">
+                SA
+            </span>
 
-                            <span class="search-item-content">
+            <span class="search-item-content">
 
-                                <strong>
-                                    Users
-                                </strong>
+                <strong>
+                    School Admins
+                </strong>
 
-                                <small>
-                                    Manage system users
-                                </small>
+                <small>
+                    Manage school administrators
+                </small>
 
-                            </span>
+            </span>
 
-                        </a>
+        </a>
 
-                    </div>
 
+        <!-- USERS -->
 
+        <a
+            href="<?= ROOT ?>/users"
+            class="search-item"
+            data-search="users user platform management"
+        >
 
-                    <!-- PEOPLE -->
+            <span class="search-item-icon">
+                US
+            </span>
 
-                    <div class="search-section">
+            <span class="search-item-content">
 
-                        <div class="search-section-title">
-                            PEOPLE
-                        </div>
+                <strong>
+                    Users
+                </strong>
 
+                <small>
+                    Manage system users
+                </small>
 
-                        <!-- STUDENTS -->
+            </span>
 
-                        <a
-                            href="<?= ROOT ?>/students"
-                            class="search-item"
-                            data-search="students student people"
-                        >
+        </a>
 
-                            <span class="search-item-icon">
-                                ST
-                            </span>
+    </div>
 
-                            <span class="search-item-content">
 
-                                <strong>
-                                    Students
-                                </strong>
 
-                                <small>
-                                    Manage student records
-                                </small>
+    <!-- MONITORING -->
 
-                            </span>
+    <div class="search-section">
 
-                        </a>
+        <div class="search-section-title">
+            MONITORING
+        </div>
 
 
-                        <!-- STAFF -->
+        <!-- REPORTS -->
 
-                        <a
-                            href="<?= ROOT ?>/staff"
-                            class="search-item"
-                            data-search="staff teacher teachers people"
-                        >
+        <a
+            href="<?= ROOT ?>/reports"
+            class="search-item"
+            data-search="reports report analytics monitoring"
+        >
 
-                            <span class="search-item-icon">
-                                SF
-                            </span>
+            <span class="search-item-icon">
+                RP
+            </span>
 
-                            <span class="search-item-content">
+            <span class="search-item-content">
 
-                                <strong>
-                                    Staff
-                                </strong>
+                <strong>
+                    Reports
+                </strong>
 
-                                <small>
-                                    Manage staff members
-                                </small>
+                <small>
+                    View platform reports and analytics
+                </small>
 
-                            </span>
+            </span>
 
-                        </a>
+        </a>
 
 
-                        <!-- PARENTS -->
+        <!-- AUDIT LOGS -->
 
-                        <a
-                            href="<?= ROOT ?>/parents"
-                            class="search-item"
-                            data-search="parents parent people"
-                        >
+        <a
+            href="<?= ROOT ?>/auditlogs"
+            class="search-item"
+            data-search="audit logs activity history security monitoring"
+        >
 
-                            <span class="search-item-icon">
-                                PR
-                            </span>
+            <span class="search-item-icon">
+                AL
+            </span>
 
-                            <span class="search-item-content">
+            <span class="search-item-content">
 
-                                <strong>
-                                    Parents
-                                </strong>
+                <strong>
+                    Audit Logs
+                </strong>
 
-                                <small>
-                                    Manage parents
-                                </small>
+                <small>
+                    View platform activity logs
+                </small>
 
-                            </span>
+            </span>
 
-                        </a>
+        </a>
 
-                    </div>
 
+        <!-- SECURITY -->
 
+        <a
+            href="<?= ROOT ?>/security"
+            class="search-item"
+            data-search="security login protection failed logins monitoring"
+        >
 
-                    <!-- ACADEMICS -->
+            <span class="search-item-icon">
+                SE
+            </span>
 
-                    <div class="search-section">
+            <span class="search-item-content">
 
-                        <div class="search-section-title">
-                            ACADEMICS
-                        </div>
+                <strong>
+                    Security
+                </strong>
 
+                <small>
+                    Monitor platform security
+                </small>
 
-                        <!-- TESTS -->
+            </span>
 
-                        <a
-                            href="<?= ROOT ?>/tests"
-                            class="search-item"
-                            data-search="tests test exam assessment academics"
-                        >
+        </a>
 
-                            <span class="search-item-icon">
-                                TS
-                            </span>
+    </div>
 
-                            <span class="search-item-content">
 
-                                <strong>
-                                    Tests
-                                </strong>
 
-                                <small>
-                                    Manage assessments
-                                </small>
+    <!-- SYSTEM -->
 
-                            </span>
+    <div class="search-section">
 
-                        </a>
+        <div class="search-section-title">
+            SYSTEM
+        </div>
 
 
-                        <!-- RESULTS -->
+        <!-- SETTINGS -->
 
-                        <a
-                            href="<?= ROOT ?>/results"
-                            class="search-item"
-                            data-search="results result marks academics"
-                        >
+        <a
+            href="<?= ROOT ?>/settings"
+            class="search-item"
+            data-search="settings system configuration preferences"
+        >
 
-                            <span class="search-item-icon">
-                                RS
-                            </span>
+            <span class="search-item-icon">
+                ST
+            </span>
 
-                            <span class="search-item-content">
+            <span class="search-item-content">
 
-                                <strong>
-                                    Results
-                                </strong>
+                <strong>
+                    Settings
+                </strong>
 
-                                <small>
-                                    View academic results
-                                </small>
+                <small>
+                    Manage system settings
+                </small>
 
-                            </span>
+            </span>
 
-                        </a>
+        </a>
 
+    </div>
 
-                        <!-- SCHOOL ADMINS -->
 
-                        <a
-                            href="<?= ROOT ?>/schooladmins"
-                            class="search-item"
-                            data-search="school admins school administrators management"
-                        >
-
-                            <span class="search-item-icon">
-                                SA
-                            </span>
-
-                            <span class="search-item-content">
-
-                                <strong>
-                                    School Admins
-                                </strong>
-
-                                <small>
-                                    Manage school administrators
-                                </small>
-
-                            </span>
-
-                        </a>
-
-                    </div>
-
-
-                <?php endif; ?>
+<?php endif; ?>
 
 
 
@@ -1032,7 +1019,7 @@ $initial = strtoupper(
     ================================================== -->
 
     <a
-        href="<?= ROOT ?>/profile"
+        href="<?= ROOT ?>/settings"
         class="navbar-icon-btn settings-btn"
         aria-label="Settings"
         title="Settings"

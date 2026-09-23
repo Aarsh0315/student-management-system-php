@@ -43,47 +43,83 @@ class Superadmin extends Controller
             $this->model('ParentModel');
 
 
-        /* ========================================
-           SYSTEM COUNTS
-        ======================================== */
+       /* ========================================
+   PLATFORM COUNTS
+======================================== */
 
-        $schoolCount =
-            $schoolModel->getTotalSchoolCount();
+$totalSchools =
+    $schoolModel->getTotalSchoolCount();
 
-        $studentCount =
-            $studentModel->getTotalStudentCount();
+$activeSchools =
+    $schoolModel->getActiveSchoolCount();
 
-        $adminCount =
-            $userModel->getTotalAdminCount();
+$inactiveSchools =
+    $schoolModel->getInactiveSchoolCount();
 
-        $parentCount =
-            $parentModel->getTotalParentCount();
+/* =====================================================
+   SCHOOLS REQUIRING ATTENTION
+===================================================== */
 
-        
+$attentionSchools = $schoolModel->getInactiveSchools(5);
+
+$totalUsers =
+    $userModel->getTotalUserCount();
+
+$studentCount =
+    $userModel->getTotalStudentCount();
+
+$teacherCount =
+    $userModel->getTotalTeacherCount();
+
+$parentCount =
+    $userModel->getTotalParentCount();
+
+$adminCount =
+    $userModel->getTotalAdminCount();
+
+$schoolOverview = $schoolModel->getSchoolOverview();
+
+    /* =====================================================
+   PLATFORM HEALTH
+===================================================== */
+
+$platformHealth = [
+    'status' => $inactiveSchools > 0
+        ? 'Attention Required'
+        : 'Healthy',
+
+    'activeSchools' => $activeSchools,
+    'inactiveSchools' => $inactiveSchools,
+    'totalUsers' => $totalUsers
+];
+
+/* =====================================================
+   SECURITY OVERVIEW
+===================================================== */
+
+$securityOverview = [
+    'superAdminOtp' => true,
+    'loginProtection' => true,
+    'captchaProtection' => true
+];
+
+        /* =====================================================
+   SCHOOL OVERVIEW
+===================================================== */
+
+$schoolOverview = $schoolModel->getSchoolOverview();
+
+if (!is_array($schoolOverview)) {
+    $schoolOverview = [];
+}
 
 
-        /* ========================================
-           SCHOOL OVERVIEW
-        ======================================== */
+/* =====================================================
+   RECENT ACTIVITY DATA
+===================================================== */
 
-        $schoolOverview =
-            $schoolModel->getSchoolOverview();
-
-
-        /* ========================================
-           RECENT SCHOOLS
-        ======================================== */
-
-        $recentSchools =
-            $schoolModel->getRecentSchools(3);
-
-
-        /* ========================================
-           RECENT USERS
-        ======================================== */
-
-        $recentUsers =
-            $userModel->getRecentUsers(3);
+$recentSchools = $schoolModel->getRecentSchools(3);
+$recentUsers = $userModel->getRecentUsers(3);
 
 
         /* ========================================
@@ -184,32 +220,78 @@ class Superadmin extends Controller
                 6
             );
 
+            /*
+|--------------------------------------------------------------------------
+| SECURITY OVERVIEW
+|--------------------------------------------------------------------------
+*/
+
+$settingsModel = $this->model('SettingsModel');
+
+$securitySettings =
+    $settingsModel->getAllAsArray();
+
+$securityOverview = [
+    'superAdminOtp' =>
+        ($securitySettings['super_admin_otp'] ?? '1') === '1',
+
+    'loginProtection' =>
+        ($securitySettings['login_protection'] ?? '1') === '1',
+
+    'captchaProtection' =>
+        ($securitySettings['captcha_protection'] ?? '1') === '1'
+];
+
 
         /* ========================================
-           DASHBOARD DATA
-        ======================================== */
+   DASHBOARD DATA
+======================================== */
 
-        $data = [
+$data = [
 
-            'schoolCount' =>
-                $schoolCount,
+    'totalSchools' =>
+        $totalSchools,
 
-            'studentCount' =>
-                $studentCount,
+    'platformHealth' => 
+        $platformHealth,
 
-            'adminCount' =>
-                $adminCount,
+    'activeSchools' =>
+        $activeSchools,
 
-            'parentCount' =>
-                $parentCount,
+    'inactiveSchools' =>
+        $inactiveSchools,
 
-            'schoolOverview' =>
-                $schoolOverview,
+    'totalUsers' =>
+        $totalUsers,
 
-            'recentActivities' =>
-                $recentActivities
+    'schoolOverview' =>
+        $schoolOverview,
+    
+    'attentionSchools' => 
+        $attentionSchools,
 
-        ];
+    'recentActivities' =>
+        $recentActivities,
+
+    'studentCount' =>
+        $studentCount,
+
+    'teacherCount' =>
+        $teacherCount,
+
+    'parentCount' =>
+        $parentCount,
+
+    'securityOverview' => 
+        $securityOverview,
+
+    'adminCount' =>
+        $adminCount,
+    
+    'schoolOverview' => 
+        $schoolOverview,
+
+];
 
 
         /* ========================================

@@ -1,15 +1,31 @@
-/* =========================================================
-   SUPER ADMIN SETTINGS
-   Professional Light SaaS UI
-   ========================================================= */
+/* ============================================================
+   SETTINGS PAGE
+============================================================ */
 
 .settings-page {
     min-height: calc(100vh - 70px);
-    padding: 28px 34px 55px;
-    background:
-        radial-gradient(circle at 90% 0%, rgba(163, 38, 117, 0.055), transparent 30%),
-        #f4f2f7;
+    background: #f4f2f7;
+    padding: 30px 34px 60px;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+    box-sizing: border-box;
 }
+
+.settings-page *,
+.settings-page *::before,
+.settings-page *::after {
+    box-sizing: border-box;
+}
+
+
+/* ============================================================
+   CONTAINER
+============================================================ */
 
 .settings-container {
     width: 100%;
@@ -17,147 +33,210 @@
     margin: 0 auto;
 }
 
-/* =========================================================
-   PAGE HEADER
-   ========================================================= */
 
-.settings-header {
-    margin-bottom: 22px;
-}
-
-.settings-eyebrow {
-    display: inline-block;
-    margin-bottom: 7px;
-    font-size: 11px;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    color: #a32675;
-}
-
-.settings-header h1 {
-    margin: 0;
-    color: #292333;
-    font-size: 30px;
-    line-height: 1.2;
-    font-weight: 750;
-    letter-spacing: -0.02em;
-}
-
-.settings-header p {
-    margin: 8px 0 0;
-    max-width: 700px;
-    color: #73717b;
-    font-size: 14px;
-    line-height: 1.6;
-}
-
-/* =========================================================
+/* ============================================================
    ALERTS
-   ========================================================= */
+============================================================ */
 
 .settings-alert {
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 18px;
-    padding: 14px 16px;
-    border: 1px solid;
+    gap: 13px;
+
+    width: 100%;
+    padding: 15px 18px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid transparent;
     border-radius: 13px;
-    background: #ffffff;
-}
 
-.settings-alert-success {
-    border-color: #cfe8d8;
-    background: #f5fbf7;
-}
-
-.settings-alert-error {
-    border-color: #f0cccc;
-    background: #fff7f7;
+    font-size: 14px;
 }
 
 .settings-alert-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 25px;
-    height: 25px;
-    flex: 0 0 25px;
+
+    width: 28px;
+    height: 28px;
+
+    flex: 0 0 28px;
+
     border-radius: 50%;
-    font-size: 13px;
-    font-weight: 800;
-}
 
-.settings-alert-success .settings-alert-icon {
-    color: #237a45;
-    background: #dff3e6;
-}
-
-.settings-alert-error .settings-alert-icon {
-    color: #b33a3a;
-    background: #f8dddd;
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .settings-alert strong {
     display: block;
-    margin-bottom: 2px;
-    color: #292333;
-    font-size: 13px;
-    font-weight: 750;
+
+    margin-bottom: 3px;
+
+    font-size: 14px;
+    font-weight: 700;
 }
 
 .settings-alert p {
     margin: 0;
-    color: #6e6c75;
+
     font-size: 13px;
     line-height: 1.5;
 }
 
-/* =========================================================
+
+/* Success */
+
+.settings-alert-success {
+    background: #f0faf4;
+    border-color: #ccebd8;
+    color: #21613a;
+}
+
+.settings-alert-success .settings-alert-icon {
+    background: #d9f2e2;
+    color: #23733f;
+}
+
+
+/* Error */
+
+.settings-alert-error {
+    background: #fff4f4;
+    border-color: #f1d0d0;
+    color: #8b3030;
+}
+
+.settings-alert-error .settings-alert-icon {
+    background: #f8dddd;
+    color: #a42e2e;
+}
+
+
+/* ============================================================
+   PAGE HEADER
+============================================================ */
+
+.settings-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    margin-bottom: 26px;
+}
+
+.settings-eyebrow {
+    display: inline-block;
+
+    margin-bottom: 8px;
+
+    color: #a24b87;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+}
+
+.settings-header h1 {
+    margin: 0;
+
+    color: #242831;
+
+    font-size: 30px;
+    line-height: 1.2;
+    font-weight: 750;
+
+    letter-spacing: -0.5px;
+}
+
+.settings-header p {
+    max-width: 720px;
+
+    margin: 9px 0 0;
+
+    color: #737984;
+
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+
+/* ============================================================
    SETTINGS CARD
-   ========================================================= */
+============================================================ */
 
 .settings-card {
-    overflow: hidden;
+    width: 100%;
+
+    margin-bottom: 22px;
+
+    padding: 27px 28px 28px;
+
     background: #ffffff;
-    border: 1px solid #e8e5ea;
-    border-radius: 19px;
-    box-shadow: 0 8px 24px rgba(42, 35, 51, 0.055);
+
+    border: 1px solid #e4e3e8;
+    border-radius: 18px;
+
+    box-shadow:
+        0 2px 8px rgba(32, 35, 42, 0.035),
+        0 10px 28px rgba(32, 35, 42, 0.025);
 }
 
 .settings-card-header {
-    padding: 22px 24px;
-    border-bottom: 1px solid #eeeaf0;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+
+    padding-bottom: 22px;
+
+    margin-bottom: 24px;
+
+    border-bottom: 1px solid #eeeeF1;
 }
 
 .settings-card-header h2 {
     margin: 0;
-    color: #292333;
+
+    color: #292d35;
+
     font-size: 18px;
-    font-weight: 750;
-    letter-spacing: -0.01em;
+    line-height: 1.35;
+    font-weight: 700;
 }
 
 .settings-card-header p {
-    margin: 5px 0 0;
-    color: #77747e;
+    max-width: 700px;
+
+    margin: 6px 0 0;
+
+    color: #7a7f88;
+
     font-size: 13px;
-    line-height: 1.5;
+    line-height: 1.55;
 }
 
-/* =========================================================
-   FORM
-   ========================================================= */
 
-.settings-card form {
-    padding: 24px;
-}
+/* ============================================================
+   SETTINGS GRID
+============================================================ */
 
 .settings-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px 20px;
+
+    grid-template-columns:
+        repeat(2, minmax(0, 1fr));
+
+    gap: 22px 24px;
 }
+
+
+/* ============================================================
+   SETTINGS FIELD
+============================================================ */
 
 .settings-field {
     min-width: 0;
@@ -165,25 +244,35 @@
 
 .settings-field label {
     display: block;
-    margin-bottom: 7px;
-    color: #36333e;
+
+    margin-bottom: 8px;
+
+    color: #353a43;
+
     font-size: 13px;
     font-weight: 700;
 }
 
 .settings-field input,
 .settings-field select {
+    display: block;
+
     width: 100%;
-    height: 43px;
+    height: 44px;
+
     padding: 0 13px;
-    box-sizing: border-box;
-    border: 1px solid #dcd9e0;
-    border-radius: 10px;
-    outline: none;
+
+    color: #30353e;
     background: #ffffff;
-    color: #292333;
+
+    border: 1px solid #d9dbe0;
+    border-radius: 10px;
+
+    outline: none;
+
     font-family: inherit;
-    font-size: 13px;
+    font-size: 14px;
+
     transition:
         border-color 0.18s ease,
         box-shadow 0.18s ease,
@@ -191,53 +280,285 @@
 }
 
 .settings-field input::placeholder {
-    color: #aaa7af;
+    color: #a3a7ae;
 }
 
 .settings-field input:hover,
 .settings-field select:hover {
-    border-color: #c9c5cd;
+    border-color: #c7c9cf;
 }
 
 .settings-field input:focus,
 .settings-field select:focus {
-    border-color: #a32675;
-    box-shadow: 0 0 0 3px rgba(163, 38, 117, 0.09);
+    border-color: #a24b87;
+
+    box-shadow:
+        0 0 0 3px rgba(162, 75, 135, 0.10);
+}
+
+.settings-field select {
+    cursor: pointer;
 }
 
 .settings-field small {
     display: block;
-    margin-top: 6px;
-    color: #8a8790;
-    font-size: 11px;
+
+    margin-top: 7px;
+
+    color: #8a8e96;
+
+    font-size: 11.5px;
     line-height: 1.45;
 }
 
-/* =========================================================
+
+/* ============================================================
+   INPUT WITH UNIT
+============================================================ */
+
+.settings-input-with-unit {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+}
+
+.settings-input-with-unit input {
+    padding-right: 76px;
+}
+
+.settings-input-with-unit span {
+    position: absolute;
+
+    right: 13px;
+
+    color: #8a8e96;
+
+    font-size: 12px;
+    font-weight: 600;
+
+    pointer-events: none;
+}
+
+
+/* ============================================================
+   SECURITY CARD
+============================================================ */
+
+.settings-security-card {
+    padding-bottom: 28px;
+}
+
+
+/* ============================================================
+   SECURITY TOGGLE LIST
+============================================================ */
+
+.settings-security-list {
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid #e8e8ec;
+    border-radius: 13px;
+
+    overflow: hidden;
+}
+
+.settings-security-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 24px;
+
+    min-height: 76px;
+
+    padding: 16px 18px;
+
+    background: #ffffff;
+
+    border-bottom: 1px solid #eeeeF1;
+}
+
+.settings-security-row:last-child {
+    border-bottom: 0;
+}
+
+.settings-security-row:hover {
+    background: #fcfcfd;
+}
+
+.settings-security-info {
+    min-width: 0;
+}
+
+.settings-security-info strong {
+    display: block;
+
+    margin-bottom: 4px;
+
+    color: #30353e;
+
+    font-size: 13.5px;
+    font-weight: 700;
+}
+
+.settings-security-info span {
+    display: block;
+
+    max-width: 720px;
+
+    color: #858991;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
+   TOGGLE
+============================================================ */
+
+.settings-toggle {
+    position: relative;
+
+    display: inline-flex;
+    align-items: center;
+
+    width: 46px;
+    height: 25px;
+
+    flex: 0 0 46px;
+
+    cursor: pointer;
+}
+
+.settings-toggle input {
+    position: absolute;
+
+    width: 1px;
+    height: 1px;
+
+    opacity: 0;
+    pointer-events: none;
+}
+
+.settings-toggle-slider {
+    position: absolute;
+    inset: 0;
+
+    background: #d6d8dd;
+
+    border-radius: 999px;
+
+    transition:
+        background 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.settings-toggle-slider::before {
+    content: "";
+
+    position: absolute;
+
+    width: 19px;
+    height: 19px;
+
+    left: 3px;
+    top: 3px;
+
+    background: #ffffff;
+
+    border-radius: 50%;
+
+    box-shadow:
+        0 1px 3px rgba(0, 0, 0, 0.18);
+
+    transition:
+        transform 0.2s ease;
+}
+
+.settings-toggle input:checked + .settings-toggle-slider {
+    background: #303641;
+}
+
+.settings-toggle input:checked + .settings-toggle-slider::before {
+    transform: translateX(21px);
+}
+
+.settings-toggle input:focus-visible + .settings-toggle-slider {
+    box-shadow:
+        0 0 0 3px rgba(162, 75, 135, 0.13);
+}
+
+
+/* ============================================================
+   SECURITY LIMITS
+============================================================ */
+
+.settings-security-limits {
+    margin-top: 28px;
+    padding-top: 27px;
+
+    border-top: 1px solid #eeeeF1;
+}
+
+.settings-subsection-title {
+    margin-bottom: 21px;
+}
+
+.settings-subsection-title h3 {
+    margin: 0;
+
+    color: #363a43;
+
+    font-size: 15px;
+    font-weight: 700;
+}
+
+.settings-subsection-title p {
+    margin: 5px 0 0;
+
+    color: #858991;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* ============================================================
    ACTIONS
-   ========================================================= */
+============================================================ */
 
 .settings-actions {
     display: flex;
-    align-items: center;
     justify-content: flex-end;
-    margin-top: 26px;
-    padding-top: 20px;
-    border-top: 1px solid #eeeaf0;
+
+    margin-top: 24px;
 }
 
 .settings-save-btn {
-    min-width: 125px;
-    height: 40px;
-    padding: 0 18px;
-    border: 1px solid #303641;
-    border-radius: 9px;
-    background: #303641;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 130px;
+    height: 44px;
+
+    padding: 0 20px;
+
     color: #ffffff;
+    background: #303641;
+
+    border: 1px solid #303641;
+    border-radius: 10px;
+
     cursor: pointer;
+
     font-family: inherit;
     font-size: 13px;
     font-weight: 700;
+
     transition:
         background 0.18s ease,
         border-color 0.18s ease,
@@ -246,9 +567,12 @@
 }
 
 .settings-save-btn:hover {
-    background: #242a32;
-    border-color: #242a32;
-    box-shadow: 0 6px 16px rgba(48, 54, 65, 0.16);
+    background: #252a32;
+    border-color: #252a32;
+
+    box-shadow:
+        0 5px 14px rgba(38, 42, 50, 0.14);
+
     transform: translateY(-1px);
 }
 
@@ -256,72 +580,131 @@
     transform: translateY(0);
 }
 
-.settings-save-btn:focus-visible {
-    outline: 3px solid rgba(163, 38, 117, 0.18);
-    outline-offset: 2px;
-}
 
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
+/* ============================================================
+   RESPONSIVE — TABLET
+============================================================ */
 
-@media (max-width: 900px) {
+@media (max-width: 1000px) {
+
     .settings-page {
-        padding: 24px 22px 45px;
+        padding: 26px 24px 50px;
     }
 
     .settings-grid {
         grid-template-columns: 1fr;
-        gap: 19px;
+        gap: 20px;
     }
+
 }
 
-@media (max-width: 600px) {
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+============================================================ */
+
+@media (max-width: 760px) {
+
     .settings-page {
-        padding: 20px 15px 35px;
+        padding: 22px 16px 45px;
+    }
+
+    .settings-header {
+        margin-bottom: 20px;
     }
 
     .settings-header h1 {
-        font-size: 26px;
+        font-size: 25px;
     }
 
     .settings-header p {
         font-size: 13px;
     }
 
-    .settings-card-header {
-        padding: 19px;
+    .settings-card {
+        padding: 21px 18px 22px;
+
+        border-radius: 15px;
     }
 
-    .settings-card form {
-        padding: 19px;
+    .settings-card-header {
+        padding-bottom: 18px;
+        margin-bottom: 20px;
+    }
+
+    .settings-card-header h2 {
+        font-size: 17px;
+    }
+
+    .settings-security-row {
+        align-items: flex-start;
+
+        padding: 15px;
+    }
+
+    .settings-security-info span {
+        max-width: 100%;
     }
 
     .settings-actions {
-        margin-top: 22px;
-        padding-top: 18px;
+        justify-content: stretch;
     }
 
     .settings-save-btn {
         width: 100%;
     }
+
 }
 
-@media (max-width: 420px) {
-    .settings-page {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
 
-    .settings-card {
-        border-radius: 15px;
+/* ============================================================
+   RESPONSIVE — SMALL MOBILE
+============================================================ */
+
+@media (max-width: 480px) {
+
+    .settings-page {
+        padding: 18px 12px 38px;
     }
 
     .settings-header h1 {
-        font-size: 24px;
+        font-size: 23px;
     }
 
-    .settings-alert {
-        padding: 12px;
+    .settings-eyebrow {
+        font-size: 10px;
     }
+
+    .settings-card {
+        padding: 18px 15px 20px;
+    }
+
+    .settings-security-row {
+        gap: 14px;
+    }
+
+    .settings-security-info strong {
+        font-size: 13px;
+    }
+
+    .settings-security-info span {
+        font-size: 11.5px;
+    }
+
+    .settings-toggle {
+        width: 43px;
+        height: 24px;
+
+        flex-basis: 43px;
+    }
+
+    .settings-toggle-slider::before {
+        width: 18px;
+        height: 18px;
+    }
+
+    .settings-toggle input:checked + .settings-toggle-slider::before {
+        transform: translateX(19px);
+    }
+
 }

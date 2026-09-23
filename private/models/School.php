@@ -231,6 +231,21 @@ public function createSchool($data)
 public function getTotalSchoolCount()
 {
     $query = "SELECT COUNT(*) AS total
+              FROM schools";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
+
+
+/* =====================================================
+   ACTIVE SCHOOL COUNT
+===================================================== */
+
+public function getActiveSchoolCount()
+{
+    $query = "SELECT COUNT(*) AS total
               FROM schools
               WHERE status = 'active'";
 
@@ -239,12 +254,43 @@ public function getTotalSchoolCount()
     return $result[0]->total ?? 0;
 }
 
-/*
-=====================================================
-GET RECENT SCHOOLS
-SUPER ADMIN DASHBOARD
-=====================================================
-*/
+
+/* =====================================================
+   INACTIVE SCHOOL COUNT
+===================================================== */
+
+public function getInactiveSchoolCount()
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM schools
+              WHERE status != 'active'
+              OR status IS NULL";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
+
+public function getInactiveSchools($limit = 5)
+{
+    $limit = (int) $limit;
+
+    if ($limit <= 0) {
+        $limit = 5;
+    }
+
+    $query = "SELECT
+                id,
+                school_name,
+                status
+              FROM schools
+              WHERE status != 'active'
+                 OR status IS NULL
+              ORDER BY school_name ASC
+              LIMIT $limit";
+
+    return $this->query($query);
+}
 
 /*
 =====================================================
@@ -269,13 +315,7 @@ public function getRecentSchools($limit = 3)
 
     return $this->query($query);
 }
-
-/* =====================================================
-   SCHOOL OVERVIEW
-   SUPER ADMIN DASHBOARD
-===================================================== */
-
-public function getSchoolOverview()
+public function getSchoolOverview($schoolId = '', $status = '')
 {
     $query = "SELECT
                 schools.id,
@@ -306,10 +346,26 @@ public function getSchoolOverview()
                 ) AS admin_count
 
               FROM schools
+              WHERE 1 = 1";
 
-              ORDER BY schools.id DESC";
+    $params = [];
 
-    return $this->query($query);
+    if ($schoolId !== '') {
+        $query .= " AND schools.id = :school_id";
+        $params['school_id'] = $schoolId;
+    }
+
+    if ($status !== '') {
+        $query .= " AND schools.status = :status";
+        $params['status'] = $status;
+    }
+
+    $query .= " ORDER BY schools.id DESC";
+
+    return $this->query(
+        $query,
+        $params
+    );
 }
 
 public function updateSchool($school_id, $data)

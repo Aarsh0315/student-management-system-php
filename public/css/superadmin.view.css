@@ -652,108 +652,215 @@ body {
     background: #8d205f;
     transform: translateY(-2px);
 }
-
-/* =========================================================
+/* =====================================================
    RECENT ACTIVITY
-   ========================================================= */
+===================================================== */
 
-.activity-list {
+.recent-activity-section {
+    margin-top: 24px;
+}
+
+.recent-activity-section .section-heading {
+    margin-bottom: 16px;
+}
+
+.recent-activity-card {
+    background: #ffffff;
+    border: 1px solid #e8e9ed;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.recent-activity-list {
     width: 100%;
 }
 
-.activity-item {
-    position: relative;
+.recent-activity-item {
     display: flex;
     align-items: center;
     gap: 14px;
-    min-height: 76px;
-    padding: 14px 23px;
-    border-bottom: 1px solid #f0ecf0;
-    transition: background .15s ease;
+
+    padding: 17px 20px;
+
+    border-bottom: 1px solid #eef0f2;
 }
 
-.activity-item:last-child {
+.recent-activity-item:last-child {
     border-bottom: none;
 }
 
-.activity-item:hover {
-    background: #fff8fc;
-}
 
-.activity-icon {
-    position: relative;
+/* =====================================================
+   ACTIVITY ICON
+===================================================== */
+
+.recent-activity-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    flex: 0 0 42px;
-    border: 1px solid #ead1df;
-    border-radius: 50%;
-    background: linear-gradient(145deg, #fff3fa, #f7e4ef);
+
+    border-radius: 10px;
+
+    background: #f8edf5;
     color: #a32675;
-    font-size: 9px;
-    font-weight: 850;
+
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.3px;
 }
 
-.activity-info {
+.recent-activity-icon.school {
+    background: #f8edf5;
+    color: #a32675;
+}
+
+.recent-activity-icon.user {
+    background: #eef3f8;
+    color: #4e6d89;
+}
+
+.recent-activity-icon.system {
+    background: #f1f2f4;
+    color: #626975;
+}
+
+
+/* =====================================================
+   ACTIVITY CONTENT
+===================================================== */
+
+.recent-activity-content {
+    min-width: 0;
+    flex: 1;
+
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    flex: 1;
-    min-width: 0;
+    gap: 3px;
 }
 
-.activity-info strong {
-    color: #302a38;
+.recent-activity-content strong {
+    color: #292e36;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.recent-activity-content span {
+    color: #858b95;
     font-size: 12px;
-    font-weight: 700;
+    line-height: 1.4;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
-.activity-info span {
-    color: #918995;
-    font-size: 10px;
-    line-height: 1.45;
+
+/* =====================================================
+   ACTIVITY TIME
+===================================================== */
+
+.recent-activity-time {
+    flex: 0 0 auto;
+
+    color: #9298a2;
+    font-size: 11px;
+    font-weight: 600;
+
+    white-space: nowrap;
 }
 
-.activity-item time {
-    flex-shrink: 0;
-    color: #aaa2ac;
-    font-size: 10px;
-}
 
-.activity-count {
-    display: inline-flex;
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.recent-activity-empty {
+    display: flex;
     align-items: center;
-    justify-content: center;
-    min-height: 28px;
-    padding: 0 11px;
-    border: 1px solid #ead2df;
-    border-radius: 20px;
-    background: #fff2f9;
-    color: #a32675;
-    font-size: 10px;
-    font-weight: 700;
+    gap: 14px;
+
+    padding: 28px 20px;
 }
 
-.activity-empty {
-    padding: 52px 25px;
-    text-align: center;
-}
+.recent-activity-empty-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
 
-.empty-icon {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 45px;
-    height: 45px;
-    margin: 0 auto 12px;
-    border: 1px solid #cce8d6;
-    border-radius: 50%;
-    background: #eaf8f0;
-    color: #28784a;
-    font-size: 13px;
-    font-weight: 850;
+
+    border-radius: 10px;
+
+    background: #f1f2f4;
+    color: #626975;
+
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.recent-activity-empty strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #292e36;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.recent-activity-empty p {
+    margin: 0;
+
+    color: #858b95;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .recent-activity-section {
+        margin-top: 20px;
+    }
+
+    .recent-activity-card {
+        border-radius: 13px;
+    }
+
+    .recent-activity-item {
+        padding: 15px 16px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .recent-activity-item {
+        align-items: flex-start;
+    }
+
+    .recent-activity-content span {
+        white-space: normal;
+    }
+
+    .recent-activity-time {
+        padding-top: 2px;
+    }
+
+    .recent-activity-empty {
+        padding: 22px 16px;
+    }
+
 }
 
 /* =========================================================
@@ -912,4 +1019,1054 @@ body {
     .card-header {
         padding: 15px;
     }
+}
+
+
+/* =====================================================
+   USER DISTRIBUTION
+===================================================== */
+
+.user-distribution-section {
+    margin-top: 24px;
+}
+
+.user-distribution-section .section-heading {
+    margin-bottom: 16px;
+}
+
+.user-distribution-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.user-distribution-card {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #e8e9ed;
+    border-radius: 16px;
+    text-decoration: none;
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+}
+
+.user-distribution-card:hover {
+    transform: translateY(-2px);
+    border-color: #dcdde3;
+    box-shadow: 0 8px 24px rgba(31, 35, 41, 0.07);
+}
+
+.user-distribution-icon {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    background: #f8edf5;
+    color: #a32675;
+
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.4px;
+}
+
+.user-distribution-content {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.user-distribution-label {
+    color: #69707d;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.3;
+}
+
+.user-distribution-value {
+    color: #252a32;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 1.1;
+}
+
+
+/* =====================================================
+   USER DISTRIBUTION - TABLET
+===================================================== */
+
+@media (max-width: 1100px) {
+
+    .user-distribution-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   USER DISTRIBUTION - MOBILE
+===================================================== */
+
+@media (max-width: 640px) {
+
+    .user-distribution-section {
+        margin-top: 20px;
+    }
+
+    .user-distribution-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+    }
+
+    .user-distribution-card {
+        padding: 16px;
+    }
+
+    .user-distribution-icon {
+        width: 42px;
+        height: 42px;
+        flex-basis: 42px;
+    }
+
+    .user-distribution-value {
+        font-size: 22px;
+    }
+
+}
+
+/* =====================================================
+   SCHOOLS OVERVIEW
+===================================================== */
+
+.schools-overview-section {
+    margin-top: 24px;
+}
+
+.schools-overview-section .section-heading {
+    margin-bottom: 16px;
+}
+
+.schools-overview-card {
+    background: #ffffff;
+    border: 1px solid #e8e9ed;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.schools-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.schools-overview-table {
+    width: 100%;
+    min-width: 760px;
+    border-collapse: collapse;
+}
+
+.schools-overview-table th {
+    padding: 14px 18px;
+    background: #f8f9fb;
+    border-bottom: 1px solid #e8e9ed;
+
+    color: #69707d;
+    font-size: 12px;
+    font-weight: 700;
+    text-align: left;
+    text-transform: uppercase;
+    letter-spacing: 0.35px;
+    white-space: nowrap;
+}
+
+.schools-overview-table td {
+    padding: 16px 18px;
+    border-bottom: 1px solid #eef0f2;
+
+    color: #3b414b;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+.schools-overview-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.schools-overview-table tbody tr {
+    transition: background 0.18s ease;
+}
+
+.schools-overview-table tbody tr:hover {
+    background: #fafafa;
+}
+
+
+/* =====================================================
+   SCHOOL NAME
+===================================================== */
+
+.school-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 190px;
+}
+
+.school-avatar {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+    background: #f8edf5;
+    color: #a32675;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.school-name-content {
+    min-width: 0;
+}
+
+.school-name-content strong {
+    display: block;
+
+    color: #252a32;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.4;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+
+/* =====================================================
+   TABLE NUMBERS
+===================================================== */
+
+.school-table-number {
+    color: #303641;
+    font-size: 14px;
+    font-weight: 650;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.school-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1;
+}
+
+.school-status-badge.active {
+    background: #eaf7ef;
+    color: #237a48;
+}
+
+.school-status-badge.inactive {
+    background: #fceced;
+    color: #b33a42;
+}
+
+.school-status-dot {
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+
+    border-radius: 50%;
+    background: currentColor;
+}
+
+
+/* =====================================================
+   VIEW ACTION
+===================================================== */
+
+.school-view-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 54px;
+    padding: 7px 12px;
+
+    border: 1px solid #dedfe4;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #4b515b;
+
+    font-size: 12px;
+    font-weight: 650;
+    text-decoration: none;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease;
+}
+
+.school-view-action:hover {
+    background: #f6f7f8;
+    border-color: #cfd1d6;
+    color: #252a32;
+}
+
+.school-view-action.disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.schools-empty-state {
+    padding: 56px 24px;
+    text-align: center;
+}
+
+.schools-empty-icon {
+    width: 48px;
+    height: 48px;
+    margin: 0 auto 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+    background: #f8edf5;
+    color: #a32675;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.schools-empty-state h3 {
+    margin: 0 0 6px;
+
+    color: #252a32;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.schools-empty-state p {
+    margin: 0 0 18px;
+
+    color: #747b86;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .schools-overview-section {
+        margin-top: 20px;
+    }
+
+    .schools-overview-card {
+        border-radius: 13px;
+    }
+
+    .schools-overview-table th,
+    .schools-overview-table td {
+        padding: 13px 14px;
+    }
+
+}
+
+@media (max-width: 640px) {
+
+    .schools-overview-section .section-heading {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .section-action {
+        white-space: nowrap;
+    }
+
+    .schools-empty-state {
+        padding: 44px 18px;
+    }
+
+}
+
+
+/* =====================================================
+   SCHOOLS REQUIRING ATTENTION
+===================================================== */
+
+.schools-attention-section {
+    margin-top: 24px;
+}
+
+.schools-attention-section .section-heading {
+    margin-bottom: 16px;
+}
+
+.schools-attention-card {
+    background: #ffffff;
+    border: 1px solid #e8e9ed;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.attention-list {
+    width: 100%;
+}
+
+.attention-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 17px 20px;
+
+    border-bottom: 1px solid #eef0f2;
+}
+
+.attention-item:last-child {
+    border-bottom: none;
+}
+
+.attention-item:hover {
+    background: #fcfcfd;
+}
+
+
+/* =====================================================
+   SCHOOL INFORMATION
+===================================================== */
+
+.attention-school-info {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.attention-school-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #fff3e8;
+    color: #a85b20;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.attention-school-details {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.attention-school-details strong {
+    color: #292e36;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.4;
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.attention-school-details span {
+    color: #858b95;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* =====================================================
+   RIGHT SIDE
+===================================================== */
+
+.attention-school-right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    flex: 0 0 auto;
+}
+
+.attention-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    background: #fceced;
+    color: #b33a42;
+
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1;
+}
+
+.attention-status-dot {
+    width: 6px;
+    height: 6px;
+    flex: 0 0 6px;
+
+    border-radius: 50%;
+    background: currentColor;
+}
+
+.attention-view-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 54px;
+    padding: 7px 12px;
+
+    border: 1px solid #dedfe4;
+    border-radius: 8px;
+
+    background: #ffffff;
+    color: #4b515b;
+
+    font-size: 12px;
+    font-weight: 650;
+    text-decoration: none;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease;
+}
+
+.attention-view-action:hover {
+    background: #f6f7f8;
+    border-color: #cfd1d6;
+    color: #252a32;
+}
+
+
+/* =====================================================
+   EMPTY STATE
+===================================================== */
+
+.attention-empty-state {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+
+    padding: 24px 20px;
+}
+
+.attention-empty-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    background: #eaf7ef;
+    color: #237a48;
+
+    font-size: 17px;
+    font-weight: 700;
+}
+
+.attention-empty-state strong {
+    display: block;
+
+    margin-bottom: 3px;
+
+    color: #292e36;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.attention-empty-state p {
+    margin: 0;
+
+    color: #858b95;
+    font-size: 12px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .schools-attention-section {
+        margin-top: 20px;
+    }
+
+    .schools-attention-card {
+        border-radius: 13px;
+    }
+
+    .attention-item {
+        padding: 15px 16px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .attention-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .attention-school-info {
+        width: 100%;
+    }
+
+    .attention-school-right {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .attention-empty-state {
+        align-items: flex-start;
+        padding: 20px 16px;
+    }
+
+}
+
+/* =====================================================
+   PLATFORM HEALTH
+===================================================== */
+
+.platform-health-section {
+    margin-top: 24px;
+}
+
+.platform-health-section .section-heading {
+    margin-bottom: 16px;
+}
+
+.platform-health-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+
+    padding: 22px 24px;
+
+    background: #ffffff;
+    border: 1px solid #e8e9ed;
+    border-radius: 16px;
+}
+
+
+/* =====================================================
+   HEALTH STATUS
+===================================================== */
+
+.platform-health-status {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 220px;
+}
+
+.platform-health-icon {
+    width: 46px;
+    height: 46px;
+    flex: 0 0 46px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.platform-health-icon.healthy {
+    background: #eaf7ef;
+    color: #237a48;
+}
+
+.platform-health-icon.attention {
+    background: #fff3e8;
+    color: #a85b20;
+}
+
+.platform-health-status-content {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.platform-health-status-content span {
+    color: #747b86;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.platform-health-status-content strong {
+    color: #252a32;
+    font-size: 16px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   HEALTH METRICS
+===================================================== */
+
+.platform-health-metrics {
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.platform-health-metric {
+    min-width: 150px;
+    padding: 0 24px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+
+    border-left: 1px solid #eef0f2;
+}
+
+.platform-health-metric:first-child {
+    border-left: none;
+}
+
+.platform-health-metric span {
+    color: #747b86;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.platform-health-metric strong {
+    color: #303641;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .platform-health-card {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .platform-health-status {
+        width: 100%;
+    }
+
+    .platform-health-metrics {
+        width: 100%;
+    }
+
+    .platform-health-metric {
+        flex: 1;
+        min-width: 0;
+    }
+
+}
+
+@media (max-width: 640px) {
+
+    .platform-health-section {
+        margin-top: 20px;
+    }
+
+    .platform-health-card {
+        padding: 18px;
+        border-radius: 13px;
+    }
+
+    .platform-health-metrics {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
+
+    .platform-health-metric {
+        padding: 12px 0;
+        border-left: none;
+        border-top: 1px solid #eef0f2;
+    }
+
+    .platform-health-metric:first-child {
+        border-top: none;
+    }
+
+}
+
+/* =====================================================
+   SECURITY OVERVIEW
+===================================================== */
+
+.security-overview-section {
+    margin-top: 24px;
+}
+
+.security-overview-section .section-heading {
+    margin-bottom: 16px;
+}
+
+.security-overview-card {
+    background: #ffffff;
+    border: 1px solid #e8e9ed;
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.security-feature-list {
+    width: 100%;
+}
+
+.security-feature-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 17px 20px;
+
+    border-bottom: 1px solid #eef0f2;
+}
+
+.security-feature-item:last-child {
+    border-bottom: none;
+}
+
+
+/* =====================================================
+   FEATURE INFORMATION
+===================================================== */
+
+.security-feature-info {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    min-width: 0;
+}
+
+.security-feature-icon {
+    width: 40px;
+    height: 40px;
+    flex: 0 0 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.security-feature-icon.enabled {
+    background: #eaf7ef;
+    color: #237a48;
+}
+
+.security-feature-icon.disabled {
+    background: #fceced;
+    color: #b33a42;
+}
+
+.security-feature-content {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.security-feature-content strong {
+    color: #292e36;
+    font-size: 14px;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+.security-feature-content span {
+    color: #858b95;
+    font-size: 12px;
+    line-height: 1.4;
+}
+
+
+/* =====================================================
+   STATUS
+===================================================== */
+
+.security-feature-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 70px;
+    padding: 6px 10px;
+
+    border-radius: 999px;
+
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1;
+}
+
+.security-feature-status.enabled {
+    background: #eaf7ef;
+    color: #237a48;
+}
+
+.security-feature-status.disabled {
+    background: #fceced;
+    color: #b33a42;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .security-overview-section {
+        margin-top: 20px;
+    }
+
+    .security-overview-card {
+        border-radius: 13px;
+    }
+
+    .security-feature-item {
+        padding: 15px 16px;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .security-feature-item {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .security-feature-info {
+        width: 100%;
+    }
+
+    .security-feature-status {
+        margin-left: 53px;
+    }
+
+}
+
+/* =====================================================
+   SECTION ACTION
+===================================================== */
+
+.section-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 9px 14px;
+
+    border: 1px solid #dedfe4;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #4b515b;
+
+    font-size: 12px;
+    font-weight: 650;
+    line-height: 1.2;
+
+    text-decoration: none;
+    white-space: nowrap;
+
+    transition:
+        background 0.18s ease,
+        border-color 0.18s ease,
+        color 0.18s ease,
+        box-shadow 0.18s ease;
+}
+
+.section-action:hover {
+    background: #f7f8f9;
+    border-color: #cfd1d6;
+    color: #252a32;
+    box-shadow: 0 3px 10px rgba(31, 35, 41, 0.05);
+}
+
+.section-action:active {
+    background: #f1f2f4;
 }

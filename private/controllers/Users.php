@@ -212,6 +212,11 @@ class Users extends Controller
 
             if ($result) {
 
+            $this->audit(
+    'USER_CREATED',
+    "User '{$firstname} {$lastname}' was created with role '{$rank}'."
+);
+
                 header(
                     "Location: "
                     . ROOT
@@ -580,6 +585,11 @@ if ($password !== '' && $password !== $password2) {
             die("Unable to update user.");
         }
 
+        $this->audit(
+    'USER_UPDATED',
+    "User '{$firstname} {$lastname}' ({$user_id}) was updated."
+);
+
 
         /* =========================
            UPDATE PASSWORD
@@ -787,6 +797,11 @@ if (
 }
 
 
+$this->audit(
+    'USER_DEACTIVATED',
+    "User '{$currentUser->firstname} {$currentUser->lastname}' ({$user_id}) was deactivated."
+);
+
     /* =========================
        REDIRECT
     ========================= */
@@ -914,6 +929,11 @@ if (
         die("Unable to activate staff.");
     }
 }
+
+$this->audit(
+    'USER_ACTIVATED',
+    "User '{$currentUser->firstname} {$currentUser->lastname}' ({$user_id}) was activated."
+);
 
 
     /* =========================

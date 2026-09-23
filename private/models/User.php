@@ -446,15 +446,14 @@ class User extends Model
         ]);
     }
 
-    /* =====================================================
+/* =====================================================
    TOTAL USER COUNT
 ===================================================== */
 
 public function getTotalUserCount()
 {
     $query = "SELECT COUNT(*) AS total
-              FROM users
-              WHERE status = 'active'";
+              FROM users";
 
     $result = $this->query($query);
 
@@ -478,12 +477,58 @@ public function getTotalAdminCount()
     return $result[0]->total ?? 0;
 }
 
-/*
-=====================================================
-GET RECENT USERS
-SUPER ADMIN DASHBOARD
-=====================================================
-*/
+/* =====================================================
+   TOTAL STUDENT COUNT
+   SUPER ADMIN DASHBOARD
+===================================================== */
+
+public function getTotalStudentCount()
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM users
+              WHERE rank = 'student'
+              AND status = 'active'";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
+
+
+/* =====================================================
+   TOTAL TEACHER COUNT
+   SUPER ADMIN DASHBOARD
+===================================================== */
+
+public function getTotalTeacherCount()
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM users
+              WHERE rank = 'teacher'
+              AND status = 'active'";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
+
+
+/* =====================================================
+   TOTAL PARENT COUNT
+   SUPER ADMIN DASHBOARD
+===================================================== */
+
+public function getTotalParentCount()
+{
+    $query = "SELECT COUNT(*) AS total
+              FROM users
+              WHERE rank = 'parent'
+              AND status = 'active'";
+
+    $result = $this->query($query);
+
+    return $result[0]->total ?? 0;
+}
 /*
 =====================================================
 GET RECENT USERS
@@ -697,4 +742,76 @@ public function updateUser($user_id, $data)
         ]);
     }
 
+    public function getLoginAttempt($userId)
+{
+    $query = "SELECT *
+              FROM user_login_attempts
+              WHERE user_id = :user_id
+              LIMIT 1";
+
+    $result = $this->query($query, [
+        'user_id' => $userId
+    ]);
+
+    return $result[0] ?? null;
+}
+
+
+public function recordFailedLogin($userId)
+{
+    $existing = $this->getLoginAttempt($userId);
+
+    if ($existing) {
+
+        $query = "UPDATE user_login_attempts
+                  SET failed_attempts = failed_attempts + 1,
+                      last_failed_at = NOW()
+                  WHERE user_id = :user_id";
+
+        return $this->query($query, [
+            'user_id' => $userId
+        ]);
+    }
+
+    $query = "INSERT INTO user_login_attempts
+              (
+                  user_id,
+                  failed_attempts,
+                  last_failed_at
+              )
+              VALUES
+              (
+                  :user_id,
+                  1,
+                  NOW()
+              )";
+
+    return $this->query($query, [
+        'user_id' => $userId
+    ]);
+}
+
+
+public function lockLogin($userId, $minutes = 15)
+{
+    $query = "UPDATE user_login_attempts
+              SET locked_until = DATE_ADD(NOW(), INTERVAL :minutes MINUTE)
+              WHERE user_id = :user_id";
+
+    return $this->query($query, [
+        'user_id' => $userId,
+        'minutes' => $minutes
+    ]);
+}
+
+
+public function resetLoginAttempts($userId)
+{
+    $query = "DELETE FROM user_login_attempts
+              WHERE user_id = :user_id";
+
+    return $this->query($query, [
+        'user_id' => $userId
+    ]);
+}
 }

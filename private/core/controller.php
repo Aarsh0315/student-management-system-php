@@ -2,86 +2,162 @@
 
 class Controller
 {
-    /*
-    ========================================
-    REQUIRE LOGIN
-    ========================================
-    */
-protected function requireLogin()
-{
-    if (session_status() === PHP_SESSION_NONE) {
-        session_start();
-    }
-
-    /*
-    ========================================
-    CHECK LOGIN
-    ========================================
-    */
-
-    if (empty($_SESSION['user_id'])) {
-
-        header("Location: " . ROOT . "/login");
-        exit;
-    }
-
-
-    /*
-    ========================================
-    SESSION TIMEOUT
-    1 HOUR OF INACTIVITY
-    ========================================
-    */
-
-    $sessionTimeout = 3600;
-
-    if (
-        isset($_SESSION['last_activity']) &&
-        (time() - $_SESSION['last_activity']) > $sessionTimeout
-    ) {
-
-        $_SESSION = [];
-
-        if (ini_get('session.use_cookies')) {
-
-            $params = session_get_cookie_params();
-
-            setcookie(
-                session_name(),
-                '',
-                time() - 42000,
-                $params['path'],
-                $params['domain'],
-                $params['secure'],
-                $params['httponly']
-            );
+    protected function requireLogin()
+    {
+        if (session_status() === PHP_SESSION_NONE) {
+            session_start();
         }
 
-        session_destroy();
+        /*
+|--------------------------------------------------------------------------
+| APPLICATION TIMEZONE
+|--------------------------------------------------------------------------
+*/
 
-        header(
-            "Location: " . ROOT . "/login"
-        );
+try {
 
-        exit;
-    }
+    $settingsModel =
+        $this->model('SettingsModel');
 
+    $settings =
+        $settingsModel->getAllAsArray();
 
-    /*
-    ========================================
-    UPDATE LAST ACTIVITY
-    ========================================
-    */
+    $timezone =
+        $settings['timezone']
+        ?? 'Asia/Kolkata';
 
-    $_SESSION['last_activity'] = time();
+    date_default_timezone_set($timezone);
+
+} catch (Throwable $e) {
+
+    date_default_timezone_set('Asia/Kolkata');
 }
 
+        /*
+        |--------------------------------------------------------------------------
+        | CHECK LOGIN
+        |--------------------------------------------------------------------------
+        */
 
-    /*
-    ========================================
-    REQUIRE SPECIFIC ROLE
-    ========================================
-    */
+        if (empty($_SESSION['user_id'])) {
+            header("Location: " . ROOT . "/login");
+            exit;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | LOAD SESSION TIMEOUT FROM SETTINGS
+        |--------------------------------------------------------------------------
+        */
+
+        $sessionTimeoutMinutes = 60;
+
+        try {
+            $settingsModel = $this->model('SettingsModel');
+
+            $settings = $settingsModel->getAllAsArray();
+
+            $sessionTimeoutMinutes =
+                (int) (
+                    $settings['session_timeout_minutes']
+                    ?? 60
+                );
+
+        } catch (Throwable $e) {
+
+            // Fall back to 60 minutes if settings cannot be loaded.
+            $sessionTimeoutMinutes = 60;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CONVERT MINUTES TO SECONDS
+        |--------------------------------------------------------------------------
+        */
+
+        $sessionTimeout =
+            $sessionTimeoutMinutes * 60;
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | CHECK SESSION TIMEOUT
+        |--------------------------------------------------------------------------
+        */
+
+        if (
+            isset($_SESSION['last_activity']) &&
+            (time() - $_SESSION['last_activity']) > $sessionTimeout
+        ) {
+
+            /*
+            |--------------------------------------------------------------------------
+            | CLEAR SESSION
+            |--------------------------------------------------------------------------
+            */
+
+            $_SESSION = [];
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | DELETE SESSION COOKIE
+            |--------------------------------------------------------------------------
+            */
+
+            if (ini_get('session.use_cookies')) {
+
+                $params =
+                    session_get_cookie_params();
+
+                setcookie(
+                    session_name(),
+                    '',
+                    time() - 42000,
+                    $params['path'],
+                    $params['domain'],
+                    $params['secure'],
+                    $params['httponly']
+                );
+            }
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | DESTROY SESSION
+            |--------------------------------------------------------------------------
+            */
+
+            session_destroy();
+
+
+            /*
+            |--------------------------------------------------------------------------
+            | REDIRECT TO LOGIN
+            |--------------------------------------------------------------------------
+            */
+
+            header(
+                "Location: " .
+                ROOT .
+                "/login"
+            );
+
+            exit;
+        }
+
+
+        /*
+        |--------------------------------------------------------------------------
+        | UPDATE LAST ACTIVITY
+        |--------------------------------------------------------------------------
+        */
+
+        $_SESSION['last_activity'] = time();
+    }
+
 
     protected function requireRole($role)
     {
@@ -91,38 +167,36 @@ protected function requireLogin()
             !isset($_SESSION['rank']) ||
             $_SESSION['rank'] !== $role
         ) {
-
             header("Location: " . ROOT . "/home");
             exit;
         }
     }
 
-
-    /*
-    ========================================
-    REQUIRE ONE OF MULTIPLE ROLES
-    ========================================
-    */
 
     protected function requireRoles(array $roles)
     {
         $this->requireLogin();
 
-        $currentRole = $_SESSION['rank'] ?? '';
+        $currentRole =
+            $_SESSION['rank'] ?? '';
 
-        if (!in_array($currentRole, $roles, true)) {
+        if (
+            !in_array(
+                $currentRole,
+                $roles,
+                true
+            )
+        ) {
+            header(
+                "Location: " .
+                ROOT .
+                "/home"
+            );
 
-            header("Location: " . ROOT . "/home");
             exit;
         }
     }
 
-
-    /*
-    ========================================
-    VIEW
-    ========================================
-    */
 
     public function view($name, $data = [])
     {
@@ -130,26 +204,61 @@ protected function requireLogin()
             extract($data);
         }
 
-        require "../private/views/" . $name . ".view.php";
+        require "../private/views/" .
+                $name .
+                ".view.php";
     }
 
 
-    /*
-    ========================================
-    MODEL
-    ========================================
-    */
+    public function model($name)
+    {
+        $modelPath =
+            dirname(__DIR__) .
+            "/models/" .
+            $name .
+            ".php";
 
-   public function model($name)
-{
-    $modelPath = dirname(__DIR__) . "/models/" . $name . ".php";
 
-    if (!file_exists($modelPath)) {
-        die("Model file not found: " . $modelPath);
+        if (!file_exists($modelPath)) {
+
+            die(
+                "Model file not found: " .
+                $modelPath
+            );
+        }
+
+
+        require_once $modelPath;
+
+
+        return new $name();
     }
 
-    require_once $modelPath;
 
-    return new $name();
-}
+    protected function audit(
+        $action,
+        $description = '',
+        $userId = null,
+        $userName = null,
+        $userRole = null
+    ) {
+        try {
+
+            $audit =
+                $this->model('AuditLog');
+
+
+            return $audit->create(
+                $action,
+                $description,
+                $userId,
+                $userName,
+                $userRole
+            );
+
+        } catch (Throwable $e) {
+
+            return false;
+        }
+    }
 }

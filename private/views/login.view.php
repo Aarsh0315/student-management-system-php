@@ -3,6 +3,17 @@
 $error = $data['error'] ?? '';
 $otpRequired = !empty($data['otp_required']);
 $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
+$captchaRequired = !empty($data['captcha_required']);
+
+/*
+|--------------------------------------------------------------------------
+| Security Configuration
+|--------------------------------------------------------------------------
+*/
+
+$securityConfig = require __DIR__ . '/../config/security.php';
+
+$turnstileSiteKey = $securityConfig['turnstile']['site_key'] ?? '';
 
 ?>
 
@@ -25,63 +36,90 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
         href="<?= ROOT ?>/css/login.view.css?v=6"
     >
 
-<style>
-.otp-info {
-    display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    margin-bottom: 22px;
-    padding: 13px 14px;
-    border: 1px solid #e5e9ee;
-    border-radius: 12px;
-    background: #f8fafb;
-}
-.otp-icon {
-    width: 30px;
-    height: 30px;
-    flex: 0 0 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    background: #eaf7ef;
-    color: #2f8f57;
-    font-weight: 800;
-}
-.otp-info strong,
-.otp-info span {
-    display: block;
-}
-.otp-info strong {
-    margin-bottom: 3px;
-    color: #292333;
-    font-size: 13px;
-}
-.otp-info span {
-    color: #707783;
-    font-size: 11px;
-    line-height: 1.5;
-}
-.otp-form #otp {
-    text-align: center;
-    letter-spacing: 6px;
-    font-size: 20px;
-    font-weight: 700;
-}
-.otp-back-link {
-    margin-top: 15px;
-    text-align: center;
-}
-.otp-back-link a {
-    color: #707783;
-    font-size: 12px;
-    font-weight: 600;
-    text-decoration: none;
-}
-.otp-back-link a:hover {
-    color: #a32675;
-}
-</style>
+    <style>
+        .otp-info {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 22px;
+            padding: 13px 14px;
+            border: 1px solid #e5e9ee;
+            border-radius: 12px;
+            background: #f8fafb;
+        }
+
+        .otp-icon {
+            width: 30px;
+            height: 30px;
+            flex: 0 0 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: #eaf7ef;
+            color: #2f8f57;
+            font-weight: 800;
+        }
+
+        .otp-info strong,
+        .otp-info span {
+            display: block;
+        }
+
+        .otp-info strong {
+            margin-bottom: 3px;
+            color: #292333;
+            font-size: 13px;
+        }
+
+        .otp-info span {
+            color: #707783;
+            font-size: 11px;
+            line-height: 1.5;
+        }
+
+        .otp-form #otp {
+            text-align: center;
+            letter-spacing: 6px;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .otp-back-link {
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .otp-back-link a {
+            color: #707783;
+            font-size: 12px;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .otp-back-link a:hover {
+            color: #a32675;
+        }
+
+        /*
+        |--------------------------------------------------------------------------
+        | Cloudflare Turnstile
+        |--------------------------------------------------------------------------
+        */
+
+        .turnstile-wrapper {
+            margin: 4px 0 20px;
+            display: flex;
+            justify-content: flex-start;
+            overflow: hidden;
+        }
+
+        @media (max-width: 480px) {
+            .turnstile-wrapper {
+                justify-content: center;
+            }
+        }
+    </style>
 
 </head>
 
@@ -174,6 +212,7 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                         </div>
 
                         <div>
+
                             <strong>
                                 Smart Management
                             </strong>
@@ -181,6 +220,7 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                             <span>
                                 Manage your school efficiently
                             </span>
+
                         </div>
 
                     </div>
@@ -193,6 +233,7 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                         </div>
 
                         <div>
+
                             <strong>
                                 Role-Based Access
                             </strong>
@@ -200,6 +241,7 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                             <span>
                                 Secure access for every user
                             </span>
+
                         </div>
 
                     </div>
@@ -212,6 +254,7 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                         </div>
 
                         <div>
+
                             <strong>
                                 All in One Place
                             </strong>
@@ -219,6 +262,7 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                             <span>
                                 Academics, people and communication
                             </span>
+
                         </div>
 
                     </div>
@@ -346,7 +390,11 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                             </strong>
 
                             <span>
-                                <?= htmlspecialchars($error) ?>
+                                <?= htmlspecialchars(
+                                    $error,
+                                    ENT_QUOTES,
+                                    'UTF-8'
+                                ) ?>
                             </span>
 
                         </div>
@@ -357,10 +405,11 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
 
 
                 <!-- =====================================
-                     FORM
+                     OTP VERIFICATION FORM
                 ====================================== -->
 
                 <?php if ($otpRequired): ?>
+
 
                     <form
                         method="POST"
@@ -370,10 +419,15 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
 
                         <?= CSRF::field() ?>
 
+
                         <div class="otp-info">
-                            <div class="otp-icon">✓</div>
+
+                            <div class="otp-icon">
+                                ✓
+                            </div>
 
                             <div>
+
                                 <strong>
                                     Verification code sent
                                 </strong>
@@ -383,8 +437,11 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                                     code below. The code is valid for
                                     5 minutes.
                                 </span>
+
                             </div>
+
                         </div>
+
 
                         <div class="form-group">
 
@@ -395,10 +452,12 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                             <div class="input-wrapper">
 
                                 <span class="input-icon">
+
                                     <svg
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
                                     >
+
                                         <rect
                                             x="4"
                                             y="4"
@@ -410,13 +469,17 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                                         <path d="M8 8h.01" />
                                         <path d="M12 8h.01" />
                                         <path d="M16 8h.01" />
+
                                         <path d="M8 12h.01" />
                                         <path d="M12 12h.01" />
                                         <path d="M16 12h.01" />
+
                                         <path d="M8 16h.01" />
                                         <path d="M12 16h.01" />
                                         <path d="M16 16h.01" />
+
                                     </svg>
+
                                 </span>
 
                                 <input
@@ -436,6 +499,7 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
 
                         </div>
 
+
                         <button
                             type="submit"
                             class="login-btn"
@@ -451,6 +515,7 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
 
                         </button>
 
+
                         <div class="otp-back-link">
 
                             <a href="<?= ROOT ?>/login">
@@ -459,9 +524,16 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
 
                         </div>
 
+
                     </form>
 
+
                 <?php else: ?>
+
+
+                    <!-- =====================================
+                         NORMAL LOGIN FORM
+                    ====================================== -->
 
                     <form
                         method="POST"
@@ -483,10 +555,12 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                             <div class="input-wrapper">
 
                                 <span class="input-icon">
+
                                     <svg
                                         viewBox="0 0 24 24"
                                         aria-hidden="true"
                                     >
+
                                         <path
                                             d="M4 5h16c1.1 0 2 .9 2 2v10c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2z"
                                         />
@@ -494,7 +568,9 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                                         <path
                                             d="m4 7 8 6 8-6"
                                         />
+
                                     </svg>
+
                                 </span>
 
                                 <input
@@ -587,6 +663,28 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
                         </div>
 
 
+                        <!-- =====================================
+                             CLOUDFLARE TURNSTILE
+                        ====================================== -->
+
+                        <?php if ($captchaRequired): ?>
+
+                            <div class="turnstile-wrapper">
+
+                                <div
+                                    class="cf-turnstile"
+                                    data-sitekey="<?= htmlspecialchars(
+                                        $turnstileSiteKey,
+                                        ENT_QUOTES,
+                                        'UTF-8'
+                                    ) ?>"
+                                ></div>
+
+                            </div>
+
+                        <?php endif; ?>
+
+
                         <!-- OPTIONS -->
 
                         <div class="login-options">
@@ -634,26 +732,28 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
 
                         </button>
 
+
                     </form>
+
 
                 <?php endif; ?>
 
 
                 <?php if (!$otpRequired): ?>
 
-                <!-- SIGNUP -->
+                    <!-- SIGNUP -->
 
-                <div class="signup-link">
+                    <div class="signup-link">
 
-                    <span>
-                        Don't have an account?
-                    </span>
+                        <span>
+                            Don't have an account?
+                        </span>
 
-                    <a href="<?= ROOT ?>/signup">
-                        Create an account
-                    </a>
+                        <a href="<?= ROOT ?>/signup">
+                            Create an account
+                        </a>
 
-                </div>
+                    </div>
 
                 <?php endif; ?>
 
@@ -698,14 +798,25 @@ $otpEmail = $data['otp_email'] ?? ($_SESSION['2fa_email'] ?? '');
 
 
 <!-- =====================================
+     CLOUDFLARE TURNSTILE SCRIPT
+====================================== -->
+
+<script
+    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+    async
+    defer
+></script>
+
+
+
+<!-- =====================================
      PASSWORD TOGGLE
-===================================== -->
+====================================== -->
 
 <script>
 
 function togglePassword()
 {
-
     const password =
         document.getElementById("password");
 
@@ -714,6 +825,11 @@ function togglePassword()
 
     const icon =
         document.getElementById("eyeIcon");
+
+
+    if (!password || !button || !icon) {
+        return;
+    }
 
 
     if (password.type === "password") {
@@ -729,6 +845,7 @@ function togglePassword()
             <path
                 d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"
             />
+
             <path
                 d="M4 4l16 16"
             />
@@ -747,6 +864,7 @@ function togglePassword()
             <path
                 d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6S2 12 2 12z"
             />
+
             <circle
                 cx="12"
                 cy="12"
