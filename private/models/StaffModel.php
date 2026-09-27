@@ -328,67 +328,84 @@ class StaffModel extends Model
     }
 
 
-    /* =====================================================
-       GET TEACHERS BY SCHOOL
-    ===================================================== */
-
     public function getTeachersBySchool($school_id)
-    {
-        $query = "SELECT
+{
+    $query = "SELECT
 
-                    s.staff_id,
-                    s.user_id,
-                    s.school_id,
-                    s.department,
-                    s.designation,
-                    s.qualification,
-                    s.joining_date,
-                    s.employment_type,
-                    s.phone,
-                    s.address,
-                    s.status,
+                s.staff_id,
+                s.user_id,
+                s.school_id,
+                s.department,
+                s.designation,
+                s.qualification,
+                s.joining_date,
+                s.employment_type,
+                s.phone,
+                s.address,
+                s.status,
 
-                    u.firstname,
-                    u.lastname,
-                    u.email,
-                    u.gender,
-                    u.profile_image,
+                u.firstname,
+                u.lastname,
+                u.email,
+                u.gender,
+                u.profile_image,
 
-                    sc.school_name,
-                    sc.school_id AS school_code,
+                sc.school_name,
+                sc.school_id AS school_code,
 
-                    (
-                        SELECT GROUP_CONCAT(
-                            DISTINCT sub.name
-                            ORDER BY sub.name ASC
-                            SEPARATOR ', '
-                        )
-                        FROM class_subjects cs
-                        INNER JOIN subjects sub
-                            ON cs.subject_id = sub.id
-                        WHERE cs.teacher_id = s.staff_id
-                        AND cs.school_id = s.school_id
-                        AND cs.status = 1
-                        AND sub.status = 1
-                    ) AS subjects
+                GROUP_CONCAT(
+                    DISTINCT sub.name
+                    ORDER BY sub.name ASC
+                    SEPARATOR ', '
+                ) AS subjects
 
-                  FROM staff s
+              FROM staff s
 
-                  INNER JOIN users u
-                      ON s.user_id = u.user_id
+              INNER JOIN users u
+                  ON s.user_id = u.user_id
 
-                  LEFT JOIN schools sc
-                      ON s.school_id = sc.id
+              LEFT JOIN schools sc
+                  ON s.school_id = sc.id
 
-                  WHERE s.school_id = :school_id
-                  AND s.designation = 'Teacher'
+              LEFT JOIN class_subjects cs
+                  ON cs.teacher_id = s.staff_id
+                  AND cs.school_id = s.school_id
+                  AND cs.status = 1
 
-                  ORDER BY s.staff_id DESC";
+              LEFT JOIN subjects sub
+                  ON sub.id = cs.subject_id
+                  AND sub.school_id = s.school_id
+                  AND sub.status = 1
 
-        return $this->query($query, [
-            'school_id' => $school_id
-        ]);
-    }
+              WHERE s.school_id = :school_id
+              AND s.designation = 'Teacher'
+
+              GROUP BY
+                  s.staff_id,
+                  s.user_id,
+                  s.school_id,
+                  s.department,
+                  s.designation,
+                  s.qualification,
+                  s.joining_date,
+                  s.employment_type,
+                  s.phone,
+                  s.address,
+                  s.status,
+                  u.firstname,
+                  u.lastname,
+                  u.email,
+                  u.gender,
+                  u.profile_image,
+                  sc.school_name,
+                  sc.school_id
+
+              ORDER BY s.staff_id DESC";
+
+    return $this->query($query, [
+        'school_id' => $school_id
+    ]);
+}
 
 
     /* =====================================================

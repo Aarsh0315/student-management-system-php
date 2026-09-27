@@ -479,6 +479,8 @@ unset($_SESSION['subject_error']);
             action="<?= ROOT ?>/subjects/create"
         >
 
+        <?= CSRF::field() ?>
+
 
             <div class="modal-body">
 

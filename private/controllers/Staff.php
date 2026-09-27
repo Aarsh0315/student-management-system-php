@@ -43,13 +43,9 @@ public function index()
 
     if ($rank === 'super_admin') {
 
-        $staff = $staffModel->getAllStaff(
-            $search,
-            $sort,
-            $direction,
-            $status,
-            $school_id
-        );
+        $staff = $staffModel->getTeachersBySchool(
+    $school_id
+);
 
         $schoolModel = new School();
 
@@ -63,25 +59,19 @@ public function index()
     |--------------------------------------------------------------------------
     */
 
-    elseif ($rank === 'admin') {
+ elseif ($rank === 'admin') {
 
-        $school_id = $_SESSION['school_id'] ?? '';
+    $school_id = $_SESSION['school_id'] ?? '';
 
-        if (!$school_id) {
-            die("No school is assigned to this account.");
-        }
-
-        $staff = $staffModel->getAllStaff(
-            $search,
-            $sort,
-            $direction,
-            $status,
-            $school_id
-        );
-
-        $schools = [];
-
+    if (!$school_id) {
+        die("No school is assigned to this account.");
     }
+
+    $staff = $staffModel->getTeachersBySchool($school_id);
+
+    $schools = [];
+
+}
 
     /*
     |--------------------------------------------------------------------------
@@ -103,23 +93,23 @@ public function index()
     |--------------------------------------------------------------------------
     */
 
-    $this->view('staff', [
+    $this->view('teachers', [
 
-        'staff'      => $staff,
+    'teachers'   => $staff,
 
-        'schools'    => $schools,
+    'schools'    => $schools,
 
-        'search'     => $search,
+    'search'     => $search,
 
-        'sort'       => $sort,
+    'sort'       => $sort,
 
-        'direction'  => $direction,
+    'direction'  => $direction,
 
-        'status'     => $status,
+    'status'     => $status,
 
-        'school_id'  => $school_id
+    'school_id'  => $school_id
 
-    ]);
+]);
 }
 
 
@@ -171,25 +161,19 @@ public function index()
     SCHOOL ADMIN
     ========================================
     */
+elseif ($rank === 'admin') {
+    $school_id = $_SESSION['school_id'] ?? '';
 
-    elseif ($rank === 'admin') {
-
-        $school_id =
-            $_SESSION['school_id'] ?? null;
-
-        if (!$school_id) {
-            die(
-                "No school is assigned to this account."
-            );
-        }
-
-        $teacher =
-            $staffModel->getStaffDetailsBySchool(
-                $staff_id,
-                $school_id
-            );
-
+    if (!$school_id) {
+        die("No school is assigned to this account.");
     }
+
+    $staff = $staffModel->getTeachersBySchool(
+        $school_id
+    );
+
+    $schools = [];
+}
 
 
     /*

@@ -1,30 +1,8 @@
 /* =========================================================
-   GLOBAL SUBJECTS PAGE FONT
+   TEACHING ASSIGNMENTS PAGE
 ========================================================= */
 
-.subjects-page,
-.subjects-page *,
-.page-container,
-.page-container *,
-.modal-overlay,
-.modal-overlay *,
-.modal,
-.modal * {
-    font-family:
-        Inter,
-        -apple-system,
-        BlinkMacSystemFont,
-        "Segoe UI",
-        Arial,
-        sans-serif;
-}
-
-
-/* =========================================================
-   SUBJECTS PAGE
-========================================================= */
-
-.subjects-page {
+.class-subjects-page {
     width: 100%;
 }
 
@@ -54,16 +32,16 @@
 
 .page-header h1 {
     margin: 0;
+    color: #252a31;
     font-size: 28px;
     font-weight: 700;
-    color: #252a31;
     letter-spacing: -0.02em;
 }
 
 .page-header p {
     margin: 7px 0 0;
-    font-size: 14px;
     color: #747b84;
+    font-size: 14px;
 }
 
 
@@ -75,10 +53,22 @@
     border: none;
     border-radius: 10px;
     padding: 11px 18px;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
     font-size: 14px;
     font-weight: 600;
-    font-family: inherit;
+
     cursor: pointer;
+
+    text-decoration: none;
+
     transition:
         background-color 0.2s ease,
         border-color 0.2s ease,
@@ -95,40 +85,6 @@
     background: #252a31;
     transform: translateY(-1px);
     box-shadow: 0 5px 14px rgba(48, 54, 65, 0.15);
-}
-
-.btn-secondary {
-    background: #eef0f2;
-    color: #303641;
-}
-
-.btn-secondary:hover {
-    background: #e2e5e8;
-}
-
-
-/* =========================================================
-   ALERTS
-========================================================= */
-
-.alert {
-    padding: 13px 16px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    font-size: 14px;
-    font-weight: 500;
-}
-
-.alert-success {
-    background: #edf8f1;
-    border: 1px solid #ccebd7;
-    color: #237a45;
-}
-
-.alert-error {
-    background: #fff1f1;
-    border: 1px solid #f0cccc;
-    color: #b42323;
 }
 
 
@@ -148,21 +104,28 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
     gap: 20px;
+
     padding: 22px 24px;
+
     border-bottom: 1px solid #eceef0;
 }
 
 .card-header h2 {
     margin: 0;
+
+    color: #303641;
+
     font-size: 17px;
     font-weight: 700;
-    color: #303641;
 }
 
 .card-header p {
     margin: 5px 0 0;
+
     color: #7a8189;
+
     font-size: 13px;
 }
 
@@ -178,8 +141,10 @@
 .table-search input {
     width: 260px;
     height: 40px;
-    padding: 0 13px;
+
     box-sizing: border-box;
+
+    padding: 0 13px;
 
     border: 1px solid #dfe2e5;
     border-radius: 9px;
@@ -187,7 +152,14 @@
     background: #ffffff;
     color: #303641;
 
-    font-family: inherit;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
     font-size: 14px;
 
     outline: none;
@@ -222,14 +194,16 @@
 
 .data-table {
     width: 100%;
+    min-width: 1050px;
+
     border-collapse: collapse;
-    min-width: 920px;
 }
 
 .data-table th {
     padding: 14px 20px;
 
     background: #f8f9fa;
+
     border-bottom: 1px solid #e7e9eb;
 
     color: #606871;
@@ -239,6 +213,7 @@
 
     text-align: left;
     text-transform: uppercase;
+
     letter-spacing: 0.03em;
 
     white-space: nowrap;
@@ -252,6 +227,7 @@
     color: #3c4249;
 
     font-size: 14px;
+
     vertical-align: middle;
 }
 
@@ -271,6 +247,52 @@
 .data-table td strong {
     color: #303641;
     font-weight: 650;
+}
+
+
+/* =========================================================
+   CLASS BADGE
+========================================================= */
+
+.class-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 34px;
+
+    padding: 5px 9px;
+
+    border-radius: 7px;
+
+    background: #f1f3f5;
+    color: #39414a;
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   DIVISION BADGE
+========================================================= */
+
+.division-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 30px;
+
+    padding: 5px 9px;
+
+    border-radius: 7px;
+
+    background: #f5f1f7;
+    color: #5d5363;
+
+    font-size: 12px;
+    font-weight: 700;
 }
 
 
@@ -301,19 +323,24 @@
 
 
 /* =========================================================
-   DESCRIPTION
+   TEACHER
 ========================================================= */
 
-.description-text {
-    display: block;
+.teacher-info {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
 
-    max-width: 280px;
+.teacher-info strong {
+    color: #303641;
+    font-size: 14px;
+    font-weight: 650;
+}
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-
-    color: #69717a;
+.teacher-info span {
+    color: #8a9199;
+    font-size: 12px;
 }
 
 
@@ -363,12 +390,21 @@
     justify-content: center;
 
     min-height: 32px;
+
     padding: 6px 10px;
 
     border-radius: 7px;
+
     border: 1px solid transparent;
 
-    font-family: inherit;
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
     font-size: 12px;
     font-weight: 650;
 
@@ -386,6 +422,9 @@
     transform: translateY(-1px);
 }
 
+
+/* EDIT */
+
 .action-btn.edit {
     background: #f1f3f5;
     color: #39414a;
@@ -395,6 +434,9 @@
 .action-btn.edit:hover {
     background: #e6e9ec;
 }
+
+
+/* ACTIVATE */
 
 .action-btn.activate {
     background: #edf8f1;
@@ -406,6 +448,9 @@
     background: #e0f3e7;
 }
 
+
+/* DEACTIVATE */
+
 .action-btn.deactivate {
     background: #fff6e8;
     color: #95641e;
@@ -415,6 +460,9 @@
 .action-btn.deactivate:hover {
     background: #fff0d5;
 }
+
+
+/* DELETE */
 
 .action-btn.delete {
     background: #fff0f0;
@@ -433,12 +481,15 @@
 
 .empty-state {
     height: 220px;
+
     text-align: center !important;
+
     color: #777f87 !important;
 }
 
 .empty-state strong {
     display: block;
+
     margin-bottom: 7px;
 
     color: #444b53;
@@ -456,240 +507,6 @@
 
 
 /* =========================================================
-   MODAL OVERLAY
-========================================================= */
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-
-    z-index: 2000;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(25, 29, 34, 0.48);
-
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-
-    transition:
-        opacity 0.2s ease,
-        visibility 0.2s ease;
-}
-
-.modal-overlay.show {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-
-/* =========================================================
-   MODAL
-========================================================= */
-
-.modal {
-    width: 100%;
-    max-width: 540px;
-    max-height: calc(100vh - 40px);
-
-    overflow-y: auto;
-
-    background: #ffffff;
-
-    border: 1px solid #e5e7ea;
-    border-radius: 16px;
-
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.18);
-
-    transform: translateY(10px) scale(0.98);
-
-    transition:
-        transform 0.2s ease;
-}
-
-.modal-overlay.show .modal {
-    transform: translateY(0) scale(1);
-}
-
-
-/* =========================================================
-   MODAL HEADER
-========================================================= */
-
-.modal-header {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 20px;
-
-    padding: 22px 24px;
-
-    border-bottom: 1px solid #eceef0;
-}
-
-.modal-header h2 {
-    margin: 0;
-
-    color: #303641;
-
-    font-size: 19px;
-    font-weight: 700;
-}
-
-.modal-header p {
-    margin: 5px 0 0;
-
-    color: #818890;
-
-    font-size: 13px;
-}
-
-.modal-close {
-    width: 34px;
-    height: 34px;
-
-    flex-shrink: 0;
-
-    border: none;
-    border-radius: 8px;
-
-    background: #f1f3f5;
-    color: #555d66;
-
-    font-size: 22px;
-    line-height: 1;
-
-    cursor: pointer;
-
-    transition:
-        background-color 0.2s ease,
-        color 0.2s ease;
-}
-
-.modal-close:hover {
-    background: #e6e9ec;
-    color: #303641;
-}
-
-
-/* =========================================================
-   MODAL BODY
-========================================================= */
-
-.modal-body {
-    padding: 24px;
-}
-
-
-/* =========================================================
-   FORM
-========================================================= */
-
-.form-group {
-    margin-bottom: 19px;
-}
-
-.form-group:last-child {
-    margin-bottom: 0;
-}
-
-.form-group label {
-    display: block;
-
-    margin-bottom: 7px;
-
-    color: #3d444c;
-
-    font-size: 13px;
-    font-weight: 650;
-}
-
-.form-group label span {
-    color: #c43b3b;
-}
-
-.form-group input,
-.form-group textarea,
-.form-group select {
-    width: 100%;
-    box-sizing: border-box;
-
-    border: 1px solid #dfe2e5;
-    border-radius: 9px;
-
-    background: #ffffff;
-    color: #303641;
-
-    font-family: inherit;
-    font-size: 14px;
-
-    outline: none;
-
-    transition:
-        border-color 0.2s ease,
-        box-shadow 0.2s ease;
-}
-
-.form-group input,
-.form-group select {
-    height: 42px;
-    padding: 0 12px;
-}
-
-.form-group textarea {
-    padding: 11px 12px;
-
-    resize: vertical;
-
-    min-height: 100px;
-}
-
-.form-group input::placeholder,
-.form-group textarea::placeholder {
-    color: #a0a6ac;
-}
-
-.form-group input:hover,
-.form-group textarea:hover,
-.form-group select:hover {
-    border-color: #c8cdd2;
-}
-
-.form-group input:focus,
-.form-group textarea:focus,
-.form-group select:focus {
-    border-color: #9fa6ad;
-
-    box-shadow:
-        0 0 0 3px rgba(48, 54, 65, 0.07);
-}
-
-
-/* =========================================================
-   MODAL FOOTER
-========================================================= */
-
-.modal-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    gap: 10px;
-
-    padding: 18px 24px;
-
-    border-top: 1px solid #eceef0;
-}
-
-
-/* =========================================================
    RESPONSIVE
 ========================================================= */
 
@@ -700,7 +517,7 @@
     }
 
     .data-table {
-        min-width: 850px;
+        min-width: 1000px;
     }
 
 }
@@ -749,6 +566,7 @@
 
     .page-header .btn {
         width: 100%;
+        text-align: center;
     }
 
     .card {
@@ -760,30 +578,7 @@
     }
 
     .data-table {
-        min-width: 820px;
-    }
-
-    .modal-overlay {
-        padding: 12px;
-    }
-
-    .modal {
-        max-height: calc(100vh - 24px);
-    }
-
-    .modal-header,
-    .modal-body,
-    .modal-footer {
-        padding-left: 18px;
-        padding-right: 18px;
-    }
-
-    .modal-footer {
-        flex-direction: column-reverse;
-    }
-
-    .modal-footer .btn {
-        width: 100%;
+        min-width: 980px;
     }
 
     .action-buttons {
@@ -795,4 +590,30 @@
         width: 100%;
     }
 
+}
+
+
+/* =========================================================
+   FONT CONSISTENCY
+========================================================= */
+
+.main-content,
+.main-content *,
+.page-container,
+.page-container *,
+.card,
+.card *,
+.data-table,
+.data-table *,
+.table-search,
+.table-search *,
+.action-buttons,
+.action-buttons * {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
 }

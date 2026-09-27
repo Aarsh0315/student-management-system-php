@@ -1,0 +1,331 @@
+/* =========================================================
+   ADD TEACHING ASSIGNMENT
+========================================================= */
+
+.page-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+}
+
+.page-header {
+    margin-bottom: 24px;
+}
+
+.page-header h1 {
+    margin: 0;
+    color: #252a31;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.page-header p {
+    margin: 7px 0 0;
+    color: #747b84;
+    font-size: 14px;
+}
+
+
+/* =========================================================
+   FORM CARD
+========================================================= */
+
+.form-card {
+    background: #ffffff;
+    border: 1px solid #e5e7ea;
+    border-radius: 18px;
+    padding: 28px;
+
+    box-shadow: 0 5px 20px rgba(28, 32, 36, 0.05);
+}
+
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.form-group.full-width {
+    grid-column: 1 / -1;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.form-group label {
+    color: #3b424a;
+    font-size: 13px;
+    font-weight: 650;
+}
+
+.required {
+    color: #b33a3a;
+}
+
+
+/* =========================================================
+   INPUT / SELECT
+========================================================= */
+
+.form-control {
+    width: 100%;
+    height: 44px;
+
+    box-sizing: border-box;
+
+    padding: 0 13px;
+
+    border: 1px solid #dfe2e5;
+    border-radius: 9px;
+
+    background: #ffffff;
+    color: #303641;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+}
+
+.form-control:hover {
+    border-color: #c8cdd2;
+}
+
+.form-control:focus {
+    border-color: #aeb4bb;
+    box-shadow: 0 0 0 3px rgba(48, 54, 65, 0.07);
+}
+
+.form-control:disabled {
+    background: #f5f6f7;
+    color: #9299a0;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   HELP TEXT
+========================================================= */
+
+.form-help {
+    margin: 0;
+
+    color: #8a9199;
+
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   ALERTS
+========================================================= */
+
+.alert {
+    margin-bottom: 20px;
+
+    padding: 12px 14px;
+
+    border-radius: 9px;
+
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.alert-error {
+    background: #fff0f0;
+    border: 1px solid #f0d0d0;
+    color: #a83232;
+}
+
+.alert-success {
+    background: #edf8f1;
+    border: 1px solid #d2eadb;
+    color: #247a45;
+}
+
+
+/* =========================================================
+   FORM ACTIONS
+========================================================= */
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    gap: 10px;
+
+    margin-top: 28px;
+    padding-top: 22px;
+
+    border-top: 1px solid #eceef0;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    min-height: 42px;
+
+    padding: 0 18px;
+
+    border-radius: 9px;
+
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    font-size: 14px;
+    font-weight: 650;
+
+    text-decoration: none;
+
+    border: 1px solid transparent;
+
+    cursor: pointer;
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        transform 0.15s ease,
+        box-shadow 0.2s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn-primary {
+    background: #303641;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background: #252a31;
+    box-shadow: 0 5px 14px rgba(48, 54, 65, 0.15);
+}
+
+.btn-secondary {
+    background: #ffffff;
+    color: #4a5159;
+    border-color: #dfe2e5;
+}
+
+.btn-secondary:hover {
+    background: #f7f8f9;
+    border-color: #cfd3d7;
+}
+
+
+/* =========================================================
+   INFO BOX
+========================================================= */
+
+.assignment-info {
+    margin-bottom: 24px;
+
+    padding: 14px 16px;
+
+    background: #f7f5f8;
+    border: 1px solid #e8e2ea;
+    border-radius: 11px;
+
+    color: #665d6b;
+
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.assignment-info strong {
+    color: #403843;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 700px) {
+
+    .page-container {
+        padding: 22px 16px;
+    }
+
+    .page-header h1 {
+        font-size: 24px;
+    }
+
+    .form-card {
+        padding: 20px;
+        border-radius: 14px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .form-group.full-width {
+        grid-column: auto;
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   FONT CONSISTENCY
+========================================================= */
+
+.page-container,
+.page-container *,
+.form-card,
+.form-card *,
+.assignment-info,
+.assignment-info * {
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        sans-serif;
+}
