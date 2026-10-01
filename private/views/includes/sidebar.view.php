@@ -75,17 +75,6 @@ $currentPage = explode(
         </div>
 
 
-        <!-- CLOSE BUTTON -->
-
-        <button
-            type="button"
-            class="sidebar-close"
-            id="sidebarClose"
-            aria-label="Close navigation"
-        >
-            ×
-        </button>
-
     </div>
 
 
@@ -284,6 +273,34 @@ $currentPage = explode(
         </a>
 
     </div>
+
+    <!-- SYSTEM -->
+<div class="sidebar-section">
+
+    <p class="sidebar-section-title">
+        SYSTEM
+    </p>
+
+    <!-- SETTINGS -->
+    <a
+        href="<?= ROOT ?>/settings"
+        class="sidebar-link
+        <?= $currentPage === 'settings'
+            ? 'active'
+            : '' ?>"
+    >
+
+        <span class="sidebar-icon">
+            ST
+        </span>
+
+        <span>
+            Settings
+        </span>
+
+    </a>
+
+</div>
 <?php elseif ($rank === 'admin'): ?>
 
     <!-- =================================
@@ -1037,26 +1054,65 @@ $currentPage = explode(
 
     </a>
 
+    <!-- NOTIFICATIONS -->
 
-    <!-- SETTINGS -->
+<a
+    href="<?= ROOT ?>/notifications"
+    class="sidebar-link
+    <?= $currentPage === 'notifications'
+        ? 'active'
+        : '' ?>"
+>
 
-    <a
-        href="<?= ROOT ?>/settings"
-        class="sidebar-link
-        <?= $currentPage === 'settings'
-            ? 'active'
-            : '' ?>"
-    >
+    <span class="sidebar-icon">
+        NT
+    </span>
 
-        <span class="sidebar-icon">
-            ST
-        </span>
+    <span>
+        Notifications
+    </span>
 
-        <span>
-            Settings
-        </span>
+</a>
 
-    </a>
+<!-- HELP & SUPPORT -->
+
+<a
+    href="<?= ROOT ?>/help"
+    class="sidebar-link
+    <?= $currentPage === 'help'
+        ? 'active'
+        : '' ?>"
+>
+
+    <span class="sidebar-icon">
+        HP
+    </span>
+
+    <span>
+        Help & Support
+    </span>
+
+</a>
+
+<!-- KEYBOARD SHORTCUTS -->
+
+<a
+    href="<?= ROOT ?>/shortcuts"
+    class="sidebar-link
+    <?= $currentPage === 'shortcuts'
+        ? 'active'
+        : '' ?>"
+>
+
+    <span class="sidebar-icon">
+        KS
+    </span>
+
+    <span>
+        Keyboard Shortcuts
+    </span>
+
+</a>
 
 
     <!-- LOGOUT -->
