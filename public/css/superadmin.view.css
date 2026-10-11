@@ -2070,3 +2070,19 @@ body {
 .section-action:active {
     background: #f1f2f4;
 }
+
+/* =====================================================
+   SUPER ADMIN QUICK ACTIONS — RESPONSIVE LAYOUT
+===================================================== */
+
+.quick-actions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+}
+
+@media (max-width: 600px) {
+    .quick-actions {
+        grid-template-columns: 1fr;
+    }
+}

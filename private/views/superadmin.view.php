@@ -188,7 +188,7 @@ require "../private/views/includes/sidebar.view.php";
                 <h1>
 
                     Welcome back,
-                    <?= htmlspecialchars($firstname) ?> Admin
+                    <?= htmlspecialchars($firstname) ?> 
 
                 </h1>
 

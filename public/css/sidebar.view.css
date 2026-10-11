@@ -716,3 +716,130 @@ body.sidebar-open {
     border-radius: 7px;
 }
 
+/* =====================================================
+   STATIC SUPER ADMIN HEADER
+===================================================== */
+
+.sidebar-header {
+    position: relative;
+
+    min-height: 88px;
+
+    padding: 14px 16px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #185b64,
+            #15545e
+        );
+
+    border-bottom:
+        1px solid #124a52;
+}
+
+
+/* =====================================================
+   HEADER PROFILE
+===================================================== */
+
+.sidebar-header-profile {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 11px;
+}
+
+
+/* =====================================================
+   PROFILE AVATAR
+===================================================== */
+
+.sidebar-header-avatar {
+    width: 44px;
+    height: 44px;
+
+    min-width: 44px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #55bdca;
+
+    border:
+        2px solid rgba(255,255,255,0.30);
+
+    color: #ffffff;
+
+    font-size: 15px;
+    font-weight: 750;
+
+    box-shadow:
+        0 3px 10px rgba(0,0,0,0.12);
+}
+
+
+/* =====================================================
+   PROFILE INFO
+===================================================== */
+
+.sidebar-header-profile-info {
+    min-width: 0;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 3px;
+}
+
+.sidebar-header-profile-info strong {
+    max-width: 170px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: #ffffff;
+
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.sidebar-header-profile-role {
+    color: rgba(255,255,255,0.82);
+
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.sidebar-header-profile-email {
+    max-width: 175px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    color: rgba(255,255,255,0.60);
+
+    font-size: 9px;
+    font-weight: 400;
+}
+
+
+/* =====================================================
+   REMOVE OLD ACCOUNT BUTTON BEHAVIOUR
+===================================================== */
+
+.sidebar-header-account,
+.sidebar-header-account-menu,
+.sidebar-header-account-arrow {
+    display: none;
+}

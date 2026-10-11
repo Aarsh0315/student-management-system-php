@@ -52,30 +52,68 @@ $currentPage = explode(
          SIDEBAR HEADER
     ===================================== -->
 
-    <div class="sidebar-header">
+   <div class="sidebar-header">
 
-        <div class="sidebar-title">
+    <?php
 
-            <span class="sidebar-title-icon">
-                MS
-            </span>
+    $headerFirstname =
+        $_SESSION['firstname']
+        ?? 'User';
 
-            <div>
+    $headerEmail =
+        $_SESSION['email']
+        ?? '';
 
-                <strong>
-                    My School
-                </strong>
+    $headerRole =
+        ucfirst(
+            str_replace(
+                '_',
+                ' ',
+                $rank
+            )
+        );
 
-                <span>
-                    Management System
-                </span>
+    $headerInitial =
+        strtoupper(
+            substr(
+                $headerFirstname,
+                0,
+                1
+            )
+        );
 
-            </div>
+    ?>
 
+    <div class="sidebar-header-profile">
+
+        <div class="sidebar-header-avatar">
+            <?= htmlspecialchars($headerInitial) ?>
         </div>
 
 
+        <div class="sidebar-header-profile-info">
+
+            <strong>
+                <?= htmlspecialchars($headerFirstname) ?>
+            </strong>
+
+            <span class="sidebar-header-profile-role">
+                <?= htmlspecialchars($headerRole) ?>
+            </span>
+
+            <?php if ($headerEmail !== ''): ?>
+
+                <span class="sidebar-header-profile-email">
+                    <?= htmlspecialchars($headerEmail) ?>
+                </span>
+
+            <?php endif; ?>
+
+        </div>
+
     </div>
+
+</div>
 
 
 
