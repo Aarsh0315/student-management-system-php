@@ -506,116 +506,69 @@ require "../private/views/includes/sidebar.view.php";
 </section>
 
 
-
 <!-- =================================================
      PLATFORM HEALTH
 ================================================== -->
 
 <?php
-$platformHealth =
-    $data['platformHealth'] ?? [];
+$platformHealth = $data['platformHealth'] ?? [];
 
-$healthStatus =
-    $platformHealth['status'] ?? 'Healthy';
+$healthStatus = $platformHealth['status'] ?? 'Healthy';
+$isHealthy = strtolower(trim($healthStatus)) === 'healthy';
 
-$isHealthy =
-    $healthStatus === 'Healthy';
+$healthMetrics = [
+    [
+        'label' => 'Active Schools',
+        'value' => $platformHealth['activeSchools'] ?? 0,
+        'icon' => '✓'
+    ],
+    [
+        'label' => 'Inactive Schools',
+        'value' => $platformHealth['inactiveSchools'] ?? 0,
+        'icon' => '!'
+    ],
+    [
+        'label' => 'Total Users',
+        'value' => $platformHealth['totalUsers'] ?? 0,
+        'icon' => '♙'
+    ]
+];
 ?>
 
-<section class="platform-health-section">
+<section class="platform-health-section dashboard-panel-section">
 
     <div class="section-heading">
-
         <div>
-
-            <h2>
-                Platform Health
-            </h2>
-
-            <p>
-                Current health status of your platform.
-            </p>
-
+            <h2>Platform Health</h2>
+            <p>Current health status of your platform.</p>
         </div>
-
     </div>
 
+    <div class="platform-health-card redesigned-health-card">
 
-    <div class="platform-health-card">
-
-        <!-- STATUS -->
-
-        <div class="platform-health-status">
-
+        <div class="platform-health-status redesigned-health-status">
             <div class="platform-health-icon <?= $isHealthy ? 'healthy' : 'attention' ?>">
-
                 <?= $isHealthy ? '✓' : '!' ?>
-
             </div>
 
             <div class="platform-health-status-content">
-
-                <span>
-                    Platform Status
-                </span>
-
-                <strong>
-                    <?= htmlspecialchars($healthStatus) ?>
-                </strong>
-
+                <span>Platform Status</span>
+                <strong><?= htmlspecialchars($healthStatus) ?></strong>
+                <small>
+                    <?= $isHealthy
+                        ? 'Your platform is operating normally.'
+                        : 'Please review your platform status.' ?>
+                </small>
             </div>
-
         </div>
 
-
-        <!-- METRICS -->
-
-        <div class="platform-health-metrics">
-
-            <div class="platform-health-metric">
-
-                <span>
-                    Active Schools
-                </span>
-
-                <strong>
-                    <?= number_format(
-                        $platformHealth['activeSchools'] ?? 0
-                    ) ?>
-                </strong>
-
-            </div>
-
-
-            <div class="platform-health-metric">
-
-                <span>
-                    Inactive Schools
-                </span>
-
-                <strong>
-                    <?= number_format(
-                        $platformHealth['inactiveSchools'] ?? 0
-                    ) ?>
-                </strong>
-
-            </div>
-
-
-            <div class="platform-health-metric">
-
-                <span>
-                    Total Users
-                </span>
-
-                <strong>
-                    <?= number_format(
-                        $platformHealth['totalUsers'] ?? 0
-                    ) ?>
-                </strong>
-
-            </div>
-
+        <div class="platform-health-metrics redesigned-health-metrics">
+            <?php foreach ($healthMetrics as $metric): ?>
+                <div class="platform-health-metric redesigned-health-metric">
+                    <span><?= htmlspecialchars($metric['label']) ?></span>
+                    <strong><?= number_format((int) $metric['value']) ?></strong>
+                </div>
+            <?php endforeach; ?>
         </div>
 
     </div>
@@ -628,125 +581,104 @@ $isHealthy =
 ================================================== -->
 
 <?php
-$securityOverview =
-    $data['securityOverview'] ?? [];
+$securityOverview = $data['securityOverview'] ?? [];
 
 $securityFeatures = [
     [
         'label' => 'Super Admin OTP',
-        'description' => 'Email verification is enabled for Super Admin login.',
-        'enabled' => !empty($securityOverview['superAdminOtp'])
+        'description' => 'Email verification for Super Admin login.',
+        'enabled' => !empty($securityOverview['superAdminOtp']),
+        'icon' => 'shield'
     ],
     [
         'label' => 'Login Protection',
         'description' => 'Failed login attempts are tracked and temporarily restricted.',
-        'enabled' => !empty($securityOverview['loginProtection'])
+        'enabled' => !empty($securityOverview['loginProtection']),
+        'icon' => 'lock'
     ],
     [
         'label' => 'CAPTCHA Protection',
-        'description' => 'CAPTCHA verification is triggered after failed login attempts.',
-        'enabled' => !empty($securityOverview['captchaProtection'])
+        'description' => 'Verification is triggered after failed login attempts.',
+        'enabled' => !empty($securityOverview['captchaProtection']),
+        'icon' => 'check'
     ]
 ];
 ?>
 
-<section class="security-overview-section">
+<section class="security-overview-section dashboard-panel-section">
 
     <div class="section-heading">
-
         <div>
-
-            <h2>
-                Security Overview
-            </h2>
-
-            <p>
-                Current authentication and account protection status.
-            </p>
-
+            <h2>Security Overview</h2>
+            <p>Monitor authentication and account protection.</p>
         </div>
 
-        <a
-            href="<?= ROOT ?>/security"
-            class="section-action"
-        >
-            Security Settings
+        <a href="<?= ROOT ?>/security" class="section-action">
+            Security Settings <span aria-hidden="true">→</span>
         </a>
-
     </div>
 
-
-    <div class="security-overview-card">
+    <div class="security-overview-card redesigned-security-card">
 
         <div class="security-feature-list">
-
             <?php foreach ($securityFeatures as $feature): ?>
 
-                <div class="security-feature-item">
+                <div class="security-feature-item redesigned-security-item">
 
                     <div class="security-feature-info">
-
                         <div class="security-feature-icon <?= $feature['enabled'] ? 'enabled' : 'disabled' ?>">
-
-                            <?= $feature['enabled'] ? '✓' : '!' ?>
-
+                            <?php if ($feature['icon'] === 'shield'): ?>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M12 3 19 6v5c0 5-3 8-7 10-4-2-7-5-7-10V6l7-3Z"/>
+                                    <path d="m9 12 2 2 4-4"/>
+                                </svg>
+                            <?php elseif ($feature['icon'] === 'lock'): ?>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <rect x="5" y="10" width="14" height="11" rx="2"/>
+                                    <path d="M8 10V7a4 4 0 0 1 8 0v3"/>
+                                </svg>
+                            <?php else: ?>
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <path d="M5 12 10 17 20 7"/>
+                                </svg>
+                            <?php endif; ?>
                         </div>
 
                         <div class="security-feature-content">
-
-                            <strong>
-                                <?= htmlspecialchars($feature['label']) ?>
-                            </strong>
-
-                            <span>
-                                <?= htmlspecialchars($feature['description']) ?>
-                            </span>
-
+                            <strong><?= htmlspecialchars($feature['label']) ?></strong>
+                            <span><?= htmlspecialchars($feature['description']) ?></span>
                         </div>
-
                     </div>
 
-
                     <span class="security-feature-status <?= $feature['enabled'] ? 'enabled' : 'disabled' ?>">
-
+                        <span class="security-status-dot"></span>
                         <?= $feature['enabled'] ? 'Enabled' : 'Disabled' ?>
-
                     </span>
 
                 </div>
 
             <?php endforeach; ?>
-
         </div>
 
     </div>
 
 </section>
 
+
 <!-- =================================================
      RECENT ACTIVITY
 ================================================== -->
 
-<section class="recent-activity-section">
+<section class="recent-activity-section dashboard-panel-section">
 
     <div class="section-heading">
-
         <div>
-
-            <h2>
-                Recent Activity
-            </h2>
-
-            <p>
-                Latest activity across the platform.
-            </p>
-
+            <h2>Recent Activity</h2>
+            <p>Latest activity across the platform.</p>
         </div>
-
     </div>
 
-
-    <div class="recent-activity-card">
+    <div class="recent-activity-card redesigned-activity-card">
 
         <?php if (!empty($recentActivities)): ?>
 
@@ -755,48 +687,26 @@ $securityFeatures = [
                 <?php foreach ($recentActivities as $activity): ?>
 
                     <?php
-                    $activityType =
-                        $activity['type'] ?? 'system';
-
-                    $activityInitials =
-                        $activity['initials'] ?? 'SY';
-
-                    $activityTitle =
-                        $activity['title'] ?? 'System activity';
-
-                    $activityDescription =
-                        $activity['description'] ?? '';
-
-                    $activityTime =
-                        $activity['time'] ?? 'Recently';
+                    $activityType = $activity['type'] ?? 'system';
+                    $activityInitials = $activity['initials'] ?? 'SY';
+                    $activityTitle = $activity['title'] ?? 'System activity';
+                    $activityDescription = $activity['description'] ?? '';
+                    $activityTime = $activity['time'] ?? 'Recently';
                     ?>
 
-                    <div class="recent-activity-item">
+                    <div class="recent-activity-item redesigned-activity-item">
 
                         <div class="recent-activity-icon <?= htmlspecialchars($activityType) ?>">
-
                             <?= htmlspecialchars($activityInitials) ?>
-
                         </div>
-
 
                         <div class="recent-activity-content">
-
-                            <strong>
-                                <?= htmlspecialchars($activityTitle) ?>
-                            </strong>
-
-                            <span>
-                                <?= htmlspecialchars($activityDescription) ?>
-                            </span>
-
+                            <strong><?= htmlspecialchars($activityTitle) ?></strong>
+                            <span><?= htmlspecialchars($activityDescription) ?></span>
                         </div>
 
-
                         <time class="recent-activity-time">
-
                             <?= htmlspecialchars($activityTime) ?>
-
                         </time>
 
                     </div>
@@ -808,23 +718,17 @@ $securityFeatures = [
         <?php else: ?>
 
             <div class="recent-activity-empty">
-
                 <div class="recent-activity-empty-icon">
-                    AC
+                    <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 8v4l3 2"/>
+                        <circle cx="12" cy="12" r="9"/>
+                    </svg>
                 </div>
 
                 <div>
-
-                    <strong>
-                        No recent activity
-                    </strong>
-
-                    <p>
-                        Recent platform activity will appear here.
-                    </p>
-
+                    <strong>No recent activity</strong>
+                    <p>Recent platform activity will appear here.</p>
                 </div>
-
             </div>
 
         <?php endif; ?>
@@ -832,6 +736,7 @@ $securityFeatures = [
     </div>
 
 </section>
+
 
 
     </div>
