@@ -369,223 +369,142 @@ require "../private/views/includes/sidebar.view.php";
             </article>
         </section>
 
-        <!-- =================================================
-             SCHOOLS OVERVIEW
-        ================================================== -->
-
-
-
+      
+<!-- SCHOOLS OVERVIEW -->
 <section class="schools-overview-section">
 
     <div class="section-heading">
-
         <div>
-
-            <h2>
-                Schools Overview
-            </h2>
-
-            <p>
-                Monitor schools and their current platform status.
-            </p>
-
+            <h2>Schools Overview</h2>
+            <p>Monitor schools and their current platform status.</p>
         </div>
 
+        <a href="<?= ROOT ?>/schools" class="section-action">
+            View All <span aria-hidden="true">→</span>
+        </a>
     </div>
-
 
     <div class="schools-overview-card">
 
         <?php if (!empty($schoolOverview)): ?>
 
             <div class="schools-table-wrapper">
-
                 <table class="schools-overview-table">
-
                     <thead>
-
                         <tr>
-
                             <th>School</th>
-
                             <th>Students</th>
-
                             <th>Staff</th>
-
                             <th>Admin</th>
-
                             <th>Status</th>
-
                             <th>Action</th>
-
                         </tr>
-
                     </thead>
 
-
                     <tbody>
-
                         <?php foreach ($schoolOverview as $school): ?>
+                            <?php
+                                $schoolName = $school->school_name
+                                    ?? 'Unnamed School';
+
+                                $status = strtolower(
+                                    trim($school->status ?? '')
+                                );
+
+                                $isActive = $status === 'active';
+                            ?>
 
                             <tr>
-
-                                <!-- SCHOOL -->
-
                                 <td>
-
                                     <div class="school-name-cell">
-
                                         <div class="school-avatar">
-                                            <?= strtoupper(
-                                                substr(
-                                                    $school->school_name ?? 'S',
-                                                    0,
-                                                    1
-                                                )
+                                            <?= htmlspecialchars(
+                                                strtoupper(substr($schoolName, 0, 1))
                                             ) ?>
                                         </div>
 
                                         <div class="school-name-content">
-
                                             <strong>
-                                                <?= htmlspecialchars(
-                                                    $school->school_name ?? 'Unnamed School'
-                                                ) ?>
+                                                <?= htmlspecialchars($schoolName) ?>
                                             </strong>
-
                                         </div>
-
                                     </div>
-
                                 </td>
 
-
-                                <!-- STUDENTS -->
-
                                 <td>
-
                                     <span class="school-table-number">
                                         <?= number_format(
                                             $school->student_count ?? 0
                                         ) ?>
                                     </span>
-
                                 </td>
 
-
-                                <!-- STAFF -->
-
                                 <td>
-
                                     <span class="school-table-number">
                                         <?= number_format(
                                             $school->staff_count ?? 0
                                         ) ?>
                                     </span>
-
                                 </td>
 
-
-                                <!-- ADMIN -->
-
                                 <td>
-
                                     <span class="school-table-number">
                                         <?= number_format(
                                             $school->admin_count ?? 0
                                         ) ?>
                                     </span>
-
                                 </td>
 
-
-                                <!-- STATUS -->
-
                                 <td>
-
-                                    <?php
-                                    $status = strtolower(
-                                        trim($school->status ?? '')
-                                    );
-
-                                    $isActive = $status === 'active';
-                                    ?>
-
-                                    <span
-                                        class="school-status-badge <?= $isActive ? 'active' : 'inactive' ?>"
-                                    >
-
+                                    <span class="school-status-badge <?= $isActive ? 'active' : 'inactive' ?>">
                                         <span class="school-status-dot"></span>
-
                                         <?= $isActive ? 'Active' : 'Inactive' ?>
-
                                     </span>
-
                                 </td>
 
-
-                                <!-- ACTION -->
-
                                 <td>
-
                                     <?php if (!empty($school->id)): ?>
-
-                                       <a
-    href="<?= ROOT ?>/schools"
-    class="school-view-action"
->
-    View
-</a>
+                                        <a
+                                            href="<?= ROOT ?>/schools"
+                                            class="school-view-action"
+                                        >
+                                            View
+                                        </a>
                                     <?php else: ?>
-
                                         <span class="school-view-action disabled">
                                             View
                                         </span>
-
                                     <?php endif; ?>
-
                                 </td>
-
                             </tr>
 
                         <?php endforeach; ?>
-
                     </tbody>
-
                 </table>
-
             </div>
 
         <?php else: ?>
 
             <div class="schools-empty-state">
+                <div class="schools-empty-icon">SC</div>
 
-                <div class="schools-empty-icon">
-                    SC
+                <div>
+                    <h3>No schools found</h3>
+                    <p>
+                        There are currently no schools available on the platform.
+                    </p>
                 </div>
 
-                <h3>
-                    No schools found
-                </h3>
-
-                <p>
-                    There are currently no schools available on the platform.
-                </p>
-
-                <a
-                    href="<?= ROOT ?>/schools"
-                    class="section-action"
-                >
+                <a href="<?= ROOT ?>/schools" class="section-action">
                     Manage Schools
                 </a>
-
             </div>
 
         <?php endif; ?>
 
     </div>
-
 </section>
+
 
 
 <!-- =================================================

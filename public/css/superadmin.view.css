@@ -1341,3 +1341,226 @@ a:focus-visible, button:focus-visible { outline: 3px solid #777; outline-offset:
     .distribution-legend { gap: 10px; }
     .dashboard-attention-table th, .dashboard-attention-table td { padding: 8px; }
 }
+
+
+/* =========================================
+   SCHOOLS OVERVIEW — REFINED DASHBOARD CARD
+========================================= */
+
+.schools-overview-section {
+    margin-top: 24px;
+}
+
+.schools-overview-section .section-heading {
+    align-items: center;
+    margin-bottom: 14px;
+}
+
+.schools-overview-section .section-action {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 9px 13px;
+    background: #090909;
+    border: 1px solid #090909;
+    border-radius: 9px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.schools-overview-section .section-action:hover {
+    background: #303030;
+}
+
+.schools-overview-card {
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 14px;
+    box-shadow: 0 3px 14px rgba(0, 0, 0, 0.035);
+}
+
+.schools-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.schools-overview-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+}
+
+.schools-overview-table thead {
+    background: #f5f5f5;
+}
+
+.schools-overview-table th {
+    padding: 13px 16px;
+    border-bottom: 1px solid #e5e5e5;
+    color: #666;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.schools-overview-table td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #ededed;
+    color: #222;
+    font-size: 12px;
+    vertical-align: middle;
+}
+
+.schools-overview-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.schools-overview-table tbody tr {
+    transition: background 0.15s ease;
+}
+
+.schools-overview-table tbody tr:hover {
+    background: #fafafa;
+}
+
+.school-name-cell {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    min-width: 190px;
+}
+
+.school-avatar {
+    display: grid;
+    place-items: center;
+    flex: 0 0 36px;
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background: #111;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.school-name-content strong {
+    color: #191919;
+    font-size: 12px;
+    font-weight: 650;
+}
+
+.school-table-number {
+    color: #222;
+    font-size: 12px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+}
+
+.school-status-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 9px;
+    border: 1px solid #dedede;
+    border-radius: 999px;
+    background: #f4f4f4;
+    color: #333;
+    font-size: 10px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.school-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #222;
+}
+
+.school-status-badge.inactive {
+    background: #ededed;
+    color: #666;
+}
+
+.school-status-badge.inactive .school-status-dot {
+    background: #999;
+}
+
+.school-view-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 44px;
+    padding: 7px 11px;
+    border: 1px solid #d8d8d8;
+    border-radius: 8px;
+    background: #fff;
+    color: #191919;
+    font-size: 11px;
+    font-weight: 650;
+    text-decoration: none;
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.school-view-action:hover {
+    background: #090909;
+    border-color: #090909;
+    color: #fff;
+}
+
+.school-view-action.disabled {
+    opacity: 0.45;
+    pointer-events: none;
+}
+
+.schools-empty-state {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 24px;
+}
+
+.schools-empty-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 42px;
+    height: 42px;
+    border-radius: 11px;
+    background: #f0f0f0;
+    color: #111;
+    font-size: 12px;
+    font-weight: 750;
+}
+
+.schools-empty-state h3 {
+    margin: 0 0 5px;
+    font-size: 14px;
+}
+
+.schools-empty-state p {
+    margin: 0;
+    color: #6b6b6b;
+    font-size: 12px;
+    line-height: 1.5;
+}
+
+@media (max-width: 700px) {
+    .schools-overview-section .section-heading {
+        align-items: flex-start;
+    }
+
+    .schools-overview-table th,
+    .schools-overview-table td {
+        padding: 12px;
+    }
+
+    .schools-empty-state {
+        align-items: flex-start;
+        flex-wrap: wrap;
+    }
+}
