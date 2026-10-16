@@ -109,7 +109,7 @@ $recentActivities =
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=12"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=13"
     >
 
 
@@ -203,6 +203,67 @@ require "../private/views/includes/sidebar.view.php";
 
         </section>
 
+        <!-- =================================================
+             PLATFORM INSIGHTS
+        ================================================== -->
+
+        <?php
+            $schoolTotalForInsight = max(1, (int) $totalSchools);
+            $activeSchoolPercent = min(100, round(((int) $activeSchools / $schoolTotalForInsight) * 100));
+            $inactiveSchoolPercent = min(100, round(((int) $inactiveSchools / $schoolTotalForInsight) * 100));
+            $userTotalForInsight = max(1, (int) $totalUsers);
+            $studentPercent = min(100, round(((int) $studentCount / $userTotalForInsight) * 100));
+            $teacherPercent = min(100, round(((int) $teacherCount / $userTotalForInsight) * 100));
+            $parentPercent = min(100, round(((int) $parentCount / $userTotalForInsight) * 100));
+            $adminPercent = min(100, round(((int) $adminCount / $userTotalForInsight) * 100));
+        ?>
+
+        <section class="platform-insights-section">
+            <div class="section-heading">
+                <div>
+                    <h2>Platform Insights</h2>
+                    <p>A quick view of school status and user composition across the platform.</p>
+                </div>
+            </div>
+
+            <div class="platform-insights-grid">
+                <article class="insight-card school-status-insight">
+                    <div class="insight-card-heading">
+                        <div>
+                            <span class="insight-eyebrow">SCHOOL STATUS</span>
+                            <h3>School activity</h3>
+                        </div>
+                        <span class="insight-total"><?= number_format($totalSchools) ?> total</span>
+                    </div>
+                    <div class="insight-progress-row">
+                        <div class="insight-progress-label"><span>Active schools</span><strong><?= number_format($activeSchools) ?></strong></div>
+                        <div class="insight-progress-track"><span style="width: <?= $activeSchoolPercent ?>%"></span></div>
+                    </div>
+                    <div class="insight-progress-row">
+                        <div class="insight-progress-label"><span>Inactive schools</span><strong><?= number_format($inactiveSchools) ?></strong></div>
+                        <div class="insight-progress-track muted"><span style="width: <?= $inactiveSchoolPercent ?>%"></span></div>
+                    </div>
+                    <a href="<?= ROOT ?>/schools" class="insight-link">Manage schools <span aria-hidden="true">→</span></a>
+                </article>
+
+                <article class="insight-card user-composition-insight">
+                    <div class="insight-card-heading">
+                        <div>
+                            <span class="insight-eyebrow">USER COMPOSITION</span>
+                            <h3>Users by role</h3>
+                        </div>
+                        <span class="insight-total"><?= number_format($totalUsers) ?> total</span>
+                    </div>
+                    <div class="insight-role-list">
+                        <div class="insight-role-row"><span class="insight-role-dot students"></span><span>Students</span><strong><?= number_format($studentCount) ?></strong><span class="insight-role-percent"><?= $studentPercent ?>%</span></div>
+                        <div class="insight-role-row"><span class="insight-role-dot teachers"></span><span>Teachers</span><strong><?= number_format($teacherCount) ?></strong><span class="insight-role-percent"><?= $teacherPercent ?>%</span></div>
+                        <div class="insight-role-row"><span class="insight-role-dot parents"></span><span>Parents</span><strong><?= number_format($parentCount) ?></strong><span class="insight-role-percent"><?= $parentPercent ?>%</span></div>
+                        <div class="insight-role-row"><span class="insight-role-dot admins"></span><span>School admins</span><strong><?= number_format($adminCount) ?></strong><span class="insight-role-percent"><?= $adminPercent ?>%</span></div>
+                    </div>
+                    <a href="<?= ROOT ?>/users" class="insight-link">View all users <span aria-hidden="true">→</span></a>
+                </article>
+            </div>
+        </section>
 
 
         <!-- =================================================
@@ -463,6 +524,47 @@ require "../private/views/includes/sidebar.view.php";
 
     </a>
 
+
+
+    <!-- TOTAL STUDENTS -->
+    <a href="<?= ROOT ?>/users?role=student" class="kpi-card">
+        <div class="kpi-icon">ST</div>
+        <div class="kpi-content">
+            <span class="kpi-label">Total Students</span>
+            <strong class="kpi-value"><?= number_format($studentCount) ?></strong>
+        </div>
+        <span class="kpi-arrow">→</span>
+    </a>
+
+    <!-- TOTAL TEACHERS -->
+    <a href="<?= ROOT ?>/users?role=teacher" class="kpi-card">
+        <div class="kpi-icon">TC</div>
+        <div class="kpi-content">
+            <span class="kpi-label">Total Teachers</span>
+            <strong class="kpi-value"><?= number_format($teacherCount) ?></strong>
+        </div>
+        <span class="kpi-arrow">→</span>
+    </a>
+
+    <!-- TOTAL PARENTS -->
+    <a href="<?= ROOT ?>/users?role=parent" class="kpi-card">
+        <div class="kpi-icon">PR</div>
+        <div class="kpi-content">
+            <span class="kpi-label">Total Parents</span>
+            <strong class="kpi-value"><?= number_format($parentCount) ?></strong>
+        </div>
+        <span class="kpi-arrow">→</span>
+    </a>
+
+    <!-- SCHOOL ADMINS -->
+    <a href="<?= ROOT ?>/users?role=admin" class="kpi-card">
+        <div class="kpi-icon">SA</div>
+        <div class="kpi-content">
+            <span class="kpi-label">School Admins</span>
+            <strong class="kpi-value"><?= number_format($adminCount) ?></strong>
+        </div>
+        <span class="kpi-arrow">→</span>
+    </a>
 
 </div>
 

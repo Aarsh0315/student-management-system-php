@@ -1,567 +1,446 @@
 /* =========================================================
    SUPER ADMIN DASHBOARD
-   Professional SaaS UI — Light Theme
+   Professional monochrome SaaS UI
    ========================================================= */
 
-* {
-    box-sizing: border-box;
+:root {
+    --sa-black: #090909;
+    --sa-charcoal: #202020;
+    --sa-text: #191919;
+    --sa-muted: #6b6b6b;
+    --sa-border: #e5e5e5;
+    --sa-surface: #ffffff;
+    --sa-page: #f5f5f5;
+    --sa-soft: #f0f0f0;
+    --sa-navbar-black: #090909;
+    --sa-hover: #292929;
+    --sa-radius: 16px;
+    --sa-shadow: 0 4px 18px rgba(0, 0, 0, .045);
 }
 
-html {
-    overflow-y: scroll;
-}
-
+*, *::before, *::after { box-sizing: border-box; }
+html { overflow-y: scroll; }
 body {
     margin: 0;
-    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        Roboto, Helvetica, Arial, sans-serif;
-    color: #292333;
-    background: #f4f2f7;
+    color: var(--sa-text);
+    background: var(--sa-page);
+    font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
-
-/* =========================================================
-   MAIN DASHBOARD
-   ========================================================= */
+a { color: inherit; text-decoration: none; }
+button, input, select { font: inherit; }
 
 .superadmin-page {
     min-height: calc(100vh - 70px);
-    padding: 28px 34px 55px;
-    background:
-        radial-gradient(circle at 88% 4%, rgba(206, 76, 153, 0.09), transparent 24%),
-        radial-gradient(circle at 8% 32%, rgba(122, 91, 168, 0.06), transparent 22%),
-        #f4f2f7;
+    padding: 28px clamp(16px, 3vw, 38px) 48px;
+    background: var(--sa-page);
+    color: var(--sa-text);
+}
+.superadmin-container { width: 100%; max-width: 1600px; margin: 0 auto; }
+.dashboard-date { display: flex; justify-content: flex-end; margin: 0 0 14px; }
+.dashboard-date p { margin: 0; color: var(--sa-muted); font-size: .82rem; font-weight: 500; }
+
+.dashboard-welcome {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 150px;
+    margin-bottom: 28px;
+    padding: clamp(24px, 3vw, 38px);
+    color: #fff;
+    background: var(--sa-navbar-black);
+    border: 1px solid var(--sa-navbar-black);
+    border-radius: 20px;
+    box-shadow: var(--sa-shadow);
+}
+.dashboard-welcome::after {
+    content: "";
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    right: -65px;
+    top: -135px;
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 50%;
+    box-shadow: 0 0 0 28px rgba(255,255,255,.035), 0 0 0 58px rgba(255,255,255,.025);
+    pointer-events: none;
+}
+.welcome-content { position: relative; z-index: 1; }
+.dashboard-welcome h1 { margin: 0 0 10px; font-size: clamp(1.65rem, 3vw, 2.35rem); line-height: 1.2; font-weight: 750; letter-spacing: -.045em; }
+.welcome-description { max-width: 680px; margin: 0; color: #d2d2d2; font-size: .96rem; line-height: 1.65; }
+
+.quick-actions-section,
+.system-overview-section,
+.user-distribution-section,
+.schools-overview-section,
+.schools-attention-section,
+.platform-health-section,
+.security-overview-section,
+.recent-activity-section { margin-top: 30px; }
+.section-heading { display: flex; align-items: flex-end; justify-content: space-between; gap: 16px; margin-bottom: 16px; }
+.section-heading h2 { margin: 0 0 5px; color: var(--sa-text); font-size: 1.18rem; font-weight: 750; letter-spacing: -.025em; }
+.section-heading p { margin: 0; color: var(--sa-muted); font-size: .86rem; line-height: 1.5; }
+
+.quick-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.quick-action {
+    display: flex; align-items: center; gap: 14px; min-width: 0;
+    padding: 18px; background: var(--sa-surface); border: 1px solid var(--sa-border);
+    border-radius: var(--sa-radius); box-shadow: var(--sa-shadow);
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.quick-action:hover { transform: translateY(-2px); border-color: #bdbdbd; box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+.quick-action-icon { display: grid; place-items: center; flex: 0 0 44px; width: 44px; height: 44px; border-radius: 12px; color: #fff; background: var(--sa-black); font-size: 1.5rem; font-weight: 400; }
+.quick-action-content { display: flex; flex: 1; flex-direction: column; gap: 5px; min-width: 0; }
+.quick-action-content strong { font-size: .94rem; font-weight: 700; }
+.quick-action-content small { color: var(--sa-muted); font-size: .8rem; line-height: 1.45; }
+.quick-action-arrow { color: #555; font-size: 1.2rem; transition: transform .18s ease; }
+.quick-action:hover .quick-action-arrow { transform: translateX(3px); }
+
+.kpi-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.kpi-card {
+    position: relative; display: flex; align-items: center; gap: 14px; min-width: 0;
+    padding: 22px 18px; background: var(--sa-surface); border: 1px solid var(--sa-border);
+    border-radius: var(--sa-radius); box-shadow: var(--sa-shadow);
+    transition: transform .18s ease, border-color .18s ease, box-shadow .18s ease;
+}
+.kpi-card:hover { transform: translateY(-2px); border-color: #bcbcbc; box-shadow: 0 8px 24px rgba(0,0,0,.07); }
+.kpi-icon { display: grid; place-items: center; flex: 0 0 48px; width: 48px; height: 48px; border-radius: 14px; color: #fff; background: var(--sa-black); font-size: .8rem; font-weight: 750; letter-spacing: .03em; }
+.kpi-content { display: flex; flex-direction: column; gap: 7px; min-width: 0; }
+.kpi-label { color: var(--sa-muted); font-size: .79rem; font-weight: 600; line-height: 1.35; }
+.kpi-value { color: var(--sa-text); font-size: clamp(1.45rem, 2vw, 1.9rem); line-height: 1; font-weight: 780; letter-spacing: -.045em; overflow-wrap: anywhere; }
+.kpi-arrow { margin-left: auto; align-self: flex-start; color: #888; font-size: 1.05rem; }
+
+.user-distribution-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+.user-distribution-card { display: flex; align-items: center; gap: 13px; padding: 17px; background: var(--sa-surface); border: 1px solid var(--sa-border); border-radius: var(--sa-radius); box-shadow: var(--sa-shadow); transition: transform .18s ease, border-color .18s ease; }
+.user-distribution-card:hover { transform: translateY(-2px); border-color: #bdbdbd; }
+.user-distribution-icon { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 12px; background: var(--sa-soft); color: var(--sa-black); font-size: .75rem; font-weight: 800; }
+.user-distribution-content { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.user-distribution-label { color: var(--sa-muted); font-size: .8rem; font-weight: 600; }
+.user-distribution-value { color: var(--sa-text); font-size: 1.4rem; line-height: 1.1; font-weight: 760; }
+
+.schools-overview-card, .schools-attention-card, .platform-health-card, .security-overview-card, .recent-activity-card { overflow: hidden; background: var(--sa-surface); border: 1px solid var(--sa-border); border-radius: var(--sa-radius); box-shadow: var(--sa-shadow); }
+.schools-table-wrapper { width: 100%; overflow-x: auto; }
+.schools-overview-table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
+.schools-overview-table thead { background: #f7f7f7; }
+.schools-overview-table th { padding: 15px 18px; color: #555; border-bottom: 1px solid var(--sa-border); font-size: .72rem; font-weight: 750; text-transform: uppercase; letter-spacing: .055em; }
+.schools-overview-table td { padding: 16px 18px; border-bottom: 1px solid #eeeeee; color: #333; font-size: .86rem; }
+.schools-overview-table tbody tr:last-child td { border-bottom: 0; }
+.schools-overview-table tbody tr:hover { background: #fafafa; }
+.school-name-cell { display: flex; align-items: center; gap: 11px; min-width: 180px; }
+.school-avatar, .attention-school-icon { display: grid; place-items: center; flex: 0 0 38px; width: 38px; height: 38px; border-radius: 11px; background: var(--sa-black); color: #fff; font-weight: 750; }
+.school-name-content { display: flex; flex-direction: column; gap: 3px; }
+.school-name-content strong { color: var(--sa-text); font-size: .86rem; font-weight: 700; }
+.school-table-number { font-weight: 650; font-variant-numeric: tabular-nums; }
+.school-status-badge, .attention-status-badge { display: inline-flex; align-items: center; gap: 7px; padding: 6px 9px; border: 1px solid #dedede; border-radius: 999px; color: #333; background: #f7f7f7; font-size: .73rem; font-weight: 700; }
+.school-status-badge.active { color: #222; background: #f1f1f1; border-color: #d4d4d4; }
+.school-status-badge.inactive { color: #666; background: #e9e9e9; border-color: #d5d5d5; }
+.school-status-dot, .attention-status-dot { width: 7px; height: 7px; border-radius: 50%; background: #222; }
+.school-status-badge.inactive .school-status-dot { background: #999; }
+.school-view-action { display: inline-flex; align-items: center; justify-content: center; padding: 7px 12px; border: 1px solid #d7d7d7; border-radius: 8px; background: #fff; color: #222; font-size: .78rem; font-weight: 700; transition: background .18s ease, color .18s ease; }
+.school-view-action:hover { background: var(--sa-black); border-color: var(--sa-black); color: #fff; }
+.school-view-action.disabled { opacity: .45; pointer-events: none; }
+
+.schools-empty-state, .attention-empty-state, .recent-activity-empty { display: flex; align-items: center; gap: 15px; padding: 28px; }
+.schools-empty-icon, .attention-empty-icon, .recent-activity-empty-icon { display: grid; place-items: center; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 13px; background: var(--sa-soft); color: var(--sa-black); font-weight: 800; }
+.schools-empty-state h3 { margin: 0 0 5px; font-size: 1rem; }
+.schools-empty-state p, .attention-empty-state p, .recent-activity-empty p { margin: 0; color: var(--sa-muted); font-size: .84rem; line-height: 1.55; }
+.section-action { display: inline-flex; align-items: center; justify-content: center; padding: 10px 14px; border: 1px solid var(--sa-black); border-radius: 9px; background: var(--sa-black); color: #fff; font-size: .8rem; font-weight: 700; transition: background .18s ease; }
+.section-action:hover { background: var(--sa-charcoal); }
+
+.attention-list { padding: 0 20px; }
+.attention-item { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 17px 0; border-bottom: 1px solid #ededed; }
+.attention-item:last-child { border-bottom: 0; }
+.attention-school-info, .attention-school-right { display: flex; align-items: center; gap: 12px; min-width: 0; }
+.attention-school-icon { background: #ededed; color: #222; }
+.attention-school-details { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.attention-school-details strong { font-size: .88rem; }
+.attention-school-details span { color: var(--sa-muted); font-size: .79rem; }
+.attention-status-badge { background: #f2f2f2; }
+.attention-status-dot { background: #777; }
+.attention-empty-state { padding: 23px; }
+.attention-empty-icon { background: #ededed; font-size: 1.25rem; }
+.attention-empty-state strong { display: block; margin-bottom: 5px; font-size: .9rem; }
+
+.platform-health-card { display: grid; grid-template-columns: minmax(220px, .8fr) 2fr; padding: 22px; gap: 24px; }
+.platform-health-status { display: flex; align-items: center; gap: 14px; }
+.platform-health-icon { display: grid; place-items: center; flex: 0 0 46px; width: 46px; height: 46px; border-radius: 13px; background: #ededed; color: #111; font-size: 1.25rem; font-weight: 800; }
+.platform-health-icon.attention { background: #dcdcdc; }
+.platform-health-status-content { display: flex; flex-direction: column; gap: 6px; }
+.platform-health-status-content span, .platform-health-metric span { color: var(--sa-muted); font-size: .8rem; }
+.platform-health-status-content strong { font-size: 1.05rem; }
+.platform-health-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.platform-health-metric { display: flex; flex-direction: column; justify-content: center; gap: 8px; padding: 14px; border: 1px solid var(--sa-border); border-radius: 12px; background: #fafafa; }
+.platform-health-metric strong { font-size: 1.45rem; font-weight: 760; }
+
+.security-feature-list { padding: 0 20px; }
+.security-feature-item { display: flex; align-items: center; justify-content: space-between; gap: 18px; padding: 17px 0; border-bottom: 1px solid #ededed; }
+.security-feature-item:last-child { border-bottom: 0; }
+.security-feature-info { display: flex; align-items: center; gap: 13px; min-width: 0; }
+.security-feature-icon { display: grid; place-items: center; flex: 0 0 38px; width: 38px; height: 38px; border-radius: 11px; background: #ededed; color: #111; font-weight: 800; }
+.security-feature-icon.disabled { background: #dedede; color: #555; }
+.security-feature-content { display: flex; flex-direction: column; gap: 5px; min-width: 0; }
+.security-feature-content strong { font-size: .87rem; }
+.security-feature-content span { color: var(--sa-muted); font-size: .79rem; line-height: 1.45; }
+.security-feature-status { flex: 0 0 auto; padding: 6px 10px; border-radius: 999px; background: #ededed; color: #222; font-size: .72rem; font-weight: 750; }
+.security-feature-status.disabled { background: #e3e3e3; color: #666; }
+
+.recent-activity-list { padding: 0 20px; }
+.recent-activity-item { display: flex; align-items: center; gap: 13px; padding: 17px 0; border-bottom: 1px solid #ededed; }
+.recent-activity-item:last-child { border-bottom: 0; }
+.recent-activity-icon { display: grid; place-items: center; flex: 0 0 40px; width: 40px; height: 40px; border-radius: 12px; background: #ededed; color: #222; font-size: .72rem; font-weight: 800; }
+.recent-activity-content { display: flex; flex: 1; flex-direction: column; gap: 5px; min-width: 0; }
+.recent-activity-content strong { color: var(--sa-text); font-size: .86rem; }
+.recent-activity-content span { color: var(--sa-muted); font-size: .8rem; line-height: 1.5; }
+.recent-activity-time { flex: 0 0 auto; color: #777; font-size: .74rem; white-space: nowrap; }
+.recent-activity-empty-icon { font-size: .72rem; }
+
+/* Keyboard accessibility */
+a:focus-visible, button:focus-visible { outline: 3px solid #777; outline-offset: 3px; }
+
+@media (max-width: 1200px) {
+    .kpi-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .user-distribution-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .platform-health-card { grid-template-columns: 1fr; }
+}
+@media (max-width: 760px) {
+    .superadmin-page { padding: 20px 15px 34px; }
+    .dashboard-date { justify-content: flex-start; }
+    .dashboard-welcome { min-height: 130px; margin-bottom: 22px; padding: 24px 20px; border-radius: 16px; }
+    .dashboard-welcome h1 { font-size: 1.65rem; }
+    .welcome-description { font-size: .88rem; }
+    .quick-actions { grid-template-columns: 1fr; }
+    .kpi-grid { gap: 11px; }
+    .kpi-card { gap: 10px; padding: 16px 12px; }
+    .kpi-icon { flex-basis: 40px; width: 40px; height: 40px; border-radius: 11px; }
+    .kpi-label { font-size: .73rem; }
+    .kpi-value { font-size: 1.5rem; }
+    .user-distribution-grid { gap: 10px; }
+    .user-distribution-card { gap: 9px; padding: 13px 10px; }
+    .user-distribution-icon { flex-basis: 35px; width: 35px; height: 35px; }
+    .user-distribution-label { font-size: .73rem; }
+    .user-distribution-value { font-size: 1.2rem; }
+    .section-heading { align-items: flex-start; }
+    .section-heading h2 { font-size: 1.08rem; }
+    .section-heading p { font-size: .8rem; }
+    .platform-health-card { padding: 15px; gap: 16px; }
+    .platform-health-metrics { gap: 8px; }
+    .platform-health-metric { padding: 11px 9px; }
+    .platform-health-metric span { font-size: .72rem; }
+    .platform-health-metric strong { font-size: 1.2rem; }
+    .attention-list, .security-feature-list, .recent-activity-list { padding: 0 14px; }
+    .attention-item { align-items: flex-start; }
+    .attention-school-right { flex-wrap: wrap; justify-content: flex-end; gap: 7px; }
+    .security-feature-item { align-items: flex-start; }
+    .security-feature-info { gap: 9px; }
+    .security-feature-content span { font-size: .75rem; }
+    .recent-activity-time { white-space: normal; text-align: right; }
+}
+@media (max-width: 440px) {
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .user-distribution-grid { grid-template-columns: 1fr 1fr; }
+    .kpi-card { align-items: flex-start; flex-direction: column; }
+    .kpi-arrow { position: absolute; top: 14px; right: 12px; }
+    .platform-health-metrics { grid-template-columns: 1fr; }
+    .attention-item { flex-direction: column; }
+    .attention-school-right { width: 100%; justify-content: flex-start; padding-left: 50px; }
+    .security-feature-item { flex-direction: column; }
+    .security-feature-status { margin-left: 47px; }
+    .recent-activity-item { align-items: flex-start; flex-wrap: wrap; }
+    .recent-activity-time { width: calc(100% - 53px); margin-left: 53px; text-align: left; }
+    .schools-empty-state, .attention-empty-state, .recent-activity-empty { align-items: flex-start; padding: 20px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
 
-.superadmin-container {
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
+
+/* =========================================================
+   NAVBAR THEME ALIGNMENT & FINISHING DETAILS
+   Shared monochrome palette: #090909 / #202020 / #f5f5f5 / #ffffff
+   ========================================================= */
+.superadmin-page {
+    color: var(--sa-text);
+}
+.superadmin-page ::selection {
+    color: #ffffff;
+    background: var(--sa-navbar-black);
+}
+.superadmin-page a:not(.quick-action):not(.kpi-card):not(.user-distribution-card):not(.section-action):not(.school-view-action) {
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+}
+.quick-action:focus-visible,
+.kpi-card:focus-visible,
+.user-distribution-card:focus-visible,
+.section-action:focus-visible,
+.school-view-action:focus-visible {
+    outline: 3px solid #777777;
+    outline-offset: 3px;
+}
+@media (max-width: 760px) {
+    .superadmin-page {
+        padding-top: 18px;
+    }
 }
 
 /* =========================================================
-   DATE
+   DESIGN 2 — PREMIUM ENTERPRISE FINISH
+   Keep this dashboard aligned with the existing monochrome navbar.
    ========================================================= */
+:root {
+    --sa-black: #090909;
+    --sa-charcoal: #202020;
+    --sa-text: #191919;
+    --sa-muted: #686868;
+    --sa-border: #e3e3e3;
+    --sa-surface: #ffffff;
+    --sa-page: #f4f4f4;
+    --sa-soft: #eeeeee;
+    --sa-navbar-black: #090909;
+    --sa-hover: #292929;
+    --sa-radius: 15px;
+    --sa-shadow: 0 3px 14px rgba(0, 0, 0, .035);
+}
 
-.dashboard-date {
-    margin-bottom: 10px;
+.superadmin-page {
+    padding-top: 26px;
+    background: var(--sa-page);
 }
 
 .dashboard-date p {
     display: inline-flex;
     align-items: center;
-    margin: 0;
-    padding: 7px 11px;
-    border: 1px solid #e8dce6;
-    border-radius: 20px;
-    background: rgba(255,255,255,.75);
-    color: #756d7b;
-    font-size: 11px;
-    font-weight: 600;
+    gap: 7px;
+    padding: 8px 12px;
+    background: #fff;
+    border: 1px solid var(--sa-border);
+    border-radius: 999px;
+    font-size: .78rem;
+    letter-spacing: .01em;
 }
-
-/* =========================================================
-   WELCOME — PREMIUM NEUTRAL HERO
-   ========================================================= */
 
 .dashboard-welcome {
-    position: relative;
-    min-height: 185px;
-    margin-bottom: 32px;
-    padding: 32px 36px;
-    overflow: hidden;
-    border: 1px solid #dfe3ea;
-    border-radius: 22px;
-    background:
-        radial-gradient(circle at 88% 20%, rgba(255,255,255,.10), transparent 22%),
-        linear-gradient(120deg, #202531 0%, #2c3340 52%, #394252 100%);
-    box-shadow: 0 18px 40px rgba(30, 35, 45, .15);
-}
-
-.dashboard-welcome::before {
-    content: "";
-    position: absolute;
-    width: 260px;
-    height: 260px;
-    right: -70px;
-    top: -130px;
-    border: 48px solid rgba(255,255,255,.055);
-    border-radius: 50%;
-    pointer-events: none;
-}
-
-.dashboard-welcome::after {
-    content: "";
-    position: absolute;
-    width: 150px;
-    height: 150px;
-    right: 125px;
-    bottom: -95px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.035);
-    pointer-events: none;
-}
-
-.welcome-content {
-    position: relative;
-    z-index: 1;
-    max-width: 760px;
-}
-
-.welcome-label {
-    display: inline-flex;
-    align-items: center;
-    margin: 0 0 11px;
-    padding: 6px 10px;
-    border: 1px solid rgba(255,255,255,.13);
-    border-radius: 20px;
-    background: rgba(255,255,255,.07);
-    color: #d7dbe2;
-    font-size: 10px;
-    font-weight: 750;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
+    min-height: 172px;
+    margin-bottom: 30px;
+    border-radius: 18px;
+    background: linear-gradient(115deg, #090909 0%, #171717 68%, #242424 100%);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, .10);
 }
 
 .dashboard-welcome h1 {
-    margin: 0;
-    color: #ffffff;
-    font-size: 31px;
-    font-weight: 750;
-    line-height: 1.25;
-    letter-spacing: -.65px;
+    max-width: 850px;
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    letter-spacing: -.05em;
 }
 
 .welcome-description {
-    margin: 10px 0 0;
-    max-width: 670px;
-    color: #c5cad3;
-    font-size: 13px;
-    line-height: 1.65;
-}
-
-/* =========================================================
-   SECTIONS
-   ========================================================= */
-
-.quick-actions-section,
-.system-overview-section {
-    margin-bottom: 30px;
+    color: #d0d0d0;
+    max-width: 600px;
 }
 
 .section-heading {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    margin-bottom: 13px;
-    padding: 0 2px;
+    align-items: center;
+    margin-bottom: 17px;
 }
 
 .section-heading h2 {
-    margin: 0;
-    color: #292333;
-    font-size: 18px;
-    font-weight: 750;
-    letter-spacing: -.25px;
+    font-size: 1.12rem;
+    letter-spacing: -.03em;
 }
 
 .section-heading p {
-    margin: 5px 0 0;
-    color: #817988;
-    font-size: 11px;
+    font-size: .82rem;
 }
 
-/* =========================================================
-   QUICK ACTION VARIANTS
-   ========================================================= */
-
-.quick-action:nth-child(1) .quick-action-icon {
-    background: #eef4ff;
-    border-color: #d8e5fa;
-    color: #3d6fae;
+.quick-actions-section,
+.system-overview-section,
+.user-distribution-section,
+.schools-overview-section,
+.schools-attention-section,
+.platform-health-section,
+.security-overview-section,
+.recent-activity-section {
+    margin-top: 32px;
 }
 
-.quick-action:nth-child(2) .quick-action-icon {
-    background: #f3efff;
-    border-color: #e4dbf8;
-    color: #7357a8;
-}
-
-.quick-action:nth-child(3) .quick-action-icon {
-    background: #edf8f3;
-    border-color: #d3eadf;
-    color: #398263;
-}
-
-.quick-action:nth-child(4) .quick-action-icon {
-    background: #fff5e9;
-    border-color: #f1dfc3;
-    color: #aa7130;
-}
-
-/* =========================================================
-   QUICK ACTIONS
-   ========================================================= */
-
-.quick-actions {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+.quick-action,
+.kpi-card,
+.user-distribution-card {
+    border-radius: var(--sa-radius);
+    box-shadow: var(--sa-shadow);
 }
 
 .quick-action {
-    position: relative;
-    display: flex;
-    align-items: center;
-    min-height: 105px;
-    padding: 18px;
-    overflow: hidden;
-    border: 1px solid #e4dce5;
-    border-radius: 17px;
-    background: #fff;
-    text-decoration: none;
-    box-shadow: 0 6px 18px rgba(55, 40, 62, .055);
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    min-height: 88px;
+    padding: 19px 20px;
 }
 
-.quick-action::after {
-    content: "";
-    position: absolute;
-    width: 90px;
-    height: 90px;
-    right: -35px;
-    bottom: -45px;
-    border-radius: 50%;
-    background: #f9eaf4;
-}
-
-.quick-action::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 15px;
-    bottom: 15px;
-    width: 3px;
-    border-radius: 0 4px 4px 0;
-    background: #a32675;
-    opacity: 0;
-    transition: opacity .2s ease;
-}
-
-.quick-action:hover {
-    transform: translateY(-4px);
-    border-color: #d9b8ce;
-    box-shadow: 0 14px 30px rgba(55, 40, 62, .10);
-}
-
-.quick-action:hover::before {
-    opacity: 1;
+.quick-action:hover,
+.kpi-card:hover,
+.user-distribution-card:hover {
+    border-color: #b9b9b9;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .065);
 }
 
 .quick-action-icon {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 47px;
-    height: 47px;
-    flex: 0 0 47px;
-    margin-right: 13px;
-    border: 1px solid #eed5e4;
     border-radius: 13px;
-    background: linear-gradient(145deg, #fff3fa, #f8e5f1);
-    color: #a32675;
-    font-size: 16px;
-    font-weight: 800;
-}
-
-.quick-action-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-    min-width: 0;
-}
-
-.quick-action-content strong {
-    color: #302a38;
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.quick-action-content small {
-    color: #8a828e;
-    font-size: 10px;
-    line-height: 1.45;
-}
-
-.quick-action-arrow {
-    position: relative;
-    z-index: 1;
-    margin-left: auto;
-    color: #a32675;
-    font-size: 18px;
-    opacity: .3;
-    transition: opacity .2s ease, transform .2s ease;
-}
-
-.quick-action:hover .quick-action-arrow {
-    opacity: 1;
-    transform: translateX(4px);
-}
-
-/* =========================================================
-   KPI CARD VARIANTS
-   ========================================================= */
-
-.kpi-card:nth-child(1) .kpi-icon {
-    background: #eef4ff;
-    border-color: #d8e5fa;
-    color: #3d6fae;
-}
-
-.kpi-card:nth-child(2) .kpi-icon {
-    background: #f3efff;
-    border-color: #e4dbf8;
-    color: #7357a8;
-}
-
-.kpi-card:nth-child(3) .kpi-icon {
-    background: #edf8f3;
-    border-color: #d3eadf;
-    color: #398263;
-}
-
-.kpi-card:nth-child(4) .kpi-icon {
-    background: #fff5e9;
-    border-color: #f1dfc3;
-    color: #aa7130;
-}
-
-.kpi-card:nth-child(1)::after {
-    background: #eef4ff;
-}
-
-.kpi-card:nth-child(2)::after {
-    background: #f3efff;
-}
-
-.kpi-card:nth-child(3)::after {
-    background: #edf8f3;
-}
-
-.kpi-card:nth-child(4)::after {
-    background: #fff5e9;
-}
-
-/* =========================================================
-   KPI / SYSTEM OVERVIEW
-   ========================================================= */
-
-.kpi-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 14px;
+    background: #111;
 }
 
 .kpi-card {
-    position: relative;
-    display: flex;
-    align-items: center;
-    min-height: 135px;
-    padding: 21px;
-    overflow: hidden;
-    border: 1px solid #e3dbe5;
-    border-radius: 18px;
-    background: #fff;
-    text-decoration: none;
-    box-shadow: 0 7px 20px rgba(55, 40, 62, .06);
-    transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
-}
-
-.kpi-card::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 4px;
-    background: #a32675;
-}
-
-.kpi-card::after {
-    content: "";
-    position: absolute;
-    width: 125px;
-    height: 125px;
-    right: -58px;
-    bottom: -65px;
-    border-radius: 50%;
-    background: #f9eaf4;
-}
-
-.kpi-card:hover {
-    transform: translateY(-4px);
-    border-color: #d7b6cb;
-    box-shadow: 0 15px 32px rgba(55, 40, 62, .11);
+    min-height: 112px;
+    padding: 20px;
 }
 
 .kpi-icon {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 52px;
-    height: 52px;
-    flex: 0 0 52px;
-    margin-right: 16px;
-    border: 1px solid #ead0df;
-    border-radius: 15px;
-    background: linear-gradient(145deg, #fff4fa, #f6e3ef);
-    color: #a32675;
-    font-size: 10px;
-    font-weight: 850;
-    letter-spacing: .4px;
-}
-
-.kpi-content {
-    position: relative;
-    z-index: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    border-radius: 13px;
+    background: #111;
 }
 
 .kpi-label {
-    color: #817987;
-    font-size: 11px;
-    font-weight: 600;
+    letter-spacing: .005em;
 }
 
-.kpi-value {
-    color: #292333;
-    font-size: 29px;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -.8px;
+.kpi-value,
+.user-distribution-value,
+.platform-health-metric strong {
+    font-variant-numeric: tabular-nums;
 }
 
-.kpi-arrow {
-    position: relative;
-    z-index: 1;
-    margin-left: auto;
-    color: #a32675;
-    font-size: 19px;
-    opacity: .28;
-    transition: opacity .2s ease, transform .2s ease;
+.user-distribution-card {
+    min-height: 83px;
+    padding: 16px;
 }
 
-.kpi-card:hover .kpi-arrow {
-    opacity: 1;
-    transform: translateX(4px);
+.user-distribution-icon {
+    background: #f0f0f0;
+    border: 1px solid #e6e6e6;
 }
-
-/* =========================================================
-   MAIN CONTENT CARDS
-   ========================================================= */
 
 .schools-overview-card,
-.activity-card {
-    margin-bottom: 24px;
-    overflow: hidden;
-    border: 1px solid #e2dae4;
-    border-radius: 19px;
-    background: #fff;
-    box-shadow: 0 8px 24px rgba(55, 40, 62, .065);
-}
-
-.card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: 76px;
-    padding: 18px 23px;
-    border-bottom: 1px solid #eee8ee;
-    background: linear-gradient(180deg, #fff, #fdfbfc);
-}
-
-.card-header h2 {
-    margin: 0;
-    color: #2d2735;
-    font-size: 16px;
-    font-weight: 750;
-}
-
-.card-header p {
-    margin: 5px 0 0;
-    color: #918995;
-    font-size: 11px;
-}
-
-.card-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 35px;
-    padding: 0 14px;
-    border: 1px solid #dfc8d8;
-    border-radius: 9px;
-    background: #fff4fa;
-    color: #a32675;
-    font-size: 11px;
-    font-weight: 700;
-    text-decoration: none;
-    transition: .2s ease;
-}
-
-.card-action:hover {
-    background: #a32675;
-    border-color: #a32675;
-    color: #fff;
-    box-shadow: 0 6px 15px rgba(163,38,117,.18);
-}
-
-/* =========================================================
-   SCHOOLS TABLE
-   ========================================================= */
-
-.schools-overview-body {
-    width: 100%;
-}
-
-.schools-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.schools-overview-table {
-    width: 100%;
-    min-width: 760px;
-    border-collapse: collapse;
+.schools-attention-card,
+.platform-health-card,
+.security-overview-card,
+.recent-activity-card {
+    border-radius: var(--sa-radius);
+    box-shadow: var(--sa-shadow);
 }
 
 .schools-overview-table thead {
-    background: #f8f5f8;
+    background: #f4f4f4;
 }
 
 .schools-overview-table th {
-    padding: 13px 20px;
-    border-bottom: 1px solid #e9e3e9;
-    color: #766e7a;
-    font-size: 10px;
-    font-weight: 800;
-    text-align: left;
-    text-transform: uppercase;
-    letter-spacing: .7px;
+    padding-top: 16px;
+    padding-bottom: 16px;
+    color: #5b5b5b;
 }
 
 .schools-overview-table td {
-    padding: 16px 20px;
-    border-bottom: 1px solid #f0ecf0;
-    color: #514a57;
-    font-size: 12px;
+    padding-top: 17px;
+    padding-bottom: 17px;
 }
 
 .schools-overview-table tbody tr {
@@ -569,1520 +448,67 @@ body {
 }
 
 .schools-overview-table tbody tr:hover {
-    background: #fff8fc;
-}
-
-.schools-overview-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.schools-overview-table td strong {
-    color: #302a38;
-    font-weight: 700;
-}
-
-/* =========================================================
-   STATUS
-   ========================================================= */
-
-.school-status {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 72px;
-    padding: 5px 11px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: 750;
-}
-
-.school-status.active {
-    background: #eaf8f0;
-    border: 1px solid #c9e8d5;
-    color: #267647;
-}
-
-.school-status.inactive {
-    background: #fff0f2;
-    border: 1px solid #f0cbd2;
-    color: #ad424d;
-}
-
-/* =========================================================
-   EMPTY STATES
-   ========================================================= */
-
-.dashboard-empty {
-    padding: 55px 25px;
-    text-align: center;
-}
-
-.dashboard-empty h3,
-.activity-empty h3 {
-    margin: 0;
-    color: #302a38;
-    font-size: 15px;
-    font-weight: 750;
-}
-
-.dashboard-empty p,
-.activity-empty p {
-    margin: 7px 0 18px;
-    color: #918995;
-    font-size: 11px;
-}
-
-.dashboard-empty a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 37px;
-    padding: 0 17px;
-    border-radius: 9px;
-    background: #a32675;
-    color: #fff;
-    font-size: 11px;
-    font-weight: 700;
-    text-decoration: none;
-    box-shadow: 0 7px 16px rgba(163,38,117,.17);
-    transition: .2s ease;
-}
-
-.dashboard-empty a:hover {
-    background: #8d205f;
-    transform: translateY(-2px);
-}
-/* =====================================================
-   RECENT ACTIVITY
-===================================================== */
-
-.recent-activity-section {
-    margin-top: 24px;
-}
-
-.recent-activity-section .section-heading {
-    margin-bottom: 16px;
-}
-
-.recent-activity-card {
-    background: #ffffff;
-    border: 1px solid #e8e9ed;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.recent-activity-list {
-    width: 100%;
-}
-
-.recent-activity-item {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    padding: 17px 20px;
-
-    border-bottom: 1px solid #eef0f2;
-}
-
-.recent-activity-item:last-child {
-    border-bottom: none;
-}
-
-
-/* =====================================================
-   ACTIVITY ICON
-===================================================== */
-
-.recent-activity-icon {
-    width: 40px;
-    height: 40px;
-    flex: 0 0 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-
-    background: #f8edf5;
-    color: #a32675;
-
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.3px;
-}
-
-.recent-activity-icon.school {
-    background: #f8edf5;
-    color: #a32675;
-}
-
-.recent-activity-icon.user {
-    background: #eef3f8;
-    color: #4e6d89;
-}
-
-.recent-activity-icon.system {
-    background: #f1f2f4;
-    color: #626975;
-}
-
-
-/* =====================================================
-   ACTIVITY CONTENT
-===================================================== */
-
-.recent-activity-content {
-    min-width: 0;
-    flex: 1;
-
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.recent-activity-content strong {
-    color: #292e36;
-    font-size: 14px;
-    font-weight: 650;
-    line-height: 1.4;
-}
-
-.recent-activity-content span {
-    color: #858b95;
-    font-size: 12px;
-    line-height: 1.4;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-
-/* =====================================================
-   ACTIVITY TIME
-===================================================== */
-
-.recent-activity-time {
-    flex: 0 0 auto;
-
-    color: #9298a2;
-    font-size: 11px;
-    font-weight: 600;
-
-    white-space: nowrap;
-}
-
-
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-.recent-activity-empty {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    padding: 28px 20px;
-}
-
-.recent-activity-empty-icon {
-    width: 40px;
-    height: 40px;
-    flex: 0 0 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-
-    background: #f1f2f4;
-    color: #626975;
-
-    font-size: 11px;
-    font-weight: 700;
-}
-
-.recent-activity-empty strong {
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: #292e36;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.recent-activity-empty p {
-    margin: 0;
-
-    color: #858b95;
-    font-size: 12px;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 768px) {
-
-    .recent-activity-section {
-        margin-top: 20px;
-    }
-
-    .recent-activity-card {
-        border-radius: 13px;
-    }
-
-    .recent-activity-item {
-        padding: 15px 16px;
-    }
-
-}
-
-@media (max-width: 600px) {
-
-    .recent-activity-item {
-        align-items: flex-start;
-    }
-
-    .recent-activity-content span {
-        white-space: normal;
-    }
-
-    .recent-activity-time {
-        padding-top: 2px;
-    }
-
-    .recent-activity-empty {
-        padding: 22px 16px;
-    }
-
-}
-
-/* =========================================================
-   FOCUS
-   ========================================================= */
-
-.quick-action:focus-visible,
-.kpi-card:focus-visible,
-.card-action:focus-visible,
-.dashboard-empty a:focus-visible {
-    outline: 2px solid #a32675;
-    outline-offset: 3px;
-}
-
-/* =========================================================
-   TABLET
-   ========================================================= */
-
-@media (max-width: 1150px) {
-    .quick-actions,
-    .kpi-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* =========================================================
-   SMALL TABLET
-   ========================================================= */
-
-@media (max-width: 800px) {
-    .superadmin-page {
-        padding: 24px 22px 45px;
-    }
-
-    .dashboard-welcome {
-        padding: 28px;
-    }
-
-    .dashboard-welcome h1 {
-        font-size: 27px;
-    }
-
-    .quick-actions,
-    .kpi-grid {
-        gap: 12px;
-    }
-}
-
-/* =========================================================
-   MOBILE
-   ========================================================= */
-
-@media (max-width: 600px) {
-    .superadmin-page {
-        padding: 20px 15px 40px;
-    }
-
-    .dashboard-welcome {
-        min-height: 165px;
-        margin-bottom: 26px;
-        padding: 25px 22px;
-        border-radius: 18px;
-    }
-
-    .dashboard-welcome h1 {
-        font-size: 24px;
-    }
-
-    .welcome-description {
-        font-size: 12px;
-    }
-
-    .quick-actions,
-    .kpi-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .quick-action {
-        min-height: 88px;
-    }
-
-    .kpi-card {
-        min-height: 108px;
-    }
-
-    .card-header {
-        align-items: flex-start;
-        gap: 12px;
-        padding: 17px;
-    }
-
-    .card-header h2 {
-        font-size: 15px;
-    }
-
-    .card-action {
-        flex-shrink: 0;
-    }
-
-    .activity-item {
-        align-items: flex-start;
-        padding: 14px 17px;
-    }
-
-    .activity-item time {
-        display: none;
-    }
-}
-
-/* =========================================================
-   VERY SMALL MOBILE
-   ========================================================= */
-
-@media (max-width: 420px) {
-    .superadmin-page {
-        padding-left: 12px;
-        padding-right: 12px;
-    }
-
-    .dashboard-welcome {
-        padding: 23px 19px;
-    }
-
-    .dashboard-welcome h1 {
-        font-size: 22px;
-    }
-
-    .section-heading h2 {
-        font-size: 16px;
-    }
-
-    .quick-action {
-        padding: 15px;
-    }
-
-    .quick-action-icon {
-        width: 41px;
-        height: 41px;
-        flex-basis: 41px;
-    }
-
-    .kpi-card {
-        padding: 17px;
-    }
-
-    .kpi-icon {
-        width: 44px;
-        height: 44px;
-        flex-basis: 44px;
-    }
-
-    .kpi-value {
-        font-size: 25px;
-    }
-
-    .card-header {
-        padding: 15px;
-    }
-}
-
-
-/* =====================================================
-   USER DISTRIBUTION
-===================================================== */
-
-.user-distribution-section {
-    margin-top: 24px;
-}
-
-.user-distribution-section .section-heading {
-    margin-bottom: 16px;
-}
-
-.user-distribution-grid {
-    display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-    gap: 16px;
-}
-
-.user-distribution-card {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-width: 0;
-    padding: 20px;
-    background: #ffffff;
-    border: 1px solid #e8e9ed;
-    border-radius: 16px;
-    text-decoration: none;
-    transition:
-        transform 0.2s ease,
-        box-shadow 0.2s ease,
-        border-color 0.2s ease;
-}
-
-.user-distribution-card:hover {
-    transform: translateY(-2px);
-    border-color: #dcdde3;
-    box-shadow: 0 8px 24px rgba(31, 35, 41, 0.07);
-}
-
-.user-distribution-icon {
-    width: 46px;
-    height: 46px;
-    flex: 0 0 46px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 12px;
-    background: #f8edf5;
-    color: #a32675;
-
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 0.4px;
-}
-
-.user-distribution-content {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.user-distribution-label {
-    color: #69707d;
-    font-size: 13px;
-    font-weight: 600;
-    line-height: 1.3;
-}
-
-.user-distribution-value {
-    color: #252a32;
-    font-size: 24px;
-    font-weight: 700;
-    line-height: 1.1;
-}
-
-
-/* =====================================================
-   USER DISTRIBUTION - TABLET
-===================================================== */
-
-@media (max-width: 1100px) {
-
-    .user-distribution-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-}
-
-
-/* =====================================================
-   USER DISTRIBUTION - MOBILE
-===================================================== */
-
-@media (max-width: 640px) {
-
-    .user-distribution-section {
-        margin-top: 20px;
-    }
-
-    .user-distribution-grid {
-        grid-template-columns: 1fr;
-        gap: 12px;
-    }
-
-    .user-distribution-card {
-        padding: 16px;
-    }
-
-    .user-distribution-icon {
-        width: 42px;
-        height: 42px;
-        flex-basis: 42px;
-    }
-
-    .user-distribution-value {
-        font-size: 22px;
-    }
-
-}
-
-/* =====================================================
-   SCHOOLS OVERVIEW
-===================================================== */
-
-.schools-overview-section {
-    margin-top: 24px;
-}
-
-.schools-overview-section .section-heading {
-    margin-bottom: 16px;
-}
-
-.schools-overview-card {
-    background: #ffffff;
-    border: 1px solid #e8e9ed;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.schools-table-wrapper {
-    width: 100%;
-    overflow-x: auto;
-}
-
-.schools-overview-table {
-    width: 100%;
-    min-width: 760px;
-    border-collapse: collapse;
-}
-
-.schools-overview-table th {
-    padding: 14px 18px;
-    background: #f8f9fb;
-    border-bottom: 1px solid #e8e9ed;
-
-    color: #69707d;
-    font-size: 12px;
-    font-weight: 700;
-    text-align: left;
-    text-transform: uppercase;
-    letter-spacing: 0.35px;
-    white-space: nowrap;
-}
-
-.schools-overview-table td {
-    padding: 16px 18px;
-    border-bottom: 1px solid #eef0f2;
-
-    color: #3b414b;
-    font-size: 14px;
-    vertical-align: middle;
-}
-
-.schools-overview-table tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.schools-overview-table tbody tr {
-    transition: background 0.18s ease;
-}
-
-.schools-overview-table tbody tr:hover {
-    background: #fafafa;
-}
-
-
-/* =====================================================
-   SCHOOL NAME
-===================================================== */
-
-.school-name-cell {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 190px;
+    background: #f8f8f8;
 }
 
 .school-avatar {
-    width: 38px;
-    height: 38px;
-    flex: 0 0 38px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-    background: #f8edf5;
-    color: #a32675;
-
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.school-name-content {
-    min-width: 0;
-}
-
-.school-name-content strong {
-    display: block;
-
-    color: #252a32;
-    font-size: 14px;
-    font-weight: 650;
-    line-height: 1.4;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-
-/* =====================================================
-   TABLE NUMBERS
-===================================================== */
-
-.school-table-number {
-    color: #303641;
-    font-size: 14px;
-    font-weight: 650;
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-.school-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-
-    padding: 6px 10px;
-
-    border-radius: 999px;
-
-    font-size: 12px;
-    font-weight: 650;
-    line-height: 1;
-}
-
-.school-status-badge.active {
-    background: #eaf7ef;
-    color: #237a48;
-}
-
-.school-status-badge.inactive {
-    background: #fceced;
-    color: #b33a42;
-}
-
-.school-status-dot {
-    width: 6px;
-    height: 6px;
-    flex: 0 0 6px;
-
-    border-radius: 50%;
-    background: currentColor;
-}
-
-
-/* =====================================================
-   VIEW ACTION
-===================================================== */
-
-.school-view-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: 54px;
-    padding: 7px 12px;
-
-    border: 1px solid #dedfe4;
-    border-radius: 8px;
-
-    background: #ffffff;
-    color: #4b515b;
-
-    font-size: 12px;
-    font-weight: 650;
-    text-decoration: none;
-
-    transition:
-        background 0.18s ease,
-        border-color 0.18s ease,
-        color 0.18s ease;
-}
-
-.school-view-action:hover {
-    background: #f6f7f8;
-    border-color: #cfd1d6;
-    color: #252a32;
-}
-
-.school-view-action.disabled {
-    opacity: 0.45;
-    cursor: default;
-}
-
-
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-.schools-empty-state {
-    padding: 56px 24px;
-    text-align: center;
-}
-
-.schools-empty-icon {
-    width: 48px;
-    height: 48px;
-    margin: 0 auto 14px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
     border-radius: 12px;
-    background: #f8edf5;
-    color: #a32675;
-
-    font-size: 12px;
-    font-weight: 700;
+    background: #171717;
 }
 
-.schools-empty-state h3 {
-    margin: 0 0 6px;
-
-    color: #252a32;
-    font-size: 16px;
-    font-weight: 700;
+.school-status-badge,
+.attention-status-badge,
+.security-feature-status {
+    letter-spacing: .01em;
 }
 
-.schools-empty-state p {
-    margin: 0 0 18px;
-
-    color: #747b86;
-    font-size: 13px;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 768px) {
-
-    .schools-overview-section {
-        margin-top: 20px;
-    }
-
-    .schools-overview-card {
-        border-radius: 13px;
-    }
-
-    .schools-overview-table th,
-    .schools-overview-table td {
-        padding: 13px 14px;
-    }
-
-}
-
-@media (max-width: 640px) {
-
-    .schools-overview-section .section-heading {
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    .section-action {
-        white-space: nowrap;
-    }
-
-    .schools-empty-state {
-        padding: 44px 18px;
-    }
-
-}
-
-
-/* =====================================================
-   SCHOOLS REQUIRING ATTENTION
-===================================================== */
-
-.schools-attention-section {
-    margin-top: 24px;
-}
-
-.schools-attention-section .section-heading {
-    margin-bottom: 16px;
-}
-
-.schools-attention-card {
-    background: #ffffff;
-    border: 1px solid #e8e9ed;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.attention-list {
-    width: 100%;
-}
-
-.attention-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-
-    padding: 17px 20px;
-
-    border-bottom: 1px solid #eef0f2;
-}
-
-.attention-item:last-child {
-    border-bottom: none;
-}
-
-.attention-item:hover {
-    background: #fcfcfd;
-}
-
-
-/* =====================================================
-   SCHOOL INFORMATION
-===================================================== */
-
-.attention-school-info {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    min-width: 0;
-}
-
-.attention-school-icon {
-    width: 40px;
-    height: 40px;
-    flex: 0 0 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-
-    background: #fff3e8;
-    color: #a85b20;
-
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.attention-school-details {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.attention-school-details strong {
-    color: #292e36;
-    font-size: 14px;
-    font-weight: 650;
-    line-height: 1.4;
-
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.attention-school-details span {
-    color: #858b95;
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-
-/* =====================================================
-   RIGHT SIDE
-===================================================== */
-
-.attention-school-right {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
-    flex: 0 0 auto;
-}
-
-.attention-status-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 7px;
-
-    padding: 6px 10px;
-
-    border-radius: 999px;
-
-    background: #fceced;
-    color: #b33a42;
-
-    font-size: 12px;
-    font-weight: 650;
-    line-height: 1;
-}
-
-.attention-status-dot {
-    width: 6px;
-    height: 6px;
-    flex: 0 0 6px;
-
-    border-radius: 50%;
-    background: currentColor;
-}
-
-.attention-view-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: 54px;
-    padding: 7px 12px;
-
-    border: 1px solid #dedfe4;
-    border-radius: 8px;
-
-    background: #ffffff;
-    color: #4b515b;
-
-    font-size: 12px;
-    font-weight: 650;
-    text-decoration: none;
-
-    transition:
-        background 0.18s ease,
-        border-color 0.18s ease,
-        color 0.18s ease;
-}
-
-.attention-view-action:hover {
-    background: #f6f7f8;
-    border-color: #cfd1d6;
-    color: #252a32;
-}
-
-
-/* =====================================================
-   EMPTY STATE
-===================================================== */
-
-.attention-empty-state {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-
-    padding: 24px 20px;
-}
-
-.attention-empty-icon {
-    width: 40px;
-    height: 40px;
-    flex: 0 0 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-
-    background: #eaf7ef;
-    color: #237a48;
-
-    font-size: 17px;
-    font-weight: 700;
-}
-
-.attention-empty-state strong {
-    display: block;
-
-    margin-bottom: 3px;
-
-    color: #292e36;
-    font-size: 14px;
-    font-weight: 700;
-}
-
-.attention-empty-state p {
-    margin: 0;
-
-    color: #858b95;
-    font-size: 12px;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 768px) {
-
-    .schools-attention-section {
-        margin-top: 20px;
-    }
-
-    .schools-attention-card {
-        border-radius: 13px;
-    }
-
-    .attention-item {
-        padding: 15px 16px;
-    }
-
-}
-
-@media (max-width: 600px) {
-
-    .attention-item {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .attention-school-info {
-        width: 100%;
-    }
-
-    .attention-school-right {
-        width: 100%;
-        justify-content: space-between;
-    }
-
-    .attention-empty-state {
-        align-items: flex-start;
-        padding: 20px 16px;
-    }
-
-}
-
-/* =====================================================
-   PLATFORM HEALTH
-===================================================== */
-
-.platform-health-section {
-    margin-top: 24px;
-}
-
-.platform-health-section .section-heading {
-    margin-bottom: 16px;
+.section-action {
+    border-radius: 9px;
+    padding: 10px 15px;
 }
 
 .platform-health-card {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 24px;
-
-    padding: 22px 24px;
-
-    background: #ffffff;
-    border: 1px solid #e8e9ed;
-    border-radius: 16px;
-}
-
-
-/* =====================================================
-   HEALTH STATUS
-===================================================== */
-
-.platform-health-status {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    min-width: 220px;
-}
-
-.platform-health-icon {
-    width: 46px;
-    height: 46px;
-    flex: 0 0 46px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 12px;
-
-    font-size: 18px;
-    font-weight: 700;
-}
-
-.platform-health-icon.healthy {
-    background: #eaf7ef;
-    color: #237a48;
-}
-
-.platform-health-icon.attention {
-    background: #fff3e8;
-    color: #a85b20;
-}
-
-.platform-health-status-content {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.platform-health-status-content span {
-    color: #747b86;
-    font-size: 12px;
-    font-weight: 600;
-}
-
-.platform-health-status-content strong {
-    color: #252a32;
-    font-size: 16px;
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   HEALTH METRICS
-===================================================== */
-
-.platform-health-metrics {
-    display: flex;
-    align-items: stretch;
-    justify-content: flex-end;
-    flex: 1;
+    padding: 24px;
 }
 
 .platform-health-metric {
-    min-width: 150px;
-    padding: 0 24px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 5px;
-
-    border-left: 1px solid #eef0f2;
+    background: #f8f8f8;
+    border-color: #e7e7e7;
 }
 
-.platform-health-metric:first-child {
-    border-left: none;
+.security-feature-item,
+.attention-item,
+.recent-activity-item {
+    transition: background .15s ease;
 }
 
-.platform-health-metric span {
-    color: #747b86;
-    font-size: 12px;
-    font-weight: 600;
+.security-feature-icon,
+.recent-activity-icon {
+    background: #f0f0f0;
+    border: 1px solid #e6e6e6;
 }
 
-.platform-health-metric strong {
-    color: #303641;
-    font-size: 21px;
-    font-weight: 700;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 900px) {
-
-    .platform-health-card {
-        align-items: flex-start;
-        flex-direction: column;
+@media (min-width: 1400px) {
+    .superadmin-container {
+        max-width: 1660px;
     }
 
-    .platform-health-status {
-        width: 100%;
+    .kpi-grid {
+        gap: 18px;
     }
-
-    .platform-health-metrics {
-        width: 100%;
-    }
-
-    .platform-health-metric {
-        flex: 1;
-        min-width: 0;
-    }
-
 }
 
-@media (max-width: 640px) {
+@media (max-width: 760px) {
+    .dashboard-date p {
+        border-radius: 10px;
+    }
 
-    .platform-health-section {
-        margin-top: 20px;
+    .dashboard-welcome {
+        min-height: 140px;
+        border-radius: 15px;
     }
 
     .platform-health-card {
-        padding: 18px;
-        border-radius: 13px;
-    }
-
-    .platform-health-metrics {
-        display: grid;
-        grid-template-columns: 1fr;
-        width: 100%;
-    }
-
-    .platform-health-metric {
-        padding: 12px 0;
-        border-left: none;
-        border-top: 1px solid #eef0f2;
-    }
-
-    .platform-health-metric:first-child {
-        border-top: none;
-    }
-
-}
-
-/* =====================================================
-   SECURITY OVERVIEW
-===================================================== */
-
-.security-overview-section {
-    margin-top: 24px;
-}
-
-.security-overview-section .section-heading {
-    margin-bottom: 16px;
-}
-
-.security-overview-card {
-    background: #ffffff;
-    border: 1px solid #e8e9ed;
-    border-radius: 16px;
-    overflow: hidden;
-}
-
-.security-feature-list {
-    width: 100%;
-}
-
-.security-feature-item {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-
-    padding: 17px 20px;
-
-    border-bottom: 1px solid #eef0f2;
-}
-
-.security-feature-item:last-child {
-    border-bottom: none;
-}
-
-
-/* =====================================================
-   FEATURE INFORMATION
-===================================================== */
-
-.security-feature-info {
-    display: flex;
-    align-items: center;
-    gap: 13px;
-    min-width: 0;
-}
-
-.security-feature-icon {
-    width: 40px;
-    height: 40px;
-    flex: 0 0 40px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    border-radius: 10px;
-
-    font-size: 16px;
-    font-weight: 700;
-}
-
-.security-feature-icon.enabled {
-    background: #eaf7ef;
-    color: #237a48;
-}
-
-.security-feature-icon.disabled {
-    background: #fceced;
-    color: #b33a42;
-}
-
-.security-feature-content {
-    min-width: 0;
-
-    display: flex;
-    flex-direction: column;
-    gap: 3px;
-}
-
-.security-feature-content strong {
-    color: #292e36;
-    font-size: 14px;
-    font-weight: 650;
-    line-height: 1.4;
-}
-
-.security-feature-content span {
-    color: #858b95;
-    font-size: 12px;
-    line-height: 1.4;
-}
-
-
-/* =====================================================
-   STATUS
-===================================================== */
-
-.security-feature-status {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    min-width: 70px;
-    padding: 6px 10px;
-
-    border-radius: 999px;
-
-    font-size: 12px;
-    font-weight: 650;
-    line-height: 1;
-}
-
-.security-feature-status.enabled {
-    background: #eaf7ef;
-    color: #237a48;
-}
-
-.security-feature-status.disabled {
-    background: #fceced;
-    color: #b33a42;
-}
-
-
-/* =====================================================
-   RESPONSIVE
-===================================================== */
-
-@media (max-width: 768px) {
-
-    .security-overview-section {
-        margin-top: 20px;
-    }
-
-    .security-overview-card {
-        border-radius: 13px;
-    }
-
-    .security-feature-item {
-        padding: 15px 16px;
-    }
-
-}
-
-@media (max-width: 600px) {
-
-    .security-feature-item {
-        align-items: flex-start;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .security-feature-info {
-        width: 100%;
-    }
-
-    .security-feature-status {
-        margin-left: 53px;
-    }
-
-}
-
-/* =====================================================
-   SECTION ACTION
-===================================================== */
-
-.section-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 9px 14px;
-
-    border: 1px solid #dedfe4;
-    border-radius: 9px;
-
-    background: #ffffff;
-    color: #4b515b;
-
-    font-size: 12px;
-    font-weight: 650;
-    line-height: 1.2;
-
-    text-decoration: none;
-    white-space: nowrap;
-
-    transition:
-        background 0.18s ease,
-        border-color 0.18s ease,
-        color 0.18s ease,
-        box-shadow 0.18s ease;
-}
-
-.section-action:hover {
-    background: #f7f8f9;
-    border-color: #cfd1d6;
-    color: #252a32;
-    box-shadow: 0 3px 10px rgba(31, 35, 41, 0.05);
-}
-
-.section-action:active {
-    background: #f1f2f4;
-}
-
-/* =====================================================
-   SUPER ADMIN QUICK ACTIONS — RESPONSIVE LAYOUT
-===================================================== */
-
-.quick-actions {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-}
-
-@media (max-width: 600px) {
-    .quick-actions {
-        grid-template-columns: 1fr;
+        padding: 16px;
     }
 }

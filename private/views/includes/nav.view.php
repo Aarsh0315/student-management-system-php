@@ -29,7 +29,7 @@ $systemName =
 
     $settingsModel->get('system_name')
 
-    ?: 'My School';
+    ?: 'EduSphere';
 
 
 /*
@@ -119,14 +119,13 @@ USER INFORMATION
 */
 
 
-$firstname = $_SESSION['firstname'] ?? 'User';
-
-
-$initial = strtoupper(
-
-    substr($firstname, 0, 1)
-
-);
+$firstname = trim((string) ($_SESSION['firstname'] ?? 'User'));
+$lastname = trim((string) ($_SESSION['lastname'] ?? ''));
+$displayName = trim($firstname . ' ' . $lastname);
+if ($displayName === '') {
+    $displayName = 'User';
+}
+$initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
 
 
 ?>
@@ -1818,103 +1817,81 @@ $initial = strtoupper(
 
 
 <div class="navbar-right">
-
-    <!-- Notifications remain in the navbar; profile and settings are in the sidebar. -->
-
-
-    <!-- =================================================
-
-         NOTIFICATIONS
-
-    ================================================== -->
-
-
-    <a
-
-        href="<?= ROOT ?>/notifications"
-
-        class="navbar-icon-btn notification-link"
-
-        aria-label="Notifications"
-
-        title="Notifications"
-
-    >
-
-
-        <span class="notification-icon">
-
-            ♟
-
-        </span>
-
-
+    <a href="<?= ROOT ?>/notifications" class="navbar-icon-btn notification-link" aria-label="Notifications" title="Notifications">
+        <span class="notification-icon" aria-hidden="true">♟</span>
         <?php
-
-
         $notificationCount = 0;
-
-
-        if (
-
-            isset($_SESSION['user_id']) &&
-
-            !empty($_SESSION['user_id'])
-
-        ) {
-
-
-            require_once __DIR__ .
-
-                '/../../models/NotificationModel.php';
-
-
-            $notificationModel =
-
-                new NotificationModel();
-
-
-            $notificationCount =
-
-                $notificationModel->getUnreadCount(
-
-                    $_SESSION['user_id'],
-
-                    $_SESSION['school_id'] ?? null
-
-                );
-
+        if (!empty($_SESSION['user_id'])) {
+            require_once __DIR__ . '/../../models/NotificationModel.php';
+            $notificationModel = new NotificationModel();
+            $notificationCount = $notificationModel->getUnreadCount(
+                $_SESSION['user_id'],
+                $_SESSION['school_id'] ?? null
+            );
         }
-
-
         ?>
-
-
         <?php if ($notificationCount > 0): ?>
-
-
-            <span class="notification-badge">
-
-
-                <?= $notificationCount > 99
-
-                    ? '99+'
-
-                    : $notificationCount
-
-                ?>
-
-
-            </span>
-
-
+            <span class="notification-badge"><?= $notificationCount > 99 ? '99+' : (int) $notificationCount ?></span>
         <?php endif; ?>
-
-
     </a>
 
+    <div class="navbar-user-menu" id="navbarUserMenu">
+        <button type="button" class="navbar-profile" id="navbarProfileToggle"
+            aria-label="Open account menu" aria-haspopup="true" aria-expanded="false"
+            aria-controls="navbarProfileDropdown">
+            <span class="navbar-profile-avatar" aria-hidden="true"><?= htmlspecialchars($initial, ENT_QUOTES, 'UTF-8') ?></span>
+            <span class="navbar-profile-text">
+                <span class="navbar-profile-name"><?= htmlspecialchars($displayName, ENT_QUOTES, 'UTF-8') ?></span>
+                <span class="navbar-profile-role"><?= htmlspecialchars($roleName, ENT_QUOTES, 'UTF-8') ?></span>
+            </span>
+            <span class="navbar-profile-chevron" aria-hidden="true">⌄</span>
+        </button>
 
+        <div class="navbar-profile-dropdown" id="navbarProfileDropdown" hidden>
+            <div class="navbar-dropdown-heading">
+                <span class="navbar-dropdown-avatar" aria-hidden="true"><?= htmlspecialchars($initial, ENT_QUOTES, 'UTF-8') ?></span>
+                <span class="navbar-dropdown-user">
+                    <strong><?= htmlspecialchars($displayName, ENT_QUOTES, 'UTF-8') ?></strong>
+                    <small><?= htmlspecialchars($roleName, ENT_QUOTES, 'UTF-8') ?></small>
+                </span>
+            </div>
+            <div class="navbar-dropdown-divider"></div>
+            <a class="navbar-dropdown-item" href="<?= ROOT ?>/profile"><span aria-hidden="true">♙</span><span>My Profile</span></a>
+            <a class="navbar-dropdown-item navbar-dropdown-logout" href="<?= ROOT ?>/logout"><span aria-hidden="true">↪</span><span>Logout</span></a>
+        </div>
+    </div>
 </div>
 
+<script>
+(function () {
+    const toggle = document.getElementById('navbarProfileToggle');
+    const dropdown = document.getElementById('navbarProfileDropdown');
+    const menu = document.getElementById('navbarUserMenu');
+    if (!toggle || !dropdown || !menu || toggle.dataset.bound === 'true') return;
+    toggle.dataset.bound = 'true';
+    function closeMenu() {
+        dropdown.hidden = true;
+        menu.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+    toggle.addEventListener('click', function (event) {
+        event.preventDefault();
+        event.stopPropagation();
+        const shouldOpen = dropdown.hidden;
+        dropdown.hidden = !shouldOpen;
+        menu.classList.toggle('open', shouldOpen);
+        toggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
+    });
+    document.addEventListener('click', function (event) {
+        if (!menu.contains(event.target)) closeMenu();
+    });
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape' && !dropdown.hidden) {
+            closeMenu();
+            toggle.focus();
+        }
+    });
+})();
+</script>
 
 </header>
