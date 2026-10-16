@@ -1914,3 +1914,45 @@ a:focus-visible, button:focus-visible { outline: 3px solid #777; outline-offset:
         align-items: flex-start;
     }
 }
+
+
+
+
+/* =========================================
+   RECENT ACTIVITY ICONS
+========================================= */
+
+.recent-activity-icon.redesigned-activity-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+    border: 1px solid #e5e5e5;
+    border-radius: 10px;
+    background: #f2f2f2;
+    color: #111111;
+}
+
+.recent-activity-icon.redesigned-activity-icon svg {
+    display: block;
+    width: 19px;
+    height: 19px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.recent-activity-icon.user-activity-icon {
+    background: #090909;
+    border-color: #090909;
+    color: #ffffff;
+}
+
+.recent-activity-icon.system-activity-icon {
+    background: #f2f2f2;
+    border-color: #e5e5e5;
+    color: #111111;
+}

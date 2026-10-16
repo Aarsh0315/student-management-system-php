@@ -687,26 +687,63 @@ $securityFeatures = [
                 <?php foreach ($recentActivities as $activity): ?>
 
                     <?php
-                    $activityType = $activity['type'] ?? 'system';
-                    $activityInitials = $activity['initials'] ?? 'SY';
-                    $activityTitle = $activity['title'] ?? 'System activity';
-                    $activityDescription = $activity['description'] ?? '';
-                    $activityTime = $activity['time'] ?? 'Recently';
+                    $activityType = strtolower(trim((string)($activity['type'] ?? 'system')));
+                    $activityTitle = (string)($activity['title'] ?? 'System activity');
+                    $activityDescription = (string)($activity['description'] ?? '');
+                    $activityTime = (string)($activity['time'] ?? 'Recently');
+
+                    // Detect user-related activity from its type or title.
+                    $userSignals = [
+                        'user',
+                        'student',
+                        'teacher',
+                        'parent',
+                        'admin',
+                        'account'
+                    ];
+
+                    $searchText = strtolower($activityType . ' ' . $activityTitle);
+                    $isUserActivity = false;
+
+                    foreach ($userSignals as $signal) {
+                        if (strpos($searchText, $signal) !== false) {
+                            $isUserActivity = true;
+                            break;
+                        }
+                    }
                     ?>
 
                     <div class="recent-activity-item redesigned-activity-item">
 
-                        <div class="recent-activity-icon <?= htmlspecialchars($activityType) ?>">
-                            <?= htmlspecialchars($activityInitials) ?>
+                        <div class="recent-activity-icon redesigned-activity-icon <?= $isUserActivity ? 'user-activity-icon' : 'system-activity-icon' ?>">
+
+                            <?php if ($isUserActivity): ?>
+
+                                <!-- User icon -->
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="8" r="4"/>
+                                    <path d="M4 21v-2a8 8 0 0 1 16 0v2Z"/>
+                                </svg>
+
+                            <?php else: ?>
+
+                                <!-- System activity / clock icon -->
+                                <svg viewBox="0 0 24 24" aria-hidden="true">
+                                    <circle cx="12" cy="12" r="9"/>
+                                    <path d="M12 7v5l3 2"/>
+                                </svg>
+
+                            <?php endif; ?>
+
                         </div>
 
                         <div class="recent-activity-content">
-                            <strong><?= htmlspecialchars($activityTitle) ?></strong>
-                            <span><?= htmlspecialchars($activityDescription) ?></span>
+                            <strong><?= htmlspecialchars($activityTitle, ENT_QUOTES, 'UTF-8') ?></strong>
+                            <span><?= htmlspecialchars($activityDescription, ENT_QUOTES, 'UTF-8') ?></span>
                         </div>
 
                         <time class="recent-activity-time">
-                            <?= htmlspecialchars($activityTime) ?>
+                            <?= htmlspecialchars($activityTime, ENT_QUOTES, 'UTF-8') ?>
                         </time>
 
                     </div>
@@ -718,6 +755,7 @@ $securityFeatures = [
         <?php else: ?>
 
             <div class="recent-activity-empty">
+
                 <div class="recent-activity-empty-icon">
                     <svg viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 8v4l3 2"/>
@@ -729,6 +767,7 @@ $securityFeatures = [
                     <strong>No recent activity</strong>
                     <p>Recent platform activity will appear here.</p>
                 </div>
+
             </div>
 
         <?php endif; ?>
@@ -736,6 +775,7 @@ $securityFeatures = [
     </div>
 
 </section>
+
 
 
 
