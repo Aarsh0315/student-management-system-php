@@ -587,3 +587,8 @@ body { padding-top: calc(var(--navbar-height) + var(--navbar-edge) + 8px); }
     .search-shortcut { display: none; }
     .navbar-search input { padding-left: 6px; }
 }
+
+
+/* Keep the menu button accessible above the drawer backdrop. */
+.top-navbar { z-index: 1200 !important; }
+.sidebar-toggle { position: relative; z-index: 1201; }

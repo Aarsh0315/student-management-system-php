@@ -219,10 +219,11 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-icon">
-
-                ⌕
-
+            <span class="search-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7"></circle>
+                    <path d="m20 20-4-4"></path>
+                </svg>
             </span>
 
 
@@ -301,11 +302,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                SC
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M8 9v.01M8 12v.01M8 15v.01M16 13v.01M16 16v.01"/></svg></span>
 
 
             <span class="search-item-content">
@@ -345,11 +342,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                SA
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 9h.01M15 9h.01"/></svg></span>
 
 
             <span class="search-item-content">
@@ -389,11 +382,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                US
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="10" cy="7" r="4"/><path d="M20 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></span>
 
 
             <span class="search-item-content">
@@ -449,11 +438,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                RP
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg></span>
 
 
             <span class="search-item-content">
@@ -493,11 +478,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                AL
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2h8l4 4v16H4V2z"/><path d="M16 2v5h5"/><path d="M8 13h8M8 17h5"/></svg></span>
 
 
             <span class="search-item-content">
@@ -537,11 +518,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                SE
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/><path d="M12 14v3"/></svg></span>
 
 
             <span class="search-item-content">
@@ -597,11 +574,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                ST
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.6a8 8 0 0 1-1.7 1l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.7-1l-1.7.6-1.4-2.4 1.4-1.1a7 7 0 0 1 0-2l-1.4-1.1 1.4-2.4 1.7.6a8 8 0 0 1 1.7-1l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.7 1l1.7-.6 1.4 2.4-1.4 1.1a7 7 0 0 1 0 2z"/></svg></span>
 
 
             <span class="search-item-content">
@@ -670,11 +643,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                ST
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a6 6 0 0 1 12 0v2"/><path d="M16 11a4 4 0 0 0 0-8"/><path d="M21 21v-2a6 6 0 0 0-4-5.65"/></svg></span>
 
 
             <span class="search-item-content">
@@ -714,11 +683,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                SF
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 10 12 4l10 6-10 6-10-6Z"/><path d="M6 13v5c3 3 9 3 12 0v-5"/><path d="M22 10v6"/></svg></span>
 
 
             <span class="search-item-content">
@@ -758,11 +723,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                PR
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20v-2a6 6 0 0 1 12 0v2"/><path d="M15 15a5 5 0 0 1 6 5"/></svg></span>
 
 
             <span class="search-item-content">
@@ -818,11 +779,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                CL
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 1 4 17.5z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 6h8M8 9h6"/></svg></span>
 
 
             <span class="search-item-content">
@@ -862,11 +819,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                SB
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"/><path d="M8 7h8M8 11h8"/></svg></span>
 
 
             <span class="search-item-content">
@@ -906,11 +859,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                TA
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m8 15 2 2 5-5"/></svg></span>
 
 
             <span class="search-item-content">
@@ -950,11 +899,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                TS
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H5a2 2 0 0 0-2 2v13h18V7a2 2 0 0 0-2-2h-4"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m7 13 2 2 4-4M15 14h3"/></svg></span>
 
 
             <span class="search-item-content">
@@ -994,11 +939,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                RS
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h17"/><rect x="7" y="11" width="3" height="5"/><rect x="13" y="7" width="3" height="9"/><rect x="19" y="3" width="2" height="13"/></svg></span>
 
 
             <span class="search-item-content">
@@ -1038,11 +979,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                TT
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/><path d="M8 2v2M16 2v2"/></svg></span>
 
 
             <span class="search-item-content">
@@ -1098,11 +1035,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                AT
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="m8 15 2 2 5-5"/></svg></span>
 
 
             <span class="search-item-content">
@@ -1158,11 +1091,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                FE
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/></svg></span>
 
 
             <span class="search-item-content">
@@ -1218,11 +1147,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
         >
 
 
-            <span class="search-item-icon">
-
-                SP
-
-            </span>
+            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 10h.01M15 10h.01M9 14h.01M15 14h.01"/></svg></span>
 
 
             <span class="search-item-content">
@@ -1285,11 +1210,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                ST
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a6 6 0 0 1 12 0v2"/><path d="M16 11a4 4 0 0 0 0-8"/><path d="M21 21v-2a6 6 0 0 0-4-5.65"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1326,11 +1247,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                CL
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 1 4 17.5z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 6h8M8 9h6"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1367,11 +1284,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                TS
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H5a2 2 0 0 0-2 2v13h18V7a2 2 0 0 0-2-2h-4"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m7 13 2 2 4-4M15 14h3"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1408,11 +1321,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                RS
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h17"/><rect x="7" y="11" width="3" height="5"/><rect x="13" y="7" width="3" height="9"/><rect x="19" y="3" width="2" height="13"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1449,11 +1358,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                PR
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9" r="2.5"/><path d="M3 20v-2a6 6 0 0 1 12 0v2"/><path d="M15 15a5 5 0 0 1 6 5"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1516,11 +1421,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                CL
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4.5A2.5 2.5 0 0 1 6.5 2H20v18H6.5A2.5 2.5 0 0 1 4 17.5z"/><path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"/><path d="M8 6h8M8 9h6"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1557,11 +1458,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                TS
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H5a2 2 0 0 0-2 2v13h18V7a2 2 0 0 0-2-2h-4"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m7 13 2 2 4-4M15 14h3"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1598,11 +1495,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                RS
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h17"/><rect x="7" y="11" width="3" height="5"/><rect x="13" y="7" width="3" height="9"/><rect x="19" y="3" width="2" height="13"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1665,11 +1558,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                ST
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a6 6 0 0 1 12 0v2"/><path d="M16 11a4 4 0 0 0 0-8"/><path d="M21 21v-2a6 6 0 0 0-4-5.65"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1706,11 +1595,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                TS
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5H5a2 2 0 0 0-2 2v13h18V7a2 2 0 0 0-2-2h-4"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="m7 13 2 2 4-4M15 14h3"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1747,11 +1632,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                         >
 
 
-                            <span class="search-item-icon">
-
-                                RS
-
-                            </span>
+                            <span class="search-item-icon"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V5M4 19h17"/><rect x="7" y="11" width="3" height="5"/><rect x="13" y="7" width="3" height="9"/><rect x="19" y="3" width="2" height="13"/></svg></span>
 
 
                             <span class="search-item-content">
@@ -1818,7 +1699,12 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
 
 <div class="navbar-right">
     <a href="<?= ROOT ?>/notifications" class="navbar-icon-btn notification-link" aria-label="Notifications" title="Notifications">
-        <span class="notification-icon" aria-hidden="true">♟</span>
+        <span class="notification-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                <path d="M10 21h4"></path>
+            </svg>
+        </span>
         <?php
         $notificationCount = 0;
         if (!empty($_SESSION['user_id'])) {
@@ -1844,7 +1730,7 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                 <span class="navbar-profile-name"><?= htmlspecialchars($displayName, ENT_QUOTES, 'UTF-8') ?></span>
                 <span class="navbar-profile-role"><?= htmlspecialchars($roleName, ENT_QUOTES, 'UTF-8') ?></span>
             </span>
-            <span class="navbar-profile-chevron" aria-hidden="true">⌄</span>
+
         </button>
 
         <div class="navbar-profile-dropdown" id="navbarProfileDropdown" hidden>
@@ -1856,42 +1742,153 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                 </span>
             </div>
             <div class="navbar-dropdown-divider"></div>
-            <a class="navbar-dropdown-item" href="<?= ROOT ?>/profile"><span aria-hidden="true">♙</span><span>My Profile</span></a>
-            <a class="navbar-dropdown-item navbar-dropdown-logout" href="<?= ROOT ?>/logout"><span aria-hidden="true">↪</span><span>Logout</span></a>
+            <a class="navbar-dropdown-item" href="<?= ROOT ?>/profile">
+                <span class="navbar-dropdown-item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="8" r="4"></circle>
+                        <path d="M4 21a8 8 0 0 1 16 0"></path>
+                    </svg>
+                </span>
+                <span>My Profile</span>
+            </a>
+            <a class="navbar-dropdown-item navbar-dropdown-logout" href="<?= ROOT ?>/logout">
+                <span class="navbar-dropdown-item-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M10 17l5-5-5-5"></path>
+                        <path d="M15 12H3"></path>
+                        <path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"></path>
+                    </svg>
+                </span>
+                <span>Logout</span>
+            </a>
         </div>
     </div>
 </div>
 
 <script>
 (function () {
-    const toggle = document.getElementById('navbarProfileToggle');
-    const dropdown = document.getElementById('navbarProfileDropdown');
-    const menu = document.getElementById('navbarUserMenu');
-    if (!toggle || !dropdown || !menu || toggle.dataset.bound === 'true') return;
-    toggle.dataset.bound = 'true';
-    function closeMenu() {
-        dropdown.hidden = true;
-        menu.classList.remove('open');
-        toggle.setAttribute('aria-expanded', 'false');
-    }
-    toggle.addEventListener('click', function (event) {
-        event.preventDefault();
-        event.stopPropagation();
-        const shouldOpen = dropdown.hidden;
-        dropdown.hidden = !shouldOpen;
-        menu.classList.toggle('open', shouldOpen);
-        toggle.setAttribute('aria-expanded', shouldOpen ? 'true' : 'false');
-    });
-    document.addEventListener('click', function (event) {
-        if (!menu.contains(event.target)) closeMenu();
-    });
-    document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape' && !dropdown.hidden) {
-            closeMenu();
-            toggle.focus();
+    function initializeNavbarProfileMenu() {
+        const toggle = document.getElementById('navbarProfileToggle');
+        const dropdown = document.getElementById('navbarProfileDropdown');
+        const menu = document.getElementById('navbarUserMenu');
+        if (!toggle || !dropdown || !menu || toggle.dataset.bound === 'true') return;
+        toggle.dataset.bound = 'true';
+
+        function setOpen(open) {
+            dropdown.hidden = !open;
+            dropdown.classList.toggle('is-open', open);
+            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
         }
-    });
+
+        // Clicking the account name/avatar opens and closes the menu.
+        toggle.addEventListener('click', function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            setOpen(dropdown.hidden);
+        });
+
+        // Keep clicks inside the dropdown from being treated as outside clicks.
+        dropdown.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+        document.addEventListener('click', function (event) {
+            if (!menu.contains(event.target)) setOpen(false);
+        });
+
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape' && !dropdown.hidden) {
+                setOpen(false);
+                toggle.focus();
+            }
+        });
+
+        setOpen(false);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeNavbarProfileMenu, { once: true });
+    } else {
+        initializeNavbarProfileMenu();
+    }
 })();
 </script>
+
+<style>
+/* Inline SVG icon polish for navbar */
+.top-navbar .search-icon,
+.top-navbar .notification-icon,
+.top-navbar .navbar-dropdown-item-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    line-height: 0;
+}
+.top-navbar .search-icon svg,
+.top-navbar .notification-icon svg,
+.top-navbar .navbar-dropdown-item-icon svg {
+    display: block;
+}
+.top-navbar .navbar-dropdown-item-icon {
+    width: 20px;
+    height: 20px;
+    color: #555;
+}
+.top-navbar .navbar-dropdown-item:hover .navbar-dropdown-item-icon {
+    color: #111;
+}
+/* Account dropdown: reliable visibility and right-aligned positioning */
+#navbarUserMenu { position: relative; }
+#navbarProfileDropdown[hidden] { display: none !important; }
+#navbarProfileDropdown:not([hidden]) {
+    display: block !important;
+    position: absolute !important;
+    top: calc(100% + 10px) !important;
+    right: 0 !important;
+    left: auto !important;
+    z-index: 3000 !important;
+    min-width: 220px;
+    max-width: min(300px, calc(100vw - 24px));
+    background: #fff;
+    color: #171717;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    box-shadow: 0 14px 38px rgba(0, 0, 0, .18);
+    padding: 8px;
+}
+#navbarProfileDropdown .navbar-dropdown-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+#navbarProfileDropdown .navbar-dropdown-user { display: flex; flex-direction: column; min-width: 0; }
+#navbarProfileDropdown .navbar-dropdown-user strong,
+#navbarProfileDropdown .navbar-dropdown-user small { overflow-wrap: anywhere; }
+#navbarProfileDropdown .navbar-dropdown-user strong { color: #111; font-size: 13px; }
+#navbarProfileDropdown .navbar-dropdown-user small { color: #777; font-size: 11px; margin-top: 3px; }
+#navbarProfileDropdown .navbar-dropdown-divider { height: 1px; background: #ededed; margin: 4px 0; }
+#navbarProfileDropdown .navbar-dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    border-radius: 8px;
+    color: #252525;
+    text-decoration: none;
+    font-size: 13px;
+}
+#navbarProfileDropdown .navbar-dropdown-item:hover { background: #f3f3f3; }
+#navbarProfileDropdown .navbar-dropdown-logout { color: #b42318; }
+#navbarProfileDropdown .navbar-dropdown-logout:hover { background: #fff1f0; }
+
+/* Remove profile dropdown arrow entirely */
+.top-navbar .navbar-profile-chevron {
+    display: none !important;
+}
+</style>
 
 </header>
