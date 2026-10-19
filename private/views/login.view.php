@@ -33,7 +33,7 @@ $turnstileSiteKey = $securityConfig['turnstile']['site_key'] ?? '';
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/login.view.css?v=6"
+        href="<?= ROOT ?>/css/login.view.css?v=7"
     >
 
     <style>
@@ -128,6 +128,12 @@ $turnstileSiteKey = $securityConfig['turnstile']['site_key'] ?? '';
 
 
 <div class="login-page">
+
+    <button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" title="Switch theme">
+        <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.8 15.2A8.8 8.8 0 0 1 8.8 3.2 8.9 8.9 0 1 0 20.8 15.2Z"/></svg>
+        <span class="theme-toggle-label">Dark mode</span>
+    </button>
 
 
     <!-- =====================================
@@ -879,6 +885,32 @@ function togglePassword()
 </script>
 
 
+<script>
+(function () {
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const label = toggle ? toggle.querySelector('.theme-toggle-label') : null;
+    const stored = localStorage.getItem('myschool-login-theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        if (toggle) {
+            const dark = theme === 'dark';
+            toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+            toggle.setAttribute('title', dark ? 'Switch to light mode' : 'Switch to dark mode');
+            if (label) label.textContent = dark ? 'Light mode' : 'Dark mode';
+        }
+    }
+
+    applyTheme(stored || (prefersDark ? 'dark' : 'light'));
+    if (toggle) toggle.addEventListener('click', function () {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('myschool-login-theme', next);
+    });
+})();
+</script>
 </body>
 
 </html>
