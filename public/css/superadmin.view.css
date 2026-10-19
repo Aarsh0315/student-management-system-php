@@ -4281,3 +4281,260 @@ html[data-theme="dark"] .dashboard-final-grid .dashboard-reference-activity-card
 html[data-theme="dark"] .dashboard-final-grid .platform-health-reference-card{background:var(--sa-surface)!important;border-color:var(--sa-border)!important}
 @media(max-width:1100px){.dashboard-final-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}.dashboard-final-grid>section:last-child{grid-column:1/-1!important}}
 @media(max-width:700px){.dashboard-final-grid{grid-template-columns:minmax(0,1fr)!important}.dashboard-final-grid>section:last-child{grid-column:auto!important}}
+
+
+
+/* ==========================================================
+   MYSCHOOL SIDEBAR + DASHBOARD LAYOUT OVERRIDES
+   Sidebar is persistent on desktop and a drawer on mobile.
+   ========================================================== */
+:root {
+  --myschool-sidebar-width: 248px;
+  --myschool-sidebar-mini: 76px;
+  --myschool-sidebar-bg: #fff;
+  --myschool-sidebar-text: #475569;
+  --myschool-sidebar-muted: #94a3b8;
+  --myschool-sidebar-border: #e5e9f4;
+  --myschool-sidebar-hover: #f3f0ff;
+  --myschool-sidebar-active: #6547f5;
+}
+html[data-theme="dark"] {
+  --myschool-sidebar-bg: #10172a;
+  --myschool-sidebar-text: #d9e1f5;
+  --myschool-sidebar-muted: #8e9bb9;
+  --myschool-sidebar-border: #283451;
+  --myschool-sidebar-hover: #202944;
+  --myschool-sidebar-active: #765cff;
+}
+@media (min-width: 761px) {
+  #sidebar {
+    position: fixed !important;
+    top: var(--navbar-height, 64px) !important;
+    left: 0 !important;
+    bottom: 0 !important;
+    width: var(--myschool-sidebar-width) !important;
+    height: calc(100vh - var(--navbar-height, 64px)) !important;
+    z-index: 900 !important;
+    display: flex !important;
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+    background: var(--myschool-sidebar-bg) !important;
+    color: var(--myschool-sidebar-text) !important;
+    border-right: 1px solid var(--myschool-sidebar-border) !important;
+    box-shadow: 3px 0 18px rgba(20,25,50,.025);
+    transform: none !important;
+    visibility: visible !important;
+    transition: width .24s ease, background-color .2s ease;
+  }
+  body.sidebar-collapsed #sidebar { width: var(--myschool-sidebar-mini) !important; }
+  body.sidebar-collapsed #sidebar .sidebar-link { justify-content: center; gap: 0; padding-inline: 8px; }
+  body.sidebar-collapsed #sidebar .sidebar-link span,
+  body.sidebar-collapsed #sidebar .sidebar-link .sidebar-label,
+  body.sidebar-collapsed #sidebar .sidebar-link .sidebar-text,
+  body.sidebar-collapsed #sidebar .sidebar-header .sidebar-title { display: none !important; }
+  body.sidebar-collapsed #sidebar .sidebar-link svg { flex: 0 0 21px; }
+  #sidebarOverlay { display: none !important; }
+  .superadmin-page {
+    margin-left: var(--myschool-sidebar-width) !important;
+    width: calc(100% - var(--myschool-sidebar-width)) !important;
+    min-width: 0;
+    transition: margin-left .24s ease, width .24s ease;
+  }
+  body.sidebar-collapsed .superadmin-page {
+    margin-left: var(--myschool-sidebar-mini) !important;
+    width: calc(100% - var(--myschool-sidebar-mini)) !important;
+  }
+}
+#sidebar .sidebar-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 42px;
+  margin: 3px 10px;
+  padding: 10px 12px;
+  color: var(--myschool-sidebar-text);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: color .18s ease, background-color .18s ease;
+}
+#sidebar .sidebar-link:hover { background: var(--myschool-sidebar-hover); color: var(--myschool-sidebar-active); }
+#sidebar .sidebar-link.active,
+#sidebar .sidebar-link[aria-current="page"] {
+  color: #fff !important;
+  background: var(--myschool-sidebar-active) !important;
+  box-shadow: 0 4px 12px rgba(101,71,245,.2);
+}
+#sidebar .sidebar-link svg { width: 20px; height: 20px; flex: 0 0 20px; }
+@media (max-width: 760px) {
+  #sidebar {
+    position: fixed !important; top: 0 !important; left: 0 !important; bottom: 0 !important;
+    width: min(280px, 86vw) !important; height: 100dvh !important; z-index: 1200 !important;
+    overflow-y: auto; background: var(--myschool-sidebar-bg) !important;
+    color: var(--myschool-sidebar-text) !important;
+    transform: translateX(-105%) !important; visibility: hidden !important;
+    transition: transform .25s ease, visibility .25s ease;
+  }
+  body.sidebar-open #sidebar { transform: translateX(0) !important; visibility: visible !important; }
+  #sidebarOverlay { position: fixed !important; inset: 0 !important; z-index: 1190 !important; background: rgba(9,15,35,.48) !important; }
+  body.sidebar-open #sidebarOverlay { display: block !important; }
+  .superadmin-page { width: 100% !important; margin-left: 0 !important; }
+}
+@media (prefers-reduced-motion: reduce) { #sidebar, .superadmin-page { transition: none !important; } }
+
+/* Reference dashboard palette, compatible with existing dashboard selectors. */
+:root {
+  --sa-purple: #6547f5;
+  --sa-purple-soft: #f0edff;
+  --sa-page: #f6f8ff;
+  --sa-surface: #fff;
+  --sa-surface-raised: #fff;
+  --sa-text: #17203a;
+  --sa-muted: #74809c;
+  --sa-border: #dfe5f5;
+  --sa-table-head: #f3f5fc;
+  --sa-accent: #6547f5;
+  --sa-accent-soft: #f0edff;
+  --sa-accent-strong: #6547f5;
+  --sa-shadow: 0 3px 14px rgba(42,55,100,.045);
+}
+html[data-theme="dark"] {
+  --sa-purple: #8068ff;
+  --sa-purple-soft: #29234c;
+  --sa-page: #0c1225;
+  --sa-surface: #151e35;
+  --sa-surface-raised: #18223b;
+  --sa-text: #eef2ff;
+  --sa-muted: #9aa8c7;
+  --sa-border: #293654;
+  --sa-table-head: #1d2945;
+  --sa-accent: #8068ff;
+  --sa-accent-soft: #29234c;
+  --sa-accent-strong: #a99aff;
+  --sa-shadow: 0 4px 16px rgba(0,0,0,.12);
+}
+body, .superadmin-page { background: var(--sa-page) !important; color: var(--sa-text); }
+.dashboard-kpi-card, .dashboard-panel, .schools-overview-card,
+.security-overview-card, .dashboard-reference-activity-card,
+.recent-activity-card, .platform-health-reference-card {
+  background: var(--sa-surface) !important; border-color: var(--sa-border) !important;
+  box-shadow: var(--sa-shadow) !important; color: var(--sa-text);
+}
+.dashboard-kpi-icon, .dashboard-action-icon { color: var(--sa-accent) !important; background: var(--sa-accent-soft) !important; }
+.dashboard-kpi-value, .dashboard-panel h2, .section-heading h2,
+.schools-overview-table td, .dashboard-attention-table td { color: var(--sa-text); }
+.dashboard-kpi-label, .dashboard-kpi-note, .dashboard-panel-heading p,
+.section-heading p { color: var(--sa-muted); }
+.dashboard-welcome { background: linear-gradient(115deg,#6547f5,#8170ff) !important; border-color: transparent !important; }
+.dashboard-view-all, .section-action { color: var(--sa-accent-strong); }
+.schools-overview-table thead, .dashboard-attention-table thead { background: var(--sa-table-head) !important; }
+.schools-overview-table th, .schools-overview-table td,
+.dashboard-attention-table th, .dashboard-attention-table td { border-color: var(--sa-border) !important; }
+.schools-overview-table tbody tr:hover, .dashboard-attention-table tbody tr:hover { background: var(--sa-accent-soft) !important; }
+@media (max-width: 760px) { .superadmin-page { padding: 18px 14px 32px !important; } }
+
+
+
+/* =========================================
+   FIX: DASHBOARD AFTER SIDEBAR COLLAPSE
+   ========================================= */
+
+@media (min-width: 761px) {
+    :root {
+        --sidebar-width: 250px;
+        --sidebar-mini-width: 76px;
+    }
+
+    /* Keep the collapsed sidebar compact */
+    body.sidebar-collapsed #sidebar {
+        width: var(--sidebar-mini-width) !important;
+        min-width: var(--sidebar-mini-width);
+        overflow-x: hidden;
+    }
+
+    /* Hide profile details and section headings */
+    body.sidebar-collapsed #sidebar .sidebar-header p,
+    body.sidebar-collapsed #sidebar .sidebar-header small,
+    body.sidebar-collapsed #sidebar .sidebar-section-title,
+    body.sidebar-collapsed #sidebar .menu-section-title,
+    body.sidebar-collapsed #sidebar .sidebar-heading {
+        display: none !important;
+    }
+
+    /* Center the menu icons */
+    body.sidebar-collapsed #sidebar .sidebar-link {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 0;
+        width: 44px;
+        min-width: 44px;
+        height: 44px;
+        margin: 5px auto;
+        padding: 0;
+    }
+
+    body.sidebar-collapsed #sidebar .sidebar-link span {
+        display: none !important;
+    }
+
+    body.sidebar-collapsed #sidebar .sidebar-link svg {
+        width: 20px;
+        height: 20px;
+        flex: 0 0 20px;
+    }
+
+    body.sidebar-collapsed #sidebar .sidebar-header {
+        padding: 16px 8px;
+        text-align: center;
+    }
+
+    /* Expand dashboard into the available space */
+    body.sidebar-collapsed .superadmin-page {
+        margin-left: var(--sidebar-mini-width) !important;
+        width: calc(100% - var(--sidebar-mini-width)) !important;
+        max-width: none;
+        min-width: 0;
+    }
+
+    body.sidebar-collapsed .superadmin-container {
+        width: 100%;
+        max-width: 1660px;
+        min-width: 0;
+        margin-inline: auto;
+    }
+
+    /* Prevent grid children from forcing horizontal overflow */
+    body.sidebar-collapsed .dashboard-kpi-grid,
+    body.sidebar-collapsed .dashboard-analytics-grid,
+    body.sidebar-collapsed .dashboard-lower-grid,
+    body.sidebar-collapsed .dashboard-final-grid {
+        min-width: 0;
+    }
+
+    body.sidebar-collapsed .dashboard-kpi-card,
+    body.sidebar-collapsed .dashboard-panel {
+        min-width: 0;
+    }
+
+    body.sidebar-collapsed .growth-chart-wrap {
+        min-width: 0;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    body.sidebar-collapsed .growth-chart {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+    }
+}
+
+/* Never apply desktop sidebar offsets on mobile */
+@media (max-width: 760px) {
+    .superadmin-page,
+    body.sidebar-collapsed .superadmin-page {
+        width: 100% !important;
+        margin-left: 0 !important;
+    }
+}

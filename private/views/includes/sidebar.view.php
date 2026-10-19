@@ -2200,10 +2200,11 @@ $currentPage = explode(
 
 <!-- SIDEBAR TOGGLE BEHAVIOUR -->
 <script>
+
 (function () {
     'use strict';
 
-    function initializeSidebarDrawer() {
+    function initializeSidebar() {
         const sidebar = document.getElementById('sidebar');
         const toggle = document.getElementById('sidebarToggle');
         const overlay = document.getElementById('sidebarOverlay');
@@ -2211,54 +2212,100 @@ $currentPage = explode(
 
         if (!sidebar || !toggle || !overlay) return;
 
-        // Prevent duplicate initialization if this partial is included more than once.
-        if (toggle.dataset.sidebarDrawerBound === 'true') return;
-        toggle.dataset.sidebarDrawerBound = 'true';
+        if (toggle.dataset.sidebarModeBound === 'true') return;
+        toggle.dataset.sidebarModeBound = 'true';
 
-        function setOpen(open) {
+        const mobileQuery = window.matchMedia('(max-width: 760px)');
+
+        function setMobileOpen(open) {
             sidebar.classList.toggle('open', open);
             overlay.classList.toggle('open', open);
             document.body.classList.toggle('sidebar-open', open);
-            document.body.classList.toggle('sidebar-expanded-blur', open);
+
             toggle.classList.toggle('active', open);
-            toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-            toggle.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+            toggle.setAttribute('aria-expanded', String(open));
+            toggle.setAttribute(
+                'aria-label',
+                open ? 'Close navigation' : 'Toggle navigation'
+            );
+        }
+
+        function toggleSidebar() {
+            if (mobileQuery.matches) {
+                setMobileOpen(!sidebar.classList.contains('open'));
+                return;
+            }
+
+            // Desktop: toggle icon-only mode
+            const collapsed = document.body.classList.toggle(
+                'sidebar-collapsed'
+            );
+
+            toggle.setAttribute('aria-expanded', String(!collapsed));
+            toggle.setAttribute(
+                'aria-label',
+                collapsed ? 'Expand sidebar' : 'Collapse sidebar'
+            );
+
+            // Close any drawer state left over from mobile
+            setMobileOpen(false);
         }
 
         toggle.addEventListener('click', function (event) {
             event.preventDefault();
             event.stopPropagation();
-            setOpen(!sidebar.classList.contains('open'));
-        }, true);
+            toggleSidebar();
+        });
 
-        overlay.addEventListener('click', function () { setOpen(false); });
+        overlay.addEventListener('click', function () {
+            setMobileOpen(false);
+        });
+
         if (closeButton) {
             closeButton.addEventListener('click', function (event) {
                 event.preventDefault();
-                event.stopPropagation();
-                setOpen(false);
+                setMobileOpen(false);
             });
         }
 
         document.addEventListener('keydown', function (event) {
-            if (event.key === 'Escape' && sidebar.classList.contains('open')) {
-                setOpen(false);
-                toggle.focus();
+            if (event.key === 'Escape') {
+                setMobileOpen(false);
             }
         });
 
         sidebar.querySelectorAll('a.sidebar-link').forEach(function (link) {
-            link.addEventListener('click', function () { setOpen(false); });
+            link.addEventListener('click', function () {
+                if (mobileQuery.matches) {
+                    setMobileOpen(false);
+                }
+            });
         });
 
-        // Start closed consistently at every viewport width.
-        setOpen(false);
+        function handleViewportChange() {
+            setMobileOpen(false);
+        }
+
+        if (mobileQuery.addEventListener) {
+            mobileQuery.addEventListener('change', handleViewportChange);
+        } else {
+            mobileQuery.addListener(handleViewportChange);
+        }
+
+        // Desktop starts expanded; mobile starts with its drawer closed.
+        setMobileOpen(false);
+        document.body.classList.remove('sidebar-collapsed');
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeSidebarDrawer, { once: true });
+        document.addEventListener(
+            'DOMContentLoaded',
+            initializeSidebar,
+            { once: true }
+        );
     } else {
-        initializeSidebarDrawer();
+        initializeSidebar();
     }
 })();
+
 </script>

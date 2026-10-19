@@ -115,7 +115,7 @@ $growthData = $data['growthData'] ?? ['schools' => [], 'students' => [], 'users'
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=15"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=16"
     >
 
 
@@ -123,7 +123,7 @@ $growthData = $data['growthData'] ?? ['schools' => [], 'students' => [], 'users'
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/sidebar.view.css?v=1"
+        href="<?= ROOT ?>/css/sidebar.view.css?v=2"
     >
 
 
@@ -1148,6 +1148,66 @@ require "../private/views/includes/footer.view.php";
     setTheme(saved === 'dark' || saved === 'light' ? saved : 'light');
     button.addEventListener('click', function () {
         setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+})();
+</script>
+
+
+<script>
+/* MySchool sidebar layout: fixed on desktop, drawer on mobile. */
+(function () {
+    const body = document.body;
+    const sidebar = document.getElementById('sidebar');
+    const toggle = document.getElementById('sidebarToggle');
+    const overlay = document.getElementById('sidebarOverlay');
+    const mobileQuery = window.matchMedia('(max-width: 760px)');
+    if (!sidebar || !toggle) return;
+
+    const collapsedKey = 'myschool-sidebar-collapsed';
+    try {
+        if (localStorage.getItem(collapsedKey) === '1' && !mobileQuery.matches) {
+            body.classList.add('sidebar-collapsed');
+        }
+    } catch (e) {}
+
+    function setExpanded(expanded) {
+        body.classList.toggle('sidebar-open', expanded && mobileQuery.matches);
+        toggle.setAttribute('aria-expanded', String(expanded));
+    }
+    function closeMobile() {
+        body.classList.remove('sidebar-open');
+        if (overlay) overlay.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-expanded', 'false');
+    }
+    if (overlay) overlay.setAttribute('aria-hidden', 'true');
+
+    /* Capture the click so an older drawer handler cannot conflict. */
+    document.addEventListener('click', function (event) {
+        const clickedToggle = event.target.closest('#sidebarToggle');
+        if (!clickedToggle) return;
+        event.preventDefault();
+        event.stopImmediatePropagation();
+        if (mobileQuery.matches) {
+            const open = !body.classList.contains('sidebar-open');
+            body.classList.toggle('sidebar-open', open);
+            if (overlay) overlay.setAttribute('aria-hidden', String(!open));
+            toggle.setAttribute('aria-expanded', String(open));
+        } else {
+            const collapsed = body.classList.toggle('sidebar-collapsed');
+            toggle.setAttribute('aria-expanded', String(!collapsed));
+            try { localStorage.setItem(collapsedKey, collapsed ? '1' : '0'); } catch (e) {}
+        }
+    }, true);
+
+    if (overlay) overlay.addEventListener('click', closeMobile);
+    document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') closeMobile();
+    });
+    mobileQuery.addEventListener('change', function (event) {
+        body.classList.remove('sidebar-open');
+        if (event.matches) body.classList.remove('sidebar-collapsed');
+        if (overlay) overlay.setAttribute('aria-hidden', 'true');
+        toggle.setAttribute('aria-expanded', String(!event.matches && !body.classList.contains('sidebar-collapsed')));
     });
 })();
 </script>
