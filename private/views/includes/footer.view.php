@@ -68,18 +68,6 @@ $supportPhone =
 
         </div>
 
-        <div class="footer-bottom">
-            <span>
-                &copy; <?= date('Y') ?>
-                <?= htmlspecialchars($systemName) ?>.
-                All rights reserved.
-            </span>
-
-            <span class="footer-system-status">
-                <span class="footer-status-dot"></span>
-                System Portal
-            </span>
-        </div>
 
     </div>
 

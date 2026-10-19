@@ -1,15 +1,33 @@
 
 /* =========================================
-   DASHBOARD FOOTER — MONOCHROME SAAS
+   MYSCHOOL — PROFESSIONAL DASHBOARD FOOTER
+   Light + Dark Theme
 ========================================= */
 
 .dashboard-footer {
+    --footer-bg: #ffffff;
+    --footer-text: #252238;
+    --footer-muted: #777487;
+    --footer-border: #e9e7f0;
+    --footer-link: #6550df;
+    --footer-link-hover: #4f3bc5;
+    --footer-icon-bg: #f0edff;
+    --footer-icon-border: #e2dcff;
+    --footer-icon-color: #6547f5;
+    --footer-status: #16a36a;
+
     width: 100%;
-    margin-top: 32px;
-    padding: 0 clamp(16px, 3vw, 38px);
-    background: #000000;
-    border-top: 1px solid #e5e5e5;
-    color: #191919;
+    margin-top: 36px;
+    padding: 0 clamp(18px, 3vw, 40px);
+
+    background: var(--footer-bg);
+    color: var(--footer-text);
+    border-top: 1px solid var(--footer-border);
+
+    transition:
+        background-color 0.2s ease,
+        border-color 0.2s ease,
+        color 0.2s ease;
 }
 
 .dashboard-footer,
@@ -17,38 +35,47 @@
     box-sizing: border-box;
 }
 
+/* Footer layout */
+
 .dashboard-footer .footer-content {
     display: grid;
-    grid-template-columns: 1fr auto;
+    grid-template-columns: minmax(200px, 1fr) auto;
     align-items: center;
-    gap: 22px 28px;
+    gap: 22px 32px;
+
     width: 100%;
     max-width: 1660px;
     margin: 0 auto;
-    padding: 25px 0 18px;
+    padding: 26px 0 18px;
 }
+
+/* Brand */
 
 .dashboard-footer .footer-brand {
     display: flex;
     align-items: center;
-    gap: 11px;
+    gap: 12px;
     min-width: 0;
 }
 
 .dashboard-footer .footer-brand-icon {
     display: grid;
     place-items: center;
-    flex: 0 0 38px;
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
-    background: #090909;
-    color: #fff;
+    flex: 0 0 42px;
+    width: 42px;
+    height: 42px;
+
+    color: var(--footer-icon-color);
+    background: var(--footer-icon-bg);
+    border: 1px solid var(--footer-icon-border);
+    border-radius: 12px;
 }
 
 .dashboard-footer .footer-brand-icon svg {
-    width: 20px;
-    height: 20px;
+    display: block;
+    width: 21px;
+    height: 21px;
+
     fill: none;
     stroke: currentColor;
     stroke-width: 1.7;
@@ -60,147 +87,177 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    min-width: 0;
 }
 
 .dashboard-footer .footer-brand-text strong {
-    color: #191919;
+    overflow-wrap: anywhere;
+    color: var(--footer-text);
     font-size: 13px;
     font-weight: 750;
+    line-height: 1.4;
 }
 
 .dashboard-footer .footer-brand-text span {
-    color: #737373;
+    color: var(--footer-muted);
     font-size: 11px;
+    line-height: 1.5;
 }
+
+/* Navigation links */
 
 .dashboard-footer .footer-links {
     display: flex;
     align-items: center;
     justify-content: flex-end;
     flex-wrap: wrap;
-    gap: 9px 20px;
+    gap: 10px 22px;
 }
 
 .dashboard-footer .footer-links a {
-    color: #626262;
-    font-size: 11px;
+    color: var(--footer-muted);
+    font-size: 12px;
     font-weight: 550;
+    line-height: 1.6;
     text-decoration: none;
-    transition: color 0.15s ease;
+
+    transition:
+        color 0.18s ease,
+        opacity 0.18s ease;
 }
 
 .dashboard-footer .footer-links a:hover {
-    color: #090909;
+    color: var(--footer-link);
     text-decoration: underline;
+    text-decoration-thickness: 1px;
     text-underline-offset: 4px;
 }
+
+/* Copyright row */
 
 .dashboard-footer .footer-bottom {
     display: flex;
     grid-column: 1 / -1;
     align-items: center;
     justify-content: space-between;
-    gap: 12px;
-    padding-top: 15px;
-    border-top: 1px solid #ededed;
-    color: #777;
-    font-size: 10px;
+    flex-wrap: wrap;
+    gap: 12px 20px;
+
+    padding-top: 17px;
+    border-top: 1px solid var(--footer-border);
+
+    color: var(--footer-muted);
+    font-size: 11px;
+    line-height: 1.7;
 }
 
 .dashboard-footer .footer-system-status {
     display: inline-flex;
     align-items: center;
-    gap: 7px;
-    color: #555;
+    gap: 8px;
+
+    color: var(--footer-muted);
+    font-size: 11px;
     font-weight: 550;
+    white-space: nowrap;
 }
 
 .dashboard-footer .footer-status-dot {
+    display: inline-block;
+    flex: 0 0 7px;
     width: 7px;
     height: 7px;
+
     border-radius: 50%;
-    background: #222;
+    background: var(--footer-status);
+    box-shadow: 0 0 0 3px rgba(22, 163, 106, 0.12);
 }
 
+/* Keyboard accessibility */
+
 .dashboard-footer a:focus-visible {
-    outline: 2px solid #777;
+    outline: 2px solid var(--footer-link);
     outline-offset: 4px;
     border-radius: 3px;
 }
 
-@media (max-width: 760px) {
-    .dashboard-footer {
-        padding-right: 16px;
-        padding-left: 16px;
-    }
+/* =========================================
+   DARK MODE
+   Matches html[data-theme="dark"]
+========================================= */
 
+html[data-theme="dark"] .dashboard-footer {
+    --footer-bg: #0c1225;
+    --footer-text: #f0effa;
+    --footer-muted: #a5a9bd;
+    --footer-border: #252d45;
+    --footer-link: #a99aff;
+    --footer-link-hover: #c0b5ff;
+    --footer-icon-bg: #29234c;
+    --footer-icon-border: #41376f;
+    --footer-icon-color: #b3a5ff;
+    --footer-status: #34d399;
+
+    color-scheme: dark;
+}
+
+html[data-theme="dark"] .dashboard-footer .footer-links a:hover {
+    color: var(--footer-link-hover);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
     .dashboard-footer .footer-content {
         grid-template-columns: 1fr;
-        gap: 18px;
+        gap: 20px;
     }
 
     .dashboard-footer .footer-links {
         justify-content: flex-start;
-        gap: 12px 18px;
     }
 
     .dashboard-footer .footer-bottom {
         grid-column: auto;
-        align-items: flex-start;
-        flex-direction: column;
     }
 }
 
+@media (max-width: 600px) {
+    .dashboard-footer {
+        margin-top: 28px;
+        padding-right: 18px;
+        padding-left: 18px;
+    }
 
+    .dashboard-footer .footer-content {
+        gap: 19px;
+        padding-top: 22px;
+        padding-bottom: 16px;
+    }
 
-/* =========================================
-   FOOTER — STRICT BLACK & WHITE THEME
-========================================= */
+    .dashboard-footer .footer-brand-icon {
+        flex-basis: 39px;
+        width: 39px;
+        height: 39px;
+    }
 
-.dashboard-footer {
-    background: #ffffff;
-    color: #090909;
-    border-top: 1px solid #e5e5e5;
+    .dashboard-footer .footer-links {
+        gap: 12px 19px;
+    }
+
+    .dashboard-footer .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+        padding-top: 14px;
+    }
 }
 
-.dashboard-footer .footer-brand-icon {
-    background: #090909;
-    color: #ffffff;
-    border: 1px solid #090909;
-}
-
-.dashboard-footer .footer-brand-text strong {
-    color: #090909;
-}
-
-.dashboard-footer .footer-brand-text span {
-    color: #666666;
-}
-
-.dashboard-footer .footer-links a {
-    color: #333333;
-}
-
-.dashboard-footer .footer-links a:hover {
-    color: #000000;
-    text-decoration: underline;
-    text-underline-offset: 4px;
-}
-
-.dashboard-footer .footer-bottom {
-    border-top: 1px solid #e5e5e5;
-    color: #666666;
-}
-
-.dashboard-footer .footer-system-status {
-    color: #333333;
-}
-
-.dashboard-footer .footer-status-dot {
-    background: #090909;
-}
-
-.dashboard-footer a:focus-visible {
-    outline: 2px solid #090909;
-    outline-offset: 4px;
+@media (prefers-reduced-motion: reduce) {
+    .dashboard-footer,
+    .dashboard-footer * {
+        transition: none !important;
+    }
 }
