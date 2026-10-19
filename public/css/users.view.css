@@ -59,36 +59,77 @@
 @media (max-width: 1100px) { .users-summary-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .users-redesign-card .users-toolbar { align-items: stretch; flex-direction: column; } .users-redesign-card .user-sort-form { justify-content: flex-start; } }
 @media (max-width: 650px) { .dashboard:has(.users-hero) { width: calc(100% - 28px); margin: 18px auto 32px; } .users-hero { min-height: 115px; padding: 20px; } .users-redesign-card { padding: 16px; } .users-summary-grid { gap: 10px; } .users-summary-card { align-items: flex-start; flex-direction: column; gap: 10px; padding: 13px; } .users-summary-card strong { font-size: 22px; } .users-redesign-card .user-search-form { flex-wrap: wrap; } .users-redesign-card .user-search-box { flex-basis: 100%; } .users-redesign-card .user-sort-form { display: grid; grid-template-columns: auto minmax(0,1fr); } .users-redesign-card .user-sort-form select { width: 100%; min-width: 0; } }
 
-/* Add this to users-redesign.css or users.view.css */
-.users-person-cell {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    min-width: 180px;
-}
+/* =========================================================
+   MYSCHOOL POLISH — PURPLE ACCENTS + LIGHT/DARK THEMES
+   ========================================================= */
+.dashboard:has(.users-hero) { font-family: inherit; }
+.users-hero, .users-summary-card, .users-redesign-card { transition: background-color .2s ease, border-color .2s ease, box-shadow .2s ease; }
+.users-hero h1, .users-summary-card strong, .users-redesign-card .users-header h2 { letter-spacing: -.35px; }
+.users-hero-decoration { pointer-events: none; }
+.users-redesign-card .search-btn { background: #6547f5; border-color: #6547f5; }
+.users-redesign-card .search-btn:hover { background: #5237dc; border-color: #5237dc; }
+.users-redesign-card .users-person-initials { color: #6547f5; background: #f0edff; border-color: #e2dcff; }
+.users-redesign-card .rank-badge { color: #5b48b6; background: #f3f0ff; border-color: #e1dbff; }
+.users-redesign-card .table-actions > a:hover { color: #6547f5; border-color: #c9c0ff; background: #f8f6ff; }
+.users-redesign-card .users-table-footer { align-items: center; gap: 14px; flex-wrap: wrap; }
+.users-pagination { display: inline-flex; align-items: center; justify-content: flex-end; gap: 6px; margin-left: auto; }
+.users-pagination[hidden] { display: none !important; }
+.users-page-button { display: inline-flex; align-items: center; justify-content: center; min-width: 32px; height: 32px; padding: 0 9px; border: 1px solid #dce2ec; border-radius: 8px; background: #fff; color: #475467; font: inherit; font-size: 12px; font-weight: 650; cursor: pointer; transition: background-color .15s ease, color .15s ease, border-color .15s ease; }
+.users-page-button:hover:not(:disabled) { border-color: #c9c0ff; color: #6547f5; background: #f6f3ff; }
+.users-page-button.is-active { color: #fff; border-color: #6547f5; background: #6547f5; box-shadow: 0 3px 8px rgba(101,71,245,.2); }
+.users-page-button:disabled { cursor: default; opacity: .48; }
+.users-page-button:focus-visible { outline: 2px solid #6547f5; outline-offset: 2px; }
+.users-redesign-card tbody tr[hidden] { display: none !important; }
 
-.users-person-avatar {
-    width: 42px;
-    height: 42px;
-    flex: 0 0 42px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    object-fit: cover;
-    overflow: hidden;
-    background: #e8eefc;
-    color: #244a9b;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1;
-    border: 1px solid #dce4f3;
-}
+/* Dark mode follows the dashboard's html[data-theme] convention. */
+html[data-theme="dark"] .dashboard:has(.users-hero) { color: #f0effa; }
+html[data-theme="dark"] .users-hero,
+html[data-theme="dark"] .users-summary-card,
+html[data-theme="dark"] .users-redesign-card { background: #111a30; border-color: #28324c; box-shadow: 0 8px 22px rgba(0,0,0,.14); }
+html[data-theme="dark"] .users-hero h1,
+html[data-theme="dark"] .users-summary-card strong,
+html[data-theme="dark"] .users-redesign-card .users-header h2,
+html[data-theme="dark"] .users-redesign-card .users-person-cell strong,
+html[data-theme="dark"] .users-redesign-card .empty-state h3 { color: #f0effa; }
+html[data-theme="dark"] .users-eyebrow,
+html[data-theme="dark"] .users-hero-copy > p:last-child,
+html[data-theme="dark"] .users-summary-card p,
+html[data-theme="dark"] .users-summary-card small,
+html[data-theme="dark"] .users-redesign-card .users-header p,
+html[data-theme="dark"] .users-redesign-card .user-sort-form label,
+html[data-theme="dark"] .users-redesign-card .users-table-footer,
+html[data-theme="dark"] .users-redesign-card .empty-state p { color: #a5aec4; }
+html[data-theme="dark"] .users-hero-decoration { background: #1b2540; }
+html[data-theme="dark"] .users-icon-blue { color: #8dbbff; background: #1c3150; }
+html[data-theme="dark"] .users-icon-green { color: #70dfaa; background: #173a32; }
+html[data-theme="dark"] .users-icon-purple { color: #c0a7ff; background: #30244f; }
+html[data-theme="dark"] .users-icon-red { color: #ff9ba4; background: #482532; }
+html[data-theme="dark"] .users-redesign-card .users-toolbar { border-bottom-color: #28324c; }
+html[data-theme="dark"] .users-redesign-card .user-search-box,
+html[data-theme="dark"] .users-redesign-card .user-sort-form select,
+html[data-theme="dark"] .users-redesign-card .table-wrapper,
+html[data-theme="dark"] .users-redesign-card table { background: #0c1225; border-color: #303a55; }
+html[data-theme="dark"] .users-redesign-card .user-search-box input { color: #f0effa; }
+html[data-theme="dark"] .users-redesign-card .user-sort-form select { color: #d9def0; }
+html[data-theme="dark"] .users-redesign-card thead th { color: #aeb7cd; background: #18223a; border-bottom-color: #303a55; }
+html[data-theme="dark"] .users-redesign-card tbody td { color: #cbd3e5; border-bottom-color: #26314a; }
+html[data-theme="dark"] .users-redesign-card tbody tr:hover { background: #151f37; }
+html[data-theme="dark"] .users-redesign-card .users-person-avatar { border-color: #34415d; background: #202b45; }
+html[data-theme="dark"] .users-redesign-card .users-person-initials { color: #c0b4ff; background: #302751; border-color: #4a3d79; }
+html[data-theme="dark"] .users-redesign-card .rank-badge { color: #c0b4ff; background: #292344; border-color: #433967; }
+html[data-theme="dark"] .users-redesign-card .table-actions > a,
+html[data-theme="dark"] .users-redesign-card .table-actions > form button,
+html[data-theme="dark"] .users-page-button { color: #dce3f4; background: #18223a; border-color: #35415e; }
+html[data-theme="dark"] .users-redesign-card .table-actions > a:hover { color: #c0b4ff; background: #282347; border-color: #55468d; }
+html[data-theme="dark"] .users-redesign-card .table-actions > form .delete-btn { color: #ffadb4; background: #3d202c; border-color: #673543; }
+html[data-theme="dark"] .users-redesign-card .table-actions > form .activate-btn { color: #7ce1ae; background: #17382f; border-color: #2c6550; }
+html[data-theme="dark"] .users-page-button.is-active { color: #fff; background: #765df6; border-color: #765df6; }
+html[data-theme="dark"] .users-page-button:hover:not(:disabled) { color: #d0c5ff; background: #292348; border-color: #55468d; }
+html[data-theme="dark"] .users-redesign-card .status.active { color: #7ce1ae; background: #17382f; border-color: #2c6550; }
+html[data-theme="dark"] .users-redesign-card .status.inactive { color: #ffadb4; background: #3d202c; border-color: #673543; }
 
-.users-person-initials {
-    text-transform: uppercase;
+@media (max-width: 650px) {
+    .users-pagination { width: 100%; justify-content: flex-start; margin-left: 0; }
+    .users-page-button { min-width: 30px; height: 30px; }
 }
-
-.users-person-cell strong {
-    overflow-wrap: anywhere;
-}
+@media (prefers-reduced-motion: reduce) { .users-hero, .users-summary-card, .users-redesign-card, .users-page-button { transition: none !important; } }

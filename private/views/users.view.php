@@ -88,7 +88,7 @@ foreach ($users as $summaryUser) {
 
 <link
     rel="stylesheet"
-    href="<?= ROOT ?>/css/users-redesign.css?v=1"
+    href="<?= ROOT ?>/css/users-redesign.css?v=2"
 >
 
 <link
@@ -506,7 +506,7 @@ require "../private/views/includes/sidebar.view.php";
 
             <div class="table-wrapper">
 
-                <table>
+                <table id="users-table" class="users-redesign-table">
 
                     <thead>
 
@@ -824,8 +824,9 @@ require "../private/views/includes/sidebar.view.php";
                 </table>
 
             </div>
-            <div class="users-table-footer">
-                <span>Showing <?= number_format(count($users)) ?> user(s) in this result</span>
+            <div class="users-table-footer users-pagination-footer">
+                <span id="users-results-label">Showing <?= number_format(count($users)) ?> user(s) in this result</span>
+                <nav class="users-pagination" id="users-pagination" aria-label="Users table pages"></nav>
             </div>
 
 
@@ -908,6 +909,59 @@ require "../private/views/includes/sidebar.view.php";
 
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
+<script>
+/* Client-side pagination for the rows currently returned by the Users controller. */
+(function () {
+    'use strict';
+    const table = document.getElementById('users-table');
+    const pager = document.getElementById('users-pagination');
+    const label = document.getElementById('users-results-label');
+    if (!table || !pager || !label) return;
+
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    const pageSize = 5;
+    const pageCount = Math.max(1, Math.ceil(rows.length / pageSize));
+    let currentPage = 1;
+
+    function makeButton(text, page, options) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'users-page-button' + (options.active ? ' is-active' : '');
+        button.textContent = text;
+        button.disabled = Boolean(options.disabled);
+        if (options.active) button.setAttribute('aria-current', 'page');
+        button.setAttribute('aria-label', options.label || ('Page ' + page));
+        button.addEventListener('click', function () {
+            if (page < 1 || page > pageCount || page === currentPage) return;
+            currentPage = page;
+            render();
+        });
+        pager.appendChild(button);
+    }
+
+    function render() {
+        const start = (currentPage - 1) * pageSize;
+        const end = Math.min(start + pageSize, rows.length);
+        rows.forEach(function (row, index) {
+            row.hidden = index < start || index >= end;
+        });
+
+        label.textContent = rows.length
+            ? 'Showing ' + (start + 1) + '–' + end + ' of ' + rows.length + ' user(s)'
+            : 'Showing 0 users';
+
+        pager.replaceChildren();
+        makeButton('‹', currentPage - 1, { disabled: currentPage === 1, label: 'Previous page' });
+        for (let page = 1; page <= pageCount; page++) {
+            makeButton(String(page), page, { active: page === currentPage, disabled: page === currentPage });
+        }
+        makeButton('›', currentPage + 1, { disabled: currentPage === pageCount, label: 'Next page' });
+        pager.hidden = rows.length <= pageSize;
+    }
+
+    render();
+})();
+</script>
 </body>
 
 </html>
