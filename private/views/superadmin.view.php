@@ -115,7 +115,7 @@ $growthData = $data['growthData'] ?? ['schools' => [], 'students' => [], 'users'
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=16"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=17"
     >
 
 
