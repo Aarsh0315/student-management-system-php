@@ -52,7 +52,7 @@ $schoolsWithAdmins = $statsGet('schools_with_admins', count($schoolNames));
     <link rel="stylesheet" href="<?= ROOT ?>/css/nav.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/home.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/school-admins.view.css?v=2">
-    <link rel="stylesheet" href="<?= ROOT ?>/css/school-admins-redesign.css?v=1">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/school-admins-redesign.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/footer.view.css">
     <link rel="stylesheet" href="<?= ROOT ?>/css/sidebar.view.css">
 </head>
@@ -228,7 +228,8 @@ $schoolsWithAdmins = $statsGet('schools_with_admins', count($schoolNames));
                 </table>
             </div>
             <div class="school-admins-table-footer">
-                <span>Showing <?= number_format(count($admins)) ?> school admin(s)</span>
+                <span class="school-admins-result-count">Showing <?= number_format(count($admins)) ?> school admin(s)</span>
+                <nav class="school-admins-pagination" aria-label="School admin table pages"></nav>
             </div>
         <?php else: ?>
             <div class="empty-state school-admins-empty">
@@ -249,5 +250,53 @@ $schoolsWithAdmins = $statsGet('schools_with_admins', count($schoolNames));
 <?php require "../private/views/includes/footer.view.php"; ?>
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
+<script>
+(() => {
+    const table = document.querySelector('.school-admins-table');
+    const pagination = document.querySelector('.school-admins-pagination');
+    const resultCount = document.querySelector('.school-admins-result-count');
+    if (!table || !pagination) return;
+
+    const rows = Array.from(table.querySelectorAll('tbody tr'));
+    const pageSize = 5;
+    const pageCount = Math.ceil(rows.length / pageSize);
+    let currentPage = 1;
+
+    if (rows.length <= pageSize) {
+        pagination.hidden = true;
+        return;
+    }
+
+    const makeButton = (label, page, options = {}) => {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = label;
+        button.className = 'school-admins-page-btn' + (options.active ? ' is-active' : '');
+        button.disabled = Boolean(options.disabled);
+        if (options.active) button.setAttribute('aria-current', 'page');
+        button.addEventListener('click', () => render(page));
+        pagination.appendChild(button);
+    };
+
+    function render(page) {
+        currentPage = Math.max(1, Math.min(page, pageCount));
+        rows.forEach((row, index) => {
+            row.hidden = index < (currentPage - 1) * pageSize || index >= currentPage * pageSize;
+        });
+        pagination.replaceChildren();
+        makeButton('‹', currentPage - 1, { disabled: currentPage === 1 });
+        for (let number = 1; number <= pageCount; number++) {
+            makeButton(String(number), number, { active: number === currentPage });
+        }
+        makeButton('›', currentPage + 1, { disabled: currentPage === pageCount });
+        if (resultCount) {
+            const first = (currentPage - 1) * pageSize + 1;
+            const last = Math.min(currentPage * pageSize, rows.length);
+            resultCount.textContent = `Showing ${first}–${last} of ${rows.length} school admin(s)`;
+        }
+    }
+    render(1);
+})();
+</script>
 </body>
 </html>
