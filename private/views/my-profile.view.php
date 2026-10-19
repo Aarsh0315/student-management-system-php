@@ -6,439 +6,197 @@ if (!$profile) {
     die("User profile not found.");
 }
 
-
-/* =========================
-   RANK NAME
-========================= */
-
 $rankNames = [
-
-    'super_admin'     => 'Super Admin',
-    'admin'           => 'School Admin',
-    'principal'       => 'Principal',
-    'vice_principal'  => 'Vice Principal',
-    'teacher'         => 'Teacher',
-    'student'         => 'Student',
-    'parent'          => 'Parent',
-    'staff'           => 'Staff'
-
+    'super_admin'    => 'Super Admin',
+    'admin'          => 'School Admin',
+    'principal'      => 'Principal',
+    'vice_principal' => 'Vice Principal',
+    'teacher'        => 'Teacher',
+    'student'        => 'Student',
+    'parent'         => 'Parent',
+    'staff'          => 'Staff',
 ];
 
-$rank = $rankNames[$profile->rank]
-    ?? ucfirst($profile->rank);
+$rank = $rankNames[$profile->rank ?? ''] ?? ucfirst((string) ($profile->rank ?? 'User'));
+$status = strtolower((string) ($profile->status ?? 'active'));
+$fullName = trim((string) ($profile->firstname ?? '') . ' ' . (string) ($profile->lastname ?? ''));
+$initial = strtoupper(substr((string) ($profile->firstname ?? 'U'), 0, 1));
+$profileImage = trim((string) ($profile->profile_image ?? ''));
 
+$profileImageUrl = '';
 
-/* =========================
-   STATUS
-========================= */
+if ($profileImage !== '') {
+    // Database stores the filename, not the full filesystem path.
+    $profileImageUrl = rtrim(ROOT, '/') .
+        '/uploads/users/' .
+        rawurlencode(basename($profileImage));
+}
 
-$status = $profile->status ?? 'active';
-
-
-/* =========================
-   AVATAR
-========================= */
-
-$initial = strtoupper(
-    substr(
-        $profile->firstname ?? 'U',
-        0,
-        1
-    )
-);
-
-
+$escape = static function ($value): string {
+    return htmlspecialchars((string) ($value ?? '-'), ENT_QUOTES, 'UTF-8');
+};
 
 ?>
-
 <!DOCTYPE html>
-
 <html lang="en">
-
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - My School</title>
 
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
+    <!-- Keep shared site styles for navbar, sidebar and footer. -->
+    <link rel="stylesheet" href="<?= ROOT ?>/css/home.view.css?v=2">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/nav.view.css?v=3">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/sidebar.view.css?v=3">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/footer.view.css?v=1">
 
-    <title>
-        My Profile - My School
-    </title>
-
-
-    <!-- DASHBOARD CSS -->
-
-    <link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/my-profile.view.css?v=2"
->
-
-
-<link
-    rel="stylesheet"
-    href="<?= ROOT ?>/css/footer.view.css"
->
-
-<link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/nav.view.css?v=3"
-    > 
-
-    <link
-        rel="stylesheet"
-        href="<?= ROOT ?>/css/sidebar.view.css?v=3"
-    > 
-
+    <!-- Profile-specific styles are loaded after shared styles. -->
+    <link rel="stylesheet" href="<?= ROOT ?>/css/my-profile.view.css?v=3">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/my-profile-summary.css?v=4">
 </head>
-
-
 <body>
 
-
-<!-- =========================
-     NAVBAR
-========================= -->
-
-<?php if (
-    ($_SESSION['rank'] ?? '') === 'teacher'
-): ?>
-
-    <?php require "../private/views/includes/nav.view.php"; ?>
-
-<?php elseif (
-    ($_SESSION['rank'] ?? '') === 'student'
-): ?>
-
-    <?php require "../private/views/includes/nav.view.php"; ?>
-
-<?php else: ?>
-
-    <?php require "../private/views/includes/nav.view.php"; ?>
-
-<?php endif; ?>
-
+<?php require "../private/views/includes/nav.view.php"; ?>
 <?php require "../private/views/includes/sidebar.view.php"; ?>
 
-<main class="profile-page">
-
-
-    <!-- =========================
-         PAGE HEADER
-    ========================== -->
-
-    <section class="welcome">
-
-        <div>
-
-            <p class="welcome-small">
-                Account
-            </p>
-
-            <h1>
-                My Profile
-            </h1>
-
-            <p class="welcome-text">
-                View your personal account information.
-            </p>
-
+<main class="profile-page profile-summary-page">
+    <section class="profile-welcome">
+        <div class="profile-welcome-copy">
+            <p class="profile-eyebrow">ACCOUNT <span>/</span> PROFILE</p>
+            <h1>My Profile</h1>
+            <p class="profile-welcome-text">View your personal account information.</p>
         </div>
-
+        <div class="profile-welcome-decoration" aria-hidden="true"></div>
     </section>
 
-
-    <!-- =========================
-         PROFILE CARD
-    ========================== -->
-
-    <section class="profile-main-card">
-
-
-        <div class="profile-main">
-
-
-            <!-- AVATAR -->
-
-            <div class="profile-large-avatar">
-
-                <?= htmlspecialchars($initial) ?>
-
+    <section class="profile-overview-grid" aria-label="Account summary">
+        <article class="profile-overview-card">
+            <span class="profile-overview-icon icon-blue" aria-hidden="true">♙</span>
+            <div>
+                <p>User ID</p>
+                <strong><?= $escape($profile->user_id ?? '-') ?></strong>
+                <small>System generated</small>
             </div>
+        </article>
 
-
-            <!-- PROFILE DETAILS -->
-
-            <div class="profile-main-info">
-
-                <h2>
-
-                    <?= htmlspecialchars(
-                        ($profile->firstname ?? '')
-                        . ' '
-                        . ($profile->lastname ?? '')
-                    ) ?>
-
-                </h2>
-
-
-                <p>
-
-                    <?= htmlspecialchars(
-                        $profile->email ?? ''
-                    ) ?>
-
-                </p>
-
-
-                <span class="profile-role">
-
-                    <?= htmlspecialchars($rank) ?>
-
-                </span>
-
+        <article class="profile-overview-card">
+            <span class="profile-overview-icon icon-green" aria-hidden="true">✓</span>
+            <div>
+                <p>Account Status</p>
+                <strong><span class="profile-status-pill <?= $status === 'active' ? 'is-active' : 'is-inactive' ?>"><?= $escape(ucfirst($status)) ?></span></strong>
+                <small>Your account status</small>
             </div>
+        </article>
 
-        </div>
+        <article class="profile-overview-card">
+            <span class="profile-overview-icon icon-purple" aria-hidden="true">♛</span>
+            <div>
+                <p>Role</p>
+                <strong><?= $escape($rank) ?></strong>
+                <small>Assigned account role</small>
+            </div>
+        </article>
 
-
-        <!-- STATUS -->
-
-        <div class="profile-status">
-
-            <?php if ($status === 'active'): ?>
-
-                <span class="status active">
-                    Active
-                </span>
-
-            <?php else: ?>
-
-                <span class="status inactive">
-                    Inactive
-                </span>
-
-            <?php endif; ?>
-
-        </div>
-
-        <!-- =========================
-            EDIT PROFILE
-        ========================= -->
-
-        <div class="profile-actions">
-
-            <a
-                href="<?= ROOT ?>/profile/edit"
-                class="profile-edit-btn"
-            >
-                Edit Profile
-            </a>
-
-        </div>
-
-
+        <article class="profile-overview-card">
+            <span class="profile-overview-icon icon-red" aria-hidden="true">▦</span>
+            <div>
+                <p>School</p>
+                <strong><?= $escape($profile->school_name ?? 'Platform account') ?></strong>
+                <small><?= isset($profile->school_name) ? 'Associated school' : 'System-wide account' ?></small>
+            </div>
+        </article>
     </section>
 
+    <section class="profile-summary-card">
+        
+<div class="profile-summary-avatar">
+    <?php if ($profileImageUrl !== ''): ?>
+        <img
+            src="<?= $escape($profileImageUrl) ?>"
+            alt="<?= $escape($fullName !== '' ? $fullName : 'User') ?> profile photo"
+            class="profile-summary-avatar-image"
+            onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+        >
+        <span class="profile-summary-avatar-fallback" aria-hidden="true" hidden>
+            <?= $escape($initial) ?>
+        </span>
+    <?php else: ?>
+        <span class="profile-summary-avatar-fallback" aria-hidden="true">
+            <?= $escape($initial) ?>
+        </span>
+    <?php endif; ?>
+</div>
 
-    <!-- =========================
-         ACCOUNT INFORMATION
-    ========================== -->
-
-    <section class="profile-info-card">
-
-
-        <div class="profile-section-header">
-
-            <h2>
-                Account Information
-            </h2>
-
-            <p>
-                Your personal account details.
-            </p>
-
+        <div class="profile-summary-identity">
+            <h2><?= $escape($fullName !== '' ? $fullName : 'User') ?></h2>
+            <p><?= $escape($profile->email ?? '-') ?></p>
+            <span class="profile-summary-role"><?= $escape($rank) ?></span>
         </div>
+        <a href="<?= ROOT ?>/profile/edit" class="profile-edit-button">
+            <span aria-hidden="true">✎</span> Edit Profile
+        </a>
+    </section>
 
-
-        <div class="profile-information-grid">
-
-
-            <!-- USER ID -->
-
-            <div class="profile-information-item">
-
-                <span>
-                    User ID
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $profile->user_id ?? '-'
-                    ) ?>
-
-                </strong>
-
+    <section class="profile-details-card">
+        <header class="profile-details-header">
+            <div>
+                <h2>Account Information</h2>
+                <p>Your personal account details.</p>
             </div>
+            <span class="profile-details-lock" aria-hidden="true">▤</span>
+        </header>
 
-
-            <!-- FIRST NAME -->
-
-            <div class="profile-information-item">
-
-                <span>
-                    First Name
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $profile->firstname ?? '-'
-                    ) ?>
-
-                </strong>
-
+        <div class="profile-details-grid">
+            <div class="profile-detail-item">
+                <span>User ID</span>
+                <strong><span class="profile-id-badge"><?= $escape($profile->user_id ?? '-') ?></span></strong>
             </div>
-
-
-            <!-- LAST NAME -->
-
-            <div class="profile-information-item">
-
-                <span>
-                    Last Name
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $profile->lastname ?? '-'
-                    ) ?>
-
-                </strong>
-
+            <div class="profile-detail-item">
+                <span>First Name</span>
+                <strong><?= $escape($profile->firstname ?? '-') ?></strong>
             </div>
-
-
-            <!-- EMAIL -->
-
-            <div class="profile-information-item">
-
-                <span>
-                    Email
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        $profile->email ?? '-'
-                    ) ?>
-
-                </strong>
-
+            <div class="profile-detail-item">
+                <span>Last Name</span>
+                <strong><?= $escape($profile->lastname ?? '-') ?></strong>
             </div>
-
-
-            <!-- GENDER -->
-
-            <div class="profile-information-item">
-
-                <span>
-                    Gender
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        ucfirst(
-                            $profile->gender ?? '-'
-                        )
-                    ) ?>
-
-                </strong>
-
+            <div class="profile-detail-item">
+                <span>Email Address</span>
+                <strong><?= $escape($profile->email ?? '-') ?></strong>
             </div>
-
-
-            <!-- ROLE -->
-
-            <div class="profile-information-item">
-
-                <span>
-                    Role
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars($rank) ?>
-
-                </strong>
-
+            <div class="profile-detail-item">
+                <span>Gender</span>
+                <strong><?= $escape(ucfirst((string) ($profile->gender ?? '-'))) ?></strong>
             </div>
-
-
-            <!-- STATUS -->
-
-            <div class="profile-information-item">
- 
-                <span>
-                    Account Status
-                </span>
-
-                <strong>
-
-                    <?= htmlspecialchars(
-                        ucfirst($status)
-                    ) ?>
-
-                </strong>
-
+            <div class="profile-detail-item">
+                <span>Role</span>
+                <strong><?= $escape($rank) ?></strong>
             </div>
-
-
-            <!-- SCHOOL -->
-
-            <?php if (
-                isset($profile->school_name)
-            ): ?>
-
-                <div class="profile-information-item">
-
-                    <span>
-                        School
+            <div class="profile-detail-item">
+                <span>Account Status</span>
+                <strong>
+                    <span class="profile-status-pill <?= $status === 'active' ? 'is-active' : 'is-inactive' ?>">
+                        <?= $escape(ucfirst($status)) ?>
                     </span>
-
-                    <strong>
-
-                        <?= htmlspecialchars(
-                            $profile->school_name
-                        ) ?>
-
-                    </strong>
-
+                </strong>
+            </div>
+            <?php if (!empty($profile->school_name)): ?>
+                <div class="profile-detail-item">
+                    <span>School</span>
+                    <strong><?= $escape($profile->school_name) ?></strong>
                 </div>
-
             <?php endif; ?>
-
-
         </div>
 
-
+        <div class="profile-details-footer">
+            <span><span class="profile-footer-dot"></span> Profile information</span>
+            <a href="<?= ROOT ?>/profile/edit">Edit account details <span aria-hidden="true">→</span></a>
+        </div>
     </section>
 </main>
-
-
-<!-- =========================
-     FOOTER
-========================= -->
 
 <?php require "../private/views/includes/footer.view.php"; ?>
 
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
-<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>   
+<script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 </body>
-
 </html>

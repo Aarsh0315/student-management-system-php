@@ -578,24 +578,28 @@ public function updateProfile(
     $user_id,
     $firstname,
     $lastname,
-    $gender
+    $gender,
+    $profile_image = null
 ) {
     $query = "UPDATE users
               SET firstname = :firstname,
                   lastname = :lastname,
-                  gender = :gender
+                  gender = :gender,
+                  profile_image = :profile_image
               WHERE user_id = :user_id
               LIMIT 1";
 
-    $this->query($query, [
-        'firstname' => $firstname,
-        'lastname'  => $lastname,
-        'gender'    => $gender,
-        'user_id'   => $user_id
+    $result = $this->query($query, [
+        'firstname'     => $firstname,
+        'lastname'      => $lastname,
+        'gender'        => $gender,
+        'profile_image' => $profile_image,
+        'user_id'       => $user_id
     ]);
 
-    return true;
+    return $result !== false;
 }
+
 
 /* =====================================================
    UPDATE USER

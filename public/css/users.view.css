@@ -58,3 +58,37 @@
 .users-redesign-card .empty-state { padding: 48px 18px; text-align: center; } .users-redesign-card .empty-state h3 { color: #202939; font-size: 17px; } .users-redesign-card .empty-state p { color: #8791a0; font-size: 12px; }
 @media (max-width: 1100px) { .users-summary-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } .users-redesign-card .users-toolbar { align-items: stretch; flex-direction: column; } .users-redesign-card .user-sort-form { justify-content: flex-start; } }
 @media (max-width: 650px) { .dashboard:has(.users-hero) { width: calc(100% - 28px); margin: 18px auto 32px; } .users-hero { min-height: 115px; padding: 20px; } .users-redesign-card { padding: 16px; } .users-summary-grid { gap: 10px; } .users-summary-card { align-items: flex-start; flex-direction: column; gap: 10px; padding: 13px; } .users-summary-card strong { font-size: 22px; } .users-redesign-card .user-search-form { flex-wrap: wrap; } .users-redesign-card .user-search-box { flex-basis: 100%; } .users-redesign-card .user-sort-form { display: grid; grid-template-columns: auto minmax(0,1fr); } .users-redesign-card .user-sort-form select { width: 100%; min-width: 0; } }
+
+/* Add this to users-redesign.css or users.view.css */
+.users-person-cell {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+}
+
+.users-person-avatar {
+    width: 42px;
+    height: 42px;
+    flex: 0 0 42px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    background: #e8eefc;
+    color: #244a9b;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    border: 1px solid #dce4f3;
+}
+
+.users-person-initials {
+    text-transform: uppercase;
+}
+
+.users-person-cell strong {
+    overflow-wrap: anywhere;
+}
