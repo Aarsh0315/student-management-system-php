@@ -365,3 +365,255 @@
     .schools-page-redesign .schools-stat-card { align-items: flex-start; flex-direction: column; gap: 10px; padding: 13px; }
     .schools-page-redesign .schools-stat-copy strong { font-size: 22px; }
 }
+
+/* =====================================================
+   MYSCHOOL DESIGN SYSTEM OVERRIDES — PURPLE + THEME
+   ===================================================== */
+.schools-page-redesign {
+    --schools-accent: #6547f5;
+    --schools-accent-hover: #5135df;
+    --schools-accent-soft: #f0edff;
+    --schools-bg: #ffffff;
+    --schools-text: #17152b;
+    --schools-muted: #73758b;
+    --schools-border: #dfe4ef;
+    --schools-table-head: #f6f7fb;
+    --schools-row-hover: #faf9ff;
+    color: var(--schools-text);
+}
+
+.schools-page-redesign .schools-hero,
+.schools-page-redesign .schools-stat-card,
+.schools-page-redesign .schools-table-card {
+    background: var(--schools-bg);
+    border-color: var(--schools-border);
+    box-shadow: 0 8px 24px rgba(30, 36, 70, .035);
+}
+
+.schools-page-redesign .schools-breadcrumb { color: #5e6290; }
+.schools-page-redesign .schools-hero h1,
+.schools-page-redesign .schools-redesign-header h2,
+.schools-page-redesign .schools-stat-copy strong { color: var(--schools-text); }
+.schools-page-redesign .schools-hero-copy > p:last-child,
+.schools-page-redesign .schools-redesign-header p,
+.schools-page-redesign .schools-stat-copy p,
+.schools-page-redesign .schools-stat-copy small { color: var(--schools-muted); }
+.schools-page-redesign .schools-hero-decoration { background: #f0f1f7; }
+
+.schools-page-redesign .schools-stat-icon-neutral {
+    color: #6547f5; background: #f0edff;
+}
+.schools-page-redesign .schools-stat-icon-purple {
+    color: #6547f5; background: #f0edff;
+}
+
+.schools-page-redesign .schools-add-btn,
+.schools-page-redesign .schools-search-btn {
+    color: #fff;
+    background: var(--schools-accent);
+    border-color: var(--schools-accent);
+    box-shadow: 0 4px 10px rgba(101, 71, 245, .16);
+}
+.schools-page-redesign .schools-add-btn:hover,
+.schools-page-redesign .schools-search-btn:hover {
+    color: #fff;
+    background: var(--schools-accent-hover);
+    border-color: var(--schools-accent-hover);
+}
+
+.schools-page-redesign .schools-redesign-search-box,
+.schools-page-redesign .schools-redesign-filters select,
+.schools-page-redesign .clear-search-btn {
+    background-color: #fff;
+    border-color: var(--schools-border);
+}
+.schools-page-redesign .schools-redesign-search-box:focus-within,
+.schools-page-redesign .schools-redesign-filters select:focus {
+    border-color: var(--schools-accent);
+    box-shadow: 0 0 0 3px rgba(101, 71, 245, .11);
+}
+.schools-page-redesign .schools-redesign-search-box input,
+.schools-page-redesign .schools-redesign-filters select { color: #34334c; }
+
+.schools-page-redesign .schools-redesign-table-wrapper {
+    border-color: var(--schools-border);
+}
+.schools-page-redesign .schools-redesign-table { background: var(--schools-bg); }
+.schools-page-redesign .schools-redesign-table thead th {
+    background: var(--schools-table-head);
+    border-bottom-color: var(--schools-border);
+    color: #626783;
+}
+.schools-page-redesign .schools-redesign-table tbody td {
+    border-bottom-color: #e9ecf4;
+    color: #34334c;
+}
+.schools-page-redesign .schools-redesign-table tbody tr:hover { background: var(--schools-row-hover); }
+.schools-page-redesign .school-name-cell strong { color: #211f39; }
+.schools-page-redesign .school-row-avatar {
+    color: var(--schools-accent);
+    background: var(--schools-accent-soft);
+    border-color: #e5dfff;
+}
+.schools-page-redesign .school-code,
+.schools-page-redesign .student-count {
+    background: #fafaff;
+    border-color: #e0e4f0;
+    color: #494967;
+}
+.schools-page-redesign .schools-redesign-actions .view-btn,
+.schools-page-redesign .schools-redesign-actions .edit-btn {
+    background: #fff;
+    border-color: #dce1ed;
+    color: #373651;
+}
+.schools-page-redesign .schools-redesign-actions .view-btn:hover,
+.schools-page-redesign .schools-redesign-actions .edit-btn:hover {
+    background: var(--schools-accent-soft);
+    border-color: #d7ceff;
+    color: var(--schools-accent);
+}
+
+/* Pagination: number buttons + previous/next controls */
+.schools-page-redesign .schools-table-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-top: 16px;
+}
+.schools-page-redesign .schools-showing-count {
+    color: var(--schools-muted);
+    font-size: 11px;
+    line-height: 1.5;
+}
+.schools-page-redesign .schools-pagination,
+.schools-page-redesign .schools-page-numbers {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+.schools-page-redesign .schools-page-arrow,
+.schools-page-redesign .schools-page-number {
+    display: inline-grid;
+    place-items: center;
+    min-width: 32px;
+    height: 32px;
+    padding: 0 8px;
+    border: 1px solid var(--schools-border);
+    border-radius: 8px;
+    background: var(--schools-bg);
+    color: #555875;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 650;
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, border-color .15s ease;
+}
+.schools-page-redesign .schools-page-arrow span { font-size: 21px; line-height: 1; }
+.schools-page-redesign .schools-page-arrow:hover:not(:disabled),
+.schools-page-redesign .schools-page-number:hover:not(.is-active) {
+    border-color: #cfc5ff;
+    background: var(--schools-accent-soft);
+    color: var(--schools-accent);
+}
+.schools-page-redesign .schools-page-number.is-active {
+    color: #fff;
+    background: var(--schools-accent);
+    border-color: var(--schools-accent);
+    box-shadow: 0 3px 8px rgba(101, 71, 245, .2);
+}
+.schools-page-redesign .schools-page-arrow:disabled {
+    opacity: .42;
+    cursor: not-allowed;
+}
+.schools-page-redesign .schools-page-arrow:focus-visible,
+.schools-page-redesign .schools-page-number:focus-visible {
+    outline: 2px solid var(--schools-accent);
+    outline-offset: 2px;
+}
+
+/* Dark mode uses the dashboard's html[data-theme] selector */
+html[data-theme="dark"] .schools-page-redesign {
+    --schools-accent: #8b78ff;
+    --schools-accent-hover: #a294ff;
+    --schools-accent-soft: #29234c;
+    --schools-bg: #151c30;
+    --schools-text: #f1f0fb;
+    --schools-muted: #a5abc0;
+    --schools-border: #2b344d;
+    --schools-table-head: #1b243b;
+    --schools-row-hover: #1b2440;
+    color: var(--schools-text);
+}
+html[data-theme="dark"] .schools-page-redesign .schools-hero,
+html[data-theme="dark"] .schools-page-redesign .schools-stat-card,
+html[data-theme="dark"] .schools-page-redesign .schools-table-card {
+    background: var(--schools-bg);
+    border-color: var(--schools-border);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .12);
+}
+html[data-theme="dark"] .schools-page-redesign .schools-breadcrumb { color: #b6adff; }
+html[data-theme="dark"] .schools-page-redesign .schools-hero h1,
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-header h2,
+html[data-theme="dark"] .schools-page-redesign .schools-stat-copy strong,
+html[data-theme="dark"] .schools-page-redesign .school-name-cell strong { color: var(--schools-text); }
+html[data-theme="dark"] .schools-page-redesign .schools-hero-decoration { background: #202940; }
+html[data-theme="dark"] .schools-page-redesign .schools-stat-icon-neutral,
+html[data-theme="dark"] .schools-page-redesign .schools-stat-icon-purple {
+    color: #b3a5ff; background: #29234c;
+}
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-search-box,
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-filters select,
+html[data-theme="dark"] .schools-page-redesign .clear-search-btn,
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-actions .view-btn,
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-actions .edit-btn,
+html[data-theme="dark"] .schools-page-redesign .schools-page-arrow,
+html[data-theme="dark"] .schools-page-redesign .schools-page-number {
+    background: #11182a;
+    border-color: var(--schools-border);
+    color: #d5d8e8;
+}
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-search-box input,
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-filters select { color: #e7e8f4; }
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-search-box input::placeholder { color: #818aa5; }
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-table { background: var(--schools-bg); }
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-table thead th {
+    background: var(--schools-table-head);
+    border-bottom-color: var(--schools-border);
+    color: #b4bad0;
+}
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-table tbody td {
+    border-bottom-color: #29324a;
+    color: #d7d9e8;
+}
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-table tbody tr:hover { background: var(--schools-row-hover); }
+html[data-theme="dark"] .schools-page-redesign .school-row-avatar,
+html[data-theme="dark"] .schools-page-redesign .school-code,
+html[data-theme="dark"] .schools-page-redesign .student-count {
+    color: #c0b5ff;
+    background: #24203f;
+    border-color: #41376f;
+}
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-actions .view-btn:hover,
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-actions .edit-btn:hover,
+html[data-theme="dark"] .schools-page-redesign .schools-page-arrow:hover:not(:disabled),
+html[data-theme="dark"] .schools-page-redesign .schools-page-number:hover:not(.is-active) {
+    color: #c0b5ff;
+    background: #29234c;
+    border-color: #51458a;
+}
+html[data-theme="dark"] .schools-page-redesign .schools-page-number.is-active {
+    color: #fff;
+    background: var(--schools-accent);
+    border-color: var(--schools-accent);
+}
+html[data-theme="dark"] .schools-page-redesign .schools-redesign-empty h3 { color: var(--schools-text); }
+
+@media (max-width: 650px) {
+    .schools-page-redesign .schools-table-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+    .schools-page-redesign .schools-pagination { align-self: flex-end; }
+}

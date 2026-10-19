@@ -53,7 +53,7 @@ $totalStudents = $statsGet('total_students', $visibleStudents);
     <link rel="stylesheet" href="<?= ROOT ?>/css/home.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/superadmin.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/schools.view.css?v=5">
-    <link rel="stylesheet" href="<?= ROOT ?>/css/schools-redesign.css?v=1">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/schools-redesign.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/footer.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/nav.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/sidebar.view.css?v=2">
@@ -241,7 +241,16 @@ $totalStudents = $statsGet('total_students', $visibleStudents);
                 </table>
             </div>
             <div class="schools-table-footer">
-                <span>Showing <?= number_format(count($schools)) ?> school(s)</span>
+                <span class="schools-showing-count" aria-live="polite">Showing <?= number_format(count($schools)) ?> school(s)</span>
+                <nav class="schools-pagination" aria-label="Schools table pages">
+                    <button type="button" class="schools-page-arrow" data-page-action="previous" aria-label="Previous page" disabled>
+                        <span aria-hidden="true">‹</span>
+                    </button>
+                    <div class="schools-page-numbers" aria-label="Page numbers"></div>
+                    <button type="button" class="schools-page-arrow" data-page-action="next" aria-label="Next page" disabled>
+                        <span aria-hidden="true">›</span>
+                    </button>
+                </nav>
             </div>
         <?php else: ?>
             <div class="empty-state schools-redesign-empty">
@@ -265,5 +274,62 @@ $totalStudents = $statsGet('total_students', $visibleStudents);
 <?php require "../private/views/includes/footer.view.php"; ?>
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
+<script>
+/* Client-side table pagination for the rows returned by the schools controller. */
+(function () {
+    const table = document.querySelector('.schools-redesign-table');
+    const pagination = document.querySelector('.schools-pagination');
+    if (!table || !pagination) return;
+
+    const tbody = table.querySelector('tbody');
+    const rows = Array.from(tbody ? tbody.querySelectorAll('tr') : []);
+    const numbers = pagination.querySelector('.schools-page-numbers');
+    const previous = pagination.querySelector('[data-page-action="previous"]');
+    const next = pagination.querySelector('[data-page-action="next"]');
+    const countLabel = document.querySelector('.schools-showing-count');
+    const pageSize = 5;
+    const totalPages = Math.max(1, Math.ceil(rows.length / pageSize));
+    let currentPage = 1;
+
+    function renderPage() {
+        const start = (currentPage - 1) * pageSize;
+        const end = Math.min(start + pageSize, rows.length);
+        rows.forEach(function (row, index) {
+            row.hidden = index < start || index >= end;
+        });
+        numbers.replaceChildren();
+
+        for (let page = 1; page <= totalPages; page++) {
+            const button = document.createElement('button');
+            button.type = 'button';
+            button.className = 'schools-page-number' + (page === currentPage ? ' is-active' : '');
+            button.textContent = String(page);
+            button.setAttribute('aria-label', 'Page ' + page);
+            button.setAttribute('aria-current', page === currentPage ? 'page' : 'false');
+            button.addEventListener('click', function () {
+                currentPage = page;
+                renderPage();
+            });
+            numbers.appendChild(button);
+        }
+
+        previous.disabled = currentPage <= 1;
+        next.disabled = currentPage >= totalPages;
+        if (countLabel) {
+            countLabel.textContent = rows.length
+                ? 'Showing ' + (start + 1) + '–' + end + ' of ' + rows.length + ' school(s)'
+                : 'Showing 0 school(s)';
+        }
+    }
+
+    previous.addEventListener('click', function () {
+        if (currentPage > 1) { currentPage--; renderPage(); }
+    });
+    next.addEventListener('click', function () {
+        if (currentPage < totalPages) { currentPage++; renderPage(); }
+    });
+    renderPage();
+})();
+</script>
 </body>
 </html>
