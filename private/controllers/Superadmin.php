@@ -1,3 +1,4 @@
+
 <?php
 
 class Superadmin extends Controller
@@ -12,7 +13,6 @@ class Superadmin extends Controller
             session_start();
         }
 
-
         /* ========================================
            SECURITY CHECK
         ======================================== */
@@ -25,170 +25,86 @@ class Superadmin extends Controller
             exit;
         }
 
-
         /* ========================================
            LOAD MODELS
         ======================================== */
 
-        $schoolModel =
-            $this->model('School');
-
-        $userModel =
-            $this->model('User');
-
-        $studentModel =
-            $this->model('StudentModel');
-
-        $parentModel =
-            $this->model('ParentModel');
-
-
-       /* ========================================
-   PLATFORM COUNTS
-======================================== */
-
-$totalSchools =
-    $schoolModel->getTotalSchoolCount();
-
-$activeSchools =
-    $schoolModel->getActiveSchoolCount();
-
-$inactiveSchools =
-    $schoolModel->getInactiveSchoolCount();
-
-/* =====================================================
-   SCHOOLS REQUIRING ATTENTION
-===================================================== */
-
-$attentionSchools = $schoolModel->getInactiveSchools(5);
-
-$totalUsers =
-    $userModel->getTotalUserCount();
-
-$studentCount =
-    $userModel->getTotalStudentCount();
-
-$teacherCount =
-    $userModel->getTotalTeacherCount();
-
-$parentCount =
-    $userModel->getTotalParentCount();
-
-$adminCount =
-    $userModel->getTotalAdminCount();
-
-$schoolOverview = $schoolModel->getSchoolOverview();
-
-    /* =====================================================
-   PLATFORM HEALTH
-===================================================== */
-
-$platformHealth = [
-    'status' => $inactiveSchools > 0
-        ? 'Attention Required'
-        : 'Healthy',
-
-    'activeSchools' => $activeSchools,
-    'inactiveSchools' => $inactiveSchools,
-    'totalUsers' => $totalUsers
-];
-
-/* =====================================================
-   SECURITY OVERVIEW
-===================================================== */
-
-$securityOverview = [
-    'superAdminOtp' => true,
-    'loginProtection' => true,
-    'captchaProtection' => true
-];
-
-        /* =====================================================
-   SCHOOL OVERVIEW
-===================================================== */
-
-$schoolOverview = $schoolModel->getSchoolOverview();
-
-if (!is_array($schoolOverview)) {
-    $schoolOverview = [];
-}
-
-
-/* =====================================================
-   RECENT ACTIVITY DATA
-===================================================== */
-
-$recentSchools = $schoolModel->getRecentSchools(3);
-$recentUsers = $userModel->getRecentUsers(3);
-
+        $schoolModel = $this->model('School');
+        $userModel = $this->model('User');
 
         /* ========================================
-           BUILD RECENT ACTIVITY
+           PLATFORM COUNTS
         ======================================== */
+
+        $totalSchools = $schoolModel->getTotalSchoolCount();
+        $activeSchools = $schoolModel->getActiveSchoolCount();
+        $inactiveSchools = $schoolModel->getInactiveSchoolCount();
+
+        $attentionSchools = $schoolModel->getInactiveSchools(5);
+
+        $totalUsers = $userModel->getTotalUserCount();
+        $studentCount = $userModel->getTotalStudentCount();
+        $teacherCount = $userModel->getTotalTeacherCount();
+        $parentCount = $userModel->getTotalParentCount();
+        $adminCount = $userModel->getTotalAdminCount();
+
+        /* ========================================
+           SCHOOL OVERVIEW
+        ======================================== */
+
+        $schoolOverview = $schoolModel->getSchoolOverview();
+
+        if (!is_array($schoolOverview)) {
+            $schoolOverview = [];
+        }
+
+        /* ========================================
+           PLATFORM HEALTH
+        ======================================== */
+
+        $platformHealth = [
+            'status' => $inactiveSchools > 0
+                ? 'Attention Required'
+                : 'Healthy',
+
+            'activeSchools' => $activeSchools,
+            'inactiveSchools' => $inactiveSchools,
+            'totalUsers' => $totalUsers
+        ];
+
+        /* ========================================
+           RECENT ACTIVITY DATA
+        ======================================== */
+
+        $recentSchools = $schoolModel->getRecentSchools(3);
+        $recentUsers = $userModel->getRecentUsers(3);
 
         $recentActivities = [];
 
-
-        /* ========================================
-           RECENT SCHOOLS
-        ======================================== */
-
         foreach ($recentSchools as $school) {
-
             $recentActivities[] = [
-
-                'type' =>
-                    'school',
-
-                'initials' =>
-                    'SC',
-
-                'title' =>
-                    'New school registered',
-
+                'type' => 'school',
+                'initials' => 'SC',
+                'title' => 'New school registered',
                 'description' =>
                     ($school->school_name ?? 'School')
                     . ' was added to the system.',
-
-                'time' =>
-                    'Recently'
-
+                'time' => 'Recently'
             ];
-
         }
 
-
-        /* ========================================
-           RECENT USERS
-        ======================================== */
-
         foreach ($recentUsers as $user) {
-
-            $name =
-                trim(
-                    ($user->firstname ?? '')
-                    . ' '
-                    . ($user->lastname ?? '')
-                );
-
+            $name = trim(
+                ($user->firstname ?? '') . ' ' .
+                ($user->lastname ?? '')
+            );
 
             $recentActivities[] = [
-
-                'type' =>
-                    'user',
-
-                'initials' =>
-                    strtoupper(
-                        substr(
-                            $name ?: 'US',
-                            0,
-                            2
-                        )
-                    ),
-
-                'title' =>
-                    'New user registered',
-
+                'type' => 'user',
+                'initials' => strtoupper(
+                    substr($name ?: 'US', 0, 2)
+                ),
+                'title' => 'New user registered',
                 'description' =>
                     ($name ?: 'A user')
                     . ' joined as '
@@ -200,107 +116,147 @@ $recentUsers = $userModel->getRecentUsers(3);
                         )
                     )
                     . '.',
-
-                'time' =>
-                    'Recently'
-
+                'time' => 'Recently'
             ];
-
         }
 
+        $recentActivities = array_slice(
+            $recentActivities,
+            0,
+            6
+        );
 
         /* ========================================
-           SHOW LATEST 6
+           SECURITY OVERVIEW
         ======================================== */
 
-        $recentActivities =
-            array_slice(
-                $recentActivities,
-                0,
-                6
-            );
+        $settingsModel = $this->model('SettingsModel');
+        $securitySettings = $settingsModel->getAllAsArray();
 
-            /*
-|--------------------------------------------------------------------------
-| SECURITY OVERVIEW
-|--------------------------------------------------------------------------
-*/
+        $securityOverview = [
+            'superAdminOtp' =>
+                ($securitySettings['super_admin_otp'] ?? '1') === '1',
 
-$settingsModel = $this->model('SettingsModel');
+            'loginProtection' =>
+                ($securitySettings['login_protection'] ?? '1') === '1',
 
-$securitySettings =
-    $settingsModel->getAllAsArray();
-
-$securityOverview = [
-    'superAdminOtp' =>
-        ($securitySettings['super_admin_otp'] ?? '1') === '1',
-
-    'loginProtection' =>
-        ($securitySettings['login_protection'] ?? '1') === '1',
-
-    'captchaProtection' =>
-        ($securitySettings['captcha_protection'] ?? '1') === '1'
-];
-
+            'captchaProtection' =>
+                ($securitySettings['captcha_protection'] ?? '1') === '1'
+        ];
 
         /* ========================================
-   DASHBOARD DATA
-======================================== */
+           PLATFORM GROWTH CHART DATA
+        ======================================== */
 
-$data = [
+        $growthData = [
+            'schools' => $this->getMonthlyRegistrationData(
+                'schools',
+                'date_created'
+            ),
 
-    'totalSchools' =>
-        $totalSchools,
+            'students' => $this->getMonthlyRegistrationData(
+                'students',
+                'created_at'
+            ),
 
-    'platformHealth' => 
-        $platformHealth,
+            'users' => $this->getMonthlyRegistrationData(
+                'users',
+                'date'
+            )
+        ];
 
-    'activeSchools' =>
-        $activeSchools,
+        /* ========================================
+           DASHBOARD DATA
+        ======================================== */
 
-    'inactiveSchools' =>
-        $inactiveSchools,
+        $data = [
+            'totalSchools' => $totalSchools,
+            'platformHealth' => $platformHealth,
+            'activeSchools' => $activeSchools,
+            'inactiveSchools' => $inactiveSchools,
+            'totalUsers' => $totalUsers,
+            'schoolOverview' => $schoolOverview,
+            'attentionSchools' => $attentionSchools,
+            'recentActivities' => $recentActivities,
+            'studentCount' => $studentCount,
+            'teacherCount' => $teacherCount,
+            'parentCount' => $parentCount,
+            'adminCount' => $adminCount,
+            'securityOverview' => $securityOverview,
 
-    'totalUsers' =>
-        $totalUsers,
-
-    'schoolOverview' =>
-        $schoolOverview,
-    
-    'attentionSchools' => 
-        $attentionSchools,
-
-    'recentActivities' =>
-        $recentActivities,
-
-    'studentCount' =>
-        $studentCount,
-
-    'teacherCount' =>
-        $teacherCount,
-
-    'parentCount' =>
-        $parentCount,
-
-    'securityOverview' => 
-        $securityOverview,
-
-    'adminCount' =>
-        $adminCount,
-    
-    'schoolOverview' => 
-        $schoolOverview,
-
-];
-
+            // New data for Platform Growth charts
+            'growthData' => $growthData
+        ];
 
         /* ========================================
            LOAD VIEW
         ======================================== */
 
-        $this->view(
-            'superadmin',
-            $data
-        );
+        $this->view('superadmin', $data);
+    }
+
+    /* ========================================
+       MONTHLY REGISTRATION DATA
+    ======================================== */
+
+    private function getMonthlyRegistrationData(
+        $table,
+        $dateColumn
+    ) {
+        $allowedColumns = [
+            'schools' => 'date_created',
+            'students' => 'created_at',
+            'users' => 'date'
+        ];
+
+        if (
+            !isset($allowedColumns[$table]) ||
+            $allowedColumns[$table] !== $dateColumn
+        ) {
+            return [];
+        }
+
+        $query = "
+            SELECT
+                DATE_FORMAT(`{$dateColumn}`, '%Y-%m') AS month_key,
+                COUNT(*) AS total
+            FROM `{$table}`
+            WHERE `{$dateColumn}` >= DATE_SUB(
+                DATE_FORMAT(CURDATE(), '%Y-%m-01'),
+                INTERVAL 11 MONTH
+            )
+            AND `{$dateColumn}` < DATE_ADD(
+                DATE_FORMAT(CURDATE(), '%Y-%m-01'),
+                INTERVAL 1 MONTH
+            )
+            GROUP BY DATE_FORMAT(`{$dateColumn}`, '%Y-%m')
+            ORDER BY month_key ASC
+        ";
+
+        $results = $this->model('User')->query($query);
+
+        $monthlyCounts = [];
+
+        foreach ($results as $row) {
+            $monthlyCounts[$row->month_key] = (int) $row->total;
+        }
+
+        $monthlyData = [];
+        $startMonth = new DateTime('first day of this month');
+        $startMonth->modify('-11 months');
+
+        for ($i = 0; $i < 12; $i++) {
+            $monthKey = $startMonth->format('Y-m');
+
+            $monthlyData[] = [
+                'month_key' => $monthKey,
+                'label' => $startMonth->format('M'),
+                'total' => $monthlyCounts[$monthKey] ?? 0
+            ];
+
+            $startMonth->modify('+1 month');
+        }
+
+        return $monthlyData;
     }
 }
