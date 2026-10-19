@@ -20,22 +20,31 @@ $rankNames = [
 $rank = $rankNames[$profile->rank ?? ''] ?? ucfirst((string) ($profile->rank ?? 'User'));
 $status = strtolower((string) ($profile->status ?? 'active'));
 $fullName = trim((string) ($profile->firstname ?? '') . ' ' . (string) ($profile->lastname ?? ''));
-$initial = strtoupper(substr((string) ($profile->firstname ?? 'U'), 0, 1));
+$firstName = (string) ($profile->firstname ?? '');
+$initialSource = $firstName !== '' ? $firstName : ($fullName !== '' ? $fullName : 'U');
+$initial = function_exists('mb_substr')
+    ? mb_strtoupper(mb_substr($initialSource, 0, 1, 'UTF-8'), 'UTF-8')
+    : strtoupper(substr($initialSource, 0, 1));
 $profileImage = trim((string) ($profile->profile_image ?? ''));
-
 $profileImageUrl = '';
-
 if ($profileImage !== '') {
-    // Database stores the filename, not the full filesystem path.
-    $profileImageUrl = rtrim(ROOT, '/') .
-        '/uploads/users/' .
-        rawurlencode(basename($profileImage));
+    // The database stores an uploaded filename; never expose filesystem paths.
+    if (preg_match('~^https?://~i', $profileImage)) {
+        $profileImageUrl = $profileImage;
+    } else {
+        $profileImageUrl = rtrim(ROOT, '/') . '/uploads/users/' . rawurlencode(basename($profileImage));
+    }
 }
 
 $escape = static function ($value): string {
     return htmlspecialchars((string) ($value ?? '-'), ENT_QUOTES, 'UTF-8');
 };
 
+/*
+ * Read-only summary is the default view.
+ * Clicking Edit Profile opens the existing /profile/edit route.
+ * No password-change section is included here.
+ */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,15 +53,11 @@ $escape = static function ($value): string {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Profile - My School</title>
 
-    <!-- Keep shared site styles for navbar, sidebar and footer. -->
-    <link rel="stylesheet" href="<?= ROOT ?>/css/home.view.css?v=2">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/my-profile.view.css?v=3">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/my-profile-summary.css?v=5">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/footer.view.css">
     <link rel="stylesheet" href="<?= ROOT ?>/css/nav.view.css?v=3">
     <link rel="stylesheet" href="<?= ROOT ?>/css/sidebar.view.css?v=3">
-    <link rel="stylesheet" href="<?= ROOT ?>/css/footer.view.css?v=1">
-
-    <!-- Profile-specific styles are loaded after shared styles. -->
-    <link rel="stylesheet" href="<?= ROOT ?>/css/my-profile.view.css?v=3">
-    <link rel="stylesheet" href="<?= ROOT ?>/css/my-profile-summary.css?v=4">
 </head>
 <body>
 
@@ -61,7 +66,7 @@ $escape = static function ($value): string {
 
 <main class="profile-page profile-summary-page">
     <section class="profile-welcome">
-        <div class="profile-welcome-copy">
+        <div>
             <p class="profile-eyebrow">ACCOUNT <span>/</span> PROFILE</p>
             <h1>My Profile</h1>
             <p class="profile-welcome-text">View your personal account information.</p>
@@ -108,25 +113,19 @@ $escape = static function ($value): string {
     </section>
 
     <section class="profile-summary-card">
-        
-<div class="profile-summary-avatar">
-    <?php if ($profileImageUrl !== ''): ?>
-        <img
-            src="<?= $escape($profileImageUrl) ?>"
-            alt="<?= $escape($fullName !== '' ? $fullName : 'User') ?> profile photo"
-            class="profile-summary-avatar-image"
-            onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
-        >
-        <span class="profile-summary-avatar-fallback" aria-hidden="true" hidden>
-            <?= $escape($initial) ?>
-        </span>
-    <?php else: ?>
-        <span class="profile-summary-avatar-fallback" aria-hidden="true">
-            <?= $escape($initial) ?>
-        </span>
-    <?php endif; ?>
-</div>
-
+        <div class="profile-summary-avatar">
+            <?php if ($profileImageUrl !== ''): ?>
+                <img
+                    src="<?= $escape($profileImageUrl) ?>"
+                    alt="<?= $escape($fullName !== '' ? $fullName : 'User') ?> profile photo"
+                    class="profile-summary-avatar-image"
+                    onerror="this.hidden=true; this.nextElementSibling.hidden=false;"
+                >
+                <span class="profile-summary-avatar-fallback" aria-hidden="true" hidden><?= $escape($initial) ?></span>
+            <?php else: ?>
+                <span class="profile-summary-avatar-fallback" aria-hidden="true"><?= $escape($initial) ?></span>
+            <?php endif; ?>
+        </div>
         <div class="profile-summary-identity">
             <h2><?= $escape($fullName !== '' ? $fullName : 'User') ?></h2>
             <p><?= $escape($profile->email ?? '-') ?></p>

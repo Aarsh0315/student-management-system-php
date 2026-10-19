@@ -617,3 +617,69 @@ html[data-theme="dark"] .schools-page-redesign .schools-redesign-empty h3 { colo
     }
     .schools-page-redesign .schools-pagination { align-self: flex-end; }
 }
+
+
+/* =========================================
+   MYSCHOOL — SIDEBAR CONTENT SHIFT
+   Schools, School Admins, Users & Dashboard
+========================================= */
+
+:root {
+    --myschool-sidebar-expanded: 260px;
+    --myschool-sidebar-collapsed: 76px;
+    --myschool-content-gap: 24px;
+}
+
+main.dashboard {
+    box-sizing: border-box;
+    transition:
+        margin-left 0.25s ease,
+        width 0.25s ease;
+}
+
+/* Desktop: sidebar expanded */
+@media (min-width: 951px) {
+    body:not(.sidebar-collapsed) main.dashboard {
+        width: calc(
+            100% - var(--myschool-sidebar-expanded)
+            - (var(--myschool-content-gap) * 2)
+        ) !important;
+
+        margin-left: calc(
+            var(--myschool-sidebar-expanded)
+            + var(--myschool-content-gap)
+        ) !important;
+
+        margin-right: var(--myschool-content-gap) !important;
+    }
+
+    /* Desktop: sidebar collapsed */
+    body.sidebar-collapsed main.dashboard {
+        width: calc(
+            100% - var(--myschool-sidebar-collapsed)
+            - (var(--myschool-content-gap) * 2)
+        ) !important;
+
+        margin-left: calc(
+            var(--myschool-sidebar-collapsed)
+            + var(--myschool-content-gap)
+        ) !important;
+
+        margin-right: var(--myschool-content-gap) !important;
+    }
+}
+
+/* Mobile/tablet: content remains full width */
+@media (max-width: 950px) {
+    main.dashboard {
+        width: calc(100% - 28px) !important;
+        margin: 18px auto 32px !important;
+    }
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    main.dashboard {
+        transition: none !important;
+    }
+}
