@@ -1798,28 +1798,33 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
 
 
 <div class="navbar-right">
+    <button type="button" class="navbar-icon-btn navbar-theme-toggle" id="navbarThemeToggle" aria-label="Switch to dark mode" title="Switch theme">
+        <span class="navbar-theme-sun" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42M17.65 17.65l1.42 1.42M2 12h2M20 12h2M4.93 19.07l1.42-1.42M17.65 6.35l1.42-1.42"></path></svg></span>
+        <span class="navbar-theme-moon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2Z"></path></svg></span>
+    </button>
     <a href="<?= ROOT ?>/notifications" class="navbar-icon-btn notification-link" aria-label="Notifications" title="Notifications">
-        <span class="notification-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
-                <path d="M10 21h4"></path>
-            </svg>
-        </span>
+        <span class="notification-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path><path d="M10 21h4"></path></svg></span>
         <?php
         $notificationCount = 0;
         if (!empty($_SESSION['user_id'])) {
             require_once __DIR__ . '/../../models/NotificationModel.php';
             $notificationModel = new NotificationModel();
-            $notificationCount = $notificationModel->getUnreadCount(
-                $_SESSION['user_id'],
-                $_SESSION['school_id'] ?? null
-            );
+            $notificationCount = $notificationModel->getUnreadCount($_SESSION['user_id'], $_SESSION['school_id'] ?? null);
         }
         ?>
-        <?php if ($notificationCount > 0): ?>
-            <span class="notification-badge"><?= $notificationCount > 99 ? '99+' : (int) $notificationCount ?></span>
-        <?php endif; ?>
+        <?php if ($notificationCount > 0): ?><span class="notification-badge"><?= $notificationCount > 99 ? '99+' : (int) $notificationCount ?></span><?php endif; ?>
     </a>
+    <button type="button" class="navbar-icon-btn navbar-apps-toggle" id="navbarAppsToggle" aria-label="Quick menu" title="Quick menu" aria-expanded="false" aria-controls="navbarAppsMenu">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"></rect><rect x="14" y="3" width="7" height="7" rx="1.5"></rect><rect x="3" y="14" width="7" height="7" rx="1.5"></rect><rect x="14" y="14" width="7" height="7" rx="1.5"></rect></svg>
+    </button>
+    <div class="navbar-apps-menu" id="navbarAppsMenu" hidden>
+        <a href="<?= htmlspecialchars($dashboardUrl, ENT_QUOTES, 'UTF-8') ?>"><span class="navbar-apps-menu-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="8" height="8" rx="1.5"></rect><rect x="13" y="3" width="8" height="5" rx="1.5"></rect><rect x="13" y="10" width="8" height="11" rx="1.5"></rect><rect x="3" y="13" width="8" height="8" rx="1.5"></rect></svg></span><span><strong>Dashboard</strong><small>Go to your dashboard</small></span></a>
+        <?php if ($rank === 'super_admin'): ?>
+        <a href="<?= ROOT ?>/schools"><span class="navbar-apps-menu-icon">▦</span><span><strong>Schools</strong><small>Manage schools</small></span></a>
+        <a href="<?= ROOT ?>/users"><span class="navbar-apps-menu-icon">♙</span><span><strong>Users</strong><small>Manage platform users</small></span></a>
+        <a href="<?= ROOT ?>/settings"><span class="navbar-apps-menu-icon">⚙</span><span><strong>Settings</strong><small>Platform configuration</small></span></a>
+        <?php endif; ?>
+    </div>
 
     <div class="navbar-user-menu" id="navbarUserMenu">
         <button type="button" class="navbar-profile" id="navbarProfileToggle"
@@ -1851,6 +1856,8 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                 </span>
                 <span>My Profile</span>
             </a>
+            <a class="navbar-dropdown-item" href="<?= ROOT ?>/settings"><span class="navbar-dropdown-item-icon" aria-hidden="true"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="m19.4 15 .1.1 1.4 1.1-1.4 2.4-1.7-.6a8 8 0 0 1-1.7 1l-.3 1.8h-2.8l-.3-1.8a8 8 0 0 1-1.7-1l-1.7.6-1.4-2.4 1.4-1.1a7 7 0 0 1 0-2l-1.4-1.1 1.4-2.4 1.7.6a8 8 0 0 1 1.7-1l.3-1.8h2.8l.3 1.8a8 8 0 0 1 1.7 1l1.7-.6 1.4 2.4-1.4 1.1a7 7 0 0 1 0 2z"></path></svg></span><span>Settings</span></a>
+            <div class="navbar-dropdown-divider"></div>
             <a class="navbar-dropdown-item navbar-dropdown-logout" href="<?= ROOT ?>/logout">
                 <span class="navbar-dropdown-item-icon" aria-hidden="true">
                     <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -1867,6 +1874,38 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
 
 <script>
 (function () {
+    function initializeNavbarThemeToggle() {
+        const button = document.getElementById('navbarThemeToggle');
+        if (!button || button.dataset.bound === 'true') return;
+        button.dataset.bound = 'true';
+        const root = document.documentElement;
+        const key = 'myschool-theme';
+        function applyTheme(theme) {
+            const value = theme === 'dark' ? 'dark' : 'light';
+            root.setAttribute('data-theme', value);
+            root.classList.toggle('dark', value === 'dark');
+            root.classList.toggle('light', value === 'light');
+            button.setAttribute('aria-label', value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+            button.title = value === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
+            try { localStorage.setItem(key, value); } catch (e) {}
+        }
+        let theme = root.getAttribute('data-theme');
+        try { const saved = localStorage.getItem(key); if (saved === 'dark' || saved === 'light') theme = saved; } catch (e) {}
+        applyTheme(theme === 'dark' ? 'dark' : 'light');
+        button.addEventListener('click', () => applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'));
+    }
+    function initializeNavbarAppsMenu() {
+        const button = document.getElementById('navbarAppsToggle');
+        const menu = document.getElementById('navbarAppsMenu');
+        if (!button || !menu || button.dataset.bound === 'true') return;
+        button.dataset.bound = 'true';
+        function setOpen(open) { menu.hidden = !open; button.setAttribute('aria-expanded', open ? 'true' : 'false'); }
+        button.addEventListener('click', event => { event.preventDefault(); event.stopPropagation(); setOpen(menu.hidden); });
+        menu.addEventListener('click', event => event.stopPropagation());
+        document.addEventListener('click', event => { if (!menu.contains(event.target) && !button.contains(event.target)) setOpen(false); });
+        document.addEventListener('keydown', event => { if (event.key === 'Escape' && !menu.hidden) { setOpen(false); button.focus(); } });
+    }
+
     function initializeNavbarSearchShortcuts() {
         const shortcutButton = document.getElementById('searchKeyboardShortcuts');
         if (!shortcutButton || shortcutButton.dataset.bound === 'true') return;
@@ -1922,10 +1961,14 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
 
     if (document.readyState === 'loading') {
         document.addEventListener('DOMContentLoaded', function () {
+            initializeNavbarThemeToggle();
+            initializeNavbarAppsMenu();
             initializeNavbarProfileMenu();
             initializeNavbarSearchShortcuts();
         }, { once: true });
     } else {
+        initializeNavbarThemeToggle();
+        initializeNavbarAppsMenu();
         initializeNavbarProfileMenu();
         initializeNavbarSearchShortcuts();
     }

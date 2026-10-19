@@ -1145,7 +1145,7 @@ require "../private/views/includes/footer.view.php";
         if (label) label.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
         try { localStorage.setItem('superadmin-theme', theme); } catch (e) {}
     }
-    setTheme(saved === 'dark' || saved === 'light' ? saved : preferred);
+    setTheme(saved === 'dark' || saved === 'light' ? saved : 'light');
     button.addEventListener('click', function () {
         setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
     });
