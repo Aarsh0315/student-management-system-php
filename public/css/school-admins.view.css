@@ -1,614 +1,361 @@
-/* =====================================================
-   SCHOOL ADMINS PAGE
-   My School - Professional Admin Theme
-   ===================================================== */
-
-.dashboard {
-    width: 100%;
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 34px 34px 60px;
+/* School Admins page redesign — consistent with the Super Admin dashboard */
+.school-admins-page {
+    width: min(calc(100% - 48px), 1244px);
+    margin: 28px auto 48px;
+    color: #111827;
     box-sizing: border-box;
-    background: #f4f6f8;
+    font-family: inherit;
 }
+.school-admins-page *,
+.school-admins-page *::before,
+.school-admins-page *::after { box-sizing: border-box; }
 
-/* PAGE HEADER */
-.welcome {
-    width: 100%;
-    margin-bottom: 28px;
-    padding: 26px 28px;
-    box-sizing: border-box;
-    background: #ffffff;
-    border: 1px solid #e2e5ea;
-    border-radius: 18px;
-    box-shadow: 0 8px 24px rgba(41, 45, 54, 0.05);
+.school-admins-page .school-admins-hero,
+.school-admins-page .school-admin-stat,
+.school-admins-page .school-admins-table-card {
+    background: #fff;
+    border: 1px solid #e0e5ec;
+    border-radius: 15px;
+    box-shadow: 0 8px 22px rgba(15,23,42,.045);
 }
-
-.welcome-small {
-    margin: 0 0 8px;
-    color: #7b7480;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: .8px;
-    text-transform: uppercase;
-}
-
-.welcome h1 {
-    margin: 0 0 8px;
-    color: #292d36;
-    font-size: 30px;
-    font-weight: 700;
-    line-height: 1.2;
-}
-
-.welcome-text {
-    margin: 0;
-    color: #737983;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-/* ADMINS CARD */
-.admins-card {
-    width: 100%;
-    padding: 27px;
-    margin-bottom: 30px;
-    box-sizing: border-box;
-    background: #ffffff;
-    border: 1px solid #e1e4e9;
-    border-radius: 18px;
-    box-shadow: 0 9px 28px rgba(41, 45, 54, 0.055);
+.school-admins-page .school-admins-hero {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 132px;
+    padding: 25px 30px;
+    margin-bottom: 18px;
     overflow: hidden;
 }
+.school-admins-page .school-admins-hero-copy { position: relative; z-index: 1; }
+.school-admins-page .school-admins-breadcrumb {
+    margin: 0 0 10px;
+    color: #667085;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+}
+.school-admins-page .school-admins-breadcrumb span { padding: 0 5px; color: #a0a7b3; }
+.school-admins-page .school-admins-hero h1 {
+    margin: 0;
+    color: #111827;
+    font-size: clamp(25px, 3vw, 32px);
+    line-height: 1.2;
+    font-weight: 750;
+    letter-spacing: -.8px;
+}
+.school-admins-page .school-admins-hero-copy > p:last-child {
+    margin: 8px 0 0;
+    color: #697586;
+    font-size: 13px;
+}
+.school-admins-page .school-admins-hero-decoration {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    top: -55px;
+    right: -20px;
+    border-radius: 50%;
+    background: #f0f2f5;
+}
 
-.admins-header {
+.school-admins-page .school-admins-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0,1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+.school-admins-page .school-admin-stat {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: 0;
+    padding: 18px;
+}
+.school-admins-page .school-admin-stat-icon {
+    display: grid;
+    place-items: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    font-size: 22px;
+    font-weight: 700;
+}
+.school-admins-page .icon-blue { color: #1874d1; background: #e9f2ff; }
+.school-admins-page .icon-green { color: #16834a; background: #e6f8ee; }
+.school-admins-page .icon-purple { color: #8037d7; background: #f3eaff; }
+.school-admins-page .icon-red { color: #cf2e3b; background: #ffeaec; }
+.school-admins-page .school-admin-stat-copy { min-width: 0; }
+.school-admins-page .school-admin-stat-copy p { margin: 0 0 5px; color: #667085; font-size: 12px; }
+.school-admins-page .school-admin-stat-copy strong { display: block; color: #111827; font-size: 25px; line-height: 1.15; font-weight: 750; }
+.school-admins-page .school-admin-stat-copy small { display: block; margin-top: 5px; color: #8992a1; font-size: 10px; }
+.school-admins-page .school-admin-stat-copy small span { padding: 0 4px; }
+
+.school-admins-page .school-admins-table-card { padding: 22px; min-width: 0; }
+.school-admins-page .school-admins-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 20px;
+    gap: 16px;
     margin-bottom: 20px;
 }
-
-.admins-header h2 {
-    margin: 0 0 5px;
-    color: #292d36;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 1.3;
-}
-
-.admins-header p {
-    margin: 0;
-    color: #737983;
-    font-size: 13px;
-    line-height: 1.5;
-}
-
-/* ADD ADMIN */
-.add-admin-btn {
+.school-admins-page .school-admins-header h2 { margin: 0; color: #111827; font-size: 19px; font-weight: 750; }
+.school-admins-page .school-admins-header p { margin: 6px 0 0; color: #8791a0; font-size: 12px; }
+.school-admins-page .school-admins-header p strong { color: #344054; }
+.school-admins-page .school-admins-add-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-height: 40px;
-    padding: 0 17px;
-    background: #303641;
-    color: #ffffff;
-    border: 1px solid #303641;
-    border-radius: 9px;
+    gap: 7px;
+    min-height: 39px;
+    padding: 10px 15px;
+    color: #fff;
+    background: #171a20;
+    border: 1px solid #171a20;
+    border-radius: 8px;
     text-decoration: none;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     white-space: nowrap;
-    box-shadow: 0 4px 10px rgba(48, 54, 65, .12);
-    transition: .2s ease;
+    box-shadow: 0 3px 7px rgba(17,24,39,.12);
 }
+.school-admins-page .school-admins-add-btn:hover { background: #2b3039; }
+.school-admins-page .school-admins-add-btn span { font-size: 16px; line-height: 1; }
 
-.add-admin-btn:hover {
-    background: #20252d;
-    border-color: #20252d;
-    transform: translateY(-1px);
-    box-shadow: 0 6px 15px rgba(48, 54, 65, .18);
-}
-
-/* TOOLBAR */
-.admins-toolbar {
+.school-admins-page .school-admins-toolbar {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 18px;
-    min-height: 42px;
+    gap: 14px;
+    padding-bottom: 18px;
     margin-bottom: 18px;
-    padding: 0 0 18px;
-    border-bottom: 1px solid #e7e9ed;
+    border-bottom: 1px solid #e9edf2;
 }
-
-.admin-search-form,
-.admin-sort-form {
+.school-admins-page .school-admins-search {
     display: flex;
     align-items: center;
+    flex: 1 1 430px;
+    gap: 8px;
+    min-width: 230px;
+}
+.school-admins-page .school-admins-search-box {
+    display: flex;
+    align-items: center;
+    flex: 1 1 auto;
+    gap: 9px;
+    min-width: 100px;
+    height: 40px;
+    padding: 0 12px;
+    border: 1px solid #d9e0e9;
+    border-radius: 8px;
+    background: #f9fafb;
+}
+.school-admins-page .school-admins-search-box .search-icon { color: #8a94a4; font-size: 20px; line-height: 1; }
+.school-admins-page .school-admins-search-box input {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: #202939;
+    font: inherit;
+    font-size: 12px;
+}
+.school-admins-page .school-admins-search-box input::placeholder { color: #9aa3b2; }
+.school-admins-page .school-admins-search-box:focus-within { border-color: #9aa5b5; box-shadow: 0 0 0 3px rgba(148,163,184,.13); }
+.school-admins-page .school-admins-search-btn {
+    min-height: 40px;
+    padding: 0 17px;
+    color: #fff;
+    background: #252a33;
+    border: 1px solid #252a33;
+    border-radius: 8px;
+    font: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+}
+.school-admins-page .school-admins-search-btn:hover { background: #3b424e; }
+.school-admins-page .school-admins-filters {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
     gap: 8px;
 }
-
-.admin-search-box {
-    position: relative;
-    width: 280px;
-}
-
-.admin-search-box .search-icon {
-    position: absolute;
-    left: 11px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #9298a1;
-    font-size: 17px;
-    pointer-events: none;
-}
-
-.admin-search-box input {
-    width: 100%;
-    height: 38px;
-    padding: 0 12px 0 34px;
-    box-sizing: border-box;
-    border: 1px solid #dfe3e8;
+.school-admins-page .school-admins-filters label { color: #667085; font-size: 11px; white-space: nowrap; }
+.school-admins-page .school-admins-filters select {
+    height: 40px;
+    min-width: 112px;
+    padding: 0 28px 0 11px;
+    border: 1px solid #d9e0e9;
     border-radius: 8px;
-    background: #ffffff;
-    color: #292d36;
-    font-family: inherit;
-    font-size: 11px;
+    background-color: #fff;
+    color: #344054;
+    font: inherit;
+    font-size: 12px;
     outline: none;
-    transition: .2s ease;
 }
-
-.admin-search-box input:focus,
-.admin-sort-form select:focus {
-    border-color: #b5bac2;
-    box-shadow: 0 0 0 3px rgba(48, 54, 65, .06);
-}
-
-.search-btn {
-    height: 38px;
-    padding: 0 15px;
-    border: 1px solid #303641;
-    border-radius: 8px;
-    background: #303641;
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: .2s ease;
-}
-
-.search-btn:hover {
-    background: #20252d;
-    border-color: #20252d;
-}
-
-.clear-search-btn {
+.school-admins-page .school-admins-filters select:focus { border-color: #9aa5b5; box-shadow: 0 0 0 3px rgba(148,163,184,.13); }
+.school-admins-page .clear-search-btn,
+.school-admins-page .view-all-admins-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    height: 38px;
-    padding: 0 12px;
-    border: 1px solid #dfe3e8;
+    min-height: 38px;
+    padding: 8px 12px;
+    border: 1px solid #d9e0e9;
     border-radius: 8px;
-    background: #ffffff;
-    color: #666d77;
-    font-size: 11px;
-    font-weight: 600;
+    color: #344054;
+    background: #fff;
     text-decoration: none;
-    transition: .2s ease;
-}
-
-.clear-search-btn:hover {
-    color: #303641;
-    border-color: #c9ced5;
-    background: #f8f9fa;
-}
-
-.admin-sort-form label {
-    color: #777e88;
-    font-size: 10px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .35px;
+    font-size: 12px;
+    font-weight: 650;
     white-space: nowrap;
 }
 
-.admin-sort-form select {
-    height: 38px;
-    padding: 0 28px 0 10px;
-    border: 1px solid #dfe3e8;
-    border-radius: 8px;
-    background: #ffffff;
-    color: #393f48;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 600;
-    outline: none;
-    cursor: pointer;
-}
-
-/* TABLE */
-.table-wrapper {
+.school-admins-page .school-admins-table-wrap {
     width: 100%;
     overflow-x: auto;
-    border: 1px solid #e2e5e9;
-    border-radius: 13px;
-    background: #ffffff;
-    scrollbar-width: thin;
-    -webkit-overflow-scrolling: touch;
+    border: 1px solid #e0e5ec;
+    border-radius: 10px;
 }
-
-.table-wrapper table {
+.school-admins-page .school-admins-table {
     width: 100%;
-    min-width: 950px;
-    border-collapse: collapse;
-    background: #ffffff;
+    min-width: 1030px;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: #fff;
 }
-
-.table-wrapper thead {
+.school-admins-page .school-admins-table thead th {
+    padding: 13px 12px;
     background: #f7f8fa;
-}
-
-.table-wrapper th {
-    padding: 13px 15px;
-    color: #737983;
-    font-size: 10px;
-    font-weight: 700;
+    border-bottom: 1px solid #e0e5ec;
+    color: #667085;
     text-align: left;
-    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 800;
     letter-spacing: .45px;
+    text-transform: uppercase;
     white-space: nowrap;
-    border-bottom: 1px solid #e2e5e9;
 }
-
-.table-wrapper td {
-    padding: 14px 15px;
-    color: #626973;
+.school-admins-page .school-admins-table tbody td {
+    padding: 13px 12px;
+    border-bottom: 1px solid #e9edf2;
+    color: #344054;
     font-size: 12px;
     vertical-align: middle;
-    white-space: nowrap;
-    border-bottom: 1px solid #edf0f2;
 }
-
-.table-wrapper tbody tr {
-    transition: background .15s ease;
-}
-
-.table-wrapper tbody tr:last-child td {
-    border-bottom: none;
-}
-
-.table-wrapper tbody tr:hover {
-    background: #fafbfc;
-}
-
-/* ADMIN ID */
-.admin-id {
+.school-admins-page .school-admins-table tbody tr:last-child td { border-bottom: 0; }
+.school-admins-page .school-admins-table tbody tr:hover { background: #fbfcfd; }
+.school-admins-page .school-admins-id {
     display: inline-flex;
     align-items: center;
-    justify-content: center;
-    padding: 5px 9px;
-    background: #f5f6f7;
-    color: #626973;
-    border: 1px solid #e0e3e7;
-    border-radius: 6px;
+    padding: 5px 8px;
+    border: 1px solid #dce2ea;
+    border-radius: 7px;
+    background: #f8fafc;
+    color: #475467;
     font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .2px;
-}
-
-/* ADMIN DETAILS */
-.admin-name {
-    color: #292d36;
-    font-size: 13px;
-    font-weight: 600;
-    transition: color .15s ease;
-}
-
-.table-wrapper tbody tr:hover .admin-name {
-    color: #4b535d;
-}
-
-.admin-school {
-    color: #515861;
-    font-size: 12px;
-    font-weight: 500;
-}
-
-.school-code {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 5px 9px;
-    background: #f5f6f7;
-    color: #626973;
-    border: 1px solid #e0e3e7;
-    border-radius: 6px;
-    font-size: 10px;
-    font-weight: 600;
-    letter-spacing: .2px;
-}
-
-.no-school {
-    color: #9da3aa;
-    font-size: 11px;
-    font-style: italic;
-}
-
-/* STATUS */
-.status {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 10px;
-    border-radius: 20px;
-    font-size: 10px;
-    font-weight: 600;
+    font-weight: 650;
     white-space: nowrap;
 }
-
-.status::before {
-    content: "";
-    width: 6px;
-    height: 6px;
-    flex-shrink: 0;
+.school-admins-page .school-admin-name-cell { display: flex; align-items: center; gap: 10px; min-width: 145px; }
+.school-admins-page .school-admin-avatar {
+    display: grid;
+    place-items: center;
+    flex: 0 0 34px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
+    color: #fff;
+    background: #171a20;
+    font-size: 12px;
+    font-weight: 750;
 }
-
-.status.active {
-    background: #eff9f3;
-    color: #28784a;
-    border: 1px solid #cce8d6;
+.school-admins-page .admin-name { color: #202939; font-size: 12px; font-weight: 700; }
+.school-admins-page .school-admin-school-cell { display: flex; align-items: center; gap: 9px; min-width: 200px; }
+.school-admins-page .school-admin-school-icon { display: grid; place-items: center; flex: 0 0 30px; width: 30px; height: 30px; border-radius: 8px; color: #1874d1; background: #e9f2ff; font-size: 16px; }
+.school-admins-page .admin-school { color: #344054; font-size: 12px; }
+.school-admins-page .no-school { color: #98a2b3; font-size: 12px; font-style: italic; }
+.school-admins-page .school-code {
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 8px;
+    border: 1px solid #dce2ea;
+    border-radius: 7px;
+    background: #f8fafc;
+    color: #475467;
+    font-size: 10px;
+    font-weight: 650;
+    white-space: nowrap;
 }
-
-.status.active::before {
-    background: #35a563;
-}
-
-.status.inactive {
-    background: #fff4f4;
-    color: #b44747;
-    border: 1px solid #f1cccc;
-}
-
-.status.inactive::before {
-    background: #d95353;
-}
-
-/* ACTIONS */
-.table-actions,
-.action-buttons {
-    display: flex;
+.school-admins-page .school-admin-email { white-space: nowrap; }
+.school-admins-page .status {
+    display: inline-flex;
     align-items: center;
     gap: 7px;
+    padding: 6px 9px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 750;
+    white-space: nowrap;
 }
-
-.view-btn,
-.edit-btn,
-.delete-btn,
-.activate-btn {
+.school-admins-page .status.active { color: #137547; background: #eaf8f0; border-color: #bce8cd; }
+.school-admins-page .status.inactive { color: #b42323; background: #fff0f0; border-color: #ffc9c9; }
+.school-admins-page .school-admin-status-dot { width: 6px; height: 6px; border-radius: 50%; background: currentColor; }
+.school-admins-page .school-admin-row-actions { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.school-admins-page .school-admin-row-actions > .view-btn,
+.school-admins-page .school-admin-row-actions > .edit-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    min-width: 52px;
-    min-height: 32px;
-    padding: 0 11px;
-    border-radius: 7px;
+    min-height: 34px;
+    padding: 7px 12px;
+    border: 1px solid #d8dee8;
+    border-radius: 8px;
+    background: #fff;
+    color: #344054;
     text-decoration: none;
-    font-family: inherit;
+    font: inherit;
     font-size: 11px;
-    font-weight: 600;
-    white-space: nowrap;
-    cursor: pointer;
-    transition: .2s ease;
-}
-
-/* Neutral View/Edit */
-.view-btn,
-.edit-btn {
-    background: #ffffff;
-    color: #4f5660;
-    border: 1px solid #d8dce1;
-}
-
-.view-btn:hover,
-.edit-btn:hover {
-    background: #f5f6f7;
-    border-color: #bfc4ca;
-    color: #292d36;
-    transform: translateY(-1px);
-}
-
-/* Delete */
-.delete-btn {
-    background: #ffffff;
-    color: #b44747;
-    border: 1px solid #e5caca;
-}
-
-.delete-btn:hover {
-    background: #fff4f4;
-    border-color: #d95353;
-    color: #a33b3b;
-    transform: translateY(-1px);
-}
-
-/* Activate */
-.activate-btn {
-    background: #ffffff;
-    color: #28784a;
-    border: 1px solid #c9e1d2;
-}
-
-.activate-btn:hover {
-    background: #eff9f3;
-    border-color: #35a563;
-    color: #22683f;
-    transform: translateY(-1px);
-}
-
-/* EMPTY STATE */
-.empty-state {
-    padding: 60px 25px;
-    text-align: center;
-    border: 1px dashed #d8dde2;
-    border-radius: 10px;
-    background: #fafbfc;
-}
-
-.empty-state h3 {
-    margin: 0 0 8px;
-    color: #292d36;
-    font-size: 18px;
     font-weight: 700;
 }
+.school-admins-page .school-admin-row-actions > .view-btn:hover,
+.school-admins-page .school-admin-row-actions > .edit-btn:hover { background: #f4f6f8; }
+.school-admins-page .school-admin-more { position: relative; }
+.school-admins-page .school-admin-more summary { display: grid; place-items: center; width: 30px; height: 34px; border-radius: 7px; cursor: pointer; list-style: none; color: #344054; font-size: 21px; }
+.school-admins-page .school-admin-more summary::-webkit-details-marker { display: none; }
+.school-admins-page .school-admin-more summary:hover { background: #f2f4f7; }
+.school-admins-page .school-admin-more-menu { position: absolute; z-index: 10; right: 0; top: calc(100% + 5px); display: flex; flex-direction: column; min-width: 135px; padding: 5px; border: 1px solid #e0e5ec; border-radius: 9px; background: #fff; box-shadow: 0 8px 20px rgba(15,23,42,.12); }
+.school-admins-page .school-admin-more-menu a { padding: 9px 10px; border-radius: 6px; color: #344054; text-decoration: none; font-size: 11px; }
+.school-admins-page .school-admin-more-menu a:hover { background: #f5f7fa; }
+.school-admins-page .school-admins-table-footer { display: flex; align-items: center; justify-content: space-between; padding-top: 15px; color: #8791a0; font-size: 11px; }
+.school-admins-page .school-admins-empty { padding: 48px 18px; text-align: center; }
+.school-admins-page .school-admins-empty-icon { display: inline-grid; place-items: center; width: 46px; height: 46px; border-radius: 13px; background: #f2f4f7; color: #667085; font-size: 26px; }
+.school-admins-page .school-admins-empty h3 { margin: 14px 0 7px; color: #202939; font-size: 17px; }
+.school-admins-page .school-admins-empty p { margin: 0 0 15px; color: #8791a0; font-size: 12px; }
 
-.empty-state p {
-    margin: 0;
-    color: #737983;
-    font-size: 13px;
-    line-height: 1.5;
+@media (max-width: 1100px) {
+    .school-admins-page .school-admins-stats { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    .school-admins-page .school-admins-toolbar { align-items: stretch; flex-direction: column; }
+    .school-admins-page .school-admins-filters { justify-content: flex-start; }
 }
-
-.view-all-admins-btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 14px;
-    height: 36px;
-    padding: 0 16px;
-    border: 1px solid #303641;
-    border-radius: 7px;
-    background: #303641;
-    color: #ffffff;
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: .2s ease;
-}
-
-.view-all-admins-btn:hover {
-    background: #20252d;
-    border-color: #20252d;
-}
-
-/* FOCUS */
-.add-admin-btn:focus-visible,
-.view-btn:focus-visible,
-.edit-btn:focus-visible,
-.delete-btn:focus-visible,
-.activate-btn:focus-visible,
-.search-btn:focus-visible,
-.clear-search-btn:focus-visible,
-.view-all-admins-btn:focus-visible {
-    outline: 3px solid rgba(48, 54, 65, .12);
-    outline-offset: 3px;
-}
-
-/* TABLET */
-@media (max-width: 950px) {
-    .admins-card {
-        padding: 24px;
-    }
-
-    .admins-header {
-        margin-bottom: 18px;
-    }
-
-    .table-wrapper table {
-        min-width: 950px;
-    }
-}
-
-/* MOBILE */
-@media (max-width: 700px) {
-    .dashboard {
-        padding: 24px 18px 45px;
-    }
-
-    .welcome {
-        padding: 22px;
-        border-radius: 15px;
-    }
-
-    .welcome h1 {
-        font-size: 26px;
-    }
-
-    .admins-card {
-        padding: 19px;
-        border-radius: 14px;
-    }
-
-    .admins-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 14px;
-    }
-
-    .add-admin-btn {
-        width: 100%;
-    }
-
-    .admins-toolbar {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-    }
-
-    .admin-search-form,
-    .admin-sort-form {
-        width: 100%;
-        flex-wrap: wrap;
-    }
-
-    .admin-search-box {
-        flex: 1;
-        width: auto;
-        min-width: 150px;
-    }
-
-    .admin-sort-form select {
-        flex: 1;
-    }
-
-    .action-buttons,
-    .table-actions {
-        flex-wrap: wrap;
-    }
-
-    .table-wrapper {
-        border-radius: 8px;
-    }
-
-    .table-wrapper table {
-        min-width: 950px;
-    }
-}
-
-/* SMALL MOBILE */
-@media (max-width: 400px) {
-    .dashboard {
-        padding-left: 14px;
-        padding-right: 14px;
-    }
-
-    .admins-card {
-        padding: 16px;
-    }
-
-    .admins-header h2 {
-        font-size: 18px;
-    }
-
-    .admins-header p {
-        font-size: 12px;
-    }
-
-    .welcome h1 {
-        font-size: 23px;
-    }
+@media (max-width: 650px) {
+    .school-admins-page { width: calc(100% - 28px); margin: 18px auto 32px; }
+    .school-admins-page .school-admins-hero { min-height: 115px; padding: 20px; }
+    .school-admins-page .school-admins-table-card { padding: 16px; }
+    .school-admins-page .school-admins-header { align-items: flex-start; }
+    .school-admins-page .school-admins-header h2 { font-size: 17px; }
+    .school-admins-page .school-admins-add-btn { padding: 9px 11px; }
+    .school-admins-page .school-admins-search { flex-wrap: wrap; }
+    .school-admins-page .school-admins-search-box { flex-basis: 100%; }
+    .school-admins-page .school-admins-filters { display: grid; grid-template-columns: auto minmax(0,1fr); }
+    .school-admins-page .school-admins-filters select { width: 100%; min-width: 0; }
+    .school-admins-page .school-admins-stats { gap: 10px; }
+    .school-admins-page .school-admin-stat { align-items: flex-start; flex-direction: column; gap: 10px; padding: 13px; }
+    .school-admins-page .school-admin-stat-copy strong { font-size: 22px; }
 }
