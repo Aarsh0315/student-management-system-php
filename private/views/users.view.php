@@ -14,6 +14,42 @@ $role = $data['role'] ?? '';
 
 $status = $data['status'] ?? '';
 
+$escape = static function ($value): string {
+    return htmlspecialchars((string) ($value ?? ''), ENT_QUOTES, 'UTF-8');
+};
+
+
+$getProfileImage = static function ($user): string {
+    $path = trim((string) ($user->profile_image ?? ''));
+
+    if ($path === '') {
+        return '';
+    }
+
+    // Allow absolute image URLs if your application uses them.
+    if (preg_match('~^https?://~i', $path)) {
+        return $path;
+    }
+
+    // Handle a filename saved by the Users controller.
+    if (strpos($path, '/') === false && strpos($path, '\\') === false) {
+        return rtrim(ROOT, '/') . '/uploads/users/' . rawurlencode($path);
+    }
+
+    // Support an already saved relative upload path.
+    return rtrim(ROOT, '/') . '/' . ltrim($path, '/');
+};
+
+
+$totalUsers = count($users);
+$roleCounts = ['student' => 0, 'parent' => 0, 'teacher' => 0];
+foreach ($users as $summaryUser) {
+    $summaryRole = strtolower((string) ($summaryUser->rank ?? ''));
+    if (isset($roleCounts[$summaryRole])) {
+        $roleCounts[$summaryRole]++;
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +88,11 @@ $status = $data['status'] ?? '';
 
 <link
     rel="stylesheet"
+    href="<?= ROOT ?>/css/users-redesign.css?v=1"
+>
+
+<link
+    rel="stylesheet"
     href="<?= ROOT ?>/css/footer.view.css"
 >
 
@@ -81,24 +122,32 @@ require "../private/views/includes/sidebar.view.php";
          PAGE HEADER
     ========================== -->
 
-    <section class="welcome">
-
-        <div>
-
-            <p class="welcome-small">
-                Super Admin
-            </p>
-
-            <h1>
-                Users
-            </h1>
-
-            <p class="welcome-text">
-                Manage all users registered in the system.
-            </p>
-
+    <section class="users-hero">
+        <div class="users-hero-copy">
+            <p class="users-eyebrow">SUPER ADMIN <span>/</span> PLATFORM</p>
+            <h1>Users</h1>
+            <p>Manage user accounts, roles, and access across your schools.</p>
         </div>
+        <div class="users-hero-decoration" aria-hidden="true"></div>
+    </section>
 
+    <section class="users-summary-grid" aria-label="User summary">
+        <article class="users-summary-card">
+            <span class="users-summary-icon users-icon-blue" aria-hidden="true">♙</span>
+            <div><p>Total Users</p><strong><?= number_format($totalUsers) ?></strong><small>Users in current result</small></div>
+        </article>
+        <article class="users-summary-card">
+            <span class="users-summary-icon users-icon-green" aria-hidden="true">◆</span>
+            <div><p>Students</p><strong><?= number_format($roleCounts['student']) ?></strong><small>In current result</small></div>
+        </article>
+        <article class="users-summary-card">
+            <span class="users-summary-icon users-icon-purple" aria-hidden="true">♧</span>
+            <div><p>Parents</p><strong><?= number_format($roleCounts['parent']) ?></strong><small>In current result</small></div>
+        </article>
+        <article class="users-summary-card">
+            <span class="users-summary-icon users-icon-red" aria-hidden="true">▤</span>
+            <div><p>Teachers</p><strong><?= number_format($roleCounts['teacher']) ?></strong><small>In current result</small></div>
+        </article>
     </section>
 
 
@@ -106,7 +155,7 @@ require "../private/views/includes/sidebar.view.php";
          USERS TABLE
     ========================== -->
 
-    <section class="users-card">
+    <section class="users-card users-redesign-card">
 
 
         <!-- HEADER -->
@@ -121,7 +170,7 @@ require "../private/views/includes/sidebar.view.php";
 
         <p>
 
-            <?= count($users) ?>
+            <?= number_format(count($users)) ?>
 
             user(s) found
 
@@ -130,7 +179,7 @@ require "../private/views/includes/sidebar.view.php";
                 for
 
                 <strong>
-                    "<?= htmlspecialchars($search) ?>"
+                    "<?= $escape($search) ?>"
                 </strong>
 
             <?php endif; ?>
@@ -168,7 +217,7 @@ require "../private/views/includes/sidebar.view.php";
                 type="text"
                 name="search"
                 placeholder="Search user by name or email..."
-                value="<?= htmlspecialchars($search) ?>"
+                value="<?= $escape($search) ?>"
             >
 
         </div>
@@ -236,7 +285,7 @@ require "../private/views/includes/sidebar.view.php";
         <input
             type="hidden"
             name="search"
-            value="<?= htmlspecialchars($search) ?>"
+            value="<?= $escape($search) ?>"
         >
 
         <input
@@ -468,7 +517,7 @@ require "../private/views/includes/sidebar.view.php";
                             </th>
 
                             <th>
-                                Name
+                                User
                             </th>
 
                             <th>
@@ -527,17 +576,30 @@ require "../private/views/includes/sidebar.view.php";
                                 ========================== -->
 
                                 <td>
-
-                                    <strong>
-
-                                        <?= htmlspecialchars(
-                                            ($user->firstname ?? '')
-                                            . ' '
-                                            . ($user->lastname ?? '')
-                                        ) ?>
-
-                                    </strong>
-
+                                    <?php
+                                    $userFullName = trim(
+                                        (string) ($user->firstname ?? '') . ' ' .
+                                        (string) ($user->lastname ?? '')
+                                    );
+                                    $userInitial = function_exists('mb_substr')
+                                        ? mb_strtoupper(mb_substr($userFullName !== '' ? $userFullName : 'U', 0, 1, 'UTF-8'), 'UTF-8')
+                                        : strtoupper(substr($userFullName !== '' ? $userFullName : 'U', 0, 1));
+                                    $profileImage = $getProfileImage($user);
+                                    ?>
+                                    <div class="users-person-cell">
+                                        <?php if ($profileImage !== ''): ?>
+                                            <img
+                                                class="users-person-avatar"
+                                                src="<?= $escape($profileImage) ?>"
+                                                alt=""
+                                                loading="lazy"
+                                                onerror="this.replaceWith(Object.assign(document.createElement('span'), {className: 'users-person-avatar users-person-initials', textContent: <?= json_encode($userInitial, JSON_HEX_TAG | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_HEX_AMP) ?>, ariaHidden: 'true'}));"
+                                            >
+                                        <?php else: ?>
+                                            <span class="users-person-avatar users-person-initials" aria-hidden="true"><?= $escape($userInitial) ?></span>
+                                        <?php endif; ?>
+                                        <strong><?= $escape($userFullName !== '' ? $userFullName : 'Unnamed User') ?></strong>
+                                    </div>
                                 </td>
 
 
@@ -762,6 +824,9 @@ require "../private/views/includes/sidebar.view.php";
                 </table>
 
             </div>
+            <div class="users-table-footer">
+                <span>Showing <?= number_format(count($users)) ?> user(s) in this result</span>
+            </div>
 
 
         <?php else: ?>
@@ -787,7 +852,7 @@ require "../private/views/includes/sidebar.view.php";
 
             No user matches
             <strong>
-                "<?= htmlspecialchars($search) ?>"
+                "<?= $escape($search) ?>"
             </strong>.
 
         <?php elseif ($role !== ''): ?>
