@@ -264,6 +264,29 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
 
             >
 
+                <!-- MAIN -->
+                <div class="search-section">
+                    <div class="search-section-title">MAIN</div>
+                    <a href="<?= htmlspecialchars($dashboardUrl, ENT_QUOTES, 'UTF-8') ?>"
+                       class="search-item"
+                       data-search="dashboard home main overview">
+                        <span class="search-item-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                 stroke="currentColor" stroke-width="1.7"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="3" y="3" width="18" height="18" rx="3"></rect>
+                                <path d="M9 3v18M9 9h12M9 15h12"></path>
+                            </svg>
+                        </span>
+                        <span class="search-item-content">
+                            <strong>Dashboard</strong>
+                            <small>Go to your dashboard</small>
+                        </span>
+                    </a>
+                </div>
+
+
+
 
                <!-- =================================================
 
@@ -1671,6 +1694,83 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
                 ================================================== -->
 
 
+
+                <!-- ACCOUNT -->
+                <div class="search-section">
+                    <div class="search-section-title">ACCOUNT</div>
+
+                    <a href="<?= ROOT ?>/profile"
+                       class="search-item"
+                       data-search="my profile profile account">
+                        <span class="search-item-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                 stroke="currentColor" stroke-width="1.7"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="8" r="4"></circle>
+                                <path d="M4 21a8 8 0 0 1 16 0"></path>
+                            </svg>
+                        </span>
+                        <span class="search-item-content">
+                            <strong>My Profile</strong>
+                            <small>View and manage your profile</small>
+                        </span>
+                    </a>
+
+                    <a href="<?= ROOT ?>/notifications"
+                       class="search-item"
+                       data-search="notifications notification alerts account">
+                        <span class="search-item-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                 stroke="currentColor" stroke-width="1.7"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9"></path>
+                                <path d="M10 21h4"></path>
+                            </svg>
+                        </span>
+                        <span class="search-item-content">
+                            <strong>Notifications</strong>
+                            <small>View your notifications</small>
+                        </span>
+                    </a>
+
+                    <button type="button"
+                            class="search-item search-action-item"
+                            id="searchKeyboardShortcuts"
+                            data-search="keyboard shortcuts hotkeys help">
+                        <span class="search-item-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                 stroke="currentColor" stroke-width="1.7"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                                <path d="M6 9h.01M10 9h.01M14 9h.01M18 9h.01M7 13h.01M11 13h.01M15 13h.01M8 16h8"></path>
+                            </svg>
+                        </span>
+                        <span class="search-item-content">
+                            <strong>Keyboard Shortcuts</strong>
+                            <small>View available shortcuts</small>
+                        </span>
+                    </button>
+
+                    <a href="<?= ROOT ?>/logout"
+                       class="search-item"
+                       data-search="logout sign out account">
+                        <span class="search-item-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none"
+                                 stroke="currentColor" stroke-width="1.7"
+                                 stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M10 17l5-5-5-5"></path>
+                                <path d="M15 12H3"></path>
+                                <path d="M12 3h6a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-6"></path>
+                            </svg>
+                        </span>
+                        <span class="search-item-content">
+                            <strong>Logout</strong>
+                            <small>Sign out of your account</small>
+                        </span>
+                    </a>
+                </div>
+
+
                 <div
 
                     class="search-no-results"
@@ -1767,6 +1867,20 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
 
 <script>
 (function () {
+    function initializeNavbarSearchShortcuts() {
+        const shortcutButton = document.getElementById('searchKeyboardShortcuts');
+        if (!shortcutButton || shortcutButton.dataset.bound === 'true') return;
+        shortcutButton.dataset.bound = 'true';
+
+        shortcutButton.addEventListener('click', function () {
+            window.alert(
+                'Keyboard Shortcuts\\n\\n' +
+                '/ — Focus the global search (if supported by this page)\\n' +
+                'Esc — Close an open menu or search dropdown (if supported)'
+            );
+        });
+    }
+
     function initializeNavbarProfileMenu() {
         const toggle = document.getElementById('navbarProfileToggle');
         const dropdown = document.getElementById('navbarProfileDropdown');
@@ -1807,14 +1921,28 @@ $initial = strtoupper(substr($firstname !== '' ? $firstname : 'U', 0, 1));
     }
 
     if (document.readyState === 'loading') {
-        document.addEventListener('DOMContentLoaded', initializeNavbarProfileMenu, { once: true });
+        document.addEventListener('DOMContentLoaded', function () {
+            initializeNavbarProfileMenu();
+            initializeNavbarSearchShortcuts();
+        }, { once: true });
     } else {
         initializeNavbarProfileMenu();
+        initializeNavbarSearchShortcuts();
     }
 })();
 </script>
 
 <style>
+/* Make button-based search actions match search links */
+.top-navbar .search-action-item {
+    appearance: none;
+    border: 0;
+    background: transparent;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+}
+
 /* Inline SVG icon polish for navbar */
 .top-navbar .search-icon,
 .top-navbar .notification-icon,
