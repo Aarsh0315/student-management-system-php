@@ -115,7 +115,7 @@ $growthData = $data['growthData'] ?? ['schools' => [], 'students' => [], 'users'
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=14"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=15"
     >
 
 
@@ -236,6 +236,11 @@ require "../private/views/includes/sidebar.view.php";
             </svg>
         </label>
     </form>
+    <button type="button" class="dashboard-theme-toggle" id="dashboardThemeToggle" aria-label="Switch dashboard theme">
+        <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.7 8.7 0 1 0 20.5 15.2Z"/></svg>
+        <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+        <span class="theme-toggle-label">Dark mode</span>
+    </button>
 </div>
 
 <section class="dashboard-kpi-grid" aria-label="Platform statistics">
@@ -1121,6 +1126,29 @@ require "../private/views/includes/footer.view.php";
     });
 
     renderChart('schools');
+})();
+</script>
+
+
+<script>
+(function () {
+    const root = document.documentElement;
+    const button = document.getElementById('dashboardThemeToggle');
+    if (!button) return;
+    const label = button.querySelector('.theme-toggle-label');
+    const saved = (() => { try { return localStorage.getItem('superadmin-theme'); } catch (e) { return null; } })();
+    const preferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    function setTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        button.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
+        button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        if (label) label.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
+        try { localStorage.setItem('superadmin-theme', theme); } catch (e) {}
+    }
+    setTheme(saved === 'dark' || saved === 'light' ? saved : preferred);
+    button.addEventListener('click', function () {
+        setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
 })();
 </script>
 
