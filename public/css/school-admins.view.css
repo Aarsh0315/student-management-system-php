@@ -591,3 +591,46 @@ main.dashboard {
         transition: none !important;
     }
 }
+
+
+/* DARK MODE FIX: extend dark background beyond the cards to the whole page.
+   Keep this block at the very end of the stylesheet. */
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+    background: #0b1020 !important;
+    color: #f0effa;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] main,
+html[data-theme="dark"] main.dashboard,
+html[data-theme="dark"] .dashboard,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] .content,
+html[data-theme="dark"] .page-content,
+html[data-theme="dark"] .school-admins-page {
+    background-color: #0b1020;
+}
+
+html[data-theme="dark"] .school-admins-page {
+    color: #f0effa;
+}
+
+/* Ensure the admin page cards retain their dark surfaces. */
+html[data-theme="dark"] .school-admins-page .school-admins-hero,
+html[data-theme="dark"] .school-admins-page .school-admin-stat,
+html[data-theme="dark"] .school-admins-page .school-admins-table-card {
+    background-color: #141c32;
+    border-color: #2a3450;
+}
+
+/* Keep the table and controls dark even if earlier CSS has stronger defaults. */
+html[data-theme="dark"] .school-admins-page .school-admins-table,
+html[data-theme="dark"] .school-admins-page .school-admins-search-box,
+html[data-theme="dark"] .school-admins-page .school-admins-filters select,
+html[data-theme="dark"] .school-admins-page .school-admin-row-actions > .view-btn,
+html[data-theme="dark"] .school-admins-page .school-admin-row-actions > .edit-btn {
+    background-color: #111a30;
+    color: #f0effa;
+    border-color: #2a3450;
+}

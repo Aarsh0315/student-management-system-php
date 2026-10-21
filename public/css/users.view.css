@@ -200,3 +200,76 @@ main.dashboard {
         transition: none !important;
     }
 }
+
+
+/* DARK MODE FIX — Users page + full page background.
+   Theme toggle should set data-theme="dark" on the <html> element. */
+html[data-theme="dark"],
+html[data-theme="dark"] body {
+    background: #0b1020 !important;
+    color: #f0effa;
+}
+
+html[data-theme="dark"] main,
+html[data-theme="dark"] main.dashboard,
+html[data-theme="dark"] .dashboard:has(.users-hero),
+html[data-theme="dark"] .users-page,
+html[data-theme="dark"] .main-content,
+html[data-theme="dark"] .content,
+html[data-theme="dark"] .page-content {
+    background-color: #0b1020 !important;
+    color: #f0effa;
+}
+
+html[data-theme="dark"] .dashboard:has(.users-hero) {
+    color: #f0effa;
+}
+
+html[data-theme="dark"] .users-hero,
+html[data-theme="dark"] .users-summary-card,
+html[data-theme="dark"] .users-redesign-card {
+    background: #111a30 !important;
+    border-color: #28324c;
+}
+
+html[data-theme="dark"] .users-redesign-card .user-search-box,
+html[data-theme="dark"] .users-redesign-card .user-sort-form select,
+html[data-theme="dark"] .users-redesign-card .table-wrapper,
+html[data-theme="dark"] .users-redesign-card table {
+    background-color: #0c1225 !important;
+    color: #f0effa;
+    border-color: #303a55;
+}
+
+html[data-theme="dark"] .users-redesign-card .user-search-box input {
+    background: transparent;
+    color: #f0effa;
+}
+
+html[data-theme="dark"] .users-redesign-card .user-sort-form select {
+    color: #d9def0;
+}
+
+html[data-theme="dark"] .users-redesign-card thead th {
+    color: #aeb7cd;
+    background: #18223a;
+    border-bottom-color: #303a55;
+}
+
+html[data-theme="dark"] .users-redesign-card tbody td {
+    color: #cbd3e5;
+    border-bottom-color: #26314a;
+}
+
+html[data-theme="dark"] .users-redesign-card tbody tr:hover {
+    background: #151f37;
+}
+
+html[data-theme="dark"] .users-redesign-card .table-actions > a,
+html[data-theme="dark"] .users-redesign-card .table-actions > form button,
+html[data-theme="dark"] .users-page-button {
+    color: #dce3f4;
+    background: #18223a;
+    border-color: #35415e;
+}
+
