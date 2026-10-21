@@ -20,13 +20,19 @@ $error = $data['error'] ?? '';
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/signup.view.css?v=5"
+        href="<?= ROOT ?>/css/signup.view.css?v=6"
     >
 
 </head>
 
 
 <body>
+
+<button type="button" class="theme-toggle" id="themeToggle" aria-label="Switch to dark mode" title="Switch theme">
+    <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
+    <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.9 13A8.5 8.5 0 0 1 11 3.1 8.5 8.5 0 1 0 20.9 13Z"/></svg>
+    <span class="theme-toggle-label">Dark mode</span>
+</button>
 
 
 <div class="signup-page">
@@ -644,6 +650,29 @@ $error = $data['error'] ?? '';
 </div>
 
 
+<script>
+(function () {
+    const root = document.documentElement;
+    const toggle = document.getElementById('themeToggle');
+    const saved = localStorage.getItem('myschool-theme');
+    const preferredDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        if (toggle) {
+            const dark = theme === 'dark';
+            toggle.setAttribute('aria-label', dark ? 'Switch to light mode' : 'Switch to dark mode');
+            const label = toggle.querySelector('.theme-toggle-label');
+            if (label) label.textContent = dark ? 'Light mode' : 'Dark mode';
+        }
+    }
+    applyTheme(saved || (preferredDark ? 'dark' : 'light'));
+    if (toggle) toggle.addEventListener('click', function () {
+        const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+        applyTheme(next);
+        localStorage.setItem('myschool-theme', next);
+    });
+})();
+</script>
 </body>
 
 </html>
