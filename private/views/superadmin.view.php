@@ -115,7 +115,7 @@ $growthData = $data['growthData'] ?? ['schools' => [], 'students' => [], 'users'
 
     <link
         rel="stylesheet"
-        href="<?= ROOT ?>/css/superadmin.view.css?v=17"
+        href="<?= ROOT ?>/css/superadmin.view.css?v=18"
     >
 
 
@@ -236,11 +236,6 @@ require "../private/views/includes/sidebar.view.php";
             </svg>
         </label>
     </form>
-    <button type="button" class="dashboard-theme-toggle" id="dashboardThemeToggle" aria-label="Switch dashboard theme">
-        <svg class="theme-icon theme-icon-dark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 15.2A8.5 8.5 0 0 1 8.8 3.5 8.7 8.7 0 1 0 20.5 15.2Z"/></svg>
-        <svg class="theme-icon theme-icon-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42"/></svg>
-        <span class="theme-toggle-label">Dark mode</span>
-    </button>
 </div>
 
 <section class="dashboard-kpi-grid" aria-label="Platform statistics">
@@ -423,7 +418,20 @@ require "../private/views/includes/sidebar.view.php";
                         </table>
                     </div>
                 <?php else: ?>
-                    <div class="dashboard-attention-empty"><strong>No schools require attention</strong><span>Schools needing review will appear here.</span></div>
+                    <div class="dashboard-attention-empty" role="status" aria-live="polite">
+                        <span class="dashboard-attention-empty-icon" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M12 3.5 21 19H3L12 3.5Z"></path>
+                                <path d="M12 9v4.5"></path>
+                                <path d="M12 16.5h.01"></path>
+                            </svg>
+                        </span>
+                        <div class="dashboard-attention-empty-copy">
+                            <strong>All caught up!</strong>
+                            <p>No schools currently require your attention.</p>
+                            <span>When a school needs review or action, it will appear here.</span>
+                        </div>
+                    </div>
                 <?php endif; ?>
             </article>
         </section>
@@ -714,14 +722,28 @@ $securityFeatures = [
     <div class="platform-health-reference-grid">
         <article class="platform-health-reference-card">
             <span class="platform-health-reference-icon" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><path d="M3 20v-1.5a6 6 0 0 1 12 0V20M16 5.5a3 3 0 0 1 0 5.5M18 14a4 4 0 0 1 3 3.8V20"/></svg>
+                <svg viewBox="0 0 24 24" fill="none"
+     stroke="currentColor" stroke-width="1.8"
+     stroke-linecap="round" stroke-linejoin="round"
+     aria-hidden="true">
+    <circle cx="9" cy="8" r="3"/>
+    <path d="M3 20v-1a6 6 0 0 1 12 0v1"/>
+    <path d="M16 5.5a3 3 0 0 1 0 5.5"/>
+    <path d="M18 14a4 4 0 0 1 3 4v2"/>
+</svg>
             </span>
             <span class="platform-health-reference-copy"><small>Total Users</small><strong><?= number_format($healthTotalUsers) ?></strong></span>
         </article>
 
         <article class="platform-health-reference-card">
             <span class="platform-health-reference-icon health-icon-good" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m7.5 12 3 3 6-6"/></svg>
+                <svg viewBox="0 0 24 24" fill="none"
+     stroke="currentColor" stroke-width="1.8"
+     stroke-linecap="round" stroke-linejoin="round"
+     aria-hidden="true">
+    <path d="M3 21h18M5 21V8l7-5 7 5v13"/>
+    <path d="M9 21v-5h6v5M8 10h2m4 0h2m-6 3h2m4 0h2"/>
+</svg>
             </span>
             <span class="platform-health-reference-copy"><small>Active Schools</small><strong><?= number_format($healthActiveSchools) ?> / <?= number_format($healthTotalSchools) ?></strong></span>
         </article>
@@ -1126,29 +1148,6 @@ require "../private/views/includes/footer.view.php";
     });
 
     renderChart('schools');
-})();
-</script>
-
-
-<script>
-(function () {
-    const root = document.documentElement;
-    const button = document.getElementById('dashboardThemeToggle');
-    if (!button) return;
-    const label = button.querySelector('.theme-toggle-label');
-    const saved = (() => { try { return localStorage.getItem('superadmin-theme'); } catch (e) { return null; } })();
-    const preferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    function setTheme(theme) {
-        root.setAttribute('data-theme', theme);
-        button.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
-        button.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
-        if (label) label.textContent = theme === 'dark' ? 'Light mode' : 'Dark mode';
-        try { localStorage.setItem('superadmin-theme', theme); } catch (e) {}
-    }
-    setTheme(saved === 'dark' || saved === 'light' ? saved : 'light');
-    button.addEventListener('click', function () {
-        setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-    });
 })();
 </script>
 
