@@ -53,7 +53,8 @@ $totalStudents = $statsGet('total_students', $visibleStudents);
     <link rel="stylesheet" href="<?= ROOT ?>/css/home.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/superadmin.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/schools.view.css?v=5">
-    <link rel="stylesheet" href="<?= ROOT ?>/css/schools-redesign.css?v=2">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/schools-redesign.css?v=3">
+    <link rel="stylesheet" href="<?= ROOT ?>/css/schools-professional.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/footer.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/nav.view.css?v=2">
     <link rel="stylesheet" href="<?= ROOT ?>/css/sidebar.view.css?v=2">
@@ -275,6 +276,22 @@ $totalStudents = $statsGet('total_students', $visibleStudents);
 <script src="<?= ROOT ?>/js/nav.js?v=1"></script>
 <script src="<?= ROOT ?>/js/sidebar.js?v=1"></script>
 <script>
+/* Debounced search: submit the existing GET form after the user pauses typing. */
+(function () {
+    const form = document.querySelector('.schools-redesign-search');
+    const input = form ? form.querySelector('input[name="search"]') : null;
+    if (!form || !input) return;
+
+    let timer;
+    input.addEventListener('input', function () {
+        window.clearTimeout(timer);
+        timer = window.setTimeout(function () {
+            if (typeof form.requestSubmit === 'function') form.requestSubmit();
+            else form.submit();
+        }, 450);
+    });
+})();
+
 /* Client-side table pagination for the rows returned by the schools controller. */
 (function () {
     const table = document.querySelector('.schools-redesign-table');
