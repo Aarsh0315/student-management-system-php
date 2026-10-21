@@ -1249,3 +1249,35 @@ html[data-theme="light"]{--navbar-bg:#fff;--navbar-surface:#f1f4fb;--navbar-text
         transform: none !important;
     }
 }
+
+
+
+/* Notification bell — purple in light mode */
+.top-navbar .notification-icon {
+    color: #6547f5 !important;
+}
+
+/* If the bell is an SVG icon */
+.top-navbar .notification-icon svg,
+.top-navbar .notification-icon svg path,
+.top-navbar .notification-icon svg line,
+.top-navbar .notification-icon svg polyline {
+    color: #6547f5 !important;
+    stroke: #6547f5 !important;
+}
+
+/* Notification button hover */
+.top-navbar .navbar-icon-btn:has(.notification-icon):hover {
+    color: #6547f5 !important;
+    background: rgba(101, 71, 245, 0.10) !important;
+}
+
+/* Dark mode */
+html[data-theme="dark"] .top-navbar .notification-icon,
+html[data-theme="dark"] .top-navbar .notification-icon svg,
+html[data-theme="dark"] .top-navbar .notification-icon svg path,
+html[data-theme="dark"] .top-navbar .notification-icon svg line,
+html[data-theme="dark"] .top-navbar .notification-icon svg polyline {
+    color: #b3a5ff !important;
+    stroke: #b3a5ff !important;
+}
